@@ -15,7 +15,7 @@ SchemaVerse is derived from publicly available datasets:
 We follow the licenses and terms of use of the original datasets.
 
 ## License
-This dataset is released under CC BY 4.0, subject to the licenses of the original datasets.
+This dataset is released subject to the licenses of the original datasets.
 
 ## Intended Use
 This benchmark is intended for research in schema integration, data management, and evaluation of language models.
