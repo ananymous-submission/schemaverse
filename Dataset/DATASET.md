@@ -72,9 +72,9 @@ Each `**local_*_schema.sql**` is the **DDL of one synthetic autonomous database*
 
 | File                        | Role                                                                                                   |
 | --------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `**local_i_schema.sql**`    | Schema for **local *i*** only—the primary artifact for **GAV**-style tasks (“write views over these”). |
-| `**all_locals_schema.sql`** | Single file combining all local DDLs for batch tools or quick inspection.                              |
-| `***.sqlite` / `*.db**`     | **Materialized** local databases, when shipped; some snapshots are **schema-only** and omit binaries.  |
+| **local_i_schema.sql**    | Schema for **local *i*** only—the primary artifact for **GAV**-style tasks (“write views over these”). |
+| **all_locals_schema.sql** | Single file combining all local DDLs for batch tools or quick inspection.                              |
+| ***.sqlite / *.db**     | **Materialized** local databases, when shipped; some snapshots are **schema-only** and omit binaries.  |
 
 
 ---
@@ -86,12 +86,12 @@ These JSON files encode **how** the generator moved from the original database t
 
 | File                                 | Role                                                                                                                                                                                                                                  |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `**transform_spec.json`**            | **Authoritative** generation record: difficulty, RNG seeds, vertical/horizontal split choices, relocation, LLM naming hooks, paths to enrichment inputs, etc. Other mapping files are either summarized here or cross-linked from it. |
-| `**rename_map.json`**                | Maps **original identifiers** to **fragment / local identifiers** after renaming and duplication.                                                                                                                                     |
-| `**split_map.json`**                 | Describes **which columns / rows** live in which fragment after vertical or horizontal splits.                                                                                                                                        |
-| `**vertical_split_clustering.json`** | Column groupings used when the schema is **cut vertically** across locals.                                                                                                                                                            |
-| `**fk_map.json`**                    | How **foreign keys** were preserved, redirected, or split across locals.                                                                                                                                                              |
-| `**relocations.json`**               | Which **table fragments** were **moved** to which local (cross-source integration stress).                                                                                                                                            |
+| **transform_spec.json**            | **Authoritative** generation record: difficulty, RNG seeds, vertical/horizontal split choices, relocation, LLM naming hooks, paths to enrichment inputs, etc. Other mapping files are either summarized here or cross-linked from it. |
+| **rename_map.json**                | Maps **original identifiers** to **fragment / local identifiers** after renaming and duplication.                                                                                                                                     |
+| **split_map.json**                 | Describes **which columns / rows** live in which fragment after vertical or horizontal splits.                                                                                                                                        |
+| **vertical_split_clustering.json** | Column groupings used when the schema is **cut vertically** across locals.                                                                                                                                                            |
+| **fk_map.json**                    | How **foreign keys** were preserved, redirected, or split across locals.                                                                                                                                                              |
+| **relocations.json**               | Which **table fragments** were **moved** to which local (cross-source integration stress).                                                                                                                                            |
 
 
 ---
