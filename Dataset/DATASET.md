@@ -1,19 +1,19 @@
 # SchemaVerse — Dataset
 
-This file is the **field guide** to what appears under `**Dataset/`**: how corpora are grouped, what a **single instance** directory contains, and what `**global/`**, `**locals/**`, `**mappings/**`, and `**reconstruction/**` are for. For benchmark motivation, difficulty presets, and the generation pipeline, see `**[../README.md](../README.md)**` and `**[../Code/CODE.md](../Code/CODE.md)**`. For license and intended use at the distribution level, see  `**[../README.md](../README.md)**`.
+This file is the **field guide** to what appears under `**Dataset/`**: how corpora are grouped, what a **single instance** directory contains, and what `**global/`**, `**locals/**`, `**mappings/**`, and `**reconstruction/**` are for. For benchmark motivation, difficulty presets, and the generation pipeline, see **[`../README.md`](../README.md)** and **[`../Code/CODE.md`](../Code/CODE.md)**. For license and intended use at the distribution level, see  **[`../README.md`](../README.md)**.
 
 ---
 
-## How `Dataset/` is organized
+## How Dataset/ is organized
 
-Paths are relative to `**Dataset/**`.
+Paths are relative to **Dataset/**.
 
 
 | Path                                                                               | Contents                                                                                                                                                           |
 | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `**bird/**`, `**spider2/**`, `**beaver/**`, `**sciencebenchmark/**`                | One subtree per upstream-style corpus. Under each, instances usually live under paths such as `**train_databases/<instance_name>/**` (exact names vary by corpus). |
-| `**evaluate_solve_*.json**`, `**evaluate_solve_batch_report.json**` (when present) | Corpus- or batch-level **evaluation summaries** produced after running solvers; not part of a single instance’s folder tree.                                       |
-| `**DATASET.md`**                                                                   | This document.                                                                                                                                                     |
+| **bird/**, **spider2/**, **beaver/**, **sciencebenchmark/**                | One subtree per upstream-style corpus. Under each, instances usually live under paths such as **train_databases/<instance_name>/** (exact names vary by corpus). |
+| **evaluate_solve_*.json**, **evaluate_solve_batch_report.json** (when present) | Corpus- or batch-level **evaluation summaries** produced after running solvers; not part of a single instance’s folder tree.                                       |
+| **DATASET.md**                                                                   | This document.                                                                                                                                                     |
 
 
 Each **instance** is a directory (for example `bird/train_databases/world_benchmark/`) that holds the integration problem in a fixed **four-folder** shape plus optional checks.
@@ -22,7 +22,7 @@ Each **instance** is a directory (for example `bird/train_databases/world_benchm
 
 ## Instance directory tree (typical)
 
-Below is a representative layout. File counts may vary (e.g. three locals vs four, optional `metadata.json`, SQLite files if your copy includes them).
+Below is a representative layout. File counts may vary (e.g. three locals vs four, SQLite files if your copy includes them).
 
 ```
 <corpus>/…/<instance_name>/
@@ -53,14 +53,14 @@ Below is a representative layout. File counts may vary (e.g. three locals vs fou
 
 ## `global/` — the hidden unified world
 
-Everything here describes the **original** single-database world **before** fragmentation. Evaluators and humans use it as **ground truth**; a typical **solver prompt** only exposes `**locals/`** so the model must infer a global view.
+Everything here describes the **original** single-database world **before** fragmentation. Evaluators and humans use it as **ground truth**; a typical **solver prompt** only exposes **locals/** so the model must infer a global view.
 
 
 | File                        | Role                                                                                              |
 | --------------------------- | ------------------------------------------------------------------------------------------------- |
-| `**original_schema.sql**`   | Full **CREATE TABLE** / view definitions and constraints for the unified schema.                  |
-| `**original_queries.sql`**  | Benchmark **queries** expressed against that unified schema (plain SQL).                          |
-| `**original_queries.json`** | Machine-readable query list (identifiers, SQL text, and any bundled annotations used by tooling). |
+| **original_schema.sql**   | Full **CREATE TABLE** / view definitions and constraints for the unified schema.                  |
+| **original_queries.sql**  | Benchmark **queries** expressed against that unified schema (plain SQL).                          |
+| **original_queries.json** | Machine-readable query list (identifiers, SQL text, and any bundled annotations used by tooling). |
 
 
 ---
@@ -108,9 +108,9 @@ These JSON files encode **how** the generator moved from the original database t
 
 ## Navigating this release
 
-- Pick a corpus (`**bird/`**, `**spider2/**`, …), then open `**train_databases/<instance>/**` (or the path your tree uses) and walk `**global/` → `locals/` → `mappings/**` in that order the first time you read an instance.
-- For **regenerating** instances or changing difficulty, use `**../Code/`** as documented in `**../README.md**`.
+- Pick a corpus (**bird/**, **spider2/**, …), then open **train_databases/<instance>/** (or the path your tree uses) and walk **global/ → locals/ → mappings/** in that order the first time you read an instance.
+- For **regenerating** instances or changing difficulty, use **../Code/** as documented in **../README.md**.
 
 ---
 
-← Project overview & pipeline: `[../README.md](../README.md)` · Code layout: `[../Code/CODE.md](../Code/CODE.md)`
+← Project overview & pipeline: [`../README.md`](../README.md) · Code layout: [`../Code/CODE.md`](../Code/CODE.md)
