@@ -7,8 +7,8 @@ This file is the **main project overview**. The tree is organized into `**Datase
 
 | Part        | What it is                                                                                                                                                              | Read more                                      |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| **Dataset** | Benchmark **instances** and evaluation artifacts: multi-local SQLite layouts, mappings, global schema and queries, and difficulty tiers (as released under `Dataset/`). | `**[Dataset/DATASET.md](Dataset/DATASET.md)`** |
-| **Code**    | Programs that **build** instances from BIRD / Spider2 / Beaver / ScienceBenchmark, LLM enrichment, **GAV solve**, and **evaluation**.                                   | `**[Code/CODE.md](Code/CODE.md)`**             |
+| **Dataset** | Benchmark **instances** and evaluation artifacts: multi-local SQLite layouts, mappings, global schema and queries, and difficulty tiers (as released under `Dataset/`). | **`[Dataset/DATASET.md](Dataset/DATASET.md)`** |
+| **Code**    | Programs that **build** instances from BIRD / Spider2 / Beaver / ScienceBenchmark, LLM enrichment, **GAV solve**, and **evaluation**.                                   | **`[Code/CODE.md](Code/CODE.md)`**             |
 
 
 ---
@@ -62,7 +62,7 @@ Anonymous submission.
 
 | Document                                       | Contents                                                  |
 | ---------------------------------------------- | --------------------------------------------------------- |
-| `**[Dataset/DATASET.md](Dataset/DATASET.md)`** | What is under `Dataset/`, sources, license, intended use. |
-| `**[Code/CODE.md](Code/CODE.md)**`             | Package layout, dependencies, evaluation vs generation.   |
+| **`[Dataset/DATASET.md](Dataset/DATASET.md)`** | What is under `Dataset/`, sources, license, intended use. |
+| **`[Code/CODE.md](Code/CODE.md)`**             | Package layout, dependencies, evaluation vs generation.   |
 
 
