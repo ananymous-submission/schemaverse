@@ -1,0 +1,1451 @@
+[
+  {
+    "sql": "SELECT firstName, lastName FROM Master WHERE birthYear = 1990 AND birthCountry != 'USA'",
+    "question_id": null,
+    "question": "List the first Name and last name of all players not from USA and who are born in 1990 .",
+    "difficulty": "",
+    "evidence": "Not from USA refers to birthCountry! = 'USA'; born in 1990 refers to birthYear = 1990\n"
+  },
+  {
+    "sql": "SELECT nameGiven FROM Master WHERE shootCatch IS NULL AND pos = 'F'",
+    "question_id": null,
+    "question": "List all players' given name who are good at both left and right hand and playing the forward position.",
+    "difficulty": "",
+    "evidence": "good at both left and right hand refers to shootCatch IS NULL;\u00a0 playing the forward position refers to pos = 'F'"
+  },
+  {
+    "sql": "SELECT firstName, lastName FROM Master WHERE hofID IS NULL",
+    "question_id": null,
+    "question": "Who are the players who were not in the Hall of Fame list.",
+    "difficulty": "",
+    "evidence": "not in the Hall of Fame refers to hofID IS NULL"
+  },
+  {
+    "sql": "SELECT nameGiven , nameGiven , birthYear, birthMon, birthDay FROM Master WHERE deathYear IS NULL ORDER BY birthYear DESC, birthMon DESC, birthday DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the youngest player who is still living. State the given name and date of birth.",
+    "difficulty": "",
+    "evidence": "still living refers to deathYear IS NULL; youngest refers to MAX(birthYear,birthMon,birthDay)"
+  },
+  {
+    "sql": "SELECT firstName, lastName, deathYear - birthYear FROM Master WHERE shootCatch IS NULL AND deathYear IS NOT NULL",
+    "question_id": null,
+    "question": "For all the deceased players who are good at both left and right hand, list the player's name and the age when he died.",
+    "difficulty": "",
+    "evidence": "age when he died refers to SUBTRACT(deathYear,birthYear); deceased refers to deathYear IS NOT NULL; good at both left and right hand refers to shootCatch IS NULL"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.year >= 2000 AND T2.year <= 2005 GROUP BY T2.playerID HAVING COUNT(DISTINCT T2.tmID) > 2",
+    "question_id": null,
+    "question": "Name the goalies who played for more than two teams from Year 2000 to 2005.",
+    "difficulty": "",
+    "evidence": "goalie who played for more than 2 teams refers to COUNT(DISTINCT(T2.tmID))>2"
+  },
+  {
+    "sql": "SELECT AVG(weight) FROM Master WHERE height > 72",
+    "question_id": null,
+    "question": "What is the average weight of players who have height greater than 72 inches.",
+    "difficulty": "",
+    "evidence": "average weight refers to AVG(weight); height greater than 72 inches refers to height>72"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.nameGiven, T1.birthCountry FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID GROUP BY T1.nameGiven, T1.birthCountry HAVING SUM(T2.Min) > 5000",
+    "question_id": null,
+    "question": "Name the goalies who have played more than total of 5000 minutes in the all the season played. State given name of the player and from which country was he born.",
+    "difficulty": "",
+    "evidence": "played more than total of 5000 minutes refers to SUM(Min)>5000;country he was born refers to birthCountry\n"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.lgID IN ('PCHA', 'NHL') GROUP BY T2.playerID HAVING COUNT(DISTINCT T2.lgID) > 1",
+    "question_id": null,
+    "question": "Name the goaltenders who had played in both PCHA and NHL league.",
+    "difficulty": "",
+    "evidence": "PCHA refers to lgID = 'PCHA'; NHL league refers to lgID = 'NHL'"
+  },
+  {
+    "sql": "SELECT T1.playerID, T2.year, Min FROM Master AS T1 INNER JOIN Goalies AS T2 ON T2.playerID = T1.playerID WHERE T1.deathYear IS NOT NULL ORDER BY T2.Min DESC LIMIT 1",
+    "question_id": null,
+    "question": "List all deceased goalies by last name. List the season where he had the most time played.",
+    "difficulty": "",
+    "evidence": "deceased refers to deathYear; most time played refers to MAX(Min)"
+  },
+  {
+    "sql": "SELECT T1.nameGiven, T1.height , T1.weight, STRFTIME('%Y', CURRENT_TIMESTAMP) - birthYear FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.tmID = 'COL' AND T2.year >= 2000 AND T2.year <= 2010 GROUP BY T1.playerID",
+    "question_id": null,
+    "question": "List all goalies from year 2000 to 2010 for team COL. State their given name, height, weight and age of today.",
+    "difficulty": "",
+    "evidence": "team COL refers to tmID = 'COL'; age of today refers to SUBTRACT(YEAR(NOW())-birthYear)"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName , T2.year FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.ENG >= 10",
+    "question_id": null,
+    "question": "Name all goalies with 10 or more empty net goals. Name the players and season where he played.",
+    "difficulty": "",
+    "evidence": "10 or more empty net goals refers to ENG> = 10; season refers to year"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName, T2.year FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE CAST(T2.GA AS REAL) / T2.SA IS NOT NULL ORDER BY CAST(T2.GA AS REAL) / T2.SA LIMIT 1",
+    "question_id": null,
+    "question": "State the goalie who has the lowest percentage of goals against among all the shots against recorded. Name the players and season where he played.",
+    "difficulty": "",
+    "evidence": "goals against refers to GA; shots against refers to SA; lowest percentage of goals against among all the shots against refers to MIN(DIVIDE(GA,SA)*100)"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.firstName, T1.lastName, T3.name FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID INNER JOIN Teams AS T3 ON T2.tmID = T3.tmID WHERE T2.year = 2005 AND T1.height < 72",
+    "question_id": null,
+    "question": "List all goalies who played in the year 2005 season and shorter than 72 inches. List all the team names he play for.",
+    "difficulty": "",
+    "evidence": "shorter than 72 inches refers to height<72"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.nameNick, T3.year, T3.name FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID INNER JOIN Teams AS T3 ON T2.tmID = T3.tmID WHERE T1.playerID = 'aubinje01'",
+    "question_id": null,
+    "question": "State the nick name of player ID 'aubinje01'. List all the teams and season he played for.",
+    "difficulty": "",
+    "evidence": "nick name refers to nameNick; team refers to tmID; season refers to year\n\n"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName, T2.year, AVG(T2.Min) FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T1.playerID = ( SELECT playerID FROM Goalies GROUP BY playerID ORDER BY COUNT(playerID) DESC LIMIT 1 ) GROUP BY T1.firstName, T1.lastName, T2.year",
+    "question_id": null,
+    "question": "Name the goalies with the most seasons played. State the average time he played for each season.",
+    "difficulty": "",
+    "evidence": "most seasons played refers to MAX(COUNT(playerID)); average time he played for each season refers to DIVIDE(SUM(T2.Min),COUNT(T2.playerID))"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.firstName, T1.lastName, T2.year FROM Master AS T1 INNER JOIN ( SELECT playerID, year FROM Goalies WHERE CAST(SHO AS REAL) / GA > 0.05 ) AS T2 ON T2.playerID = T1.playerID",
+    "question_id": null,
+    "question": "Name the goalie and the season he played where he had 5% shutouts among the number of goals recorded while the goalie was on the ice.",
+    "difficulty": "",
+    "evidence": "shutouts refers to SHO; number of goals refers to GA; 5% shutouts among the number of goals refers to DIVIDE(SHO,GA)*100 = 5.00"
+  },
+  {
+    "sql": "SELECT firstName, lastName FROM Master WHERE birthCountry != deathCountry ORDER BY birthYear",
+    "question_id": null,
+    "question": "Name the deceased players whose death country is different from his birth country order by birth year.",
+    "difficulty": "",
+    "evidence": "death country is different from his birth country refers to birthCountry! = deathCountry"
+  },
+  {
+    "sql": "SELECT nameGiven, firstNHL, firstWHA FROM Master WHERE firstNHL IS NOT NULL AND firstWHA IS NOT NULL",
+    "question_id": null,
+    "question": "Who are the players played both in NHL and WHA. List the given name and first year they were in NHL and first year in WHA.",
+    "difficulty": "",
+    "evidence": "first year they were in NHL refers to firstNHL; first year in WHA refers to firstWHA; play in both refers to firstNHL IS NOT NULL AND firstWHA IS NOT NULL\n"
+  },
+  {
+    "sql": "SELECT firstName, lastName, pos FROM Master WHERE deathYear IS NULL AND pos LIKE '%/%'",
+    "question_id": null,
+    "question": "List the living players who have two positions. State their given name the position they play.",
+    "difficulty": "",
+    "evidence": "living players refers to deathYear IS NULL; positions refers to pos"
+  },
+  {
+    "sql": "SELECT nameNick, lastNHL FROM Master ORDER BY height DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the nick name of the tallest player? If the player had left NHL, mention the last season he was with NHL.",
+    "difficulty": "",
+    "evidence": "nick name refers to nameNick; tallest player refers to MAX(height); had left NHL refers to lastNHL"
+  },
+  {
+    "sql": "SELECT AVG(IIF(birthYear < 1990, height, NULL)) - AVG(IIF(birthYear >= 1990, height, NULL)) FROM Master",
+    "question_id": null,
+    "question": "What is the average height of player who were born in 1990 and after? Compare the average height with players who were born before 1990.",
+    "difficulty": "",
+    "evidence": "average height refers to AVG(height); born in 1990 refers to birthYear = 1990\n"
+  },
+  {
+    "sql": "SELECT DISTINCT firstName, lastName, T3.name FROM Goalies AS T1 INNER JOIN Master AS T2 ON T2.playerID = T1.playerID INNER JOIN Teams AS T3 ON T1.lgID = T3.lgID WHERE T1.playerID IS NOT NULL AND T2.coachID IS NOT NULL AND T2.shootCatch = 'L' AND T2.pos = 'G'",
+    "question_id": null,
+    "question": "Name the goalies who are good at left hand and also has become a coach after retirement. Name all teams he had played before.",
+    "difficulty": "",
+    "evidence": "good at left hand refers to shootCatch = 'L'; goalies refers to pos = 'G'"
+  },
+  {
+    "sql": "SELECT DISTINCT firstName, lastName, T3.name FROM Goalies AS T1 INNER JOIN Master AS T2 ON T2.playerID = T1.playerID INNER JOIN Teams AS T3 ON T1.lgID = T3.lgID WHERE T2.birthCountry = 'Canada' AND T2.deathYear IS NOT NULL AND T2.pos = 'G'",
+    "question_id": null,
+    "question": "List all the deceased goalies and the teams he had played whose birth country was in Canada.",
+    "difficulty": "",
+    "evidence": "goalies refers to pos = 'G'; deceased goalies refers to deathYear IS NOT NULL\n"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName, T3.year FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID INNER JOIN Teams AS T3 ON T2.year = T3.year AND T2.tmID = T3.tmID WHERE T1.deathYear IS NOT NULL AND T3.name = 'Boston Bruins' AND T3.rank = 1 AND T1.pos = 'G'",
+    "question_id": null,
+    "question": "Name the goalies and season they played when Boston Bruins won number 1 in rank.",
+    "difficulty": "",
+    "evidence": "goalies refers to pos = 'G'; season refers to year\n"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.name FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID INNER JOIN Teams AS T3 ON T2.lgID = T3.lgID AND T2.year = T3.year WHERE T1.deathYear IS NOT NULL AND T1.firstNHL < 1950",
+    "question_id": null,
+    "question": "Among all goalies who are still alive, whose first season in NHL in before 1950. List the team names they were in.",
+    "difficulty": "",
+    "evidence": "first season in NHL in before 1950 refers to firstNHL<1950; goalies who are still alive refers to deathYear IS NOT NULL"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.nameGiven, T3.name, T3.year FROM Coaches AS T1 INNER JOIN Master AS T2 ON T2.coachID = T1.coachID INNER JOIN Teams AS T3 ON T1.lgID = T3.lgID WHERE T2.playerID IS NOT NULL AND T2.coachID IS NOT NULL",
+    "question_id": null,
+    "question": "For all players who becomes coach after retirement, state the given name of coach and which teams and years did they coach?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.nameGiven, T3.name FROM Coaches AS T1 INNER JOIN Master AS T2 ON T2.coachID = T1.coachID INNER JOIN Teams AS T3 ON T1.lgID = T3.lgID WHERE T1.coachID IS NOT NULL ORDER BY CAST(T1.w AS REAL) / T1.g DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the coaches who was never a player, who has highest percentage of game winning? Provide the given name of the coach and team he coached.",
+    "difficulty": "",
+    "evidence": "highest percentage of game winning refers to MAX(DIVIDE(w,g)*100)"
+  },
+  {
+    "sql": "SELECT CAST(T2.W AS REAL) / T2.G, T1.firstName, T1.lastName, T2.year FROM Master AS T1 INNER JOIN Coaches AS T2 ON T1.coachID = T2.coachID INNER JOIN ( SELECT coachID FROM Coaches ORDER BY CAST(w AS REAL) / g DESC LIMIT 1 ) AS T3 ON T2.coachID = T3.coachID",
+    "question_id": null,
+    "question": "Which coach has the best performance for team DET in history? What was the winning percentage? Name the coach and the year he coached.",
+    "difficulty": "",
+    "evidence": "winning percentage refers to DIVIDE(w,g)*100; team DET refers to tmID = 'DET'"
+  },
+  {
+    "sql": "SELECT T2.nameGiven , T2.birthYear, T2.birthMon, T2.birthDay, T3.name FROM Goalies AS T1 INNER JOIN Master AS T2 ON T2.playerID = T1.playerID INNER JOIN Teams AS T3 ON T3.lgID = T1.lgID WHERE T3.tmID = 'MTL' GROUP BY T2.nameGiven, T2.birthYear, T2.birthMon, T2.birthDay, T3.name ORDER BY COUNT(T2.coachID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the coach who had coached the the most seasons in MTL? State his given name, date of birth and all teams he had coaches before.",
+    "difficulty": "",
+    "evidence": "date of birth refers to birthDay + birthMon + birthYear"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.firstName, T1.lastName, T3.name FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID INNER JOIN Teams AS T3 ON T2.year = T3.year AND T2.tmID = T3.tmID WHERE T1.pos = 'G' AND T2.L > T2.W GROUP BY T1.firstName, T1.lastName, T3.name HAVING COUNT(T3.year) > 2",
+    "question_id": null,
+    "question": "List all goalies with more lost than won games for two seasons or more. State the name of the player and team he played.",
+    "difficulty": "",
+    "evidence": "lost refers to L; won refers to W"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName, T2.year, CAST(T2.W AS REAL) / T2.GP FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T1.birthYear = 1987 AND T1.shootCatch IS NULL",
+    "question_id": null,
+    "question": "For all the goalies born in year 1987, who are good in both right hand and left hand? Calculate his percentage of winning for every season he played.",
+    "difficulty": "",
+    "evidence": "good in both right hand and left hand refers shootCatch IS NULL; winning refers to W; every season he played refers to GP; percentage of winning for every season he played refers to DIVIDE(W,GP)*100"
+  },
+  {
+    "sql": "SELECT T1.nameGiven, CAST(SUM(T2.Min) AS REAL) / SUM(T2.GP) FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T1.playerID = 'aebisda01' GROUP BY T1.nameGiven",
+    "question_id": null,
+    "question": "What is given name for player 'aebisda01'. Calculate the average time in minutes for the all his games played as goaltender.",
+    "difficulty": "",
+    "evidence": "played as goaltender refers to pos = 'G'; time in minutes refers to Min; all his games played refers to GP; average time in minutes refers to DIVIDE(SUM(Min)/SUM(GP))"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T1.deathYear IS NOT NULL GROUP BY T1.playerID HAVING CAST(SUM(T2.Min) AS REAL) / SUM(T2.GP) > 0.5",
+    "question_id": null,
+    "question": "List all living goalies who have greater than 50% wins among all games played. State their last name and first name.",
+    "difficulty": "",
+    "evidence": "wins refers to W; all games played refers to GP;greater than 50% wins among all games played refers to DIVIDE(SUM(W),GP)*100>50"
+  },
+  {
+    "sql": "SELECT COUNT(note) FROM AwardsMisc WHERE note IS NOT NULL",
+    "question_id": null,
+    "question": "How many players and coaches are awarded after death?",
+    "difficulty": "",
+    "evidence": "awarded after death refers to note = 'posthumous'"
+  },
+  {
+    "sql": "SELECT COUNT(playerID) FROM AwardsPlayers WHERE pos = 'G' AND year = 1983",
+    "question_id": null,
+    "question": "Among the players who won an award in the year 1983, how many of them play the position of goalie?",
+    "difficulty": "",
+    "evidence": "position of goalie refers to pos = 'G'"
+  },
+  {
+    "sql": "SELECT COUNT(coachID) FROM Coaches WHERE year = 2007 AND notes = 'interim'",
+    "question_id": null,
+    "question": "How many coaches worked a temporary term in the year 2007?",
+    "difficulty": "",
+    "evidence": "worked a temporary term refers to notes = 'interim'"
+  },
+  {
+    "sql": "SELECT COUNT(year) FROM CombinedShutouts WHERE year = 1977 AND `R/P` = 'R'",
+    "question_id": null,
+    "question": "How many shoutouts are there in the regular season of 1977?",
+    "difficulty": "",
+    "evidence": "regular season refers to `R/P` = 'R'"
+  },
+  {
+    "sql": "SELECT COUNT(tmID) FROM Goalies WHERE year = 2005 AND ENG IS NULL",
+    "question_id": null,
+    "question": "How many teams scored against their opponent who had pulled their goalie in the year 2005?",
+    "difficulty": "",
+    "evidence": "teams scored against their opponent who had pulled their goalie refers to ENG is not null"
+  },
+  {
+    "sql": "SELECT DISTINCT year FROM Goalies WHERE lgID = 'NHL' AND SA IS NOT NULL",
+    "question_id": null,
+    "question": "Please list the years in which the NHL League had shots recorded while the goalie was on the ice.",
+    "difficulty": "",
+    "evidence": "shots recorded while the goalie was on the ice refers to SA IS NOT NULL; NHL League refers to lgID = 'NHL'"
+  },
+  {
+    "sql": "SELECT DISTINCT COUNT(tmID) FROM Goalies WHERE PostW = PostL",
+    "question_id": null,
+    "question": "How many teams have the same total number of postseason wins and postseason loses?",
+    "difficulty": "",
+    "evidence": "same total number of postseason wins and postseason loses refers to PostW = PostL"
+  },
+  {
+    "sql": "SELECT name FROM HOF WHERE year = 1978",
+    "question_id": null,
+    "question": "Please list the name of the person who was in the Hall of Fame in the year 1978.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(hofID) FROM HOF WHERE category = 'Builder'",
+    "question_id": null,
+    "question": "How many people were in the Hall of Fame's Builder category?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(hofID) FROM HOF WHERE year > 1980 AND category = 'Player'",
+    "question_id": null,
+    "question": "Among the people who got into the Hall of Fame after the year 1980, how many of them belong to the category of \"Player\"?",
+    "difficulty": "",
+    "evidence": "after the year 1980 refers to year>1980"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.nameNick FROM Master AS T1 INNER JOIN HOF AS T2 ON T1.hofID = T2.hofID WHERE T2.year = 2007",
+    "question_id": null,
+    "question": "Please list the Nicknames of the players who got in the Hall of Fame in 2007.",
+    "difficulty": "",
+    "evidence": "nicknames refers to nameNick"
+  },
+  {
+    "sql": "SELECT CASE WHEN T1.hofID IS NULL THEN 'NO' ELSE T2.year END FROM Master AS T1 LEFT JOIN HOF AS T2 ON T1.hofID = T2.hofID WHERE T1.height = ( SELECT MAX(height) FROM Master )",
+    "question_id": null,
+    "question": "Did the tallest player got in the Hall of Fame? If yes, please list the year when he got in the Hall of Fame.",
+    "difficulty": "",
+    "evidence": "tallest player refers to max(height)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.award FROM Master AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.coachID = T2.coachID WHERE T1.birthCountry = 'Canada'",
+    "question_id": null,
+    "question": "Please list the awards the coaches who are born in Canada have won.",
+    "difficulty": "",
+    "evidence": "born in Canada refers to birthCountry = 'Canada'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.coachID) FROM Master AS T1 INNER JOIN Coaches AS T2 ON T1.coachID = T2.coachID WHERE T2.W > 30 AND T1.birthCountry = 'USA'",
+    "question_id": null,
+    "question": "Among the coaches whose team has over 30 wins in a year, how many of them are born in the USA?",
+    "difficulty": "",
+    "evidence": "over 30 wins refers to w>30; born in the USA refers to birthCountry = 'USA'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.coachID) FROM Master AS T1 INNER JOIN Coaches AS T2 ON T1.coachID = T2.coachID WHERE T2.lgID = 'NHL' AND T1.birthCountry = 'Canada'",
+    "question_id": null,
+    "question": "Among the coaches who have taught teams from the NHL League, how many of them are from Canada?",
+    "difficulty": "",
+    "evidence": "from Canada refers to birthCountry = 'Canada'; NHL league refers to lgID = 'NHL'"
+  },
+  {
+    "sql": "SELECT T2.award FROM Master AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.coachID = T2.coachID WHERE T1.birthYear = 1952",
+    "question_id": null,
+    "question": "Please list the awards won by coaches who were born in 1952.",
+    "difficulty": "",
+    "evidence": "born in 1977 refers to birthYear = '1977'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.coachID) FROM Master AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.coachID = T2.coachID WHERE T2.year = 1940 AND T1.birthCity = 'Toronto'",
+    "question_id": null,
+    "question": "Among the coaches who have received an award in 1940, how many of them are born in Toronto?",
+    "difficulty": "",
+    "evidence": "born in Toronto refers to birthCountry = 'Toronto'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.coachID) FROM Master AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.coachID = T2.coachID WHERE T1.deathYear IS NOT NULL AND T2.year > 1940",
+    "question_id": null,
+    "question": "Among the coaches who have received an award after the year 1940, how many of them have already died?",
+    "difficulty": "",
+    "evidence": "after the year 1940 refers to year>1940; have already died refers to deathYear IS NOT NULL"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.award FROM Master AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.coachID = T2.coachID WHERE T1.deathYear IS NOT NULL AND T2.lgID = 'NHL'",
+    "question_id": null,
+    "question": "Please list the awards won by coaches who taught the NHL League and have already died.",
+    "difficulty": "",
+    "evidence": "have already died refers to deathYear IS NOT NULL; NHL league refers to lgID = 'NHL'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.coachID) FROM Master AS T1 INNER JOIN HOF AS T2 ON T1.hofID = T2.hofID WHERE T1.weight > 195",
+    "question_id": null,
+    "question": "Among the coaches who have gotten in the Hall of Fame, how many of them have a weight of over 195?",
+    "difficulty": "",
+    "evidence": "weight of over 195 refers to weight>195"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN HOF AS T2 ON T1.hofID = T2.hofID WHERE T1.shootCatch IS NULL",
+    "question_id": null,
+    "question": "Please list the first name of the players who are good at both left hands and right hands for goalie and have gotten in the Hall of Fame.",
+    "difficulty": "",
+    "evidence": "good at both left hands and right hands for goalie refers to shootCatch IS NULL"
+  },
+  {
+    "sql": "SELECT COUNT(T1.playerID) FROM Master AS T1 INNER JOIN HOF AS T2 ON T1.hofID = T2.hofID WHERE T1.playerID IS NOT NULL AND T1.coachID IS NOT NULL",
+    "question_id": null,
+    "question": "Among the players who became coaches, how many of them have gotten in the Hall of Fame?",
+    "difficulty": "",
+    "evidence": "players who became coaches refers to playerID IS NOT NULL AND coachID IS NOT NULL"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.birthCity FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 1970",
+    "question_id": null,
+    "question": "Please list the birth cities of the players who have won an award in the year 1970.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.playerID) FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID WHERE T2.award = 'All-Rookie' AND T1.birthCity = 'Toronto'",
+    "question_id": null,
+    "question": "How many players born in Toronto have won the All-Rookie award?",
+    "difficulty": "",
+    "evidence": "born in Toronto refers to birthCity = 'Toronto'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.playerID) FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID WHERE T2.award = 'All-Rookie' AND T1.deathYear IS NOT NULL",
+    "question_id": null,
+    "question": "Among the players who have won the All-Rookie award, how many of them have died?",
+    "difficulty": "",
+    "evidence": "have died refers to deathYear IS NOT NULL"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.playerID) FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID WHERE T1.deathState = 'MA'",
+    "question_id": null,
+    "question": "Among the players who died in Massachussets, how many of them have won an award?",
+    "difficulty": "",
+    "evidence": "died in Massachussets refers to deathState = 'Massachussets'"
+  },
+  {
+    "sql": "SELECT T2.award FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID WHERE T1.deathCity = 'Kemptville'",
+    "question_id": null,
+    "question": "Please list the awards the players who died in Arlington have won.",
+    "difficulty": "",
+    "evidence": "died in Arlington refers to deathCity = 'Arlington'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.nameNick FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID WHERE T2.award = 'All-Rookie' AND T1.birthMon = 3",
+    "question_id": null,
+    "question": "Please list the nicknames of the players who have won the All-Rookie award and are born in March.",
+    "difficulty": "",
+    "evidence": "born in March refers to birthMon = '3'; nicknames refers to nameNick"
+  },
+  {
+    "sql": "SELECT COUNT(T1.playerID) FROM Master AS T1 INNER JOIN HOF AS T2 ON T1.hofID = T2.hofID WHERE T1.birthMon IN (7, 8)",
+    "question_id": null,
+    "question": "Among the players who were born in July and August, how many of them got in the Hall of Fame?",
+    "difficulty": "",
+    "evidence": "born in July and August refers to birthMon IN('7','8')"
+  },
+  {
+    "sql": "SELECT T1.birthMon FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID GROUP BY T2.playerID ORDER BY COUNT(T2.award) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which month was the player who has won the most awards born?",
+    "difficulty": "",
+    "evidence": "who has won the most awards refers to max(count(award)); the month player was born refers to birthMon"
+  },
+  {
+    "sql": "SELECT T1.birthYear FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID GROUP BY T1.birthYear ORDER BY COUNT(T2.award) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Players born in which year have received the most awards in total?",
+    "difficulty": "",
+    "evidence": "received the most awards in total refers to max(count(award))"
+  },
+  {
+    "sql": "SELECT T1.birthCountry FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID GROUP BY T1.birthCountry ORDER BY COUNT(T2.award) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country is the most award-winning player from?",
+    "difficulty": "",
+    "evidence": "most award-winning refers to max(count(award)); country player is from refers to birthCountry"
+  },
+  {
+    "sql": "SELECT T1.birthCountry FROM Master AS T1 INNER JOIN HOF AS T2 ON T1.hofID = T2.hofID GROUP BY T1.birthCountry ORDER BY COUNT(T1.playerID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the most players in the Hall of Fame?",
+    "difficulty": "",
+    "evidence": "country refers to birthCountry"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.pos FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID WHERE T1.birthCountry = 'Canada' AND T2.award = 'All-Rookie'",
+    "question_id": null,
+    "question": "Please list the positions of the players who were born in Canada and have won the All-Rookie award.",
+    "difficulty": "",
+    "evidence": "born in Canada refers to birthCountry = 'Canada'; pos = 'LW' refers to left winger; pos = 'RW' refers to right winger; pos = 'C' refers to center; pos = 'G' refers to goalie; pos = 'D' refers to defenceman; pos = 'W' refers to winger; pos = 'F' refers to forward"
+  },
+  {
+    "sql": "SELECT SUM(T1.weight / (T1.height * T1.height)) / COUNT(T1.coachID) FROM Master AS T1 INNER JOIN HOF AS T2 ON T1.hofID = T2.hofID",
+    "question_id": null,
+    "question": "What is the average BMI of all the coaches who have gotten in the Hall of Fame?",
+    "difficulty": "",
+    "evidence": "average BMI = divide(sum(divide(weight, multiply(height, height))), count(coachID))"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.birthCountry = 'USA' THEN T1.playerID ELSE NULL END) AS REAL) * 100 / COUNT(T1.playerID) FROM Master AS T1 INNER JOIN HOF AS T2 ON T1.hofID = T2.hofID",
+    "question_id": null,
+    "question": "What is the percentage of American players among all the players who have gotten in the Hall of Fame?",
+    "difficulty": "",
+    "evidence": "percentage of American players = divide(count(hofID where birthCountry = 'USA'), count(hofID))*100%"
+  },
+  {
+    "sql": "SELECT COUNT(year) FROM Goalies WHERE playerID = 'healygl01'",
+    "question_id": null,
+    "question": "How many years did player Id \"healygl01\" play?",
+    "difficulty": "",
+    "evidence": "years of playing = MAX(year)-MIN(year)"
+  },
+  {
+    "sql": "SELECT tmID FROM Goalies WHERE playerID = 'roypa01' AND year = 1992",
+    "question_id": null,
+    "question": "Which team did player Id \"roypa01\" play in 1992? Give the team id.",
+    "difficulty": "",
+    "evidence": "team id refers to tmID"
+  },
+  {
+    "sql": "SELECT GP FROM Goalies WHERE playerID = 'rutlewa01' AND year = 1967",
+    "question_id": null,
+    "question": "What was the total number of the games that player Id \"rutlewa01\" played in 1967?",
+    "difficulty": "",
+    "evidence": "total number of the games refers to GP"
+  },
+  {
+    "sql": "SELECT Min FROM Goalies WHERE playerID = 'valiqst01' AND year = 2007",
+    "question_id": null,
+    "question": "Show me how many minutes player Id \"valiqst01\" played in the game in 2007 season.",
+    "difficulty": "",
+    "evidence": "show me how many minutes refers to Min"
+  },
+  {
+    "sql": "SELECT W FROM Goalies WHERE playerID = 'vanbijo01' AND year = 1990",
+    "question_id": null,
+    "question": "How many games did player Id \"vanbijo01\" win in the 1990 season?",
+    "difficulty": "",
+    "evidence": "the number of wins refers to W"
+  },
+  {
+    "sql": "SELECT `T/OL` FROM Goalies WHERE playerID = 'vernomi01' AND year = 1998",
+    "question_id": null,
+    "question": "In how many games did player Id \"vernomi01\" end up with a tie or an overtime loss in the 1998 season?",
+    "difficulty": "",
+    "evidence": "end up with a tie or an overtime loss refers to T/OL"
+  },
+  {
+    "sql": "SELECT SUM(T1.W) FROM Coaches AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.coachID = T2.coachID WHERE T2.year = 1933 AND T2.award = 'Second Team All-Star'",
+    "question_id": null,
+    "question": "For the coach who won Second Team All-Star in 1933, how many wins did he have that year?",
+    "difficulty": "",
+    "evidence": "the number of wins refers to count(w)"
+  },
+  {
+    "sql": "SELECT IIF(T1.note = 'posthumous', 'YES', 'NO') FROM AwardsMisc AS T1 RIGHT JOIN Master AS T2 ON T1.ID = T2.playerID WHERE T2.legendsID = 'P194502'",
+    "question_id": null,
+    "question": "Did legendsID \"P194502\" personally attend his Hall of Fame dedication?",
+    "difficulty": "",
+    "evidence": "note = 'posthumous'refers to \"didn't personally attend\""
+  },
+  {
+    "sql": "SELECT T1.pos FROM Master AS T1 INNER JOIN AwardsPlayers AS T2 ON T1.playerID = T2.playerID WHERE T1.firstName = 'Mike' AND T1.lastName = 'Antonovich'",
+    "question_id": null,
+    "question": "Which position did Mike Antonovich play?",
+    "difficulty": "",
+    "evidence": "pos = 'LW' refers to left winger; pos = 'RW' refers to right winger; pos = 'C' refers to center; pos = 'G' refers to goalie; pos = 'D' refers to defenceman; pos = 'W' refers to winger; pos = 'F' refers to forward"
+  },
+  {
+    "sql": "SELECT T1.birthCountry FROM Master AS T1 INNER JOIN Coaches AS T2 ON T1.coachID = T2.coachID WHERE T2.year = 1998 AND T2.notes = 'co-coach with Dave Lewis'",
+    "question_id": null,
+    "question": "For the coach who co-coached with Dave Lewis in 1998, where was his birth place?",
+    "difficulty": "",
+    "evidence": "co-coached refers to notes = 'co-coach'; birth place refers to 'birthCountry-birthState-birthCity'"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.stint = 3 ORDER BY T1.weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which player who showed as the third goalie in a game has the biggest weight? Give the full name of the player.",
+    "difficulty": "",
+    "evidence": "the third goalie refers to stint = 3; the biggest weight refers to max(weight)"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID GROUP BY T2.playerID, T1.height HAVING SUM(T2.ENG) > 10 ORDER BY T1.height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the players who had 10 empty net goals in their career, who is the tallest? Show his full name.",
+    "difficulty": "",
+    "evidence": "10 empty net goals refers to ENG = 10; the tallest refers to max(height)"
+  },
+  {
+    "sql": "SELECT T1.shootCatch FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 2010 GROUP BY T2.playerID ORDER BY SUM(T2.SHO) DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the goalie who had the most shutouts in 2010, what's his catching hand?",
+    "difficulty": "",
+    "evidence": "the most shutouts refers to max(SHO); shootCatch = 'L' refers to lefthand; shootCatch = 'R' refers to righthand; shootCatch = 'null' or 'empty' means this player is good at both left and right hand"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 2002 AND T2.GA > 150 GROUP BY T2.playerID, T1.birthYear, T1.birthMon, T1.birthMon HAVING SUM(T2.GA) ORDER BY T1.birthYear DESC, T1.birthMon DESC, SUM(T1.birthDay) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the youngest goalie among those who had more than 150 goal againsts in 2002 season?",
+    "difficulty": "",
+    "evidence": "youngest goalie refers to max(birthYear/birthMon/birthDay); more than 150 goal againsts refers to GA>150"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.tmID = 'NJD' GROUP BY T2.playerID ORDER BY SUM(T2.SA - T2.GA) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the history of team id NJD, which goalie saved the most goal attempts? Give his full name.",
+    "difficulty": "",
+    "evidence": "saved the most goal attempts refers to max(subtract(SA, GA)); team id refers to tmID"
+  },
+  {
+    "sql": "SELECT T2.name FROM Goalies AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID WHERE T1.year = 2010 GROUP BY T2.name ORDER BY SUM(PostENG) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which teams had the most postseason empty net goals in 2010 season? List their team names.",
+    "difficulty": "",
+    "evidence": "most postseason empty net goals refers to max(PostENG)"
+  },
+  {
+    "sql": "SELECT SUM(T2.SHO) FROM Scoring AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 1995 GROUP BY T2.tmID ORDER BY SUM(T2.PostSHO) DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the team which had the most postseason shutouts in 1995, how many points did they have that year?",
+    "difficulty": "",
+    "evidence": "points refer to Pts; the most postseason shutouts refers to max(PostSHO)"
+  },
+  {
+    "sql": "SELECT T2.coachID, T1.nameNick FROM Master AS T1 INNER JOIN Coaches AS T2 ON T1.coachID = T2.coachID WHERE T2.year = 2009 ORDER BY CAST(T2.W AS REAL) / (T2.W + T2.L) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which coach had the highest winning rates in the 2009 season? What's coach's nickname.",
+    "difficulty": "",
+    "evidence": "the highest winning rate refer to divide(W, sum(W, L))"
+  },
+  {
+    "sql": "SELECT T1.coachID FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID WHERE T2.year = 2011 ORDER BY CAST(T2.PPG AS REAL) / T2.PPC DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the team had the biggest power play percentage in 2011, who was their coach that season? Give the full name.",
+    "difficulty": "",
+    "evidence": "the biggest power play percentage = max(divide(PPG, PPC))"
+  },
+  {
+    "sql": "SELECT GP FROM ScoringSC WHERE playerID = 'broadpu01' AND YEAR = 1922",
+    "question_id": null,
+    "question": "In the Stanley Cup finals history, how many games did player id \"broadpu01\" play in 1922?",
+    "difficulty": "",
+    "evidence": "the number of games refers to GP"
+  },
+  {
+    "sql": "SELECT COUNT(year) FROM ScoringSC WHERE playerID = 'cleghsp01'",
+    "question_id": null,
+    "question": "How many years did player Id \"cleghsp01\" make to the Stanley Cup finals?",
+    "difficulty": "",
+    "evidence": "the number of years refers to count(year)"
+  },
+  {
+    "sql": "SELECT G FROM ScoringSC WHERE playerID = 'dyeba01' AND year = 1921",
+    "question_id": null,
+    "question": "What was the number of goals did player Id \"dyeba01\" make in the 1921 Stanley Cup finals?",
+    "difficulty": "",
+    "evidence": "the number of goals refers to G"
+  },
+  {
+    "sql": "SELECT playerID FROM ScoringSC ORDER BY A DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who made the most assists in a single game in the Stanley Cup finals ?",
+    "difficulty": "",
+    "evidence": "the most assists refers to max(A)"
+  },
+  {
+    "sql": "SELECT lgID FROM ScoringSC WHERE playerID = 'adamsja01' AND year = 1920",
+    "question_id": null,
+    "question": "Which league did player id\"adamsja01\" play in 1920?",
+    "difficulty": "",
+    "evidence": "which league refers to lgID"
+  },
+  {
+    "sql": "SELECT DISTINCT pos FROM ScoringSC WHERE playerID = 'hartgi01'",
+    "question_id": null,
+    "question": "What position did player id \"hartgi01\" play in his Stanley Cup finals performance?",
+    "difficulty": "",
+    "evidence": "position refers to pos"
+  },
+  {
+    "sql": "SELECT SUM(T2.W) FROM Goalies AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID WHERE T2.year = 2011 GROUP BY T1.tmID HAVING COUNT(DISTINCT T1.playerID) = 3",
+    "question_id": null,
+    "question": "For the team which had three different goalies in the 2011 postseason games, how many games did they win in the regular season?",
+    "difficulty": "",
+    "evidence": "three different goalies refer to count(playerID) = 3; game won refers to W"
+  },
+  {
+    "sql": "SELECT T1.birthYear FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 2008 ORDER BY T2.PostSA DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which year was the goalie who had the most postseaon shots Against in 2008 born?",
+    "difficulty": "",
+    "evidence": "the most postseason shots Against refers to max(PostSA); year born refers to birthYear"
+  },
+  {
+    "sql": "SELECT MAX(T2.year) - MIN(T2.year) FROM Master AS T1 INNER JOIN Coaches AS T2 ON T1.coachID = T2.coachID WHERE T1.firstName = 'Don' AND T1.lastName = 'Waddell'",
+    "question_id": null,
+    "question": "How many years were there after Don Waddell retired and became a coach in NHL?",
+    "difficulty": "",
+    "evidence": "after retired and became a coach refers to max(subtract(year, lastNHL))"
+  },
+  {
+    "sql": "SELECT T1.shootCatch FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 1996 ORDER BY T2.SHO DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which is the catching hand for the goaltender who had the most shutouts in 1996?",
+    "difficulty": "",
+    "evidence": "the most shutouts refers to max(SHO); catching hand for the goaltender refers to shootCatch; shootCatch = 'L' refers to lefthand; shootCatch = 'R' refers to righthand; shootCatch = 'null' or 'empty' means this player is good at both left and right hand"
+  },
+  {
+    "sql": "SELECT T1.birthYear, T1.birthMon, birthDay FROM Master AS T1 INNER JOIN Goalies AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 1965 ORDER BY T2.GA DESC LIMIT 1",
+    "question_id": null,
+    "question": "When was the birthday for the goalie who had most goal againsts in 1965 season?",
+    "difficulty": "",
+    "evidence": "Birthday refers to CONCAT(birthYear / birthMon / birthDate);most goal against refers to MAX(GA);1965 season refers to year = '1965'\n\n"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 1981 GROUP BY T2.playerID ORDER BY SUM(T2.`+/-`) DESC LIMIT 1",
+    "question_id": null,
+    "question": "For he who had the highest plus / minus on the court in the 1981 season, what's his full name?",
+    "difficulty": "",
+    "evidence": "highest Plus/minus refers to MAX(+/-); full name refers to firstName, lastName; 1981 season refers to year = '1981'\n\n"
+  },
+  {
+    "sql": "SELECT T1.weight FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID WHERE T2.year > 2000 GROUP BY T1.playerID, T1.weight ORDER BY SUM(T2.PPG) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What's the weight of the player who had the most Power Play Goals in the 21st century?",
+    "difficulty": "",
+    "evidence": "21st century refers to year >2000; Power play goals refers to PPG"
+  },
+  {
+    "sql": "SELECT T1.shootCatch FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 1989 GROUP BY T2.playerID HAVING SUM(T2.SHG) = 7",
+    "question_id": null,
+    "question": "For the player who scored 7 shorthanded goals in 1989, what's his dominant hand?",
+    "difficulty": "",
+    "evidence": "1989 refers to the year of scoring; \"dominant hand\" and \"shooting hand\" are synonyms which refers to shootCatch\n\n"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 1986 GROUP BY T2.playerID ORDER BY SUM(T2.GWG) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who was the most clutch player in 1986? Give his full name.",
+    "difficulty": "",
+    "evidence": "clutch player' and 'trustworthy player in the critical moment' are synonyms; most clutch player refers to the most trustworthy player which refers to MAX(GWG); 1986 is the year played"
+  },
+  {
+    "sql": "SELECT T2.SOG FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID WHERE T1.firstName = 'Cam' AND T1.lastName = 'Neely' AND T2.year = '1990'",
+    "question_id": null,
+    "question": "How many shots on goal did Cam Neely had in the year of 1990?",
+    "difficulty": "",
+    "evidence": "1990 refers to the year played; Shot on goal refers to SOG\n"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.firstName, T3.lastName FROM Teams AS T1 INNER JOIN Coaches AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year INNER JOIN Master AS T3 ON T2.coachID = T3.coachID WHERE T1.year = '2003' GROUP BY T3.firstName, T3.lastName ORDER BY SUM(T1.BenchMinor) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who was the coach for the team which had the most bench minors penalty in 2003\uff1f",
+    "difficulty": "",
+    "evidence": "Coach of the team refers to firstName+lastName; 2003 refers to the year\n\n"
+  },
+  {
+    "sql": "SELECT T1.playerID FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T1.year = '1978' AND T2.weight > 190 ORDER BY T1.GA DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the goalies whose weight are above 190, who had most goal againsts in 1978 season?",
+    "difficulty": "",
+    "evidence": "Weight of above 190 refers to weight >190; 1978 season refers to the year played"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.year = 2006 THEN CAST(T1.W AS REAL) * 100 / (T1.W + T1.L) ELSE 0 END) - ( SELECT CAST(W AS REAL) * 100 / (W + L) FROM Teams WHERE year = '2005' AND name = 'Vancouver Canucks' ) FROM Teams AS T1 INNER JOIN Coaches AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year INNER JOIN Master AS T3 ON T2.coachID = T3.coachID WHERE T1.name = 'Vancouver Canucks' AND T3.firstName = 'Alain' AND T3.lastName = 'Vigneault'",
+    "question_id": null,
+    "question": "What is the percentage of winning rate of improvement since Alain Vigneault became the coach of Vancouver Canucks in 2006 season?",
+    "difficulty": "",
+    "evidence": "winning rate refers to DIVIDE (w, SUM(w, l)); Vancouver Canucks is name of team where tmID = 'VAN'\nWinning rate refers to DIVIDE(wins in year = '2005/2006'(ADD(wins+loses); improvement refers to SUBTRACT(DIVIDE(wins in year = '2005'(ADD(wins+loses), DIVIDE(wins in year = '2006'(ADD(wins+loses))\n"
+  },
+  {
+    "sql": "SELECT T2.legendsID FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T1.year = 2011 ORDER BY 1 - CAST(T1.PostGA AS REAL) / T1.PostSA DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the goalie who had the highest defensive success rate in the postseason of 2011, what's his legends ID ?",
+    "difficulty": "",
+    "evidence": "Post season of 2011 refers to year = \u20192011\u2019\ndefensive success rate refers to (SUBTRACT(1 (DIVIDE(PostGA/PostSA)), *100%)\n"
+  },
+  {
+    "sql": "SELECT COUNT(playerID) FROM Master WHERE playerID IS NOT NULL AND coachID IS NOT NULL",
+    "question_id": null,
+    "question": "How many former athletes go on to become coaches after retiring?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT BenchMinor, name FROM Teams ORDER BY T DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the teams with the most number of ties, how many penalty was committed by a player or coach that is not on the ice? Indicate the name of the team.",
+    "difficulty": "",
+    "evidence": "penalty refers to BenchMinor; Ties refer to T"
+  },
+  {
+    "sql": "SELECT award FROM Teams AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.lgID = T2.lgID WHERE T1.lgID = 'NHL' GROUP BY T2.coachID, T2.award ORDER BY COUNT(T2.award) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which NHL award was most frequently won by the coach with the most wins?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(SUM(PPG) AS REAL) * 100 / SUM(PPC) FROM Teams GROUP BY tmID ORDER BY SUM(L) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the power play percentage of the team with the most number of loses?",
+    "difficulty": "",
+    "evidence": "Power play percentage refers to PPG, most number of loses refers to MAX(L)\n\n"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(name) AS REAL) / 30 FROM HOF WHERE year BETWEEN 1950 AND 1980 AND category = 'Player'",
+    "question_id": null,
+    "question": "How many players were included in the Hall of Fame on average between 1950 and 1980?",
+    "difficulty": "",
+    "evidence": "year BETWEEN 1950 and 1980; average = DIVIDE(COUNT(hofID)), 30)\n\n"
+  },
+  {
+    "sql": "SELECT DISTINCT birthCountry, birthYear FROM Master GROUP BY birthCountry, birthYear ORDER BY COUNT(birthCountry) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country produced the most number of hockey players? Identify which year was most of the hockey players are born.",
+    "difficulty": "",
+    "evidence": "Year most hockey players were born refers to MAX(birthYear); birthCountry refers to the country where a player was born\n"
+  },
+  {
+    "sql": "SELECT SUM(W) FROM Goalies GROUP BY tmID ORDER BY SUM(SHO) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many wins does the team have whose goaltender have the most number of successfully stopping the other team from scoring during the entire game?",
+    "difficulty": "",
+    "evidence": "Number of wins refers to W; Shutout refers to SHO; a shutout is credited to a goaltender who successfully stops the other team from scoring during the entire game.\n"
+  },
+  {
+    "sql": "SELECT tmID FROM TeamSplits WHERE YEAR = '2005' ORDER BY rW DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which team recorded the most number of road victories in 2005? Indicate the team ID.",
+    "difficulty": "",
+    "evidence": "road victories refers to rW; team id refers to tmID; victories and wins are synonyms\n\n"
+  },
+  {
+    "sql": "SELECT pos FROM Master WHERE birthYear IS NOT NULL ORDER BY birthYear, birthMon, birthDay LIMIT 8",
+    "question_id": null,
+    "question": "What is the position of the 9th oldest hockey player?",
+    "difficulty": "",
+    "evidence": "position refers to pos; date of birth refers to birthDay + birthMon + birthYear"
+  },
+  {
+    "sql": "SELECT SUM(PostGA) FROM Goalies WHERE lgID = 'WCHL' AND year = '1924' GROUP BY playerID ORDER BY SUM(PostGA) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many goals were scored while the goalkeeper was on the ice in the 1924 WCHL by the goalie with the most goals scored?",
+    "difficulty": "",
+    "evidence": "WCHL is the league's abbreviated name which refers to lgID = 'WCHL'; most goals scored referst to MAX(PostGA); GA is abbreviation for Post Against which means number of goals recorded while the goalie is on the ice. Include all goals against during regulation and overtime play."
+  },
+  {
+    "sql": "SELECT OctL, tmID FROM TeamSplits WHERE year = '2006' ORDER BY OctL DESC LIMIT 1",
+    "question_id": null,
+    "question": "In 2006, what is the overall number of october defeats for the team with the most October defeats? Indicate the team ID.",
+    "difficulty": "",
+    "evidence": "team ID refers to tmID; 'defeats' and 'loses' are synonyms; most October defeats refers to max(OctL)"
+  },
+  {
+    "sql": "SELECT COUNT(playerID) FROM Master WHERE shootCatch IS NULL AND firstNHL = '2011'",
+    "question_id": null,
+    "question": "How many players, whose shooting/catching hand is both left and right, debuted their first NHL in 2011?",
+    "difficulty": "",
+    "evidence": "shooting/catching hand is both left and right refers to shootCatch is NULL, debuted their first NHL in 2011 refers to firstNHL = 2011"
+  },
+  {
+    "sql": "SELECT T1.year, T1.year - T2.birthYear FROM Scoring AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID GROUP BY T1.year, T1.year - T2.birthYear ORDER BY SUM(T1.G) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which year recorded the most number of goals by a player and how old was the player at the time the most number of goals was achieved by him?",
+    "difficulty": "",
+    "evidence": "most number of goals refers to max(G); how old refers to age = subtract(year(max(G)), birthYear)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.height) AS REAL) / COUNT(*) FROM AwardsPlayers AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T2.height IS NOT NULL AND (T2.pos = 'LW' OR T2.pos = 'L/C')",
+    "question_id": null,
+    "question": "What is the average height of all the goalies born in the 70s who's a left shooting/catching dominant and to which team do the tallest player/s play for most recently?",
+    "difficulty": "",
+    "evidence": "goalies refers to pos = 'G'; born in the 70s refers to birthYear between '1970' and '1979'; left shooting/catching dominant refers to shootCatch = 'L'; tallest refers to max(height); average height = avg(height(pos = 'G' & birthYear between '1970' and '1979' & shootCatch = 'L')); most recently refers to max(Teams.year)"
+  },
+  {
+    "sql": "SELECT SUM(T1.A), T2.firstName, T2.lastName FROM Scoring AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T1.lgID = 'NHL' GROUP BY T2.firstName, T2.lastName ORDER BY SUM(T1.A) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the total amount of assists of the NHL player with the most assists in history? Please indicate his/her full name.",
+    "difficulty": "",
+    "evidence": "NHL refers to lgID = 'NHL'; most assists refers to max(A); full name = nameGiven + lastName; total amount of assists = sum(A(playerID(max(A))))"
+  },
+  {
+    "sql": "SELECT SUM(T1.A), T2.firstName, T2.lastName FROM Scoring AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T1.lgID = 'NHL' GROUP BY T2.firstName, T2.lastName ORDER BY SUM(T1.A) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the power play percentage of the team with the least number of penalty kill chances and to which team were they playing against? Indicate whether the team lost or victorious.",
+    "difficulty": "",
+    "evidence": "least number of penalty kill chances refers to min(PKC); power play percentage refers to (PP%) = divide(PPG, PPC); team playing refers to tmID; victorious team refers to tmIDWinner; team victorious refers to tmID = tmIDWinner and vice versa"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.coachID, T1.award FROM AwardsCoaches AS T1 INNER JOIN Coaches AS T2 ON T1.coachID = T2.coachID GROUP BY T2.coachID, T1.award ORDER BY SUM(T2.w) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What are the awards won by the coach who coached the team with the most number of victories of all time? Indicate the choach ID.",
+    "difficulty": "",
+    "evidence": "victories' and 'wins' are synonyms; most number of victories refers to max(w)"
+  },
+  {
+    "sql": "SELECT T2.name FROM SeriesPost AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND tmIDLoser = tmID WHERE T1.note = 'EX' AND T2.year = '1912'",
+    "question_id": null,
+    "question": "What is the name of the losing team during an exhibition game in 1912?",
+    "difficulty": "",
+    "evidence": "exhibition game refers to note = 'EX'; team of losing team refers to tmIDLoser"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.firstNHL - T1.year, T3.nameGiven , T3.firstName, T3.lastName FROM Scoring AS T1 INNER JOIN Teams AS T2 ON T2.tmID = T1.tmID INNER JOIN Master AS T3 ON T1.playerID = T3.playerID GROUP BY T3.firstName, T3.lastName, T3.nameGiven, T3.firstNHL - T1.year, T3.firstName, T3.lastName ORDER BY SUM(T1.`+/-`) ASC LIMIT 1",
+    "question_id": null,
+    "question": "How long has the NHL player been playing during the year when he recorded the least number of times being on the ice when a goal is scored for the team versus against the team? Indicate his full name.",
+    "difficulty": "",
+    "evidence": "NHL refers to lgID = 'NHL'; least number of times being on the ice when a goal is scored for the team versus against the team refers to min(+/-); duration the player's been playing = subtract(year(playerID(min(+/-))), firstNHL(playerID(min(+/-)))); full name = nameGiven + lastName"
+  },
+  {
+    "sql": "SELECT T2.nameGiven FROM Scoring AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID AND T1.PIM BETWEEN 200 AND 250 AND T1.year BETWEEN 2003 AND 2005 ORDER BY T1.GP DESC LIMIT 1",
+    "question_id": null,
+    "question": "Between 2003 to 2005, what are the given names of the players with the most number of games played whose Penalty minutes is between 200 to 250?",
+    "difficulty": "",
+    "evidence": "penalty minutes refers to PIM; year of scoring BETWEEN 2003 AND 2005; most number of games played refers to max(GP)"
+  },
+  {
+    "sql": "SELECT T2.lastNHL - T2.birthYear FROM GoaliesSC AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T2.lastNHL IS NOT NULL GROUP BY T2.lastNHL, T2.birthYear ORDER BY SUM(GA) LIMIT 1",
+    "question_id": null,
+    "question": "How old was the goaltender who scored the fewest goals while on the ice when he retired from the NHL?",
+    "difficulty": "",
+    "evidence": "goaltender' and 'goalie' are synonyms; fewest goals while on the ice refers to min(GA); How old = subtract(lastNHL(playerID(min(GA))), birthYear(playerID(min(GA)))))"
+  },
+  {
+    "sql": "SELECT T1.pos, T2.award, T1.nameGiven, T1.lastName FROM Master AS T1 INNER JOIN AwardsCoaches AS T2 ON T2.coachID = T1.coachID GROUP BY T1.pos, T2.award, T1.nameGiven, T1.lastName ORDER BY COUNT(T2.award) LIMIT 1",
+    "question_id": null,
+    "question": "Which position has won the most awards and who is the most recent player that was awarded with an award in that position? Indicate the name of the award and the full name of the player.",
+    "difficulty": "",
+    "evidence": "position has won the most awards refers to pos(max(count(award))); most recent player refers to playerID(pos(max(count(award)))& max(year)); full name = nameGiven + lastName"
+  },
+  {
+    "sql": "SELECT SUM(T1.g) FROM Coaches AS T1 INNER JOIN ( SELECT coachID, year FROM AwardsCoaches WHERE award = 'Second Team All-Star' ORDER BY year LIMIT 1 ) AS T2 ON T1.coachID = T2.coachID AND T1.year < T2.year",
+    "question_id": null,
+    "question": "How many games did the coach who received the first-ever Second Team All-Star award play before receiving such award?",
+    "difficulty": "",
+    "evidence": "first-ever Second Team All-Star award refers to min(year(award = 'Second Team All-Star')); How many games before receiving such award = sum(g(coachID(min(year(award = 'Second Team All-Star')))): g(min(year)))"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT oppID), T2.tmID, T2.oppID FROM Teams AS T1 INNER JOIN TeamVsTeam AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID WHERE T2.year = 1915 GROUP BY T2.tmID, T2.oppID ORDER BY SUM(T2.W) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many teams did the team with the most victories in 1915 play against?\nIndicate the name of the team who won the most games in 1915, as well as the names of the opposing team.",
+    "difficulty": "",
+    "evidence": "team playing refers to tmID; oppositng team refers to oppID; victories' and 'wins' are synonyms; most victories refers to max(w)"
+  },
+  {
+    "sql": "SELECT T2.nameGiven, T2.lastName FROM Scoring AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T1.SHG BETWEEN 1 AND 5 ORDER BY T1.GWG DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the teams whose shorthanded goals are between 1 to 5, which player is the most trustworthy in the critical moment?",
+    "difficulty": "",
+    "evidence": "shorthanded goals refers to SHG; SHG BETWEEN 1 AND 5; most trustworthy in the critical moment refers to max(GWG)"
+  },
+  {
+    "sql": "SELECT SUM(T1.l), T1.coachID FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.notes = 'interim' AND T1.year = '1997' AND T2.name = 'Tampa Bay Lightning' GROUP BY T1.coachID",
+    "question_id": null,
+    "question": "In 1997, how many loss did the coach have who temporary coached Tampa Bay Lightning? Indicate his/her coach ID.",
+    "difficulty": "",
+    "evidence": "temporary coached refers to notes = 'interim'; number of loss refers to L (to add)"
+  },
+  {
+    "sql": "SELECT T2.rank, T2.year, T2.name FROM Scoring AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.SHA >= 7 ORDER BY T1.A DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the players whose short handed assists are greater or equal to 7, what is the final standing of the team with the most number of assists? Indicate the year to which the most number of assists was achieved and the name of the team.",
+    "difficulty": "",
+    "evidence": "short handed assists refers to SHA; SHA> = 7; final standing refers to rank; the final standing of the team with the most number of assists refers to max(A)\n"
+  },
+  {
+    "sql": "SELECT T1.coachID FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.year = 1969 AND T2.rank = 4",
+    "question_id": null,
+    "question": "What is the name of the coach whose team placed 4th in the 1969 game? Indicate their coachID.",
+    "difficulty": "",
+    "evidence": "name of coach refers to coachID; placed 4th refers to rank = 4; 1969 game refers to year = 1969"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.name FROM TeamsHalf AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.half = 1 AND T1.rank = 1 AND T1.year BETWEEN 1917 AND 1920",
+    "question_id": null,
+    "question": "Between 1917 to 1920, what are the names of the team who ranked first in the first half of the season each year?",
+    "difficulty": "",
+    "evidence": "year BETWEEN 1917 AND 1920; first half of season refers to half = 1"
+  },
+  {
+    "sql": "SELECT T2.nameGiven, T2.lastName, T2.birthYear, birthMon, birthDay , T3.tmID FROM Scoring AS T1 INNER JOIN Master AS T2 ON T2.playerID = T1.playerID INNER JOIN Teams AS T3 ON T3.tmID = T1.tmID WHERE (T2.firstNHL - T2.birthYear) BETWEEN 18 AND 24 AND T3.G < 5",
+    "question_id": null,
+    "question": "How many Canadian players, between the ages of 18 and 24 when they initially played their first NHL, had a cumulative goal total of no more than 5? Indicate their complete names, the year, and the team for which they scored the specified amount of goals.",
+    "difficulty": "",
+    "evidence": "Canadian players mean player whose birthCountry = Canada; ages of 18 and 24 refers to SUBTRACT(firstNHL, birthYear) BETWEEN 18 AND 24; cumulative goal total of no more than 5 refers to G < 5; complete name = nameGiven + lastName"
+  },
+  {
+    "sql": "SELECT CAST(SUM(BenchMinor) AS REAL) / 2 FROM Teams WHERE name = 'St. Louis Blues'",
+    "question_id": null,
+    "question": "How many bench minor penalties did the team St. Louis Blues got in total in all the games?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(PPG AS REAL) / PPC FROM Teams WHERE year = 2009 AND name = 'New York Rangers'",
+    "question_id": null,
+    "question": "What is the power play chances of New York Rangers in 2009?",
+    "difficulty": "",
+    "evidence": "power play chanses = DIVIDE (PPG, PPC); name = New York Rangers; year = 2009"
+  },
+  {
+    "sql": "SELECT SUM(Pts), year FROM Teams GROUP BY year, tmID ORDER BY SUM(Pts) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest total points a team got in a year?",
+    "difficulty": "",
+    "evidence": "the highest total points = MAX(Pts)"
+  },
+  {
+    "sql": "SELECT COUNT(tmID) FROM Teams WHERE year = 2006 AND W > L AND Pts > 100",
+    "question_id": null,
+    "question": "Among the teams that had more wins than loses in the year 2006, how many of them have over 100 points?",
+    "difficulty": "",
+    "evidence": "more wins than loses refers to W > L; over 100 points refers to Pts > 100"
+  },
+  {
+    "sql": "SELECT name FROM Teams WHERE year = 2006 GROUP BY tmID, name ORDER BY CAST(SUM(BenchMinor) AS REAL) / 2 DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which team got the most bench minor penalties in 2006?",
+    "difficulty": "",
+    "evidence": "team refers to name; year = 2006"
+  },
+  {
+    "sql": "SELECT name FROM Teams WHERE year = 2006 GROUP BY tmID, name ORDER BY SUM(PIM) DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the first 3 teams that got the most penalty minutes in 2006.",
+    "difficulty": "",
+    "evidence": "the first 3 teams that got the most penalty minutes refer to name where MAX(PIM) limit to 3; year = 2006;"
+  },
+  {
+    "sql": "SELECT name FROM Teams WHERE year = 1995 AND name IN ('Florida Panthers', 'Edmonton Oilers', 'Los Angeles Kings') ORDER BY PKC DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which team had the highest penalty kill chances in 1995, Florida Panthers, Edmonton Oilers or Los Angeles Kings?",
+    "difficulty": "",
+    "evidence": "the highest penalty kill chances refer to MAX(PKC); year = 1995;"
+  },
+  {
+    "sql": "SELECT T2.name FROM TeamsSC AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.year = '1917' AND T1.W > T1.L",
+    "question_id": null,
+    "question": "What is the name of the team that got more wins than loses in the Stanley Cup finals in 1917?",
+    "difficulty": "",
+    "evidence": "more wins than loses refers to W>L; year = 1917;"
+  },
+  {
+    "sql": "SELECT T2.name FROM TeamsSC AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.year = '1922'",
+    "question_id": null,
+    "question": "Please list the teams that have played in 1922's Stanley Cup finals.",
+    "difficulty": "",
+    "evidence": "teams refer to tmID; year = 1922;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.tmID) FROM TeamsSC AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.year = '1922' AND T2.Pts > 20",
+    "question_id": null,
+    "question": "Among the teams that played in 1922's Stanley Cup finals, how many of them had over 20 points in that year?",
+    "difficulty": "",
+    "evidence": "how many teams refer to COUNT(tmID); over 20 points refer to Pts>20; year = 1922;"
+  },
+  {
+    "sql": "SELECT T1.PIM FROM TeamsSC AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.year = '1923' AND T2.rank = 2",
+    "question_id": null,
+    "question": "What were the penalty minutes in 1923's Stanley Cup finals of the team that ranked second in that year?",
+    "difficulty": "",
+    "evidence": "teams refer to tmID; year = 1922; ranked second refers to rank = 2; penalty minutes refer to PIM;"
+  },
+  {
+    "sql": "SELECT T2.name FROM TeamsSC AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year GROUP BY T2.name ORDER BY SUM(T1.W) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which team got the most wins in the Stanley Cup finals?",
+    "difficulty": "",
+    "evidence": "team refers name; most wins = MAX(W);"
+  },
+  {
+    "sql": "SELECT T1.W FROM TeamVsTeam AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.year = 1985 AND T1.tmID = ( SELECT DISTINCT tmID FROM Teams WHERE name = 'Philadelphia Flyers' ) AND T1.oppID = ( SELECT DISTINCT tmID FROM Teams WHERE name = 'Boston Bruins' )",
+    "question_id": null,
+    "question": "How many wins did the Philadelphia Flyers have over the Boston Bruins in 1985?",
+    "difficulty": "",
+    "evidence": "Philadelphia Flyers is name of team playing; Boston Bruins is name of opposing team where oppID = 'BOS'; year = 1985; wins refer to W;"
+  },
+  {
+    "sql": "SELECT T2.name, T3.name FROM TeamVsTeam AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year INNER JOIN Teams AS T3 ON T1.year = T3.year AND T1.oppID = T3.tmID WHERE T1.year = 1909 AND T1.T = 1",
+    "question_id": null,
+    "question": "Please list the names of the teams that had a tie in 1909.",
+    "difficulty": "",
+    "evidence": "tie refers to T>0; year = 1909;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.firstName FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.name = 'Montreal Canadiens'",
+    "question_id": null,
+    "question": "Please list the first names of the coaches who have taught the Montreal Canadiens.",
+    "difficulty": "",
+    "evidence": "Montreal Canadiens is the name of team."
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT hofID) FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.name = 'Montreal Canadiens'",
+    "question_id": null,
+    "question": "How many coaches of the Montreal Canadiens have gotten in the Hall of Fame?",
+    "difficulty": "",
+    "evidence": "have gotten in the Hall of Fame means hofID is not NULL;\n\nMontreal Canadiens is the name of team."
+  },
+  {
+    "sql": "SELECT T3.height FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.name = 'Montreal Canadiens' AND T3.coachID IS NOT NULL ORDER BY T3.height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please give the height of the tallest coach of the Montreal Canadiens.",
+    "difficulty": "",
+    "evidence": "the tallest refers to MAX(height); Montreal Canadiens is the name of team;"
+  },
+  {
+    "sql": "SELECT T3.firstName FROM Coaches AS T1 INNER JOIN TeamsSC AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.year = 1922",
+    "question_id": null,
+    "question": "Please list the first names of the coaches whose team played in 1922's Stanley Cup finals.",
+    "difficulty": "",
+    "evidence": "teams refer to tmID; year = 1922;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.coachID) FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.name = 'Philadelphia Flyers' AND T3.birthMon = 3",
+    "question_id": null,
+    "question": "Among the coaches who have taught the Philadelphia Flyers, how many of them are born in March?",
+    "difficulty": "",
+    "evidence": "born in March refers to birthMon = 3; Philadelphia Flyers is the name of team;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.coachID) FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.name = 'Philadelphia Flyers' AND T3.birthCountry = 'USA'",
+    "question_id": null,
+    "question": "Among the coaches who are born in the USA, how many of them used to train the Philadelphia Flyers?",
+    "difficulty": "",
+    "evidence": "born in the USA refers to birthCountry = 'USA'; Philadelphia Flyers is the name of team;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.coachID) FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.name = 'Buffalo Sabres' AND T3.deathYear IS NOT NULL",
+    "question_id": null,
+    "question": "How many coaches who have taught the Buffalo Sabres have died?",
+    "difficulty": "",
+    "evidence": "have died means deathYear is not NULL; Buffalo Sabres is the name of team;"
+  },
+  {
+    "sql": "SELECT DISTINCT nameNick FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.name = 'Buffalo Sabres' AND T3.birthCountry = 'USA'",
+    "question_id": null,
+    "question": "Please list the nick names of the coaches who are from the USA and have taught the Buffalo Sabres.",
+    "difficulty": "",
+    "evidence": "from the USA refers to birthCountry = 'USA'; nick names of the coaches refer to nameNick where coachID is not NULL ; Buffalo Sabres is the name of team;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.coachID) FROM Coaches AS T1 INNER JOIN TeamsSC AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.year = 1922 AND T3.birthCountry = 'USA'",
+    "question_id": null,
+    "question": "Among the coaches who taught the teams in 1922's Stanley Cup finals, how many of them are from the USA?",
+    "difficulty": "",
+    "evidence": "from the USA refers to birthCountry = 'USA'; year = 1922;"
+  },
+  {
+    "sql": "SELECT T3.name FROM TeamVsTeam AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.oppID = T2.tmID INNER JOIN Teams AS T3 ON T1.year = T3.year AND T1.tmID = T3.tmID WHERE T1.year = 2000 AND T2.name = 'Buffalo Sabres' GROUP BY T3.name ORDER BY SUM(T2.G) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the year 2000, which team has played the most games against the Buffalo Sabres?",
+    "difficulty": "",
+    "evidence": "which team played the most games against refers to oppID where MAX(SUM(G); Buffalo Sabres is the name of team;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.name FROM TeamVsTeam AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.oppID = T2.tmID INNER JOIN Teams AS T3 ON T1.year = T3.year AND T1.tmID = T3.tmID WHERE T2.name = 'Buffalo Sabres'",
+    "question_id": null,
+    "question": "Please list the names of all the teams that have played against the Buffalo Sabres.",
+    "difficulty": "",
+    "evidence": "teams that have played against refer to oppID; Buffalo Sabres is the name of team;"
+  },
+  {
+    "sql": "SELECT T2.PIM FROM Teams AS T1 INNER JOIN TeamsSC AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.name = 'Montreal Canadiens' AND T1.year = 1918",
+    "question_id": null,
+    "question": "How many penalty minutes did the Montreal Canadiens have in the 1918's Stanley Cup Finals?",
+    "difficulty": "",
+    "evidence": "penalty minutes refer to PIM; year = 1918; Montreal Canadiens is name of team;"
+  },
+  {
+    "sql": "SELECT T2.W FROM Teams AS T1 INNER JOIN TeamsSC AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.name = 'Montreal Canadiens' AND T2.PIM = 24",
+    "question_id": null,
+    "question": "In the year that the Montreal Canadiens had 24 penalty minutes in the Stanley Cup finals, how many wins did the team had in total?",
+    "difficulty": "",
+    "evidence": "penalty minutes refer to PIM = 24; wins refer to W;"
+  },
+  {
+    "sql": "SELECT T1.year FROM Teams AS T1 INNER JOIN TeamsSC AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.name = 'Montreal Canadiens' AND T2.PIM = 49",
+    "question_id": null,
+    "question": "In which year did the Montreal Canadiens have 49 penalty minutes in the Stanley Cup finals? Was it 1924, 1923 or 1918?",
+    "difficulty": "",
+    "evidence": "penalty minutes refer to PIM = 49;"
+  },
+  {
+    "sql": "SELECT T3.firstName FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T2.name = 'Montreal Canadiens' ORDER BY T1.year LIMIT 1",
+    "question_id": null,
+    "question": "Which coach was the first one to teach the Montreal Canadiens, please give his first name.",
+    "difficulty": "",
+    "evidence": "the first one refers to MIN(year);"
+  },
+  {
+    "sql": "SELECT SUM(CAST(T2.W AS REAL) / T2.G) / COUNT(T1.oppID) FROM TeamVsTeam AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID WHERE T2.name = 'Buffalo Sabres' AND T1.year = 2000",
+    "question_id": null,
+    "question": "What is the average winning rate of the Buffalo Sabres in 2000?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(DIVIDE(W,G), COUNT(oppID) where year = 2000; Montreal Canadiens is name of team;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.PIM) AS REAL) / COUNT(T2.PIM) FROM Teams AS T1 INNER JOIN TeamsSC AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.name = 'Montreal Canadiens'",
+    "question_id": null,
+    "question": "How many penalty minutes did the Montreal Canadiens have on average in the Stanley Cup Finals?",
+    "difficulty": "",
+    "evidence": "AVG(PIM) = DIVIDE(SUM(PIM), COUNT(G)); Montreal Canadiens is name of team;"
+  },
+  {
+    "sql": "SELECT SUM(T2.W / T2.G) / SUM(T2.G + T2.W) FROM Teams AS T1 INNER JOIN TeamsSC AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.name = 'Montreal Canadiens'",
+    "question_id": null,
+    "question": "What is the average winning rate of the Montreal Canadiens in the Stanley Cup finals?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(DIVIDE(W,G), COUNT(oppID);"
+  },
+  {
+    "sql": "SELECT SUM(CAST(T2.W AS REAL) / T2.G) / SUM(T2.G + T2.W) FROM Teams AS T1 INNER JOIN TeamsSC AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.name = 'Montreal Canadiens'",
+    "question_id": null,
+    "question": "What is the percentage of American coaches among all the coaches who taught the Montreal Canadiens?",
+    "difficulty": "",
+    "evidence": "American refers to birthCountry = 'USA'; DIVIDE(COUNT(coachID where birthCountry = 'USA', name` = 'Montreal Canadiens'), COUNT(coachID where name` = 'Montreal Canadiens')) as percentage;"
+  },
+  {
+    "sql": "SELECT name FROM HOF WHERE category IN ('Player', 'Builder') ORDER BY year DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who was the latest non player/builder to become the hall of famer? Give the full name.",
+    "difficulty": "",
+    "evidence": "latest refers to MAX(year); non player/builder refers to category = NOT IN ('player', 'builder');"
+  },
+  {
+    "sql": "SELECT name, hofID FROM HOF WHERE category = 'Builder' AND year BETWEEN 1970 AND 1979",
+    "question_id": null,
+    "question": "For all the referees, who became a hall of famer in the 1970s? What's his hofID?",
+    "difficulty": "",
+    "evidence": "1970s refers to year between 1970 and 1979; referees stand for category;"
+  },
+  {
+    "sql": "SELECT COUNT(hofID) FROM HOF WHERE category = 'Player' AND year = 1958",
+    "question_id": null,
+    "question": "In the year 1958, what is the total number of players that became hall of famers?",
+    "difficulty": "",
+    "evidence": "hall of famers refers to hofID; players stand for category;"
+  },
+  {
+    "sql": "SELECT COUNT(playerID) FROM Master WHERE hofID IS NOT NULL AND playerID IS NOT NULL AND coachID IS NOT NULL",
+    "question_id": null,
+    "question": "How many hall of famers both played and coached in the league?",
+    "difficulty": "",
+    "evidence": "hall of famers refers to hofID; both played and coached means playerID is not NULL and coachID is not NULL;"
+  },
+  {
+    "sql": "SELECT COUNT(playerID) FROM Master WHERE lastName = 'Green' AND coachID IS NULL",
+    "question_id": null,
+    "question": "What is the number of players whose last name is Green that played in the league but not coached?",
+    "difficulty": "",
+    "evidence": "played in the league but not coached means playerID is not NULL and coachID is NULL;"
+  },
+  {
+    "sql": "SELECT T2.BenchMinor FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T1.year = T2.year AND T1.tmID = T2.tmID INNER JOIN Master AS T3 ON T1.coachID = T3.coachID WHERE T3.firstName = 'Scotty' AND T3.lastName = 'Bowman' AND T1.year = 1982",
+    "question_id": null,
+    "question": "For the team that Scotty Bowman coached in 1982, how many bench minor penalties did they have that year?",
+    "difficulty": "",
+    "evidence": "bench minor penalties refer to BenchMinor; Scotty Bowman is a coach; year = 1982;"
+  },
+  {
+    "sql": "SELECT T2.firstName, T2.lastName FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T1.ENG = 10 ORDER BY T2.height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the players who had 10 empty net goals in their career, who is the tallest? Show his full name.",
+    "difficulty": "",
+    "evidence": "10 empty net goals refer to ENG = 10; tallest refers to MAX(height);"
+  },
+  {
+    "sql": "SELECT T2.shootCatch, T2.firstName, T2.lastName FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID AND T1.year = 1973 WHERE T1.tmID = 'QUN' AND T1.GP = 32",
+    "question_id": null,
+    "question": "Which was the dominant hand for the goaltender who played 32 games for QUN in 1973? Give the full name.",
+    "difficulty": "",
+    "evidence": "the dominant hand refers to shootCatch; year = 1973; tmID = 'QUN'; played 32 games refers to GP = 32;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.tmID) FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T2.lastName = 'Young'",
+    "question_id": null,
+    "question": "For the goalie whose last name is \"Young\", how many teams did he play in?",
+    "difficulty": "",
+    "evidence": "goalie is a players; teams refer to tmID;"
+  },
+  {
+    "sql": "SELECT T2.firstName, T2.lastName , IIF(T1.tmID = 'BOS', 'YES', 'NO') FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T1.year = 1972 AND T1.tmID = 'BOS' AND T2.coachID IS NOT NULL AND T2.hofID IS NULL",
+    "question_id": null,
+    "question": "For the goalkeeper that became a coach than a Hall of Famer, who played for BOS in 1972?",
+    "difficulty": "",
+    "evidence": "BOS refers to tmID = 'BOS'; year = 1972; became a coach than a Hall of Famer means coachID is not NULL and hofID is NULL;"
+  },
+  {
+    "sql": "SELECT SUM(T1.GP) FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T2.legendsID = 'P196402'",
+    "question_id": null,
+    "question": "For the goalie whose legendsID is \"P196402\" , how many games did he play in the league?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.firstName, T2.lastName FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID INNER JOIN Teams AS T3 ON T1.tmID = T3.tmID AND T1.year = T3.year WHERE T3.name = 'Quebec Bulldogs' AND T2.pos = 'D' GROUP BY T1.playerID, T2.firstName, T2.lastName ORDER BY SUM(T1.Min) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the history of all the Quebec Bulldogs, which goalie had the most play minutes for the team? Give the full name.",
+    "difficulty": "",
+    "evidence": "the most play minutes refer to MAX(Min); goalie refers to pos = 'G'; New York Islanders is the nameof team;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT playerID) FROM Goalies AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T2.name = 'Calgary Flames'",
+    "question_id": null,
+    "question": "How many goalies played for Calgary Flames?",
+    "difficulty": "",
+    "evidence": "Calgary Flames is the name of team;"
+  },
+  {
+    "sql": "SELECT playerID FROM Goalies AS T1 INNER JOIN Teams AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T2.name = 'Minnesota North Stars' GROUP BY T1.playerID ORDER BY SUM(T1.GA) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which Minnesota North Stars' goalkeeper had the most Goal Againsts in his play time?",
+    "difficulty": "",
+    "evidence": "Goals Against are the number of goals recorded while the goalie is on the ice; the most Goal Againsts refers to MAX(GA); Minnesota North Stars is name of team;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.playerID) FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID INNER JOIN Teams AS T3 ON T1.tmID = T3.tmID AND T1.year = T3.year WHERE T3.name = 'Haileybury Hockey Club' AND T2.hofID IS NOT NULL",
+    "question_id": null,
+    "question": "How many Haileybury Hockey Club goalies became a hall of famer?",
+    "difficulty": "",
+    "evidence": "hall of famers refers to hofID where playerID is not NULL;"
+  },
+  {
+    "sql": "SELECT T2.shootCatch FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T1.year = 2010 GROUP BY T2.shootCatch ORDER BY SUM(T1.SHO) DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the goalie who had the most shutouts in 2010, what's his catching hand?",
+    "difficulty": "",
+    "evidence": "the most shutouts refer to MAX(SHO); catching hand refers to shootCatch; year = 2010;"
+  },
+  {
+    "sql": "SELECT CAST((SUM(CASE WHEN T1.year = 2005 THEN T1.GP ELSE 0 END) - SUM(CASE WHEN T1.year = 2006 THEN T1.GP ELSE 0 END)) AS REAL) * 100 / SUM(CASE WHEN T1.year = 2005 THEN T1.GP ELSE 0 END) FROM Goalies AS T1 INNER JOIN Master AS T2 ON T1.playerID = T2.playerID WHERE T2.firstName = 'David' AND T2.lastName = 'Aebischer'",
+    "question_id": null,
+    "question": "What's the decrease rate of the game plays did David Aebischer after he got traded in 2005?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUBTRACT(SUM(GP(year = 2005), SUM(GP(year = 2006)), SUM(GP(year = 2005)) as percentage;"
+  },
+  {
+    "sql": "SELECT playerID, coachID FROM Master WHERE playerID IS NOT NULL AND coachID IS NOT NULL",
+    "question_id": null,
+    "question": "State the player ID and coach ID of person who have become coach after retirement.",
+    "difficulty": "",
+    "evidence": "after retirement means playerID Iis not NULL and coachID is not NULL;"
+  },
+  {
+    "sql": "SELECT DISTINCT playerID FROM Master GROUP BY playerID HAVING AVG(height) = 75",
+    "question_id": null,
+    "question": "State the player ID of player with average height of 75.",
+    "difficulty": "",
+    "evidence": "average height of 75 refers to AVG(height) = 75;"
+  },
+  {
+    "sql": "SELECT playerID FROM Master ORDER BY weight DESC LIMIT 5",
+    "question_id": null,
+    "question": "Who is the heaviest player? State player ID of 5 heaviest players.",
+    "difficulty": "",
+    "evidence": "5 heaviest players refer to MAX(weight) limit to 5 playerID;"
+  },
+  {
+    "sql": "SELECT DISTINCT firstName, lastName FROM Master WHERE birthCountry = 'Finland'",
+    "question_id": null,
+    "question": "What is the full name of players origin from Finland?",
+    "difficulty": "",
+    "evidence": "origin from Finland refers to birthCountry = 'Finland';"
+  },
+  {
+    "sql": "SELECT DISTINCT playerID FROM Master WHERE deathYear IS NOT NULL AND playerID IS NOT NULL",
+    "question_id": null,
+    "question": "List down player ID of players who have passed away.",
+    "difficulty": "",
+    "evidence": "passed away means deathYear is not NULL;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.firstName FROM Master AS T1 INNER JOIN Coaches AS T2 ON T1.coachID = T2.coachID WHERE T2.year > 2000",
+    "question_id": null,
+    "question": "List down the first name of coaches who still coach after year 2000.",
+    "difficulty": "",
+    "evidence": "after year 2000 refers to year>2000;"
+  },
+  {
+    "sql": "SELECT T1.height, T1.weight FROM Master AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.coachID = T2.coachID WHERE T2.year = '1930'",
+    "question_id": null,
+    "question": "What is the height and weight for coaches who have won awards in 1930?",
+    "difficulty": "",
+    "evidence": "year = 1930;"
+  },
+  {
+    "sql": "SELECT SUM(T2.G), STRFTIME('%Y', CURRENT_TIMESTAMP) - T1.birthyear FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID WHERE T1.playerID = 'aaltoan01' GROUP BY T1.birthyear",
+    "question_id": null,
+    "question": "How much is the total goals for player with player ID aaltoan01 and how old is this person?",
+    "difficulty": "",
+    "evidence": "total goals refer to SUM(G); how old = SUBTRACT(YEAR(CURDATE, birthYear);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.coachID FROM Master AS T1 INNER JOIN AwardsCoaches AS T2 ON T1.coachID = T2.coachID WHERE T1.playerID IS NULL",
+    "question_id": null,
+    "question": "Is there any coach who has not been a player before but has won award? State the ID.",
+    "difficulty": "",
+    "evidence": "coach who has not been a player means playerID is NULL and coachID is not NULL;"
+  },
+  {
+    "sql": "SELECT DISTINCT playerID FROM Master WHERE pos LIKE '%L%' AND weight > 200 AND playerID IS NOT NULL AND pos = 'L'",
+    "question_id": null,
+    "question": "Which player ID are left winger and weight more than 200?",
+    "difficulty": "",
+    "evidence": "left winger refers to pos = 'L'; weight>200"
+  },
+  {
+    "sql": "SELECT COUNT(T2.GP) FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID WHERE T1.birthCountry = 'USA'",
+    "question_id": null,
+    "question": "What is the total number of game played for players from USA?",
+    "difficulty": "",
+    "evidence": "game played refers to GP; from USA refers to birthCountry = 'USA';"
+  },
+  {
+    "sql": "SELECT SUM(T2.Pts), T1.coachID FROM Coaches AS T1 INNER JOIN Teams AS T2 ON T2.tmID = T1.tmID WHERE T2.tmID = 'ANA' GROUP BY T1.coachID",
+    "question_id": null,
+    "question": "Calculate the total points scored by team ID ANA and list down the coashes of the team.",
+    "difficulty": "",
+    "evidence": "points scored refers to Pts; team ID refers to tmID;"
+  },
+  {
+    "sql": "SELECT SUM(T2.G) FROM Teams AS T1 INNER JOIN Scoring AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.divID = 'EW' AND T1.tmID = 'BIR' AND T1.year = 1976",
+    "question_id": null,
+    "question": "In 1976, how many goals achieved by team 'BIR' in Division 'EW'?",
+    "difficulty": "",
+    "evidence": "year = 1976; BIR refers to tmID; Division 'EW' refers to divID = 'EW'; goals = G;"
+  },
+  {
+    "sql": "SELECT SUM(T1.L), SUM(T2.A) FROM Teams AS T1 INNER JOIN Scoring AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.tmID = 'BOS' AND T1.year = 2010",
+    "question_id": null,
+    "question": "In 2010, how many loses made by team 'BOS' and how many assists were made by the players?",
+    "difficulty": "",
+    "evidence": "year = 2010; BOS refers to tmID; loses refer to L; assists refer to A;"
+  },
+  {
+    "sql": "SELECT SUM(T1.weight) FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID WHERE T2.year = 1997 AND T2.tmID = 'ANA'",
+    "question_id": null,
+    "question": "What are the total weights of players for team 'ANA' as per year 1997?",
+    "difficulty": "",
+    "evidence": "ANA refers to tmID;"
+  },
+  {
+    "sql": "SELECT T2.playerID, T2.tmID FROM ( SELECT playerID FROM Master WHERE height IS NOT NULL ORDER BY height ASC LIMIT 1 ) AS T1 INNER JOIN ( SELECT DISTINCT playerID, tmID FROM Scoring WHERE year BETWEEN 1925 AND 1936 ) AS T2 ON T1.playerID = T2.playerID",
+    "question_id": null,
+    "question": "Who is the shortest player and state the team ID of that player from 1925 to 1936.",
+    "difficulty": "",
+    "evidence": "Shortest refers to MIN(height); from 1925 to 1936 refers to year between 1925 and 1936;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.tmID, T1.birthCountry FROM Master AS T1 INNER JOIN Scoring AS T2 ON T1.playerID = T2.playerID INNER JOIN ( SELECT year, tmID FROM Teams WHERE year = 2000 ORDER BY W / (W + L) DESC LIMIT 1 ) AS T3 ON T2.tmID = T3.tmID AND T2.year = T3.year",
+    "question_id": null,
+    "question": "Which team has the highest winning rate in year 2000? State the team ID and list down the birth country of it's players.",
+    "difficulty": "",
+    "evidence": "MAX(DIVIDE(COUNT(W), SUM(COUNT(W), (COUNT (L)) where year = 2000;"
+  },
+  {
+    "sql": "SELECT CAST(T1.W AS REAL) / T1.G, T2.playerID FROM Teams AS T1 INNER JOIN Scoring AS T2 ON T1.tmID = T2.tmID AND T1.year = T2.year WHERE T1.tmID = 'CAR' AND T1.year = 1998 GROUP BY T1.W / T1.G, T2.playerID ORDER BY SUM(T2.G) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In 1998, How many wins were made by team 'CAR' per game played? Who contributed the most goals? State the player ID.",
+    "difficulty": "",
+    "evidence": "year = 1998; wins per game played = DIVIDE(W, G); CAR refers to tmID; contributed the most goals refers to MAX(G);"
+  }
+]

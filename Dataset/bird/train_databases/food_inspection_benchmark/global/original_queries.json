@@ -1,0 +1,583 @@
+[
+  {
+    "sql": "SELECT COUNT(owner_state) FROM businesses WHERE owner_state = 'CA'",
+    "question_id": null,
+    "question": "How many restaurants' owners are in California?",
+    "difficulty": "",
+    "evidence": "restaurants' owners in California refer to owner_state = 'CA';"
+  },
+  {
+    "sql": "SELECT COUNT(score) FROM inspections WHERE score = 100",
+    "question_id": null,
+    "question": "How many restaurants have met all requirements in the inspection?",
+    "difficulty": "",
+    "evidence": "met all requirements in the inspection refers to score = 100;"
+  },
+  {
+    "sql": "SELECT COUNT(`date`) FROM inspections WHERE STRFTIME('%Y', `date`) = '2016' AND type = 'Routine - Unscheduled'",
+    "question_id": null,
+    "question": "Among the inspections carried out in 2016, how many of them are routine?",
+    "difficulty": "",
+    "evidence": "inspections carried out in 2016 refer to YEAR(date) = 2016; routine inspections refer to type = 'Routine - Unscheduled';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.name FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.score = 100",
+    "question_id": null,
+    "question": "Please list the names of all the restaurants that have met all requirements in one inspection.",
+    "difficulty": "",
+    "evidence": "met all requirements refers to inspections where score = 100;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.business_id) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE STRFTIME('%Y', T1.`date`) = '2016' AND T2.city IN ('San Francisco', 'SAN FRANCISCO', 'SF', 'S.F.')",
+    "question_id": null,
+    "question": "Among the restaurants being inspected in 2016, how many of them are in San Francisco?",
+    "difficulty": "",
+    "evidence": "inspected in 2016 refers to YEAR(date) = 2016; San Francisco refers to city in ('San Francisco', 'SF' ,'S.F.', 'SAN FRANCISCO');"
+  },
+  {
+    "sql": "SELECT T1.type FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.`date` = '2014-01-14' AND T2.name = 'Tiramisu Kitchen'",
+    "question_id": null,
+    "question": "What was the type of inspection Tiramisu Kitchen had on 2014/1/14?",
+    "difficulty": "",
+    "evidence": "Tiramisu Kitchen is the name of the business; inspection on 2014/1/14 refers to date = '2014-01-14';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.business_id) FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.`date` = '2014-01-14' AND T2.name = 'Tiramisu Kitchen' AND T1.risk_category = 'Low Risk'",
+    "question_id": null,
+    "question": "How many low risk violations were found in the inspection on 2014/1/14 for Tiramisu Kitchen?",
+    "difficulty": "",
+    "evidence": "Tiramisu Kitchen is the name of the business; inspection on 2014/1/14 refers to date = '2014-01-14'; low risk violations refer to risk_category = 'Low Risk';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE STRFTIME('%Y', T1.`date`) = '2014' AND T1.risk_category = 'Low Risk'",
+    "question_id": null,
+    "question": "Please list the names of the restaurants that had a low risk violation in inspections in 2014.",
+    "difficulty": "",
+    "evidence": "inspection in 2014 refers to year(date) = 2014; low risk violations refer to risk_category = 'Low Risk';"
+  },
+  {
+    "sql": "SELECT T1.description FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.`date` = '2014-01-14' AND T2.name = 'Tiramisu Kitchen' AND T1.risk_category = 'Low Risk'",
+    "question_id": null,
+    "question": "What is the description of the low risk violation of Tiramisu Kitchen on 2014/1/14?",
+    "difficulty": "",
+    "evidence": "Tiramisu Kitchen is the name of the business; 2014/1/14 refers to date = '2014-01-14'; low risk violations refer to risk_category = 'Low Risk';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.description FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.risk_category = 'High Risk' AND T2.name = 'Tiramisu Kitchen'",
+    "question_id": null,
+    "question": "Please list the descriptions of all the high risk violations of Tiramisu Kitchen.",
+    "difficulty": "",
+    "evidence": "Tiramisu Kitchen is the name of the business; high risk violations refer to risk_category = 'High Risk';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.business_id) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.type = 'Routine - Unscheduled' AND T2.name = 'Tiramisu Kitchen'",
+    "question_id": null,
+    "question": "How many routine inspections did Tiramisu Kitchen have?",
+    "difficulty": "",
+    "evidence": "Tiramisu Kitchen is the name of the business; routine inspections refer to type = 'Routine - Unscheduled';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.business_id) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'Tiramisu Kitchen' AND T1.type = 'Routine - Unscheduled' AND T1.score > 70",
+    "question_id": null,
+    "question": "Among the routine inspections of Tiramisu Kitchen, how many of them have a score of over 70?",
+    "difficulty": "",
+    "evidence": "Tiramisu Kitchen is the name of the business; routine inspections refer to type = 'Routine - Unscheduled'; score of over 70 refers to score > 70;"
+  },
+  {
+    "sql": "SELECT CASE WHEN SUM(CASE WHEN T2.name = 'OMNI S.F. Hotel - 2nd Floor Pantry' THEN 1 ELSE 0 END) > SUM(CASE WHEN T2.name = 'Tiramisu Kitchen' THEN 1 ELSE 0 END) THEN 'OMNI S.F. Hotel - 2nd Floor Pantry' ELSE 'Tiramisu Kitchen' END AS result FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.risk_category = 'Low Risk'",
+    "question_id": null,
+    "question": "Which restaurant had more low risk violation in inspections, Tiramisu Kitchen or OMNI S.F. Hotel - 2nd Floor Pantry?",
+    "difficulty": "",
+    "evidence": "Tiramisu Kitchen and OMNI S.F. Hotel - 2nd Floor Pantry are names of the business; more low risk violations refer to MAX(COUNT(risk_category = 'Low Risk'));"
+  },
+  {
+    "sql": "SELECT COUNT(T2.business_id) FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.city IN ('San Francisco', 'SF', 'S.F.', 'SAN FRANCISCO') AND T1.risk_category = 'High Risk'",
+    "question_id": null,
+    "question": "How many high risk violations do the restaurants in San Francisco have in total?",
+    "difficulty": "",
+    "evidence": "restaurants in San Francisco refer to business_id where city in ('San Francisco', 'SF', 'S.F.', 'SAN FRANCISCO'); high risk violations refer to risk_category = 'High Risk';"
+  },
+  {
+    "sql": "SELECT T2.name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.risk_category = 'High Risk' GROUP BY T2.name ORDER BY COUNT(T2.name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which restaurant has the highest total number of high risk violations?",
+    "difficulty": "",
+    "evidence": "the highest total number of high risk violations refer to MAX(COUNT(risk_category = 'High Risk'));"
+  },
+  {
+    "sql": "SELECT AVG(T1.score) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'Tiramisu Kitchen'",
+    "question_id": null,
+    "question": "What is the average scores of Tiramisu Kitchen in all inspections?",
+    "difficulty": "",
+    "evidence": "avg(score);"
+  },
+  {
+    "sql": "SELECT business_id FROM inspections GROUP BY business_id ORDER BY COUNT(business_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which business had the most number of inspections? Give the Id number for that business.",
+    "difficulty": "",
+    "evidence": "the most number of inspections refers to MAX(COUNT(business_id)); Id number for that business refers to business_id;"
+  },
+  {
+    "sql": "SELECT business_id FROM violations GROUP BY business_id ORDER BY COUNT(business_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Tell the Id number of the business with the most number of violations.",
+    "difficulty": "",
+    "evidence": "Id number for that business refers to business_id; the most number of violations refers to MAX(COUNT(business_id));"
+  },
+  {
+    "sql": "SELECT T2.name FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.score = 100 AND T1.`date` = '2016-09-28' AND T1.type = 'Routine - Unscheduled'",
+    "question_id": null,
+    "question": "Give the name of the business which met all the required standards during the unscheduled routine inspection on 2016/9/28.",
+    "difficulty": "",
+    "evidence": "met all the required standards refers to score = 100; unscheduled routine inspection on 2016/9/28 refers to type = 'Routine - Unscheduled' where date = '2016-09-28';"
+  },
+  {
+    "sql": "SELECT T2.name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.risk_category = 'High Risk' GROUP BY T2.name ORDER BY COUNT(T2.name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which business had the most number of high risk violations? Give the name of the business.",
+    "difficulty": "",
+    "evidence": "the most number of high risk violations refers to MAX(COUNT(business_id)) where risk_category = 'High';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.violation_type_id) FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'Stacks Restaurant' AND T1.`date` = '2016-10-04'",
+    "question_id": null,
+    "question": "How many kinds of violations did \"Stacks Restaurant\" have on 2016/10/4?",
+    "difficulty": "",
+    "evidence": "\"Stacks Restaurant\" is the name of the business; date = '2016-10-04';"
+  },
+  {
+    "sql": "SELECT T1.description FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'Chez Fayala, Inc.' AND T1.`date` = '2016-07-01' AND T1.risk_category = 'Moderate Risk'",
+    "question_id": null,
+    "question": "Give the description of the moderate risk violation which \"Chez Fayala, Inc.\" had on 2016/7/1.",
+    "difficulty": "",
+    "evidence": "\"Chez Fayala, Inc.\" is the name of the business; moderate risk violation refers to risk_category = 'Moderate Risk'; date = '2016-07-01';"
+  },
+  {
+    "sql": "SELECT T2.name FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE score = ( SELECT MIN(score) FROM inspections WHERE `date` = '2016-09-26' AND type = 'Routine - Unscheduled' ) AND T1.`date` = '2016-09-26' AND T1.type = 'Routine - Unscheduled'",
+    "question_id": null,
+    "question": "Which business had the lowest score for the unscheduled routine inspection on 2016/9/26? Give the name of the business.",
+    "difficulty": "",
+    "evidence": "the lowest score for unscheduled routine inspection refers to type = 'Routine - Unscheduled' where MIN(score); date = '2016-09-26';"
+  },
+  {
+    "sql": "SELECT T2.name FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.type = 'Complaint' GROUP BY T2.name ORDER BY COUNT(T1.business_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the name of the business which had the most number of inspections because of complaint.",
+    "difficulty": "",
+    "evidence": "the most number of inspections because of complaint refers to type = 'Complaint' where MAX(business_id);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.business_id) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'Soma Restaurant And Bar' AND T1.type = 'Routine - Unscheduled'",
+    "question_id": null,
+    "question": "How many unscheduled routine inspections did \"Soma Restaurant And Bar\" have?",
+    "difficulty": "",
+    "evidence": "\"Soma Restaurant And Bar\" is the name of the business; unscheduled routine inspections refer to type = 'Routine - Unscheduled';"
+  },
+  {
+    "sql": "SELECT T2.address FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.risk_category = 'Low Risk' GROUP BY T2.address ORDER BY COUNT(T1.business_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the address of the business with the most number of the low risk violations.",
+    "difficulty": "",
+    "evidence": "the most number of the low risk violations refers to MAX(COUNT(business_id)) where risk_category = 'Low Risk' ;"
+  },
+  {
+    "sql": "SELECT T2.name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.`date` = ( SELECT MIN(`date`) FROM violations WHERE risk_category = 'Low Risk' AND description = 'Permit license or inspection report not posted' ) AND T1.risk_category = 'Low Risk' AND T1.description = 'Permit license or inspection report not posted'",
+    "question_id": null,
+    "question": "Which business was the first one to get a low risk violation because of \"Permit license or inspection report not posted\"? Give the name of the business.",
+    "difficulty": "",
+    "evidence": "low risk violation because of \"Permit license or inspection report not posted\" refers to risk_category = 'Low Risk' where description = 'Permit license or inspection report not posted'; business was the first one refers to name where MIN(date);"
+  },
+  {
+    "sql": "SELECT COUNT(T2.business_id) FROM violations AS T1 INNER JOIN inspections AS T2 ON T1.business_id = T2.business_id GROUP BY T1.business_id ORDER BY COUNT(T1.business_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the business which got the most number of violations, how many inspections did it have?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.business_id) FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.business_certificate = '304977' AND T1.`date` = '2013-10-07'",
+    "question_id": null,
+    "question": "For the business whose business certificate number is 304977, how many violations did it have on 2013/10/7?",
+    "difficulty": "",
+    "evidence": "date = '2013-10-07';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.name = 'Chairman Bao' THEN T1.score ELSE 0 END) AS REAL) / COUNT(CASE WHEN T1.type = 'Routine - Unscheduled' THEN T1.score ELSE 0 END) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id",
+    "question_id": null,
+    "question": "What is the average score for \"Chairman Bao\" in all its unscheduled routine inspections?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(score where type = 'Routine - Unscheduled' and name = 'Chairman Bao'), COUNT(type = 'Routine - Unscheduled' where name = 'Chairman Bao'));"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.risk_category = 'Moderate Risk' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.business_id) FROM businesses AS T1 INNER JOIN violations AS T2 ON T1.business_id = T2.business_id WHERE T1.name = 'Melody Lounge'",
+    "question_id": null,
+    "question": "What percentage of the violations for \"Melody Lounge\" are moderate risks?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(risk_category = 'Moderate Risk' where name = 'Melody Lounge'), COUNT(business_id where name = 'Melody Lounge')) as percentage;"
+  },
+  {
+    "sql": "SELECT COUNT(business_id) FROM businesses WHERE city = 'HAYWARD'",
+    "question_id": null,
+    "question": "How many eateries are located in Hayward?",
+    "difficulty": "",
+    "evidence": "eateries in Hayward refer city = 'HAYWARD';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT business_id) FROM inspections WHERE score < 50",
+    "question_id": null,
+    "question": "How many establishments have an inspection score of no more than 50?",
+    "difficulty": "",
+    "evidence": "establishments have the same meaning as businesses; inspection score of no more than 50 refers to score < 50;"
+  },
+  {
+    "sql": "SELECT COUNT(business_id) FROM businesses WHERE STRFTIME('%Y', application_date) = '2012'",
+    "question_id": null,
+    "question": "How many eateries applied in 2012?",
+    "difficulty": "",
+    "evidence": "eateries applied in 2012 refer to business_id where application_date between '2012-01-01' and '2012-12-31';"
+  },
+  {
+    "sql": "SELECT COUNT(business_id) FROM inspections WHERE STRFTIME('%Y', `date`) = '2014' AND type = 'Foodborne Illness Investigation'",
+    "question_id": null,
+    "question": "How many foodborne illness investigations were done in 2014?",
+    "difficulty": "",
+    "evidence": "foodborne illness investigations refer to inspections where type = 'Foodborne Illness Investigation'; investigations in 2014 refers to date between '2014-01-01' and '2014-12-31';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.owner_name) FROM ( SELECT owner_name FROM businesses GROUP BY owner_name HAVING COUNT(owner_name) > 5 ) T1",
+    "question_id": null,
+    "question": "How many owners have 5 or more establishments?",
+    "difficulty": "",
+    "evidence": "5 or more establishments COUNT(business_id) > = 5;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.name FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE STRFTIME('%Y', T1.`date`) = '2013' AND T1.score = 100",
+    "question_id": null,
+    "question": "What are the names of the establishments that met all of the required standards in 2013?",
+    "difficulty": "",
+    "evidence": "establishments have the same meaning as businesses; met all of the required standards refers to score = 100; year(date) = 2013"
+  },
+  {
+    "sql": "SELECT T2.city FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE STRFTIME('%Y', T1.`date`) = '2016' AND T1.risk_category = 'High Risk' GROUP BY T2.city ORDER BY COUNT(T2.city) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In 2016, which city has the highest number of establishments with the highest health and safety hazards?",
+    "difficulty": "",
+    "evidence": "the highest health and safety hazards refer to risk_category = 'High Risk'; year(date) = 2016; establishments has the same meaning as businesses;"
+  },
+  {
+    "sql": "SELECT T2.name FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.score = ( SELECT MIN(score) FROM inspections )",
+    "question_id": null,
+    "question": "What is the name of the establishment with the lowest inspection score of all time?",
+    "difficulty": "",
+    "evidence": "the lowest inspection score refers to MIN(score);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.business_id) FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'Tiramisu Kitchen' AND T1.risk_category = 'High Risk'",
+    "question_id": null,
+    "question": "How many high risks violations did the Tiramisu Kitchen violate?",
+    "difficulty": "",
+    "evidence": "Tiramisu Kitchen is the name of the business; high risks violations refer to risk_category = 'High Risk';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ( SELECT T1.business_id FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.tax_code = 'H24' AND T1.type = 'Complaint' GROUP BY T1.business_id HAVING COUNT(T1.business_id) > 5 ) T3",
+    "question_id": null,
+    "question": "How many establishments with the tax code H24 have complaint inspections of 5 or more?",
+    "difficulty": "",
+    "evidence": "establishments with the tax code H24 refer to business_id where tax_code = 'H24'; complaint inspections of 5 or more refer to inspections where type = 'Complaint' and COUNT(business_id) \u2265 5;"
+  },
+  {
+    "sql": "SELECT T2.name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE STRFTIME('%Y', T1.`date`) = '2013' AND T1.description = 'Contaminated or adulterated food'",
+    "question_id": null,
+    "question": "In 2013, what are the names of the establishments with contaminated or adulterated food?",
+    "difficulty": "",
+    "evidence": "establishments have the same meaning as businesses; contaminated or adulterated food refers to violations where description = 'Contaminated or adulterated food'; date = '2013';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.business_id) FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id INNER JOIN inspections AS T3 ON T2.business_id = T3.business_id WHERE STRFTIME('%Y', T1.`date`) = '2015' AND T2.postal_code = '94102' AND T3.score > 90",
+    "question_id": null,
+    "question": "Among the establishments with a postal code of 94102, how many establishments have a score of 90 or more in 2015?",
+    "difficulty": "",
+    "evidence": "establishment has the same meaning as business; score of 90 or more refers to score \u2265 90; year(date) = 2015;"
+  },
+  {
+    "sql": "SELECT DISTINCT T4.name FROM ( SELECT T3.name, T3.years, row_number() OVER (PARTITION BY T3.name ORDER BY T3.years) AS rowNumber FROM ( SELECT DISTINCT name, STRFTIME('%Y', `date`) AS years FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.score = 100 ) AS T3 ) AS T4 GROUP BY T4.name, date(T4.years || '-01-01', '-' || (T4.rowNumber - 1) || ' years') HAVING COUNT(T4.years) = 4",
+    "question_id": null,
+    "question": "What are the names of the establishments that met all the required standards for 4 consecutive years?",
+    "difficulty": "",
+    "evidence": "establishment has the same meaning as business; score of 90 or more refers to score \u2265 90; year(date) = 2015; ; met all required standards for 4 consecutive years refers to COUNT(year(date)) = 4 where score = 100;"
+  },
+  {
+    "sql": "SELECT AVG(T1.score) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE STRFTIME('%Y', T1.`date`) BETWEEN '2014' AND '2016' AND T2.owner_name = 'Yiu Tim Chan' AND T2.address = '808 Pacific Ave' AND T2.city = 'San Francisco'",
+    "question_id": null,
+    "question": "Between 2014 to 2016, what is the average inpsection score of the establishment owned by Yiu Tim Chan in 808 Pacific Ave, San Francisco?",
+    "difficulty": "",
+    "evidence": "average inspection score refers to avg(score); establishment owned by Yiu Tim Chan refers to business_id where owner_name = 'Yiu Tim Chan'; Between 2014 to 2016 refers to year(date) between 2014 and 2016; address = '808 Pacific Ave'; city = 'San Francisco';"
+  },
+  {
+    "sql": "SELECT AVG(T1.score) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id GROUP BY T2.owner_name ORDER BY COUNT(T2.business_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the average score of the establishments owned by the owner with the highest number of establishments?",
+    "difficulty": "",
+    "evidence": "average score refers avg(score); owner with the highest number of establishments refers to owner_name where MAX(COUNT(business_id));"
+  },
+  {
+    "sql": "SELECT T2.name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE STRFTIME('%Y', T1.`date`) = '2014' AND T1.risk_category = 'Low Risk' GROUP BY T2.name ORDER BY COUNT(T2.business_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the establishment with the highest number of low risk violations in 2014?",
+    "difficulty": "",
+    "evidence": "establishment with the highest number of low risk violations refers to business_id where MAX(COUNT(risk_category = 'Low Risk')); year(date) = 2014;"
+  },
+  {
+    "sql": "SELECT T4.owner_name FROM violations AS T3 INNER JOIN businesses AS T4 ON T3.business_id = T4.business_id INNER JOIN ( SELECT T2.owner_name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id GROUP BY T2.owner_name ORDER BY COUNT(T1.business_id) DESC LIMIT 5 ) AS T5 ON T4.owner_name = T5.owner_name WHERE T3.risk_category = 'High Risk' GROUP BY T4.owner_name ORDER BY COUNT(T3.risk_category) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the top 5 owners with highest number of establishments, which owner has the highest number of high risk violations? Give the name of the owner.",
+    "difficulty": "",
+    "evidence": "5 owners with highest number of establishments refer to owner_name where MAX(COUNT(business_id)) LIMIT 5; the highest number of high risk violations refers to MAX(COUNT(risk_category = 'High Risk'));"
+  },
+  {
+    "sql": "SELECT T2.name, AVG(T1.score) FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id GROUP BY T2.name ORDER BY COUNT(T2.business_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which establishment has the highest number of inspections done? Give the name of the establishment and calculate for its average score per inspection.",
+    "difficulty": "",
+    "evidence": "establishment refers to business_id; the highest number of inspections refers to MAX(COUNT(business_id)); avg(score);"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT business_id) FROM inspections WHERE STRFTIME('%Y', `date`) = '2013' AND score = ( SELECT MAX(score) FROM inspections WHERE STRFTIME('%Y', `date`) = '2013' )",
+    "question_id": null,
+    "question": "How many eateries got highest inspection in 2013?",
+    "difficulty": "",
+    "evidence": "eateries got highest inspection score in 2013 refer to business_id from inspections where score = 100 and year(date) = 2013;"
+  },
+  {
+    "sql": "SELECT business_id FROM inspections WHERE type = 'Structural Inspection' AND `date` LIKE '2016-02%'",
+    "question_id": null,
+    "question": "List down the eateries' IDs with structural inspection type in February 2016.",
+    "difficulty": "",
+    "evidence": "eateries' IDs refer to business_id; structural inspection type refers to inspections WHERE type = 'Structural Inspection'; in February 2016 refers to year(date) = 2016 and month(date) = 2;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT business_id) FROM violations WHERE risk_category = 'Low Risk' AND description = 'Unpermitted food facility'",
+    "question_id": null,
+    "question": "How many eateries had low risk for violation with unpermitted food facility description?",
+    "difficulty": "",
+    "evidence": "eateries represent business; low risk for violation refers to risk_category = 'Low Risk';"
+  },
+  {
+    "sql": "SELECT business_id, risk_category, description FROM violations WHERE violation_type_id = '103101'",
+    "question_id": null,
+    "question": "Provide eateries' IDs, risk categories and descriptions with violation ID of 103101.",
+    "difficulty": "",
+    "evidence": "eateries' IDs refer to business_id; violation ID of 103101 refers to violation_type_id = '103101';"
+  },
+  {
+    "sql": "SELECT T1.`date` FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.city = 'SAN BRUNO' ORDER BY T1.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "When did eateries from San Bruno city get highest score in inspection?",
+    "difficulty": "",
+    "evidence": "eateries represent business; highest score in inspection refers to score = 100;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.type, T1.description FROM violations AS T1 INNER JOIN inspections AS T2 ON T1.business_id = T2.business_id INNER JOIN businesses AS T3 ON T2.business_id = T3.business_id WHERE T3.name = 'ART''S CAF\u00c9' AND T1.risk_category = 'Moderate Risk'",
+    "question_id": null,
+    "question": "Describe the inspection types and violation descriptions under moderate risk category for ART's CAF\u00c9.",
+    "difficulty": "",
+    "evidence": "ART's CAF\u00c9 is the name of the business; moderate risk category refers to risk_category = 'Moderate Risk';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.violation_type_id, T1.description FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'STARBUCKS' AND T1.risk_category = 'High Risk'",
+    "question_id": null,
+    "question": "Mention the violation type ID and description of high risk category for STARBUCKS.",
+    "difficulty": "",
+    "evidence": "STARBUCKS is the name of the business; high risk category refers to risk_category = 'High Risk';"
+  },
+  {
+    "sql": "SELECT T1.`date`, T1.score, T1.type FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.tax_code = 'AA'",
+    "question_id": null,
+    "question": "List the inspection dates, scores and inspection types for the eateries with tax code AA.",
+    "difficulty": "",
+    "evidence": "eateries with tax code AA refer to business_id where tax_code = 'AA';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.business_id, T2.name, T2.address FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.date = '2016-07-30'",
+    "question_id": null,
+    "question": "Provide eateries' IDs, names and addresses which were inspected on 30th July, 2016.",
+    "difficulty": "",
+    "evidence": "eateries' IDs inspected on 30th July, 2016 refer to business_id where business_id is not null and date = '2016-07-30';"
+  },
+  {
+    "sql": "SELECT T1.`date`, T1.risk_category, T1.description, T2.name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.owner_name = 'Jade Chocolates LLC'",
+    "question_id": null,
+    "question": "Describe the violation dates, risk categories, descriptions and names of the eateries under Jade Chocolates LLC.",
+    "difficulty": "",
+    "evidence": "eateries under Jade Chocolates LLC refer to business_id where owner_name = 'Jade Chocolates LLC';"
+  },
+  {
+    "sql": "SELECT T2.name, T1.risk_category, T1.description FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.violation_type_id = '103111'",
+    "question_id": null,
+    "question": "Provide the names, risk categories and descriptions for the eateries with violation type ID of 103111.",
+    "difficulty": "",
+    "evidence": "eateries refer to business_id;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.name, T2.city, T2.tax_code FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.risk_category = 'High Risk' AND T1.`date` = '2014-06-03' LIMIT 5",
+    "question_id": null,
+    "question": "Among violations on 3rd June, 2014, describe any 5 names, located cities and tax codes of the eateries with high risk category.",
+    "difficulty": "",
+    "evidence": "eateries with high risk category refer to business_id where risk_category = 'High Risk'; 3rd June, 2014 refers to date = '2014-06-03';"
+  },
+  {
+    "sql": "SELECT T1.type FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.name = 'El Aji Peruvian Restaurant' ORDER BY T1.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "What was the inspection type when El Aji Peruvian Restaurant got highest inspection score?",
+    "difficulty": "",
+    "evidence": "El Aji Peruvian Restaurant is the name of the business; highest inspection score refers to MAX(score);"
+  },
+  {
+    "sql": "SELECT T2.owner_name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.risk_category = 'High Risk' AND T1.description = 'Improper cooking time or temperatures'",
+    "question_id": null,
+    "question": "Who were the owners of eateries which had highest health hazard by improper cooking time or temperatures?",
+    "difficulty": "",
+    "evidence": "owners of eateries refer to owner_name; highest health hazard by improper cooking time or temperatures refers to risk_category = 'High Risk' and description = 'Improper cooking time or temperatures';"
+  },
+  {
+    "sql": "SELECT T2.name, T2.address FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.`date` = '2015-02-02' AND T1.type = 'Reinspection/Followup'",
+    "question_id": null,
+    "question": "List the eateries' names and addresses which had reinspection on 2nd February, 2015.",
+    "difficulty": "",
+    "evidence": "eateries which had reinspection on 2nd February, 2015 refer to business_id where date = '2015-02-02' and type = 'Reinspection/Followup';"
+  },
+  {
+    "sql": "SELECT T2.name, T2.business_id FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.score < 50",
+    "question_id": null,
+    "question": "List the names and business certificates of the eateries which got inspection score under 50.",
+    "difficulty": "",
+    "evidence": "eateries which got inspection score under 50 refer to business_id where score < 50;"
+  },
+  {
+    "sql": "SELECT COUNT(business_id) FROM businesses WHERE address = '1825 POST St #223' AND city = 'SAN FRANCISCO'",
+    "question_id": null,
+    "question": "How many of the businesses are located at 1825 POST St #223, San Francisco?",
+    "difficulty": "",
+    "evidence": "1825 POST St #223 refers to address = '1825 POST St #223', San Francisco is the name of the city;"
+  },
+  {
+    "sql": "SELECT DISTINCT owner_name FROM businesses WHERE owner_zip = '94104'",
+    "question_id": null,
+    "question": "List down the owner's name with a zip code 94104.",
+    "difficulty": "",
+    "evidence": "zip code 94104 refers to owner_zip = '94104';"
+  },
+  {
+    "sql": "SELECT COUNT(tax_code) FROM businesses WHERE tax_code = 'H25'",
+    "question_id": null,
+    "question": "What is the total number of businesses with a tax code H25?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(risk_category) FROM violations WHERE STRFTIME('%Y', `date`) = '2014' AND risk_category = 'Low Risk'",
+    "question_id": null,
+    "question": "In the violations in 2014, how many of them have a low risk category?",
+    "difficulty": "",
+    "evidence": "in 2014 refers to year(date) = 2014; risk_category = 'Low Risk';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.business_id, T1.risk_category FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.owner_name = 'San Francisco Madeleine, Inc.'",
+    "question_id": null,
+    "question": "Give the business ID and risk category of the business owned by San Francisco Madeleine, Inc.",
+    "difficulty": "",
+    "evidence": "business owned by San Francisco Madeleine, Inc. refers to business_id where owner_name = 'San Francisco Madeleine, Inc.';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.owner_name FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.score = 100",
+    "question_id": null,
+    "question": "List owner's name of businesses with a 100 score.",
+    "difficulty": "",
+    "evidence": "owner's name of businesses refers to owner_name;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.business_id) FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.postal_code = 94117 AND T1.risk_category = 'High Risk'",
+    "question_id": null,
+    "question": "Among the businesses within the postal code 94117, what is total number of businesses with a high risk category?",
+    "difficulty": "",
+    "evidence": "businesses with a high risk category refer to business_id where risk_category = 'High Risk';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.violation_type_id, T1.risk_category FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id INNER JOIN inspections AS T3 ON T2.business_id = T3.business_id WHERE T3.score BETWEEN 70 AND 80",
+    "question_id": null,
+    "question": "Among the businesses with score that ranges from 70 to 80, list their violation type ID and risk category.",
+    "difficulty": "",
+    "evidence": "businesses with score that ranges from 70 to 80 refer to business_id where score between 80 and 90;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.tax_code, T2.type FROM violations AS T1 INNER JOIN inspections AS T2 ON T1.business_id = T2.business_id INNER JOIN businesses AS T3 ON T2.business_id = T3.business_id WHERE T3.name = 'Rue Lepic'",
+    "question_id": null,
+    "question": "List the tax code and inspection type of the business named \"Rue Lepic\".",
+    "difficulty": "",
+    "evidence": "\"Rue Lepic\" is the name of the business;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.name FROM violations AS T1 INNER JOIN inspections AS T2 ON T1.business_id = T2.business_id INNER JOIN businesses AS T3 ON T2.business_id = T3.business_id WHERE T1.`date` = '2016-05-27' AND T1.violation_type_id = 103157 AND T2.type = 'Routine - Unscheduled'",
+    "question_id": null,
+    "question": "In businesses that violates 103157 on May 27, 2016 , what is the name of the business that has an unscheduled inspection?",
+    "difficulty": "",
+    "evidence": "businesses that violates 103157 refer to business_id where violation_type_id = 103157; date = '2016-05-27'; unscheduled inspection refers to type = 'Routine - Unscheduled';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.owner_name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.risk_category = 'High Risk' AND T1.violation_type_id = 103109 AND T1.description = 'Unclean or unsanitary food contact surfaces'",
+    "question_id": null,
+    "question": "Who is the owner of the business that has a high risk violation of 103109 and described as unclean or unsanitary food contact surfaces?",
+    "difficulty": "",
+    "evidence": "owner refers to owner_name; high risk violation of 103109 and described as unclean or unsanitary food contact surfaces refers to risk_category = 'High Risk' where violation_type_id = 103109 and description = 'Unclean or unsanitary food contact surfaces';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.name FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.owner_city = 'Cameron Park' AND T1.score = 100",
+    "question_id": null,
+    "question": "Among the owners from Cameron Park, what is the business name of the business with a score of 100?",
+    "difficulty": "",
+    "evidence": "Cameron Park is a name of city;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.violation_type_id FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.business_id BETWEEN 30 AND 50 AND T2.address = '747 IRVING St' AND T2.city = 'San Francisco'",
+    "question_id": null,
+    "question": "List the violation type ID of business with business ID from 30 to 50 and located at 747 IRVING St, San Francisco.",
+    "difficulty": "",
+    "evidence": "business ID from 30 to 50 refers to business_id between 30 and 50; address = '747 IRVING St'; city = 'San Francisco';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.owner_name FROM violations AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T1.violation_type_id = 103156 AND T1.`date` = '2014-06-12'",
+    "question_id": null,
+    "question": "What is the owner's name of the of the business that violates 103156 on June 12, 2014?",
+    "difficulty": "",
+    "evidence": "business that violates 103156 on June 12, 2014 refers to business_id where violation_type_id = 103156 and date = '2014-06-12';"
+  },
+  {
+    "sql": "SELECT T1.type FROM inspections AS T1 INNER JOIN businesses AS T2 ON T1.business_id = T2.business_id WHERE T2.owner_address = '500 California St, 2nd Floor' AND T2.owner_city = 'SAN FRANCISCO' ORDER BY T1.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "In businesses with an owner address 500 California St, 2nd Floor of Silicon Valley, list the type of inspection of the business with the highest score.",
+    "difficulty": "",
+    "evidence": "the highest score MAX(score); Silicon Valley is located in 'SAN FRANCISCO';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.business_id) FROM violations AS T1 INNER JOIN inspections AS T2 ON T1.business_id = T2.business_id WHERE STRFTIME('%Y', T1.`date`) = '2016' AND T2.type = 'Routine - Unscheduled'",
+    "question_id": null,
+    "question": "Among the violations in 2016, how many of them have unscheduled inspections?",
+    "difficulty": "",
+    "evidence": "unscheduled inspections refer to type = 'Routine - Unschedule'; year(date) = 2016;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.name, T3.risk_category FROM businesses AS T1 INNER JOIN inspections AS T2 ON T1.business_id = T2.business_id INNER JOIN violations AS T3 ON T1.business_id = T3.business_id WHERE T2.score > 0.8 * ( SELECT AVG(score) FROM inspections )",
+    "question_id": null,
+    "question": "List the business' name and risk category of businesses with a score greater than the 80% of average score of all businesses.",
+    "difficulty": "",
+    "evidence": "score greater than the 80% of average score of all businesses refers to score > MULTIPLY(0.8, avg(score) from inspections);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.risk_category = 'Low Risk' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.risk_category) FROM violations AS T1 INNER JOIN inspections AS T2 ON T1.business_id = T2.business_id INNER JOIN businesses AS T3 ON T2.business_id = T3.business_id WHERE T2.score < 95 AND T3.postal_code = 94110",
+    "question_id": null,
+    "question": "In businesses with a score lower than 95 and located around the postal code of 94110, what is the percentage of businesses with a risk category of low risk?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(business_id where risk_category = 'Low Risk', score < 95 and postal_code = 94110), COUNT(business_id where score < 95 and postal_code = 94110)) as percentage;"
+  }
+]

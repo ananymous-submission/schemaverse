@@ -1,0 +1,438 @@
+{
+  "Episode": {
+    "pk_columns": [
+      "episode_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "air_date",
+        "non_pk_columns": [
+          "air_date",
+          "episode_image",
+          "rating",
+          "series",
+          "summary",
+          "title"
+        ],
+        "local_table": "episode_release",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Episode_air_date"
+      },
+      {
+        "suffix": "air_date_2",
+        "non_pk_columns": [
+          "air_date",
+          "episode",
+          "episode_image",
+          "number_in_series",
+          "season",
+          "series",
+          "summary",
+          "votes"
+        ],
+        "local_table": "EpisodeAirDetails",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Episode_air_date_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Episode",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 10,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.02577117396460301,
+        "3": 0.02577117396460301
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.02577117396460301,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "air_date",
+          "episode_image",
+          "rating",
+          "series",
+          "summary",
+          "title"
+        ],
+        [
+          "episode",
+          "number_in_series",
+          "season",
+          "votes"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "summary",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "series",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "air_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "episode_image",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "air_date",
+          "episode_image",
+          "rating",
+          "series",
+          "summary",
+          "title"
+        ],
+        [
+          "air_date",
+          "episode",
+          "episode_image",
+          "number_in_series",
+          "season",
+          "series",
+          "summary",
+          "votes"
+        ]
+      ],
+      "pk_columns": [
+        "episode_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "air_date",
+          "non_pk_columns": [
+            "air_date",
+            "episode_image",
+            "rating",
+            "series",
+            "summary",
+            "title"
+          ]
+        },
+        {
+          "suffix": "air_date_2",
+          "non_pk_columns": [
+            "air_date",
+            "episode",
+            "episode_image",
+            "number_in_series",
+            "season",
+            "series",
+            "summary",
+            "votes"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Episode_air_date_2",
+    "movable_candidates": [
+      "Episode_air_date"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=4"
+  },
+  "Person": {
+    "pk_columns": [
+      "person_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "birth_country",
+        "non_pk_columns": [
+          "birth_country",
+          "birth_place",
+          "birth_region",
+          "birthdate",
+          "height_meters",
+          "nickname"
+        ],
+        "local_table": "Person_birth_country_part1",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Person_birth_country",
+        "row_partition_names": [
+          "Person_birth_country_part1",
+          "PersonOtherBirthCountry"
+        ],
+        "row_partition_predicate_column": "birth_country"
+      },
+      {
+        "suffix": "birth_country_2",
+        "non_pk_columns": [
+          "birth_country",
+          "birth_name",
+          "birthdate",
+          "height_meters",
+          "name",
+          "nickname"
+        ],
+        "local_table": "person_bio_ext",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Person_birth_country_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Person",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.07957747452373223
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.07957747452373223,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "birth_country",
+          "birth_place",
+          "birth_region",
+          "birthdate",
+          "height_meters"
+        ],
+        [
+          "birth_name",
+          "name",
+          "nickname"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "height_meters",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "birthdate",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "nickname",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "birth_country",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "birth_country",
+          "birth_place",
+          "birth_region",
+          "birthdate",
+          "height_meters",
+          "nickname"
+        ],
+        [
+          "birth_country",
+          "birth_name",
+          "birthdate",
+          "height_meters",
+          "name",
+          "nickname"
+        ]
+      ],
+      "pk_columns": [
+        "person_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "birth_country",
+          "non_pk_columns": [
+            "birth_country",
+            "birth_place",
+            "birth_region",
+            "birthdate",
+            "height_meters",
+            "nickname"
+          ]
+        },
+        {
+          "suffix": "birth_country_2",
+          "non_pk_columns": [
+            "birth_country",
+            "birth_name",
+            "birthdate",
+            "height_meters",
+            "name",
+            "nickname"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Person_birth_country_part1",
+    "movable_candidates": [
+      "Person_birth_country_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=2"
+  },
+  "Award": {
+    "pk_columns": [
+      "award_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "award",
+        "non_pk_columns": [
+          "award",
+          "award_category",
+          "organization",
+          "result",
+          "role",
+          "series",
+          "year"
+        ],
+        "local_table": "award_honors",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Award_award"
+      },
+      {
+        "suffix": "episode_id",
+        "non_pk_columns": [
+          "episode_id",
+          "person_id",
+          "result",
+          "role",
+          "series",
+          "year"
+        ],
+        "local_table": "award_ep_link",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Award_episode_id"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Award",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 9,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.028155262120770446,
+        "3": 0.007158936362537273
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.028155262120770446,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "award",
+          "award_category",
+          "organization",
+          "result",
+          "series",
+          "year"
+        ],
+        [
+          "episode_id",
+          "person_id",
+          "role"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "series",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "role",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "year",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "result",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "award",
+          "award_category",
+          "organization",
+          "result",
+          "role",
+          "series",
+          "year"
+        ],
+        [
+          "episode_id",
+          "person_id",
+          "result",
+          "role",
+          "series",
+          "year"
+        ]
+      ],
+      "pk_columns": [
+        "award_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "award",
+          "non_pk_columns": [
+            "award",
+            "award_category",
+            "organization",
+            "result",
+            "role",
+            "series",
+            "year"
+          ]
+        },
+        {
+          "suffix": "episode_id",
+          "non_pk_columns": [
+            "episode_id",
+            "person_id",
+            "result",
+            "role",
+            "series",
+            "year"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Award_award",
+    "movable_candidates": [
+      "Award_episode_id"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=0"
+  }
+}

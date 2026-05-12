@@ -1,0 +1,807 @@
+[
+  {
+    "sql": "SELECT SUM(CASE WHEN `Year` = 1998 THEN Total ELSE 0 END) - SUM(CASE WHEN `Year` = 1997 THEN Total ELSE 0 END) FROM revenue",
+    "question_id": null,
+    "question": "How much more total box office gross did the Walt Disney Company have in revenue in 1998 than in 1997?",
+    "difficulty": "",
+    "evidence": "SUBTRACT(SUM(Year = 1998), SUM(Year = 1997))"
+  },
+  {
+    "sql": "SELECT CASE WHEN 'Studio Entertainment[NI 1]' > 'Disney Media Networks' THEN 'Studio Entertainment[NI 1]' ELSE 'Disney Media Networks' END FROM revenue WHERE `Year` = 1998",
+    "question_id": null,
+    "question": "In which segment did the Walt Disney Company earned a bigger revenue in 1998, Studio Entertainment or Disney Media Networks?",
+    "difficulty": "",
+    "evidence": "Studio Entertainment[NI 1]' > 'Disney Media Networks' where Year = 1998;"
+  },
+  {
+    "sql": "SELECT director FROM director WHERE name = 'Pinocchio'",
+    "question_id": null,
+    "question": "Who is the director of the movie Pinocchio?",
+    "difficulty": "",
+    "evidence": "Pinocchio is the name of the movie;"
+  },
+  {
+    "sql": "SELECT T2.villian FROM director AS T1 INNER JOIN characters AS T2 ON T1.name = T2.movie_title WHERE T1.director = 'Wolfgang Reitherman' AND T2.villian IS NOT NULL",
+    "question_id": null,
+    "question": "Please list the villains of all the movies directed by Wolfgang Reitherman.",
+    "difficulty": "",
+    "evidence": "Wolfgang Reitherman refers to director = 'Wolfgang Reitherman';"
+  },
+  {
+    "sql": "SELECT COUNT(movie_title) FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE SUBSTR(release_date, INSTR(release_date, '-') + 1, 3) = 'Dec' AND T2.director = 'Wolfgang Reitherman'",
+    "question_id": null,
+    "question": "Among the movies directed by Wolfgang Reitherman, how many of them were released in December?",
+    "difficulty": "",
+    "evidence": "Wolfgang Reitherman refers to director = 'Wolfgang Reitherman'; released in December refers to (release_date, instr(release_date, '-') + 1, 3) = 'Dec';"
+  },
+  {
+    "sql": "SELECT T2.director FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T1.song = 'Once Upon a Dream'",
+    "question_id": null,
+    "question": "The song \"Once Upon a Dream\" is associated with the movie directed by whom?",
+    "difficulty": "",
+    "evidence": "directed by whom refers to director; movie refers to movie_title;"
+  },
+  {
+    "sql": "SELECT T1.`voice-actor` FROM `voice-actors` AS T1 INNER JOIN characters AS T2 ON T1.movie = T2.movie_title WHERE T1.character LIKE '%' OR T2.villian OR '%' AND T2.movie_title = 'Alice in Wonderland'",
+    "question_id": null,
+    "question": "Who is the voice actor for the villain of the movie \"Alice in Wonderland\"?",
+    "difficulty": "",
+    "evidence": "Alice in Wonderland refers to movie_title = 'Alice in Wonderland'; villain refers to character like '%'||T1.villian||'%';"
+  },
+  {
+    "sql": "SELECT T2.release_date FROM `voice-actors` AS T1 INNER JOIN characters AS T2 ON T1.movie = T2.movie_title WHERE T1.`voice-actor` = 'Alan Tudyk'",
+    "question_id": null,
+    "question": "Please list the release dates of all the movies in which Alan Tudyk is a voice actor.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.movie) FROM characters AS T1 INNER JOIN `voice-actors` AS T2 ON T1.movie_title = T2.movie WHERE T2.`voice-actor` = 'Alan Tudyk' AND SUBSTR(release_date, INSTR(release_date, '-') + 5) > 12",
+    "question_id": null,
+    "question": "Among the movies in which Alan Tudyk is a voice actor, how many of them were released after 2012?",
+    "difficulty": "",
+    "evidence": "released after 2012 refers to (release_date, instr(release_date, '-') + 5) > 12;"
+  },
+  {
+    "sql": "SELECT COUNT(T3.name) FROM ( SELECT T2.name FROM `movies_total_gross` AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Wolfgang Reitherman' AND T1.genre = 'Comedy' GROUP BY T2.name ) T3",
+    "question_id": null,
+    "question": "Among the movies directed by Wolfgang Reitherman, how many of them are Comedies?",
+    "difficulty": "",
+    "evidence": "directed by Wolfgang Reitherman refers to director = 'Wolfgang Reitherman'; comedies refers to genre = 'Comedy'; movies refer to movie_title;"
+  },
+  {
+    "sql": "SELECT T2.movie_title FROM director AS T1 INNER JOIN movies_total_gross AS T2 ON T1.name = T2.movie_title WHERE T1.director = 'Wolfgang Reitherman' ORDER BY T2.total_gross DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the movies directed by Wolfgang Reitherman, which one of them was the most popular?",
+    "difficulty": "",
+    "evidence": "directed by Wolfgang Reitherman refers to director = 'Wolfgang Reitherman'; the most popular movie refers to MAX(total_gross);"
+  },
+  {
+    "sql": "SELECT T1.movie_title FROM `movies_total_gross` AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T1.MPAA_rating = 'G' AND T2.director = 'Wolfgang Reitherman'",
+    "question_id": null,
+    "question": "Please list the movies directed by Wolfgang Reitherman that can be watched by the general audience.",
+    "difficulty": "",
+    "evidence": "directed by Wolfgang Reitherman refers to director = 'Wolfgang Reitherman'; movies refer to movie_title; general audience refers to MPAA_rating = 'G';"
+  },
+  {
+    "sql": "SELECT T2.villian FROM `movies_total_gross` AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title ORDER BY T1.total_gross DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which character is the villain of the most popular movie?",
+    "difficulty": "",
+    "evidence": "the most popular movie refers to movie_title where MAX(total_gross);"
+  },
+  {
+    "sql": "SELECT T2.genre FROM characters AS T1 INNER JOIN movies_total_gross AS T2 ON T2.movie_title = T1.movie_title WHERE T1.villian = 'Commander Rourke'",
+    "question_id": null,
+    "question": "What is the genre of the movie whose villain is Commander Rourke?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT villian FROM characters WHERE movie_title = 'Beauty and the Beast'",
+    "question_id": null,
+    "question": "Who is the villain of the movie \"Beauty and the Beast\"?",
+    "difficulty": "",
+    "evidence": "Beauty and the Beast refers to movie_title = 'Beauty and the Beast';"
+  },
+  {
+    "sql": "SELECT movie_title FROM characters WHERE hero = 'Robin Hood'",
+    "question_id": null,
+    "question": "Which movie is the character Robin Hood in?",
+    "difficulty": "",
+    "evidence": "Robin Hood is the main character of the movie which refers to hero = 'Robin Hood'; movie refers to movie_title;"
+  },
+  {
+    "sql": "SELECT movie_title FROM characters WHERE song = 'I Thought I Lost You'",
+    "question_id": null,
+    "question": "Give the name of the movie which the song \"I Thought I Lost You\" is associated with.",
+    "difficulty": "",
+    "evidence": "name of the movie refers to movie_title;"
+  },
+  {
+    "sql": "SELECT `voice-actor` FROM `voice-actors` WHERE character = 'Binkie Muddlefoot'",
+    "question_id": null,
+    "question": "Who is the voice actor of the character \"Binkie Muddlefoot\"?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T1.hero FROM characters AS T1 INNER JOIN movies_total_gross AS T2 ON T2.movie_title = T1.movie_title WHERE T2.total_gross = '$222,527,828'",
+    "question_id": null,
+    "question": "Who is the hero character of the movie whose total gross was $222,527,828?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.song FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title WHERE CAST(SUBSTR(T1.release_date, INSTR(T1.release_date, ', ') + 1) AS int) BETWEEN 1970 AND 1979 ORDER BY CAST(REPLACE(SUBSTR(T1.total_gross, 2), ',', '') AS float) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which song is associated with the most popular Disney movie in 1970s?",
+    "difficulty": "",
+    "evidence": "the most popular movie refers to movie_title where MAX(total_gross); in 1970s refers to (cast(SUBSTR(release_date, instr(release_date, ', ') + 1) as int) between 1970 and 1979);"
+  },
+  {
+    "sql": "SELECT T1.hero FROM characters AS T1 INNER JOIN director AS T2 ON T2.name = T1.movie_title WHERE T2.director = 'Will Finn'",
+    "question_id": null,
+    "question": "Who is the hero character of the Disney movie directed by Will Finn?",
+    "difficulty": "",
+    "evidence": "Will Finn refers to director = 'Will Finn';"
+  },
+  {
+    "sql": "SELECT T2.`voice-actor` FROM characters AS T1 INNER JOIN `voice-actors` AS T2 ON T2.movie = T1.movie_title WHERE T1.movie_title = 'The Little Mermaid' AND T2.character = T1.hero",
+    "question_id": null,
+    "question": "Who is the voice actor of the hero character from the movie The Little Mermaid?",
+    "difficulty": "",
+    "evidence": "The Little Mermaid refers to movie_title = 'The Little Mermaid';"
+  },
+  {
+    "sql": "SELECT T1.director FROM director AS T1 INNER JOIN `voice-actors` AS T2 ON T2.movie = T1.name WHERE T2.character = 'Aunt Sarah' AND T2.`voice-actor` = 'Verna Felton'",
+    "question_id": null,
+    "question": "Give the name of the director of the movie in which Verna Felton was the voice actor for its character \"Aunt Sarah\".",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T1.release_date FROM characters AS T1 INNER JOIN `voice-actors` AS T2 ON T2.movie = T1.movie_title WHERE T2.character = 'Hyacinth Hippo' AND T2.`voice-actor` = 'Tress MacNeille'",
+    "question_id": null,
+    "question": "For the movie in which Tress MacNeille was the voice actor for its character \"Hyacinth Hippo\", what was the release date of that movie?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T1.director FROM director AS T1 INNER JOIN movies_total_gross AS T2 ON T2.movie_title = T1.name WHERE T2.genre = 'Adventure' AND T2.release_date = 'Mar 30, 2007'",
+    "question_id": null,
+    "question": "Who is the director of the adventure movie which was released on 2007/3/30?",
+    "difficulty": "",
+    "evidence": "released on 2007/3/30 refers to release_date = 'Mar 30, 2007'; adventure movie refers to genre = 'Adventure' ;"
+  },
+  {
+    "sql": "SELECT T1.movie_title FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Wolfgang Reitherman' ORDER BY CAST(REPLACE(SUBSTR(inflation_adjusted_gross, 2), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Wolfgang Reitherman has directed several Disney movies, which one has the highest grossing after accounting for inflation?",
+    "difficulty": "",
+    "evidence": "Wolfgang Reitherman refers to director = 'Wolfgang Reitherman'; the highest grossing after accounting for inflation refers to MAX(inflation_adjusted_gross);"
+  },
+  {
+    "sql": "SELECT T1.hero FROM characters AS T1 INNER JOIN movies_total_gross AS T2 ON T2.movie_title = T1.movie_title WHERE T2.genre = 'Adventure' AND T1.release_date = '4-Mar-16'",
+    "question_id": null,
+    "question": "Who is the hero character of the adventure movie which was released on 2016/3/4?",
+    "difficulty": "",
+    "evidence": "released on 2016/3/4 refers to release_date = '4-Mar-16'; adventure movie refers to genre = 'Adventure' ;"
+  },
+  {
+    "sql": "SELECT T1.movie_title FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title WHERE T2.hero = 'Donald Duck' ORDER BY CAST(REPLACE(SUBSTR(total_gross, 2), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "The character Donald Duck has appeared in two Disney movies, which one has more grossing?",
+    "difficulty": "",
+    "evidence": "Donald Duck is the main character of the movie which refers to hero = 'Donald Duck'; which one has more grossing refers to movie_title where MAX(total_gross);"
+  },
+  {
+    "sql": "SELECT COUNT(name) FROM director WHERE director = 'Wolfgang Reitherman'",
+    "question_id": null,
+    "question": "How many movies did Wolfgang Reitherman direct?",
+    "difficulty": "",
+    "evidence": "Wolfgang Reitherman refers director = 'Wolfgang Reitherman';"
+  },
+  {
+    "sql": "SELECT director FROM director GROUP BY director ORDER BY COUNT(name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the most productive director?",
+    "difficulty": "",
+    "evidence": "Most productive director refers to director where MAX(COUNT(name));"
+  },
+  {
+    "sql": "SELECT COUNT(movie_title) FROM movies_total_gross WHERE MPAA_rating = 'R' AND genre = 'Horror' AND CAST(SUBSTR(release_date, INSTR(release_date, ', ') + 1) AS int) BETWEEN 1990 AND 2015",
+    "question_id": null,
+    "question": "How many restricted horror movies were released between 1/1/1990 to 12/31/2015?",
+    "difficulty": "",
+    "evidence": "Restricted refers to MPAA_rating = 'R'; horror refers to genre = 'Horror'; released between 1/1/1990 to 12/31/2015 refers to (cast(SUBSTR(release_date, instr(release_date, ', ') + 1) as int) between 1990 and 2015);"
+  },
+  {
+    "sql": "SELECT character FROM `voice-actors` WHERE 'voice-actor' = 'Frank Welker'",
+    "question_id": null,
+    "question": "What are the names of the characters voiced by Frank Welker?",
+    "difficulty": "",
+    "evidence": "Frank Welker refers to voice-actor = 'Frank Welker';"
+  },
+  {
+    "sql": "SELECT T1.total_gross FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T2.movie_title = T1.movie_title WHERE T2.song = 'Little Wonders'",
+    "question_id": null,
+    "question": "How much is the total gross of the movie with a song titled \"Little Wonders\"?",
+    "difficulty": "",
+    "evidence": "song = 'Little Wonders'"
+  },
+  {
+    "sql": "SELECT T1.MPAA_rating FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T2.movie_title = T1.movie_title WHERE T2.villian = 'Turbo'",
+    "question_id": null,
+    "question": "What is the Motion Picture Association of America rating for the movie featuring a villain named Turbo?",
+    "difficulty": "",
+    "evidence": "The Motion Picture Association of America rating refers to MPAA_rating; villian = 'Turbo';"
+  },
+  {
+    "sql": "SELECT COUNT(T.movie) FROM ( SELECT T1.movie FROM `voice-actors` AS T1 INNER JOIN movies_total_gross AS T2 ON T1.movie = T2.movie_title WHERE MPAA_rating = 'PG' AND `voice-actor` = 'Bill Thompson' GROUP BY T1.movie ) AS T",
+    "question_id": null,
+    "question": "How many movies for mature audiences or parental guidance suggested did Bill Thompson work as a voice actor?",
+    "difficulty": "",
+    "evidence": "movies for mature audiences or parental guidance refer to movie_title where MPAA_rating = 'PG';"
+  },
+  {
+    "sql": "SELECT COUNT(T.name) FROM ( SELECT T1.name FROM director AS T1 INNER JOIN movies_total_gross AS T2 ON T1.name = T2.movie_title WHERE T1.director = 'Gary Trousdale' AND T2.genre = 'Adventure' GROUP BY T1.name ) T",
+    "question_id": null,
+    "question": "How many of Gary Trousdale's movies are adventure movies?",
+    "difficulty": "",
+    "evidence": "Gary Trousdale refers director = 'Gary Trousdale'; the adventure movie refers to genre = 'Adventure';"
+  },
+  {
+    "sql": "SELECT director FROM director AS T1 INNER JOIN `voice-actors` AS T2 ON T1.name = T2.movie WHERE T2.`voice-actor` = 'Bill Thompson' GROUP BY director ORDER BY COUNT(director) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which director did Bill Thompson work the most with?",
+    "difficulty": "",
+    "evidence": "Bill Thompson refers to voice-actor = 'Bill Thompson'; worked the most refers to MAX(COUNT(name));"
+  },
+  {
+    "sql": "SELECT T2.name FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T2.name = T1.movie_title WHERE T2.director = 'Ron Clements' ORDER BY CAST(REPLACE(SUBSTR(total_gross, 2), ',', '') AS int) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most popular movie directed by Ron Clements?",
+    "difficulty": "",
+    "evidence": "Ron Clements refers to director = 'Ron Clements'; the most popular movie refers to movie_title where MAX(total_gross);"
+  },
+  {
+    "sql": "SELECT T2.`voice-actor` FROM director AS T1 INNER JOIN `voice-actors` AS T2 INNER JOIN movies_total_gross AS T3 ON T1.name = T2.movie AND T2.movie = T3.movie_title WHERE T1.director = 'Ben Sharpsteen' AND T3.release_date = 'Feb 9, 1940' AND T2.`voice-actor` != 'None' GROUP BY T2.`voice-actor`",
+    "question_id": null,
+    "question": "List all the voice actors in the movie directed by Ben Sharpsteen which was released on February 9, 1940.",
+    "difficulty": "",
+    "evidence": "Ben Sharpsteen refers to director = 'Ben Sharpsteen'; released on February 9, 1940 refers to release_date = 'Feb 9, 1940';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM director AS T1 INNER JOIN movies_total_gross AS T2 ON T1.name = T2.movie_title WHERE T1.director = 'Ron Clements' AND T2.MPAA_rating = 'PG' AND T2.genre = 'Adventure'",
+    "question_id": null,
+    "question": "How many PG adventure movies did Ron Clements direct?",
+    "difficulty": "",
+    "evidence": "Ron Clements refers to director = 'Ron Clements'; PG is an abbreviation for parental guidance and refers to MPAA_rating = 'PG'; adventure movie refers to genre = 'Adventure';"
+  },
+  {
+    "sql": "SELECT COUNT(movie_title) FROM `movies_total_gross` WHERE genre = 'Horror'",
+    "question_id": null,
+    "question": "How many horror movies are there?",
+    "difficulty": "",
+    "evidence": "Horror refers to genre = 'Horror';"
+  },
+  {
+    "sql": "SELECT villian FROM characters WHERE movie_title = 'The Great Mouse Detective'",
+    "question_id": null,
+    "question": "Who is the villain in the movie \"The Great Mouse Detective\"?",
+    "difficulty": "",
+    "evidence": "The Great Mouse Detective refers to movie_title = 'The Great Mouse Detective';"
+  },
+  {
+    "sql": "SELECT 'voice-actor' FROM `voice-actors` WHERE movie = 'Meet the Robinsons'",
+    "question_id": null,
+    "question": "List the voice actors from the movie \"Meet the Robinsons\".",
+    "difficulty": "",
+    "evidence": "Meet the Robinsons refers to movie_title = 'Meet the Robinsons';"
+  },
+  {
+    "sql": "SELECT director, COUNT(name) FROM director GROUP BY director ORDER BY COUNT(name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which director has made the most movies?",
+    "difficulty": "",
+    "evidence": "the most movies refers to MAX(COUNT(name));"
+  },
+  {
+    "sql": "SELECT `Year` FROM revenue WHERE `Year` BETWEEN 2000 AND 2010 ORDER BY `Studio Entertainment[NI 1]` DESC LIMIT 1",
+    "question_id": null,
+    "question": "From 2000 to 2010, in which year did the studio entertainment segment make the most revenue?",
+    "difficulty": "",
+    "evidence": "From 2000 to 2010 refers to Year between 2000 and 2010; the most revenue refers to MAX(\"Studio Entertainment[NI 1]\");"
+  },
+  {
+    "sql": "SELECT song FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title WHERE T1.genre = 'Drama' GROUP BY song",
+    "question_id": null,
+    "question": "List all the songs associated with drama movies.",
+    "difficulty": "",
+    "evidence": "drama refers to genre = 'Drama';"
+  },
+  {
+    "sql": "SELECT T2.`voice-actor` FROM characters AS T1 INNER JOIN `voice-actors` AS T2 ON T2.character = T1.hero WHERE T2.movie = T1.movie_title",
+    "question_id": null,
+    "question": "Who are the voice actors for all the heroes?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.director FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name AND CAST(SUBSTR(release_date, INSTR(release_date, ', ') + 1) AS int) BETWEEN 1990 AND 2000 GROUP BY T2.director",
+    "question_id": null,
+    "question": "Provide a list of directors from the 1990s.",
+    "difficulty": "",
+    "evidence": "the 1990s refers to (cast(SUBSTR(release_date, instr(release_date, ', ') + 1) as int) between 1990 and 2000);"
+  },
+  {
+    "sql": "SELECT T1.`voice-actor` FROM `voice-actors` AS T1 INNER JOIN characters AS T2 ON T2.movie_title = T1.movie WHERE T2.movie_title = 'The Rescuers' AND T1.character = T2.villian",
+    "question_id": null,
+    "question": "Who voiced the villain in \"The Rescuers\"?",
+    "difficulty": "",
+    "evidence": "The Rescuers refers to movie_title = 'The Rescuers'; who voiced refers to voice-actor;"
+  },
+  {
+    "sql": "SELECT T1.name, T2.`voice-actor` FROM director AS T1 INNER JOIN `voice-actors` AS T2 ON T1.name = T2.movie WHERE T1.director = 'Wolfgang Reitherman'",
+    "question_id": null,
+    "question": "List all of Wolfgang Reitherman's movies and their voice actors.",
+    "difficulty": "",
+    "evidence": "Wolfgang Reitherman refers to director = 'Wolfgang Reitherman';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.character FROM movies_total_gross AS T1 INNER JOIN `voice-actors` AS T2 ON T1.movie_title = T2.movie WHERE T1.MPAA_rating = 'PG'",
+    "question_id": null,
+    "question": "What are the characters in the PG movies?",
+    "difficulty": "",
+    "evidence": "PG is an abbreviation for parental guidance and refers to MPAA_rating = 'PG';"
+  },
+  {
+    "sql": "SELECT T1.movie_title FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T2.movie_title = T1.movie_title WHERE T2.song IS NULL ORDER BY CAST(REPLACE(trim(T1.total_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest grossing movie without a song?",
+    "difficulty": "",
+    "evidence": "the highest grossing movie without song refers to movie_title where MAX(total_gross) and song = 'null';"
+  },
+  {
+    "sql": "SELECT T2.director, COUNT(DISTINCT T1.`voice-actor`) FROM `voice-actors` AS T1 INNER JOIN director AS T2 ON T1.movie = T2.name GROUP BY T2.director ORDER BY COUNT(DISTINCT T1.`voice-actor`) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who directed the movie with the most voice actors?",
+    "difficulty": "",
+    "evidence": "who directed refers director;"
+  },
+  {
+    "sql": "SELECT T2.`voice-actor` FROM movies_total_gross AS T1 INNER JOIN `voice-actors` AS T2 ON T1.movie_title = T2.movie WHERE T1.release_date = 'Nov 24, 2010'",
+    "question_id": null,
+    "question": "Who are the voice actors in the movie that came out on 11/24/2010?",
+    "difficulty": "",
+    "evidence": "Came out on 11/24/2010 refers to release_date = 'Nov 24, 2010';"
+  },
+  {
+    "sql": "SELECT T2.director FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T1.song IS NOT NULL GROUP BY T2.director",
+    "question_id": null,
+    "question": "List the directors of movies that feature a song.",
+    "difficulty": "",
+    "evidence": "movies that feature a song refer to movie_title where song is not NULL;"
+  },
+  {
+    "sql": "SELECT T2.movie_title FROM `voice-actors` AS T1 INNER JOIN movies_total_gross AS T2 ON T2.movie_title = T1.movie WHERE T1.`voice-actor` = 'Jim Cummings' ORDER BY CAST(REPLACE(trim(T2.total_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What are the total grosses for the movies with Jim Cummings as the voice actor?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.movie_title FROM director AS T1 INNER JOIN movies_total_gross AS T2 ON T1.name = T2.movie_title WHERE T1.director = 'Ron Clements' ORDER BY CAST(REPLACE(trim(T2.total_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which of the movies directed by Ron Clements has the highest total gross?",
+    "difficulty": "",
+    "evidence": "Ron Clements refer to director = 'Ron Clements'; the highest total gross refers to MAX(total_gross);"
+  },
+  {
+    "sql": "SELECT SUM(CAST(REPLACE(trim(T2.total_gross, '$'), ',', '') AS REAL)) / COUNT(T2.movie_title) FROM `voice-actors` AS T1 INNER JOIN movies_total_gross AS T2 ON T1.movie = T2.movie_title WHERE T1.`voice-actor` = 'Sterling Holloway'",
+    "question_id": null,
+    "question": "What is the average total gross for the movies featuring Sterling Holloway?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(total_gross where voice-actor = 'Sterling Holloway'); COUNT(movie_title where voice-actor = 'Sterling Holloway'));"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.song IS NOT NULL THEN T2.movie_title ELSE NULL END) AS REAL) * 100 / COUNT(T2.movie_title) FROM characters AS T1 INNER JOIN movies_total_gross AS T2 ON T1.movie_title = T2.movie_title",
+    "question_id": null,
+    "question": "What proportion of the total gross of all movies is from movies with songs?",
+    "difficulty": "",
+    "evidence": "Movies with songs refer song = 'not null'; DIVIDE(SUM(total_gross where song = 'not null'), sum(total_gross)) as percentage;"
+  },
+  {
+    "sql": "SELECT movie_title, genre FROM movies_total_gross WHERE SUBSTR(release_date, LENGTH(release_date) - 3, LENGTH(release_date)) = '2016'",
+    "question_id": null,
+    "question": "List the movies and genres released in 2016.",
+    "difficulty": "",
+    "evidence": "released in 2016 refers to substr(release_date, length(release_date) - 3, length(release_date)) = '2016'; movies refer to the movie_title;"
+  },
+  {
+    "sql": "SELECT villian FROM characters WHERE movie_title = 'Little Mermaid'",
+    "question_id": null,
+    "question": "Who is the villain in Little Mermaid?",
+    "difficulty": "",
+    "evidence": "Little Mermaid refers to movie_title = 'Little Mermaid';"
+  },
+  {
+    "sql": "SELECT name FROM director WHERE director = 'Jack Kinney'",
+    "question_id": null,
+    "question": "List the movie titles directed by Jack Kinney.",
+    "difficulty": "",
+    "evidence": "Jack Kinney refers to director = 'Jack Kinney';"
+  },
+  {
+    "sql": "SELECT movie_title, CAST(REPLACE(trim(inflation_adjusted_gross, '$'), ',', '') AS REAL) / CAST(REPLACE(trim(total_gross, '$'), ',', '') AS REAL) FROM movies_total_gross ORDER BY CAST(REPLACE(trim(total_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the movie titles and the estimated inflation rate of the highest total grossed movie.",
+    "difficulty": "",
+    "evidence": "The highest grossed movie refers to MAX(total_gross); DIVIDE(inflation_adjusted_gross, total_gross) as percentage;"
+  },
+  {
+    "sql": "SELECT movie_title, release_date FROM movies_total_gross WHERE MPAA_rating = 'PG-13' AND genre = 'Romantic Comedy'",
+    "question_id": null,
+    "question": "List the PG-13 romantic comedy movie titles and their release dates.",
+    "difficulty": "",
+    "evidence": "PG-13 refers to MPAA_rating = 'PG-13'; romantic comedy refers to genre = 'Romantic Comedy';"
+  },
+  {
+    "sql": "SELECT movie, character FROM `voice-actors` WHERE 'voice-actor' = 'Bill Thompson'",
+    "question_id": null,
+    "question": "List the movie titles and character names by Bill Thompson.",
+    "difficulty": "",
+    "evidence": "Bill Thompson refers to voice-actor = 'Bill Thompson';"
+  },
+  {
+    "sql": "SELECT T1.movie_title, T1.song FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Ron Clements'",
+    "question_id": null,
+    "question": "List the movie titles and associated songs directed by Ron Clements.",
+    "difficulty": "",
+    "evidence": "Ron Clements refers director = 'Ron Clements';"
+  },
+  {
+    "sql": "SELECT T1.movie_title, T2.hero, T2.song FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title INNER JOIN director AS T3 ON T1.movie_title = T3.name WHERE T3.director = 'Wolfgang Reitherman' AND SUBSTR(T1.release_date, LENGTH(T1.release_date) - 3, LENGTH(T1.release_date)) = '1977'",
+    "question_id": null,
+    "question": "Provide the titles, main characters, and associated songs of the movies directed by Wolfgang Reitherman in 1977.",
+    "difficulty": "",
+    "evidence": "Wolfgang Reitherman refers to director = 'Wolfgang Reitherman'; 1997 refers to substr(release_date, length(release_date) - 3, length(release_date)) = '1977'; the titles refer to movie_title; main characters refer to hero;"
+  },
+  {
+    "sql": "SELECT T1.movie_title, T2.director FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T1.hero = 'Donald Duck'",
+    "question_id": null,
+    "question": "Which movies had the main character named Donald Duck and who directed them?",
+    "difficulty": "",
+    "evidence": "Donald Duck is the main character of the movie which refers to hero = 'Donald Duck'; movies refer to movie_title; who directed refers director;"
+  },
+  {
+    "sql": "SELECT T1.hero, T2.director, T1.release_date FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T1.movie_title = 'Mulan'",
+    "question_id": null,
+    "question": "Describe the hero, director, and the release date of Mulan.",
+    "difficulty": "",
+    "evidence": "Mulan refers to movie_title = 'Mulan';"
+  },
+  {
+    "sql": "SELECT T1.movie_title, T1.total_gross, T1.MPAA_rating FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title INNER JOIN director AS T3 ON T3.name = T1.movie_title WHERE T2.hero = 'Elsa'",
+    "question_id": null,
+    "question": "Provide the title, total gross, and MPAA rating of the movie which has a hero named Elsa.",
+    "difficulty": "",
+    "evidence": "Elsa is the main character of the movie which refers to hero = 'Elsa'; title refers to movie_title;"
+  },
+  {
+    "sql": "SELECT T1.movie, T3.director, T2.release_date FROM `voice-actors` AS T1 INNER JOIN characters AS T2 ON T1.movie = T2.movie_title INNER JOIN director AS T3 ON T3.name = T2.movie_title WHERE T1.`voice-actor` = 'Freddie Jones'",
+    "question_id": null,
+    "question": "Provide the title, director, and release date of the movie voice-acted by Freddie Jones.",
+    "difficulty": "",
+    "evidence": "Freddie Jones refers to voice-actor = 'Freddie Jones'; title refers to movie_title;"
+  },
+  {
+    "sql": "SELECT T1.movie_title, T1.total_gross FROM movies_total_gross AS T1 INNER JOIN `voice-actors` AS T2 ON T1.movie_title = T2.movie WHERE T2.`voice-actor` = 'Frank Welker' AND CAST(REPLACE(trim(T1.inflation_adjusted_gross, '$'), ',', '') AS REAL) * 1.0 / CAST(REPLACE(trim(T1.total_gross, '$'), ',', '') AS REAL) * 1.0 < 2",
+    "question_id": null,
+    "question": "Among Frank Welker's voice-acted movies, list the movie titles and the total gross when the estimated inflation rate was less than 2.",
+    "difficulty": "",
+    "evidence": "Frank Welker refers to voice-actor = 'Frank Welker'; estimated inflation rate was less than 2 can be computed as follows DIVIDE(inflation_adjusted_gross, total_gross) as percentage < 2;"
+  },
+  {
+    "sql": "SELECT T2.director FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name ORDER BY CAST(REPLACE(trim(T1.total_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who directed the most popular movie?",
+    "difficulty": "",
+    "evidence": "The most popular movie refers MAX(total_gross); who directed refers to director;"
+  },
+  {
+    "sql": "SELECT T1.`voice-actor`, T2.villian FROM `voice-actors` AS T1 INNER JOIN characters AS T2 ON T1.movie = T2.movie_title WHERE T2.movie_title = 'Cinderella'",
+    "question_id": null,
+    "question": "Describe the voice actors and villains in Cinderella.",
+    "difficulty": "",
+    "evidence": "Cinderella refers to movie_title = ' Cinderella';"
+  },
+  {
+    "sql": "SELECT T1.`voice-actor` FROM `voice-actors` AS T1 INNER JOIN characters AS T2 ON T1.movie = T2.movie_title WHERE T2.movie_title = 'Lion King' AND T1.character = 'Lion King'",
+    "question_id": null,
+    "question": "Who is the voice actor of the hero in Lion King?",
+    "difficulty": "",
+    "evidence": "Lion King refers to movie_title = 'Lion King';"
+  },
+  {
+    "sql": "SELECT T2.director, T1.MPAA_rating FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T1.genre = 'Musical' AND SUBSTR(T1.release_date, LENGTH(T1.release_date) - 3, LENGTH(T1.release_date)) = '1993'",
+    "question_id": null,
+    "question": "Provide the directors and MPAA ratings of the musical movies released in 1993.",
+    "difficulty": "",
+    "evidence": "Musical movies refer to genre = 'Musical'; released in 1993 refers to substr(release_date, length(release_date) - 3, length(release_date)) = '1993';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.genre = 'Comedy' THEN T1.movie_title ELSE NULL END) AS REAL) * 100 / COUNT(T1.movie_title), group_concat(T1.movie_title), group_concat(T2.director) FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE SUBSTR(T1.release_date, LENGTH(T1.release_date) - 3, LENGTH(T1.release_date)) BETWEEN '1991' AND '2000'",
+    "question_id": null,
+    "question": "Among the movies released from 1991 to 2000, calculate the percentage of comedy movies. Provide any five movie titles and directors.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(movie_title where genre = 'Comedy'), COUNT(movie_title)) as percentage where substr(release_date, length(release_date) - 3, length(release_date)) between '1991' and '2000';"
+  },
+  {
+    "sql": "SELECT T2.name, T2.director FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE SUBSTR(T1.release_date, LENGTH(T1.release_date) - 3, LENGTH(T1.release_date)) BETWEEN '2001' AND '2005' AND CAST(REPLACE(trim(T1.total_gross, '$'), ',', '') AS REAL) / ( SELECT SUM(CAST(REPLACE(trim(T3.total_gross, '$'), ',', '') AS REAL)) / COUNT(T3.movie_title) AS avg_gross FROM movies_total_gross AS T3 INNER JOIN director AS T4 ON T3.movie_title = T4.name WHERE SUBSTR(T3.release_date, LENGTH(T3.release_date) - 3, LENGTH(T3.release_date)) BETWEEN '2001' AND '2005' ) - 1 > 1",
+    "question_id": null,
+    "question": "Among the movies released from 2001 to 2005, list down the titles and directors of the movies which had a total gross of more than 100% above the average.",
+    "difficulty": "",
+    "evidence": "Released from 2001 to 2005 refers to substr(release_date, length(release_date) - 3, length(release_date)) between '2001' and '2005'; DIVIDE(SUM(total_gross), COUNT(movie_title));"
+  },
+  {
+    "sql": "SELECT `voice-actor` FROM `voice-actors` WHERE movie = 'Hercules' AND character = 'Calliope'",
+    "question_id": null,
+    "question": "Name the voice actor of the character Calliope in the movie Hercules.",
+    "difficulty": "",
+    "evidence": "Hercules refers to movie = 'Hercules';"
+  },
+  {
+    "sql": "SELECT COUNT('voice-actor') FROM `voice-actors` WHERE movie = 'Aladdin'",
+    "question_id": null,
+    "question": "How many voice actors for the movie Aladdin?",
+    "difficulty": "",
+    "evidence": "Aladdin is the name of the movie which refers to movie = 'Aladdin';"
+  },
+  {
+    "sql": "SELECT movie FROM `voice-actors` WHERE 'voice-actor' = 'Jeff Bennett'",
+    "question_id": null,
+    "question": "List the movie titles with the voice actor Jeff Bennet",
+    "difficulty": "",
+    "evidence": "Jeff Bennett refers to voice-actor = 'Jeff Bennett';"
+  },
+  {
+    "sql": "SELECT director FROM director WHERE name = 'Wreck-It Ralph'",
+    "question_id": null,
+    "question": "Provide the director's name of Wreck-It Ralph movie.",
+    "difficulty": "",
+    "evidence": "Wreck-It Ralph is the name of the movies which refers to name = 'Wreck-It Ralph';"
+  },
+  {
+    "sql": "SELECT name FROM director WHERE director = 'Jack Kinney'",
+    "question_id": null,
+    "question": "What movies did director Jack Kinney direct?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT COUNT(movie_title) FROM characters WHERE SUBSTR(release_date, LENGTH(release_date) - 1, LENGTH(release_date)) BETWEEN '37' AND '50'",
+    "question_id": null,
+    "question": "How many movies were released between 1937 and 1950?",
+    "difficulty": "",
+    "evidence": "released between 1937 and 1950 refers to substr(release_date, length(release_date) - 1,length(release_date)) between '37' and '50';"
+  },
+  {
+    "sql": "SELECT T1.song FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Ben Sharpsteen'",
+    "question_id": null,
+    "question": "Provide the name of the song from the movie directed by Ben Sharpsteen.",
+    "difficulty": "",
+    "evidence": "Ben Sharpsteen refers to director = 'Ben Sharpsteen';"
+  },
+  {
+    "sql": "SELECT T1.release_date FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Roger Allers' AND T1.movie_title = 'The Lion King'",
+    "question_id": null,
+    "question": "Indicate the release date of the film The Lion King directed by Roger Allers.",
+    "difficulty": "",
+    "evidence": "The Lion King refers to movie_title = 'The Lion King'; Roger Allers refers to director = 'Roger Allers';"
+  },
+  {
+    "sql": "SELECT T1.villian FROM characters AS T1 INNER JOIN `voice-actors` AS T2 ON T1.movie_title = T2.movie WHERE T2.`voice-actor` = 'Scott Weinger Brad Kane'",
+    "question_id": null,
+    "question": "Name the villain of the movie with Scott Weinger and Brad Kane as voice actors.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T1.movie_title FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Wolfgang Reitherman' AND T1.villian IS NULL",
+    "question_id": null,
+    "question": "Which movies of director Wolfgang Reitherman do not have villain?",
+    "difficulty": "",
+    "evidence": "which movies do not have villain refer to movie_title where villian is null;"
+  },
+  {
+    "sql": "SELECT T1.movie_title FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Jack Kinney' AND SUBSTR(T1.release_date, LENGTH(T1.release_date) - 1, LENGTH(T1.release_date)) < '47'",
+    "question_id": null,
+    "question": "List the titles of movies directed by Jack Kinney that were released before 1947.",
+    "difficulty": "",
+    "evidence": "Jack Kinney refers to director = 'Jack Kinney'; released before 1947 refers to substr(release_date, length(release_date) - 1, length(release_date)) < '47';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.director FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name INNER JOIN movies_total_gross AS T3 ON T1.movie_title = T3.movie_title WHERE CAST(REPLACE(trim(T3.total_gross, '$'), ',', '') AS REAL) > 100000000",
+    "question_id": null,
+    "question": "List the names of the directors whose films grossed over $100 million.",
+    "difficulty": "",
+    "evidence": "films grossed over $100 million refer to movie_title where total_gross > 100000000;"
+  },
+  {
+    "sql": "SELECT T2.song FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title ORDER BY CAST(REPLACE(trim(T1.total_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which movie's song title has the highest total gross?",
+    "difficulty": "",
+    "evidence": "The highest total gross refers to MAX(total_gross);"
+  },
+  {
+    "sql": "SELECT T2.director FROM characters AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name INNER JOIN movies_total_gross AS T3 ON T3.movie_title = T1.movie_title WHERE SUBSTR(T3.release_date, LENGTH(T3.release_date) - 3, LENGTH(T3.release_date)) BETWEEN '1937' AND '1990' ORDER BY CAST(REPLACE(trim(T3.total_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which director had the most popular film from 1937 to 1990?",
+    "difficulty": "",
+    "evidence": "from 1937 to 1990 refers to substr(release_date, length(release_date) - 3, length(release_date)) between '1937' and '1990'; the most popular film refers to movie_title where MAX(total_gross);"
+  },
+  {
+    "sql": "SELECT T2.hero FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title WHERE T1.genre = 'Comedy'",
+    "question_id": null,
+    "question": "List all the main characters of the movie that are comedy genre.",
+    "difficulty": "",
+    "evidence": "Comedy refers to genre = 'Comedy'; the main character of the movie refers to hero;"
+  },
+  {
+    "sql": "SELECT T2.hero, T1.`voice-actor` FROM `voice-actors` AS T1 INNER JOIN characters AS T2 ON T1.movie = T2.movie_title INNER JOIN director AS T3 ON T3.name = T2.movie_title WHERE T3.director = 'Wolfgang Reitherman'",
+    "question_id": null,
+    "question": "Provide the names of voice actors for the characters of films directed by Wolfgang Reitherman.",
+    "difficulty": "",
+    "evidence": "Wolfgang Reitherman refers to director = 'Wolfgang Reitherman';"
+  },
+  {
+    "sql": "SELECT T1.genre FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title WHERE T2.hero = 'Taran'",
+    "question_id": null,
+    "question": "What genre of movie has Taran as the main character?",
+    "difficulty": "",
+    "evidence": "Taran is the main character of the movie which refers to hero = 'Taran';"
+  },
+  {
+    "sql": "SELECT T1.`voice-actor`, T3.director FROM `voice-actors` AS T1 INNER JOIN characters AS T2 ON T1.movie = T2.movie_title INNER JOIN director AS T3 ON T2.movie_title = T3.name WHERE T2.hero = 'Elsa'",
+    "question_id": null,
+    "question": "The main character Elsa is voiced by which actor and who is the director of the movie?",
+    "difficulty": "",
+    "evidence": "Elsa is the main character of the movie which refers to hero = 'Elsa'; voiced by which actor refers to voice-actor;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(DISTINCT CASE WHEN CAST(REPLACE(trim(T1.total_gross, '$'), ',', '') AS REAL) > 100000000 THEN T3.director ELSE NULL END) AS REAL) * 100 / COUNT(DISTINCT T3.director) FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title INNER JOIN director AS T3 ON T1.movie_title = T3.name",
+    "question_id": null,
+    "question": "Calculate the percentage of directors whose films grossed over $100 million.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(director where total_gross > 100000000), COUNT(director)) as percentage;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.genre = 'Drama' THEN T3.`voice-actor` ELSE NULL END) AS REAL) * 100 / COUNT(T3.`voice-actor`) FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title INNER JOIN `voice-actors` AS T3 ON T3.movie = T1.movie_title",
+    "question_id": null,
+    "question": "Calculate the percentage of voice actors whose main character in the movie is in the Drama genre.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(voice-actor where genre = 'Drama'), COUNT(voice-actor)) as percentage;"
+  },
+  {
+    "sql": "SELECT movie_title FROM characters ORDER BY SUBSTR(release_date, LENGTH(release_date) - 1, LENGTH(release_date)) ASC LIMIT 1",
+    "question_id": null,
+    "question": "Name the first movie released by Disney.",
+    "difficulty": "",
+    "evidence": "The first movie released refers to movie_title where substr(release_date, length(release_date) - 1, length(release_date)) asc limit 1;"
+  },
+  {
+    "sql": "SELECT COUNT(movie_title) FROM characters WHERE SUBSTR(release_date, LENGTH(release_date) - 1, LENGTH(release_date)) BETWEEN '10' AND '16'",
+    "question_id": null,
+    "question": "How many movies were released by Disney between 2010 and 2016?",
+    "difficulty": "",
+    "evidence": "Movies refer to movie_title; released between 2010 and 2016 refers to substr(release_date, length(release_date) - 1, length(release_date)) between '10' and '16';"
+  },
+  {
+    "sql": "SELECT villian FROM characters ORDER BY SUBSTR(release_date, LENGTH(release_date) - 1, LENGTH(release_date)) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who was the first ever Disney villain?",
+    "difficulty": "",
+    "evidence": "the first ever villian is villian that was released before all others in time which refers to substr(release_date, length(release_date) - 1, length(release_date)) desc limit 1;"
+  },
+  {
+    "sql": "SELECT movie_title FROM movies_total_gross WHERE genre = 'Action' ORDER BY CAST(REPLACE(trim(total_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is Disney's highest grossing action movie?",
+    "difficulty": "",
+    "evidence": "action movie refers to movie_title where genre = 'Action'; highest grossing movie refers to MAX(total_gross)"
+  },
+  {
+    "sql": "SELECT `voice-actor` FROM `voice-actors` WHERE character = 'Akela'",
+    "question_id": null,
+    "question": "Which actor voices Akela from The Jungle Book?",
+    "difficulty": "",
+    "evidence": "Akela refers character = 'Akela'; which actor voices refers to voice-actor;"
+  },
+  {
+    "sql": "SELECT SUM(Total) FROM revenue WHERE `Year` BETWEEN 2010 AND 2016",
+    "question_id": null,
+    "question": "Determine Disney's total box office gross between 2010 and 2016.",
+    "difficulty": "",
+    "evidence": "between 2010 and 2016 refers to Year between 2010 and 2016;"
+  },
+  {
+    "sql": "SELECT T2.hero FROM movies_total_gross AS T1 INNER JOIN characters AS T2 ON T1.movie_title = T2.movie_title WHERE T1.genre = 'Adventure' ORDER BY CAST(REPLACE(trim(T1.inflation_adjusted_gross, '$'), ',', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the main character of Disney's most popular adventure movie based on its inflation-adjusted gross.",
+    "difficulty": "",
+    "evidence": "adventure movie refers to genre = 'Adventure'; the main character of the movie refers to hero; most popular movie based on its inflation-adjusted gross refers to where MAX(inflation_adjusted_gross);"
+  },
+  {
+    "sql": "SELECT T2.director FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name ORDER BY CAST(REPLACE(trim(T1.total_gross, '$'), ',', '') AS REAL) ASC LIMIT 1",
+    "question_id": null,
+    "question": "Name the director of Disney's lowest grossing movie.",
+    "difficulty": "",
+    "evidence": "lowest grossing movie refers to movie_title where MIN(total_gross);"
+  },
+  {
+    "sql": "SELECT SUM(`Walt Disney Parks and Resorts`) / SUM(Total) * 100 FROM revenue WHERE year = 2010",
+    "question_id": null,
+    "question": "Find out what proportion of total revenue Walt Disney Parks and Resorts received in 2010.",
+    "difficulty": "",
+    "evidence": "DIVIDE(Walt Disney Parks and Resorts where year = 2010), SUM(year = 2010) as percentage;"
+  },
+  {
+    "sql": "SELECT SUM(CAST(REPLACE(trim(total_gross, '$'), ',', '') AS REAL)) / COUNT(movie_title) FROM movies_total_gross WHERE MPAA_rating = 'PG-13'",
+    "question_id": null,
+    "question": "Determine the average gross for Disney's PG-13-rated action movies.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(total_gross where genre = 'Action' and MPAA_rating = 'PG-13'), COUNT(movie_title where genre = 'Action' and MPAA_rating = 'PG-13'));"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT 'voice-actor') FROM `voice-actors` WHERE movie = 'Bambi'",
+    "question_id": null,
+    "question": "How many voice-actors were involved in the Bambi movie?",
+    "difficulty": "",
+    "evidence": "Bambi is the name of the movie which refers to movie = 'Bambi';"
+  },
+  {
+    "sql": "SELECT SUM(CAST(REPLACE(trim(inflation_adjusted_gross, '$'), ',', '') AS REAL)) / SUM(CAST(REPLACE(trim(total_gross, '$'), ',', '') AS REAL)) FROM movies_total_gross WHERE SUBSTR(release_date, LENGTH(release_date) - 3, LENGTH(release_date)) = '1995' GROUP BY SUBSTR(release_date, LENGTH(release_date) - 3, LENGTH(release_date)) = '1995'",
+    "question_id": null,
+    "question": "Find the estimated inflation rate that was used to adjust the 1995 box office revenue for Disney's films.",
+    "difficulty": "",
+    "evidence": "DIVIDE(inflation_adjusted_gross, total_gross) as percentage where substr(release_date, length(release_date) - 3, length(release_date)) = '1995';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN movie_title = 'Cars' THEN CAST(REPLACE(trim(inflation_adjusted_gross, '$'), ',', '') AS REAL) ELSE 0 END), SUM(CASE WHEN movie_title = 'Cars 2' THEN CAST(REPLACE(trim(inflation_adjusted_gross, '$'), ',', '') AS REAL) ELSE 0 END) FROM movies_total_gross",
+    "question_id": null,
+    "question": "What is the difference in the current gross of Cars and its sequel, Cars 2? Which movie is more popular?",
+    "difficulty": "",
+    "evidence": "SUBTRACT(inflation_adjusted_gross where movie_title = 'Cars', inflation_adjusted_gross where movie_title = 'Cars 2'); more popular movie refers to movie_title where MAX(inflation_adjusted_gross);"
+  },
+  {
+    "sql": "SELECT T1.movie_title, MAX(T1.release_date), MAX(T1.inflation_adjusted_gross) FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Chris Buck'",
+    "question_id": null,
+    "question": "Name the most recent movie directed by Chris Buck. Which of his movies was more successful in terms of grossing? Use the current gross for comparison.",
+    "difficulty": "",
+    "evidence": "Chris Buck refers to director = 'Chris Buck'; the most recent movie refers to movie_title where MAX(release_date); current gross refers to inflation_adjusted_gross; more successful movie refers to MAX(inflation_adjusted_gross);"
+  },
+  {
+    "sql": "SELECT 'voice-actor' FROM `voice-actors` GROUP BY 'voice-actor' HAVING COUNT(movie) > 5",
+    "question_id": null,
+    "question": "Name actors who voiced more than five Disney characters.",
+    "difficulty": "",
+    "evidence": "Actors who voiced refer to voice-actor;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN CAST(REPLACE(trim(inflation_adjusted_gross, '$'), ',', '') AS REAL) > 1236035515 THEN CAST(REPLACE(trim(inflation_adjusted_gross, '$'), ',', '') AS REAL) ELSE 0 END) * 100 / SUM(CAST(REPLACE(trim(inflation_adjusted_gross, '$'), ',', '') AS REAL)) FROM movies_total_gross",
+    "question_id": null,
+    "question": "Name the top 5 highest-grossing Disney movies adjusted for inflation. Identify the percentage they contributed to the total of Disney's current gross.",
+    "difficulty": "",
+    "evidence": "The top 5 highest-grossing movies adjusted for inflation refer to MAX(inflation_adjusted_gross)LIMIT 5; DIVIDE(SUM(MAX(inflation_adjusted_gross LIMIT 5)), SUM(inflation_adjusted_gross)) as percentage;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN CAST(REPLACE(trim(T1.total_gross, '$'), ',', '') AS REAL) > 100000000 THEN T1.movie_title ELSE NULL END) AS REAL) * 100 / COUNT(T1.movie_title) FROM movies_total_gross AS T1 INNER JOIN director AS T2 ON T1.movie_title = T2.name WHERE T2.director = 'Gary Trousdale'",
+    "question_id": null,
+    "question": "Among all Disney movies directed by Gary Trousdale, determine the percentage that earned over USD100m based on actual grossing.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(movie_title where director = 'Gary Trousdale' and total_gross > 100000000), COUNT(movie_title where director = 'Gary Trousdale')) as percentage;"
+  }
+]

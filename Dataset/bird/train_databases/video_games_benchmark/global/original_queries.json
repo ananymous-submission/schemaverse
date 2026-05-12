@@ -1,0 +1,1409 @@
+[
+  {
+    "sql": "SELECT (SUM(CASE WHEN T.game_platform_id = 50 THEN T.num_sales ELSE 0 END) - SUM(CASE WHEN T.game_platform_id = 51 THEN T.num_sales ELSE 0 END)) * 100000 AS nums FROM region_sales AS T WHERE T.region_id = 1",
+    "question_id": null,
+    "question": "How many more games were sold on game platform ID 50 than on game platform ID 51 in region ID 1?",
+    "difficulty": "",
+    "evidence": "result = subtract(sum(num_sales where game_platform_id = 50), sum(num_sales where game_platform_id = 51))"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 WHERE T1.genre_id = ( SELECT T.genre_id FROM game AS T WHERE T.game_name = '3D Lemmings' )",
+    "question_id": null,
+    "question": "Please list all the games that have the same game genre as 3D Lemmings.",
+    "difficulty": "",
+    "evidence": "game refers to game_name; 3D Lemmings refers to game_name = '3D Lemmings'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Action'",
+    "question_id": null,
+    "question": "How many action games are there in total?",
+    "difficulty": "",
+    "evidence": "action game refers to genre_name = 'Action'"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name = '3D Lemmings'",
+    "question_id": null,
+    "question": "What is the genre of 3D Lemmings?",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; 3D Lemmings refers to game_name = '3D Lemmings'"
+  },
+  {
+    "sql": "SELECT T3.publisher_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id WHERE T1.game_name = '3D Lemmings'",
+    "question_id": null,
+    "question": "Who is the publisher of 3D Lemmings?",
+    "difficulty": "",
+    "evidence": "publisher refers to publisher_name; 3D Lemmings refers to game_name = '3D Lemmings'"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id WHERE T3.publisher_name = '10TACLE Studios'",
+    "question_id": null,
+    "question": "Please list the names of all the games published by 10TACLE Studios.",
+    "difficulty": "",
+    "evidence": "name refers to game_name; published by 10TACLE Studios refers to publisher_name = '10TACLE Studios'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id INNER JOIN genre AS T4 ON T1.genre_id = T4.id WHERE T4.genre_name = 'Puzzle' AND T3.publisher_name = '10TACLE Studios'",
+    "question_id": null,
+    "question": "Among the games published by 10TACLE Studios, how many of them are puzzles?",
+    "difficulty": "",
+    "evidence": "published by 10TACLE Studios refers to publisher_name = '10TACLE Studios'; puzzle refers to genre_name = 'Puzzle'"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id INNER JOIN genre AS T4 ON T1.genre_id = T4.id WHERE T3.publisher_name = '10TACLE Studios' AND T4.genre_name = 'Puzzle'",
+    "question_id": null,
+    "question": "Please list the names of all the games published by 10TACLE Studios and are puzzles.",
+    "difficulty": "",
+    "evidence": "name refers to game_name; published by 10TACLE Studios refers to publisher_name = '10TACLE Studios'; puzzle refers to genre_name = 'Puzzle'"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T2.publisher_name, COUNT(DISTINCT T2.id) FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id GROUP BY T1.publisher_id ORDER BY COUNT(T2.id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which publisher has published the most games?",
+    "difficulty": "",
+    "evidence": "publisher refers to publisher_name; the most games refers to max(count(game_id))"
+  },
+  {
+    "sql": "SELECT T5.platform_name FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN game AS T3 ON T1.game_id = T3.id INNER JOIN game_platform AS T4 ON T1.id = T4.game_publisher_id INNER JOIN platform AS T5 ON T4.platform_id = T5.id WHERE T3.game_name = 'Panzer Tactics' AND T4.release_year = 2007",
+    "question_id": null,
+    "question": "On which platform was Panzer Tactics released in 2007?",
+    "difficulty": "",
+    "evidence": "platform refers to platform_name; Panzer Tactics refers to game_name = 'Panzer Tactics'; released in 2007 refers to release_year = 2007"
+  },
+  {
+    "sql": "SELECT T4.release_year FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN game AS T3 ON T1.game_id = T3.id INNER JOIN game_platform AS T4 ON T1.id = T4.game_publisher_id INNER JOIN platform AS T5 ON T4.platform_id = T5.id WHERE T3.game_name = 'Panzer Tactics' AND T5.platform_name = 'DS'",
+    "question_id": null,
+    "question": "In which year was Panzer Tactics released on DS?",
+    "difficulty": "",
+    "evidence": "year refers to release_year; Panzer Tactics refers to game_name = 'Panzer Tactics'; on DS refers to platform_name = 'DS'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.publisher_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id INNER JOIN genre AS T4 ON T1.genre_id = T4.id WHERE T4.genre_name = 'Puzzle'",
+    "question_id": null,
+    "question": "Please list the names of the publishers of all the puzzle games.",
+    "difficulty": "",
+    "evidence": "name of publisher refers to publisher_name; puzzle refers to genre_name = 'Puzzle'"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T3.publisher_name, COUNT(DISTINCT T1.id) FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id INNER JOIN genre AS T4 ON T1.genre_id = T4.id WHERE T4.genre_name = 'Puzzle' GROUP BY T3.publisher_name ORDER BY COUNT(DISTINCT T1.id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "What is the name of the publisher that has published the most puzzle games?",
+    "difficulty": "",
+    "evidence": "name of publisher refers to publisher_name; puzzle refers to genre_name = 'Puzzle'; the most puzzle games refers to max(count(game_id where genre_name = 'Puzzle'))"
+  },
+  {
+    "sql": "SELECT COUNT(T.publisher_name) FROM ( SELECT T3.publisher_name, COUNT(DISTINCT T1.id) FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id INNER JOIN genre AS T4 ON T1.genre_id = T4.id WHERE T4.genre_name = 'Puzzle' GROUP BY T3.publisher_name HAVING COUNT(DISTINCT T1.id) > 3 ) t",
+    "question_id": null,
+    "question": "How many publishers have published more than 3 puzzle games?",
+    "difficulty": "",
+    "evidence": "puzzle refers to genre_name = 'Puzzle'; more than 3 puzzle games refers to count(game_id where genre_name = 'Puzzle') > 3"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T4.genre_name = 'Sports' THEN T1.id ELSE NULL END) AS REAL) * 100/ COUNT(T1.id) FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id INNER JOIN genre AS T4 ON T1.genre_id = T4.id WHERE T3.publisher_name = 'Nintendo'",
+    "question_id": null,
+    "question": "Among the games published by Nintendo, what is the percentage of those in the genre of sports?",
+    "difficulty": "",
+    "evidence": "published by Nintendo refers to publisher_name = 'Nintendo'; in the genre of sports refers to genre_name = 'Sports'; percentage = divide(count(game_id where genre_name = 'Sports'), count(game_id)) * 100% where publisher_name = 'Nintendo'"
+  },
+  {
+    "sql": "SELECT SUM(T1.num_sales) * 100000 / 4 FROM region_sales AS T1 INNER JOIN game_platform AS T2 ON T1.game_platform_id = T2.id INNER JOIN platform AS T3 ON T2.platform_id = T3.id WHERE T3.platform_name = 'DS'",
+    "question_id": null,
+    "question": "How many games were sold on the DS platform on average in the 4 different regions?",
+    "difficulty": "",
+    "evidence": "on the DS platform refers to platform_name = 'DS'; number of games sold on average = divide(sum(multiply(num_sales, 100000)), 4) where platform_name = 'DS'"
+  },
+  {
+    "sql": "SELECT DISTINCT T.game_id FROM game_publisher AS T WHERE T.publisher_id = 352",
+    "question_id": null,
+    "question": "Tell the number of games whose publisher id is 352.",
+    "difficulty": "",
+    "evidence": "number of games refers to count(game_id)"
+  },
+  {
+    "sql": "SELECT T.genre_id FROM game AS T WHERE T.game_name = 'Pro Evolution Soccer 2012'",
+    "question_id": null,
+    "question": "List the genre id of the game Pro Evolution Soccer 2012.",
+    "difficulty": "",
+    "evidence": "Pro Evolution Soccer 2012 refers to game_name = 'Pro Evolution Soccer 2012'"
+  },
+  {
+    "sql": "SELECT T.id FROM region AS T WHERE T.region_name = 'Japan'",
+    "question_id": null,
+    "question": "State the region id of Japan.",
+    "difficulty": "",
+    "evidence": "region id refers to region.id; Japan refers to region_name = 'Japan'"
+  },
+  {
+    "sql": "SELECT T1.game_platform_id FROM ( SELECT T.game_platform_id, SUM(T.num_sales) FROM region_sales AS T WHERE T.region_id = 2 GROUP BY T.game_platform_id ORDER BY SUM(T.num_sales) DESC LIMIT 1 ) T1",
+    "question_id": null,
+    "question": "Show the id of the game platform with the most sales in region 2.",
+    "difficulty": "",
+    "evidence": "id of the game platform refers to game_platform_id; the most sales refers to max(num_sales); region 2 refers to region_id = '2'"
+  },
+  {
+    "sql": "SELECT genre_id FROM ( SELECT T.genre_id, COUNT(T.id) FROM game AS T GROUP BY T.genre_id ORDER BY COUNT(T.id) DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "Which genre has the most games? Show its id.",
+    "difficulty": "",
+    "evidence": "the most games refers to max(game_id); genre id refers to genre_id"
+  },
+  {
+    "sql": "SELECT T.genre_id FROM game AS T WHERE T.game_name = 'Resident Evil Archives: Resident Evil'",
+    "question_id": null,
+    "question": "What is the id of the game \"Resident Evil Archives: Resident Evil\"?",
+    "difficulty": "",
+    "evidence": "id of game refers to game.id; \"Resident Evil Archives: Resident Evil\" refers to game_name = 'Resident Evil Archives: Resident Evil'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.game_id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id WHERE T1.platform_name = 'X360' AND T2.release_year = 2010",
+    "question_id": null,
+    "question": "Show the number of games which were released on X360 in 2010.",
+    "difficulty": "",
+    "evidence": "on X360 refers to platform_name = 'X360'; in 2010 refers to release_year = '2010'"
+  },
+  {
+    "sql": "SELECT T1.publisher_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T3.game_name = 'ModNation Racers'",
+    "question_id": null,
+    "question": "State the publisher name of the game \"ModNation Racers\".",
+    "difficulty": "",
+    "evidence": "game \"ModNation Racers\" refers to game_name = 'ModNation Racers'"
+  },
+  {
+    "sql": "SELECT T.game_platform_id FROM ( SELECT T2.game_platform_id, MAX(T2.num_sales) FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T1.region_name = 'Japan' ) t",
+    "question_id": null,
+    "question": "Show the id of game platform which makes the most sales in Japan.",
+    "difficulty": "",
+    "evidence": "id of game platform refers to game_platform_id; the most sales refers to max(num_sales); in Japan refers to region_name = 'Japan'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.id) FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id INNER JOIN game_publisher AS T3 ON T1.game_publisher_id = T3.id INNER JOIN game AS T4 ON T3.game_id = T4.id WHERE T4.game_name = 'Pro Evolution Soccer 2016'",
+    "question_id": null,
+    "question": "How many platforms are available for the game Pro Evolution Soccer 2016?",
+    "difficulty": "",
+    "evidence": "game Pro Evolution Soccer 2016 refers to game_name = 'Pro Evolution Soccer 2016'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Sports'",
+    "question_id": null,
+    "question": "How many games in the database belong to the genre of sports?",
+    "difficulty": "",
+    "evidence": "the genre of sports refers to genre_name = 'Sports'"
+  },
+  {
+    "sql": "SELECT T2.publisher_name FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T1.game_id = 10031",
+    "question_id": null,
+    "question": "Name of the publisher of the game id 10031.",
+    "difficulty": "",
+    "evidence": "name of publisher refers to publisher_name; the game id 10031 refers to game_id = '10031'"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T2.publisher_name, COUNT(DISTINCT T1.game_id) FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id GROUP BY T2.publisher_name ORDER BY COUNT(DISTINCT T1.game_id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "State the name of the publisher with the most games.",
+    "difficulty": "",
+    "evidence": "name of publisher refers to publisher_name; the most games refers to max(game_id)"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T1.genre_name = 'Sports' THEN T2.id ELSE NULL END) - COUNT(CASE WHEN T1.genre_name = 'Simulation' THEN T2.id ELSE NULL END) FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id",
+    "question_id": null,
+    "question": "How many more sports games than simulation games?",
+    "difficulty": "",
+    "evidence": "sports game refers to genre_name = 'Sports'; simulation game refers to genre_name = 'Simulation'; how many more = subtract(sum(game_id where genre_name = 'Sports'), sum(game_id where genre_name = 'Simulation'))"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name = 'Resident Evil: Revelations'",
+    "question_id": null,
+    "question": "Tell the genre of the game \"Resident Evil: Revelations\".",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; game \"Resident Evil: Revelations\" refers to game_name = 'Resident Evil: Revelations'"
+  },
+  {
+    "sql": "SELECT T2.num_sales * 100000 FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T1.region_name = 'Europe' AND T2.game_platform_id = 3871",
+    "question_id": null,
+    "question": "How many sales does game platform id 3871 make in Europe?",
+    "difficulty": "",
+    "evidence": "number of sales = multiply(num_sales, 100000); in Europe refers to region_name = 'Europe'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.game_id) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id WHERE T1.publisher_name = 'Ascaron Entertainment GmbH'",
+    "question_id": null,
+    "question": "Give the number of games which were published by Ascaron Entertainment GmbH.",
+    "difficulty": "",
+    "evidence": "published by Ascaron Entertainment GmbH refers to publisher_name = 'Ascaron Entertainment GmbH'"
+  },
+  {
+    "sql": "SELECT T2.platform_name FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id ORDER BY T1.release_year ASC LIMIT 1",
+    "question_id": null,
+    "question": "Show the name of the earliest platform in the database.",
+    "difficulty": "",
+    "evidence": "the earliest refers to min(release_year); name of platform refers to platform_name"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T4.genre_name = 'Adventure' THEN T1.id ELSE NULL END) AS REAL) * 100 / COUNT(T1.id) FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id INNER JOIN genre AS T4 ON T1.genre_id = T4.id WHERE T3.publisher_name = 'Namco Bandai Games'",
+    "question_id": null,
+    "question": "For all the games which were published by Namco Bandai Games, what percentage of them were adventure games?",
+    "difficulty": "",
+    "evidence": "published by Namco Bandai Games refers to publisher_name = 'Namco Bandai Games'; adventure game refers to genre_name = 'Adventure'; percentage = divide(sum(game_id where genre_name = 'Adventure'), count(game_id)) * 100% where publisher_name = 'Namco Bandai Games'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.publisher_name = 'Atari' THEN T2.game_id ELSE NULL END) AS REAL) / COUNT(CASE WHEN T1.publisher_name = 'Athena' THEN T2.game_id ELSE NULL END) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id",
+    "question_id": null,
+    "question": "How many times more is the number of games which were published by Atari than Athena?",
+    "difficulty": "",
+    "evidence": "published by Atari refers to publisher_name = 'Atari'; published by\u00a0 Athena refers to publisher_name = 'Athena'; times = divide(sum(publisher_id where publisher_name = 'Atari'), sum(publisher_id where publisher_name = 'Athena'))"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.game_id) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id WHERE T1.publisher_name = 'Electronic Arts'",
+    "question_id": null,
+    "question": "How many games did Electronic Arts publish?",
+    "difficulty": "",
+    "evidence": "Electronic Arts refers to publisher_name = 'Electronic Arts'"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name = 'Advent Rising'",
+    "question_id": null,
+    "question": "What is the genre of the Advent Rising game?",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; Advent Rising game refers to game_name = 'Advent Rising'"
+  },
+  {
+    "sql": "SELECT COUNT(T3.id) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id INNER JOIN genre AS T4 ON T3.genre_id = T4.id WHERE T4.genre_name = 'Role-Playing' AND T1.publisher_name = 'Microsoft Game Studios'",
+    "question_id": null,
+    "question": "How many role-playing games did Microsoft Game Studios publish?",
+    "difficulty": "",
+    "evidence": "role-playing game refers to genre_name = 'Role-Playing'; Microsoft Game Studios refers to publisher_name = 'Microsoft Game Studios'"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T2.publisher_name, COUNT(DISTINCT T1.game_id) FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id GROUP BY T2.publisher_name ORDER BY COUNT(DISTINCT T1.game_id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which publisher published the most games?",
+    "difficulty": "",
+    "evidence": "publisher refers to publisher_name; the most games refers to max(count(publisher_id))"
+  },
+  {
+    "sql": "SELECT T4.platform_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T3.release_year = 2004 AND T1.publisher_name = 'Codemasters'",
+    "question_id": null,
+    "question": "In 2004, what are the names of the platforms where Codemasters publish its games?",
+    "difficulty": "",
+    "evidence": "name of platform refers to platform_name; Codemasters refers to publisher_name = 'Codemasters'; in 2004 refers to release_year = 2004"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.game_id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id WHERE T1.platform_name = 'PS4' AND T2.release_year = 2014",
+    "question_id": null,
+    "question": "How many games were released on PS4 in 2014?",
+    "difficulty": "",
+    "evidence": "on PS4 refers to platform_name = 'PS4'; in 2014 refers to release_year = 2014"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.publisher_name FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id ORDER BY T1.release_year LIMIT 1",
+    "question_id": null,
+    "question": "What are the names of the publishers who published the oldest games?",
+    "difficulty": "",
+    "evidence": "name of publisher refers to publisher_name; the oldest game refers to min(release_year)"
+  },
+  {
+    "sql": "SELECT COUNT(T3.game_publisher_id) FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T4.platform_name = 'X360' AND T3.release_year = 2011 AND T1.region_name = 'Japan'",
+    "question_id": null,
+    "question": "How many publishers in Japan released a game on X360 in 2011?",
+    "difficulty": "",
+    "evidence": "in Japan refers to region_name = 'Japan'; on X360 refers to platform_name = 'X360'; in 2011 refers to release_year = 2011"
+  },
+  {
+    "sql": "SELECT T.platform_name FROM ( SELECT T4.platform_name, SUM(T2.num_sales) FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T1.region_name = 'Europe' ORDER BY T2.num_sales DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which game platform is the most popular in Europe?",
+    "difficulty": "",
+    "evidence": "game platform refers to game_platform_id; the most popular refers to max(num_sales); in Europe refers to region_name = 'Europe'"
+  },
+  {
+    "sql": "SELECT T.release_year FROM ( SELECT T2.release_year, COUNT(DISTINCT T3.game_id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id WHERE T1.platform_name = 'PC' GROUP BY T2.release_year ORDER BY COUNT(DISTINCT T3.game_id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which year has the most number of PC games releases?",
+    "difficulty": "",
+    "evidence": "year refers to release_year; the most number of releases refers to max(count(game_id))"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T2.publisher_name, COUNT(DISTINCT T1.game_id) FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id GROUP BY T2.publisher_name HAVING COUNT(DISTINCT T1.game_id) = 1 ) t",
+    "question_id": null,
+    "question": "List the names of all the publishers who published one game only.",
+    "difficulty": "",
+    "evidence": "name of publisher refers to publisher_name; published one game only refers to count(publisher_id) = 1"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T1.publisher_name = '505 Games'",
+    "question_id": null,
+    "question": "What are the names of the games that were published by 505 Games?",
+    "difficulty": "",
+    "evidence": "name of game refers to game_name; published by 505 Games refers to publisher_name = '505 Games'"
+  },
+  {
+    "sql": "SELECT T.genre_id FROM game AS T WHERE T.game_name = '25 to Life'",
+    "question_id": null,
+    "question": "What is the genre ID of the game named 25 to Life?",
+    "difficulty": "",
+    "evidence": "the game named 25 to Life refers to game_name = '25 to Life'"
+  },
+  {
+    "sql": "SELECT T.id FROM game AS T WHERE T.genre_id = 2",
+    "question_id": null,
+    "question": "List down the game ID of games with genre ID 2.",
+    "difficulty": "",
+    "evidence": "game ID refers to game.id; genre ID 2 refers to genre_id = 2"
+  },
+  {
+    "sql": "SELECT T.release_year FROM game_platform AS T WHERE T.id BETWEEN 1 AND 10",
+    "question_id": null,
+    "question": "Provide the release year of record ID 1 to 10.",
+    "difficulty": "",
+    "evidence": "record ID 1 to 10 refers to game.id BETWEEN 1 AND 10"
+  },
+  {
+    "sql": "SELECT T.game_publisher_id FROM game_platform AS T WHERE T.platform_id = 15",
+    "question_id": null,
+    "question": "Give the game publisher ID of records with platform ID 15.",
+    "difficulty": "",
+    "evidence": "platform ID 15 refers to platform_id = 15"
+  },
+  {
+    "sql": "SELECT T.id FROM game_platform AS T WHERE T.release_year BETWEEN 2000 AND 2003",
+    "question_id": null,
+    "question": "List down the record ID of records released between 2000 to 2003.",
+    "difficulty": "",
+    "evidence": "record ID refers to game.id; released between 2000 to 2003 refers to release_year BETWEEN 2000 AND 2003"
+  },
+  {
+    "sql": "SELECT T.num_sales * 100000 FROM region_sales AS T WHERE T.region_id = 2 AND T.game_platform_id = 9615",
+    "question_id": null,
+    "question": "What is the number of sales in region ID 2 with game platform ID 9615?",
+    "difficulty": "",
+    "evidence": "number of sales refers to multiply(num_sales, 100000)"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.platform_name FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id WHERE T2.release_year = 2016",
+    "question_id": null,
+    "question": "List down the names of platform where the games released in 2016 can be played on.",
+    "difficulty": "",
+    "evidence": "name of platform refers to platform_name; released in 2016 refers to release_year = 2016"
+  },
+  {
+    "sql": "SELECT T1.release_year FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T3.game_name = '3DS Classic Collection'",
+    "question_id": null,
+    "question": "When was the game titled 3DS Classic Collection released?",
+    "difficulty": "",
+    "evidence": "when refers to release_year; the game titled 3DS Classic Collection refers to game_name = '3DS Classic Collection'"
+  },
+  {
+    "sql": "SELECT AVG(T2.num_sales) * 100000 AS avg_japan FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T1.region_name = 'Japan'",
+    "question_id": null,
+    "question": "What is the average number of sales in Japan?",
+    "difficulty": "",
+    "evidence": "in Japan refers to region_name = 'Japan'; average number of sales = multiply(avg(num_sales), 100000) where region_name = 'Japan'"
+  },
+  {
+    "sql": "SELECT DISTINCT T4.genre_name FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id INNER JOIN genre AS T4 ON T3.genre_id = T4.id WHERE T1.release_year BETWEEN 2000 AND 2002",
+    "question_id": null,
+    "question": "Give the genre of the games released from 2000 to 2002.",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; released from 2000 to 2002 refers to release_year BETWEEN 2000 AND 2002"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id WHERE T3.publisher_name = '3DO'",
+    "question_id": null,
+    "question": "List down the name of games published by 3DO.",
+    "difficulty": "",
+    "evidence": "name of game refers to game_name; published by 3DO refers to publisher_name = '3DO'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Role-Playing'",
+    "question_id": null,
+    "question": "How many role-playing games are there?",
+    "difficulty": "",
+    "evidence": "role-playing game refers to genre_name = 'Role-Playing'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.region_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T2.num_sales * 100000 > 300000",
+    "question_id": null,
+    "question": "List the region name where games reached 300000 sales and above.",
+    "difficulty": "",
+    "evidence": "reached 300000 sales and above refers to num_sales > 3"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T5.publisher_name, SUM(T2.num_sales) * 100000 FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN game_publisher AS T4 ON T3.game_publisher_id = T4.id INNER JOIN publisher AS T5 ON T4.publisher_id = T5.id WHERE T1.region_name = 'North America' GROUP BY T5.publisher_name ORDER BY SUM(T2.num_sales) * 100000 DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which company published the game with the most sales in North America?",
+    "difficulty": "",
+    "evidence": "company refers to publisher_name; the most sales refers to max(num_sales); in North America refers to region_name = 'North America'"
+  },
+  {
+    "sql": "SELECT T3.release_year FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id WHERE T2.num_sales * 100000 = 350000 AND T1.region_name = 'North America'",
+    "question_id": null,
+    "question": "What is the release year of the game that gained 350000 sales in North America?",
+    "difficulty": "",
+    "evidence": "gained 350000 sales refers to num_sales = 3.5; in North America refers to region_name = 'North America'"
+  },
+  {
+    "sql": "SELECT T1.platform_name FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id INNER JOIN game AS T4 ON T3.game_id = T4.id WHERE T4.game_name = 'Counter Force'",
+    "question_id": null,
+    "question": "In which platform does the game titled 15 Days available?",
+    "difficulty": "",
+    "evidence": "platform refers to platform_name; the game titled 15 Days refers to game_name = '15 Days'"
+  },
+  {
+    "sql": "SELECT T2.publisher_name FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T1.game_id = 75",
+    "question_id": null,
+    "question": "Give the name of the publisher of the game ID 75.",
+    "difficulty": "",
+    "evidence": "name of publisher refers to publisher_name; the game ID 75 refers to game_id = 75"
+  },
+  {
+    "sql": "SELECT T.game_name FROM ( SELECT T5.game_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN game_publisher AS T4 ON T3.game_publisher_id = T4.id INNER JOIN game AS T5 ON T4.game_id = T5.id WHERE T1.region_name = 'Japan' ORDER BY T2.num_sales DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "What is the title of the game that gained the most sales in Japan?",
+    "difficulty": "",
+    "evidence": "title of the game refers to game_name; gained the most sales refers to max(num_sales); in Japan refers to region_name = 'Japan'"
+  },
+  {
+    "sql": "SELECT DISTINCT T5.publisher_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN game_publisher AS T4 ON T3.game_publisher_id = T4.id INNER JOIN publisher AS T5 ON T4.publisher_id = T5.id WHERE T2.num_sales * 10000000 > ( SELECT AVG(T2.num_sales) * 100000 * 90 FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T1.region_name = 'Japan' )",
+    "question_id": null,
+    "question": "Provide the game publisher's name of the game with sales greater than 90% of the average sales in Japan.",
+    "difficulty": "",
+    "evidence": "game publisher's name refers to publisher_name; sales greater than 90% of the average sales refers to num_sales > multiply(0.9, avg(num_sales)); in Japan refers to region_name = 'Japan'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.platform_name = 'PSP' THEN T3.game_id ELSE NULL END) AS REAL) * 100 / COUNT(T3.game_id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id WHERE T2.release_year = 2004",
+    "question_id": null,
+    "question": "Among the games released in 2004, what is the percentage of games on PSP?",
+    "difficulty": "",
+    "evidence": "in 2004 refers to release_year = 2004; on PSP refers to platform_name = 'PSP'; percentage = divide(sum(platform_id where platform_name = 'PSP'), count(platform_id)) * 100% where release_year = 2004"
+  },
+  {
+    "sql": "SELECT COUNT(T.id) FROM game_platform AS T WHERE T.release_year = 1981",
+    "question_id": null,
+    "question": "How many games were released in 1981?",
+    "difficulty": "",
+    "evidence": "released in 1981 refers to release_year = 1981"
+  },
+  {
+    "sql": "SELECT T.genre_id FROM game AS T WHERE T.game_name = '2Xtreme'",
+    "question_id": null,
+    "question": "What is the genre ID of the '2Xtreme' game?",
+    "difficulty": "",
+    "evidence": "the '2Xtreme' game refers to game_name = '2Xtreme'"
+  },
+  {
+    "sql": "SELECT SUM(T.num_sales) * 100000 FROM region_sales AS T WHERE T.game_platform_id = 9658",
+    "question_id": null,
+    "question": "Sum the total game sales in every region for platform ID 9658.",
+    "difficulty": "",
+    "evidence": "total game sales refers to multiply(sum(num_sales), 100000); platform ID 9658 refers to game_platform_id = 9658"
+  },
+  {
+    "sql": "SELECT T.id FROM publisher AS T WHERE T.publisher_name = '1C Company'",
+    "question_id": null,
+    "question": "Provide the ID of 1C Company.",
+    "difficulty": "",
+    "evidence": "ID refers to publisher.id; 1C Company refers to publisher_name = '1C Company'"
+  },
+  {
+    "sql": "SELECT T.genre_name FROM genre AS T WHERE T.id = 3",
+    "question_id": null,
+    "question": "Provide the genre name of the genre ID 3.",
+    "difficulty": "",
+    "evidence": "genre ID 3 refers to genre.id = 3"
+  },
+  {
+    "sql": "SELECT T.id FROM game_platform AS T WHERE T.release_year = 2017",
+    "question_id": null,
+    "question": "List the game IDs that were released in 2017.",
+    "difficulty": "",
+    "evidence": "game ID refers to game.id; released in 2017 refers to release_year = 2017"
+  },
+  {
+    "sql": "SELECT T3.release_year FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id WHERE T1.game_name = 'Adventure Island'",
+    "question_id": null,
+    "question": "When was the \"Adventure Island\" game released?",
+    "difficulty": "",
+    "evidence": "when refers to release_year; the \"Adventure Island\" game refers to game_name = 'Adventure Island'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Puzzle'",
+    "question_id": null,
+    "question": "How many games are puzzle genre?",
+    "difficulty": "",
+    "evidence": "puzzle genre refers to genre_name = 'Puzzle'"
+  },
+  {
+    "sql": "SELECT T4.game_name FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id INNER JOIN game_publisher AS T3 ON T1.game_publisher_id = T3.id INNER JOIN game AS T4 ON T3.game_id = T4.id WHERE T2.platform_name = 'SCD'",
+    "question_id": null,
+    "question": "Provide the games that can be played on the SCD platform.",
+    "difficulty": "",
+    "evidence": "game refers to game_name; on the SCD platform refers to platform_name = 'SCD'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.game_id) FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'Acclaim Entertainment'",
+    "question_id": null,
+    "question": "How many games were published by Acclaim Entertainment?",
+    "difficulty": "",
+    "evidence": "published by Acclaim Entertainment refers to publisher_name = 'Acclaim Entertainment'"
+  },
+  {
+    "sql": "SELECT T3.publisher_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id WHERE T1.game_name = 'Chronicles of the Sword'",
+    "question_id": null,
+    "question": "Name the publisher of the Chronicles of the Sword game.",
+    "difficulty": "",
+    "evidence": "publisher refers to publisher_name; the Chronicles of the Sword game refers to game_name = 'Chronicles of the Sword'"
+  },
+  {
+    "sql": "SELECT SUM(T1.num_sales * 100000) FROM region_sales AS T1 INNER JOIN region AS T2 ON T1.region_id = T2.id INNER JOIN game_platform AS T3 ON T1.game_platform_id = T3.id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T2.region_name = 'North America' AND T4.platform_name = 'PS4'",
+    "question_id": null,
+    "question": "Provide the number of games sold in North America on the PS4 platform.",
+    "difficulty": "",
+    "evidence": "number of games sold refers to sum(multiply(num_sales, 100000)); in North America refers to region_name = 'North America'; on the PS4 platform refers to platform_name = 'PS4'"
+  },
+  {
+    "sql": "SELECT T.game_platform_id FROM ( SELECT T1.game_platform_id, SUM(T1.num_sales) FROM region_sales AS T1 INNER JOIN region AS T2 ON T1.region_id = T2.id WHERE T2.region_name = 'Europe' GROUP BY T1.game_platform_id ORDER BY SUM(T1.num_sales) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Provide the ID of the most popular platform in Europe.",
+    "difficulty": "",
+    "evidence": "ID refers to game_platform_id; the most popular refers to max(num_sales); in Europe refers to region_name = 'Europe'"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T1.release_year = 2011",
+    "question_id": null,
+    "question": "Name the game released in 2011.",
+    "difficulty": "",
+    "evidence": "game refers to game_name; released in 2011 refers to release_year = 2011"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id WHERE T2.platform_name = 'Wii'",
+    "question_id": null,
+    "question": "How many games can be played on the Wii platform?",
+    "difficulty": "",
+    "evidence": "on the Wii platform refers to platform_name = 'Wii'"
+  },
+  {
+    "sql": "SELECT T3.game_name, T1.release_year FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id INNER JOIN genre AS T4 ON T3.genre_id = T4.id WHERE T4.genre_name = 'Sports' LIMIT 5",
+    "question_id": null,
+    "question": "Provide any five games and release year under the sports genre.",
+    "difficulty": "",
+    "evidence": "game refers to game_name; under the sports genre refers to genre_name = 'Sports'"
+  },
+  {
+    "sql": "SELECT T2.id FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name = '2Xtreme'",
+    "question_id": null,
+    "question": "Mention the genre of the 2Xtreme.",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; the 2Xtreme game refers to game_name = '2Xtreme'"
+  },
+  {
+    "sql": "SELECT T4.platform_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T1.game_name = 'Panzer Tactics'",
+    "question_id": null,
+    "question": "Provide the platform where the Panzer Tactics can be played.",
+    "difficulty": "",
+    "evidence": "platform refers to platform_name; the Panzer Tactics is a game name."
+  },
+  {
+    "sql": "SELECT (SUM(CASE WHEN T2.region_name = 'North America' THEN T1.num_sales ELSE 0 END) - AVG(T1.num_sales)) * 100.0 / AVG(T1.num_sales) FROM region_sales AS T1 INNER JOIN region AS T2 ON T1.region_id = T2.id WHERE T1.game_platform_id = 9577",
+    "question_id": null,
+    "question": "Calculate how many percent of sales in North America is higher than the average sale per region for platform ID 9577.",
+    "difficulty": "",
+    "evidence": "in North America refers to region_name = 'North America'; platform ID 9577 refers to game_platform_id = 9577; percent = divide(subtract(num_sales where region_name = 'North America' and game_platform_id = 9577, avg(num_sales)), avg(num_sales)) * 100%"
+  },
+  {
+    "sql": "SELECT T.game_name FROM game AS T ORDER BY LENGTH(T.game_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which game has the longest name?",
+    "difficulty": "",
+    "evidence": "game refers to game_name; the longest name refers to max(length(game_name))"
+  },
+  {
+    "sql": "SELECT COUNT(T.id) FROM game_platform AS T WHERE T.release_year = 2001",
+    "question_id": null,
+    "question": "How many games were released in 2001?",
+    "difficulty": "",
+    "evidence": "released in 2001 refers to release_year = 2001"
+  },
+  {
+    "sql": "SELECT SUM(T.num_sales) * 100000 FROM region_sales t",
+    "question_id": null,
+    "question": "What is the total number of sales across all regions?",
+    "difficulty": "",
+    "evidence": "total number of sales = sum(num_sales)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T.game_id) AS REAL) / COUNT(DISTINCT T.publisher_id) FROM game_publisher AS T",
+    "question_id": null,
+    "question": "What is the average number of games published by a publisher?",
+    "difficulty": "",
+    "evidence": "average number = divide(count(game_id), count(publisher_id))"
+  },
+  {
+    "sql": "SELECT MIN(T.release_year) FROM game_platform t",
+    "question_id": null,
+    "question": "What is the first year a game is released?",
+    "difficulty": "",
+    "evidence": "the first year refers to min(release_year)"
+  },
+  {
+    "sql": "SELECT T.game_name FROM ( SELECT T2.game_name, COUNT(T2.id) FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id GROUP BY T2.game_name ORDER BY COUNT(T2.id) ASC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "What is the least common game genre?",
+    "difficulty": "",
+    "evidence": "the least common game genre refers to min(count(genre_id)); genre refers to genre_name"
+  },
+  {
+    "sql": "SELECT T1.publisher_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T3.game_name = 'Prism: Light the Way'",
+    "question_id": null,
+    "question": "Which is the publisher for the game \"Prism: Light the Way\"?",
+    "difficulty": "",
+    "evidence": "publisher refers to publisher_name; game \"Prism: Light the Way\" refers to game_name = 'Prism: Light the Way'"
+  },
+  {
+    "sql": "SELECT T1.platform_name FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id GROUP BY T2.release_year, T1.platform_name ORDER BY COUNT(DISTINCT T3.game_id) DESC",
+    "question_id": null,
+    "question": "List the platforms that release the most games each year.",
+    "difficulty": "",
+    "evidence": "platform refers to platform_id; the most games refers to max(count(game_publisher_id))"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM region_sales AS T1 INNER JOIN region AS T2 ON T1.region_id = T2.id WHERE T2.region_name = 'Europe' AND T1.num_sales = 0",
+    "question_id": null,
+    "question": "How many games do not have any sales in Europe?",
+    "difficulty": "",
+    "evidence": "do not have any sales refers to num_sales = 0; in Europe refers to region_name = 'Europe'"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T1.release_year = 2006",
+    "question_id": null,
+    "question": "What are the games that were released in 2006?",
+    "difficulty": "",
+    "evidence": "game refers to game_name; released in 2006 refers to release_year = 2006"
+  },
+  {
+    "sql": "SELECT T1.genre_name FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id WHERE T2.game_name = 'Mario vs. Donkey Kong'",
+    "question_id": null,
+    "question": "What is the genre of the game \"Mario vs. Donkey Kong\"?",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; game \"Mario vs. Donkey Kong\" refers to game_name = 'Mario vs. Donkey Kong'"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T1.publisher_name, COUNT(DISTINCT T2.game_id) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id GROUP BY T1.publisher_name ORDER BY COUNT(DISTINCT T2.game_id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which publisher published the most games?",
+    "difficulty": "",
+    "evidence": "publisher refers to publisher_name; the most games refers to max(count(game_id))"
+  },
+  {
+    "sql": "SELECT T2.game_name FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id WHERE T1.genre_name = 'Platform'",
+    "question_id": null,
+    "question": "List all the platform games.",
+    "difficulty": "",
+    "evidence": "platform game refers to genre_name = 'Platform'; game refers to game_name"
+  },
+  {
+    "sql": "SELECT T2.release_year FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id WHERE T1.platform_name = 'WiiU' ORDER BY T2.release_year DESC LIMIT 1",
+    "question_id": null,
+    "question": "What are the years that \"WiiU\" got a new game?",
+    "difficulty": "",
+    "evidence": "year refers to release_year; \"WiiU\" refers to platform_name = 'WiiU'"
+  },
+  {
+    "sql": "SELECT T5.game_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN game_publisher AS T4 ON T3.game_publisher_id = T4.id INNER JOIN game AS T5 ON T4.game_id = T5.id WHERE T1.region_name = 'Japan' ORDER BY T2.num_sales DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which game has the most sales in Japan?",
+    "difficulty": "",
+    "evidence": "\nwhich game refers to game_name; most sales refers to MAX(num_sales); Japan refers to region_name = 'Japan';"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T1.publisher_name = 'Activision'",
+    "question_id": null,
+    "question": "List the games from the publisher \"Activision\".",
+    "difficulty": "",
+    "evidence": "games refers to game_name; \"Activision\" refers to publisher_name = 'Activision';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.publisher_id) FROM game_publisher AS T1 INNER JOIN game AS T2 ON T1.game_id = T2.id WHERE T2.game_name LIKE 'Marvel%'",
+    "question_id": null,
+    "question": "How many different publishers have published a game that starts with \"Marvel\"?",
+    "difficulty": "",
+    "evidence": "game that starts with \"Marvel\" refers to game_name LIKE 'Marvel%';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.genre_name = 'Sports' THEN T2.id ELSE NULL END) AS REAL) * 100 / COUNT(T2.id) FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id",
+    "question_id": null,
+    "question": "What percentage of games are sports?",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(genre_name = 'sport'), COUNT(game_name)), 100.0); sports refers to genre_name = 'sport';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.region_name = 'North America' THEN T1.num_sales ELSE 0 END) / SUM(CASE WHEN T2.region_name = 'Japan' THEN T1.num_sales ELSE 0 END) FROM region_sales AS T1 INNER JOIN region AS T2 ON T1.region_id = T2.id",
+    "question_id": null,
+    "question": "What is the ratio of game sales between North America and Japan?",
+    "difficulty": "",
+    "evidence": "ratio = DIVIDE(SUM(num_sales WHERE region_name = 'North America'), SUM(num_sales WHERE region_name = 'Japan')); North America refers to region_name = 'North America'; Japan refers to region_name = 'Japan';"
+  },
+  {
+    "sql": "SELECT T1.release_year FROM ( SELECT T.release_year, COUNT(id) FROM game_platform AS T GROUP BY T.release_year ORDER BY COUNT(T.id) DESC LIMIT 1 ) T1",
+    "question_id": null,
+    "question": "Which year has the most number of video game releases?",
+    "difficulty": "",
+    "evidence": "year that has the most number of video game releases refers to MAX(COUNT(release_year));"
+  },
+  {
+    "sql": "SELECT COUNT(T.id) FROM publisher AS T WHERE T.publisher_name LIKE '%Interactive%'",
+    "question_id": null,
+    "question": "How many video game publishers have Interactive in their names?",
+    "difficulty": "",
+    "evidence": "publishers that have Interactive in their names refers to publisher_name LIKE '%Interactive%';"
+  },
+  {
+    "sql": "SELECT T4.platform_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T1.region_name = 'North America' ORDER BY T2.num_sales DESC LIMIT 2",
+    "question_id": null,
+    "question": "What are the top 2 platforms with the most sales in North America?",
+    "difficulty": "",
+    "evidence": "platforms refers to platform_name; most sales refers to MAX(num_sales); North America refers to region_name = 'North America';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.game_id) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id WHERE T3.release_year = 2012",
+    "question_id": null,
+    "question": "How many games did BMG Interactive Entertainment release in 2012?",
+    "difficulty": "",
+    "evidence": "BMG Interactive Entertainment refers to publisher_name = 'BMG Interactive Entertainment'; release in 2012 refers to release_year = 2012;"
+  },
+  {
+    "sql": "SELECT T3.publisher_name FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id WHERE T1.release_year = 2007 GROUP BY T3.publisher_name ORDER BY COUNT(DISTINCT T2.game_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the publisher that released the most video games in 2007?",
+    "difficulty": "",
+    "evidence": "name of the publisher refers to publisher_name; publisher that released the most video games in 2007 refers to MAX(COUNT(publisher_name)) WHERE release_year = 2007;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.publisher_id) FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id WHERE T1.game_name = 'Minecraft'",
+    "question_id": null,
+    "question": "How many publishers published the Minecraft game?",
+    "difficulty": "",
+    "evidence": "Minecraft refers to game_name = 'Minecraft';"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T4.publisher_name, COUNT(DISTINCT T2.id) FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id INNER JOIN game_publisher AS T3 ON T2.id = T3.game_id INNER JOIN publisher AS T4 ON T3.publisher_id = T4.id WHERE T1.genre_name = 'Action' GROUP BY T4.publisher_name ORDER BY COUNT(DISTINCT T2.id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which publisher has published the most number of Action games?",
+    "difficulty": "",
+    "evidence": "which publisher refers to publisher_name; publisher that has published the most number of Action games refers to MAX(COUNT(publisher_name)) WHERE genre_name = 'Action'; Action games refers to game_name WHERE genre_name = 'Action';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.id) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id INNER JOIN genre AS T4 ON T3.genre_id = T4.id WHERE T4.genre_name = 'Sports' AND T1.publisher_name = 'Nintendo'",
+    "question_id": null,
+    "question": "How many Sports games did Nintendo publish?",
+    "difficulty": "",
+    "evidence": "Sports games refers to game_name WHERE genre_name = 'Sports'; Nintendo refers to publisher_name = 'Nintendo';"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name = '2 Games in 1: Sonic Advance & ChuChu Rocket!'",
+    "question_id": null,
+    "question": "What is the genre of the game '2 Games in 1: Sonic Advance & ChuChu Rocket!'?",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; '2 Games in 1: Sonic Advance & ChuChu Rocket!' is a game name;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN region_sales AS T3 ON T1.id = T3.game_platform_id INNER JOIN region AS T4 ON T3.region_id = T4.id WHERE T1.platform_name = 'DS' AND T4.region_name = 'Other' AND T3.num_sales > 0",
+    "question_id": null,
+    "question": "How many times did other regions make positive sales in DS platform?",
+    "difficulty": "",
+    "evidence": "other regions refers to region_name = 'Other'; positive sales refers to num_sales > 0; DS platform refers to platform_name = 'DS';"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T1.publisher_name = 'American Softworks'",
+    "question_id": null,
+    "question": "What are the names of the games published by American Softworks?",
+    "difficulty": "",
+    "evidence": "names of the games refers to game_name; American Softworks refers to publisher_name = 'American Softworks';"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T1.genre_name = 'Strategy' THEN T2.id ELSE NULL END) FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id",
+    "question_id": null,
+    "question": "How many strategy games are there?",
+    "difficulty": "",
+    "evidence": "strategy games refers game_name WHERE genre_name = 'Strategy';"
+  },
+  {
+    "sql": "SELECT T3.publisher_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id WHERE T1.game_name = 'Overwatch'",
+    "question_id": null,
+    "question": "Which publisher published Overwatch?",
+    "difficulty": "",
+    "evidence": "which publisher refers to publisher_name; Overwatch refers to game_name = 'Overwatch';"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T2.id = T1.genre_id GROUP BY T2.genre_name ORDER BY COUNT(T1.genre_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the genre with the most number of video games?",
+    "difficulty": "",
+    "evidence": "name of the genre refers to genre_name; genre with the most number of video games refers to MAX(COUNT(genre_name));"
+  },
+  {
+    "sql": "SELECT T2.num_sales * 100000 AS nums_eur FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T2.game_platform_id = 26 AND T1.region_name = 'Europe'",
+    "question_id": null,
+    "question": "What is the number of games sold in Europe for game platform ID 26?",
+    "difficulty": "",
+    "evidence": "total number of games sold = MULTIPLY(num_sales, 100000); Europe refers to region_name = 'Europe';"
+  },
+  {
+    "sql": "SELECT COUNT(id) FROM game_platform AS T WHERE T.release_year = 2001",
+    "question_id": null,
+    "question": "How many games were released in the year 2001?",
+    "difficulty": "",
+    "evidence": "released in the year 2001 refers to release_year = 2001;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ( SELECT T.game_name FROM game AS T WHERE T.game_name LIKE '%Box%' )",
+    "question_id": null,
+    "question": "How many games include the word 'Box' in their name?",
+    "difficulty": "",
+    "evidence": "games include the word 'Box' in their name refers to game_name = '%Box%';"
+  },
+  {
+    "sql": "SELECT T.game_platform_id, SUM(T.num_sales) * 100000 FROM region_sales AS T GROUP BY game_platform_id ORDER BY SUM(T.num_sales) * 100000 DESC LIMIT 3",
+    "question_id": null,
+    "question": "What are the three largest numbers of games sold?",
+    "difficulty": "",
+    "evidence": "3 largest numbers of games sold refers to game_name where MAX(num_sales) LIMIT 3;"
+  },
+  {
+    "sql": "SELECT T.release_year FROM game_platform AS T ORDER BY T.release_year ASC LIMIT 1",
+    "question_id": null,
+    "question": "What year were the first game released?",
+    "difficulty": "",
+    "evidence": "year the first game was released refers to MIN(release_year);"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM publisher AS T WHERE T.publisher_name LIKE '%Entertainment%'",
+    "question_id": null,
+    "question": "What publishers have the word 'Entertainment' in their name?",
+    "difficulty": "",
+    "evidence": "publishers that have the word 'Entertainment' in their name refers to publisher_name LIKE '%Entertainment%';"
+  },
+  {
+    "sql": "SELECT T2.game_name FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id WHERE T1.genre_name = 'Adventure'",
+    "question_id": null,
+    "question": "Indicate the name of all adventure games.",
+    "difficulty": "",
+    "evidence": "name of games refers to game_name; adventure games refers to game_name WHERE genre_name = 'Adventure';"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T1.publisher_name = 'Pioneer LDC'",
+    "question_id": null,
+    "question": "List the name of all games published by 'Pioneer LDC'.",
+    "difficulty": "",
+    "evidence": "name of games refers to game_name; 'Pioneer LDC' refers to publisher_name = 'Pioneer LDC';"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T4.platform_name = 'SCD'",
+    "question_id": null,
+    "question": "Indicate the name of all the games published for the 'SCD' platform.",
+    "difficulty": "",
+    "evidence": "name of games refers to game_name;\u00a0 'SCD' platform refers to platform_name = 'SCD';"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id INNER JOIN region_sales AS T4 ON T3.id = T4.game_platform_id INNER JOIN region AS T5 ON T4.region_id = T5.id WHERE T5.region_name = 'Japan'",
+    "question_id": null,
+    "question": "List the name of all games published in Japan.",
+    "difficulty": "",
+    "evidence": "name of games refers to game_name; Japan refers to region_name = 'Japan';"
+  },
+  {
+    "sql": "SELECT T4.genre_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id INNER JOIN genre AS T4 ON T3.genre_id = T4.id WHERE T1.publisher_name = 'Agatsuma Entertainment'",
+    "question_id": null,
+    "question": "What genres are the games published by 'Agatsuma Entertainment'?",
+    "difficulty": "",
+    "evidence": "genres refers to genre_name; 'Agatsuma Entertainment' refers to publisher_name = 'Agatsuma Entertainment';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.id) FROM genre AS T1 INNER JOIN game AS T2 ON T1.id = T2.genre_id WHERE T1.genre_name NOT IN ('Role-Playing', 'Shooter', 'Simulation')",
+    "question_id": null,
+    "question": "How many games are not of the genres 'Role-Playing', 'Shooter' and 'Simulation'?",
+    "difficulty": "",
+    "evidence": "not of the genres 'Role-Playing', 'Shooter' and 'Simulation' refers to genre_name NOT IN ('Role-Playing', 'Shooter', 'Simulation');"
+  },
+  {
+    "sql": "SELECT T.region_name FROM ( SELECT T1.platform_name, T4.region_name, SUM(T3.num_sales) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN region_sales AS T3 ON T1.id = T3.game_platform_id INNER JOIN region AS T4 ON T3.region_id = T4.id GROUP BY T1.platform_name, T4.region_name ORDER BY SUM(T3.num_sales) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Indicate, by region, which platform has sold the most games.",
+    "difficulty": "",
+    "evidence": "region refers to region_name; platform refers to game_platform; sold the most games refers to MAX(SUM(num_sales));"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T1.publisher_name, COUNT(T3.id) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id INNER JOIN genre AS T4 ON T3.genre_id = T4.id WHERE T4.genre_name = 'Puzzle' GROUP BY T1.publisher_name ORDER BY COUNT(T3.id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which publisher has published the most games in the 'Puzzle' genre?",
+    "difficulty": "",
+    "evidence": "which publisher refers to publisher_name; publisher that has published the most games refers to MAX(COUNT(publisher_name)); puzzle genre refers to genre_name = 'Puzzle';"
+  },
+  {
+    "sql": "SELECT T.game_name FROM ( SELECT T1.game_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id INNER JOIN region_sales AS T4 ON T3.id = T4.game_platform_id ORDER BY T4.num_sales LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which game has sold the fewest units?",
+    "difficulty": "",
+    "evidence": "which game refers to game_name; sold the fewest units refers to MIN(num_sales);"
+  },
+  {
+    "sql": "SELECT T1.publisher_name FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T3.game_name = 'Pachi-Slot Kanzen Kouryaku 3: Universal Koushiki Gaido Volume 3'",
+    "question_id": null,
+    "question": "Which publisher has published the game 'Pachi-Slot Kanzen Kouryaku 3: Universal Koushiki Gaido Volume 3'?",
+    "difficulty": "",
+    "evidence": "which publisher refers to publisher_name; 'Pachi-Slot Kanzen Kouryaku 3: Universal Koushiki Gaido Volume 3' refers to game_name = 'Pachi-Slot Kanzen Kouryaku 3: Universal Koushiki Gaido Volume 3';"
+  },
+  {
+    "sql": "SELECT T5.region_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id INNER JOIN region_sales AS T4 ON T3.id = T4.game_platform_id INNER JOIN region AS T5 ON T4.region_id = T5.id WHERE T1.game_name = 'Pengo'",
+    "question_id": null,
+    "question": "In which regions has the game 'Pengo' been sold?",
+    "difficulty": "",
+    "evidence": "which regions refers to region_name; 'Pengo' refers to game_name = 'Pengo';"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id WHERE T3.release_year = '2010'",
+    "question_id": null,
+    "question": "List by name all the games released in the year 2010.",
+    "difficulty": "",
+    "evidence": "name of the games refers to game_name; released in the year 2010 refers to release_year = 2010;"
+  },
+  {
+    "sql": "SELECT SUM(T3.num_sales * 100000) / COUNT(T1.id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN region_sales AS T3 ON T2.id = T3.game_platform_id WHERE T1.platform_name = 'PS2'",
+    "question_id": null,
+    "question": "Calculate the average game sales for the PS2 platform.",
+    "difficulty": "",
+    "evidence": "average = AVG(MULTIPLY(num_sales), 100000); PS2 refers to platform_name = 'PS2';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.publisher_name = 'Brash Entertainment' THEN T2.game_id ELSE NULL END) AS REAL) * 100 / COUNT(T2.game_id) FROM publisher AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.publisher_id",
+    "question_id": null,
+    "question": "Calculate the percentage of games published by 'Brash Entertainment'?",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(publisher_name = 'Brash Entertainment'), COUNT(game_id)), 100.0); 'Brash Entertainment' refers to publisher_name = 'Brash Entertainment';"
+  },
+  {
+    "sql": "SELECT SUM(T.num_sales * 100000) FROM region_sales AS T WHERE T.region_id = 1",
+    "question_id": null,
+    "question": "What is the total number of games sold in region ID 1?",
+    "difficulty": "",
+    "evidence": "total number of games sold = MULTIPLY(SUM(num_sales), 100000);"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ( SELECT T.game_name FROM game AS T WHERE T.game_name LIKE '%FIFA%' )",
+    "question_id": null,
+    "question": "How many FIFA games are there across all platforms?",
+    "difficulty": "",
+    "evidence": "FIFA games refers to game_name LIKE '%FIFA%';"
+  },
+  {
+    "sql": "SELECT T.platform_name FROM ( SELECT T4.platform_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T1.region_name = 'Europe' ORDER BY T2.num_sales DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which platform is the most popular in Europe?",
+    "difficulty": "",
+    "evidence": "platform that is the most popular refers to platform_name WHERE MAX(num_sales); in Europe refers to region_name = 'Europe' ;"
+  },
+  {
+    "sql": "SELECT T2.publisher_name FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN game AS T3 ON T1.game_id = T3.id WHERE T3.game_name = '2002 FIFA World Cup'",
+    "question_id": null,
+    "question": "Who is the publisher of the game 2002 FIFA World Cup?",
+    "difficulty": "",
+    "evidence": "who is the publisher refers to publisher_name; 2002 FIFA World Cup refers to game_name = '2002 FIFA World Cup';"
+  },
+  {
+    "sql": "SELECT T2.platform_name FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id INNER JOIN game_publisher AS T3 ON T1.game_publisher_id = T3.id INNER JOIN game AS T4 ON T3.game_id = T4.id WHERE T4.game_name = '3Xtreme'",
+    "question_id": null,
+    "question": "What platform is the game 3Xtreme available on?",
+    "difficulty": "",
+    "evidence": "what platform refers to platform_name; 3Xtreme refers to game_name = '3Xtreme';"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name = '2010 FIFA World Cup South Africa'",
+    "question_id": null,
+    "question": "What genre is the game 2010 FIFA World Cup South Africa?",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; 2010 FIFA World Cup South Africa refers to game_name = '2010 FIFA World Cup South Africa';"
+  },
+  {
+    "sql": "SELECT T.region_name FROM ( SELECT T2.region_name, SUM(T1.num_sales) FROM region_sales AS T1 INNER JOIN region AS T2 ON T1.region_id = T2.id INNER JOIN game_platform AS T3 ON T1.game_platform_id = T3.id INNER JOIN platform AS T4 ON T3.platform_id = T4.id GROUP BY T4.platform_name ORDER BY SUM(T1.num_sales) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Which region has the highest number of games sold on all platforms?",
+    "difficulty": "",
+    "evidence": "which region refers to region_name; highest number of games sold on all platforms refers to MAX(SUM(num_sales));"
+  },
+  {
+    "sql": "SELECT SUM(T1.num_sales * 100000) FROM region_sales AS T1 INNER JOIN region AS T2 ON T1.region_id = T2.id INNER JOIN game_platform AS T3 ON T1.game_platform_id = T3.id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T2.region_name = 'Japan' AND T4.platform_name = 'PS3'",
+    "question_id": null,
+    "question": "How many games were sold on PS3 platform in Japan?",
+    "difficulty": "",
+    "evidence": "how many games = MULTIPLY(SUM(num_sales), 100000); PS3 refers to platform_name = 'PS3'; Japan refers to region_name = 'Japan';"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T1.release_year = 2007",
+    "question_id": null,
+    "question": "What are the names of games that were released in 2007?",
+    "difficulty": "",
+    "evidence": "names of games refers to game_name; released in 2007 refers to release_year = 2007;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.id) FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN game AS T3 ON T1.game_id = T3.id WHERE T2.publisher_name = 'Activision'",
+    "question_id": null,
+    "question": "How many games were published by Activision?",
+    "difficulty": "",
+    "evidence": "Activision refers to publisher_name = 'Activision';"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.release_year FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id WHERE T2.num_sales * 100000 > 200000 AND T1.region_name = 'Japan'",
+    "question_id": null,
+    "question": "Indicate the release year of the game with more than 200000 sales in Japan.",
+    "difficulty": "",
+    "evidence": "more than 200000 sales refers to SUM(num_sales) > 2; Japan refers to region_name = 'Japan';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.game_id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id WHERE T1.platform_name = 'PS3' AND T2.release_year = 2010",
+    "question_id": null,
+    "question": "In 2010, how many PS3 games were released?",
+    "difficulty": "",
+    "evidence": "in 2010 refers to release_year = 2010; PS3 refers to platform_name = 'PS3';"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT T2.publisher_name, COUNT(DISTINCT T1.game_id) FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id GROUP BY T2.publisher_name ORDER BY COUNT(DISTINCT T1.game_id) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "Indicate the publisher who has published the most games of all time.",
+    "difficulty": "",
+    "evidence": "publisher refers to publisher_name; publisher who has published the most games of all time refers to MAX(COUNT(publisher_name));"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Shooter'",
+    "question_id": null,
+    "question": "How many shooter games are there?",
+    "difficulty": "",
+    "evidence": "shooter games refers to game_name WHERE genre_name = 'shooter';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.platform_name = 'PS4' THEN T3.game_id ELSE NULL END) AS REAL) * 100 / COUNT(T3.game_id) FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id INNER JOIN game_publisher AS T3 ON T1.game_publisher_id = T3.id WHERE T1.release_year = 2014",
+    "question_id": null,
+    "question": "What is the percentage of games that were released on PS4 in 2014 among all platforms?",
+    "difficulty": "",
+    "evidence": "percentage - MULTIPLY(DIVIDE(SUM(platform_name = 'PS4'), COUNT(game_id)), 100); in 2014 refers to release_year = 2014;"
+  },
+  {
+    "sql": "SELECT SUM(T.num_sales) * 100000 FROM region_sales AS T WHERE T.region_id = 4",
+    "question_id": null,
+    "question": "How much are the sales of the games in region ID 4?",
+    "difficulty": "",
+    "evidence": "how much are the sales = SUM(num_sales);"
+  },
+  {
+    "sql": "SELECT T.game_platform_id FROM region_sales AS T WHERE T.region_id = 1",
+    "question_id": null,
+    "question": "List down the game platform IDs of games with a region ID of 1.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T.region_id = 2 THEN T.num_sales ELSE 0 END) - SUM(CASE WHEN T.region_id = 3 THEN T.num_sales ELSE 0 END) FROM region_sales t",
+    "question_id": null,
+    "question": "Calculate the difference between sales of games from region ID 2 and region ID 3.",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT(SUM(num_sales WHERE region_id = 2), SUM(num_sales WHERE region_id = 3));"
+  },
+  {
+    "sql": "SELECT DISTINCT T.platform_id FROM game_platform AS T WHERE T.release_year = 2007",
+    "question_id": null,
+    "question": "List down the platform IDs of the games released in 2007.",
+    "difficulty": "",
+    "evidence": "released in 2007 refers to release_year = 2007;"
+  },
+  {
+    "sql": "SELECT T.game_publisher_id FROM game_platform AS T WHERE T.platform_id = 16",
+    "question_id": null,
+    "question": "State the game publisher IDs of the games with a platform ID of 16.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T.game_publisher_id) FROM game_platform AS T WHERE T.release_year = 1984",
+    "question_id": null,
+    "question": "Calculate the number of game publisher IDs for games released in 1984.",
+    "difficulty": "",
+    "evidence": "released in 1984 refers to release_year = 1984;"
+  },
+  {
+    "sql": "SELECT T2.id FROM region_sales AS T1 INNER JOIN game_platform AS T2 ON T1.game_platform_id = T2.id WHERE T1.region_id = 3",
+    "question_id": null,
+    "question": "List down the platform IDs of the games with a region ID of 3.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.region_name = 'Japan' THEN T1.num_sales ELSE 0 END) AS nums FROM region_sales AS T1 INNER JOIN region AS T2 ON T1.region_id = T2.id",
+    "question_id": null,
+    "question": "What are the sales made by the games in Japan region?",
+    "difficulty": "",
+    "evidence": "sales = SUM(num_sales); Japan region refers to region_name = 'Japan';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.game_publisher_id) FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id WHERE T2.platform_name = 'X360'",
+    "question_id": null,
+    "question": "How many game publisher IDs have published games on the X360 platform?",
+    "difficulty": "",
+    "evidence": "X360 refers to platform_name = 'X360';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.platform_name FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id WHERE T1.release_year = 2000",
+    "question_id": null,
+    "question": "State the name of the platforms for games released in 2000.",
+    "difficulty": "",
+    "evidence": "name of the platforms refers to platform_name; released in 2000 refers to release_year = 2000;"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T2.platform_name = 'PS3' THEN T1.game_publisher_id ELSE NULL END) - COUNT(CASE WHEN T2.platform_name = 'X360' THEN T1.game_publisher_id ELSE NULL END) FROM game_platform AS T1 INNER JOIN platform AS T2 ON T1.platform_id = T2.id",
+    "question_id": null,
+    "question": "Find out the difference between the number of publishers who released the games on the PS3 and X360.",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT(SUM(platform_name = 'PS3'), SUM(platform_name = 'X360')); PS3 refers to platform_name = 'PS3'; X360 refers to platform_name = 'X360';"
+  },
+  {
+    "sql": "SELECT T1.game_id FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'Bethesda Softworks'",
+    "question_id": null,
+    "question": "What are the game IDs of the games published by Bethesda Softworks?",
+    "difficulty": "",
+    "evidence": "Bethesda Softworks refers to publisher_name = 'Bethesda Softworks';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.game_id) FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name IN ('Capcom', 'Sony Computer Entertainment')",
+    "question_id": null,
+    "question": "Calculate the total number of IDs for the game published by Capcom and Sony Computer Entertainment.",
+    "difficulty": "",
+    "evidence": "Capcom refers to publisher_name = 'Capcom';\u00a0 Sony Computer Entertainment refers to publisher_name = 'Sony Computer Entertainment';"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name = 'Grand Theft Auto V'",
+    "question_id": null,
+    "question": "What is the genre of the game \"Grand Theft Auto V\"?",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; \"Grand Theft Auto V\" refers to game_name = 'Grand Theft Auto V';"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Racing'",
+    "question_id": null,
+    "question": "List down the names of the games in the racing genre.",
+    "difficulty": "",
+    "evidence": "name of games refers to game_name; racing genre refers to genre_name = 'Racing';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Fighting'",
+    "question_id": null,
+    "question": "Calculate the number of games in the fighting genre.",
+    "difficulty": "",
+    "evidence": "fighting genre refers to genre_name = 'Fighting';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id INNER JOIN game_publisher AS T3 ON T1.id = T3.game_id WHERE T3.publisher_id = 464",
+    "question_id": null,
+    "question": "What are the genres of games published by the publisher with an ID of 464?",
+    "difficulty": "",
+    "evidence": "genres of games refers to genre_name; publisher with an ID of 464 refers to publisher_id = 464;"
+  },
+  {
+    "sql": "SELECT T4.platform_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN game_platform AS T3 ON T2.id = T3.game_publisher_id INNER JOIN platform AS T4 ON T3.platform_id = T4.id WHERE T1.game_name = 'Final Fantasy XIII-2'",
+    "question_id": null,
+    "question": "Find out the platform of the game \"Final Fantasy XIII-2\".",
+    "difficulty": "",
+    "evidence": "platform of the game refers to platform_name; \"Final Fantasy XIII-2\" refers to game_name = 'Final Fantasy XIII-2';"
+  },
+  {
+    "sql": "SELECT SUM(T1.num_sales) FROM region_sales AS T1 INNER JOIN game_platform AS T2 ON T1.game_platform_id = T2.id WHERE T2.release_year = 2000",
+    "question_id": null,
+    "question": "Calculate the total sales made by the games released in 2000.",
+    "difficulty": "",
+    "evidence": "total sales = SUM(num_sales); released in 2000 refers to release_year = 2000;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.release_year = 2000 THEN T1.num_sales ELSE 0 END) - SUM(CASE WHEN T2.release_year = 1990 THEN T1.num_sales ELSE 0 END) FROM region_sales AS T1 INNER JOIN game_platform AS T2 ON T1.game_platform_id = T2.id",
+    "question_id": null,
+    "question": "Calculate the difference in sales between the games released in 1990 and 2000.",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT(SUM(num_sales WHERE release_year = 2000), SUM(num_sales WHERE release_year = 1990));"
+  },
+  {
+    "sql": "SELECT DISTINCT T.platform_id FROM game_platform AS T WHERE T.release_year = 2006",
+    "question_id": null,
+    "question": "What are the platform IDs of records released in 2006?",
+    "difficulty": "",
+    "evidence": "released in 1990 refers to release_year = 1990; 2000 refers to release_year = 2000;"
+  },
+  {
+    "sql": "SELECT AVG(T.num_sales * 100000) FROM region_sales AS T WHERE T.region_id = 3",
+    "question_id": null,
+    "question": "Compute the average number of sales in region ID 3.",
+    "difficulty": "",
+    "evidence": "average = AVG(MULTIPLY(num_sales, 100000));"
+  },
+  {
+    "sql": "SELECT T.release_year FROM game_platform AS T WHERE T.game_publisher_id = 6657 AND T.id = 19",
+    "question_id": null,
+    "question": "In which year did the record ID 19 with game publisher ID 6657 released?",
+    "difficulty": "",
+    "evidence": "which year refers to release_year; record ID 19 refers to game platform.id; id = 19"
+  },
+  {
+    "sql": "SELECT SUM(T.num_sales) * 100000 FROM region_sales AS T WHERE T.game_platform_id = 66",
+    "question_id": null,
+    "question": "Calculate the total sales in all regions with game platform ID 66.",
+    "difficulty": "",
+    "evidence": "total sales in all regions = MULTIPLY(SUM(num_sales), 100000);"
+  },
+  {
+    "sql": "SELECT T.game_name FROM game AS T WHERE T.id = 44",
+    "question_id": null,
+    "question": "Give the game name of the game ID 44.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T4.game_name FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id INNER JOIN game AS T4 ON T3.game_id = T4.id WHERE T1.platform_name = 'Wii'",
+    "question_id": null,
+    "question": "List the games available on Wii.",
+    "difficulty": "",
+    "evidence": "games available refers to game_name; Wii refers to platform_name = 'Wii';"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T1.release_year = 2015",
+    "question_id": null,
+    "question": "Provide the name of games released in 2015.",
+    "difficulty": "",
+    "evidence": "names of games refers to game_name; released in 2015 refers to release_year = 2015;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.id) FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id INNER JOIN genre AS T4 ON T3.genre_id = T4.id WHERE T4.genre_name = 'Adventure' AND T1.release_year = 2005",
+    "question_id": null,
+    "question": "What is the total number of adventure games released in 2005?",
+    "difficulty": "",
+    "evidence": "adventure games refers to game_name WHERE genre_name = 'Adventure'; released in 2005 refers to release_year = 2005;"
+  },
+  {
+    "sql": "SELECT T3.publisher_name FROM game AS T1 INNER JOIN game_publisher AS T2 ON T1.id = T2.game_id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id WHERE T1.game_name = 'Adventure Time: Explore the Dungeon Because I Don''t Know!'",
+    "question_id": null,
+    "question": "What is the name of the company that produced the game titled Adventure Time: Explore the Dungeon Because I Don't Know!?",
+    "difficulty": "",
+    "evidence": "name of the company that produced the game refers to publisher_name; Adventure Time: Explore the Dungeon Because I Don't Know! Refers to game_name = 'Adventure Time: Explore the Dungeon Because I Don''t Know!';"
+  },
+  {
+    "sql": "SELECT T2.game_platform_id, T1.region_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T2.num_sales * 100000 <= 20000",
+    "question_id": null,
+    "question": "List down the game platform ID and region name where the games achieved 20000 sales and below.",
+    "difficulty": "",
+    "evidence": "20000 sales and below refers to num_sales < 0.2;"
+  },
+  {
+    "sql": "SELECT T3.game_name FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id INNER JOIN publisher AS T4 ON T2.publisher_id = T4.id WHERE T4.publisher_name = '505 Games' AND T1.release_year = 2006",
+    "question_id": null,
+    "question": "Provide the name of game produced by 505 Games in 2006.",
+    "difficulty": "",
+    "evidence": "name of game refers to game_name; 505 Games refers to publisher_name = '505 Games'; in 2006 refers to release_year = 2006;"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.id = 119",
+    "question_id": null,
+    "question": "What is the genre of the game ID 119?",
+    "difficulty": "",
+    "evidence": "genre of the game refers to genre_name; game ID 119 refers to game.id = 119;"
+  },
+  {
+    "sql": "SELECT T1.game_id FROM game_publisher AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'Abylight'",
+    "question_id": null,
+    "question": "List the game IDs of the games produced by Abylight.",
+    "difficulty": "",
+    "evidence": "Abylight refers to publisher_name = 'Abylight';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.region_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id ORDER BY T2.num_sales LIMIT 1",
+    "question_id": null,
+    "question": "In which region where a game had the lowest number of sales?",
+    "difficulty": "",
+    "evidence": "which region refers to region_name; lowest number of sales refers to MIN(num_sales);"
+  },
+  {
+    "sql": "SELECT T1.game_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T2.genre_name = 'Strategy'",
+    "question_id": null,
+    "question": "List down the name of strategy games.",
+    "difficulty": "",
+    "evidence": "strategy games refers to game_name WHERE genre_name = 'Strategy';"
+  },
+  {
+    "sql": "SELECT T3.platform_name FROM game_publisher AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.game_publisher_id INNER JOIN platform AS T3 ON T2.platform_id = T3.id WHERE T1.game_id = 178",
+    "question_id": null,
+    "question": "In what platform does the game ID 178 available?",
+    "difficulty": "",
+    "evidence": "platform refers to platform_name;"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name IN ('Airlock', 'Airline Tycoon', 'Airblade')",
+    "question_id": null,
+    "question": "Give the genre of the following game titled 'Airlock' , 'Airline Tycoon' , and 'Airblade', respectively.",
+    "difficulty": "",
+    "evidence": "genre refers to genre_name; 'Airlock', 'Airline Tycoon' , and 'Airblade' refers to game_name IN ('Airlock', 'Airline Tycoon', 'Airblade');"
+  },
+  {
+    "sql": "SELECT SUM(T2.num_sales) * 100000 AS nums FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T1.region_name = 'North America'",
+    "question_id": null,
+    "question": "Calculate the total number of sales in North America.",
+    "difficulty": "",
+    "evidence": "total number of sales = MULTIPLY(SUM(num_sales), 100000); North America refers to region_name = 'North America';"
+  },
+  {
+    "sql": "SELECT T.publisher_name FROM ( SELECT DISTINCT T5.publisher_name FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id INNER JOIN game_publisher AS T4 ON T3.game_publisher_id = T4.id INNER JOIN publisher AS T5 ON T4.publisher_id = T5.id WHERE T1.region_name = 'North America' AND T2.num_sales * 100000 < 10000 LIMIT 5 ) t",
+    "question_id": null,
+    "question": "List down at least five publishers of the games with number of sales less than 10000.",
+    "difficulty": "",
+    "evidence": "publishers refers to publisher_name; number of sales less than 10000 refers to num_sales < 0.1;"
+  },
+  {
+    "sql": "SELECT T1.platform_id FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id INNER JOIN game AS T3 ON T2.game_id = T3.id WHERE T3.game_name = 'Airborne Troops: Countdown to D-Day'",
+    "question_id": null,
+    "question": "List the platform ID of the game titled Airborne Troops: Countdown to D-Day.",
+    "difficulty": "",
+    "evidence": "Airborne Troops: Countdown to D-Day refers to game_name = 'Airborne Troops: Countdown to D-Day';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.game_id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id WHERE T1.platform_name = 'PSP' AND T2.release_year = 2004",
+    "question_id": null,
+    "question": "How many games available on PSP were released in 2004?",
+    "difficulty": "",
+    "evidence": "PSP refers to platform_name = 'PSP'; released in 2004 refers to release_year = 2004;"
+  },
+  {
+    "sql": "SELECT T2.genre_name FROM game AS T1 INNER JOIN genre AS T2 ON T1.genre_id = T2.id WHERE T1.game_name = '999: Nine Hours, Nine Persons, Nine Doors'",
+    "question_id": null,
+    "question": "What is the genre of the game titled '999: Nine Hours, Nine Persons, Nine Doors' ?",
+    "difficulty": "",
+    "evidence": "genre of the game refers to genre_name; '999: Nine Hours, Nine Persons, Nine Doors' refers to game_name = '999: Nine Hours, Nine Persons, Nine Doors';"
+  },
+  {
+    "sql": "SELECT T1.release_year FROM game_platform AS T1 INNER JOIN game_publisher AS T2 ON T1.game_publisher_id = T2.id WHERE T2.game_id = 156",
+    "question_id": null,
+    "question": "When was the game ID 156 released?",
+    "difficulty": "",
+    "evidence": "when the game was released refers to release_year;"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T1.platform_name = 'SNES' THEN T3.game_id ELSE NULL END) - COUNT(CASE WHEN T1.platform_name = 'DS' THEN T3.game_id ELSE NULL END) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id INNER JOIN publisher AS T4 ON T3.publisher_id = T4.id WHERE T4.publisher_name = 'Culture Brain'",
+    "question_id": null,
+    "question": "What is the diffrence between the number of games produced by Culture Brain that can be played on SNES and DS?",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT(SUM(platform_name = 'SNES'), SUM(platform_name = 'DS')); SNES refers to platform_name = SNES ; DS refers to platform_name = 'DS' ;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.release_year = 2007 THEN T3.game_id ELSE NULL END) AS REAL) * 100 / COUNT(T3.game_id) FROM platform AS T1 INNER JOIN game_platform AS T2 ON T1.id = T2.platform_id INNER JOIN game_publisher AS T3 ON T2.game_publisher_id = T3.id WHERE T1.platform_name = 'Wii'",
+    "question_id": null,
+    "question": "In games that can be played on Wii, what is the percentage of games released in 2007?",
+    "difficulty": "",
+    "evidence": "Wii refers to platform_name = 'Wii'; percentage = MULTIPLY(DIVIDE(SUM(release_year = 2007), COUNT(release_year)), 100.0); released in 2007 refers to release_year = 2007;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.platform_id FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id INNER JOIN game_platform AS T3 ON T2.game_platform_id = T3.id WHERE T1.region_name = 'Europe' AND T2.num_sales * 100 * 100000 < ( SELECT AVG(T2.num_sales * 100000) * 30 FROM region AS T1 INNER JOIN region_sales AS T2 ON T1.id = T2.region_id WHERE T1.region_name = 'Europe' )",
+    "question_id": null,
+    "question": "Among games sold in Europe, list the platform ID of games with sales lesser than 30% of the average number of sales.",
+    "difficulty": "",
+    "evidence": "Europe refers to region_name = 'Europe'; sales lesser than 30% of the average number of sales refers to SUM(num_sales) < MULTIPLY(AVG(num_sales), 0.3);"
+  }
+]

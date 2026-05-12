@@ -1,0 +1,2628 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "playerGameParticipation": {
+          "source_table": "PlayerInfo",
+          "column_map": {
+            "eliteIdentifier": "ELITEID",
+            "hasGamesPlayed": "GP_greater_than_0",
+            "sevenYearGamesSum": "sum_7yr_GP",
+            "sevenYearTimeOnIce": "sum_7yr_TOI"
+          },
+          "projected_columns": [
+            "ELITEID",
+            "GP_greater_than_0",
+            "sum_7yr_GP",
+            "sum_7yr_TOI"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "PlayerInfo_css_rank",
+            "playerCssRanking",
+            "PlayerInfo_nation"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "PlayerInfo_css_rank",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "gp_greater_than_0"
+        },
+        "playerCssRanking": {
+          "source_table": "PlayerInfo",
+          "column_map": {
+            "eliteIdentifier": "ELITEID",
+            "cssRankScore": "CSS_rank",
+            "playerFullName": "PlayerName",
+            "birthDateString": "birthdate",
+            "birthDayOfMonth": "birthday",
+            "birthMonthNumber": "birthmonth",
+            "birthLocation": "birthplace",
+            "birthYearValue": "birthyear",
+            "draftRoundNumber": "draftround",
+            "draftYearNumber": "draftyear",
+            "overallSelection": "overall",
+            "overallAssignedBy": "overallby"
+          },
+          "projected_columns": [
+            "ELITEID",
+            "CSS_rank",
+            "PlayerName",
+            "birthdate",
+            "birthday",
+            "birthmonth",
+            "birthplace",
+            "birthyear",
+            "draftround",
+            "draftyear",
+            "overall",
+            "overallby"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "PlayerInfo_css_rank",
+            "playerGameParticipation",
+            "PlayerInfo_nation"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "PlayerInfo_css_rank",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "css_rank_2"
+        },
+        "weightMeasurements": {
+          "source_table": "weight_info",
+          "column_map": {
+            "weightRecordId": "weight_id",
+            "weightKilograms": "weight_in_kg",
+            "weightPounds": "weight_in_lbs"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "PlayerInfo": "PlayerInfo_css_rank_2"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "plyr_season_stat": {
+          "source_table": "SeasonStatus",
+          "column_map": {
+            "elite_uid": "ELITEID",
+            "szn": "SEASON",
+            "team_nm": "TEAM",
+            "league_nm": "LEAGUE",
+            "game_type": "GAMETYPE",
+            "gp_count": "GP",
+            "goals": "G",
+            "assists": "A",
+            "pts": "P",
+            "pen_min": "PIM",
+            "plus_minus": "PLUSMINUS"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "plyr_css_r_le32": {
+          "source_table": "PlayerInfo",
+          "column_map": {
+            "elite_uid": "ELITEID",
+            "css_r": "CSS_rank",
+            "plyr_nm": "PlayerName",
+            "birth_loc": "birthplace",
+            "draft_rd": "draftround",
+            "draft_yr": "draftyear",
+            "ht": "height",
+            "ovr_pick": "overall",
+            "ovr_by": "overallby",
+            "wt": "weight"
+          },
+          "projected_columns": [
+            "ELITEID",
+            "CSS_rank",
+            "PlayerName",
+            "birthplace",
+            "draftround",
+            "draftyear",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          "row_predicate": "((\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" <= 32) OR (rowid IN (18,59,71,89,245,354,578,663,679,713,745,1662,2095,2665,2668,2686,2710,3228,3674,3707,3730,3841,3856,4053,4081,4092,4152,4224,4283,4567,6251,6364,8609,8694,8745,8805,8808,8839,8920,8975,9106,9153,9199,9212,9216,9247,9357,9371,9380,9427,9492,9508,9518,9592,9661,9685,10220,10315,10350,10438,10441,10637,10657,10837,10860,10986,11052,11056,11103,11237,11256,11306,11320,11350,11393,11412,11417,11419,11430,11444,11446,11464,11468,11517,11526,11534,11553,11561,11585,11586,11642,11669,11674,11683,11694,11696,11734,11881,11920,12030,12039,12131,12154,12210,12255,12262,12263,12274,12300,12426,12459,12487,12517,12519,12530,12531,12540,12556,12559,12560,12587,12636,12761,12766,12831,12916,13414,13527,13614,13633,13643,13661,13965,14011,14109,14126,14370,14396,14398,14504,14513,14564,14607,14638,14859,14864,14867,14873,14962,14998,14999,15031,15038,15047,15053,15069,15241,15313,15451,15566,15590,15596,15947,15978,16060,16584,16591,16666,17120,17509,17515,17968,17972,18009,18010,18017,18022,18025,18140,18146,18247,18313,18316,18317,18320,18371,18375,18537,18539,18562,18748,18987,19061,19078,19151,19171,19204,19223,19224,19225,19231,19565,21045,22627,22961,24113,28514,48428,59127,60906,61185,61192,64940,64942,78405,78449,78936,79014)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "PlayerInfo_css_rank_2",
+            "PlayerInfo_gp_greater_than_0",
+            "plyr_nat_pos"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "PlayerInfo_css_rank_2",
+          "is_row_partition": true,
+          "row_partition_partner": "plyr_css_r_33to81",
+          "row_partition_peers": [
+            "plyr_css_r_33to81",
+            "plyr_css_r_82to145",
+            "plyr_css_r_gt145_or_null"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "css_rank"
+        },
+        "plyr_css_r_33to81": {
+          "source_table": "PlayerInfo",
+          "column_map": {
+            "elite_uid": "ELITEID",
+            "css_r": "CSS_rank",
+            "plyr_nm": "PlayerName",
+            "birth_loc": "birthplace",
+            "draft_rd": "draftround",
+            "draft_yr": "draftyear",
+            "ht": "height",
+            "ovr_pick": "overall",
+            "ovr_by": "overallby",
+            "wt": "weight"
+          },
+          "projected_columns": [
+            "ELITEID",
+            "CSS_rank",
+            "PlayerName",
+            "birthplace",
+            "draftround",
+            "draftyear",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          "row_predicate": "((\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" > 32 AND \"CSS_rank\" <= 81) OR (rowid IN (27,67,69,236,339,345,355,463,473,526,738,2045,2046,2050,2613,2674,2685,2695,2697,2715,3187,3211,3222,3241,3595,3637,3658,3660,3661,3662,3669,3696,4087,4128,4131,4218,4233,4295,4506,4509,4532,5213,5504,5527,5979,5995,6423,6664,6665,6913,6953,7311,7410,8399,8429,8494,8539,8562,8568,8589,8598,8605,8614,8616,8624,8655,8664,8673,8679,8701,8746,8755,8769,8778,8794,8809,8834,8855,8876,8889,8944,8957,9001,9019,9040,9052,9083,9092,9107,9117,9119,9147,9148,9156,9180,9183,9192,9195,9198,9207,9214,9225,9232,9237,9242,9248,9251,9254,9259,9261,9282,9299,9303,9324,9325,9333,9339,9348,9355,9359,9362,9446,9461,9476,9483,9484,9510,9514,9553,9555,9558,9560,9566,9578,9588,9591,9599,9600,9601,9604,9614,9623,9632,9636,9640,9878,10157,10233,10410,10419,10425,10426,10429,10430,10436,10442,10458,10460,10461,10490,10604,10700,10877,11050,11053,11057,11108,11112,11121,11123,11317,11321,11346,11400,11457,11459,11470,11595,11597,11617,11619,11667,11850,11860,11861,11864,12112,12209,12232,12266,12297,12388,12461,12572,12812,13625,13651,14013,14359,14440,14450,15025,15108,15235,17518,18013,18032,18240,18374,18592,18843,19111,19740,20195,20527,28602,29019,42367,43320,57630,60629)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "PlayerInfo_css_rank_2",
+            "PlayerInfo_gp_greater_than_0",
+            "plyr_nat_pos"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "PlayerInfo_css_rank_2",
+          "is_row_partition": true,
+          "row_partition_partner": "plyr_css_r_82to145",
+          "row_partition_peers": [
+            "plyr_css_r_82to145",
+            "plyr_css_r_gt145_or_null",
+            "plyr_css_r_le32"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "css_rank"
+        },
+        "plyr_css_r_82to145": {
+          "source_table": "PlayerInfo",
+          "column_map": {
+            "elite_uid": "ELITEID",
+            "css_r": "CSS_rank",
+            "plyr_nm": "PlayerName",
+            "birth_loc": "birthplace",
+            "draft_rd": "draftround",
+            "draft_yr": "draftyear",
+            "ht": "height",
+            "ovr_pick": "overall",
+            "ovr_by": "overallby",
+            "wt": "weight"
+          },
+          "projected_columns": [
+            "ELITEID",
+            "CSS_rank",
+            "PlayerName",
+            "birthplace",
+            "draftround",
+            "draftyear",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          "row_predicate": "((\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" > 81 AND \"CSS_rank\" <= 145) OR (rowid IN (90,97,118,135,305,308,321,462,539,632,643,807,991,1255,2018,2368,2439,2489,2671,2711,2716,3185,3196,3197,3221,3250,3442,3724,4008,5676,7605,8053,8388,8394,8473,8579,8597,8626,8663,8681,8724,8732,8771,8870,8961,9013,9158,9187,9204,9228,9262,9264,9301,9316,9318,9321,9336,9337,9338,9345,9354,9374,9407,9414,9416,9420,9448,9494,9521,9526,9552,9556,9575,9594,9595,9613,9641,9686,10219,10333,10432,10439,10481,10631,10698,10810,10874,10880,10987,11020,11102,11124,11233,11241,11246,11250,11252,11308,11401,11425,11460,11463,11472,11474,11547,11554,11590,11607,11673,11695,11715,11726,11772,12160,12171,12230,12250,12265,12268,12277,12386,12395,12427,12486,12504,12505,12507,12508,12520,12523,12524,12525,12547,12550,12558,12563,12678,12697,12753,12836,12848,13431,13559,13615,14077,14091,14327,14336,14399,14421,14670,14684,14724,14870,14875,15024,15027,15032,15044,15090,15111,15343,15466,15766,15887,15946,16048,16499,16744,17101,17165,17504,17516,17937,18021,18027,18031,18241,18597,18598,18716,19040,19043,19044,19108,19165,19181,19580,22669,27991,29020,31511,39663,41101,41103,41870,42368,42370,43141,52083,53141,53546,53959,57088,57300,58785,59304,60994,65186,65187,67360,78427,78435,79301,79353,79436)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "PlayerInfo_css_rank_2",
+            "PlayerInfo_gp_greater_than_0",
+            "plyr_nat_pos"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "PlayerInfo_css_rank_2",
+          "is_row_partition": true,
+          "row_partition_partner": "plyr_css_r_gt145_or_null",
+          "row_partition_peers": [
+            "plyr_css_r_gt145_or_null",
+            "plyr_css_r_le32",
+            "plyr_css_r_33to81"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "css_rank"
+        },
+        "plyr_css_r_gt145_or_null": {
+          "source_table": "PlayerInfo",
+          "column_map": {
+            "elite_uid": "ELITEID",
+            "css_r": "CSS_rank",
+            "plyr_nm": "PlayerName",
+            "birth_loc": "birthplace",
+            "draft_rd": "draftround",
+            "draft_yr": "draftyear",
+            "ht": "height",
+            "ovr_pick": "overall",
+            "ovr_by": "overallby",
+            "wt": "weight"
+          },
+          "projected_columns": [
+            "ELITEID",
+            "CSS_rank",
+            "PlayerName",
+            "birthplace",
+            "draftround",
+            "draftyear",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          "row_predicate": "((\"CSS_rank\" > 145 OR \"CSS_rank\" IS NULL) OR (rowid IN (201,204,301,306,466,543,547,748,882,1342,1343,1344,1345,1668,1934,2673,2699,3184,3195,3240,3319,3679,4024,4198,4375,4746,5215,5531,5869,6042,6627,7963,8068,8338,8504,8618,8677,8715,8717,8734,8798,8799,8895,8932,8949,8999,9062,9145,9211,9356,9378,9411,9435,9497,9519,9605,9619,10196,10206,10243,10254,10292,10375,10404,10412,10496,10507,10635,10640,10669,10689,10840,10871,10873,10884,10997,11000,11030,11039,11040,11115,11251,11351,11392,11398,11462,11475,11492,11639,11650,11655,11662,11666,11743,11813,12026,12043,12044,12187,12191,12237,12251,12260,12269,12273,12308,12367,12387,12428,12453,12468,12476,12516,12527,12534,12535,12539,12557,12635,12696,12724,12802,13243,13406,13419,13440,13472,13480,13488,13649,13658,13959,14087,14182,14409,14431,14644,14828,14857,14862,14876,14877,14966,15001,15049,15055,15063,15081,15121,15257,15341,15346,15691,15844,15949,16662,16863,17817,17843,18011,18120,18599,19042,19045,19054,19060,19063,19177,19350,19376,19384,19448,20907,20971,26096,30696,34272,41413,41631,44341,47837,49470,49474,51401,51896,52122,52471,58284,58285,58428,58464,58482,59120,60618,60620,60623,60630,60777,60793,64943,65188,78908,78935,79288,79344,79345,79362,79394,80660,81623,81634,81642,82978,83049,83097,83102)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "PlayerInfo_css_rank_2",
+            "PlayerInfo_gp_greater_than_0",
+            "plyr_nat_pos"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "PlayerInfo_css_rank_2",
+          "is_row_partition": true,
+          "row_partition_partner": "plyr_css_r_le32",
+          "row_partition_peers": [
+            "plyr_css_r_le32",
+            "plyr_css_r_33to81",
+            "plyr_css_r_82to145"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "css_rank"
+        },
+        "plyr_nat_pos": {
+          "source_table": "PlayerInfo",
+          "column_map": {
+            "elite_uid": "ELITEID",
+            "nat": "nation",
+            "pos_role": "position_info",
+            "shot_hand": "shoots",
+            "wt": "weight"
+          },
+          "projected_columns": [
+            "ELITEID",
+            "nation",
+            "position_info",
+            "shoots",
+            "weight"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "PlayerInfo_css_rank",
+            "PlayerInfo_css_rank_2",
+            "PlayerInfo_gp_greater_than_0"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "PlayerInfo_css_rank",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "nation"
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "StatureRecord": {
+          "source_table": "height_info",
+          "column_map": {
+            "StatureId": "height_id",
+            "HeightCentimeters": "height_in_cm",
+            "HeightInches": "height_in_inch"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "PlayerInfo_gp_greater_than_0": "playerGameParticipation",
+        "PlayerInfo_css_rank_2": "playerCssRanking",
+        "weight_info": "weightMeasurements"
+      },
+      "column_renames": {
+        "PlayerInfo_gp_greater_than_0": {
+          "ELITEID": "eliteIdentifier",
+          "GP_greater_than_0": "hasGamesPlayed",
+          "sum_7yr_GP": "sevenYearGamesSum",
+          "sum_7yr_TOI": "sevenYearTimeOnIce"
+        },
+        "PlayerInfo_css_rank_2": {
+          "ELITEID": "eliteIdentifier",
+          "CSS_rank": "cssRankScore",
+          "PlayerName": "playerFullName",
+          "birthdate": "birthDateString",
+          "birthday": "birthDayOfMonth",
+          "birthmonth": "birthMonthNumber",
+          "birthplace": "birthLocation",
+          "birthyear": "birthYearValue",
+          "draftround": "draftRoundNumber",
+          "draftyear": "draftYearNumber",
+          "overall": "overallSelection",
+          "overallby": "overallAssignedBy"
+        },
+        "weight_info": {
+          "weight_id": "weightRecordId",
+          "weight_in_kg": "weightKilograms",
+          "weight_in_lbs": "weightPounds"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "SeasonStatus": "plyr_season_stat",
+        "PlayerInfo_css_rank_q1": "plyr_css_r_le32",
+        "PlayerInfo_css_rank_q2": "plyr_css_r_33to81",
+        "PlayerInfo_css_rank_q3": "plyr_css_r_82to145",
+        "PlayerInfo_css_rank_q4": "plyr_css_r_gt145_or_null",
+        "PlayerInfo_nation": "plyr_nat_pos"
+      },
+      "column_renames": {
+        "SeasonStatus": {
+          "ELITEID": "elite_uid",
+          "SEASON": "szn",
+          "TEAM": "team_nm",
+          "LEAGUE": "league_nm",
+          "GAMETYPE": "game_type",
+          "GP": "gp_count",
+          "G": "goals",
+          "A": "assists",
+          "P": "pts",
+          "PIM": "pen_min",
+          "PLUSMINUS": "plus_minus"
+        },
+        "PlayerInfo_css_rank_q1": {
+          "ELITEID": "elite_uid",
+          "CSS_rank": "css_r",
+          "PlayerName": "plyr_nm",
+          "birthplace": "birth_loc",
+          "draftround": "draft_rd",
+          "draftyear": "draft_yr",
+          "height": "ht",
+          "overall": "ovr_pick",
+          "overallby": "ovr_by",
+          "weight": "wt"
+        },
+        "PlayerInfo_css_rank_q2": {
+          "ELITEID": "elite_uid",
+          "CSS_rank": "css_r",
+          "PlayerName": "plyr_nm",
+          "birthplace": "birth_loc",
+          "draftround": "draft_rd",
+          "draftyear": "draft_yr",
+          "height": "ht",
+          "overall": "ovr_pick",
+          "overallby": "ovr_by",
+          "weight": "wt"
+        },
+        "PlayerInfo_css_rank_q3": {
+          "ELITEID": "elite_uid",
+          "CSS_rank": "css_r",
+          "PlayerName": "plyr_nm",
+          "birthplace": "birth_loc",
+          "draftround": "draft_rd",
+          "draftyear": "draft_yr",
+          "height": "ht",
+          "overall": "ovr_pick",
+          "overallby": "ovr_by",
+          "weight": "wt"
+        },
+        "PlayerInfo_css_rank_q4": {
+          "ELITEID": "elite_uid",
+          "CSS_rank": "css_r",
+          "PlayerName": "plyr_nm",
+          "birthplace": "birth_loc",
+          "draftround": "draft_rd",
+          "draftyear": "draft_yr",
+          "height": "ht",
+          "overall": "ovr_pick",
+          "overallby": "ovr_by",
+          "weight": "wt"
+        },
+        "PlayerInfo_nation": {
+          "ELITEID": "elite_uid",
+          "nation": "nat",
+          "position_info": "pos_role",
+          "shoots": "shot_hand",
+          "weight": "wt"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_3": {
+      "table_renames": {
+        "height_info": "StatureRecord"
+      },
+      "column_renames": {
+        "height_info": {
+          "height_id": "StatureId",
+          "height_in_cm": "HeightCentimeters",
+          "height_in_inch": "HeightInches"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    }
+  },
+  "vertical_split_map": {
+    "PlayerInfo": {
+      "pk_columns": [
+        "ELITEID"
+      ],
+      "fragments": [
+        {
+          "suffix": "css_rank",
+          "non_pk_columns": [
+            "CSS_rank",
+            "PlayerName",
+            "birthplace",
+            "draftround",
+            "draftyear",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          "local_table": "plyr_css_r_le32",
+          "local_name": "local_2",
+          "vertical_fragment_base": "PlayerInfo_css_rank",
+          "row_partition_names": [
+            "plyr_css_r_le32",
+            "plyr_css_r_33to81",
+            "plyr_css_r_82to145",
+            "plyr_css_r_gt145_or_null"
+          ],
+          "row_partition_predicate_column": "CSS_rank"
+        },
+        {
+          "suffix": "gp_greater_than_0",
+          "non_pk_columns": [
+            "GP_greater_than_0",
+            "sum_7yr_GP",
+            "sum_7yr_TOI"
+          ],
+          "local_table": "playerGameParticipation",
+          "local_name": "local_1",
+          "vertical_fragment_base": "PlayerInfo_gp_greater_than_0"
+        },
+        {
+          "suffix": "css_rank_2",
+          "non_pk_columns": [
+            "CSS_rank",
+            "PlayerName",
+            "birthdate",
+            "birthday",
+            "birthmonth",
+            "birthplace",
+            "birthyear",
+            "draftround",
+            "draftyear",
+            "overall",
+            "overallby"
+          ],
+          "local_table": "playerCssRanking",
+          "local_name": "local_1",
+          "vertical_fragment_base": "PlayerInfo_css_rank_2"
+        },
+        {
+          "suffix": "nation",
+          "non_pk_columns": [
+            "nation",
+            "position_info",
+            "shoots",
+            "weight"
+          ],
+          "local_table": "plyr_nat_pos",
+          "local_name": "local_2",
+          "vertical_fragment_base": "PlayerInfo_nation"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "PlayerInfo",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 19,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.040836376106805135,
+          "3": 0.053094822560393565,
+          "4": 0.05191961955229848,
+          "5": 0.059654940448816494
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.059654940448816494,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "CSS_rank",
+            "PlayerName",
+            "draftround",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          [
+            "GP_greater_than_0",
+            "sum_7yr_GP",
+            "sum_7yr_TOI"
+          ],
+          [
+            "birthdate",
+            "birthday",
+            "birthmonth",
+            "birthplace",
+            "birthyear",
+            "draftyear"
+          ],
+          [
+            "nation",
+            "position_info",
+            "shoots"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "draftyear",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "draftround",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "birthplace",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "overall",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "PlayerName",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "overallby",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "CSS_rank",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "weight",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "CSS_rank",
+            "PlayerName",
+            "birthplace",
+            "draftround",
+            "draftyear",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          [
+            "GP_greater_than_0",
+            "sum_7yr_GP",
+            "sum_7yr_TOI"
+          ],
+          [
+            "CSS_rank",
+            "PlayerName",
+            "birthdate",
+            "birthday",
+            "birthmonth",
+            "birthplace",
+            "birthyear",
+            "draftround",
+            "draftyear",
+            "overall",
+            "overallby"
+          ],
+          [
+            "nation",
+            "position_info",
+            "shoots",
+            "weight"
+          ]
+        ],
+        "pk_columns": [
+          "ELITEID"
+        ],
+        "fragments": [
+          {
+            "suffix": "css_rank",
+            "non_pk_columns": [
+              "CSS_rank",
+              "PlayerName",
+              "birthplace",
+              "draftround",
+              "draftyear",
+              "height",
+              "overall",
+              "overallby",
+              "weight"
+            ]
+          },
+          {
+            "suffix": "gp_greater_than_0",
+            "non_pk_columns": [
+              "GP_greater_than_0",
+              "sum_7yr_GP",
+              "sum_7yr_TOI"
+            ]
+          },
+          {
+            "suffix": "css_rank_2",
+            "non_pk_columns": [
+              "CSS_rank",
+              "PlayerName",
+              "birthdate",
+              "birthday",
+              "birthmonth",
+              "birthplace",
+              "birthyear",
+              "draftround",
+              "draftyear",
+              "overall",
+              "overallby"
+            ]
+          },
+          {
+            "suffix": "nation",
+            "non_pk_columns": [
+              "nation",
+              "position_info",
+              "shoots",
+              "weight"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "PlayerInfo_css_rank_2",
+      "movable_candidates": [
+        "PlayerInfo_css_rank_q1",
+        "PlayerInfo_gp_greater_than_0",
+        "PlayerInfo_nation"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=11;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "split_map": {
+    "PlayerInfo": {
+      "pk_columns": [
+        "ELITEID"
+      ],
+      "fragments": [
+        {
+          "suffix": "css_rank",
+          "non_pk_columns": [
+            "CSS_rank",
+            "PlayerName",
+            "birthplace",
+            "draftround",
+            "draftyear",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          "local_table": "plyr_css_r_le32",
+          "local_name": "local_2",
+          "vertical_fragment_base": "PlayerInfo_css_rank",
+          "row_partition_names": [
+            "plyr_css_r_le32",
+            "plyr_css_r_33to81",
+            "plyr_css_r_82to145",
+            "plyr_css_r_gt145_or_null"
+          ],
+          "row_partition_predicate_column": "CSS_rank"
+        },
+        {
+          "suffix": "gp_greater_than_0",
+          "non_pk_columns": [
+            "GP_greater_than_0",
+            "sum_7yr_GP",
+            "sum_7yr_TOI"
+          ],
+          "local_table": "playerGameParticipation",
+          "local_name": "local_1",
+          "vertical_fragment_base": "PlayerInfo_gp_greater_than_0"
+        },
+        {
+          "suffix": "css_rank_2",
+          "non_pk_columns": [
+            "CSS_rank",
+            "PlayerName",
+            "birthdate",
+            "birthday",
+            "birthmonth",
+            "birthplace",
+            "birthyear",
+            "draftround",
+            "draftyear",
+            "overall",
+            "overallby"
+          ],
+          "local_table": "playerCssRanking",
+          "local_name": "local_1",
+          "vertical_fragment_base": "PlayerInfo_css_rank_2"
+        },
+        {
+          "suffix": "nation",
+          "non_pk_columns": [
+            "nation",
+            "position_info",
+            "shoots",
+            "weight"
+          ],
+          "local_table": "plyr_nat_pos",
+          "local_name": "local_2",
+          "vertical_fragment_base": "PlayerInfo_nation"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "PlayerInfo",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 19,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.040836376106805135,
+          "3": 0.053094822560393565,
+          "4": 0.05191961955229848,
+          "5": 0.059654940448816494
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.059654940448816494,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "CSS_rank",
+            "PlayerName",
+            "draftround",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          [
+            "GP_greater_than_0",
+            "sum_7yr_GP",
+            "sum_7yr_TOI"
+          ],
+          [
+            "birthdate",
+            "birthday",
+            "birthmonth",
+            "birthplace",
+            "birthyear",
+            "draftyear"
+          ],
+          [
+            "nation",
+            "position_info",
+            "shoots"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "draftyear",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "draftround",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "birthplace",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "overall",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "PlayerName",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "overallby",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "CSS_rank",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "weight",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "CSS_rank",
+            "PlayerName",
+            "birthplace",
+            "draftround",
+            "draftyear",
+            "height",
+            "overall",
+            "overallby",
+            "weight"
+          ],
+          [
+            "GP_greater_than_0",
+            "sum_7yr_GP",
+            "sum_7yr_TOI"
+          ],
+          [
+            "CSS_rank",
+            "PlayerName",
+            "birthdate",
+            "birthday",
+            "birthmonth",
+            "birthplace",
+            "birthyear",
+            "draftround",
+            "draftyear",
+            "overall",
+            "overallby"
+          ],
+          [
+            "nation",
+            "position_info",
+            "shoots",
+            "weight"
+          ]
+        ],
+        "pk_columns": [
+          "ELITEID"
+        ],
+        "fragments": [
+          {
+            "suffix": "css_rank",
+            "non_pk_columns": [
+              "CSS_rank",
+              "PlayerName",
+              "birthplace",
+              "draftround",
+              "draftyear",
+              "height",
+              "overall",
+              "overallby",
+              "weight"
+            ]
+          },
+          {
+            "suffix": "gp_greater_than_0",
+            "non_pk_columns": [
+              "GP_greater_than_0",
+              "sum_7yr_GP",
+              "sum_7yr_TOI"
+            ]
+          },
+          {
+            "suffix": "css_rank_2",
+            "non_pk_columns": [
+              "CSS_rank",
+              "PlayerName",
+              "birthdate",
+              "birthday",
+              "birthmonth",
+              "birthplace",
+              "birthyear",
+              "draftround",
+              "draftyear",
+              "overall",
+              "overallby"
+            ]
+          },
+          {
+            "suffix": "nation",
+            "non_pk_columns": [
+              "nation",
+              "position_info",
+              "shoots",
+              "weight"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "PlayerInfo_css_rank_2",
+      "movable_candidates": [
+        "PlayerInfo_css_rank_q1",
+        "PlayerInfo_gp_greater_than_0",
+        "PlayerInfo_nation"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=11;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 4,
+    "eligible_candidate_count": 3,
+    "num_selected_for_vertical_split": 3,
+    "num_from_rate_alone": 3,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "PlayerInfo",
+      "height_info",
+      "weight_info"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/ice_hockey_draft/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "height_info",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "weight_info",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "PlayerInfo||vfrag=css_rank": {
+      "source_table": "PlayerInfo",
+      "vertical_fragment_suffix": "css_rank",
+      "num_partitions": 4,
+      "partition_names": [
+        "plyr_css_r_le32",
+        "plyr_css_r_33to81",
+        "plyr_css_r_82to145",
+        "plyr_css_r_gt145_or_null"
+      ],
+      "partition_locals": [
+        "local_2",
+        "local_2",
+        "local_2",
+        "local_2"
+      ],
+      "predicate_column": "CSS_rank",
+      "partition_values": [
+        {
+          "upper": 32
+        },
+        {
+          "lower": 32,
+          "upper": 81
+        },
+        {
+          "lower": 81,
+          "upper": 145
+        },
+        {
+          "lower": 145,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" <= 32) OR (rowid IN (18,59,71,89,245,354,578,663,679,713,745,1662,2095,2665,2668,2686,2710,3228,3674,3707,3730,3841,3856,4053,4081,4092,4152,4224,4283,4567,6251,6364,8609,8694,8745,8805,8808,8839,8920,8975,9106,9153,9199,9212,9216,9247,9357,9371,9380,9427,9492,9508,9518,9592,9661,9685,10220,10315,10350,10438,10441,10637,10657,10837,10860,10986,11052,11056,11103,11237,11256,11306,11320,11350,11393,11412,11417,11419,11430,11444,11446,11464,11468,11517,11526,11534,11553,11561,11585,11586,11642,11669,11674,11683,11694,11696,11734,11881,11920,12030,12039,12131,12154,12210,12255,12262,12263,12274,12300,12426,12459,12487,12517,12519,12530,12531,12540,12556,12559,12560,12587,12636,12761,12766,12831,12916,13414,13527,13614,13633,13643,13661,13965,14011,14109,14126,14370,14396,14398,14504,14513,14564,14607,14638,14859,14864,14867,14873,14962,14998,14999,15031,15038,15047,15053,15069,15241,15313,15451,15566,15590,15596,15947,15978,16060,16584,16591,16666,17120,17509,17515,17968,17972,18009,18010,18017,18022,18025,18140,18146,18247,18313,18316,18317,18320,18371,18375,18537,18539,18562,18748,18987,19061,19078,19151,19171,19204,19223,19224,19225,19231,19565,21045,22627,22961,24113,28514,48428,59127,60906,61185,61192,64940,64942,78405,78449,78936,79014)))",
+        "((\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" > 32 AND \"CSS_rank\" <= 81) OR (rowid IN (27,67,69,236,339,345,355,463,473,526,738,2045,2046,2050,2613,2674,2685,2695,2697,2715,3187,3211,3222,3241,3595,3637,3658,3660,3661,3662,3669,3696,4087,4128,4131,4218,4233,4295,4506,4509,4532,5213,5504,5527,5979,5995,6423,6664,6665,6913,6953,7311,7410,8399,8429,8494,8539,8562,8568,8589,8598,8605,8614,8616,8624,8655,8664,8673,8679,8701,8746,8755,8769,8778,8794,8809,8834,8855,8876,8889,8944,8957,9001,9019,9040,9052,9083,9092,9107,9117,9119,9147,9148,9156,9180,9183,9192,9195,9198,9207,9214,9225,9232,9237,9242,9248,9251,9254,9259,9261,9282,9299,9303,9324,9325,9333,9339,9348,9355,9359,9362,9446,9461,9476,9483,9484,9510,9514,9553,9555,9558,9560,9566,9578,9588,9591,9599,9600,9601,9604,9614,9623,9632,9636,9640,9878,10157,10233,10410,10419,10425,10426,10429,10430,10436,10442,10458,10460,10461,10490,10604,10700,10877,11050,11053,11057,11108,11112,11121,11123,11317,11321,11346,11400,11457,11459,11470,11595,11597,11617,11619,11667,11850,11860,11861,11864,12112,12209,12232,12266,12297,12388,12461,12572,12812,13625,13651,14013,14359,14440,14450,15025,15108,15235,17518,18013,18032,18240,18374,18592,18843,19111,19740,20195,20527,28602,29019,42367,43320,57630,60629)))",
+        "((\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" > 81 AND \"CSS_rank\" <= 145) OR (rowid IN (90,97,118,135,305,308,321,462,539,632,643,807,991,1255,2018,2368,2439,2489,2671,2711,2716,3185,3196,3197,3221,3250,3442,3724,4008,5676,7605,8053,8388,8394,8473,8579,8597,8626,8663,8681,8724,8732,8771,8870,8961,9013,9158,9187,9204,9228,9262,9264,9301,9316,9318,9321,9336,9337,9338,9345,9354,9374,9407,9414,9416,9420,9448,9494,9521,9526,9552,9556,9575,9594,9595,9613,9641,9686,10219,10333,10432,10439,10481,10631,10698,10810,10874,10880,10987,11020,11102,11124,11233,11241,11246,11250,11252,11308,11401,11425,11460,11463,11472,11474,11547,11554,11590,11607,11673,11695,11715,11726,11772,12160,12171,12230,12250,12265,12268,12277,12386,12395,12427,12486,12504,12505,12507,12508,12520,12523,12524,12525,12547,12550,12558,12563,12678,12697,12753,12836,12848,13431,13559,13615,14077,14091,14327,14336,14399,14421,14670,14684,14724,14870,14875,15024,15027,15032,15044,15090,15111,15343,15466,15766,15887,15946,16048,16499,16744,17101,17165,17504,17516,17937,18021,18027,18031,18241,18597,18598,18716,19040,19043,19044,19108,19165,19181,19580,22669,27991,29020,31511,39663,41101,41103,41870,42368,42370,43141,52083,53141,53546,53959,57088,57300,58785,59304,60994,65186,65187,67360,78427,78435,79301,79353,79436)))",
+        "((\"CSS_rank\" > 145 OR \"CSS_rank\" IS NULL) OR (rowid IN (201,204,301,306,466,543,547,748,882,1342,1343,1344,1345,1668,1934,2673,2699,3184,3195,3240,3319,3679,4024,4198,4375,4746,5215,5531,5869,6042,6627,7963,8068,8338,8504,8618,8677,8715,8717,8734,8798,8799,8895,8932,8949,8999,9062,9145,9211,9356,9378,9411,9435,9497,9519,9605,9619,10196,10206,10243,10254,10292,10375,10404,10412,10496,10507,10635,10640,10669,10689,10840,10871,10873,10884,10997,11000,11030,11039,11040,11115,11251,11351,11392,11398,11462,11475,11492,11639,11650,11655,11662,11666,11743,11813,12026,12043,12044,12187,12191,12237,12251,12260,12269,12273,12308,12367,12387,12428,12453,12468,12476,12516,12527,12534,12535,12539,12557,12635,12696,12724,12802,13243,13406,13419,13440,13472,13480,13488,13649,13658,13959,14087,14182,14409,14431,14644,14828,14857,14862,14876,14877,14966,15001,15049,15055,15063,15081,15121,15257,15341,15346,15691,15844,15949,16662,16863,17817,17843,18011,18120,18599,19042,19045,19054,19060,19063,19177,19350,19376,19384,19448,20907,20971,26096,30696,34272,41413,41631,44341,47837,49470,49474,51401,51896,52122,52471,58284,58285,58428,58464,58482,59120,60618,60620,60623,60630,60777,60793,64943,65188,78908,78935,79288,79344,79345,79362,79394,80660,81623,81634,81642,82978,83049,83097,83102)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" <= 32)",
+        "(\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" > 32 AND \"CSS_rank\" <= 81)",
+        "(\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" > 81 AND \"CSS_rank\" <= 145)",
+        "(\"CSS_rank\" > 145 OR \"CSS_rank\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where CSS_rank <= 32",
+        "rows where 32 < CSS_rank <= 81",
+        "rows where 81 < CSS_rank <= 145",
+        "rows where CSS_rank > 145 or is NULL"
+      ],
+      "home_fragment": "plyr_css_r_le32",
+      "movable_fragments": [
+        "plyr_css_r_33to81",
+        "plyr_css_r_82to145",
+        "plyr_css_r_gt145_or_null"
+      ],
+      "movable_fragment": "plyr_css_r_33to81",
+      "default_movable_fragment": "plyr_css_r_33to81",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "CSS_rank",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "CSS_rank",
+            "rhs": "birthplace",
+            "precision": 1.0
+          },
+          {
+            "lhs": "CSS_rank",
+            "rhs": "draftround",
+            "precision": 1.0
+          },
+          {
+            "lhs": "CSS_rank",
+            "rhs": "draftyear",
+            "precision": 1.0
+          },
+          {
+            "lhs": "CSS_rank",
+            "rhs": "overall",
+            "precision": 1.0
+          },
+          {
+            "lhs": "CSS_rank",
+            "rhs": "overallby",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "CSS_rank",
+          "birthplace",
+          "draftround",
+          "draftyear",
+          "overall",
+          "overallby"
+        ],
+        "ranked_columns": [
+          {
+            "column": "CSS_rank",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "birthplace",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "draftyear",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "overall",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "overallby",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "draftround",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 2171
+      },
+      "predicate_sql_fragment_A": "((\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" <= 32) OR (rowid IN (18,59,71,89,245,354,578,663,679,713,745,1662,2095,2665,2668,2686,2710,3228,3674,3707,3730,3841,3856,4053,4081,4092,4152,4224,4283,4567,6251,6364,8609,8694,8745,8805,8808,8839,8920,8975,9106,9153,9199,9212,9216,9247,9357,9371,9380,9427,9492,9508,9518,9592,9661,9685,10220,10315,10350,10438,10441,10637,10657,10837,10860,10986,11052,11056,11103,11237,11256,11306,11320,11350,11393,11412,11417,11419,11430,11444,11446,11464,11468,11517,11526,11534,11553,11561,11585,11586,11642,11669,11674,11683,11694,11696,11734,11881,11920,12030,12039,12131,12154,12210,12255,12262,12263,12274,12300,12426,12459,12487,12517,12519,12530,12531,12540,12556,12559,12560,12587,12636,12761,12766,12831,12916,13414,13527,13614,13633,13643,13661,13965,14011,14109,14126,14370,14396,14398,14504,14513,14564,14607,14638,14859,14864,14867,14873,14962,14998,14999,15031,15038,15047,15053,15069,15241,15313,15451,15566,15590,15596,15947,15978,16060,16584,16591,16666,17120,17509,17515,17968,17972,18009,18010,18017,18022,18025,18140,18146,18247,18313,18316,18317,18320,18371,18375,18537,18539,18562,18748,18987,19061,19078,19151,19171,19204,19223,19224,19225,19231,19565,21045,22627,22961,24113,28514,48428,59127,60906,61185,61192,64940,64942,78405,78449,78936,79014)))",
+      "predicate_sql_fragment_B": "((\"CSS_rank\" IS NOT NULL AND \"CSS_rank\" > 32 AND \"CSS_rank\" <= 81) OR (rowid IN (27,67,69,236,339,345,355,463,473,526,738,2045,2046,2050,2613,2674,2685,2695,2697,2715,3187,3211,3222,3241,3595,3637,3658,3660,3661,3662,3669,3696,4087,4128,4131,4218,4233,4295,4506,4509,4532,5213,5504,5527,5979,5995,6423,6664,6665,6913,6953,7311,7410,8399,8429,8494,8539,8562,8568,8589,8598,8605,8614,8616,8624,8655,8664,8673,8679,8701,8746,8755,8769,8778,8794,8809,8834,8855,8876,8889,8944,8957,9001,9019,9040,9052,9083,9092,9107,9117,9119,9147,9148,9156,9180,9183,9192,9195,9198,9207,9214,9225,9232,9237,9242,9248,9251,9254,9259,9261,9282,9299,9303,9324,9325,9333,9339,9348,9355,9359,9362,9446,9461,9476,9483,9484,9510,9514,9553,9555,9558,9560,9566,9578,9588,9591,9599,9600,9601,9604,9614,9623,9632,9636,9640,9878,10157,10233,10410,10419,10425,10426,10429,10430,10436,10442,10458,10460,10461,10490,10604,10700,10877,11050,11053,11057,11108,11112,11121,11123,11317,11321,11346,11400,11457,11459,11470,11595,11597,11617,11619,11667,11850,11860,11861,11864,12112,12209,12232,12266,12297,12388,12461,12572,12812,13625,13651,14013,14359,14440,14450,15025,15108,15235,17518,18013,18032,18240,18374,18592,18843,19111,19740,20195,20527,28602,29019,42367,43320,57630,60629)))",
+      "fragment_role_A": "rows where CSS_rank <= 32",
+      "fragment_role_B": "rows where 32 < CSS_rank <= 81"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "PlayerInfo",
+          "from_column": "weight",
+          "to_table": "weight_info",
+          "to_column": "weight_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "PlayerInfo_gp_greater_than_0",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "GP_greater_than_0": "GP_greater_than_0",
+              "sum_7yr_GP": "sum_7yr_GP",
+              "sum_7yr_TOI": "sum_7yr_TOI"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "GP_greater_than_0": "GP_greater_than_0",
+              "sum_7yr_GP": "sum_7yr_GP",
+              "sum_7yr_TOI": "sum_7yr_TOI"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "PlayerInfo_css_rank_2",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthdate": "birthdate",
+              "birthday": "birthday",
+              "birthmonth": "birthmonth",
+              "birthplace": "birthplace",
+              "birthyear": "birthyear",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "overall": "overall",
+              "overallby": "overallby"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthdate": "birthdate",
+              "birthday": "birthday",
+              "birthmonth": "birthmonth",
+              "birthplace": "birthplace",
+              "birthyear": "birthyear",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "overall": "overall",
+              "overallby": "overallby"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q1",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q2",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q3",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q4",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_nation",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "nation": "nation",
+              "position_info": "position_info",
+              "shoots": "shoots",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "nation": "nation",
+              "position_info": "position_info",
+              "shoots": "shoots",
+              "weight": "weight"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "weight_info",
+            "column_map": {
+              "weight_id": "weight_id",
+              "weight_in_kg": "weight_in_kg",
+              "weight_in_lbs": "weight_in_lbs"
+            },
+            "orig_to_local": {
+              "weight_id": "weight_id",
+              "weight_in_kg": "weight_in_kg",
+              "weight_in_lbs": "weight_in_lbs"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "plyr_css_r_le32",
+            "to_local_table": "weightMeasurements",
+            "from_local_column": "wt",
+            "to_local_column": "weightRecordId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "plyr_css_r_33to81",
+            "to_local_table": "weightMeasurements",
+            "from_local_column": "wt",
+            "to_local_column": "weightRecordId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "plyr_css_r_82to145",
+            "to_local_table": "weightMeasurements",
+            "from_local_column": "wt",
+            "to_local_column": "weightRecordId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "plyr_css_r_gt145_or_null",
+            "to_local_table": "weightMeasurements",
+            "from_local_column": "wt",
+            "to_local_column": "weightRecordId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "plyr_nat_pos",
+            "to_local_table": "weightMeasurements",
+            "from_local_column": "wt",
+            "to_local_column": "weightRecordId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "PlayerInfo",
+          "from_column": "height",
+          "to_table": "height_info",
+          "to_column": "height_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "PlayerInfo_gp_greater_than_0",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "GP_greater_than_0": "GP_greater_than_0",
+              "sum_7yr_GP": "sum_7yr_GP",
+              "sum_7yr_TOI": "sum_7yr_TOI"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "GP_greater_than_0": "GP_greater_than_0",
+              "sum_7yr_GP": "sum_7yr_GP",
+              "sum_7yr_TOI": "sum_7yr_TOI"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "PlayerInfo_css_rank_2",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthdate": "birthdate",
+              "birthday": "birthday",
+              "birthmonth": "birthmonth",
+              "birthplace": "birthplace",
+              "birthyear": "birthyear",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "overall": "overall",
+              "overallby": "overallby"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthdate": "birthdate",
+              "birthday": "birthday",
+              "birthmonth": "birthmonth",
+              "birthplace": "birthplace",
+              "birthyear": "birthyear",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "overall": "overall",
+              "overallby": "overallby"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q1",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q2",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q3",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q4",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_nation",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "nation": "nation",
+              "position_info": "position_info",
+              "shoots": "shoots",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "nation": "nation",
+              "position_info": "position_info",
+              "shoots": "shoots",
+              "weight": "weight"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "height_info",
+            "column_map": {
+              "height_id": "height_id",
+              "height_in_cm": "height_in_cm",
+              "height_in_inch": "height_in_inch"
+            },
+            "orig_to_local": {
+              "height_id": "height_id",
+              "height_in_cm": "height_in_cm",
+              "height_in_inch": "height_in_inch"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "plyr_css_r_le32",
+            "to_local_table": "StatureRecord",
+            "from_local_column": "ht",
+            "to_local_column": "StatureId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "plyr_css_r_33to81",
+            "to_local_table": "StatureRecord",
+            "from_local_column": "ht",
+            "to_local_column": "StatureId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "plyr_css_r_82to145",
+            "to_local_table": "StatureRecord",
+            "from_local_column": "ht",
+            "to_local_column": "StatureId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "plyr_css_r_gt145_or_null",
+            "to_local_table": "StatureRecord",
+            "from_local_column": "ht",
+            "to_local_column": "StatureId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "SeasonStatus",
+          "from_column": "ELITEID",
+          "to_table": "PlayerInfo",
+          "to_column": "ELITEID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "SeasonStatus",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "SEASON": "SEASON",
+              "TEAM": "TEAM",
+              "LEAGUE": "LEAGUE",
+              "GAMETYPE": "GAMETYPE",
+              "GP": "GP",
+              "G": "G",
+              "A": "A",
+              "P": "P",
+              "PIM": "PIM",
+              "PLUSMINUS": "PLUSMINUS"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "SEASON": "SEASON",
+              "TEAM": "TEAM",
+              "LEAGUE": "LEAGUE",
+              "GAMETYPE": "GAMETYPE",
+              "GP": "GP",
+              "G": "G",
+              "A": "A",
+              "P": "P",
+              "PIM": "PIM",
+              "PLUSMINUS": "PLUSMINUS"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "PlayerInfo_gp_greater_than_0",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "GP_greater_than_0": "GP_greater_than_0",
+              "sum_7yr_GP": "sum_7yr_GP",
+              "sum_7yr_TOI": "sum_7yr_TOI"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "GP_greater_than_0": "GP_greater_than_0",
+              "sum_7yr_GP": "sum_7yr_GP",
+              "sum_7yr_TOI": "sum_7yr_TOI"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "PlayerInfo_css_rank_2",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthdate": "birthdate",
+              "birthday": "birthday",
+              "birthmonth": "birthmonth",
+              "birthplace": "birthplace",
+              "birthyear": "birthyear",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "overall": "overall",
+              "overallby": "overallby"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthdate": "birthdate",
+              "birthday": "birthday",
+              "birthmonth": "birthmonth",
+              "birthplace": "birthplace",
+              "birthyear": "birthyear",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "overall": "overall",
+              "overallby": "overallby"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q1",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q2",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q3",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_css_rank_q4",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "CSS_rank": "CSS_rank",
+              "PlayerName": "PlayerName",
+              "birthplace": "birthplace",
+              "draftround": "draftround",
+              "draftyear": "draftyear",
+              "height": "height",
+              "overall": "overall",
+              "overallby": "overallby",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "PlayerInfo_nation",
+            "column_map": {
+              "ELITEID": "ELITEID",
+              "nation": "nation",
+              "position_info": "position_info",
+              "shoots": "shoots",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ELITEID": "ELITEID",
+              "nation": "nation",
+              "position_info": "position_info",
+              "shoots": "shoots",
+              "weight": "weight"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "plyr_season_stat",
+            "to_local_table": "plyr_css_r_33to81",
+            "from_local_column": "elite_uid",
+            "to_local_column": "elite_uid"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "plyr_season_stat",
+            "to_local_table": "plyr_css_r_82to145",
+            "from_local_column": "elite_uid",
+            "to_local_column": "elite_uid"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "plyr_season_stat",
+            "to_local_table": "plyr_css_r_le32",
+            "from_local_column": "elite_uid",
+            "to_local_column": "elite_uid"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "plyr_season_stat",
+            "to_local_table": "plyr_css_r_gt145_or_null",
+            "from_local_column": "elite_uid",
+            "to_local_column": "elite_uid"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "plyr_season_stat",
+            "to_local_table": "plyr_nat_pos",
+            "from_local_column": "elite_uid",
+            "to_local_column": "elite_uid"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "plyr_season_stat",
+            "to_local_table": "playerGameParticipation",
+            "from_local_column": "elite_uid",
+            "to_local_column": "eliteIdentifier"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "plyr_season_stat",
+            "to_local_table": "playerCssRanking",
+            "from_local_column": "elite_uid",
+            "to_local_column": "eliteIdentifier"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "PlayerInfo_css_rank_q1",
+      "source_table": "PlayerInfo",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "PlayerInfo_css_rank_q2",
+      "source_table": "PlayerInfo",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "PlayerInfo_css_rank_q3",
+      "source_table": "PlayerInfo",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "PlayerInfo_css_rank_q4",
+      "source_table": "PlayerInfo",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "PlayerInfo_nation",
+      "source_table": "PlayerInfo",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 9,
+        "cross_local_query_count": 9,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "PlayerInfo_css_rank_2|SeasonStatus": 34,
+      "PlayerInfo_css_rank_2|height_info": 13,
+      "PlayerInfo_css_rank_q1|SeasonStatus": 39,
+      "PlayerInfo_css_rank_q1|height_info": 20,
+      "PlayerInfo_css_rank_q2|SeasonStatus": 39,
+      "PlayerInfo_css_rank_q2|height_info": 20,
+      "PlayerInfo_css_rank_q3|SeasonStatus": 39,
+      "PlayerInfo_css_rank_q3|height_info": 20,
+      "PlayerInfo_css_rank_q4|SeasonStatus": 39,
+      "PlayerInfo_css_rank_q4|height_info": 20,
+      "PlayerInfo_gp_greater_than_0|SeasonStatus": 1,
+      "PlayerInfo_nation|SeasonStatus": 9,
+      "PlayerInfo_nation|height_info": 6,
+      "SeasonStatus|height_info": 4,
+      "SeasonStatus|weight_info": 2,
+      "height_info|weight_info": 1
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "PlayerInfo_css_rank_2": "local_1",
+      "PlayerInfo_css_rank_q1": "local_1",
+      "PlayerInfo_css_rank_q2": "local_1",
+      "PlayerInfo_css_rank_q3": "local_1",
+      "PlayerInfo_css_rank_q4": "local_1",
+      "PlayerInfo_gp_greater_than_0": "local_1",
+      "PlayerInfo_nation": "local_1",
+      "SeasonStatus": "local_2",
+      "height_info": "local_3",
+      "weight_info": "local_1"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "PlayerInfo": {
+        "R": 5,
+        "F": 7,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "PlayerInfo": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "PlayerInfo": "PlayerInfo_css_rank_q1"
+    },
+    "intents": [
+      {
+        "source_table": "PlayerInfo",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "PlayerInfo_css_rank_q1",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "PlayerInfo",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "PlayerInfo_css_rank_q2",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "PlayerInfo",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "PlayerInfo_css_rank_q3",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "PlayerInfo",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "PlayerInfo_css_rank_q4",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "PlayerInfo",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "PlayerInfo_nation",
+        "anchor_fragment": "PlayerInfo_css_rank_2",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 9,
+        "cross_local_query_count": 9,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "PlayerInfo",
+        "kind": "row_partition",
+        "movable_fragment": "PlayerInfo_css_rank_q2",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "PlayerInfo_css_rank_q1"
+      },
+      {
+        "source_table": "PlayerInfo",
+        "kind": "row_partition",
+        "movable_fragment": "PlayerInfo_css_rank_q3",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "PlayerInfo_css_rank_q1"
+      }
+    ],
+    "moved_fragments": [
+      "PlayerInfo_css_rank_q1",
+      "PlayerInfo_css_rank_q2",
+      "PlayerInfo_css_rank_q3",
+      "PlayerInfo_css_rank_q4",
+      "PlayerInfo_nation"
+    ],
+    "pinned_fragments": [
+      "SeasonStatus"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "PlayerInfo",
+        "kind": "row_partition",
+        "movable_fragment": "PlayerInfo_css_rank_q2",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "PlayerInfo_css_rank_q1",
+        "reason": "movable_already_moved"
+      },
+      {
+        "source_table": "PlayerInfo",
+        "kind": "row_partition",
+        "movable_fragment": "PlayerInfo_css_rank_q3",
+        "partner_fragment": "SeasonStatus",
+        "partner_logical_table": "SeasonStatus",
+        "partner_weight": 39,
+        "cross_local_query_count": 39,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "PlayerInfo_css_rank_q1",
+        "reason": "movable_already_moved"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "height_info": {
+        "columns": [
+          {
+            "name": "height_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "height_in_cm",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "height_in_inch",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "height_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 16
+      },
+      "weight_info": {
+        "columns": [
+          {
+            "name": "weight_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "weight_in_kg",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "weight_in_lbs",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "weight_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 46
+      },
+      "PlayerInfo": {
+        "columns": [
+          {
+            "name": "ELITEID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "PlayerName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birthdate",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birthyear",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birthmonth",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birthday",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birthplace",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "nation",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "height",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "weight",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "position_info",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shoots",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "draftyear",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "draftround",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "overall",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "overallby",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "CSS_rank",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "sum_7yr_GP",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "sum_7yr_TOI",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "GP_greater_than_0",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ELITEID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 2171
+      },
+      "SeasonStatus": {
+        "columns": [
+          {
+            "name": "ELITEID",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "SEASON",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "TEAM",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "LEAGUE",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "GAMETYPE",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "GP",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "G",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "A",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "P",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "PIM",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "PLUSMINUS",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 5485
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "PlayerInfo",
+        "from_column": "weight",
+        "to_table": "weight_info",
+        "to_column": "weight_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "PlayerInfo",
+        "from_column": "height",
+        "to_table": "height_info",
+        "to_column": "height_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "SeasonStatus",
+        "from_column": "ELITEID",
+        "to_table": "PlayerInfo",
+        "to_column": "ELITEID",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 4,
+      "num_fk_edges": 3,
+      "hub_tables": [
+        "PlayerInfo",
+        "height_info",
+        "weight_info",
+        "SeasonStatus"
+      ],
+      "connected_components": 1
+    }
+  }
+}

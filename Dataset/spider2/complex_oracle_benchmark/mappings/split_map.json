@@ -1,0 +1,1308 @@
+{
+  "countries": {
+    "pk_columns": [
+      "country_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "country",
+        "non_pk_columns": [
+          "country_iso_code",
+          "country_name",
+          "country_region",
+          "country_region_id",
+          "country_subregion",
+          "country_subregion_id"
+        ],
+        "local_table": "country_reference",
+        "local_name": "local_1",
+        "vertical_fragment_base": "countries_country"
+      },
+      {
+        "suffix": "country_2",
+        "non_pk_columns": [
+          "country_iso_code",
+          "country_name",
+          "country_subregion",
+          "country_subregion_id",
+          "country_total",
+          "country_total_id"
+        ],
+        "local_table": "country_summary",
+        "local_name": "local_1",
+        "vertical_fragment_base": "countries_country_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "countries",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 213348186,
+      "scores_by_k": {
+        "2": 0.056755110594607
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.056755110594607,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "country_iso_code",
+          "country_region",
+          "country_region_id",
+          "country_subregion",
+          "country_subregion_id"
+        ],
+        [
+          "country_name",
+          "country_total",
+          "country_total_id"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "country_iso_code",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "country_name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "country_subregion",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "country_subregion_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "country_iso_code",
+          "country_name",
+          "country_region",
+          "country_region_id",
+          "country_subregion",
+          "country_subregion_id"
+        ],
+        [
+          "country_iso_code",
+          "country_name",
+          "country_subregion",
+          "country_subregion_id",
+          "country_total",
+          "country_total_id"
+        ]
+      ],
+      "pk_columns": [
+        "country_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "country",
+          "non_pk_columns": [
+            "country_iso_code",
+            "country_name",
+            "country_region",
+            "country_region_id",
+            "country_subregion",
+            "country_subregion_id"
+          ]
+        },
+        {
+          "suffix": "country_2",
+          "non_pk_columns": [
+            "country_iso_code",
+            "country_name",
+            "country_subregion",
+            "country_subregion_id",
+            "country_total",
+            "country_total_id"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "countries_country_2",
+    "movable_candidates": [
+      "countries_country"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+  },
+  "customers": {
+    "pk_columns": [
+      "cust_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "country_id",
+        "non_pk_columns": [
+          "country_id",
+          "cust_city",
+          "cust_city_id",
+          "cust_main_phone_number",
+          "cust_src_id",
+          "cust_state_province",
+          "cust_state_province_id",
+          "cust_total_id"
+        ],
+        "local_table": "customer_locations_summary",
+        "local_name": "local_1",
+        "vertical_fragment_base": "customers_country_id"
+      },
+      {
+        "suffix": "cust",
+        "non_pk_columns": [
+          "cust_credit_limit",
+          "cust_email",
+          "cust_gender",
+          "cust_income_level",
+          "cust_postal_code",
+          "cust_total",
+          "cust_total_id"
+        ],
+        "local_table": "customerIncomeBracketF110kTo129k",
+        "local_name": "local_3",
+        "vertical_fragment_base": "customers_cust",
+        "row_partition_names": [
+          "customerIncomeBracketF110kTo129k",
+          "customerIncomeBracketE90kTo109k",
+          "customerIncomeBucketsG130kTo149kAndD70kTo89k",
+          "customerIncomeBucketsH150kTo169kAndJ190kTo249kAndB30kTo49k",
+          "customerIncomeBucketsI170kTo189kAndC50kTo69k",
+          "customerIncomeBucketOther"
+        ],
+        "row_partition_predicate_column": "cust_income_level"
+      },
+      {
+        "suffix": "cust_2",
+        "non_pk_columns": [
+          "cust_eff_from",
+          "cust_eff_to",
+          "cust_marital_status",
+          "cust_src_id",
+          "cust_valid",
+          "cust_year_of_birth"
+        ],
+        "local_table": "customerProfile",
+        "local_name": "local_3",
+        "vertical_fragment_base": "customers_cust_2"
+      },
+      {
+        "suffix": "country_id_2",
+        "non_pk_columns": [
+          "country_id",
+          "cust_city",
+          "cust_email",
+          "cust_first_name",
+          "cust_income_level",
+          "cust_last_name",
+          "cust_main_phone_number",
+          "cust_state_province",
+          "cust_street_address",
+          "cust_year_of_birth"
+        ],
+        "local_table": "customer_profiles",
+        "local_name": "local_1",
+        "vertical_fragment_base": "customers_country_id_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "customers",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 22,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.02626252181779588,
+        "3": 0.02967118577048279,
+        "4": 0.032046304901726004,
+        "5": 0.0334802259277363
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.0334802259277363,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "country_id",
+          "cust_city",
+          "cust_city_id",
+          "cust_src_id",
+          "cust_state_province",
+          "cust_state_province_id",
+          "cust_total_id"
+        ],
+        [
+          "cust_credit_limit",
+          "cust_gender",
+          "cust_postal_code",
+          "cust_total"
+        ],
+        [
+          "cust_eff_from",
+          "cust_eff_to",
+          "cust_marital_status",
+          "cust_valid",
+          "cust_year_of_birth"
+        ],
+        [
+          "cust_email",
+          "cust_first_name",
+          "cust_income_level",
+          "cust_last_name",
+          "cust_main_phone_number",
+          "cust_street_address"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "cust_year_of_birth",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "cust_city",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "country_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "cust_total_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "cust_income_level",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "cust_src_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "cust_state_province",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "cust_email",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "cust_main_phone_number",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "country_id",
+          "cust_city",
+          "cust_city_id",
+          "cust_main_phone_number",
+          "cust_src_id",
+          "cust_state_province",
+          "cust_state_province_id",
+          "cust_total_id"
+        ],
+        [
+          "cust_credit_limit",
+          "cust_email",
+          "cust_gender",
+          "cust_income_level",
+          "cust_postal_code",
+          "cust_total",
+          "cust_total_id"
+        ],
+        [
+          "cust_eff_from",
+          "cust_eff_to",
+          "cust_marital_status",
+          "cust_src_id",
+          "cust_valid",
+          "cust_year_of_birth"
+        ],
+        [
+          "country_id",
+          "cust_city",
+          "cust_email",
+          "cust_first_name",
+          "cust_income_level",
+          "cust_last_name",
+          "cust_main_phone_number",
+          "cust_state_province",
+          "cust_street_address",
+          "cust_year_of_birth"
+        ]
+      ],
+      "pk_columns": [
+        "cust_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "country_id",
+          "non_pk_columns": [
+            "country_id",
+            "cust_city",
+            "cust_city_id",
+            "cust_main_phone_number",
+            "cust_src_id",
+            "cust_state_province",
+            "cust_state_province_id",
+            "cust_total_id"
+          ]
+        },
+        {
+          "suffix": "cust",
+          "non_pk_columns": [
+            "cust_credit_limit",
+            "cust_email",
+            "cust_gender",
+            "cust_income_level",
+            "cust_postal_code",
+            "cust_total",
+            "cust_total_id"
+          ]
+        },
+        {
+          "suffix": "cust_2",
+          "non_pk_columns": [
+            "cust_eff_from",
+            "cust_eff_to",
+            "cust_marital_status",
+            "cust_src_id",
+            "cust_valid",
+            "cust_year_of_birth"
+          ]
+        },
+        {
+          "suffix": "country_id_2",
+          "non_pk_columns": [
+            "country_id",
+            "cust_city",
+            "cust_email",
+            "cust_first_name",
+            "cust_income_level",
+            "cust_last_name",
+            "cust_main_phone_number",
+            "cust_state_province",
+            "cust_street_address",
+            "cust_year_of_birth"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "customers_country_id_2",
+    "movable_candidates": [
+      "customers_country_id",
+      "customers_cust_2",
+      "customers_cust_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=2"
+  },
+  "products": {
+    "pk_columns": [
+      "prod_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "prod",
+        "non_pk_columns": [
+          "prod_category",
+          "prod_category_desc",
+          "prod_category_id",
+          "prod_desc",
+          "prod_name",
+          "prod_pack_size",
+          "prod_src_id",
+          "prod_status",
+          "prod_subcategory",
+          "prod_subcategory_desc",
+          "prod_subcategory_id",
+          "prod_unit_of_measure",
+          "prod_weight_class"
+        ],
+        "local_table": "products_catalog",
+        "local_name": "local_1",
+        "vertical_fragment_base": "products_prod"
+      },
+      {
+        "suffix": "prod_2",
+        "non_pk_columns": [
+          "prod_eff_from",
+          "prod_eff_to",
+          "prod_pack_size",
+          "prod_status",
+          "prod_valid"
+        ],
+        "local_table": "prod_lifecycle",
+        "local_name": "local_2",
+        "vertical_fragment_base": "products_prod_2"
+      },
+      {
+        "suffix": "prod_3",
+        "non_pk_columns": [
+          "prod_list_price",
+          "prod_min_price",
+          "prod_unit_of_measure"
+        ],
+        "local_table": "prod_pricing",
+        "local_name": "local_2",
+        "vertical_fragment_base": "products_prod_3"
+      },
+      {
+        "suffix": "prod_category_id",
+        "non_pk_columns": [
+          "prod_category_id",
+          "prod_name",
+          "prod_src_id",
+          "prod_subcategory",
+          "prod_subcategory_id",
+          "prod_total",
+          "prod_total_id",
+          "prod_weight_class",
+          "supplier_id"
+        ],
+        "local_table": "product_category_overview",
+        "local_name": "local_1",
+        "vertical_fragment_base": "products_prod_category_id"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "products",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 21,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.036957879068838406,
+        "3": 0.05638886401061155,
+        "4": 0.06407138706286883,
+        "5": 0.06115082318142209
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.06407138706286883,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "prod_category",
+          "prod_category_desc",
+          "prod_category_id",
+          "prod_desc",
+          "prod_name",
+          "prod_pack_size",
+          "prod_subcategory",
+          "prod_subcategory_desc",
+          "prod_weight_class"
+        ],
+        [
+          "prod_eff_from",
+          "prod_eff_to",
+          "prod_status",
+          "prod_valid"
+        ],
+        [
+          "prod_list_price",
+          "prod_min_price",
+          "prod_unit_of_measure"
+        ],
+        [
+          "prod_src_id",
+          "prod_subcategory_id",
+          "prod_total",
+          "prod_total_id",
+          "supplier_id"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "prod_category_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "prod_subcategory_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "prod_status",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "prod_weight_class",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "prod_unit_of_measure",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "prod_name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "prod_pack_size",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "prod_subcategory",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "prod_src_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "prod_category",
+          "prod_category_desc",
+          "prod_category_id",
+          "prod_desc",
+          "prod_name",
+          "prod_pack_size",
+          "prod_src_id",
+          "prod_status",
+          "prod_subcategory",
+          "prod_subcategory_desc",
+          "prod_subcategory_id",
+          "prod_unit_of_measure",
+          "prod_weight_class"
+        ],
+        [
+          "prod_eff_from",
+          "prod_eff_to",
+          "prod_pack_size",
+          "prod_status",
+          "prod_valid"
+        ],
+        [
+          "prod_list_price",
+          "prod_min_price",
+          "prod_unit_of_measure"
+        ],
+        [
+          "prod_category_id",
+          "prod_name",
+          "prod_src_id",
+          "prod_subcategory",
+          "prod_subcategory_id",
+          "prod_total",
+          "prod_total_id",
+          "prod_weight_class",
+          "supplier_id"
+        ]
+      ],
+      "pk_columns": [
+        "prod_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "prod",
+          "non_pk_columns": [
+            "prod_category",
+            "prod_category_desc",
+            "prod_category_id",
+            "prod_desc",
+            "prod_name",
+            "prod_pack_size",
+            "prod_src_id",
+            "prod_status",
+            "prod_subcategory",
+            "prod_subcategory_desc",
+            "prod_subcategory_id",
+            "prod_unit_of_measure",
+            "prod_weight_class"
+          ]
+        },
+        {
+          "suffix": "prod_2",
+          "non_pk_columns": [
+            "prod_eff_from",
+            "prod_eff_to",
+            "prod_pack_size",
+            "prod_status",
+            "prod_valid"
+          ]
+        },
+        {
+          "suffix": "prod_3",
+          "non_pk_columns": [
+            "prod_list_price",
+            "prod_min_price",
+            "prod_unit_of_measure"
+          ]
+        },
+        {
+          "suffix": "prod_category_id",
+          "non_pk_columns": [
+            "prod_category_id",
+            "prod_name",
+            "prod_src_id",
+            "prod_subcategory",
+            "prod_subcategory_id",
+            "prod_total",
+            "prod_total_id",
+            "prod_weight_class",
+            "supplier_id"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "products_prod",
+    "movable_candidates": [
+      "products_prod_2",
+      "products_prod_3",
+      "products_prod_category_id"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=13;fk_column_endpoints_on_fragment=2"
+  },
+  "supplementary_demographics": {
+    "pk_columns": [
+      "cust_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "affinity_card",
+        "non_pk_columns": [
+          "affinity_card",
+          "comments",
+          "education",
+          "misc"
+        ],
+        "local_table": "demographics_affinity_card",
+        "local_name": "local_1",
+        "vertical_fragment_base": "supplementary_demographics_affinity_card"
+      },
+      {
+        "suffix": "affinity_card_2",
+        "non_pk_columns": [
+          "affinity_card",
+          "baseball",
+          "cricket",
+          "education",
+          "golf",
+          "misc",
+          "occupation",
+          "soccer",
+          "tennis",
+          "unknown"
+        ],
+        "local_table": "demographics_affinity_card_extended",
+        "local_name": "local_1",
+        "vertical_fragment_base": "supplementary_demographics_affinity_card_2"
+      },
+      {
+        "suffix": "household_size",
+        "non_pk_columns": [
+          "household_size",
+          "occupation",
+          "tennis",
+          "unknown",
+          "yrs_residence"
+        ],
+        "local_table": "household_size_occupation_crafts",
+        "local_name": "local_1",
+        "vertical_fragment_base": "supplementary_demographics_household_size",
+        "row_partition_names": [
+          "household_size_occupation_crafts",
+          "household_size_occupation_sales",
+          "household_size_occupation_executive",
+          "household_size_occupation_professional",
+          "household_size_occupation_clerical",
+          "household_size_occupation_other",
+          "household_size_occupations_machine_unknown_transport",
+          "household_size_occupation_miscellaneous"
+        ],
+        "row_partition_predicate_column": "occupation"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "supplementary_demographics",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 13,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 474614218,
+      "scores_by_k": {
+        "2": 0.028727871258372197,
+        "3": 0.03624363143942105,
+        "4": 0.031705799955022575
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.03624363143942105,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "affinity_card",
+          "comments",
+          "education"
+        ],
+        [
+          "baseball",
+          "cricket",
+          "golf",
+          "misc",
+          "soccer",
+          "tennis",
+          "unknown"
+        ],
+        [
+          "household_size",
+          "occupation",
+          "yrs_residence"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "misc",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "unknown",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "occupation",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "affinity_card",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "education",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "tennis",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "affinity_card",
+          "comments",
+          "education",
+          "misc"
+        ],
+        [
+          "affinity_card",
+          "baseball",
+          "cricket",
+          "education",
+          "golf",
+          "misc",
+          "occupation",
+          "soccer",
+          "tennis",
+          "unknown"
+        ],
+        [
+          "household_size",
+          "occupation",
+          "tennis",
+          "unknown",
+          "yrs_residence"
+        ]
+      ],
+      "pk_columns": [
+        "cust_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "affinity_card",
+          "non_pk_columns": [
+            "affinity_card",
+            "comments",
+            "education",
+            "misc"
+          ]
+        },
+        {
+          "suffix": "affinity_card_2",
+          "non_pk_columns": [
+            "affinity_card",
+            "baseball",
+            "cricket",
+            "education",
+            "golf",
+            "misc",
+            "occupation",
+            "soccer",
+            "tennis",
+            "unknown"
+          ]
+        },
+        {
+          "suffix": "household_size",
+          "non_pk_columns": [
+            "household_size",
+            "occupation",
+            "tennis",
+            "unknown",
+            "yrs_residence"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "supplementary_demographics_affinity_card_2",
+    "movable_candidates": [
+      "supplementary_demographics_affinity_card",
+      "supplementary_demographics_household_size_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=0"
+  },
+  "times": {
+    "pk_columns": [
+      "time_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "calendar_month_desc",
+        "non_pk_columns": [
+          "calendar_month_desc",
+          "calendar_month_id",
+          "calendar_month_name",
+          "calendar_month_number",
+          "day_name",
+          "day_number_in_month",
+          "days_in_cal_month",
+          "end_of_cal_month",
+          "end_of_cal_year",
+          "end_of_fis_month",
+          "end_of_fis_year",
+          "fiscal_month_desc",
+          "fiscal_month_id",
+          "fiscal_month_name",
+          "fiscal_month_number"
+        ],
+        "local_table": "calendarMonthDescription",
+        "local_name": "local_3",
+        "vertical_fragment_base": "times_calendar_month_desc"
+      },
+      {
+        "suffix": "calendar_quarter_desc",
+        "non_pk_columns": [
+          "calendar_quarter_desc",
+          "calendar_quarter_id",
+          "calendar_quarter_number",
+          "days_in_cal_quarter",
+          "end_of_cal_quarter",
+          "end_of_fis_quarter",
+          "fiscal_quarter_desc",
+          "fiscal_quarter_id",
+          "fiscal_quarter_number"
+        ],
+        "local_table": "time_qtr_desc",
+        "local_name": "local_2",
+        "vertical_fragment_base": "times_calendar_quarter_desc"
+      },
+      {
+        "suffix": "calendar_month_name",
+        "non_pk_columns": [
+          "calendar_month_name",
+          "calendar_week_number",
+          "day_name",
+          "day_number_in_month",
+          "day_number_in_week",
+          "fiscal_week_number",
+          "week_ending_day",
+          "week_ending_day_id"
+        ],
+        "local_table": "time_mnth_aug_dec",
+        "local_name": "local_2",
+        "vertical_fragment_base": "times_calendar_month_name",
+        "row_partition_names": [
+          "time_mnth_aug_dec",
+          "time_mnth_jan_jul",
+          "time_mnth_mar_may",
+          "time_mnth_oct_apr_jun",
+          "time_mnth_other"
+        ],
+        "row_partition_predicate_column": "calendar_month_name"
+      },
+      {
+        "suffix": "calendar_month_id",
+        "non_pk_columns": [
+          "calendar_month_id",
+          "calendar_quarter_id",
+          "calendar_year",
+          "calendar_year_id",
+          "days_in_cal_year",
+          "end_of_cal_month",
+          "end_of_cal_quarter",
+          "end_of_cal_year",
+          "end_of_fis_month",
+          "end_of_fis_quarter",
+          "end_of_fis_year",
+          "fiscal_month_id",
+          "fiscal_year",
+          "fiscal_year_id"
+        ],
+        "local_table": "calendarMonthIdentifiers",
+        "local_name": "local_3",
+        "vertical_fragment_base": "times_calendar_month_id"
+      },
+      {
+        "suffix": "days_in",
+        "non_pk_columns": [
+          "days_in_cal_month",
+          "days_in_cal_quarter",
+          "days_in_cal_year",
+          "days_in_fis_month",
+          "days_in_fis_quarter",
+          "days_in_fis_year"
+        ],
+        "local_table": "time_days_counts",
+        "local_name": "local_2",
+        "vertical_fragment_base": "times_days_in"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "times",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 37,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.07995737861753424,
+        "3": 0.08985192384918661,
+        "4": 0.0932387237923281,
+        "5": 0.13202354468606195
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.13202354468606195,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "calendar_month_desc",
+          "calendar_month_id",
+          "calendar_month_name",
+          "calendar_month_number",
+          "day_number_in_month",
+          "end_of_cal_month",
+          "end_of_fis_month",
+          "fiscal_month_desc",
+          "fiscal_month_id",
+          "fiscal_month_name",
+          "fiscal_month_number"
+        ],
+        [
+          "calendar_quarter_desc",
+          "calendar_quarter_id",
+          "calendar_quarter_number",
+          "end_of_cal_quarter",
+          "end_of_fis_quarter",
+          "fiscal_quarter_desc",
+          "fiscal_quarter_id",
+          "fiscal_quarter_number"
+        ],
+        [
+          "calendar_week_number",
+          "day_name",
+          "day_number_in_week",
+          "fiscal_week_number",
+          "week_ending_day",
+          "week_ending_day_id"
+        ],
+        [
+          "calendar_year",
+          "calendar_year_id",
+          "end_of_cal_year",
+          "end_of_fis_year",
+          "fiscal_year",
+          "fiscal_year_id"
+        ],
+        [
+          "days_in_cal_month",
+          "days_in_cal_quarter",
+          "days_in_cal_year",
+          "days_in_fis_month",
+          "days_in_fis_quarter",
+          "days_in_fis_year"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "day_number_in_month",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "day_name",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "end_of_fis_month",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "days_in_cal_month",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "calendar_month_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "days_in_cal_quarter",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "end_of_fis_quarter",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "end_of_cal_month",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "calendar_quarter_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "days_in_cal_year",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "fiscal_month_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "end_of_fis_year",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "end_of_cal_quarter",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "calendar_month_name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "end_of_cal_year",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "calendar_month_desc",
+          "calendar_month_id",
+          "calendar_month_name",
+          "calendar_month_number",
+          "day_name",
+          "day_number_in_month",
+          "days_in_cal_month",
+          "end_of_cal_month",
+          "end_of_cal_year",
+          "end_of_fis_month",
+          "end_of_fis_year",
+          "fiscal_month_desc",
+          "fiscal_month_id",
+          "fiscal_month_name",
+          "fiscal_month_number"
+        ],
+        [
+          "calendar_quarter_desc",
+          "calendar_quarter_id",
+          "calendar_quarter_number",
+          "days_in_cal_quarter",
+          "end_of_cal_quarter",
+          "end_of_fis_quarter",
+          "fiscal_quarter_desc",
+          "fiscal_quarter_id",
+          "fiscal_quarter_number"
+        ],
+        [
+          "calendar_month_name",
+          "calendar_week_number",
+          "day_name",
+          "day_number_in_month",
+          "day_number_in_week",
+          "fiscal_week_number",
+          "week_ending_day",
+          "week_ending_day_id"
+        ],
+        [
+          "calendar_month_id",
+          "calendar_quarter_id",
+          "calendar_year",
+          "calendar_year_id",
+          "days_in_cal_year",
+          "end_of_cal_month",
+          "end_of_cal_quarter",
+          "end_of_cal_year",
+          "end_of_fis_month",
+          "end_of_fis_quarter",
+          "end_of_fis_year",
+          "fiscal_month_id",
+          "fiscal_year",
+          "fiscal_year_id"
+        ],
+        [
+          "days_in_cal_month",
+          "days_in_cal_quarter",
+          "days_in_cal_year",
+          "days_in_fis_month",
+          "days_in_fis_quarter",
+          "days_in_fis_year"
+        ]
+      ],
+      "pk_columns": [
+        "time_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "calendar_month_desc",
+          "non_pk_columns": [
+            "calendar_month_desc",
+            "calendar_month_id",
+            "calendar_month_name",
+            "calendar_month_number",
+            "day_name",
+            "day_number_in_month",
+            "days_in_cal_month",
+            "end_of_cal_month",
+            "end_of_cal_year",
+            "end_of_fis_month",
+            "end_of_fis_year",
+            "fiscal_month_desc",
+            "fiscal_month_id",
+            "fiscal_month_name",
+            "fiscal_month_number"
+          ]
+        },
+        {
+          "suffix": "calendar_quarter_desc",
+          "non_pk_columns": [
+            "calendar_quarter_desc",
+            "calendar_quarter_id",
+            "calendar_quarter_number",
+            "days_in_cal_quarter",
+            "end_of_cal_quarter",
+            "end_of_fis_quarter",
+            "fiscal_quarter_desc",
+            "fiscal_quarter_id",
+            "fiscal_quarter_number"
+          ]
+        },
+        {
+          "suffix": "calendar_month_name",
+          "non_pk_columns": [
+            "calendar_month_name",
+            "calendar_week_number",
+            "day_name",
+            "day_number_in_month",
+            "day_number_in_week",
+            "fiscal_week_number",
+            "week_ending_day",
+            "week_ending_day_id"
+          ]
+        },
+        {
+          "suffix": "calendar_month_id",
+          "non_pk_columns": [
+            "calendar_month_id",
+            "calendar_quarter_id",
+            "calendar_year",
+            "calendar_year_id",
+            "days_in_cal_year",
+            "end_of_cal_month",
+            "end_of_cal_quarter",
+            "end_of_cal_year",
+            "end_of_fis_month",
+            "end_of_fis_quarter",
+            "end_of_fis_year",
+            "fiscal_month_id",
+            "fiscal_year",
+            "fiscal_year_id"
+          ]
+        },
+        {
+          "suffix": "days_in",
+          "non_pk_columns": [
+            "days_in_cal_month",
+            "days_in_cal_quarter",
+            "days_in_cal_year",
+            "days_in_fis_month",
+            "days_in_fis_quarter",
+            "days_in_fis_year"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "times_calendar_month_desc",
+    "movable_candidates": [
+      "times_calendar_month_id",
+      "times_calendar_month_name_part1",
+      "times_calendar_quarter_desc",
+      "times_days_in"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=15;fk_column_endpoints_on_fragment=2"
+  }
+}

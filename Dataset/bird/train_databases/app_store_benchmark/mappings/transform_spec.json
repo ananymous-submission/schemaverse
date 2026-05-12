@@ -1,0 +1,377 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "apps_repo": {
+          "source_table": "playstore",
+          "column_map": {
+            "app_name": "App",
+            "app_cat": "Category",
+            "avg_rating": "Rating",
+            "rev_count": "Reviews",
+            "app_size": "Size",
+            "inst_count": "Installs",
+            "app_type": "Type",
+            "price_amt": "Price",
+            "age_rating": "Content Rating",
+            "genre_list": "Genres"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "app_feedback": {
+          "source_table": "user_reviews",
+          "column_map": {
+            "app_name": "App",
+            "translated_review_text": "Translated_Review",
+            "sentiment_label": "Sentiment",
+            "sentiment_polarity_score": "Sentiment_Polarity",
+            "sentiment_subjectivity_score": "Sentiment_Subjectivity"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "playstore": "apps_repo"
+      },
+      "column_renames": {
+        "playstore": {
+          "App": "app_name",
+          "Category": "app_cat",
+          "Rating": "avg_rating",
+          "Reviews": "rev_count",
+          "Size": "app_size",
+          "Installs": "inst_count",
+          "Type": "app_type",
+          "Price": "price_amt",
+          "Content Rating": "age_rating",
+          "Genres": "genre_list"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_2": {
+      "table_renames": {
+        "user_reviews": "app_feedback"
+      },
+      "column_renames": {
+        "user_reviews": {
+          "App": "app_name",
+          "Translated_Review": "translated_review_text",
+          "Sentiment": "sentiment_label",
+          "Sentiment_Polarity": "sentiment_polarity_score",
+          "Sentiment_Subjectivity": "sentiment_subjectivity_score"
+        }
+      },
+      "naming_case_style": "snake_case"
+    }
+  },
+  "vertical_split_map": {},
+  "split_map": {},
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 2,
+    "eligible_candidate_count": 0,
+    "num_selected_for_vertical_split": 0,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/app_store/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "row_partition_map": {},
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "user_reviews",
+          "from_column": "App",
+          "to_table": "playstore",
+          "to_column": "App",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "user_reviews",
+            "column_map": {
+              "App": "App",
+              "Translated_Review": "Translated_Review",
+              "Sentiment": "Sentiment",
+              "Sentiment_Polarity": "Sentiment_Polarity",
+              "Sentiment_Subjectivity": "Sentiment_Subjectivity"
+            },
+            "orig_to_local": {
+              "App": "App",
+              "Translated_Review": "Translated_Review",
+              "Sentiment": "Sentiment",
+              "Sentiment_Polarity": "Sentiment_Polarity",
+              "Sentiment_Subjectivity": "Sentiment_Subjectivity"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "playstore",
+            "column_map": {
+              "App": "App",
+              "Category": "Category",
+              "Rating": "Rating",
+              "Reviews": "Reviews",
+              "Size": "Size",
+              "Installs": "Installs",
+              "Type": "Type",
+              "Price": "Price",
+              "Content Rating": "Content Rating",
+              "Genres": "Genres"
+            },
+            "orig_to_local": {
+              "App": "App",
+              "Category": "Category",
+              "Rating": "Rating",
+              "Reviews": "Reviews",
+              "Size": "Size",
+              "Installs": "Installs",
+              "Type": "Type",
+              "Price": "Price",
+              "Content Rating": "Content Rating",
+              "Genres": "Genres"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "app_feedback",
+            "to_local_table": "apps_repo",
+            "from_local_column": "app_name",
+            "to_local_column": "app_name"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "playstore|user_reviews": 44
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "playstore": "local_1",
+      "user_reviews": "local_2"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "playstore": {
+        "columns": [
+          {
+            "name": "App",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Category",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Rating",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Reviews",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Size",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Installs",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Type",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Price",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Content Rating",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Genres",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 10840
+      },
+      "user_reviews": {
+        "columns": [
+          {
+            "name": "App",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Translated_Review",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Sentiment",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Sentiment_Polarity",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Sentiment_Subjectivity",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 64286
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "user_reviews",
+        "from_column": "App",
+        "to_table": "playstore",
+        "to_column": "App",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 2,
+      "num_fk_edges": 1,
+      "hub_tables": [
+        "playstore",
+        "user_reviews"
+      ],
+      "connected_components": 1
+    }
+  }
+}

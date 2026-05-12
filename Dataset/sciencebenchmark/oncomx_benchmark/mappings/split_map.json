@@ -1,0 +1,693 @@
+{
+  "biomarker_fda_test": {
+    "pk_columns": [
+      "test_trade_name",
+      "test_submission"
+    ],
+    "fragments": [
+      {
+        "suffix": "biomarker_origin",
+        "non_pk_columns": [
+          "biomarker_origin",
+          "platform_method",
+          "specimen_type"
+        ],
+        "local_table": "fdaTestOriginParaffinOnly",
+        "local_name": "local_2",
+        "vertical_fragment_base": "biomarker_fda_test_biomarker_origin",
+        "row_partition_names": [
+          "fdaTestOriginParaffinOnly",
+          "fdaTestOriginVariousSpecimens"
+        ],
+        "row_partition_predicate_column": "specimen_type"
+      },
+      {
+        "suffix": "clinical_significance",
+        "non_pk_columns": [
+          "clinical_significance",
+          "doid",
+          "platform_method",
+          "test_adoption_evidence",
+          "test_manufacturer",
+          "test_number_genes",
+          "test_study_design"
+        ],
+        "local_table": "fda_biomarker_test_significance",
+        "local_name": "local_3",
+        "vertical_fragment_base": "biomarker_fda_test_clinical_significance"
+      },
+      {
+        "suffix": "doid",
+        "non_pk_columns": [
+          "doid",
+          "histological_type",
+          "test_adoption_evidence",
+          "test_approval_status",
+          "test_manufacturer",
+          "test_number_genes"
+        ],
+        "local_table": "fda_biomarker_test_disease_mapping",
+        "local_name": "local_3",
+        "vertical_fragment_base": "biomarker_fda_test_doid"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "biomarker_fda_test",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 11,
+      "min_non_pk_per_fragment": 2,
+      "pk_width": 2,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.02175978836460162,
+        "3": 0.021053058343657314,
+        "4": 0.022924293484594904,
+        "5": 0.02451553435633759
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.02451553435633759,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "biomarker_origin",
+          "specimen_type"
+        ],
+        [
+          "clinical_significance",
+          "doid",
+          "platform_method",
+          "test_adoption_evidence",
+          "test_manufacturer",
+          "test_number_genes",
+          "test_study_design"
+        ],
+        [
+          "histological_type",
+          "test_approval_status"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "platform_method",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "doid",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "test_adoption_evidence",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "test_number_genes",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "test_manufacturer",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "biomarker_origin",
+          "platform_method",
+          "specimen_type"
+        ],
+        [
+          "clinical_significance",
+          "doid",
+          "platform_method",
+          "test_adoption_evidence",
+          "test_manufacturer",
+          "test_number_genes",
+          "test_study_design"
+        ],
+        [
+          "doid",
+          "histological_type",
+          "test_adoption_evidence",
+          "test_approval_status",
+          "test_manufacturer",
+          "test_number_genes"
+        ]
+      ],
+      "pk_columns": [
+        "test_trade_name",
+        "test_submission"
+      ],
+      "fragments": [
+        {
+          "suffix": "biomarker_origin",
+          "non_pk_columns": [
+            "biomarker_origin",
+            "platform_method",
+            "specimen_type"
+          ]
+        },
+        {
+          "suffix": "clinical_significance",
+          "non_pk_columns": [
+            "clinical_significance",
+            "doid",
+            "platform_method",
+            "test_adoption_evidence",
+            "test_manufacturer",
+            "test_number_genes",
+            "test_study_design"
+          ]
+        },
+        {
+          "suffix": "doid",
+          "non_pk_columns": [
+            "doid",
+            "histological_type",
+            "test_adoption_evidence",
+            "test_approval_status",
+            "test_manufacturer",
+            "test_number_genes"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "biomarker_fda_test_clinical_significance",
+    "movable_candidates": [
+      "biomarker_fda_test_biomarker_origin_part1",
+      "biomarker_fda_test_doid"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=7"
+  },
+  "disease_mutation": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "aa_pos_uniprotkb",
+        "non_pk_columns": [
+          "aa_pos_uniprotkb",
+          "alt_aa",
+          "peptide_pos",
+          "ref_aa"
+        ],
+        "local_table": "dm_aa_pos_le144",
+        "local_name": "local_1",
+        "vertical_fragment_base": "disease_mutation_aa_pos_uniprotkb",
+        "row_partition_names": [
+          "dm_aa_pos_le144",
+          "dm_aa_pos_gt144_le310",
+          "dm_aa_pos_gt310_le608",
+          "dm_aa_pos_gt608_or_null"
+        ],
+        "row_partition_predicate_column": "aa_pos_uniprotkb"
+      },
+      {
+        "suffix": "alt_nt",
+        "non_pk_columns": [
+          "alt_nt",
+          "cds_pos",
+          "chromosome_pos",
+          "data_source",
+          "doid",
+          "ensembl_transcript_id",
+          "mutation_freq",
+          "ref_nt"
+        ],
+        "local_table": "mutationAlternateNucleotide",
+        "local_name": "local_5",
+        "vertical_fragment_base": "disease_mutation_alt_nt"
+      },
+      {
+        "suffix": "cds_pos",
+        "non_pk_columns": [
+          "cds_pos",
+          "chromosome_id",
+          "chromosome_pos",
+          "data_source",
+          "doid",
+          "ensembl_transcript_id",
+          "mutation_freq"
+        ],
+        "local_table": "mutationCdsCoordinate",
+        "local_name": "local_5",
+        "vertical_fragment_base": "disease_mutation_cds_pos"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "disease_mutation",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 13,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.05364643320638302,
+        "3": 0.06895354586000915,
+        "4": 0.06682162571522365
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.06895354586000915,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "aa_pos_uniprotkb",
+          "alt_aa",
+          "peptide_pos",
+          "ref_aa"
+        ],
+        [
+          "alt_nt",
+          "cds_pos",
+          "ref_nt"
+        ],
+        [
+          "chromosome_id",
+          "chromosome_pos",
+          "data_source",
+          "doid",
+          "ensembl_transcript_id",
+          "mutation_freq"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "chromosome_pos",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "cds_pos",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "mutation_freq",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "data_source",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "ensembl_transcript_id",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "doid",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "aa_pos_uniprotkb",
+          "alt_aa",
+          "peptide_pos",
+          "ref_aa"
+        ],
+        [
+          "alt_nt",
+          "cds_pos",
+          "chromosome_pos",
+          "data_source",
+          "doid",
+          "ensembl_transcript_id",
+          "mutation_freq",
+          "ref_nt"
+        ],
+        [
+          "cds_pos",
+          "chromosome_id",
+          "chromosome_pos",
+          "data_source",
+          "doid",
+          "ensembl_transcript_id",
+          "mutation_freq"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "aa_pos_uniprotkb",
+          "non_pk_columns": [
+            "aa_pos_uniprotkb",
+            "alt_aa",
+            "peptide_pos",
+            "ref_aa"
+          ]
+        },
+        {
+          "suffix": "alt_nt",
+          "non_pk_columns": [
+            "alt_nt",
+            "cds_pos",
+            "chromosome_pos",
+            "data_source",
+            "doid",
+            "ensembl_transcript_id",
+            "mutation_freq",
+            "ref_nt"
+          ]
+        },
+        {
+          "suffix": "cds_pos",
+          "non_pk_columns": [
+            "cds_pos",
+            "chromosome_id",
+            "chromosome_pos",
+            "data_source",
+            "doid",
+            "ensembl_transcript_id",
+            "mutation_freq"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "disease_mutation_alt_nt",
+    "movable_candidates": [
+      "disease_mutation_aa_pos_uniprotkb_q1",
+      "disease_mutation_cds_pos"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=6"
+  },
+  "differential_expression": {
+    "pk_columns": [
+      "gene_symbol",
+      "doid"
+    ],
+    "fragments": [
+      {
+        "suffix": "adjpvalue",
+        "non_pk_columns": [
+          "adjpvalue",
+          "expression_change_direction",
+          "log2fc",
+          "pvalue",
+          "statistical_significance",
+          "subjects_total"
+        ],
+        "local_table": "differential_expression_adjpvalue_q1",
+        "local_name": "local_8",
+        "vertical_fragment_base": "differential_expression_adjpvalue",
+        "row_partition_names": [
+          "differential_expression_adjpvalue_q1",
+          "differential_expression_adjpvalue_q2",
+          "differential_expression_adjpvalue_q3",
+          "DifferentialExpressionAdjPValueAdjPValueAbove0Point363OrNull"
+        ],
+        "row_partition_predicate_column": "adjpvalue"
+      },
+      {
+        "suffix": "adjpvalue_2",
+        "non_pk_columns": [
+          "adjpvalue",
+          "expression_change_direction",
+          "log2fc",
+          "subjects_down",
+          "subjects_nochange",
+          "subjects_nocoverage",
+          "subjects_total",
+          "subjects_up"
+        ],
+        "local_table": "DifferentialExpressionAdjPValueGeneral",
+        "local_name": "local_8",
+        "vertical_fragment_base": "differential_expression_adjpvalue_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "differential_expression",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 10,
+      "min_non_pk_per_fragment": 2,
+      "pk_width": 2,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.05647517325206691,
+        "3": 0.053354300736917125,
+        "4": 0.052420539079024664,
+        "5": 0.034078618830210745
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.05647517325206691,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "adjpvalue",
+          "expression_change_direction",
+          "log2fc",
+          "pvalue",
+          "statistical_significance"
+        ],
+        [
+          "subjects_down",
+          "subjects_nochange",
+          "subjects_nocoverage",
+          "subjects_total",
+          "subjects_up"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "subjects_total",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "expression_change_direction",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "log2fc",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "adjpvalue",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "adjpvalue",
+          "expression_change_direction",
+          "log2fc",
+          "pvalue",
+          "statistical_significance",
+          "subjects_total"
+        ],
+        [
+          "adjpvalue",
+          "expression_change_direction",
+          "log2fc",
+          "subjects_down",
+          "subjects_nochange",
+          "subjects_nocoverage",
+          "subjects_total",
+          "subjects_up"
+        ]
+      ],
+      "pk_columns": [
+        "gene_symbol",
+        "doid"
+      ],
+      "fragments": [
+        {
+          "suffix": "adjpvalue",
+          "non_pk_columns": [
+            "adjpvalue",
+            "expression_change_direction",
+            "log2fc",
+            "pvalue",
+            "statistical_significance",
+            "subjects_total"
+          ]
+        },
+        {
+          "suffix": "adjpvalue_2",
+          "non_pk_columns": [
+            "adjpvalue",
+            "expression_change_direction",
+            "log2fc",
+            "subjects_down",
+            "subjects_nochange",
+            "subjects_nocoverage",
+            "subjects_total",
+            "subjects_up"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "differential_expression_adjpvalue_2",
+    "movable_candidates": [
+      "differential_expression_adjpvalue_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+  },
+  "healthy_expression": {
+    "pk_columns": [
+      "ensembl_gene_id",
+      "uberon_anatomical_id",
+      "uberon_developmental_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "call_quality",
+        "non_pk_columns": [
+          "call_quality"
+        ],
+        "local_table": "norm_expr_call_qual",
+        "local_name": "local_1",
+        "vertical_fragment_base": "healthy_expression_call_quality"
+      },
+      {
+        "suffix": "expression",
+        "non_pk_columns": [
+          "expression_level_anatomical_relative",
+          "expression_level_gene_relative",
+          "expression_rank_score",
+          "expression_score"
+        ],
+        "local_table": "healthy_expression_expression_q1",
+        "local_name": "local_1",
+        "vertical_fragment_base": "healthy_expression_expression",
+        "row_partition_names": [
+          "healthy_expression_expression_q1",
+          "norm_expr_rank_gt8660_le17900",
+          "norm_expr_rank_gt17900_le28200",
+          "norm_expr_rank_gt28200_or_null"
+        ],
+        "row_partition_predicate_column": "expression_rank_score"
+      },
+      {
+        "suffix": "expression_2",
+        "non_pk_columns": [
+          "expression_rank_score",
+          "expression_score"
+        ],
+        "local_table": "HealthyExpressionAnatomicalDevelopment",
+        "local_name": "local_8",
+        "vertical_fragment_base": "healthy_expression_expression_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "healthy_expression",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 5,
+      "min_non_pk_per_fragment": 1,
+      "pk_width": 3,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1389401365,
+      "scores_by_k": {
+        "2": 0.08759940003075158,
+        "3": 0.10118486513185421,
+        "4": 0.08262237542234166,
+        "5": -1.0
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.10118486513185421,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "call_quality"
+        ],
+        [
+          "expression_level_anatomical_relative",
+          "expression_level_gene_relative"
+        ],
+        [
+          "expression_rank_score",
+          "expression_score"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "expression_rank_score",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "expression_score",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "call_quality"
+        ],
+        [
+          "expression_level_anatomical_relative",
+          "expression_level_gene_relative",
+          "expression_rank_score",
+          "expression_score"
+        ],
+        [
+          "expression_rank_score",
+          "expression_score"
+        ]
+      ],
+      "pk_columns": [
+        "ensembl_gene_id",
+        "uberon_anatomical_id",
+        "uberon_developmental_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "call_quality",
+          "non_pk_columns": [
+            "call_quality"
+          ]
+        },
+        {
+          "suffix": "expression",
+          "non_pk_columns": [
+            "expression_level_anatomical_relative",
+            "expression_level_gene_relative",
+            "expression_rank_score",
+            "expression_score"
+          ]
+        },
+        {
+          "suffix": "expression_2",
+          "non_pk_columns": [
+            "expression_rank_score",
+            "expression_score"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "healthy_expression_expression_q1",
+    "movable_candidates": [
+      "healthy_expression_call_quality",
+      "healthy_expression_expression_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=4;fk_column_endpoints_on_fragment=3"
+  }
+}

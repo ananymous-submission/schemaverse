@@ -1,0 +1,630 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 5,
+    "eligible_candidate_count": 3,
+    "num_selected_for_vertical_split": 3,
+    "num_from_rate_alone": 4,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "lists",
+      "movies",
+      "lists_users"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/movie_platform/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "per_table": {
+    "lists": {
+      "pk_columns": [
+        "list_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "list_comments",
+          "non_pk_columns": [
+            "list_comments",
+            "list_description",
+            "list_followers",
+            "list_movie_number",
+            "list_title",
+            "list_url",
+            "user_id"
+          ],
+          "local_table": "listsWithNonPositiveComments",
+          "local_name": "local_2",
+          "vertical_fragment_base": "lists_list_comments",
+          "row_partition_names": [
+            "listsWithNonPositiveComments",
+            "listsWithPositiveOrNullComments"
+          ],
+          "row_partition_predicate_column": "list_comments"
+        },
+        {
+          "suffix": "list",
+          "non_pk_columns": [
+            "list_cover_image_url",
+            "list_first_image_url",
+            "list_second_image_url",
+            "list_third_image_url"
+          ],
+          "local_table": "curated_collections",
+          "local_name": "local_1",
+          "vertical_fragment_base": "lists_list"
+        },
+        {
+          "suffix": "list_cover_image_url",
+          "non_pk_columns": [
+            "list_cover_image_url",
+            "list_creation_timestamp_utc",
+            "list_description",
+            "list_followers",
+            "list_title",
+            "list_update_timestamp_utc",
+            "list_url",
+            "user_id"
+          ],
+          "local_table": "collection_details",
+          "local_name": "local_1",
+          "vertical_fragment_base": "lists_list_cover_image_url"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "lists",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 13,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.08566085806677474,
+          "3": 0.08566085806677474,
+          "4": 0.10341233500182166
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.10341233500182166,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "list_comments",
+            "list_followers",
+            "list_movie_number"
+          ],
+          [
+            "list_cover_image_url",
+            "list_first_image_url",
+            "list_second_image_url",
+            "list_third_image_url"
+          ],
+          [
+            "list_creation_timestamp_utc",
+            "list_description",
+            "list_title",
+            "list_update_timestamp_utc",
+            "list_url",
+            "user_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "list_url",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "list_cover_image_url",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "user_id",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "list_description",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "list_title",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "list_followers",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "list_comments",
+            "list_description",
+            "list_followers",
+            "list_movie_number",
+            "list_title",
+            "list_url",
+            "user_id"
+          ],
+          [
+            "list_cover_image_url",
+            "list_first_image_url",
+            "list_second_image_url",
+            "list_third_image_url"
+          ],
+          [
+            "list_cover_image_url",
+            "list_creation_timestamp_utc",
+            "list_description",
+            "list_followers",
+            "list_title",
+            "list_update_timestamp_utc",
+            "list_url",
+            "user_id"
+          ]
+        ],
+        "pk_columns": [
+          "list_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "list_comments",
+            "non_pk_columns": [
+              "list_comments",
+              "list_description",
+              "list_followers",
+              "list_movie_number",
+              "list_title",
+              "list_url",
+              "user_id"
+            ]
+          },
+          {
+            "suffix": "list",
+            "non_pk_columns": [
+              "list_cover_image_url",
+              "list_first_image_url",
+              "list_second_image_url",
+              "list_third_image_url"
+            ]
+          },
+          {
+            "suffix": "list_cover_image_url",
+            "non_pk_columns": [
+              "list_cover_image_url",
+              "list_creation_timestamp_utc",
+              "list_description",
+              "list_followers",
+              "list_title",
+              "list_update_timestamp_utc",
+              "list_url",
+              "user_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "list_url",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "list_cover_image_url",
+          "also_in_fragment_suffix": "list_comments"
+        },
+        {
+          "column": "list_cover_image_url",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "list",
+          "also_in_fragment_suffix": "list_cover_image_url"
+        },
+        {
+          "column": "user_id",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "list_cover_image_url",
+          "also_in_fragment_suffix": "list_comments"
+        },
+        {
+          "column": "list_description",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "list_cover_image_url",
+          "also_in_fragment_suffix": "list_comments"
+        },
+        {
+          "column": "list_title",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "list_cover_image_url",
+          "also_in_fragment_suffix": "list_comments"
+        },
+        {
+          "column": "list_followers",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "list_comments",
+          "also_in_fragment_suffix": "list_cover_image_url"
+        }
+      ]
+    },
+    "lists_users": {
+      "pk_columns": [
+        "user_id",
+        "list_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "list",
+          "non_pk_columns": [
+            "list_creation_date_utc",
+            "list_update_date_utc"
+          ],
+          "local_table": "userListLinks",
+          "local_name": "local_2",
+          "vertical_fragment_base": "lists_users_list"
+        },
+        {
+          "suffix": "user",
+          "non_pk_columns": [
+            "user_avatar_image_url",
+            "user_cover_image_url",
+            "user_eligible_for_trial",
+            "user_has_payment_method",
+            "user_subscriber",
+            "user_trialist"
+          ],
+          "local_table": "listUserAccounts",
+          "local_name": "local_2",
+          "vertical_fragment_base": "lists_users_user"
+        },
+        {
+          "suffix": "user_2",
+          "non_pk_columns": [
+            "user_eligible_for_trial",
+            "user_has_payment_method",
+            "user_subscriber",
+            "user_trialist"
+          ],
+          "local_table": "usersWithNonPositiveSubscription",
+          "local_name": "local_2",
+          "vertical_fragment_base": "lists_users_user_2",
+          "row_partition_names": [
+            "usersWithNonPositiveSubscription",
+            "usersWithPositiveOrNullSubscription"
+          ],
+          "row_partition_predicate_column": "user_subscriber"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "lists_users",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.12620174999059516,
+          "3": 0.17909334628331303,
+          "4": 0.1705494649368127
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.17909334628331303,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "list_creation_date_utc",
+            "list_update_date_utc"
+          ],
+          [
+            "user_avatar_image_url",
+            "user_cover_image_url"
+          ],
+          [
+            "user_eligible_for_trial",
+            "user_has_payment_method",
+            "user_subscriber",
+            "user_trialist"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "user_has_payment_method",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "user_eligible_for_trial",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "user_subscriber",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "user_trialist",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "list_creation_date_utc",
+            "list_update_date_utc"
+          ],
+          [
+            "user_avatar_image_url",
+            "user_cover_image_url",
+            "user_eligible_for_trial",
+            "user_has_payment_method",
+            "user_subscriber",
+            "user_trialist"
+          ],
+          [
+            "user_eligible_for_trial",
+            "user_has_payment_method",
+            "user_subscriber",
+            "user_trialist"
+          ]
+        ],
+        "pk_columns": [
+          "user_id",
+          "list_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "list",
+            "non_pk_columns": [
+              "list_creation_date_utc",
+              "list_update_date_utc"
+            ]
+          },
+          {
+            "suffix": "user",
+            "non_pk_columns": [
+              "user_avatar_image_url",
+              "user_cover_image_url",
+              "user_eligible_for_trial",
+              "user_has_payment_method",
+              "user_subscriber",
+              "user_trialist"
+            ]
+          },
+          {
+            "suffix": "user_2",
+            "non_pk_columns": [
+              "user_eligible_for_trial",
+              "user_has_payment_method",
+              "user_subscriber",
+              "user_trialist"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "user_has_payment_method",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "user_2",
+          "also_in_fragment_suffix": "user"
+        },
+        {
+          "column": "user_eligible_for_trial",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "user_2",
+          "also_in_fragment_suffix": "user"
+        },
+        {
+          "column": "user_subscriber",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "user_2",
+          "also_in_fragment_suffix": "user"
+        },
+        {
+          "column": "user_trialist",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "user_2",
+          "also_in_fragment_suffix": "user"
+        }
+      ]
+    },
+    "movies": {
+      "pk_columns": [
+        "movie_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "director_id",
+          "non_pk_columns": [
+            "director_id",
+            "director_name",
+            "movie_image_url",
+            "movie_popularity",
+            "movie_release_year",
+            "movie_title",
+            "movie_title_language"
+          ],
+          "local_table": "MoviesByDirectorThrough1981",
+          "local_name": "local_3",
+          "vertical_fragment_base": "movies_director_id",
+          "row_partition_names": [
+            "MoviesByDirectorThrough1981",
+            "MoviesByDirector1982To2004",
+            "MoviesByDirector2005To2014",
+            "MoviesByDirectorAfter2014OrUnknown"
+          ],
+          "row_partition_predicate_column": "movie_release_year"
+        },
+        {
+          "suffix": "director_id_2",
+          "non_pk_columns": [
+            "director_id",
+            "director_url",
+            "movie_image_url",
+            "movie_popularity",
+            "movie_release_year",
+            "movie_url"
+          ],
+          "local_table": "MoviesDirectorOverview",
+          "local_name": "local_3",
+          "vertical_fragment_base": "movies_director_id_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "movies",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03888096693885487,
+          "3": 0.03888096693885487
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.03888096693885487,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "director_id",
+            "director_name",
+            "movie_title",
+            "movie_title_language"
+          ],
+          [
+            "director_url",
+            "movie_image_url",
+            "movie_popularity",
+            "movie_release_year",
+            "movie_url"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "movie_release_year",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "movie_popularity",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "director_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "movie_image_url",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "director_id",
+            "director_name",
+            "movie_image_url",
+            "movie_popularity",
+            "movie_release_year",
+            "movie_title",
+            "movie_title_language"
+          ],
+          [
+            "director_id",
+            "director_url",
+            "movie_image_url",
+            "movie_popularity",
+            "movie_release_year",
+            "movie_url"
+          ]
+        ],
+        "pk_columns": [
+          "movie_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "director_id",
+            "non_pk_columns": [
+              "director_id",
+              "director_name",
+              "movie_image_url",
+              "movie_popularity",
+              "movie_release_year",
+              "movie_title",
+              "movie_title_language"
+            ]
+          },
+          {
+            "suffix": "director_id_2",
+            "non_pk_columns": [
+              "director_id",
+              "director_url",
+              "movie_image_url",
+              "movie_popularity",
+              "movie_release_year",
+              "movie_url"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "movie_release_year",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "director_id_2",
+          "also_in_fragment_suffix": "director_id"
+        },
+        {
+          "column": "movie_popularity",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "director_id_2",
+          "also_in_fragment_suffix": "director_id"
+        },
+        {
+          "column": "director_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "director_id",
+          "also_in_fragment_suffix": "director_id_2"
+        },
+        {
+          "column": "movie_image_url",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "director_id_2",
+          "also_in_fragment_suffix": "director_id"
+        }
+      ]
+    }
+  }
+}

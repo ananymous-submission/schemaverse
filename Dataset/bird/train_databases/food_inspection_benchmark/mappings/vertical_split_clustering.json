@@ -1,0 +1,273 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 3,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "businesses"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/food_inspection/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "per_table": {
+    "businesses": {
+      "pk_columns": [
+        "business_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          "local_table": "establishments_address_until_2008_01_15",
+          "local_name": "local_3",
+          "vertical_fragment_base": "businesses_address",
+          "row_partition_names": [
+            "establishments_address_until_2008_01_15",
+            "establishments_address_2008_01_15_to_2012_07_03",
+            "establishments_address_2012_07_03_to_2014_09_11",
+            "establishments_address_after_2014_09_11_or_null"
+          ],
+          "row_partition_predicate_column": "application_date"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "application_date",
+            "business_certificate",
+            "city",
+            "latitude",
+            "longitude",
+            "name",
+            "owner_name",
+            "owner_state",
+            "phone_number"
+          ],
+          "local_table": "businessLocationRecord",
+          "local_name": "local_1",
+          "vertical_fragment_base": "businesses_address_2"
+        },
+        {
+          "suffix": "owner_zip",
+          "non_pk_columns": [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ],
+          "local_table": "businessOwnerPostalInfo",
+          "local_name": "local_1",
+          "vertical_fragment_base": "businesses_owner_zip"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "businesses",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 15,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.03736737304188932,
+          "3": 0.05276166324826795,
+          "4": 0.029964862474001052,
+          "5": 0.03434634436995131
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.05276166324826795,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          [
+            "application_date",
+            "business_certificate",
+            "latitude",
+            "longitude",
+            "name",
+            "phone_number"
+          ],
+          [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "owner_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "application_date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "owner_state",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          [
+            "address",
+            "application_date",
+            "business_certificate",
+            "city",
+            "latitude",
+            "longitude",
+            "name",
+            "owner_name",
+            "owner_state",
+            "phone_number"
+          ],
+          [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ]
+        ],
+        "pk_columns": [
+          "business_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "application_date",
+              "city",
+              "name",
+              "owner_address",
+              "owner_city",
+              "owner_name",
+              "owner_state"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "application_date",
+              "business_certificate",
+              "city",
+              "latitude",
+              "longitude",
+              "name",
+              "owner_name",
+              "owner_state",
+              "phone_number"
+            ]
+          },
+          {
+            "suffix": "owner_zip",
+            "non_pk_columns": [
+              "owner_zip",
+              "postal_code",
+              "tax_code"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "address_2",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "owner_name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "application_date",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "address_2",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "address",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "city",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "owner_state",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        }
+      ]
+    }
+  }
+}

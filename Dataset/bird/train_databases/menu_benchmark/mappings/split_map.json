@@ -1,0 +1,245 @@
+{
+  "Menu": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "call_number",
+        "non_pk_columns": [
+          "call_number",
+          "dish_count",
+          "page_count"
+        ],
+        "local_table": "menuCatalogEntry",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Menu_call_number"
+      },
+      {
+        "suffix": "currency",
+        "non_pk_columns": [
+          "currency",
+          "currency_symbol",
+          "date",
+          "event",
+          "keywords",
+          "language",
+          "name",
+          "notes",
+          "occasion",
+          "physical_description",
+          "sponsor",
+          "status",
+          "venue"
+        ],
+        "local_table": "Menu_currency_q1",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Menu_currency",
+        "row_partition_names": [
+          "Menu_currency_q1",
+          "menu_record_1900_08_19_to_1907_03_20",
+          "menu_record_1907_03_20_to_1927_09_22",
+          "menu_record_after_1927_09_22_or_null"
+        ],
+        "row_partition_predicate_column": "date"
+      },
+      {
+        "suffix": "date",
+        "non_pk_columns": [
+          "date",
+          "event",
+          "keywords",
+          "location",
+          "location_type",
+          "name",
+          "physical_description",
+          "place",
+          "sponsor",
+          "status",
+          "venue"
+        ],
+        "local_table": "menu_event_date",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Menu_date"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Menu",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 19,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.027029335330857007,
+        "3": 0.03548462711077428,
+        "4": 0.03871578574366246,
+        "5": 0.021878115430840218
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.03871578574366246,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "call_number",
+          "dish_count",
+          "page_count"
+        ],
+        [
+          "currency",
+          "currency_symbol",
+          "date",
+          "event",
+          "keywords",
+          "language",
+          "name",
+          "notes",
+          "occasion",
+          "sponsor"
+        ],
+        [
+          "location",
+          "location_type",
+          "physical_description",
+          "place",
+          "status",
+          "venue"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "status",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "physical_description",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "keywords",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "venue",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "date",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "sponsor",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "event",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "call_number",
+          "dish_count",
+          "page_count"
+        ],
+        [
+          "currency",
+          "currency_symbol",
+          "date",
+          "event",
+          "keywords",
+          "language",
+          "name",
+          "notes",
+          "occasion",
+          "physical_description",
+          "sponsor",
+          "status",
+          "venue"
+        ],
+        [
+          "date",
+          "event",
+          "keywords",
+          "location",
+          "location_type",
+          "name",
+          "physical_description",
+          "place",
+          "sponsor",
+          "status",
+          "venue"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "call_number",
+          "non_pk_columns": [
+            "call_number",
+            "dish_count",
+            "page_count"
+          ]
+        },
+        {
+          "suffix": "currency",
+          "non_pk_columns": [
+            "currency",
+            "currency_symbol",
+            "date",
+            "event",
+            "keywords",
+            "language",
+            "name",
+            "notes",
+            "occasion",
+            "physical_description",
+            "sponsor",
+            "status",
+            "venue"
+          ]
+        },
+        {
+          "suffix": "date",
+          "non_pk_columns": [
+            "date",
+            "event",
+            "keywords",
+            "location",
+            "location_type",
+            "name",
+            "physical_description",
+            "place",
+            "sponsor",
+            "status",
+            "venue"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Menu_currency_q1",
+    "movable_candidates": [
+      "Menu_call_number",
+      "Menu_date"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=13;fk_column_endpoints_on_fragment=1"
+  }
+}

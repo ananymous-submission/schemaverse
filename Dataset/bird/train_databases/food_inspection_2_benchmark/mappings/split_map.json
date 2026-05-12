@@ -1,0 +1,324 @@
+{
+  "employee": {
+    "pk_columns": [
+      "employee_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "address",
+        "non_pk_columns": [
+          "address",
+          "city",
+          "phone",
+          "salary",
+          "state",
+          "supervisor",
+          "title",
+          "zip"
+        ],
+        "local_table": "EmployeeAddressZipUpTo60618",
+        "local_name": "local_1",
+        "vertical_fragment_base": "employee_address",
+        "row_partition_names": [
+          "EmployeeAddressZipUpTo60618",
+          "EmployeeAddressZip60619To60634",
+          "EmployeeAddressZip60635To60645",
+          "EmployeeAddressZipAbove60645OrNull"
+        ],
+        "row_partition_predicate_column": "zip"
+      },
+      {
+        "suffix": "address_2",
+        "non_pk_columns": [
+          "address",
+          "city",
+          "first_name",
+          "last_name",
+          "salary",
+          "title"
+        ],
+        "local_table": "EmployeeAddressOverview",
+        "local_name": "local_1",
+        "vertical_fragment_base": "employee_address_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "employee",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 10,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.02927462409347497,
+        "3": 0.02242010562735098
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.02927462409347497,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "address",
+          "phone",
+          "salary",
+          "state",
+          "supervisor",
+          "title",
+          "zip"
+        ],
+        [
+          "city",
+          "first_name",
+          "last_name"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "city",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "address",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "salary",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "title",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "address",
+          "city",
+          "phone",
+          "salary",
+          "state",
+          "supervisor",
+          "title",
+          "zip"
+        ],
+        [
+          "address",
+          "city",
+          "first_name",
+          "last_name",
+          "salary",
+          "title"
+        ]
+      ],
+      "pk_columns": [
+        "employee_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "phone",
+            "salary",
+            "state",
+            "supervisor",
+            "title",
+            "zip"
+          ]
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "first_name",
+            "last_name",
+            "salary",
+            "title"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "employee_address_q1",
+    "movable_candidates": [
+      "employee_address_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=3"
+  },
+  "establishment": {
+    "pk_columns": [
+      "license_no"
+    ],
+    "fragments": [
+      {
+        "suffix": "address",
+        "non_pk_columns": [
+          "address",
+          "aka_name",
+          "city",
+          "dba_name",
+          "facility_type",
+          "risk_level",
+          "state",
+          "ward",
+          "zip"
+        ],
+        "local_table": "establishment_address_part1",
+        "local_name": "local_1",
+        "vertical_fragment_base": "establishment_address",
+        "row_partition_names": [
+          "establishment_address_part1",
+          "EstablishmentAddressGroceryStores",
+          "EstablishmentAddressSelectedFacilityTypes",
+          "EstablishmentAddressOtherFacilities"
+        ],
+        "row_partition_predicate_column": "facility_type"
+      },
+      {
+        "suffix": "city",
+        "non_pk_columns": [
+          "city",
+          "facility_type",
+          "latitude",
+          "longitude",
+          "risk_level",
+          "ward",
+          "zip"
+        ],
+        "local_table": "estab_rest_geo",
+        "local_name": "local_2",
+        "vertical_fragment_base": "establishment_city"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "establishment",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 11,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.03298184470995911,
+        "3": 0.03298184470995911
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.03298184470995911,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "address",
+          "aka_name",
+          "city",
+          "dba_name",
+          "risk_level",
+          "state",
+          "ward",
+          "zip"
+        ],
+        [
+          "facility_type",
+          "latitude",
+          "longitude"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "facility_type",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "risk_level",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "zip",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "ward",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "city",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "address",
+          "aka_name",
+          "city",
+          "dba_name",
+          "facility_type",
+          "risk_level",
+          "state",
+          "ward",
+          "zip"
+        ],
+        [
+          "city",
+          "facility_type",
+          "latitude",
+          "longitude",
+          "risk_level",
+          "ward",
+          "zip"
+        ]
+      ],
+      "pk_columns": [
+        "license_no"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "aka_name",
+            "city",
+            "dba_name",
+            "facility_type",
+            "risk_level",
+            "state",
+            "ward",
+            "zip"
+          ]
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "facility_type",
+            "latitude",
+            "longitude",
+            "risk_level",
+            "ward",
+            "zip"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "establishment_address_part1",
+    "movable_candidates": [
+      "establishment_city"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=1"
+  }
+}

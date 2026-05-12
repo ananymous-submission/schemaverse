@@ -1,0 +1,2192 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "accessRecord": {
+          "source_table": "access_log",
+          "column_map": {
+            "sessionToken": "session",
+            "userId": "user_id",
+            "actionType": "action",
+            "eventTimestamp": "stamp"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "userDirectory": {
+          "source_table": "app1_mst_users",
+          "column_map": {
+            "userId": "user_id",
+            "fullName": "name",
+            "emailAddress": "email"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "duplicateActionRecord": {
+          "source_table": "dup_action_log",
+          "column_map": {
+            "eventTimestamp": "stamp",
+            "sessionToken": "session",
+            "userId": "user_id",
+            "actionType": "action",
+            "productList": "products"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "invalidActionEvents": {
+          "source_table": "invalid_action_log",
+          "column_map": {
+            "userId": "user_id",
+            "productList": "products",
+            "actionType": "action",
+            "categoryName": "category",
+            "eventTimestamp": "stamp"
+          },
+          "projected_columns": [
+            "user_id",
+            "products",
+            "action",
+            "category",
+            "stamp"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "invalidAmountEvents"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "invalidAmountEvents",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "action"
+        },
+        "invalidAmountEvents": {
+          "source_table": "invalid_action_log",
+          "column_map": {
+            "userId": "user_id",
+            "productList": "products",
+            "amountValue": "amount",
+            "categoryName": "category",
+            "sessionToken": "session",
+            "eventTimestamp": "stamp"
+          },
+          "projected_columns": [
+            "user_id",
+            "products",
+            "amount",
+            "category",
+            "session",
+            "stamp"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "invalidActionEvents"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "invalidActionEvents",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "amount"
+        },
+        "purchaseRecord": {
+          "source_table": "purchase_log",
+          "column_map": {
+            "purchaseId": "purchase_id",
+            "userId": "user_id",
+            "purchaseAmount": "amount",
+            "purchaseTimestamp": "stamp"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "invalid_action_log": "invalid_action_log_amount"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "act_log": {
+          "source_table": "action_log",
+          "column_map": {
+            "sess_id": "session",
+            "usr_id": "user_id",
+            "act_name": "action",
+            "act_cat": "category",
+            "prod_txt": "products",
+            "amt": "amount",
+            "evt_ts": "stamp"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "usr_mst": {
+          "source_table": "app2_mst_users",
+          "column_map": {
+            "usr_id": "user_id",
+            "usr_name": "name",
+            "phone_no": "phone"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "frm_err_log": {
+          "source_table": "form_error_log",
+          "column_map": {
+            "err_ts": "stamp",
+            "sess_id": "session",
+            "frm_name": "form",
+            "fld_name": "field",
+            "err_type": "error_type",
+            "fld_val": "value"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "UserActionAudit": {
+          "source_table": "action_log_with_ip",
+          "column_map": {
+            "SessionToken": "session",
+            "UserId": "user_id",
+            "ActionName": "action",
+            "IpAddress": "ip",
+            "OccurredAt": "stamp"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "FormActivityLog": {
+          "source_table": "form_log",
+          "column_map": {
+            "LoggedAt": "stamp",
+            "SessionToken": "session",
+            "FormAction": "action",
+            "RequestPath": "path",
+            "SubmissionStatus": "status"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "CategoryMaster": {
+          "source_table": "mst_categories",
+          "column_map": {
+            "CategoryId": "id",
+            "CategoryName": "name",
+            "ModifiedAt": "stamp"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 3,
+      "local_name": "local_4",
+      "tables": {
+        "raw_activity_events": {
+          "source_table": "action_log_with_noise",
+          "column_map": {
+            "event_timestamp": "stamp",
+            "session_id": "session",
+            "action_type": "action",
+            "product_reference": "products",
+            "request_url": "url",
+            "client_ip": "ip",
+            "client_user_agent": "user_agent"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "product_catalog_archive_december_2016": {
+          "source_table": "mst_products_20161201",
+          "column_map": {
+            "product_sku": "product_id",
+            "product_name": "name",
+            "price_cents": "price",
+            "record_updated_at": "updated_at"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "category_product_sales": {
+          "source_table": "product_sales",
+          "column_map": {
+            "product_category": "category_name",
+            "product_sku_ref": "product_id",
+            "units_sold": "sales"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 4,
+      "local_name": "local_5",
+      "tables": {
+        "ActivityHistory": {
+          "source_table": "activity_log",
+          "column_map": {
+            "EventTimestamp": "stamp",
+            "SessionToken": "session",
+            "ActionType": "action",
+            "SelectedOption": "option",
+            "ResourcePath": "path",
+            "SearchCategory": "search_type"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "ProductCatalogArchive": {
+          "source_table": "mst_products_20170101",
+          "column_map": {
+            "ProductIdentifier": "product_id",
+            "ProductName": "name",
+            "UnitPrice": "price",
+            "LastModifiedAt": "updated_at"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "ContentReadHistory": {
+          "source_table": "read_log",
+          "column_map": {
+            "EventTimestamp": "stamp",
+            "SessionToken": "session",
+            "ActionType": "action",
+            "ResourceUrl": "url"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 5,
+      "local_name": "local_6",
+      "tables": {
+        "userProfile": {
+          "source_table": "mst_users",
+          "column_map": {
+            "userId": "user_id",
+            "gender": "sex",
+            "birthDate": "birth_date",
+            "registrationDate": "register_date",
+            "registrationDevice": "register_device",
+            "withdrawalDate": "withdraw_date"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "userCardInfo": {
+          "source_table": "mst_users_with_card_number",
+          "column_map": {
+            "userId": "user_id",
+            "cardNumber": "card_number"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "access_log": "accessRecord",
+        "app1_mst_users": "userDirectory",
+        "dup_action_log": "duplicateActionRecord",
+        "invalid_action_log_action": "invalidActionEvents",
+        "invalid_action_log_amount": "invalidAmountEvents",
+        "purchase_log": "purchaseRecord"
+      },
+      "column_renames": {
+        "access_log": {
+          "session": "sessionToken",
+          "user_id": "userId",
+          "action": "actionType",
+          "stamp": "eventTimestamp"
+        },
+        "app1_mst_users": {
+          "user_id": "userId",
+          "name": "fullName",
+          "email": "emailAddress"
+        },
+        "dup_action_log": {
+          "stamp": "eventTimestamp",
+          "session": "sessionToken",
+          "user_id": "userId",
+          "action": "actionType",
+          "products": "productList"
+        },
+        "invalid_action_log_action": {
+          "user_id": "userId",
+          "products": "productList",
+          "action": "actionType",
+          "category": "categoryName",
+          "stamp": "eventTimestamp"
+        },
+        "invalid_action_log_amount": {
+          "user_id": "userId",
+          "products": "productList",
+          "amount": "amountValue",
+          "category": "categoryName",
+          "session": "sessionToken",
+          "stamp": "eventTimestamp"
+        },
+        "purchase_log": {
+          "purchase_id": "purchaseId",
+          "user_id": "userId",
+          "amount": "purchaseAmount",
+          "stamp": "purchaseTimestamp"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "action_log": "act_log",
+        "app2_mst_users": "usr_mst",
+        "form_error_log": "frm_err_log"
+      },
+      "column_renames": {
+        "action_log": {
+          "session": "sess_id",
+          "user_id": "usr_id",
+          "action": "act_name",
+          "category": "act_cat",
+          "products": "prod_txt",
+          "amount": "amt",
+          "stamp": "evt_ts"
+        },
+        "app2_mst_users": {
+          "user_id": "usr_id",
+          "name": "usr_name",
+          "phone": "phone_no"
+        },
+        "form_error_log": {
+          "stamp": "err_ts",
+          "session": "sess_id",
+          "form": "frm_name",
+          "field": "fld_name",
+          "error_type": "err_type",
+          "value": "fld_val"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_3": {
+      "table_renames": {
+        "action_log_with_ip": "UserActionAudit",
+        "form_log": "FormActivityLog",
+        "mst_categories": "CategoryMaster"
+      },
+      "column_renames": {
+        "action_log_with_ip": {
+          "session": "SessionToken",
+          "user_id": "UserId",
+          "action": "ActionName",
+          "ip": "IpAddress",
+          "stamp": "OccurredAt"
+        },
+        "form_log": {
+          "stamp": "LoggedAt",
+          "session": "SessionToken",
+          "action": "FormAction",
+          "path": "RequestPath",
+          "status": "SubmissionStatus"
+        },
+        "mst_categories": {
+          "id": "CategoryId",
+          "name": "CategoryName",
+          "stamp": "ModifiedAt"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_4": {
+      "table_renames": {
+        "action_log_with_noise": "raw_activity_events",
+        "mst_products_20161201": "product_catalog_archive_december_2016",
+        "product_sales": "category_product_sales"
+      },
+      "column_renames": {
+        "action_log_with_noise": {
+          "stamp": "event_timestamp",
+          "session": "session_id",
+          "action": "action_type",
+          "products": "product_reference",
+          "url": "request_url",
+          "ip": "client_ip",
+          "user_agent": "client_user_agent"
+        },
+        "mst_products_20161201": {
+          "product_id": "product_sku",
+          "name": "product_name",
+          "price": "price_cents",
+          "updated_at": "record_updated_at"
+        },
+        "product_sales": {
+          "category_name": "product_category",
+          "product_id": "product_sku_ref",
+          "sales": "units_sold"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_5": {
+      "table_renames": {
+        "activity_log": "ActivityHistory",
+        "mst_products_20170101": "ProductCatalogArchive",
+        "read_log": "ContentReadHistory"
+      },
+      "column_renames": {
+        "activity_log": {
+          "stamp": "EventTimestamp",
+          "session": "SessionToken",
+          "action": "ActionType",
+          "option": "SelectedOption",
+          "path": "ResourcePath",
+          "search_type": "SearchCategory"
+        },
+        "mst_products_20170101": {
+          "product_id": "ProductIdentifier",
+          "name": "ProductName",
+          "price": "UnitPrice",
+          "updated_at": "LastModifiedAt"
+        },
+        "read_log": {
+          "stamp": "EventTimestamp",
+          "session": "SessionToken",
+          "action": "ActionType",
+          "url": "ResourceUrl"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_6": {
+      "table_renames": {
+        "mst_users": "userProfile",
+        "mst_users_with_card_number": "userCardInfo"
+      },
+      "column_renames": {
+        "mst_users": {
+          "user_id": "userId",
+          "sex": "gender",
+          "birth_date": "birthDate",
+          "register_date": "registrationDate",
+          "register_device": "registrationDevice",
+          "withdraw_date": "withdrawalDate"
+        },
+        "mst_users_with_card_number": {
+          "user_id": "userId",
+          "card_number": "cardNumber"
+        }
+      },
+      "naming_case_style": "camelCase"
+    }
+  },
+  "vertical_split_map": {
+    "invalid_action_log": {
+      "pk_columns": [
+        "user_id",
+        "products"
+      ],
+      "fragments": [
+        {
+          "suffix": "action",
+          "non_pk_columns": [
+            "action",
+            "category",
+            "stamp"
+          ],
+          "local_table": "invalidActionEvents",
+          "local_name": "local_1",
+          "vertical_fragment_base": "invalid_action_log_action"
+        },
+        {
+          "suffix": "amount",
+          "non_pk_columns": [
+            "amount",
+            "category",
+            "session",
+            "stamp"
+          ],
+          "local_table": "invalidAmountEvents",
+          "local_name": "local_1",
+          "vertical_fragment_base": "invalid_action_log_amount"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "invalid_action_log",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 5,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.026175338132620896
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.026175338132620896,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "action",
+            "category",
+            "stamp"
+          ],
+          [
+            "amount",
+            "session"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "category",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "stamp",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "action",
+            "category",
+            "stamp"
+          ],
+          [
+            "amount",
+            "category",
+            "session",
+            "stamp"
+          ]
+        ],
+        "pk_columns": [
+          "user_id",
+          "products"
+        ],
+        "fragments": [
+          {
+            "suffix": "action",
+            "non_pk_columns": [
+              "action",
+              "category",
+              "stamp"
+            ]
+          },
+          {
+            "suffix": "amount",
+            "non_pk_columns": [
+              "amount",
+              "category",
+              "session",
+              "stamp"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "invalid_action_log_amount",
+      "movable_candidates": [
+        "invalid_action_log_action"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=4;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "split_map": {
+    "invalid_action_log": {
+      "pk_columns": [
+        "user_id",
+        "products"
+      ],
+      "fragments": [
+        {
+          "suffix": "action",
+          "non_pk_columns": [
+            "action",
+            "category",
+            "stamp"
+          ],
+          "local_table": "invalidActionEvents",
+          "local_name": "local_1",
+          "vertical_fragment_base": "invalid_action_log_action"
+        },
+        {
+          "suffix": "amount",
+          "non_pk_columns": [
+            "amount",
+            "category",
+            "session",
+            "stamp"
+          ],
+          "local_table": "invalidAmountEvents",
+          "local_name": "local_1",
+          "vertical_fragment_base": "invalid_action_log_amount"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "invalid_action_log",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 5,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.026175338132620896
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.026175338132620896,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "action",
+            "category",
+            "stamp"
+          ],
+          [
+            "amount",
+            "session"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "category",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "stamp",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "action",
+            "category",
+            "stamp"
+          ],
+          [
+            "amount",
+            "category",
+            "session",
+            "stamp"
+          ]
+        ],
+        "pk_columns": [
+          "user_id",
+          "products"
+        ],
+        "fragments": [
+          {
+            "suffix": "action",
+            "non_pk_columns": [
+              "action",
+              "category",
+              "stamp"
+            ]
+          },
+          {
+            "suffix": "amount",
+            "non_pk_columns": [
+              "amount",
+              "category",
+              "session",
+              "stamp"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "invalid_action_log_amount",
+      "movable_candidates": [
+        "invalid_action_log_action"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=4;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 19,
+    "eligible_candidate_count": 14,
+    "num_selected_for_vertical_split": 14,
+    "num_from_rate_alone": 15,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "invalid_action_log",
+      "form_error_log",
+      "action_log_with_ip",
+      "dup_action_log",
+      "access_log",
+      "mst_products_20161201",
+      "mst_products_20170101",
+      "purchase_log",
+      "read_log",
+      "app1_mst_users",
+      "app2_mst_users",
+      "mst_categories",
+      "product_sales",
+      "mst_users_with_card_number"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/log/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "form_error_log",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "action_log_with_ip",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "dup_action_log",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "access_log",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "mst_products_20161201",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "mst_products_20170101",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "purchase_log",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "read_log",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "app1_mst_users",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "app2_mst_users",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "mst_categories",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "product_sales",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "mst_users_with_card_number",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {},
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "action_log",
+          "from_column": "user_id",
+          "to_table": "app1_mst_users",
+          "to_column": "user_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "action_log",
+            "column_map": {
+              "session": "session",
+              "user_id": "user_id",
+              "action": "action",
+              "category": "category",
+              "products": "products",
+              "amount": "amount",
+              "stamp": "stamp"
+            },
+            "orig_to_local": {
+              "session": "session",
+              "user_id": "user_id",
+              "action": "action",
+              "category": "category",
+              "products": "products",
+              "amount": "amount",
+              "stamp": "stamp"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "app1_mst_users",
+            "column_map": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "act_log",
+            "to_local_table": "userDirectory",
+            "from_local_column": "usr_id",
+            "to_local_column": "userId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "app1_mst_users",
+          "from_column": "user_id",
+          "to_table": "app2_mst_users",
+          "to_column": "user_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "app1_mst_users",
+            "column_map": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "app2_mst_users",
+            "column_map": {
+              "user_id": "user_id",
+              "name": "name",
+              "phone": "phone"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "name": "name",
+              "phone": "phone"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "userDirectory",
+            "to_local_table": "usr_mst",
+            "from_local_column": "userId",
+            "to_local_column": "usr_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "app2_mst_users",
+          "from_column": "user_id",
+          "to_table": "app1_mst_users",
+          "to_column": "user_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "app2_mst_users",
+            "column_map": {
+              "user_id": "user_id",
+              "name": "name",
+              "phone": "phone"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "name": "name",
+              "phone": "phone"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "app1_mst_users",
+            "column_map": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "usr_mst",
+            "to_local_table": "userDirectory",
+            "from_local_column": "usr_id",
+            "to_local_column": "userId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "invalid_action_log",
+          "from_column": "user_id",
+          "to_table": "app1_mst_users",
+          "to_column": "user_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "invalid_action_log_action",
+            "column_map": {
+              "user_id": "user_id",
+              "products": "products",
+              "action": "action",
+              "category": "category",
+              "stamp": "stamp"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "products": "products",
+              "action": "action",
+              "category": "category",
+              "stamp": "stamp"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "invalid_action_log_amount",
+            "column_map": {
+              "user_id": "user_id",
+              "products": "products",
+              "amount": "amount",
+              "category": "category",
+              "session": "session",
+              "stamp": "stamp"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "products": "products",
+              "amount": "amount",
+              "category": "category",
+              "session": "session",
+              "stamp": "stamp"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "app1_mst_users",
+            "column_map": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "invalidActionEvents",
+            "to_local_table": "userDirectory",
+            "from_local_column": "userId",
+            "to_local_column": "userId"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "invalidAmountEvents",
+            "to_local_table": "userDirectory",
+            "from_local_column": "userId",
+            "to_local_column": "userId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "purchase_log",
+          "from_column": "user_id",
+          "to_table": "app1_mst_users",
+          "to_column": "user_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "purchase_log",
+            "column_map": {
+              "purchase_id": "purchase_id",
+              "user_id": "user_id",
+              "amount": "amount",
+              "stamp": "stamp"
+            },
+            "orig_to_local": {
+              "purchase_id": "purchase_id",
+              "user_id": "user_id",
+              "amount": "amount",
+              "stamp": "stamp"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "app1_mst_users",
+            "column_map": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            },
+            "orig_to_local": {
+              "user_id": "user_id",
+              "name": "name",
+              "email": "email"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "purchaseRecord",
+            "to_local_table": "userDirectory",
+            "from_local_column": "userId",
+            "to_local_column": "userId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {},
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "access_log": "local_1",
+      "action_log": "local_2",
+      "action_log_with_ip": "local_3",
+      "action_log_with_noise": "local_4",
+      "activity_log": "local_5",
+      "app1_mst_users": "local_1",
+      "app2_mst_users": "local_2",
+      "dup_action_log": "local_1",
+      "form_error_log": "local_2",
+      "form_log": "local_3",
+      "invalid_action_log_action": "local_1",
+      "invalid_action_log_amount": "local_1",
+      "mst_categories": "local_3",
+      "mst_products_20161201": "local_4",
+      "mst_products_20170101": "local_5",
+      "mst_users": "local_6",
+      "mst_users_with_card_number": "local_6",
+      "product_sales": "local_4",
+      "purchase_log": "local_1",
+      "read_log": "local_5"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "mst_users": {
+        "columns": [
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "sex",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birth_date",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "register_date",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "register_device",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "withdraw_date",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 320
+      },
+      "action_log": {
+        "columns": [
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "category",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "products",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "amount",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 120
+      },
+      "activity_log": {
+        "columns": [
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "option",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "path",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "search_type",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 244
+      },
+      "read_log": {
+        "columns": [
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "url",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "session",
+          "action"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 15
+      },
+      "form_log": {
+        "columns": [
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "path",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "status",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 45
+      },
+      "form_error_log": {
+        "columns": [
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "form",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "field",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "error_type",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "value",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "session",
+          "field"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 8
+      },
+      "action_log_with_ip": {
+        "columns": [
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "ip",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "session"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 12
+      },
+      "access_log": {
+        "columns": [
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "session",
+          "stamp"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 30
+      },
+      "action_log_with_noise": {
+        "columns": [
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "products",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "url",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "ip",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "user_agent",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 0
+      },
+      "invalid_action_log": {
+        "columns": [
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "category",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "products",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "amount",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "user_id",
+          "products"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 7
+      },
+      "mst_categories": {
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "name"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 8
+      },
+      "dup_action_log": {
+        "columns": [
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "session",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "action",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "products",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "stamp",
+          "products"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 11
+      },
+      "mst_products_20161201": {
+        "columns": [
+          {
+            "name": "product_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "price",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "product_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 6
+      },
+      "mst_products_20170101": {
+        "columns": [
+          {
+            "name": "product_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "price",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "updated_at",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "product_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 6
+      },
+      "app1_mst_users": {
+        "columns": [
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "email",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "user_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 2
+      },
+      "app2_mst_users": {
+        "columns": [
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "user_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 2
+      },
+      "mst_users_with_card_number": {
+        "columns": [
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "card_number",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "user_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 3
+      },
+      "purchase_log": {
+        "columns": [
+          {
+            "name": "purchase_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "user_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "amount",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stamp",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "purchase_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 5
+      },
+      "product_sales": {
+        "columns": [
+          {
+            "name": "category_name",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "product_id",
+            "type": "varchar(255)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "sales",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "product_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 10
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "action_log",
+        "from_column": "user_id",
+        "to_table": "app1_mst_users",
+        "to_column": "user_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "app1_mst_users",
+        "from_column": "user_id",
+        "to_table": "app2_mst_users",
+        "to_column": "user_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "app2_mst_users",
+        "from_column": "user_id",
+        "to_table": "app1_mst_users",
+        "to_column": "user_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "invalid_action_log",
+        "from_column": "user_id",
+        "to_table": "app1_mst_users",
+        "to_column": "user_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "purchase_log",
+        "from_column": "user_id",
+        "to_table": "app1_mst_users",
+        "to_column": "user_id",
+        "origin": "inferred"
+      }
+    ],
+    "stats": {
+      "num_tables": 19,
+      "num_fk_edges": 5,
+      "hub_tables": [
+        "app1_mst_users",
+        "action_log",
+        "invalid_action_log",
+        "app2_mst_users",
+        "purchase_log"
+      ],
+      "connected_components": 15
+    }
+  }
+}

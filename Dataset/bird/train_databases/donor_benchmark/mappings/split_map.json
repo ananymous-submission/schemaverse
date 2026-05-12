@@ -1,0 +1,782 @@
+{
+  "projects": {
+    "pk_columns": [
+      "projectid"
+    ],
+    "fragments": [
+      {
+        "suffix": "date_posted",
+        "non_pk_columns": [
+          "date_posted",
+          "fulfillment_labor_materials",
+          "grade_level",
+          "poverty_level",
+          "total_price_excluding_optional_support",
+          "total_price_including_optional_support"
+        ],
+        "local_table": "projects_date_le_2009_10_10",
+        "local_name": "local_2",
+        "vertical_fragment_base": "projects_date_posted",
+        "row_partition_names": [
+          "projects_date_le_2009_10_10",
+          "projects_date_gt_2009_10_10_to_2011_09_04",
+          "projects_date_gt_2011_09_04_to_2013_02_07",
+          "projects_date_gt_2013_02_07_or_null"
+        ],
+        "row_partition_predicate_column": "date_posted"
+      },
+      {
+        "suffix": "eligible_almost_home_mat",
+        "non_pk_columns": [
+          "eligible_almost_home_match",
+          "eligible_double_your_impact_match",
+          "students_reached"
+        ],
+        "local_table": "projectMatchingEligibility",
+        "local_name": "local_1",
+        "vertical_fragment_base": "projects_eligible_almost_home_mat"
+      },
+      {
+        "suffix": "date_posted_2",
+        "non_pk_columns": [
+          "date_posted",
+          "grade_level",
+          "poverty_level",
+          "resource_type",
+          "school_charter",
+          "school_charter_ready_promise",
+          "school_city",
+          "school_county",
+          "school_district",
+          "school_kipp",
+          "school_latitude",
+          "school_longitude",
+          "school_magnet",
+          "school_metro",
+          "school_ncesid",
+          "school_nlns",
+          "school_state",
+          "school_year_round",
+          "school_zip",
+          "teacher_ny_teaching_fellow",
+          "teacher_teach_for_america"
+        ],
+        "local_table": "projectPostings",
+        "local_name": "local_1",
+        "vertical_fragment_base": "projects_date_posted_2"
+      },
+      {
+        "suffix": "primary_focus_area",
+        "non_pk_columns": [
+          "primary_focus_area",
+          "primary_focus_subject",
+          "resource_type",
+          "secondary_focus_area",
+          "secondary_focus_subject"
+        ],
+        "local_table": "projectPrimaryFocus",
+        "local_name": "local_1",
+        "vertical_fragment_base": "projects_primary_focus_area"
+      },
+      {
+        "suffix": "school_charter_ready_pro",
+        "non_pk_columns": [
+          "school_charter_ready_promise",
+          "school_city",
+          "school_kipp",
+          "school_ncesid",
+          "school_nlns",
+          "school_state",
+          "school_year_round",
+          "school_zip",
+          "schoolid",
+          "teacher_acctid",
+          "teacher_ny_teaching_fellow",
+          "teacher_prefix",
+          "teacher_teach_for_america"
+        ],
+        "local_table": "projectSchoolCharterDetails",
+        "local_name": "local_1",
+        "vertical_fragment_base": "projects_school_charter_ready_pro"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "projects",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 34,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.04258830294868656,
+        "3": 0.05269265844581164,
+        "4": 0.06366415484935975,
+        "5": 0.07499298130903986
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.07499298130903986,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "date_posted",
+          "fulfillment_labor_materials",
+          "grade_level",
+          "total_price_excluding_optional_support",
+          "total_price_including_optional_support"
+        ],
+        [
+          "eligible_almost_home_match",
+          "eligible_double_your_impact_match",
+          "students_reached"
+        ],
+        [
+          "poverty_level",
+          "school_charter",
+          "school_charter_ready_promise",
+          "school_city",
+          "school_county",
+          "school_district",
+          "school_kipp",
+          "school_latitude",
+          "school_longitude",
+          "school_magnet",
+          "school_metro",
+          "school_nlns",
+          "school_state",
+          "school_year_round",
+          "school_zip"
+        ],
+        [
+          "primary_focus_area",
+          "primary_focus_subject",
+          "resource_type",
+          "secondary_focus_area",
+          "secondary_focus_subject"
+        ],
+        [
+          "school_ncesid",
+          "schoolid",
+          "teacher_acctid",
+          "teacher_ny_teaching_fellow",
+          "teacher_prefix",
+          "teacher_teach_for_america"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "school_ncesid",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "resource_type",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "teacher_ny_teaching_fellow",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "school_year_round",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "poverty_level",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "grade_level",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "date_posted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "school_zip",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "school_kipp",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "school_charter_ready_promise",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "school_state",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "teacher_teach_for_america",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "school_nlns",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "school_city",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "date_posted",
+          "fulfillment_labor_materials",
+          "grade_level",
+          "poverty_level",
+          "total_price_excluding_optional_support",
+          "total_price_including_optional_support"
+        ],
+        [
+          "eligible_almost_home_match",
+          "eligible_double_your_impact_match",
+          "students_reached"
+        ],
+        [
+          "date_posted",
+          "grade_level",
+          "poverty_level",
+          "resource_type",
+          "school_charter",
+          "school_charter_ready_promise",
+          "school_city",
+          "school_county",
+          "school_district",
+          "school_kipp",
+          "school_latitude",
+          "school_longitude",
+          "school_magnet",
+          "school_metro",
+          "school_ncesid",
+          "school_nlns",
+          "school_state",
+          "school_year_round",
+          "school_zip",
+          "teacher_ny_teaching_fellow",
+          "teacher_teach_for_america"
+        ],
+        [
+          "primary_focus_area",
+          "primary_focus_subject",
+          "resource_type",
+          "secondary_focus_area",
+          "secondary_focus_subject"
+        ],
+        [
+          "school_charter_ready_promise",
+          "school_city",
+          "school_kipp",
+          "school_ncesid",
+          "school_nlns",
+          "school_state",
+          "school_year_round",
+          "school_zip",
+          "schoolid",
+          "teacher_acctid",
+          "teacher_ny_teaching_fellow",
+          "teacher_prefix",
+          "teacher_teach_for_america"
+        ]
+      ],
+      "pk_columns": [
+        "projectid"
+      ],
+      "fragments": [
+        {
+          "suffix": "date_posted",
+          "non_pk_columns": [
+            "date_posted",
+            "fulfillment_labor_materials",
+            "grade_level",
+            "poverty_level",
+            "total_price_excluding_optional_support",
+            "total_price_including_optional_support"
+          ]
+        },
+        {
+          "suffix": "eligible_almost_home_mat",
+          "non_pk_columns": [
+            "eligible_almost_home_match",
+            "eligible_double_your_impact_match",
+            "students_reached"
+          ]
+        },
+        {
+          "suffix": "date_posted_2",
+          "non_pk_columns": [
+            "date_posted",
+            "grade_level",
+            "poverty_level",
+            "resource_type",
+            "school_charter",
+            "school_charter_ready_promise",
+            "school_city",
+            "school_county",
+            "school_district",
+            "school_kipp",
+            "school_latitude",
+            "school_longitude",
+            "school_magnet",
+            "school_metro",
+            "school_ncesid",
+            "school_nlns",
+            "school_state",
+            "school_year_round",
+            "school_zip",
+            "teacher_ny_teaching_fellow",
+            "teacher_teach_for_america"
+          ]
+        },
+        {
+          "suffix": "primary_focus_area",
+          "non_pk_columns": [
+            "primary_focus_area",
+            "primary_focus_subject",
+            "resource_type",
+            "secondary_focus_area",
+            "secondary_focus_subject"
+          ]
+        },
+        {
+          "suffix": "school_charter_ready_pro",
+          "non_pk_columns": [
+            "school_charter_ready_promise",
+            "school_city",
+            "school_kipp",
+            "school_ncesid",
+            "school_nlns",
+            "school_state",
+            "school_year_round",
+            "school_zip",
+            "schoolid",
+            "teacher_acctid",
+            "teacher_ny_teaching_fellow",
+            "teacher_prefix",
+            "teacher_teach_for_america"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "projects_date_posted_2",
+    "movable_candidates": [
+      "projects_date_posted_q1",
+      "projects_eligible_almost_home_mat",
+      "projects_primary_focus_area",
+      "projects_school_charter_ready_pro"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=21;fk_column_endpoints_on_fragment=2"
+  },
+  "resources": {
+    "pk_columns": [
+      "resourceid"
+    ],
+    "fragments": [
+      {
+        "suffix": "item_name",
+        "non_pk_columns": [
+          "item_name",
+          "item_number",
+          "item_quantity",
+          "item_unit_price",
+          "project_resource_type",
+          "vendor_name"
+        ],
+        "local_table": "resourceItemsPriceUpToSixPointTwoNine",
+        "local_name": "local_1",
+        "vertical_fragment_base": "resources_item_name",
+        "row_partition_names": [
+          "resourceItemsPriceUpToSixPointTwoNine",
+          "resourceItemsPriceOverSixPointTwoNineToThirteenPointNineEight",
+          "resourceItemsPriceOverThirteenPointNineEightToThirtySix",
+          "resourceItemsPriceOverThirtySixOrNull"
+        ],
+        "row_partition_predicate_column": "item_unit_price"
+      },
+      {
+        "suffix": "item_number",
+        "non_pk_columns": [
+          "item_number",
+          "item_quantity",
+          "item_unit_price",
+          "project_resource_type",
+          "projectid",
+          "vendorid"
+        ],
+        "local_table": "resourceItemsByIdentifier",
+        "local_name": "local_1",
+        "vertical_fragment_base": "resources_item_number"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "resources",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.03815458321839635
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.03815458321839635,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "item_name",
+          "item_unit_price",
+          "project_resource_type",
+          "vendor_name"
+        ],
+        [
+          "item_number",
+          "item_quantity",
+          "projectid",
+          "vendorid"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "item_unit_price",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "project_resource_type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "item_number",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "item_quantity",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "item_name",
+          "item_number",
+          "item_quantity",
+          "item_unit_price",
+          "project_resource_type",
+          "vendor_name"
+        ],
+        [
+          "item_number",
+          "item_quantity",
+          "item_unit_price",
+          "project_resource_type",
+          "projectid",
+          "vendorid"
+        ]
+      ],
+      "pk_columns": [
+        "resourceid"
+      ],
+      "fragments": [
+        {
+          "suffix": "item_name",
+          "non_pk_columns": [
+            "item_name",
+            "item_number",
+            "item_quantity",
+            "item_unit_price",
+            "project_resource_type",
+            "vendor_name"
+          ]
+        },
+        {
+          "suffix": "item_number",
+          "non_pk_columns": [
+            "item_number",
+            "item_quantity",
+            "item_unit_price",
+            "project_resource_type",
+            "projectid",
+            "vendorid"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "resources_item_number",
+    "movable_candidates": [
+      "resources_item_name_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+  },
+  "donations": {
+    "pk_columns": [
+      "donationid"
+    ],
+    "fragments": [
+      {
+        "suffix": "dollar_amount",
+        "non_pk_columns": [
+          "dollar_amount",
+          "donation_included_optional_support",
+          "donation_optional_support",
+          "donation_to_project",
+          "donation_total",
+          "payment_method",
+          "projectid"
+        ],
+        "local_table": "donations_opt_le_1_5",
+        "local_name": "local_2",
+        "vertical_fragment_base": "donations_dollar_amount",
+        "row_partition_names": [
+          "donations_opt_le_1_5",
+          "donations_opt_gt_1_5_to_3_75",
+          "donations_opt_gt_3_75_to_7_5",
+          "donations_opt_gt_7_5_or_null"
+        ],
+        "row_partition_predicate_column": "donation_optional_support"
+      },
+      {
+        "suffix": "donation_message",
+        "non_pk_columns": [
+          "donation_message",
+          "donation_timestamp",
+          "donor_acctid",
+          "donor_city",
+          "donor_state",
+          "donor_zip",
+          "is_teacher_acct",
+          "payment_included_acct_credit",
+          "payment_method",
+          "payment_was_promo_matched",
+          "projectid",
+          "via_giving_page"
+        ],
+        "local_table": "contribution_messages",
+        "local_name": "local_3",
+        "vertical_fragment_base": "donations_donation_message"
+      },
+      {
+        "suffix": "donation_message_2",
+        "non_pk_columns": [
+          "donation_message",
+          "donation_timestamp",
+          "for_honoree",
+          "is_teacher_acct",
+          "payment_included_acct_credit",
+          "payment_included_campaign_gift_card",
+          "payment_included_web_purchased_gift_card",
+          "payment_was_promo_matched",
+          "via_giving_page"
+        ],
+        "local_table": "honor_contribution_messages",
+        "local_name": "local_3",
+        "vertical_fragment_base": "donations_donation_message_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "donations",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 20,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.03256386933478823,
+        "3": 0.04770360894013087,
+        "4": 0.036288602176728704,
+        "5": 0.03334985222214999
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.04770360894013087,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "dollar_amount",
+          "donation_included_optional_support",
+          "donation_optional_support",
+          "donation_to_project",
+          "donation_total",
+          "payment_method"
+        ],
+        [
+          "donation_message",
+          "donation_timestamp",
+          "donor_acctid",
+          "donor_city",
+          "donor_state",
+          "donor_zip",
+          "is_teacher_acct",
+          "projectid"
+        ],
+        [
+          "for_honoree",
+          "payment_included_acct_credit",
+          "payment_included_campaign_gift_card",
+          "payment_included_web_purchased_gift_card",
+          "payment_was_promo_matched",
+          "via_giving_page"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "payment_method",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "donation_timestamp",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "projectid",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "payment_included_acct_credit",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "is_teacher_acct",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "payment_was_promo_matched",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "via_giving_page",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "donation_message",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "dollar_amount",
+          "donation_included_optional_support",
+          "donation_optional_support",
+          "donation_to_project",
+          "donation_total",
+          "payment_method",
+          "projectid"
+        ],
+        [
+          "donation_message",
+          "donation_timestamp",
+          "donor_acctid",
+          "donor_city",
+          "donor_state",
+          "donor_zip",
+          "is_teacher_acct",
+          "payment_included_acct_credit",
+          "payment_method",
+          "payment_was_promo_matched",
+          "projectid",
+          "via_giving_page"
+        ],
+        [
+          "donation_message",
+          "donation_timestamp",
+          "for_honoree",
+          "is_teacher_acct",
+          "payment_included_acct_credit",
+          "payment_included_campaign_gift_card",
+          "payment_included_web_purchased_gift_card",
+          "payment_was_promo_matched",
+          "via_giving_page"
+        ]
+      ],
+      "pk_columns": [
+        "donationid"
+      ],
+      "fragments": [
+        {
+          "suffix": "dollar_amount",
+          "non_pk_columns": [
+            "dollar_amount",
+            "donation_included_optional_support",
+            "donation_optional_support",
+            "donation_to_project",
+            "donation_total",
+            "payment_method",
+            "projectid"
+          ]
+        },
+        {
+          "suffix": "donation_message",
+          "non_pk_columns": [
+            "donation_message",
+            "donation_timestamp",
+            "donor_acctid",
+            "donor_city",
+            "donor_state",
+            "donor_zip",
+            "is_teacher_acct",
+            "payment_included_acct_credit",
+            "payment_method",
+            "payment_was_promo_matched",
+            "projectid",
+            "via_giving_page"
+          ]
+        },
+        {
+          "suffix": "donation_message_2",
+          "non_pk_columns": [
+            "donation_message",
+            "donation_timestamp",
+            "for_honoree",
+            "is_teacher_acct",
+            "payment_included_acct_credit",
+            "payment_included_campaign_gift_card",
+            "payment_included_web_purchased_gift_card",
+            "payment_was_promo_matched",
+            "via_giving_page"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "donations_donation_message",
+    "movable_candidates": [
+      "donations_dollar_amount_q1",
+      "donations_donation_message_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=12;fk_column_endpoints_on_fragment=1"
+  }
+}

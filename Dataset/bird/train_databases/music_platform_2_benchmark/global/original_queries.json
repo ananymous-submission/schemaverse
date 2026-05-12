@@ -1,0 +1,485 @@
+[
+  {
+    "sql": "SELECT COUNT(podcast_id) FROM categories WHERE category = ( SELECT category FROM categories GROUP BY category ORDER BY COUNT(podcast_id) DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "How many podcasts are there in the category which has the most podcasts?",
+    "difficulty": "",
+    "evidence": "category which has the most podcast refers to the category with Max(count(podcast_id))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.podcast_id) FROM ( SELECT podcast_id FROM categories GROUP BY podcast_id HAVING COUNT(category) >= 4 ) AS T1",
+    "question_id": null,
+    "question": "What is the percentage of the podcast that are categorized in four or more categories?",
+    "difficulty": "",
+    "evidence": "categorized in 4 or more refers to Count(category) > 4; percentage = Divide(Count(podcast_id(count(category) > 4)), Count(podcast_id)) * 100"
+  },
+  {
+    "sql": "SELECT itunes_id, itunes_url FROM podcasts WHERE title = 'Brown Suga Diaries'",
+    "question_id": null,
+    "question": "Provide the itunes id and url for podcast titled 'Brown Suga Diaries'.",
+    "difficulty": "",
+    "evidence": "url refers to itunes_url; 'Brown Suga Diaries' is the title of podcast"
+  },
+  {
+    "sql": "SELECT itunes_url FROM podcasts WHERE title LIKE '%Dream%' GROUP BY itunes_url",
+    "question_id": null,
+    "question": "List all podcast with its itunes url for all title containing the word 'Dream'.",
+    "difficulty": "",
+    "evidence": "containing the word 'Dream' refers to title LIKE '%Dream%'"
+  },
+  {
+    "sql": "SELECT T1.category FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.title = 'I Heart My Life Show'",
+    "question_id": null,
+    "question": "Name all the categories for podcast titled 'I Heart My Life Show'.",
+    "difficulty": "",
+    "evidence": "'I Hearty My Life Show' is the title of podcast"
+  },
+  {
+    "sql": "SELECT T2.title, T2.itunes_url FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'society-culture'",
+    "question_id": null,
+    "question": "List all the podcast title and its itunes url under the 'society-culture' category.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T3.podcast_id) FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id INNER JOIN reviews AS T3 ON T3.podcast_id = T2.podcast_id WHERE T2.title LIKE '%spoilers%' AND T1.category = 'arts' AND T3.rating = 5",
+    "question_id": null,
+    "question": "How many people rated 5 for the podcast which title contains the word 'spoiler' under the 'art' category '?",
+    "difficulty": "",
+    "evidence": "rated 5 refers to rating = 5; contain the word 'spoilers' refers to title like '%spoilers%'; 'art' is the category name;"
+  },
+  {
+    "sql": "SELECT T2.author_id FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'Pop Rocket' AND T2.created_at LIKE '2016-%' AND T2.rating < 5",
+    "question_id": null,
+    "question": "List the authors who created review for podcast titled 'Pop Rocket' in 2016 with rating less than 5.",
+    "difficulty": "",
+    "evidence": "Pop Rocket' is the title of podcast; in 2016 refers to created_at like'2016%'; rating less than 5 refers to rating < 5; author refers to author_id"
+  },
+  {
+    "sql": "SELECT T2.title, T1.category FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id INNER JOIN reviews AS T3 ON T3.podcast_id = T2.podcast_id GROUP BY T3.podcast_id HAVING AVG(T3.rating) > 3",
+    "question_id": null,
+    "question": "Name all the podcast title and its category with average rating of more than 3.0.",
+    "difficulty": "",
+    "evidence": "average rating of more than 3.0 refers to avg(rating) > 3.0"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.title FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id INNER JOIN reviews AS T3 ON T3.podcast_id = T2.podcast_id WHERE T3.rating = 5 AND T1.category = 'fiction'",
+    "question_id": null,
+    "question": "List all content reviewed for podcast with the best rating under the 'fiction' category. State the podcast title.",
+    "difficulty": "",
+    "evidence": "'fiction' is the category name; best rating refers to rating = 5; content reviewed refers to content"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.title, T2.content, T2.rating FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.title = 'Love it!'",
+    "question_id": null,
+    "question": "State the podcast title, content review and rating for all reviews with titled 'Love it!'",
+    "difficulty": "",
+    "evidence": "\"Love it!\" is the title of review; content reviewed refers to content"
+  },
+  {
+    "sql": "SELECT T2.author_id, T2.rating, T2.created_at FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'In The Thick' GROUP BY T2.author_id, T2.rating, T2.created_at",
+    "question_id": null,
+    "question": "Find the author, rating and review creation date of review for podcast title 'In The Thick'.",
+    "difficulty": "",
+    "evidence": "\"In The Thick\" is the title of podcast; author refers to author_id; creation date refers to created_at"
+  },
+  {
+    "sql": "SELECT T1.podcast_id, T2.created_at, T2.title, T2.rating FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id ORDER BY T2.created_at DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which podcast was reviewed the latest? State the date of creation, podcast tile and rating.",
+    "difficulty": "",
+    "evidence": "latest refers to Max(created_at); date of creation refers to created_at"
+  },
+  {
+    "sql": "SELECT T2.title, T2.rating, T2.content FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.author_id = '76A4C24B6038145'",
+    "question_id": null,
+    "question": "Name the podcast title, rating and review content created by '76A4C24B6038145'.",
+    "difficulty": "",
+    "evidence": "\"76A4C24B6038145\" is author_id; review content refers to content"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.title, T2.title, T2.content FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.rating = 1",
+    "question_id": null,
+    "question": "For all reviews with the worst rating, state the podcast title as well as the review title and content.",
+    "difficulty": "",
+    "evidence": "worst rating refers to rating = 1"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.title, T2.rating FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.created_at LIKE '2019-05-%'",
+    "question_id": null,
+    "question": "List all reviews created in May 2019. State the title of podcast and review rating.",
+    "difficulty": "",
+    "evidence": "created in May 2019 refers to created_at like '2019-05%'"
+  },
+  {
+    "sql": "SELECT AVG(T2.rating) FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id GROUP BY T1.podcast_id ORDER BY COUNT(T2.content) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the average rating for the podcast that is most reviewed?",
+    "difficulty": "",
+    "evidence": "most reviewed refers to Max(Count(reviews.podcast_id)); average rating refers to AVG (rating)"
+  },
+  {
+    "sql": "SELECT T1.category FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.title = 'SciFi Tech Talk'",
+    "question_id": null,
+    "question": "Which category does the podcast titled 'SciFi Tech Talk' belong to?",
+    "difficulty": "",
+    "evidence": "podcast titled 'SciFi Tech Talk' refers to title = 'SciFi Tech Talk'"
+  },
+  {
+    "sql": "SELECT podcast_id, itunes_url FROM podcasts WHERE podcast_id = ( SELECT podcast_id FROM reviews WHERE title = 'Long time listener, calling it quits' )",
+    "question_id": null,
+    "question": "What is the name of the podcast in which a commentor left a comment with the title 'Long time listener, calling it quits?' Include the URL of the podcast as well.",
+    "difficulty": "",
+    "evidence": "comment refers to review; 'Long time listener, calling it quits' is the title of review;\u00a0 name of the podcast refers to title of podcast; URL refers to itunes_url"
+  },
+  {
+    "sql": "SELECT T2.title FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'true-crime'",
+    "question_id": null,
+    "question": "List all the names of podcasts under the 'true crime' category.",
+    "difficulty": "",
+    "evidence": "name of the podcast refers to title of the podcast"
+  },
+  {
+    "sql": "SELECT content FROM reviews WHERE podcast_id = ( SELECT podcast_id FROM podcasts WHERE title = 'StormCast: The Official Warhammer Age of Sigmar Podcast' )",
+    "question_id": null,
+    "question": "Write all the review content belonging to StormCast: The Official Warhammer Age of Sigmar Podcast.",
+    "difficulty": "",
+    "evidence": "review content refers to content; 'StormCast: The Official Warhammer Age of Sigmar Podcast' is the title of podcast;"
+  },
+  {
+    "sql": "SELECT title, content FROM reviews WHERE podcast_id = ( SELECT podcast_id FROM podcasts WHERE title = 'More Stupider: A 90-Day Fiance Podcast' ) AND rating = 1",
+    "question_id": null,
+    "question": "Write all the review titles and the contents belonging to the podcast 'More Stupider: A 90-Day Fiance Podcast' with a review rating of 1.",
+    "difficulty": "",
+    "evidence": "podcast 'More Stupider: A 90-Day Fiance Podcast'\u00a0 refers to title = 'More Stupider: A 90-Day Fiance Podcast'; rating of 1 refers to rating = 1"
+  },
+  {
+    "sql": "SELECT COUNT(T2.rating) FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'LifeAfter/The Message' AND T2.rating <= 3",
+    "question_id": null,
+    "question": "How many reviews does 'LifeAfter/The Message' have which were rated below 3?",
+    "difficulty": "",
+    "evidence": "LifeAfter/The Message' is the title of podcast; rated below 3 refers to rating < 3"
+  },
+  {
+    "sql": "SELECT AVG(T3.rating) FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id INNER JOIN reviews AS T3 ON T3.podcast_id = T2.podcast_id WHERE T2.title = 'More Stupider: A 90-Day Fiance Podcast'",
+    "question_id": null,
+    "question": "The 'More Stupider: A 90-Day Fiance Podcast' belongs to which category and what is the average rating of the podcast?",
+    "difficulty": "",
+    "evidence": "More Stupider: A 90-Day Fiance Podcast' is the title of podcast; average rating = Divide (Sum(rating), Count(rating))"
+  },
+  {
+    "sql": "SELECT ( SELECT category FROM categories WHERE category = 'arts-books' OR category = 'arts-design' GROUP BY category ORDER BY COUNT(podcast_id) DESC LIMIT 1 ) \"has more podcasts\" , ( SELECT SUM(CASE WHEN category = 'arts-books' THEN 1 ELSE 0 END) - SUM(CASE WHEN category = 'arts-design' THEN 1 ELSE 0 END) FROM categories ) \"differenct BETWEEN arts-books and arts-design\"",
+    "question_id": null,
+    "question": "Of the arts-books and arts-design categories, which one has more podcasts and what is the numerical difference between them?",
+    "difficulty": "",
+    "evidence": "arts-books' and 'arts-design' are category; numerical difference = Subtract(Count(podcast_id(category = 'arts-books')), Count(podcast_id(category = 'arts-design'))); one has much more podcast refers to Max(Count(podcast_id))"
+  },
+  {
+    "sql": "SELECT SUM(reviews_added) FROM runs WHERE run_at LIKE '2022-06-%'",
+    "question_id": null,
+    "question": "How many total reviews runned at in June 2022 were added to the podcasts?",
+    "difficulty": "",
+    "evidence": "run at in June 2022 refers to run_at BETWEEN '2022-06-01 00:00:00' and '2022-06-30 23:59:59'; reviews refers to review_added"
+  },
+  {
+    "sql": "SELECT COUNT(podcast_id) FROM reviews WHERE rating = 3 AND created_at BETWEEN '2015-01-01T00:00:00-07:00' AND '2015-03-31T23:59:59-07:00'",
+    "question_id": null,
+    "question": "How many podcast reviews with a rating of 3 were created during the first quarter of 2015?",
+    "difficulty": "",
+    "evidence": "rating of 3 refers to rating = 3; created during the first quarter of 2015 refers to created_at BETWEEN'2015-01-01T00:00:00-07:00' and '2015-03-31T23:59:59-07:00'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN category = 'fiction-science-fiction' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(podcast_id) OR '%' \"percentage\" FROM categories",
+    "question_id": null,
+    "question": "Calculate the percentage of podcasts in the fiction-science-fiction category.",
+    "difficulty": "",
+    "evidence": "percentage = \u00a0 Divide (Count(podcast_id(category = 'fiction-science-fiction')), Count(podcast_id)) * 100"
+  },
+  {
+    "sql": "SELECT AVG(rating) FROM reviews WHERE created_at BETWEEN '2019-01-01T00:00:00-07:00' AND '2019-12-31T23:59:59-07:00'",
+    "question_id": null,
+    "question": "What is the average rating of all the podcasts with reviews created in 2019?",
+    "difficulty": "",
+    "evidence": "created in 2019 refers to created_at BETWEEN '2019-01-01T00:00:00' and '2019-12-31T23:59:59'; average rating\u00a0 = Divide (Sum(rating), Count(podcast_id))"
+  },
+  {
+    "sql": "SELECT CAST((SUM(CASE WHEN run_at LIKE '2022-%' THEN reviews_added ELSE 0 END) - SUM(CASE WHEN run_at LIKE '2021-%' THEN reviews_added ELSE 0 END)) AS REAL) * 100 / SUM(reviews_added) OR '%' \"percentage\" FROM runs",
+    "question_id": null,
+    "question": "What is the percentage of reviews added each year of the total reviews added?",
+    "difficulty": "",
+    "evidence": "review added each year refers to runs_at like '2021%' and runs_at like '2022%'; percentage for 2021 = Divide (Sum(reviews_added(runs_at like '2021%)), Sum(reviews_added)) * 100; percentage of 2022 = Divide (Sum(reviews_added(runs_at like '2022%')), Sum(reviews_added)) * 100"
+  },
+  {
+    "sql": "SELECT T2.title FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'fiction'",
+    "question_id": null,
+    "question": "Indicates the title of all podcasts in the fiction category.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T3.rating, T1.category FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id INNER JOIN reviews AS T3 ON T3.podcast_id = T2.podcast_id WHERE T2.title = 'Sitcomadon'",
+    "question_id": null,
+    "question": "What is the rating and category of the podcast entitled Sitcomadon?",
+    "difficulty": "",
+    "evidence": "entitled refers to title; 'Sitcomadon' is the title of podcast"
+  },
+  {
+    "sql": "SELECT T2.author_id FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.itunes_id = 1516665400",
+    "question_id": null,
+    "question": "Indicate the id of the reviewer whose itunes id is 1516665400.",
+    "difficulty": "",
+    "evidence": "\"151665400\" is itunes_id; id of reviewer refers to author_id"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.title FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.created_at BETWEEN '2018-08-22T11:53:16-07:00' AND '2018-11-20T11:14:20-07:00'",
+    "question_id": null,
+    "question": "What are the titles of the podcasts whose reviews were created between 2018-08-22T11:53:16-07:00 and 2018-11-20T11:14:20-07:00?",
+    "difficulty": "",
+    "evidence": "created between 2018-08-22T11:53:16-07:00 and 2018-11-20T11:14:20-07:00 refers to created at BETWEEN '2018-08-22T11:53:16-07:00' and '2018-11-20T11:14:20-07:00'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.category FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.author_id = 'EFB34EAC8E9397C'",
+    "question_id": null,
+    "question": "To which categories do the podcasts of the reviewer whose id is EFB34EAC8E9397C belong?",
+    "difficulty": "",
+    "evidence": "reviewer whose id is EFB34EAC8E9397C refers to author_id = 'EFB34EAC8E9397C'"
+  },
+  {
+    "sql": "SELECT slug, itunes_url FROM podcasts WHERE podcast_id IN ( SELECT podcast_id FROM reviews WHERE content = 'Can''t stop listening' )",
+    "question_id": null,
+    "question": "Indicate the slug and the itunes url of the podcast whose review content was written Can't stop listening.",
+    "difficulty": "",
+    "evidence": "review content was written Can't stop listening refers to content = 'Can't stop listening'"
+  },
+  {
+    "sql": "SELECT created_at FROM reviews WHERE podcast_id = ( SELECT podcast_id FROM podcasts WHERE title = 'Don''t Lie To Your Life Coach' )",
+    "question_id": null,
+    "question": "What dates were the Don't Lie To Your Life Coach podcast reviews created?",
+    "difficulty": "",
+    "evidence": "\"Don't Lie To Your Life Coach\" refers to title of podcast; date refers to created_at"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.category) FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.created_at BETWEEN '2016-07-01T00:00:00-07:00' AND '2016-12-31T23:59:59-07:00'",
+    "question_id": null,
+    "question": "In how many categories were podcast reviews created in the last six months of 2016? List them.",
+    "difficulty": "",
+    "evidence": "created in last six months of 2016 refers to created_at BETWEEN '2016-07-01T00:00:00-07:00' and '2016-12-31T23:59:59-07:00'"
+  },
+  {
+    "sql": "SELECT AVG(T2.rating) FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'true-crime'",
+    "question_id": null,
+    "question": "Calculate the average rating of the true crime category.",
+    "difficulty": "",
+    "evidence": "average rating = Divide (Sum(rating(category = 'true-crime')), Count(podcast_id(category = 'true-crime')))"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.title FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'arts'",
+    "question_id": null,
+    "question": "List the titles of the art category.",
+    "difficulty": "",
+    "evidence": "art category refers to category = 'arts'"
+  },
+  {
+    "sql": "SELECT AVG(T2.rating) FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'arts'",
+    "question_id": null,
+    "question": "What is the average rating of all the podcasts in category art?",
+    "difficulty": "",
+    "evidence": "category art refers to category = 'arts'; average rating = Divide (Sum (rating), Count (podcast_id))"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.title FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'arts' AND T2.created_at LIKE '2018-%'",
+    "question_id": null,
+    "question": "Provide the names of podcasts in the art category in 2018.",
+    "difficulty": "",
+    "evidence": "art category refers to category = 'arts'; in 2018 refers to created_at like '2018%'; name of podcast refers to title"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.title FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'music' AND T2.rating > 3",
+    "question_id": null,
+    "question": "Write the names of the podcasts in the music category that have a rating greater than 3.",
+    "difficulty": "",
+    "evidence": "music category refers to category = 'music'; rating greater than 3 refers to rating > 3; name of the podcast refers to title"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.title FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE (T2.created_at LIKE '2018-%' AND T1.category = 'arts' AND T2.content LIKE '%love%') OR (T2.created_at LIKE '2019-%' AND T1.category = 'arts' AND T2.content LIKE '%love%')",
+    "question_id": null,
+    "question": "Which titles have the content \"love\" but the category is art produced between 2018 and 2019.",
+    "difficulty": "",
+    "evidence": "content love refers to content = 'love'; 'arts' is the category; produced between 2018 and 2019 refers to year (created_at) BETWEEN 2018 and 2019"
+  },
+  {
+    "sql": "SELECT T1.category, T2.itunes_url FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.title = 'Scaling Global'",
+    "question_id": null,
+    "question": "What is the category and itune url of the title \"Scaling Global\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT AVG(T2.rating) FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'comedy'",
+    "question_id": null,
+    "question": "What is the average rating of podcasts in comedy category?",
+    "difficulty": "",
+    "evidence": "comedy category refers to category = 'comedy'; average rating = Divide (Sum(rating), Count(podcast_id))"
+  },
+  {
+    "sql": "SELECT category FROM categories GROUP BY category ORDER BY COUNT(podcast_id) ASC LIMIT 1",
+    "question_id": null,
+    "question": "What is the least common category?",
+    "difficulty": "",
+    "evidence": "least common category refers to Min(Count(category))"
+  },
+  {
+    "sql": "SELECT title FROM reviews ORDER BY LENGTH(content) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the longest review?",
+    "difficulty": "",
+    "evidence": "review refers to content; longest review refers to Max(content)"
+  },
+  {
+    "sql": "SELECT title FROM podcasts WHERE podcast_id = ( SELECT podcast_id FROM reviews WHERE title = 'Hosts bring the show down' )",
+    "question_id": null,
+    "question": "What is the review with the title \"Hosts bring the show down\" for?",
+    "difficulty": "",
+    "evidence": "\"Hosts bring the show down\" refers to title of review"
+  },
+  {
+    "sql": "SELECT T2.title FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'music' ORDER BY LENGTH(T2.title) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which \"music\" podcast has the longest title?",
+    "difficulty": "",
+    "evidence": "music podcasts refers to category = 'music'; longest title refers to title = Max(length(title))"
+  },
+  {
+    "sql": "SELECT category FROM categories WHERE podcast_id IN ( SELECT podcast_id FROM podcasts WHERE title LIKE '%jessica%' )",
+    "question_id": null,
+    "question": "List all the cagetories for all the podcasts with \"jessica\" in the title.",
+    "difficulty": "",
+    "evidence": "podcast with 'jessica' in title refers to title like '%jessica%'"
+  },
+  {
+    "sql": "SELECT category FROM categories WHERE podcast_id IN ( SELECT podcast_id FROM podcasts WHERE title = 'Moist Boys' )",
+    "question_id": null,
+    "question": "What is the category for the \"Moist Boys\" podcast?",
+    "difficulty": "",
+    "evidence": "\"Moist Boys\" refers to title of podcast"
+  },
+  {
+    "sql": "SELECT T1.category FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.rating = 2",
+    "question_id": null,
+    "question": "List all of the two-star reviews and their categories.",
+    "difficulty": "",
+    "evidence": "two-stars review refers to rating = 2"
+  },
+  {
+    "sql": "SELECT T1.title FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.title = 'Inspired & On Fire!'",
+    "question_id": null,
+    "question": "List all the podcasts reviewed by a reviewer who has a review titled \"Inspired & On Fire!\".",
+    "difficulty": "",
+    "evidence": "\"Inspired & On Fire\" refers to title of review"
+  },
+  {
+    "sql": "SELECT T2.title, T1.category FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id INNER JOIN reviews AS T3 ON T3.podcast_id = T2.podcast_id WHERE T3.content LIKE '%Absolutely fantastic%'",
+    "question_id": null,
+    "question": "What are the titles and categories of all the podcasts with a review that has \"Absolutely fantastic\" in it?",
+    "difficulty": "",
+    "evidence": "review refers to content; 'Absolutely fantastic' in it refers to content like '%Absolutely fantastic%'"
+  },
+  {
+    "sql": "SELECT T1.category FROM categories AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id GROUP BY T1.category ORDER BY COUNT(T2.podcast_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which category has the most reviews?",
+    "difficulty": "",
+    "evidence": "Most review refers to Max(Count(reviews.podcast_id))"
+  },
+  {
+    "sql": "SELECT itunes_url FROM podcasts WHERE podcast_id IN ( SELECT podcast_id FROM categories WHERE category = 'fiction-science-fiction' )",
+    "question_id": null,
+    "question": "List the urls for all the \"fiction-science-fiction\" podcasts.",
+    "difficulty": "",
+    "evidence": "fiction-science-fiction podcasts refers to category = 'fiction-science-fiction'; urls refers to itunes_url"
+  },
+  {
+    "sql": "SELECT T2.content FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'Stuff You Should Know' ORDER BY T2.created_at ASC LIMIT 1",
+    "question_id": null,
+    "question": "What is the content of the earliest review for the \"Stuff You Should Know\" podcast?",
+    "difficulty": "",
+    "evidence": "\"Stuff You Should Know\" is the title of podcast; earliest refers to Min(created_at)"
+  },
+  {
+    "sql": "SELECT COUNT(T2.podcast_id) FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'Planet Money'",
+    "question_id": null,
+    "question": "How many reviews does \"Planet Money\" have?",
+    "difficulty": "",
+    "evidence": "\"Planet Money\" is the title of podcast"
+  },
+  {
+    "sql": "SELECT AVG(T2.rating) FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'Crime Junkie'",
+    "question_id": null,
+    "question": "What is the average rating for the \"crime-junkie\" podcast?",
+    "difficulty": "",
+    "evidence": "\"crime-junkie\" podcast refers to title = 'crime-junkie'; average rating = Divide (Sum(rating), Count(rating))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.category = 'technology' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.title) OR '%' \"percentage\" FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id",
+    "question_id": null,
+    "question": "What percentage of podcasts are \"technology\" podcasts? List all of them.",
+    "difficulty": "",
+    "evidence": "\"technology\" podcast refers to category = 'technology'; percentage = Divide (Count (podcast_id (category = 'technology')), Count (podcast_id)) * 100"
+  },
+  {
+    "sql": "SELECT content FROM reviews WHERE title = 'really interesting!' AND created_at = '2018-04-24T12:05:16-07:00'",
+    "question_id": null,
+    "question": "What is the content of the review under the title \"really interesting!\" and is created on 2018-04-24 at 12:05:16?",
+    "difficulty": "",
+    "evidence": "\"really interesting\" is the title of review;\u00a0 created on 2018-04-24 at 12:05:16 refers to created_at = '2018-04-24T12:05:16-07:00'"
+  },
+  {
+    "sql": "SELECT category FROM categories WHERE podcast_id IN ( SELECT podcast_id FROM podcasts WHERE title = 'Scaling Global' )",
+    "question_id": null,
+    "question": "Which category is the podcast \"Scaling Global\" under?",
+    "difficulty": "",
+    "evidence": "\"Scaling Global\" is the title of podcast"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.title FROM categories AS T1 INNER JOIN podcasts AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.category = 'arts-performing-arts'",
+    "question_id": null,
+    "question": "Please list the titles of all the podcasts under the category \"arts-performing-arts\".",
+    "difficulty": "",
+    "evidence": "category 'arts-performing-arts' refers to category = 'arts-performing-arts';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.content) FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'Scaling Global'",
+    "question_id": null,
+    "question": "How many reviews are created for the podcast \"Scaling Global\" under?",
+    "difficulty": "",
+    "evidence": "\"Scaling Global\" is the title of podcast"
+  },
+  {
+    "sql": "SELECT COUNT(T2.created_at) FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'Please Excuse My Dead Aunt Sally' AND T2.created_at LIKE '2019-%'",
+    "question_id": null,
+    "question": "Among the reviews for the podcast \"Please Excuse My Dead Aunt Sally\", how many of them are made in the year 2019?",
+    "difficulty": "",
+    "evidence": "\"Please Excuse My Dead Aunt Sally\" is the title of podcast; made in the year 2019 refers to created_at like '2019%'"
+  },
+  {
+    "sql": "SELECT T2.title FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T2.author_id = 'F7E5A318989779D'",
+    "question_id": null,
+    "question": "Please list the titles of the podcasts for which the author whose ID is F7E5A318989779D has written a review.",
+    "difficulty": "",
+    "evidence": "author whose ID is F7E5A318989779D refers to author_id = 'F7E5A318989779D'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.rating) FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'Please Excuse My Dead Aunt Sally' AND T2.rating = 5",
+    "question_id": null,
+    "question": "How many ratings of 5 have been given to the podcast \"Please Excuse My Dead Aunt Sally\"?",
+    "difficulty": "",
+    "evidence": "rating of 5 refers to rating = 5; 'Please Excuse My Dead Aunt Sally' is the title of podcast"
+  },
+  {
+    "sql": "SELECT AVG(T2.rating) FROM podcasts AS T1 INNER JOIN reviews AS T2 ON T2.podcast_id = T1.podcast_id WHERE T1.title = 'Please Excuse My Dead Aunt Sally'",
+    "question_id": null,
+    "question": "What is the average rating of the podcast \"Please Excuse My Dead Aunt Sally\"?",
+    "difficulty": "",
+    "evidence": "\"Please Excuse My Dead Aunty Sally\" is the title of podcast; Average rating = Divide (Sum(rating), Count(rating))"
+  }
+]

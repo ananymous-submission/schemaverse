@@ -1,0 +1,744 @@
+[
+  {
+    "sql": "SELECT COUNT(T2.ship_id) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T1.cust_name = 'S K L Enterprises Inc' AND STRFTIME('%Y', T2.ship_date) = '2017'",
+    "question_id": null,
+    "question": "How many shipments were ordered by S K L Enterprises Inc in 2017?",
+    "difficulty": "",
+    "evidence": "\"S K L Enterprises Inc\" is the cust_name; in 2017 refers to Cast(ship_date AS DATE) = 2017"
+  },
+  {
+    "sql": "SELECT SUM(T2.weight) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T1.cust_name = 'S K L Enterprises Inc'",
+    "question_id": null,
+    "question": "What is the total number of pounds being transported for S K L Enterprises Inc?",
+    "difficulty": "",
+    "evidence": "\"S K L Enterprises Inc\" is the cust_name; total number of pounds refers to Sum(weight)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id INNER JOIN driver AS T3 ON T3.driver_id = T2.driver_id WHERE T1.cust_name = 'S K L Enterprises Inc' AND T3.first_name = 'Sue' AND T3.last_name = 'Newell'",
+    "question_id": null,
+    "question": "Among the shipments done by Sue Newell, how many of them are for S K L Enterprises Inc?",
+    "difficulty": "",
+    "evidence": "\"S K L Enterprises Inc\" is the cust_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.cust_id) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T1.state = 'FL'",
+    "question_id": null,
+    "question": "How many shipments were ordered by a customer in Florida?",
+    "difficulty": "",
+    "evidence": "customer in Florida refers to state = 'FL'"
+  },
+  {
+    "sql": "SELECT T2.ship_id FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T1.cust_type = 'retailer'",
+    "question_id": null,
+    "question": "Please list the IDs of all the shipments made by a retailer customer.",
+    "difficulty": "",
+    "evidence": "\"retailer\" is the cust_type;\u00a0 IDs of shipments refers to ship_id"
+  },
+  {
+    "sql": "SELECT COUNT(COUNTCUSID) FROM ( SELECT COUNT(T1.cust_id) AS COUNTCUSID FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE STRFTIME('%Y', T2.ship_date) = '2017' AND T1.annual_revenue > 30000000 GROUP BY T1.cust_id HAVING COUNT(T2.ship_id) >= 1 ) T3",
+    "question_id": null,
+    "question": "Among the customers having at least one shipment in 2017, how many of them have an annual revenue of over 30000000?",
+    "difficulty": "",
+    "evidence": "shipment in 2017 refers to Cast(ship_date AS DATE) = 2017; annual revenue of over 30000000 refers to annual_revenue > 30000000"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE STRFTIME('%Y', T1.ship_date) = '2017' AND T2.first_name = 'Sue' AND T2.last_name = 'Newell'",
+    "question_id": null,
+    "question": "How many shipments in 2017 were done by Sue Newell?",
+    "difficulty": "",
+    "evidence": "in 2017 refers to Cast(ship_date AS DATE) = 2017"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE STRFTIME('%Y', T1.ship_date) = '2017' GROUP BY T2.first_name, T2.last_name ORDER BY COUNT(*) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the driver that has done the most shipments in 2017?",
+    "difficulty": "",
+    "evidence": "driver refers to driver_id; full name refers to first_name, last_name; in 2017 refers to Cast(ship_date AS DATE) = 2017; Most shipment refers to Max(Sum(weight))"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE STRFTIME('%Y', T1.ship_date) = '2017' AND T2.state = 'New Jersey'",
+    "question_id": null,
+    "question": "Among the shipments in 2017, how many of them have the destination in New Jersey?",
+    "difficulty": "",
+    "evidence": "in 2017 refers to Cast(ship_date AS DATE) = 2017; 'New Jersey' is the state"
+  },
+  {
+    "sql": "SELECT MAX(T1.weight) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T2.city_name = 'New York'",
+    "question_id": null,
+    "question": "What is the maximum weight being transported to New York during a single shipment?",
+    "difficulty": "",
+    "evidence": "\"New York\" is the city_name; maximum weight refers to Max(weight)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.city_name = 'New York' THEN T1.weight ELSE 0 END) - SUM(CASE WHEN T2.city_name = 'Chicago' THEN T1.weight ELSE 0 END) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id",
+    "question_id": null,
+    "question": "How much more pounds in total were transported to New York than to Chicago?",
+    "difficulty": "",
+    "evidence": "\"New York\" and \"Chicago\" are both city_name; more pounds in total refers to Subtract (Sum(weight where city_name = 'New York'), Sum(weight where city_name = 'Chicago'))"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.city_name FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id INNER JOIN city AS T3 ON T3.city_id = T2.city_id WHERE T1.cust_name = 'S K L Enterprises Inc'",
+    "question_id": null,
+    "question": "Please list the destination cities of all the shipments ordered by S K L Enterprises Inc.",
+    "difficulty": "",
+    "evidence": "\"S K L Enterprises Inc\" is the cust_name; destination cities refers to city_name"
+  },
+  {
+    "sql": "SELECT AVG(T2.weight) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T1.cust_name = 'S K L Enterprises Inc'",
+    "question_id": null,
+    "question": "What is the average weight of the goods being transported on a single shipment ordered by S K L Enterprises Inc?",
+    "difficulty": "",
+    "evidence": "\"S K L Enterprises Inc\" is the cust_name; average = Divide (Sum(weight), Count(ship_id))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.city_name = 'Jacksonville' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T2.state = 'Florida'",
+    "question_id": null,
+    "question": "Among all the shipments to Florida, what is the percentage of the shipment to Jacksonville?",
+    "difficulty": "",
+    "evidence": "\"Florida\" is the state; \"Jacksonville\" is city_name;"
+  },
+  {
+    "sql": "SELECT T1.make FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T2.ship_id = 1045",
+    "question_id": null,
+    "question": "State the headquarter of the truck which completed shipment no.1045.",
+    "difficulty": "",
+    "evidence": "shipment no. 1045 refers to ship_id = 1045; headquarter refers to if make = 'Peterbit', then 'Texax(TX)', if make = 'Mack', then 'North Carolina (NC)'; if make = 'Kenworth', then 'Washington (WA)'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id GROUP BY T1.model_year ORDER BY T1.model_year ASC LIMIT 1",
+    "question_id": null,
+    "question": "How many shipments were delivered by the oldest truck model?",
+    "difficulty": "",
+    "evidence": "oldest truck model refers to Min(model_year)"
+  },
+  {
+    "sql": "SELECT T1.cust_name FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T2.ship_id = '1275'",
+    "question_id": null,
+    "question": "Who was the customer of shipment no.1275? Give the customer's name.",
+    "difficulty": "",
+    "evidence": "shipment no. 1275 refers to ship_id = 1275; customer name refers to cust_name"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T1.ship_id = '1701'",
+    "question_id": null,
+    "question": "Where was the destination city of shipment no.1701?",
+    "difficulty": "",
+    "evidence": "shipment no. 1701 refers to ship_id = 1701; destination city refers to city_name"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.ship_id = '1021'",
+    "question_id": null,
+    "question": "Give the name of the driver of shipment no.1021.",
+    "difficulty": "",
+    "evidence": "shipment no. 1021 refers to ship_id = 1021; name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.ship_date = '2017-11-05'",
+    "question_id": null,
+    "question": "Tell the name of the driver who received the shipment on 2017/11/5.",
+    "difficulty": "",
+    "evidence": "shipment on 2017/11/5 refers to ship_date = '2017-11/05'; name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.population FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T1.ship_id = '1398'",
+    "question_id": null,
+    "question": "Show the population of the city which was the destination of shipment no.1398.",
+    "difficulty": "",
+    "evidence": "shipment no. 1398 refers to ship_id = 1398"
+  },
+  {
+    "sql": "SELECT MIN(T1.ship_date) FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T2.state = 'SC'",
+    "question_id": null,
+    "question": "Provide the ship date of the first shipment to customers in South Carolina.",
+    "difficulty": "",
+    "evidence": "\"South Carolina\" refers to state = 'SC'; first shipment refers to Min(ship_date)"
+  },
+  {
+    "sql": "SELECT T1.weight FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T2.first_name = 'Leszek' AND T2.last_name = 'Kieltyka' AND T1.ship_date = '2017-09-25'",
+    "question_id": null,
+    "question": "For the shipment received by Leszek Kieltyka on 2017/9/25, what was its weight?",
+    "difficulty": "",
+    "evidence": "on 2017/9/25 refers to ship_date = '2017-09-25'"
+  },
+  {
+    "sql": "SELECT T2.area FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T1.ship_id = '1346'",
+    "question_id": null,
+    "question": "What is the area of the destination city of shipment No.1346?",
+    "difficulty": "",
+    "evidence": "shipment no. 1346 refers to ship_id = 1346"
+  },
+  {
+    "sql": "SELECT T1.weight FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T2.cust_name = 'U-haul Center Of N Syracuse' AND T1.ship_date = '2016-09-21'",
+    "question_id": null,
+    "question": "Provide the weight of the shipment to U-haul Center Of N Syracuse on 2016/9/21.",
+    "difficulty": "",
+    "evidence": "\"U-haul Center Of N Syracuse\" is the cust_name; on 2016/9/21 refers to ship_date = '2016/09/21'"
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id INNER JOIN driver AS T3 ON T3.driver_id = T2.driver_id WHERE T1.truck_id = '3' AND T2.ship_date = '2016-09-19'",
+    "question_id": null,
+    "question": "Who was the driver of truck no.3 on 2016/9/19? Tell the full name.",
+    "difficulty": "",
+    "evidence": "truck no. 3 refers to truck_id = 3; on 2016/9/19 refers to ship_date = '2016-09-19'; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.area / T2.population FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T1.ship_id = '1369'",
+    "question_id": null,
+    "question": "Calculate the population density of the city as the destination of shipment no.1369.",
+    "difficulty": "",
+    "evidence": "shipment no. 1369 refers to ship_id = 1369; population density refers to Divide (area, population)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.ship_id) AS REAL) / COUNT(DISTINCT T1.truck_id) FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T1.make = 'Kenworth'",
+    "question_id": null,
+    "question": "What is the average number of shipments done by the Kenworth trucks?",
+    "difficulty": "",
+    "evidence": "\"Kenworth\" is the make of truck; average = Divide (Count(ship_id where make = 'Kenworth'), Count(truck_id where make = 'Kenworth))"
+  },
+  {
+    "sql": "SELECT T1.weight FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T2.first_name = 'Sue' AND T2.last_name = 'Newell' ORDER BY T1.ship_date ASC LIMIT 1",
+    "question_id": null,
+    "question": "How many pounds did Sue Newell transport during her first shipment?",
+    "difficulty": "",
+    "evidence": "first shipment refers to Min(ship_date); pounds refers to weight"
+  },
+  {
+    "sql": "SELECT T2.cust_name FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id ORDER BY T1.weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "To whom did the company transport its heaviest shipment?",
+    "difficulty": "",
+    "evidence": "heaviest shipment refers to Max(weight)"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id ORDER BY T1.ship_date ASC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the driver who transported the first shipment of the company?",
+    "difficulty": "",
+    "evidence": "first shipment of the company refers to Min(ship_date); full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(T2.ship_id) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T1.cust_name = 'Olympic Camper Sales Inc'",
+    "question_id": null,
+    "question": "In total, how many shipments were transported to Olympic Camper Sales Inc?",
+    "difficulty": "",
+    "evidence": "\"Olympic Camper Sales Inc\" is the cust_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id INNER JOIN city AS T3 ON T3.city_id = T2.city_id WHERE T3.city_name = 'New York' AND T1.cust_name = 'Harry''s Hot Rod Auto & Truck Accessories'",
+    "question_id": null,
+    "question": "How many of the shipments bound for New York City were shipped to Harry's Hot Rod Auto and Truck Accessories?",
+    "difficulty": "",
+    "evidence": "\"New York\" is the city_name; 'Harry's Hot Rod Auto & Truck Accessories' is the cust_name"
+  },
+  {
+    "sql": "SELECT COUNT(T2.ship_id) FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T1.make = 'Mack' ORDER BY T2.weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the top 5 heaviest shipments, how many shipments were transported via Mack?",
+    "difficulty": "",
+    "evidence": "heaviest shipment refers to Max(weight); via Mack refers to make = 'Mack'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM driver AS T1 INNER JOIN shipment AS T2 ON T1.driver_id = T2.driver_id INNER JOIN city AS T3 ON T3.city_id = T2.city_id GROUP BY T1.first_name, T1.last_name, T3.population HAVING T3.population = MAX(T3.population) ORDER BY COUNT(*) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the driver who delivered the most shipments to the least populated city?",
+    "difficulty": "",
+    "evidence": "least populated city refers to Min(population); fullname refers to first_name, last_name; most shipment refers to driver_id where Max(Count (ship_id))"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T2.weight < 1000 ORDER BY T1.model_year ASC LIMIT 1",
+    "question_id": null,
+    "question": "How many shipments with weight of no more than 1,000 pounds were shipped by the oldest truck?",
+    "difficulty": "",
+    "evidence": "weight of no more than 1000 pounds refers to weight < 1000; oldest truck refers to Min (model_year)"
+  },
+  {
+    "sql": "SELECT T2.annual_revenue FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id GROUP BY T1.cust_id ORDER BY COUNT(T1.cust_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How much is the annual revenue of the customer with the most number of shipments?",
+    "difficulty": "",
+    "evidence": "customer with the most number of shipment refers to cust_id where Max(Count(ship_id))"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN customer AS T3 ON T3.cust_id = T1.cust_id WHERE T2.city_name = 'Downey' AND STRFTIME('%Y', T1.ship_date) = '2016' AND T3.state = 'CA'",
+    "question_id": null,
+    "question": "Among the shipments for Downey, how many shipments were shipped to California in 2016?",
+    "difficulty": "",
+    "evidence": "\"Downey\" is the city_name; 'California' is the state, whose abbreviation is CA; in 2016 refers to year(ship_date) = 2016,"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM driver AS T1 INNER JOIN shipment AS T2 ON T1.driver_id = T2.driver_id INNER JOIN city AS T3 ON T3.city_id = T2.city_id WHERE T1.first_name = 'Holger' AND T1.last_name = 'Nohr' AND T3.city_name = 'North Las Vegas'",
+    "question_id": null,
+    "question": "How many shipments did Holger Nohr transport to North Las Vegas overall?",
+    "difficulty": "",
+    "evidence": "\"North Las Vegas\" is the city_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id ORDER BY T2.area / T2.population DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many shipments were shipped to the most densely populated city?",
+    "difficulty": "",
+    "evidence": "most densely populated city refers to Max(Divide(area, population))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN cust_type = 'manufacturer' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM customer WHERE state = 'TX'",
+    "question_id": null,
+    "question": "Determine the percentage of manufacturers who are from Texas among all of Lorenzo's customers.",
+    "difficulty": "",
+    "evidence": "\"Texas\" refers to state = 'TX'; 'manufacturer' is the cust_type; percentage = Divide (Count(cust_id where state = 'TX'), Count(cust_id)) * 100"
+  },
+  {
+    "sql": "SELECT SUM(T1.weight) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T2.city_name = 'San Mateo' AND STRFTIME('%Y', T1.ship_date) = '2016'",
+    "question_id": null,
+    "question": "Identify the total weight of shipments transported to San Mateo, California, in 2016.",
+    "difficulty": "",
+    "evidence": "\"San Mateo\" is the city_name; in 2016 refers to Cast(ship_date as DATE) = 2016"
+  },
+  {
+    "sql": "SELECT SUM(T2.weight) FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T1.make = 'Peterbilt' AND STRFTIME('%Y', T2.ship_date) = '2016' ORDER BY T1.model_year DESC LIMIT 1",
+    "question_id": null,
+    "question": "Identify the total weight of shipments transported in 2016 by the newest Peterbilt.",
+    "difficulty": "",
+    "evidence": "transported in 2016 refers to CAST(ship_date as DATE) = 2016; 'Peterbilt' is the make; newest refers to Max(model_year)"
+  },
+  {
+    "sql": "SELECT T1.weight, T2.cust_name FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id INNER JOIN city AS T3 ON T3.city_id = T1.city_id WHERE T3.city_name = 'Boston' ORDER BY T1.weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "What was the maximum weight of the shipment carried to Boston? Name the customer of that shipment.",
+    "difficulty": "",
+    "evidence": "\"Boston\" is the city_name; maximum weight refers to Max(weight); customer refers to cust_name"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T1.ship_id = '1002'",
+    "question_id": null,
+    "question": "Where was shipment no. 1002 headed?",
+    "difficulty": "",
+    "evidence": "shipment no. 1002 refers to ship_id = 1002; where shipment was headed refers to city_name"
+  },
+  {
+    "sql": "SELECT AVG(T2.weight) FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T1.make = 'Mack'",
+    "question_id": null,
+    "question": "What is the average shipment weight carried by the oldest Mack?",
+    "difficulty": "",
+    "evidence": "\"Mack\" is the make; oldest refers to Min(model_year); average shipment weight refers to AVG(weight)"
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN driver AS T3 ON T3.driver_id = T1.driver_id WHERE T2.city_name = 'New York' AND T1.ship_date LIKE '2016-02%'",
+    "question_id": null,
+    "question": "Identify the full name of the driver who delivered a shipment to the city of New York in February 2016.",
+    "difficulty": "",
+    "evidence": "\"New York\" is the city_name; in February 2016 refers to ship_date LIKE '2016-02%'; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.cust_name FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id INNER JOIN city AS T3 ON T3.city_id = T1.city_id WHERE T3.city_name = 'Oak Park'",
+    "question_id": null,
+    "question": "Name the customer who sent the shipment to Oak Park.",
+    "difficulty": "",
+    "evidence": "\"Oak Park\" is the city_name; customer name refers to cust_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN driver AS T3 ON T3.driver_id = T1.driver_id WHERE T3.first_name = 'Andrea' AND T3.last_name = 'Simons' AND T2.city_name = 'Huntsville' AND STRFTIME('%Y', T1.ship_date) = '2016'",
+    "question_id": null,
+    "question": "Determine the number of shipments delivered by Andrea Simons to Huntsville in 2016.",
+    "difficulty": "",
+    "evidence": "\"Huntsville\" is the city_name; in 2016 refers to Cast(ship_date AS DATE) = 2016; number of shipment refers to Count(ship_id)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(*) AS REAL) / (12 * COUNT(T2.driver_id)) FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id",
+    "question_id": null,
+    "question": "How many shipments does each driver deliver per month on average?",
+    "difficulty": "",
+    "evidence": "shipment data was for 24 months in 2016 and 2017 respectively; deliver per month on average refers to\u00a0Divide(Count(ship_id), Multiply (24, Count(driver_id)))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.weight >= 10000 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T2.cust_name = 'Sunguard Window Tinting & Truck Accessories' AND STRFTIME('%Y', T1.ship_date) = '2017'",
+    "question_id": null,
+    "question": "Among all shipments placed by Sunguard Window Tinting & Truck Accessories in 2017, identify the percentage of shipments whose weight exceeded 10,000 pounds.",
+    "difficulty": "",
+    "evidence": "\"Sunguard Window Tinting & Truck Accessories\" is the cust_name; weight exceed 10,000 pounds refers to weight > = 10000; in 2017 refers to Cast(ship_date AS DATE) = 2017; percentage = Divide (Sum(weight > = 10000), Sum(weight)) * 100"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T3.cust_name = 'Autoware Inc' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) AS per FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id INNER JOIN customer AS T3 ON T3.cust_id = T1.cust_id WHERE T2.first_name = 'Sue' AND T2.last_name = 'Newell'",
+    "question_id": null,
+    "question": "Among all shipments delivered by Sue Newel, identify the percentage of shipments that were placed by Autoware Inc.",
+    "difficulty": "",
+    "evidence": "\"Autoware Inc\" is the cust_name; percentage = Divide (Count(ship_id where cust_name = 'Autoware Inc'), Count(ship_id)) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ( SELECT T2.city_id AS CITYID FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T2.state = 'New Jersey' GROUP BY T2.city_id HAVING SUM(T1.weight) > 20000 )",
+    "question_id": null,
+    "question": "How many cities which belong to New Jersey have transported weight greater than 20000?",
+    "difficulty": "",
+    "evidence": "\"New Jersey\" is the state; transported weight greater than 20000 refers to Sum(weight) > 20000"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM city AS T1 INNER JOIN shipment AS T2 ON T1.city_id = T2.city_id WHERE T1.population > 50000 AND STRFTIME('%Y', T2.ship_date) = '2017'",
+    "question_id": null,
+    "question": "How many cities whose polulation is larger than 50000 pounds have shipment in 2017?",
+    "difficulty": "",
+    "evidence": "population is larger than 50000 refers to population > 50000"
+  },
+  {
+    "sql": "SELECT T2.weight FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE make = 'Peterbilt'",
+    "question_id": null,
+    "question": "State the weight of shipments transported by Peterbilt.",
+    "difficulty": "",
+    "evidence": "\"Peterbilt\" is the make"
+  },
+  {
+    "sql": "SELECT T1.model_year FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T2.ship_id = '1003'",
+    "question_id": null,
+    "question": "What is the model year of the truck used in shipment id 1003?",
+    "difficulty": "",
+    "evidence": "shipment id 1003 refers to ship_id = 1003"
+  },
+  {
+    "sql": "SELECT T1.make FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T2.ship_id = '1011'",
+    "question_id": null,
+    "question": "What is the brand of truck used in shipment id 1011?",
+    "difficulty": "",
+    "evidence": "shipment id 1011 refers to ship_id = 1011; brand of truck refers to make"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.ship_id = 1028",
+    "question_id": null,
+    "question": "What is the first name of the driver who transported shipment id 1028?",
+    "difficulty": "",
+    "evidence": "shipment id 1028 refers to ship_id = 1028"
+  },
+  {
+    "sql": "SELECT T2.state FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.ship_id = '1055'",
+    "question_id": null,
+    "question": "List out the state of driver who transported the shipment id 1055.",
+    "difficulty": "",
+    "evidence": "shipment id 1055 refers to ship_id = 1055"
+  },
+  {
+    "sql": "SELECT T2.address FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id GROUP BY T2.driver_id HAVING SUM(T1.weight) > 50000",
+    "question_id": null,
+    "question": "State the address of drivers who transported the shipment with weight greater than 50000 pounds.",
+    "difficulty": "",
+    "evidence": "shipment with weight greater than 50000 pounds refers to Sum(weight) > 50000"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.ship_date = '2016-03-02'",
+    "question_id": null,
+    "question": "Give the full name of driver who transported the items on 3/2/2016.",
+    "difficulty": "",
+    "evidence": "on 3/2/2016 refers to ship_date = '2016-02-03'; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT AVG(T1.annual_revenue) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T2.weight < 65000",
+    "question_id": null,
+    "question": "What is the average annual revenue of customers who have shipment weight of less than 65000 pounds?",
+    "difficulty": "",
+    "evidence": "weight of less than 65000 pounds refers to weight < 65000; average annual revenue refers to AVG(annual_revenue)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.weight < 70000 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T1.cust_type = 'wholesaler'",
+    "question_id": null,
+    "question": "What is the percentage of wholesaler customers who have shipment weight of not greater than 70000 pounds?",
+    "difficulty": "",
+    "evidence": "\"wholesaler\" is the cust_type; weight of not greater than 70000 pounds refers to weight < 70000; percentage = Divide (Count(cust_id where weight < 70000), Count(cust_id)) * 100"
+  },
+  {
+    "sql": "SELECT T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.ship_id = '1088'",
+    "question_id": null,
+    "question": "What is the last name of driver who transported shipment id 1088?",
+    "difficulty": "",
+    "evidence": "shipment id 1088 refers to ship_id = 1088"
+  },
+  {
+    "sql": "SELECT T2.phone FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id GROUP BY T2.driver_id HAVING SUM(T1.weight) > 20000",
+    "question_id": null,
+    "question": "Give the phone of drivers who transported shipment weight of greater than 20000 pounds.",
+    "difficulty": "",
+    "evidence": "shipment weight of greater than 20000 pounds refers to Sum(weight) > 20000"
+  },
+  {
+    "sql": "SELECT T1.make, T1.model_year FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T2.ship_id = '1055'",
+    "question_id": null,
+    "question": "What is the brand and model of truck used in shipment id 1055?",
+    "difficulty": "",
+    "evidence": "shipment id 1055 refers to ship_id = 1055; brand refers to make; model refers to model_year"
+  },
+  {
+    "sql": "SELECT COUNT(truck_id) FROM truck WHERE model_year = 2009",
+    "question_id": null,
+    "question": "How many trucks were manufactured in year 2009?",
+    "difficulty": "",
+    "evidence": "manufactured in year 2009 refers to model_year = 2009"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM customer WHERE cust_type = 'manufacturer'",
+    "question_id": null,
+    "question": "How many customers are manufacturer?",
+    "difficulty": "",
+    "evidence": "\"manufacturer\" is the cust_type"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM customer WHERE cust_type = 'retailer' AND state = 'CA'",
+    "question_id": null,
+    "question": "How many customers who live in California that are retailers?",
+    "difficulty": "",
+    "evidence": "\"retailer\" is the cust_type; live in California refers to state = 'CA'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM city WHERE state = 'Connecticut'",
+    "question_id": null,
+    "question": "How many cities are in Connecticut?",
+    "difficulty": "",
+    "evidence": "\"Connecticut\" is the state"
+  },
+  {
+    "sql": "SELECT city_name FROM city WHERE state = 'California' AND population = ( SELECT MAX(population) FROM city WHERE state = 'California' )",
+    "question_id": null,
+    "question": "What is the most populated city in California?",
+    "difficulty": "",
+    "evidence": "in California refers to state = 'CA'; most populated city refers to Max(population)"
+  },
+  {
+    "sql": "SELECT annual_revenue FROM customer WHERE cust_name = 'Klett & Sons Repair'",
+    "question_id": null,
+    "question": "What is the annual revenue of Klett & Sons Repair?",
+    "difficulty": "",
+    "evidence": "\"Klett & Sons Repair\" is the cust_name"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id ORDER BY T1.weight ASC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the driver that transported the lightest weight of shipment? Provide the full name of the driver.",
+    "difficulty": "",
+    "evidence": "lightest weight refers to Min(weight); full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) AS per FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE STRFTIME('%Y', T2.ship_date) = '2016' AND T1.state = 'CA'",
+    "question_id": null,
+    "question": "How many shipments were shipped to customers living in California in year 2016?",
+    "difficulty": "",
+    "evidence": "living in California refers to state = 'CA'; in year 2016 refers to CAST(ship_date AS DATE) = 2016"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.make FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id INNER JOIN driver AS T3 ON T3.driver_id = T2.driver_id WHERE T3.first_name = 'Zachery' AND T3.last_name = 'Hicks'",
+    "question_id": null,
+    "question": "What is the brand of the truck that is used to ship by Zachery Hicks?",
+    "difficulty": "",
+    "evidence": "brand of truck refers to make"
+  },
+  {
+    "sql": "SELECT T1.cust_name FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id WHERE T2.ship_date LIKE '2017-02%'",
+    "question_id": null,
+    "question": "List all the name of the customers that received a shipment in February 2017.",
+    "difficulty": "",
+    "evidence": "shipment in February 2017 refers to ship_date LIKE '2017-02-%'; name of customer refers to cust_name"
+  },
+  {
+    "sql": "SELECT T3.make, T4.first_name, T4.last_name FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id INNER JOIN truck AS T3 ON T3.truck_id = T2.truck_id INNER JOIN driver AS T4 ON T4.driver_id = T2.driver_id WHERE T1.cust_name = 'Klett & Sons Repair'",
+    "question_id": null,
+    "question": "Provide the brand of the truck and the name of the driver that transported goods in Klett & Sons Repair.",
+    "difficulty": "",
+    "evidence": "\"Klett & Sons Repair\" is the cust_name; brand of truck refers to make; name of driver refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T1.ship_id FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T2.first_name = 'Zachery' AND T2.last_name = 'Hicks' ORDER BY T1.weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the shipment ID of the heaviest shipment that Zachery Hicks transported?",
+    "difficulty": "",
+    "evidence": "shipment ID refers to ship_id; heaviest shipment refers to Max(weight)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM city AS T1 INNER JOIN shipment AS T2 ON T1.city_id = T2.city_id INNER JOIN driver AS T3 ON T3.driver_id = T2.driver_id WHERE T3.first_name = 'Zachery' AND T3.last_name = 'Hicks' AND T1.city_name = 'New York' AND STRFTIME('%Y', T2.ship_date) = '2016'",
+    "question_id": null,
+    "question": "How many shipments did Zachery Hicks transport goods to New York in the year 2016?",
+    "difficulty": "",
+    "evidence": "\"New York\" is the city_name; in 2016 refers to CAST(ship_date AS DATE) = 2016"
+  },
+  {
+    "sql": "SELECT CASE WHEN T2.make = 'Peterbilt' THEN 'Texas (TX)' WHEN T2.make = 'Mack' THEN 'North Carolina (NC)' WHEN T2.make = 'Kenworth' THEN 'Washington (WA)' END AS \"result\" FROM shipment AS T1 INNER JOIN truck AS T2 ON T1.truck_id = T2.truck_id WHERE CAST(T1.ship_date AS DATE) = 2016 GROUP BY T2.make ORDER BY COUNT(T1.ship_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which headquarter's truck has the highest shipments in year 2016?",
+    "difficulty": "",
+    "evidence": "in 2016 refers to CAST(ship_date AS DATE) = 2016; make = 'Peterbilt' means headquarter is 'Texas (TX)', make = 'Mack' means headquarter is 'North Carolina (NC)', make = 'Kenworth' means headquarter is 'Washington (WA)'; highest shipment refers to MAX(COUNT(ship_id))"
+  },
+  {
+    "sql": "SELECT COUNT(T3.city_name) FROM customer AS T1 INNER JOIN shipment AS T2 ON T1.cust_id = T2.cust_id INNER JOIN city AS T3 ON T3.city_id = T2.city_id WHERE T3.state = 'California' ORDER BY T3.population ASC LIMIT 1",
+    "question_id": null,
+    "question": "How many shipments were shipped to the least populated city in California?",
+    "difficulty": "",
+    "evidence": "\"California\" is the state; least populated city refers to Min(population)"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id ORDER BY T1.weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which city did the heaviest shipment transported?",
+    "difficulty": "",
+    "evidence": "heaviest shipment refers to Max(weight); city refers to city_name"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.city_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id INNER JOIN city AS T3 ON T1.city_id = T3.city_id WHERE T2.first_name = 'Zachery' AND T2.last_name = 'Hicks'",
+    "question_id": null,
+    "question": "List all the cities where Zachery Hicks transported goods.",
+    "difficulty": "",
+    "evidence": "city refers to city_name"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.first_name = 'Zachery' AND T2.last_name = 'Hicks' THEN T1.ship_id ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE STRFTIME('%Y', T1.ship_date) = '2017'",
+    "question_id": null,
+    "question": "Calculate the average number of shipments that Zachery Hicks shipped in year 2017.",
+    "difficulty": "",
+    "evidence": "in year 2017 refers to CAST(ship_date AS DATE) = 2017; percentage = Divide (Count(ship_id where first_name = 'Zachery' AND last_name = 'Hicks'), Count(ship_id)) * 100"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.first_name = 'Zachery' AND T2.last_name = 'Hicks' THEN T1.weight ELSE 0 END) AS REAL) * 100 / SUM(T1.weight) FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE STRFTIME('%Y', T1.ship_date) = '2016'",
+    "question_id": null,
+    "question": "Calculate the percentage of the weight of goods being transported by Zachery Hicks to California in year 2016.",
+    "difficulty": "",
+    "evidence": "\"California\" is the state; in 2016 refers to CAST (ship_date AS DATE) = 2016; percentage = Divide (Sum(weight where first_name = 'Zachery' AND last_name = 'Hicks'), Sum(weight)) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.driver_id = 23",
+    "question_id": null,
+    "question": "How many shipments were shipped by the driver named Zachary Hicks?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.ship_id FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id ORDER BY T2.area DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the ship ID of shipments shipped to the city with the largest area?",
+    "difficulty": "",
+    "evidence": "city with largest area refers to Max(area)"
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN driver AS T3 ON T3.driver_id = T1.driver_id ORDER BY T2.population ASC LIMIT 1",
+    "question_id": null,
+    "question": "List the drivers who shipped the shipments to the least populated city.",
+    "difficulty": "",
+    "evidence": "least populated city refers to Min(population); name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T2.city_name = 'Cicero' AND T2.state = 'Illinois' AND T1.weight BETWEEN 9000 AND 15000",
+    "question_id": null,
+    "question": "Among the shipments shipped to Cicero, Illinois, how many shipments weighed between 9,000 to 15,000?",
+    "difficulty": "",
+    "evidence": "\"Cicero\" is the city; 'Illinois' is the state"
+  },
+  {
+    "sql": "SELECT T1.model_year FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T2.ship_id = '1233'",
+    "question_id": null,
+    "question": "What model year of truck delivered the ship ID 1233?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.address FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id INNER JOIN driver AS T3 ON T3.driver_id = T1.driver_id WHERE T2.address = '7052 Carroll Road' AND T2.city = 'San Diego' AND T2.state = 'CA'",
+    "question_id": null,
+    "question": "What is the address of the driver that delivers the shipment for the customer lives at 7052 Carroll Road, San Diego, California?",
+    "difficulty": "",
+    "evidence": "\"7052 Carroll Road\" is the address of customer; 'San Diego' is the city; 'California' is the state"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T2.first_name = 'Maria' AND T2.last_name = 'Craft' AND STRFTIME('%Y', T1.ship_date) = '2017'",
+    "question_id": null,
+    "question": "Among the shipments delivered by Maria Craft, how many shipments were delivered in 2017?",
+    "difficulty": "",
+    "evidence": "delivered in 2017 refers to Cast(ship_date AS DATE) = 2017"
+  },
+  {
+    "sql": "SELECT T1.model_year FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id WHERE T2.ship_id = '1245'",
+    "question_id": null,
+    "question": "What is the truck's model year used to ship the ship ID 1245?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.address FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.ship_id = '1127'",
+    "question_id": null,
+    "question": "Where does the driver of ship ID 1127 live?",
+    "difficulty": "",
+    "evidence": "live refers to address"
+  },
+  {
+    "sql": "SELECT T2.annual_revenue FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T1.ship_id = '1047'",
+    "question_id": null,
+    "question": "Give the annual revenue of the customer of ship ID 1047.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.weight FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T2.first_name = 'Andrea' AND T2.last_name = 'Simons' AND T1.ship_date = '2016-03-07'",
+    "question_id": null,
+    "question": "What is the weight of the shipment delivered by Andrea Simons on March 7, 2016?",
+    "difficulty": "",
+    "evidence": "on March 7, 2016 refers to ship_date = '2016-03-07'"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T1.ship_date = '2017-01-16'",
+    "question_id": null,
+    "question": "Provide the destination city of the shipment shipped by January 16, 2017.",
+    "difficulty": "",
+    "evidence": "January 16, 2017 refers to ship_date = '2017-01-16'; city refers to city_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T2.state = 'NY'",
+    "question_id": null,
+    "question": "How many shipments were delivered to a customer from New York?",
+    "difficulty": "",
+    "evidence": "\"New York\" refers to state = 'NY'"
+  },
+  {
+    "sql": "SELECT T2.cust_name FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T1.ship_id = '1147'",
+    "question_id": null,
+    "question": "What is the name of the customer of ship ID 1147?",
+    "difficulty": "",
+    "evidence": "name of customer refers to cust_name"
+  },
+  {
+    "sql": "SELECT T1.ship_id FROM shipment AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id ORDER BY T2.population DESC LIMIT 1",
+    "question_id": null,
+    "question": "List the ship ID of shipments shipped to the most populated city.",
+    "difficulty": "",
+    "evidence": "most populated city refers to Max(population)"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.ship_date = '2016-02-22'",
+    "question_id": null,
+    "question": "List the driver's name of the shipment shipped on February 22, 2016.",
+    "difficulty": "",
+    "evidence": "on February 22, 2016 refers to ship_date = '2016-02-22'; driver's name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T1.weight FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T2.annual_revenue = 39448581",
+    "question_id": null,
+    "question": "List the weight of the customer's shipment with annual revenue of 39448581.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.address FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T1.ship_id = '1117'",
+    "question_id": null,
+    "question": "What is the customer's address for the shipment with ship ID 1117?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN STRFTIME('%Y', T1.ship_date) = '2017' THEN 1 ELSE 0 END) AS REAL ) * 100 / COUNT(*) FROM shipment AS T1 INNER JOIN customer AS T2 ON T1.cust_id = T2.cust_id WHERE T2.state = 'TX'",
+    "question_id": null,
+    "question": "Among the shipments to a customer from Texas, what percentage of the shipments shipped in 2017?",
+    "difficulty": "",
+    "evidence": "\"Texas\" refers to state = 'TX'; shipped in 2017 refers to CAST(ship_date AS DATE) = 2017; percentage = Divide (Count (ship_id where CAST(ship_date AS DATE) = 2017), Count (ship_id)) * 100"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.model_year = '2005' THEN 1 ELSE 0 END) - SUM(CASE WHEN T1.model_year = '2006' THEN 1 ELSE 0 END) FROM truck AS T1 INNER JOIN shipment AS T2 ON T1.truck_id = T2.truck_id",
+    "question_id": null,
+    "question": "Calculate the difference between the number of shipments shipped by the truck with the model year 2005 and model year 2006.",
+    "difficulty": "",
+    "evidence": "\"2005\" and \"2006\" are both model_year of truck; difference = Subtract (Count (ship_id where model_year = 2005), Count(ship_id where model_year = 2006))"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM shipment AS T1 INNER JOIN driver AS T2 ON T1.driver_id = T2.driver_id WHERE T1.weight * 100 > ( SELECT 95 * AVG(weight) FROM shipment )",
+    "question_id": null,
+    "question": "List the driver's name of the shipment with a weight greater than 95% of the average weight of all shipments.",
+    "difficulty": "",
+    "evidence": "weight greater than 95% of average weight refers to weight > Multiply (AVG(weight), 0.95); driver name refers to first_name, last_name"
+  }
+]

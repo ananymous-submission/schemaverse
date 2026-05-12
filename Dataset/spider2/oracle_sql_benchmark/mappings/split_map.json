@@ -1,0 +1,141 @@
+{
+  "web_demographics": {
+    "pk_columns": [
+      "day"
+    ],
+    "fragments": [
+      {
+        "suffix": "f_fb_cnt",
+        "non_pk_columns": [
+          "f_fb_cnt",
+          "f_fb_qty",
+          "f_tw_qty",
+          "m_fb_cnt",
+          "m_fb_qty",
+          "m_tw_qty"
+        ],
+        "local_table": "daily_demographics_facebook_metrics",
+        "local_name": "local_7",
+        "vertical_fragment_base": "web_demographics_f_fb_cnt"
+      },
+      {
+        "suffix": "f_fb_qty",
+        "non_pk_columns": [
+          "f_fb_qty",
+          "f_tw_cnt",
+          "f_tw_qty",
+          "m_fb_qty",
+          "m_tw_cnt",
+          "m_tw_qty"
+        ],
+        "local_table": "daily_demographics_twitter_metrics",
+        "local_name": "local_7",
+        "vertical_fragment_base": "web_demographics_f_fb_qty"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "web_demographics",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.1706245015095341
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.1706245015095341,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "f_fb_cnt",
+          "f_fb_qty",
+          "m_fb_cnt",
+          "m_fb_qty"
+        ],
+        [
+          "f_tw_cnt",
+          "f_tw_qty",
+          "m_tw_cnt",
+          "m_tw_qty"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "m_tw_qty",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "m_fb_qty",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "f_tw_qty",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "f_fb_qty",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "f_fb_cnt",
+          "f_fb_qty",
+          "f_tw_qty",
+          "m_fb_cnt",
+          "m_fb_qty",
+          "m_tw_qty"
+        ],
+        [
+          "f_fb_qty",
+          "f_tw_cnt",
+          "f_tw_qty",
+          "m_fb_qty",
+          "m_tw_cnt",
+          "m_tw_qty"
+        ]
+      ],
+      "pk_columns": [
+        "day"
+      ],
+      "fragments": [
+        {
+          "suffix": "f_fb_cnt",
+          "non_pk_columns": [
+            "f_fb_cnt",
+            "f_fb_qty",
+            "f_tw_qty",
+            "m_fb_cnt",
+            "m_fb_qty",
+            "m_tw_qty"
+          ]
+        },
+        {
+          "suffix": "f_fb_qty",
+          "non_pk_columns": [
+            "f_fb_qty",
+            "f_tw_cnt",
+            "f_tw_qty",
+            "m_fb_qty",
+            "m_tw_cnt",
+            "m_tw_qty"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "web_demographics_f_fb_qty",
+    "movable_candidates": [
+      "web_demographics_f_fb_cnt"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=0"
+  }
+}

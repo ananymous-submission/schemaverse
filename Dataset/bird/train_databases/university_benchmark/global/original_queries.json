@@ -1,0 +1,1052 @@
+[
+  {
+    "sql": "SELECT COUNT(*) FROM university_year WHERE num_students > 80000 AND year = 2011",
+    "question_id": null,
+    "question": "How many universities have at least 80,000 students in the year 2011?",
+    "difficulty": "",
+    "evidence": "have at least 80,000 students refers to num_students > 8000; year = 2011"
+  },
+  {
+    "sql": "SELECT ranking_system_id FROM ranking_criteria WHERE criteria_name = 'Award'",
+    "question_id": null,
+    "question": "What is the ranking system ID of the award criteria?",
+    "difficulty": "",
+    "evidence": "award criteria refers to criteria_name = 'Award';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university WHERE university_name LIKE '%State%'",
+    "question_id": null,
+    "question": "How many state universities are there?",
+    "difficulty": "",
+    "evidence": "state universities refers to university_name LIKE '%State%';"
+  },
+  {
+    "sql": "SELECT MAX(student_staff_ratio) FROM university_year WHERE student_staff_ratio = ( SELECT MAX(student_staff_ratio) FROM university_year )",
+    "question_id": null,
+    "question": "What is the student staff ratio of the university with the highest student staff ratio of all time?",
+    "difficulty": "",
+    "evidence": "highest student staff ratio refers to max(student_staff_ratio)"
+  },
+  {
+    "sql": "SELECT COUNT(id) FROM ranking_criteria WHERE ranking_system_id = 3",
+    "question_id": null,
+    "question": "How many criteria belong to ranking system ID 3?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT university_id FROM university_year WHERE pct_international_students = 1 AND year BETWEEN 2011 AND 2015",
+    "question_id": null,
+    "question": "What is the ID of the university that has only 1% of international students between 2011 to 2015?",
+    "difficulty": "",
+    "evidence": "has only 1% of international students refers to pct_international_students = 1; between 2011 to 2015 refers to year BETWEEN 2011 AND 2015; ID of university refers to university_id"
+  },
+  {
+    "sql": "SELECT T2.country_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id GROUP BY T2.country_name ORDER BY COUNT(T1.university_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the name of the country that has the most universities.",
+    "difficulty": "",
+    "evidence": "has the most universities refers to MAX(COUNT(id)); name of the country refers to country_name"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id ORDER BY T1.pct_international_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the university that had the highest number of international students for 6 consecutive years?",
+    "difficulty": "",
+    "evidence": "had the highest number of international students refers to max(pct_international_students); for 6 consecutive years refers to count(SUBTRACT(year, rm)) > = 6; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT T3.university_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T1.criteria_name = 'Publications Rank' AND T2.year = 2014 AND T1.id = 17 ORDER BY T2.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "In 2014, what is the name of the university which was considered a leader in the publications rank?",
+    "difficulty": "",
+    "evidence": "In 2014 refers to year = 2014; leader refers to MAX(score); in the publications rank refers to criteria_name = 'Publications Rank'; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id ORDER BY T1.num_students LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the university that has the lowest number of students of all time?",
+    "difficulty": "",
+    "evidence": "has the lowest number of students refers to min(num_students); name of the university refers to university_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T2.country_name = 'United States of America'",
+    "question_id": null,
+    "question": "How many universities are there in the United States of America?",
+    "difficulty": "",
+    "evidence": "in the United States of America refers to country_name = 'United States of America';"
+  },
+  {
+    "sql": "SELECT T3.university_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id INNER JOIN country AS T4 ON T4.id = T3.country_id WHERE T1.criteria_name = 'Citations' AND T2.year = 2016 AND T1.id = 4 AND T4.country_name = 'Australia' ORDER BY T2.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "In 2016, what is the name of the university in Australia with the highest score in Citations criteria?",
+    "difficulty": "",
+    "evidence": "In 2016 refers to year = 2016; name of the university refers to university_name; in Australia refers to country_name = 'Australia'; in Citations criteria refers to criteria_name = 'Citations'; highest score refers to MAX(score)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id WHERE T1.criteria_name = 'Award' AND T2.year BETWEEN 2005 AND 2015 AND T2.score = 0",
+    "question_id": null,
+    "question": "How many universities scored 0 in Awards between 2005 to 2015?",
+    "difficulty": "",
+    "evidence": "between 2005 to 2015 refers to year BETWEEN 2005 AND 2015; scored 0 refers to score = 0; in Awards refers to criteria_name = 'Award'"
+  },
+  {
+    "sql": "SELECT T2.country_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE university_name = 'University of Oxford'",
+    "question_id": null,
+    "question": "Which country is the University of Oxford located?",
+    "difficulty": "",
+    "evidence": "University of Oxford refers to university_name = 'University of Oxford'; which country refers to country_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T3.university_name = 'Yale University' AND T2.score >= 10 AND T1.criteria_name = 'Quality of Education Rank'",
+    "question_id": null,
+    "question": "How many times did the Yale University achieve a score of no less than 10 in the Quality of Education Rank?",
+    "difficulty": "",
+    "evidence": "Yale University refers to university_name = 'Yale University'; a score of no less than 10 refers to score > = 10; in the Quality of Education Rank refers to criteria_name = 'Quality of Education Rank'"
+  },
+  {
+    "sql": "SELECT T2.criteria_name FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T1.system_name = 'Center for World University Rankings'",
+    "question_id": null,
+    "question": "What are the names of the criteria under Center for World University Rankings?",
+    "difficulty": "",
+    "evidence": "names of the criteria refers to criteria_name; under Center for World University Rankings refers to system_name = 'Center for World University Rankings';"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.num_students > 50000 AND T1.year = 2012",
+    "question_id": null,
+    "question": "List the names of all the universities that have no less than 50,000 students in the year 2012.",
+    "difficulty": "",
+    "evidence": "have no less than 50,000 students refers to num_students > 50000; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.country_name FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T2.pct_international_students > 50 AND T2.year BETWEEN 2011 AND 2016",
+    "question_id": null,
+    "question": "Between 2011 to 2016, in which countries can you find the universities where at least 50% of its students are international students?",
+    "difficulty": "",
+    "evidence": "Between 2011 to 2016 refers to year BETWEEN 2011 AND 2016; at least 50% of its students are international students refers to pct_international_students > 50; which country refers to country_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) , SUM(CASE WHEN T3.country_name = 'United States of America' THEN 1 ELSE 0 END) AS nums_in_usa FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T2.year = 2016 AND T2.num_students * T2.pct_female_students / 100 > 20000",
+    "question_id": null,
+    "question": "How many universities have no less than 20,000 female students in 2016? Identify how many of the said universities are located in the United States of America.",
+    "difficulty": "",
+    "evidence": "have no less than 20,000 female students refers to DIVIDE(MULTIPLY(pct_female_students, num_students), 100) > 20000; in 2016 refers to year = 2016; located in the United States of America refers to country_name = 'United States of America'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id ORDER BY (CAST(T1.num_students * T1.pct_international_students AS REAL) / 100) DESC LIMIT 5",
+    "question_id": null,
+    "question": "What are the names of the top 5 universities with the highest number of international students?",
+    "difficulty": "",
+    "evidence": "highest number of international students refers to MAX(DIVIDE(MULTIPLY(num_students, pct_international_students), 100)); name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT university_id FROM university_year ORDER BY student_staff_ratio DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the university ID of the university with the largest student staff ratio?",
+    "difficulty": "",
+    "evidence": "the largest student staff ratio refers to max(student_staff_ratio)"
+  },
+  {
+    "sql": "SELECT year FROM university_year ORDER BY num_students ASC LIMIT 1",
+    "question_id": null,
+    "question": "Give the year where a university had the lowest number of students.",
+    "difficulty": "",
+    "evidence": "had the lowest number of students refers to MIN(num_students)"
+  },
+  {
+    "sql": "SELECT AVG(pct_female_students) FROM university_year",
+    "question_id": null,
+    "question": "Compute the average percentage of female students.",
+    "difficulty": "",
+    "evidence": "average percentage of female students refers to avg(pct_female_students)"
+  },
+  {
+    "sql": "SELECT pct_international_students * num_students, num_students FROM university_year WHERE year = 2013 AND university_id = 20",
+    "question_id": null,
+    "question": "Provide the number of international students and number of students in 2013 in university ID 20.",
+    "difficulty": "",
+    "evidence": "number of international students refers to DIVIDE(MULTIPLY(pct_international_students, num_students), 100); in 2013 refers to year = 2013"
+  },
+  {
+    "sql": "SELECT id FROM university WHERE university_name = 'Harvard University'",
+    "question_id": null,
+    "question": "What is the university ID of Harvard University?",
+    "difficulty": "",
+    "evidence": "of Harvard University refers to university_name = 'Harvard University';"
+  },
+  {
+    "sql": "SELECT university_id FROM university_ranking_year WHERE score = 100 AND year = 2011",
+    "question_id": null,
+    "question": "List the university ID of the university that scored 100 in 2011.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year = 2011; score = 100"
+  },
+  {
+    "sql": "SELECT T1.system_name FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T2.criteria_name = 'Quality of Education Rank'",
+    "question_id": null,
+    "question": "Provide the ranking system of the ranking criteria named Quality of Education Rank.",
+    "difficulty": "",
+    "evidence": "criteria named Quality of Education Rank refers to criteria_name = 'Quality of Education Rank'; ranking system refers to system_name;"
+  },
+  {
+    "sql": "SELECT T1.student_staff_ratio FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'Harvard University' AND T1.year = 2012",
+    "question_id": null,
+    "question": "What is the student staff ratio of Harvard University in 2012?",
+    "difficulty": "",
+    "evidence": "Harvard University refers to university_name = 'Harvard University'; in 2012 refers to year = 2012"
+  },
+  {
+    "sql": "SELECT T2.country_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T1.id = 112",
+    "question_id": null,
+    "question": "Give the location of the university ID 112.",
+    "difficulty": "",
+    "evidence": "location refers to country_name"
+  },
+  {
+    "sql": "SELECT SUM(T2.num_students) FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T3.country_name = 'Sweden'",
+    "question_id": null,
+    "question": "Calculate the total number of students in universities located in Sweden.",
+    "difficulty": "",
+    "evidence": "located in Sweden refers to country_name = 'Sweden'; number of students refers to num_students"
+  },
+  {
+    "sql": "SELECT T1.ranking_criteria_id FROM university_ranking_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'Brown University' AND T1.year = 2014",
+    "question_id": null,
+    "question": "What is the ranking criteria ID of Brown University in 2014?",
+    "difficulty": "",
+    "evidence": "Brown University refers to university_name = 'Brown University'; in 2014 refers to year = 2014"
+  },
+  {
+    "sql": "SELECT T1.university_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T2.country_name = 'Spain'",
+    "question_id": null,
+    "question": "List the name of universities located in Spain.",
+    "difficulty": "",
+    "evidence": "name of universities refers to university_name; located in Spain refers to country_name = 'Spain';"
+  },
+  {
+    "sql": "SELECT T1.criteria_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id WHERE T2.university_id = 32 AND T2.year = 2015",
+    "question_id": null,
+    "question": "What is the criteria name of the university ID 32 in 2015?",
+    "difficulty": "",
+    "evidence": "in 2015 refers to year = 2015"
+  },
+  {
+    "sql": "SELECT AVG(T2.score) FROM university AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T3.country_name = 'Brazil'",
+    "question_id": null,
+    "question": "Compute the average score of the university located in Brazil.",
+    "difficulty": "",
+    "evidence": "average score refers to avg(score); located in Brazil refers to country_name = 'Brazil';"
+  },
+  {
+    "sql": "SELECT T2.country_id FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2014 ORDER BY T1.num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which country does the most populated university in 2014 located ?",
+    "difficulty": "",
+    "evidence": "the most populated university refers to max(num_students); in 2014 refers to year = 2014"
+  },
+  {
+    "sql": "SELECT CAST(T1.num_students * T1.pct_international_students AS REAL) / 100, T2.score FROM university_year AS T1 INNER JOIN university_ranking_year AS T2 ON T1.university_id = T2.university_id WHERE T2.year = 2015 AND T1.university_id = 100",
+    "question_id": null,
+    "question": "Give the score and number of international students in university ID 100 in 2015.",
+    "difficulty": "",
+    "evidence": "number of international students refers to DIVIDE(MULTIPLY(num_students, pct_international_students), 100); in 2015 refers to year = 2015"
+  },
+  {
+    "sql": "SELECT SUM(T1.num_students) FROM university_year AS T1 INNER JOIN university_ranking_year AS T2 ON T1.university_id = T2.university_id WHERE T2.score = 98 AND T1.year = 2013",
+    "question_id": null,
+    "question": "What is the student population of the university that scored 98 in 2013?",
+    "difficulty": "",
+    "evidence": "student population refers to num_students; in 2013 refers to year = 2013"
+  },
+  {
+    "sql": "SELECT T2.criteria_name FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T1.system_name = 'Center for World University Rankings'",
+    "question_id": null,
+    "question": "List the criteria names under the ranking system called Center for World University Ranking.",
+    "difficulty": "",
+    "evidence": "ranking system called Center for World University Ranking refers to system_name = 'Center for World University Rankings';"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.country_name FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T2.year = 2013 AND T2.num_students * 100 > ( SELECT AVG(num_students) FROM university_year ) * 98",
+    "question_id": null,
+    "question": "Provide the country name of universities with the number of students greater than 98% of the average student population of all universities in 2013.",
+    "difficulty": "",
+    "evidence": "number of students greater than 98% of the average student population of all universities refers to num_students >\u00a0 MULTPLY(num_students, 0.98); in 2013 refers to year = 2013"
+  },
+  {
+    "sql": "SELECT SUM(CAST(T1.num_students * T1.pct_international_students AS REAL) / 100) / COUNT(*) * 100 FROM university_year AS T1 INNER JOIN university_ranking_year AS T2 ON T1.university_id = T2.university_id WHERE T2.score < 80 AND T1.year = 2015",
+    "question_id": null,
+    "question": "Among universities that score below 80 in 2015, what is the percentage of international students?",
+    "difficulty": "",
+    "evidence": "score below 80 refers to score < 80; in 2015 refers to year 2015; percentage of international students refers to DIVIDE(SUM(DIVIDE(MULTIPLY(num_students, pct_international_students), 100)), SUM(num_students))"
+  },
+  {
+    "sql": "SELECT SUM(num_students) FROM university_year WHERE year = 2011",
+    "question_id": null,
+    "question": "How many students attended universities were there in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year = 2011;"
+  },
+  {
+    "sql": "SELECT SUM(CAST(num_students * pct_female_students AS REAL) / 100) FROM university_year WHERE year = 2011",
+    "question_id": null,
+    "question": "Among all universities, how many female students were there in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year = 2011; female students refers to SUM(DIVIDE(MULTIPLY(num_students, pct_female_students), 100))"
+  },
+  {
+    "sql": "SELECT MAX(student_staff_ratio) FROM university_year ORDER BY student_staff_ratio DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the student staff ratio at the university with the greatest student staff ratio of all time?",
+    "difficulty": "",
+    "evidence": "greatest student staff ratio of all time refers to max(student_staff_ratio)"
+  },
+  {
+    "sql": "SELECT university_id FROM university_year WHERE year = 2011 ORDER BY num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the university ID with the most students in 2011?",
+    "difficulty": "",
+    "evidence": "most students refers to MAX(num_students), in 2011 refers to year = 2011"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university_year WHERE year = 2011 AND num_students > 50000 AND pct_international_students > 10",
+    "question_id": null,
+    "question": "How many institutions with over 50,000 students in 2011 had a percentage of oversea students of more than 10%?",
+    "difficulty": "",
+    "evidence": "institutions with over 50,000 students refers to num_students > 50000; in 2011 refers to year = 2011; percentage of oversea students of more than 10% refers to pct_international_students > 10;"
+  },
+  {
+    "sql": "SELECT university_id FROM university_year WHERE year = 2012 ORDER BY pct_female_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the ID of the university with the highest percentage of female students in 2012.",
+    "difficulty": "",
+    "evidence": "in 2012 refers to year = 2012; highest percentage of female students\u00a0 refers to MAX(pct_female_students); ID of the university refers to university_id"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_ranking_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2012 ORDER BY T1.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which university had the highest reputation in 2012?",
+    "difficulty": "",
+    "evidence": "had the highest reputation refers to MAX(score), in 2012 refers to year = 2012; which university refers to university_name;"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2011 ORDER BY T1.num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the university that had the most students in 2011.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year = 2011; had the most students refers to MAX(num_students); name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT T1.university_name FROM university AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.university_id INNER JOIN ranking_criteria AS T3 ON T3.id = T2.ranking_criteria_id WHERE T3.criteria_name = 'Teaching' ORDER BY T2.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "Indicate the university's name with the highest ranking score in Teaching.",
+    "difficulty": "",
+    "evidence": "university's name refers to university_name; highest ranking score refers to MAX(score); in Teaching refers to criteria_name = 'Teaching'"
+  },
+  {
+    "sql": "SELECT T1.pct_international_students FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2011 AND T2.university_name = 'Harvard University'",
+    "question_id": null,
+    "question": "What is the percentage of Harvard university's international students in 2011?",
+    "difficulty": "",
+    "evidence": "Harvard university's refers to university_name = 'Harvard University'; in 2011 refers to year = 2011; percentage of Harvard university's international students refers to pct_international_students"
+  },
+  {
+    "sql": "SELECT CAST(T1.num_students * T1.pct_female_students AS REAL) / 100 FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2011 AND T2.university_name = 'Stanford University'",
+    "question_id": null,
+    "question": "How many female students were there at Stanford University in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; female students refers to DIVIDE(MULTIPLY(pct_female_students, num_students), 100); Stanford University refers to university_name = 'Stanford University';"
+  },
+  {
+    "sql": "SELECT T2.country_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T1.university_name = 'Harvard University'",
+    "question_id": null,
+    "question": "In which nation is Harvard University located?",
+    "difficulty": "",
+    "evidence": "Harvard University refers to university_name = 'Harvard University'; nation refers to country_name"
+  },
+  {
+    "sql": "SELECT T1.system_name FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T2.criteria_name = 'Teaching'",
+    "question_id": null,
+    "question": "What is the name of the ranking system for Teaching criteria?",
+    "difficulty": "",
+    "evidence": "Teaching criteria refers to criteria_name = 'Teaching'; name of the ranking system refers to system_name"
+  },
+  {
+    "sql": "SELECT T1.university_name FROM university AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T3.country_name = 'Argentina' GROUP BY T1.university_name ORDER BY SUM(T2.score) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the most famous university in Argentina.",
+    "difficulty": "",
+    "evidence": "in Argentina refers to country_name = 'Argentina';\u00a0 most famous refers to MAX(SUM(score))"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T2.country_name = 'Argentina'",
+    "question_id": null,
+    "question": "In Argentina, how many universities are there?",
+    "difficulty": "",
+    "evidence": "In Argentina refers to country_name = 'Argentina';"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2011 AND T1.num_students > 100000",
+    "question_id": null,
+    "question": "Which universities have more than 100,000 students in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; more than 100,000 students refers to num_students > 100000; which university refers to university_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.criteria_name) FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T1.system_name = 'Center for World University Rankings'",
+    "question_id": null,
+    "question": "How many criteria are associated with ranking system Center for World University Rankings?",
+    "difficulty": "",
+    "evidence": "ranking system Center for World University Rankings refers to system_name = 'Center for World University Rankings';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university_year AS T1 INNER JOIN university_ranking_year AS T2 ON T1.university_id = T2.university_id WHERE T2.score = 90 AND T1.year = 2011",
+    "question_id": null,
+    "question": "How many students at the university earned a score of 90 in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; earned a score of 90 refers to score = 90;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id GROUP BY T2.university_name ORDER BY SUM(T1.num_students * T1.pct_international_students / 100) DESC LIMIT 3",
+    "question_id": null,
+    "question": "What are the top three universities with the most international students?",
+    "difficulty": "",
+    "evidence": "most international students refers to MAX(SUM(DIVIDE(MULTIPLE(pct_international_students, num_students), 100))); name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT SUM(T1.num_students) - SUM(CAST(T1.num_students * T1.pct_international_students AS REAL) / 100) FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'Harvard University' AND T1.year BETWEEN 2011 AND 2012",
+    "question_id": null,
+    "question": "What is the difference in overall student enrollment and international student enrollment at the Harvard university from 2011 to 2012?",
+    "difficulty": "",
+    "evidence": "Harvard University refers to university_name = 'Harvard University'; difference in overall student enrollment and international student refers to SUBTRACT(SUM(num_students), SUM(DIVIDE(MULTIPLY(pct_international_students, num_students), 100))); from 2011 to 2012 refers to year BETWEEN 2011 AND 2012"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university_year WHERE year = 2011 AND num_students > 30000",
+    "question_id": null,
+    "question": "How many universities had over 30000 students in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; had over 30000 students refers to num_students > 30000;"
+  },
+  {
+    "sql": "SELECT country_id FROM university WHERE university_name = 'University of Tokyo'",
+    "question_id": null,
+    "question": "What is the country ID of the University of Tokyo?",
+    "difficulty": "",
+    "evidence": "University of Tokyo refers to university_name = 'University of Tokyo';"
+  },
+  {
+    "sql": "SELECT id FROM ranking_system WHERE system_name = 'Center for World University Rankings'",
+    "question_id": null,
+    "question": "Provide the ranking system ID of the Center for World University Rankings.",
+    "difficulty": "",
+    "evidence": "the Center for World University Rankings refers to system_name = 'Center for World University Rankings';"
+  },
+  {
+    "sql": "SELECT id FROM ranking_criteria WHERE criteria_name = 'Publications Rank'",
+    "question_id": null,
+    "question": "What is the ID of the Publications Rank criteria?",
+    "difficulty": "",
+    "evidence": "Publications Rank criteria refers to criteria_name = 'Publications Rank';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university_year WHERE pct_international_students > 30 AND year = 2013",
+    "question_id": null,
+    "question": "How many universities had above 30% of international students in 2013?",
+    "difficulty": "",
+    "evidence": "had above 30% of international students refers to pct_international_students > 30; in 2013 refers to year = 2013"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university_ranking_year WHERE ranking_criteria_id = 6 AND year = 2011 AND score < 50",
+    "question_id": null,
+    "question": "How many universities got less than 50 scores under ranking criteria ID 6 in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; less than 50 scores refers to score < 50;"
+  },
+  {
+    "sql": "SELECT T1.num_students FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'Yale University' AND T1.year = 2016",
+    "question_id": null,
+    "question": "Provide the number of students at Yale University in 2016.",
+    "difficulty": "",
+    "evidence": "number of students refers to num_students; Yale University refers to university_name = 'Yale University'; in 2016 refers to year = 2016"
+  },
+  {
+    "sql": "SELECT T1.university_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T2.country_name = 'Denmark'",
+    "question_id": null,
+    "question": "List the universities in Denmark.",
+    "difficulty": "",
+    "evidence": "in Denmark refers to country_name = 'Denmark'; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T1.num_students) AS REAL) / SUM(T1.student_staff_ratio) FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'University of Auckland' AND T1.year = 2015",
+    "question_id": null,
+    "question": "Provide the number of staff at the University of Auckland in 2015.",
+    "difficulty": "",
+    "evidence": "University of Auckland refers to university_name = 'University of Auckland'; in 2015 refers to year = 2015; number of staff refers to DIVIDE(num_students, student_staff_ratio)"
+  },
+  {
+    "sql": "SELECT T2.country_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T1.university_name = 'University of S\u00e3o Paulo'",
+    "question_id": null,
+    "question": "Which country has the University of S\u00c3\u00a3o Paulo?",
+    "difficulty": "",
+    "evidence": "the University of S\u00c3\u00a3o Paulo refers to university_name = 'University of S\u00e3o Paulo'; which country refers to country_name;"
+  },
+  {
+    "sql": "SELECT CAST(T2.num_students * T2.pct_international_students AS REAL) / 100 FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id WHERE T1.university_name = 'Harvard University' AND T2.year = 2012",
+    "question_id": null,
+    "question": "How many international students attended Harvard University in 2012?",
+    "difficulty": "",
+    "evidence": "Harvard University refers to university_name = 'Harvard University'; international students refers to DIVIDE(MULTIPLY(num_students, pct_international_students), 100); in 2012 refers to year = 2012"
+  },
+  {
+    "sql": "SELECT CAST(T2.num_students * T2.pct_female_students AS REAL) / 100 FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id WHERE T1.university_name = 'Arizona State University' AND T2.year = 2014",
+    "question_id": null,
+    "question": "Calculate the number of female students at Arizona State University in 2014.",
+    "difficulty": "",
+    "evidence": "female students refers to DIVIDE(MULTIPLY(pct_female_students, num_students), 100); at Arizona State University refers to university_name = 'Arizona State University'; in 2014 refers to year = 2014"
+  },
+  {
+    "sql": "SELECT T1.university_name FROM university AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.university_id GROUP BY T1.university_name ORDER BY SUM(T2.score) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the universities which got the highest scores.",
+    "difficulty": "",
+    "evidence": "got the highest scores refers to MAX(SUM(score))"
+  },
+  {
+    "sql": "SELECT T2.criteria_name FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T1.system_name = 'Shanghai Ranking'",
+    "question_id": null,
+    "question": "List the ranking criteria under the Shanghai Ranking system.",
+    "difficulty": "",
+    "evidence": "Shanghai Ranking system refers to system_name = 'Shanghai Ranking'; ranking criteria refers to criteria_name"
+  },
+  {
+    "sql": "SELECT T3.university_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T1.criteria_name = 'Teaching' AND T2.year = 2011 ORDER BY T2.score ASC LIMIT 1",
+    "question_id": null,
+    "question": "In 2011, which university got the lowest score in teaching criteria?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; got the lowest score refers to MIN(score), teaching criteria refers to criteria_name = 'Teaching'"
+  },
+  {
+    "sql": "SELECT T1.system_name FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T2.criteria_name = 'Quality of Education Rank'",
+    "question_id": null,
+    "question": "Provide the ranking system name for the \"Quality of Education Rank\" criteria.",
+    "difficulty": "",
+    "evidence": "the \"Quality of Education Rank\" criteria refers to criteria_name = 'Quality of Education Rank'; ranking system refers to system_name"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.score > 80 THEN 1 ELSE 0 END) AS REAL) / COUNT(*), ( SELECT T3.university_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T1.criteria_name = 'International' AND T2.year = 2016 AND T2.score > 80 ORDER BY T2.score DESC LIMIT 1 ) AS max FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T1.criteria_name = 'International' AND T2.year = 2016",
+    "question_id": null,
+    "question": "How many percent of universities got a score above 80 under International criteria in 2016? Among them, name the university which got the highest score.",
+    "difficulty": "",
+    "evidence": "got a score above 80 refers to score > 80; under International criteria refers to criteria_name = 'International'; in 2016 refers to year = 2016; highest score refers to MAX(score)"
+  },
+  {
+    "sql": "SELECT T1.criteria_name, T2.score FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T3.university_name = 'Harvard University' AND T2.year = 2005",
+    "question_id": null,
+    "question": "Provide the ranking criteria and scores in 2005 that were received by Harvard University.",
+    "difficulty": "",
+    "evidence": "Harvard University refers to university_name = 'Harvard University'; in 2005 refers to year = 2005; ranking criteria refers to criteria_name;"
+  },
+  {
+    "sql": "SELECT AVG(T2.score) FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id WHERE T1.criteria_name = 'Alumni' AND T2.year = 2008",
+    "question_id": null,
+    "question": "Calculate the average score per university under Alumni criteria in 2008.",
+    "difficulty": "",
+    "evidence": "under Alumni criteria refers to criteria_name = 'Alumni'; in 2008 refers to year = 2008; average score refers to DIVIDE(SUM(score), COUNT(university_id))"
+  },
+  {
+    "sql": "SELECT T1.university_name, T3.country_name FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T2.year = 2015 ORDER BY T2.num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the university and country which had the highest number of international students in 2015.",
+    "difficulty": "",
+    "evidence": "highest number of international students refers to MAX(DIVIDE(MULTIPLY(num_students, pct_international_students), 100)); in 2015 refers to year = 2015; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT num_students FROM university_year WHERE year = 2011 AND university_id = 1",
+    "question_id": null,
+    "question": "How many students were there in university ID 1 in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011;"
+  },
+  {
+    "sql": "SELECT university_id FROM university_year WHERE year = 2011 ORDER BY num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the ID of the university with the most students in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; with the most students refers to MAX(num_students); ID of the university refers to university_id"
+  },
+  {
+    "sql": "SELECT university_id FROM university_year WHERE year = 2011 AND student_staff_ratio > 15",
+    "question_id": null,
+    "question": "Please list the IDs of the universities with a student staff ratio of over 15 in 2011.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; student staff ratio of over 15 refers to student_staff_ratio > 15; ID of the university refers to university_id"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university_year WHERE year = 2011 AND pct_international_students > 25 AND num_students > 20000",
+    "question_id": null,
+    "question": "Among the universities with over 20000 students in 2011, how many of them have an international students percentage of over 25% in the same year?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; with over 20000 students refers to num_students > 20000; international students percentage of over 25% refers to pct_international_students > 25;"
+  },
+  {
+    "sql": "SELECT university_id FROM university_year WHERE year = 2011 ORDER BY pct_female_students DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the IDs of the universities with the top 3 female students percentage in 2011.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; top 3 female students percentage refers to MAX(pct_female_students) LIMIT 3; ID of the university refers to university_id"
+  },
+  {
+    "sql": "SELECT year FROM university_year WHERE university_id = 1 ORDER BY num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which year did university ID 1 have the most students?",
+    "difficulty": "",
+    "evidence": "have the most students refers to MAX(num_students)"
+  },
+  {
+    "sql": "SELECT T1.num_students FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'Harvard University' AND T1.year = 2011",
+    "question_id": null,
+    "question": "How many students did Harvard University have in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; Harvard University refers to university_name = 'Harvard University';"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2011 ORDER BY T1.pct_international_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the university with the most international students in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; the most international students refers to MAX(DIVIDE(MULTIPLY(num_students,\u00a0 pct_international_students), 100)); name of university refers to university_id"
+  },
+  {
+    "sql": "SELECT T1.university_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T2.country_name = 'Australia'",
+    "question_id": null,
+    "question": "Please list the names of all the universities in Australia.",
+    "difficulty": "",
+    "evidence": "in Australia refers to country_name = 'Australia'; name of university refers to university_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T3.country_name = 'Australia' AND T2.year = 2011 AND T2.num_students > 15000",
+    "question_id": null,
+    "question": "Among the universities in Australia, how many of them have more than 15000 students in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; have more than 15000 students refers to num_students > 15000; in Australia refers to country_name = 'Australia';"
+  },
+  {
+    "sql": "SELECT T2.country_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T1.university_name = 'Harvard University'",
+    "question_id": null,
+    "question": "Which country is Harvard University in?",
+    "difficulty": "",
+    "evidence": "Harvard University refers to university_name = 'Harvard University'; which country refers to country_name"
+  },
+  {
+    "sql": "SELECT T3.university_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T1.criteria_name = 'Teaching' AND T2.year = 2011 ORDER BY T2.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the university with the highest score in teaching in the year 2011?",
+    "difficulty": "",
+    "evidence": "with the highest score refers to MAX(score); in teaching refers to criteria_name = 'Teaching'; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT T3.university_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T1.criteria_name = 'Teaching' AND T2.year = 2011 AND T2.score > 90",
+    "question_id": null,
+    "question": "Please list the names of the universities with a score in teaching of over 90 in 2011.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; in teaching refers to\u00a0 criteria_name = 'Teaching'; score in teaching of over 90 refers to score > 90; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T1.criteria_name = 'Teaching' AND T2.year = 2011 AND T2.score > 90",
+    "question_id": null,
+    "question": "Among the universities with a score in teaching of over 90 in 2011, how many of them are in the United States of America?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; in teaching refers to\u00a0 criteria_name = 'Teaching'; score in teaching of over 90 refers to score > 90; in the United States of America refers to country_name = 'United States of America';"
+  },
+  {
+    "sql": "SELECT T1.criteria_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T3.university_name = 'Harvard University' AND T2.year = 2011",
+    "question_id": null,
+    "question": "Please list the names of all the ranking criteria of Harvard University in 2011.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; Harvard University refers to university_name = 'Harvard University'; names of all the ranking criteria refers to criteria_name"
+  },
+  {
+    "sql": "SELECT T3.university_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T1.criteria_name = 'Teaching' AND T2.year = 2011 AND T2.score = 98",
+    "question_id": null,
+    "question": "What are the names of the universities that got 98 in teaching in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; that got 98 refers to score = 98; in teaching refers to criteria_name = 'Teaching'; name of university refers to university_name"
+  },
+  {
+    "sql": "SELECT T3.university_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id INNER JOIN country AS T4 ON T4.id = T3.country_id WHERE T4.country_name = 'United States of America' AND T2.year = 2011 AND T2.score < 60 AND T1.criteria_name = 'Teaching'",
+    "question_id": null,
+    "question": "Please list the names of all the universities that scored under 60 in teaching in 2011 and are in the United States of America.",
+    "difficulty": "",
+    "evidence": "scored under 60 refers to score < 60; in 2011 refers to year 2011; in teaching refers to criteria_name = 'Teaching'; in the United States of America refers to country_name = 'United States of America';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T3.country_name = 'Australia' AND T2.student_staff_ratio > 15 AND T2.year = 2011",
+    "question_id": null,
+    "question": "Among the universities in Australia, how many of them have a student staff ratio of over 15 in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; in Australia refers to country_name = 'Australia'; student staff ratio of over 15 refers to student_staff_ratio > 15"
+  },
+  {
+    "sql": "SELECT CAST(T1.num_students * T1.pct_female_students AS REAL) / 100 FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2011 AND T2.university_name = 'Stanford University'",
+    "question_id": null,
+    "question": "How many female students did Stanford University have in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; female students refers to DIVIDE(MULTIPLY(pct_female_students, num_students), 100); Stanford University refers to university_name = 'Stanford University';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T4.country_name = 'United States of America' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) AS per FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id INNER JOIN country AS T4 ON T4.id = T3.country_id WHERE T1.criteria_name = 'Teaching' AND T2.year = 2011 AND T2.score > 90",
+    "question_id": null,
+    "question": "Among the universities with a score in teaching of over 90 in 2011, what is the percentage of those in the United States of America?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; in teaching refers to\u00a0 criteria_name = 'Teaching'; score in teaching of over 90 refers to score > 90; in the United States of America refers to country_name = 'United States of America'; percentage refers to DIVIDE(COUNT(country_name = 'United States of America'), COUNT(id))"
+  },
+  {
+    "sql": "SELECT id FROM ranking_system WHERE system_name = 'Center for World University Rankings'",
+    "question_id": null,
+    "question": "Give the id of \"Center for World University Rankings\".",
+    "difficulty": "",
+    "evidence": "\"Center for World University Rankings\" refers to system_name = 'Center for World University Rankings';"
+  },
+  {
+    "sql": "SELECT country_id FROM university WHERE university_name = 'University of Veterinary Medicine Vienna'",
+    "question_id": null,
+    "question": "Which country is University of Veterinary Medicine Vienna located in? Give its country id.",
+    "difficulty": "",
+    "evidence": "University of Veterinary Medicine Vienna refers to university_name = 'University of Veterinary Medicine Vienna';"
+  },
+  {
+    "sql": "SELECT id FROM ranking_criteria WHERE criteria_name = 'Citations Rank'",
+    "question_id": null,
+    "question": "What is the id of the criteria \"Citations Rank\"?",
+    "difficulty": "",
+    "evidence": "criteria \"Citations Rank\" refers to criteria_name = 'Citations Rank';"
+  },
+  {
+    "sql": "SELECT id FROM university WHERE university_name = 'University of Orl\u00e9ans'",
+    "question_id": null,
+    "question": "Show the id of University of Orl\u00e9ans.",
+    "difficulty": "",
+    "evidence": "University of Orl\u00e9ans refers to university_name = 'University of Orl\u00e9ans';"
+  },
+  {
+    "sql": "SELECT num_students FROM university_year WHERE university_id = 268 AND year = 2013",
+    "question_id": null,
+    "question": "For the university id 268, show its number of students in 2013.",
+    "difficulty": "",
+    "evidence": "number of students refers to num_students; in 2013 refers to year = 2013"
+  },
+  {
+    "sql": "SELECT country_name FROM country WHERE id = 66",
+    "question_id": null,
+    "question": "Show the name of country id 66.",
+    "difficulty": "",
+    "evidence": "name of country refers to country_name"
+  },
+  {
+    "sql": "SELECT T2.country_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T1.university_name = 'McMaster University'",
+    "question_id": null,
+    "question": "Which country is McMaster University located in?",
+    "difficulty": "",
+    "evidence": "McMaster University refers to university_name = 'McMaster University'; which country refers to country_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T2.country_name = 'Turkey'",
+    "question_id": null,
+    "question": "How many Turkish universities are there in the database?",
+    "difficulty": "",
+    "evidence": "Turkish universities refers to country_name = 'Turkey';"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2011 ORDER BY T1.num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which university had the most students in 2011? Show its name.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; the most students refers to MAX(num_students); which university refers to university_name;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id WHERE T1.university_name = 'University of Michigan' AND T2.year = 2011",
+    "question_id": null,
+    "question": "How many students were there in University of Michigan in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; in University of Michigan refers to university_name = 'University of Michigan';"
+  },
+  {
+    "sql": "SELECT T2.score FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T3.university_name = 'Chosun University' AND T1.criteria_name = 'Influence Rank' AND T2.year = 2015",
+    "question_id": null,
+    "question": "For Chosun University, what was its score on \"Influence Rank\" in 2015?",
+    "difficulty": "",
+    "evidence": "Chosun University refers to university_name = 'Chosun University'; in 2015 refers to year = 2015; on \"Influence Rank\" refers to criteria_name = 'Influence Rank';"
+  },
+  {
+    "sql": "SELECT T2.pct_international_students FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id WHERE T1.university_name = 'University of Oslo' AND T2.year = 2015",
+    "question_id": null,
+    "question": "What is the percentage of the international students in University of Oslo in 2015?",
+    "difficulty": "",
+    "evidence": "percentage of the international students refers to pct_international_students; in 2015 refers to year = 2015; in University of Oslo refers to university_name = 'University of Oslo';"
+  },
+  {
+    "sql": "SELECT T1.criteria_name FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T3.university_name = 'University of Southampton' AND T2.year = 2015 ORDER BY T2.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the University of Southampton in 2015, on which criteria did it score the best?",
+    "difficulty": "",
+    "evidence": "University of Southampton refers to university_name = 'University of Southampton'; in 2015 refers to year = 2015; score the best refers to MAX(score); which criteria refers to criteria_name"
+  },
+  {
+    "sql": "SELECT T1.system_name FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T2.criteria_name = 'Total Shanghai'",
+    "question_id": null,
+    "question": "Which ranking system is criteria \"Total Shanghai\" in?",
+    "difficulty": "",
+    "evidence": "criteria \"Total Shanghai\" refers to criteria_name = 'Total Shanghai'; which ranking system refers to system_name"
+  },
+  {
+    "sql": "SELECT CAST(T1.num_students * T1.pct_female_students AS REAL) / 100 FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2015 AND T2.university_name = 'Pierre and Marie Curie University'",
+    "question_id": null,
+    "question": "How many female students were there in Pierre and Marie Curie University in 2015?",
+    "difficulty": "",
+    "evidence": "female students refers to DIVIDE(MULTIPLY(pct_female_students, num_students), 100); in Pierre and Marie Curie University refers to university_name = 'Pierre and Marie Curie University'; in 2015 refers to year = 2015"
+  },
+  {
+    "sql": "SELECT T2.score FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id INNER JOIN university AS T3 ON T3.id = T2.university_id WHERE T3.university_name = 'University of Florida' AND T2.year = 2014 AND T1.criteria_name = 'N and S'",
+    "question_id": null,
+    "question": "What was the score for University of Florida in \"N and S\" in 2014?",
+    "difficulty": "",
+    "evidence": "University of Florida refers to university_name = 'University of Florida'; in 2014 refers to year = 2014; in \"N and S\" refers to criteria_name = 'N and S'"
+  },
+  {
+    "sql": "SELECT CAST(T1.num_students * T1.pct_international_students AS REAL) / 100 FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2013 AND T2.university_name = 'University of Wisconsin-Madison'",
+    "question_id": null,
+    "question": "Calculate the number of international students of University of Wisconsin-Madison in 2013.",
+    "difficulty": "",
+    "evidence": "international students refers to DIVIDE(MULTIPLY(num_students, pct_international_students), 100); University of Wisconsin-Madison refers to university_name = 'University of Wisconsin-Madison'; in 2013 refers to year = 2013"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2015 ORDER BY T1.num_students ASC LIMIT 1",
+    "question_id": null,
+    "question": "Show the name of the university with the lowest number of students in 2015.",
+    "difficulty": "",
+    "evidence": "lowest number of students refers to MIN(num_students); in 2015 refers to year = 2015; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.university_name = 'University of Ottawa' THEN T1.num_students ELSE 0 END) AS REAL) / SUM(CASE WHEN T2.university_name = 'Joseph Fourier University' THEN T1.num_students ELSE 0 END) FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2013",
+    "question_id": null,
+    "question": "How many times more was the number of students of University of Ottawa than Joseph Fourier University in 2013?",
+    "difficulty": "",
+    "evidence": "Joseph Fourier University refers to university_name = 'Joseph Fourier University'; University of Ottawa refers to university_name = 'University of Ottawa'; in 2013 refers to year = 2013; how many times more refers to DIVIDE(SUM(num_students where university_name = 'University of Ottawa'), SUM(num_students where university_name = 'Joseph Fourier University'))"
+  },
+  {
+    "sql": "SELECT (SUM(CASE WHEN T1.system_name = 'Center for World University Rankings' THEN 1 ELSE 0 END) + SUM(CASE WHEN T1.system_name = 'Shanghai Ranking' THEN 1 ELSE 0 END) + SUM(CASE WHEN T1.system_name = 'Times Higher Education World University Ranking' THEN 1 ELSE 0 END)) / 3 FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id",
+    "question_id": null,
+    "question": "Calculate the average number of criterias among \"Times Higher Education World University Ranking\",\"Shanghai Ranking\" and \"Center for World University Rankings\".",
+    "difficulty": "",
+    "evidence": "average number of criterias refers to DIVIDE(SUM(id), 3); \"Times Higher Education World University Ranking\", \"Shanghai Ranking\" and \"Center for World University Rankings\" refers to system_name IN ('Times Higher Education World University Ranking', 'Shanghai Ranking', 'Center for World University Rankings');"
+  },
+  {
+    "sql": "SELECT AVG(num_students) FROM university_year WHERE year = 2012",
+    "question_id": null,
+    "question": "Calculate the average number of students of all universities in 2012.",
+    "difficulty": "",
+    "evidence": "average number of students refers to avg(num_students); in 2012 refers to year = 2012"
+  },
+  {
+    "sql": "SELECT score FROM university_ranking_year WHERE year = 2015 AND university_id = 68",
+    "question_id": null,
+    "question": "What is the score of university ID 68 in 2015?",
+    "difficulty": "",
+    "evidence": "in 2015 refers to year = 2015"
+  },
+  {
+    "sql": "SELECT id FROM country WHERE country_name = 'Cyprus'",
+    "question_id": null,
+    "question": "Provide the country ID of Cyprus.",
+    "difficulty": "",
+    "evidence": "Cyprus refers to country_name = 'Cyprus';"
+  },
+  {
+    "sql": "SELECT university_id FROM university_year ORDER BY pct_international_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the ID of university with the largest percentage of international students?",
+    "difficulty": "",
+    "evidence": "largest percentage of international students refers to MAX(pct_international_students); ID of university refers to university_id"
+  },
+  {
+    "sql": "SELECT criteria_name FROM ranking_criteria WHERE id = 13",
+    "question_id": null,
+    "question": "Provide the criteria name of the ranking criteria ID 13.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT AVG(score) FROM university_ranking_year WHERE year = 2012",
+    "question_id": null,
+    "question": "What is the average score of all universities in 2012?",
+    "difficulty": "",
+    "evidence": "average score refers to avg(score); in 2012 refers to year = 2012"
+  },
+  {
+    "sql": "SELECT SUM(CAST(num_students * pct_female_students AS REAL) / 100) FROM university_year WHERE year BETWEEN 2011 AND 2013 AND university_id = 40",
+    "question_id": null,
+    "question": "In years 2011 to 2013, what is the total number of female students in university ID 40?",
+    "difficulty": "",
+    "evidence": "total number of female students refers to SUM(DIVIDE(MULTIPLY(pct_female_students, num_students), 100)); In years 2011 to 2013 refers to year BETWEEN 2011 AND 2013"
+  },
+  {
+    "sql": "SELECT AVG(score) FROM university_ranking_year WHERE year BETWEEN 2013 AND 2015 AND university_id = 79",
+    "question_id": null,
+    "question": "Calculate the average score of university ID 79 between year 2013 to 2015.",
+    "difficulty": "",
+    "evidence": "average score refers to avg(score); between year 2013 to 2015 refers to year BETWEEN 2013 AND 2015"
+  },
+  {
+    "sql": "SELECT student_staff_ratio FROM university_year WHERE university_id = 35",
+    "question_id": null,
+    "question": "Give the student staff ratio of university ID 35.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.score FROM university_year AS T1 INNER JOIN university_ranking_year AS T2 ON T1.university_id = T2.university_id WHERE T1.year = 2011 ORDER BY T1.num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the score of the most populated university in 2011.",
+    "difficulty": "",
+    "evidence": "most populated university refers to MAX(num_students); in 2011 refers to year = 2011;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.criteria_name FROM university AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.university_id INNER JOIN ranking_criteria AS T3 ON T3.id = T2.ranking_criteria_id WHERE T1.university_name = 'Harvard University' AND T2.score = 100",
+    "question_id": null,
+    "question": "Give the criteria name where Harvard University scored 100.",
+    "difficulty": "",
+    "evidence": "Harvard University refers to university_name = 'Harvard University'; scored 100 refers to score = 100"
+  },
+  {
+    "sql": "SELECT T1.university_name, T1.id FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T2.country_name = 'Turkey'",
+    "question_id": null,
+    "question": "Provide the university name and ID of the university found in Turkey.",
+    "difficulty": "",
+    "evidence": "found in Turkey refers to country_name = 'Turkey';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ranking_system AS T1 INNER JOIN ranking_criteria AS T2 ON T1.id = T2.ranking_system_id WHERE T1.system_name = 'Shanghai Ranking'",
+    "question_id": null,
+    "question": "What is the total number of ranking criteria under the ranking system called Shanghai Ranking?",
+    "difficulty": "",
+    "evidence": "ranking system called Shanghai Ranking refers to system_name = 'Shanghai Ranking';"
+  },
+  {
+    "sql": "SELECT T2.university_name, T1.score FROM university_ranking_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.id = 124",
+    "question_id": null,
+    "question": "Give the name and score of the university ID 124.",
+    "difficulty": "",
+    "evidence": "name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT CAST(T1.num_students * T1.pct_female_students AS REAL) / 100 FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2011 AND T2.university_name = 'University of Pennsylvania'",
+    "question_id": null,
+    "question": "How many female students are there in University of Pennsylvania in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; female students refers to DIVIDE(MULTIPLY(num_students, pct_female_students), 100); University of Pennsylvania refers to a university name;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.university_name FROM university_ranking_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.score < 50",
+    "question_id": null,
+    "question": "List down all universities that scored below 50.",
+    "difficulty": "",
+    "evidence": "scored below 50 refers to score < 50; all universities refers to university_name;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T2.country_name = 'Japan'",
+    "question_id": null,
+    "question": "How many universities are located in Japan?",
+    "difficulty": "",
+    "evidence": "located in Japan refers to country_name = 'Japan';"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id ORDER BY T1.num_students * T1.pct_female_students / 100 - T1.num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the name of the university with the highest number of male students.",
+    "difficulty": "",
+    "evidence": "highest number of female students refers to MAX(SUBTRACT(num_students, DIVIDE(MULTIPLY(num_students, pct_female_students), 100))); name of university refers to university_name"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.country_name FROM university AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T2.score < 70 AND T2.year = 2016",
+    "question_id": null,
+    "question": "List the countries of universities that scored 70 and below in 2016.",
+    "difficulty": "",
+    "evidence": "scored 70 and below refers to score < 70; in 2016 refers to year = 2016"
+  },
+  {
+    "sql": "SELECT CAST((T1.num_students - (T1.num_students * T1.pct_female_students)) AS REAL) / 100 FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'Emory University' AND T1.year = 2011",
+    "question_id": null,
+    "question": "Calculate number of male students in Emory University in 2011.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; number of male students refers to SUBTRACT(num_students, DIVIDE(MULTIPLY(num_students, pct_male_students), 100)); in Emory University refers to university_name = 'Emory University'"
+  },
+  {
+    "sql": "SELECT T2.country_name FROM university AS T1 INNER JOIN country AS T2 ON T1.country_id = T2.id WHERE T1.university_name = 'Johns Hopkins University'",
+    "question_id": null,
+    "question": "In which country does Johns Hopkins University located?",
+    "difficulty": "",
+    "evidence": "Johns Hopkins University refers to university_name = 'Johns Hopkins University'; which country refers to country_name"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.num_students BETWEEN 400 AND 1000",
+    "question_id": null,
+    "question": "Give the names of universities with number of students ranges from 400 to 1000.",
+    "difficulty": "",
+    "evidence": "number of students ranges from 400 to 1000 refers to num_students BETWEEN 400 AND 1000; name of university refers to university_name"
+  },
+  {
+    "sql": "SELECT T1.year FROM university_ranking_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'Brown University' ORDER BY T1.score DESC LIMIT 1",
+    "question_id": null,
+    "question": "In what year does the Brown University score the highest?",
+    "difficulty": "",
+    "evidence": "Brown University refers to university_name = 'Brown University'; score the highest refers to MAX(score)"
+  },
+  {
+    "sql": "SELECT AVG(T1.score) FROM university_ranking_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T2.university_name = 'Emory University' AND T1.year BETWEEN 2011 AND 2016",
+    "question_id": null,
+    "question": "Calculate the average score of Emory University from 2011 to 2016.",
+    "difficulty": "",
+    "evidence": "average score refers to avg(score); Emory University refers to university_name = 'Emory University'; from 2011 to 2016 refers to year BETWEEN 2011 AND 2016;"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2015 ORDER BY T1.num_students DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the name of the university with the most number of students in 2015.",
+    "difficulty": "",
+    "evidence": "most number of students refers to MAX(num_students); in 2015 refers to year = 2015; name of university refers to university_name;"
+  },
+  {
+    "sql": "SELECT T3.country_name, CAST(T2.num_students * T2.pct_female_students AS REAL) / 100 FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T2.year = 2011 AND T1.id = 23",
+    "question_id": null,
+    "question": "What is the location and number of female students in university ID 23 in 2011?",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year 2011; female students refers to DIVIDE(MULTIPLY(num_students, pct_female_students), 100); location refers to country_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ranking_criteria AS T1 INNER JOIN university_ranking_year AS T2 ON T1.id = T2.ranking_criteria_id WHERE T2.score = 40 AND T1.criteria_name = 'Teaching' AND T2.score = 40",
+    "question_id": null,
+    "question": "How many universities scored 40 in teaching criteria?",
+    "difficulty": "",
+    "evidence": "scored 40 refers to score = 40; in teaching refers to criteria_name = 'Teaching'"
+  },
+  {
+    "sql": "SELECT SUM(CAST(T2.pct_female_students * T2.num_students AS REAL) / 100) * 100 / SUM(T2.num_students) FROM university AS T1 INNER JOIN university_year AS T2 ON T1.id = T2.university_id INNER JOIN country AS T3 ON T3.id = T1.country_id WHERE T3.country_name = 'United States of America' AND T2.year = 2016",
+    "question_id": null,
+    "question": "Among the universities in United States of America, what is the percentage of female students in year 2016?",
+    "difficulty": "",
+    "evidence": "female students refers to DIVIDE(MULTIPLY(num_students, pct_female_students), 100); in United States of America refers to country_name = 'United States of America'; percentage refers to DIVIDE(SUM(DIVIDE(MULTIPLY(num_students, pct_female_students), 100)), SUM(num_students))"
+  },
+  {
+    "sql": "SELECT SUM(T1.num_students) - SUM(CAST(T1.num_students * T1.pct_international_students AS REAL) / 100) FROM university_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year BETWEEN 2011 AND 2014 AND T2.university_name = 'University of Tokyo'",
+    "question_id": null,
+    "question": "Calculate the difference between the total number of students and the number of international international students in Univeristy of Tokyo from 2011 to 2014.",
+    "difficulty": "",
+    "evidence": "international students refers to DIVIDE(MULTIPLY(num_students, pct_international_students), 100); difference refers to SUBTRACT(SUM(num_students), SUM(DIVIDE(MULTIPLY(num_students, pct_international_students), 100))); in University of Tokyo refers to university_name = 'University of Tokyo'; from 2011 to 2014 refers to year BETWEEN 2011 AND 2014"
+  },
+  {
+    "sql": "SELECT T2.university_name FROM university_ranking_year AS T1 INNER JOIN university AS T2 ON T1.university_id = T2.id WHERE T1.year = 2015 AND T1.score * 100 < ( SELECT AVG(score) * 28 FROM university_ranking_year WHERE year = 2015 )",
+    "question_id": null,
+    "question": "List the names of universities with a score less than 28% of the average score of all universities in 2015.",
+    "difficulty": "",
+    "evidence": "in 2015 refers to year = 2015; score less than 28% refers to score < MULTIPLY(avg(score), 0.28) where year = 2015; names of universities refers to university_name"
+  }
+]

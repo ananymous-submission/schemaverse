@@ -1,0 +1,758 @@
+[
+  {
+    "sql": "SELECT COUNT(*) FROM Dish WHERE first_appeared < 1851 OR first_appeared > 2012",
+    "question_id": null,
+    "question": "How many dishes do not have correct data for the year in which it appeared first?",
+    "difficulty": "",
+    "evidence": "do not have correct data refers to first_appeared < 1851 or first_appeared > 2012;"
+  },
+  {
+    "sql": "SELECT CASE WHEN SUM(CASE WHEN name = 'Anchovies' THEN last_appeared - first_appeared ELSE 0 END) - SUM(CASE WHEN name = 'Fresh lobsters in every style' THEN last_appeared - first_appeared ELSE 0 END) > 0 THEN 'Anchovies' ELSE 'Fresh lobsters in every style' END FROM Dish WHERE name IN ('Fresh lobsters in every style', 'Anchovies')",
+    "question_id": null,
+    "question": "Which dish lasted longer, Anchovies or Fresh lobsters in every style?",
+    "difficulty": "",
+    "evidence": "if (SUBTRACT(last_appeared, first_appeared) WHERE name = 'Anchovies') > (SUBTRACT(last_appeared, first_appeared) WHERE name = 'Fresh lobsters in every style'), it means 'Anchovies' lasted longer; if (SUBTRACT(last_appeared , first_appeared) WHERE name = 'Fresh lobsters in every style') > (SUBTRACT(last_appeared , first_appeared) WHERE name = 'Anchovies') it means 'Fresh lobsters in every style' last longer;"
+  },
+  {
+    "sql": "SELECT name FROM Dish WHERE lowest_price = 0 ORDER BY menus_appeared DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among all the dishes that were once free, what is the name of the dish that had appeared on most menus?",
+    "difficulty": "",
+    "evidence": "dishes that were once free refers to lowest_price = 0; appeared on most menus refers to MAX(menus_appeared);"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu WHERE name = 'Waldorf Astoria' AND page_count = 4",
+    "question_id": null,
+    "question": "How many menus with the name \"Waldorf Astoria\" have 4 pages?",
+    "difficulty": "",
+    "evidence": "4 pages refers to page_count = 4;"
+  },
+  {
+    "sql": "SELECT T1.name FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T2.menu_page_id = 1389 AND T2.xpos < 0.25 AND T2.ypos < 0.25",
+    "question_id": null,
+    "question": "What is the name of the dish that appeared on the upper left corner on menu page no. 1389?",
+    "difficulty": "",
+    "evidence": "appeared on the upper left corner on menu refers to xpos < 0.25 AND ypos < 0.25; menu page no. refers to menu_page_id; menu_page_id = 1389;"
+  },
+  {
+    "sql": "SELECT T2.price FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.name = 'Clear green turtle'",
+    "question_id": null,
+    "question": "Please list the prices of the dish \"Clear green turtle\" on every menu page it appeared on.",
+    "difficulty": "",
+    "evidence": "Clear green turtle is a name of dish;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.name = 'Clear green turtle' THEN 1 ELSE 0 END) FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.highest_price IS NULL",
+    "question_id": null,
+    "question": "Among all the menu pages with the appearance of the dish \"Clear green turtle\", how many of them have the dish at a stable price?",
+    "difficulty": "",
+    "evidence": "Clear green turtle is a name of dish; stable price refers to highest_price is null;"
+  },
+  {
+    "sql": "SELECT T2.price FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.name = 'Clear green turtle' ORDER BY T2.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest price of the dish \"Clear green turtle\" on a menu page?",
+    "difficulty": "",
+    "evidence": "highest price refers to MAX(Price); Clear green turtle is a name of dish;"
+  },
+  {
+    "sql": "SELECT T1.menu_id FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id INNER JOIN Dish AS T3 ON T2.dish_id = T3.id WHERE T3.name = 'Clear green turtle'",
+    "question_id": null,
+    "question": "Please list the IDs of all the menus in which the dish \"Clear green turtle\" had appeared.",
+    "difficulty": "",
+    "evidence": "Clear green turtle is a name of dish;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.currency = 'Dollars' THEN 1 ELSE 0 END) FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T4.name = 'Clear green turtle'",
+    "question_id": null,
+    "question": "Among the menus in which the dish \"Clear green turtle\" had appeared, how many of them used the dollar as their currency?",
+    "difficulty": "",
+    "evidence": "Clear green turtle is a name of dish; dollar as currency refers to currency = 'Dollars';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T4.name = 'Clear green turtle' THEN 1 ELSE 0 END) FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T3.call_number IS NULL",
+    "question_id": null,
+    "question": "Among the menus in which the dish \"Clear green turtle\" had appeared, how many of them did not support taking out or booking in advance?",
+    "difficulty": "",
+    "evidence": "Clear green turtle is a name of dish; not support taking out or booking in advance refers to call_number is null;"
+  },
+  {
+    "sql": "SELECT T4.name FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T3.name = 'Zentral Theater Terrace'",
+    "question_id": null,
+    "question": "Please list the names of all the dishes that appeared on the menu \"Zentral Theater Terrace\".",
+    "difficulty": "",
+    "evidence": "Zentral Theater Terrace is a name of menu;"
+  },
+  {
+    "sql": "SELECT T4.name FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T3.name = 'Zentral Theater Terrace' ORDER BY T1.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which dish has the highest price on the menu \"Zentral Theater Terrace\"? Please give its name.",
+    "difficulty": "",
+    "evidence": "highest price refers to MAX(Price); Zentral Theater Terrace is a name of menu;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.name = 'Zentral Theater Terrace' THEN 1 ELSE 0 END) FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id",
+    "question_id": null,
+    "question": "How many dishes are there on the menu \"Zentral Theater Terrace\"?",
+    "difficulty": "",
+    "evidence": "Zentral Theater Terrace is a name of menu;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.name = 'Waldorf Astoria' THEN 1 ELSE 0 END) FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id",
+    "question_id": null,
+    "question": "How many dishes are there in total in the menus with the name \"Waldorf Astoria\"?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.menu_id FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T4.name = 'Clear green turtle' AND T3.sponsor IS NULL",
+    "question_id": null,
+    "question": "Please list the IDs of the menus that are DIYs of the restaurant and have the dish \"Clear green turtle\".",
+    "difficulty": "",
+    "evidence": "IDs of the menus refers to menu_id; menus that are DIYs of the restaurant refers to sponsor is null; Clear green turtle is a name of dish;"
+  },
+  {
+    "sql": "SELECT AVG(T1.page_number) FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id INNER JOIN Dish AS T3 ON T2.dish_id = T3.id WHERE T3.name = 'Clear green turtle'",
+    "question_id": null,
+    "question": "What is the average page number of the menus that have the dish \"Clear green turtle\"?",
+    "difficulty": "",
+    "evidence": "average page number = AVG(page_number); Clear green turtle is a name of dish;"
+  },
+  {
+    "sql": "SELECT SUM(T1.price) / COUNT(T1.price) FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id WHERE T3.name = 'Zentral Theater Terrace'",
+    "question_id": null,
+    "question": "What is the average price of the dishes on the menu \"Zentral Theater Terrace\"?",
+    "difficulty": "",
+    "evidence": "average price = AVG(price); Zentral Theater Terrace refers to menu;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM MenuItem WHERE created_at LIKE '2011-03-28%'",
+    "question_id": null,
+    "question": "How many menu items were created on 28th March 2011?",
+    "difficulty": "",
+    "evidence": "created on 28th March 2011 refers to created_at like '2011-03-28%';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM MenuItem WHERE menu_page_id = 144",
+    "question_id": null,
+    "question": "How many dishes are included in the menu page ID 144?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu WHERE location = 'Dutcher House'",
+    "question_id": null,
+    "question": "How many menus were used in Dutcher House?",
+    "difficulty": "",
+    "evidence": "Dutcher House refers to location = 'Dutcher House';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Dish WHERE times_appeared > menus_appeared",
+    "question_id": null,
+    "question": "How many dishes appeared on a menu more than once?",
+    "difficulty": "",
+    "evidence": "appeared on a menu more than once refers to times_appeared > menus_appeared;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu WHERE venue = 'STEAMSHIP'",
+    "question_id": null,
+    "question": "How many menus were created for steamship?",
+    "difficulty": "",
+    "evidence": "steamship refers to venue = 'STEAMSHIP';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.date = '1898-11-17' THEN 1 ELSE 0 END) FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id",
+    "question_id": null,
+    "question": "How many pages were there on the menu created on 17th November 1898?",
+    "difficulty": "",
+    "evidence": "created on 17th November 1898 refers to date = '1898-11-17';"
+  },
+  {
+    "sql": "SELECT T2.name FROM MenuItem AS T1 INNER JOIN Dish AS T2 ON T2.id = T1.dish_id WHERE T1.menu_page_id = 174",
+    "question_id": null,
+    "question": "Name the dishes that were on the menu page ID 174.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.name, T1.dish_id FROM MenuItem AS T1 INNER JOIN Dish AS T2 ON T2.id = T1.dish_id WHERE T2.first_appeared = 1861",
+    "question_id": null,
+    "question": "List the names and menu page IDs of the dishes that first appeared in 1861.",
+    "difficulty": "",
+    "evidence": "first appeared in 1861 refers to first_appeared = 1861;"
+  },
+  {
+    "sql": "SELECT T1.name, T2.price FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T2.created_at LIKE '2011-05-23%' ORDER BY T2.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the dishes on menu page ID 7610, list the names and highest prices of the dishes in menu items that were created on 23rd May 2011.",
+    "difficulty": "",
+    "evidence": "highest prices of the dishes refers to MAX(price); created on 23rd May 2011 refers to created_at like '2011-05-23%';"
+  },
+  {
+    "sql": "SELECT T3.name FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id INNER JOIN Dish AS T3 ON T2.dish_id = T3.id WHERE T1.page_number = 30 ORDER BY T1.full_height DESC, T1.full_height ASC LIMIT 1",
+    "question_id": null,
+    "question": "List the dishes included on page number 30 with the least in full height.",
+    "difficulty": "",
+    "evidence": "least in full height refers to MIN(full_height);"
+  },
+  {
+    "sql": "SELECT T1.page_number, T2.name FROM MenuPage AS T1 INNER JOIN Menu AS T2 ON T2.id = T1.menu_id ORDER BY T2.page_count DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the page IDs and name of the menu which had the highest page count.",
+    "difficulty": "",
+    "evidence": "page IDs refers to page_number; highest page count refers to MAX(page_count);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.dish_id) FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id WHERE T2.page_number = 2 GROUP BY T3.name ORDER BY T3.dish_count DESC LIMIT 1",
+    "question_id": null,
+    "question": "On the menu with the most dishes, how many dishes were there on its second page?",
+    "difficulty": "",
+    "evidence": "menu with the most dishes refers to menu.id with MAX(dish_count); second page refers to page_number = 2;"
+  },
+  {
+    "sql": "SELECT T2.menu_id, T1.xpos, T1.ypos FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T4.name = 'Fresh lobsters in every style'",
+    "question_id": null,
+    "question": "Provide the numbers of the menu item which includes Fresh lobsters in every style and location where that dish was used on a menu.",
+    "difficulty": "",
+    "evidence": "Fresh lobsters in every style' is a name of dish; location where the dish was used on a menu = (xpos, ypos);"
+  },
+  {
+    "sql": "SELECT T4.name FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T3.sponsor = 'CHAS.BRADLEY''S OYSTER & DINING ROOM' AND T1.xpos < 0.25 AND T1.ypos < 0.25",
+    "question_id": null,
+    "question": "List the dishes that appeared at the left upper corner of the CHAS.BRADLEY'S OYSTER & DINING ROOM\"s sponsored menu.",
+    "difficulty": "",
+    "evidence": "appeared at the left upper corner refers to xpos < 0.25 and ypos < 0.25; CHAS.BRADLEY'S OYSTER & DINING ROOM refers to sponsor = 'CHAS.BRADLEY''S OYSTER & DINING ROOM';"
+  },
+  {
+    "sql": "SELECT T3.name, T3.event FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T4.name = 'Cerealine with Milk'",
+    "question_id": null,
+    "question": "Provide the sponsor and event of the menu which includes Cerealine with Milk.",
+    "difficulty": "",
+    "evidence": "Cerealine with Milk is a name of dish;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.xpos BETWEEN 0.25 AND 0.75 AND T2.ypos BETWEEN 0.25 AND 0.75 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.id) FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.name LIKE '%BLuefish%'",
+    "question_id": null,
+    "question": "How many percent of Bluefish dishes are located at the center of the menu page?",
+    "difficulty": "",
+    "evidence": "percent = MULTIPLY(DIVIDE(SUM(xpos BETWEEN 0.25 AND 0.75 and ypos BETWEEN 0.25 AND 0.75), COUNT(id)), 1.0); Bluefish is a sub name of dish; located at the center of the menu page refers to xpos BETWEEN 0.25 AND 0.75 and ypos BETWEEN 0.25 AND 0.75;"
+  },
+  {
+    "sql": "SELECT sponsor FROM Menu WHERE id = 12463",
+    "question_id": null,
+    "question": "Who is the sponsor of menu with ID 12463?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT event FROM Menu WHERE sponsor = 'REPUBLICAN HOUSE'",
+    "question_id": null,
+    "question": "What is the event sponsored by the Republican House?",
+    "difficulty": "",
+    "evidence": "sponsored by the Republican House refers to sponsor = 'REPUBLICAN HOUSE';"
+  },
+  {
+    "sql": "SELECT location FROM Menu WHERE id = 12472",
+    "question_id": null,
+    "question": "Where is the place that menu with ID 12472 was created for?",
+    "difficulty": "",
+    "evidence": "place refers to location;"
+  },
+  {
+    "sql": "SELECT physical_description FROM Menu WHERE sponsor = 'Noviomagus'",
+    "question_id": null,
+    "question": "Please describe the menu sponsored by Noviomagus physically.",
+    "difficulty": "",
+    "evidence": "describe the menu physically refers to physical_description; sponsored by Noviomagus refers to sponsor = 'Noviomagus';"
+  },
+  {
+    "sql": "SELECT occasion FROM Menu WHERE id = 12463",
+    "question_id": null,
+    "question": "What is the occasion for menu with ID 12463?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT location FROM Menu WHERE sponsor = 'Norddeutscher Lloyd Bremen'",
+    "question_id": null,
+    "question": "List down the locations of menu sponsored by Norddeutscher Lloyd Bremen.",
+    "difficulty": "",
+    "evidence": "sponsored by Norddeutscher Lloyd Bremen refers to sponsor = 'Norddeutscher Lloyd Bremen';"
+  },
+  {
+    "sql": "SELECT T2.id FROM MenuPage AS T1 INNER JOIN Menu AS T2 ON T2.id = T1.menu_id WHERE T2.sponsor = 'Occidental & Oriental'",
+    "question_id": null,
+    "question": "List down the menu page IDs for menu sponsored by Occidental & Oriental?",
+    "difficulty": "",
+    "evidence": "menu page IDs refers to MenuPage.id; sponsored by Occidental & Oriental refers to sponsor = 'Occidental & Oriental';"
+  },
+  {
+    "sql": "SELECT T1.image_id FROM MenuPage AS T1 INNER JOIN Menu AS T2 ON T2.id = T1.menu_id WHERE T2.location = 'Manhattan Hotel'",
+    "question_id": null,
+    "question": "List down the image IDs for menu located at Manhattan Hotel.",
+    "difficulty": "",
+    "evidence": "located at Manhattan Hotel refers to location = 'Manhattan Hotel';"
+  },
+  {
+    "sql": "SELECT T1.full_height, T1.full_width FROM MenuPage AS T1 INNER JOIN Menu AS T2 ON T2.id = T1.menu_id WHERE T2.name = 'El Fuerte Del Palmar'",
+    "question_id": null,
+    "question": "State the full height and width for menu called \"El Fuerte Del Palmar\".",
+    "difficulty": "",
+    "evidence": "width refers to full_width; El Fuerte Del Palmar is a name of menu;"
+  },
+  {
+    "sql": "SELECT CASE WHEN T2.uuid = 'c02c9a3b-6881-7080-e040-e00a180631aa' THEN 'yes' ELSE 'no' END AS yn FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T1.name = 'The Biltmore' AND T2.uuid = 'c02c9a3b-6881-7080-e040-e00a180631aa'",
+    "question_id": null,
+    "question": "Is \"c02c9a3b-6881-7080-e040-e00a180631aa\" the uuid for menu called \"The Biltmore\"?",
+    "difficulty": "",
+    "evidence": "if 'c02c9a3b-6881-7080-e040-e00a180631aa' can be found in uuid, it means the 'c02c9a3b-6881-7080-e040-e00a180631aa' is the uuid for the menu called The Biltmore; if 'c02c9a3b-6881-7080-e040-e00a180631aa' can not be found in uuid, it means the 'c02c9a3b-6881-7080-e040-e00a180631aa' is not the uuid for the menu called The Biltmore; The Biltmore is a name of menu;"
+  },
+  {
+    "sql": "SELECT T2.name FROM MenuPage AS T1 INNER JOIN Menu AS T2 ON T2.id = T1.menu_id ORDER BY T1.full_height DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the name of menu with the longest full height.",
+    "difficulty": "",
+    "evidence": "longest full height refers to MAX(full_height);"
+  },
+  {
+    "sql": "SELECT T1.page_count FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T2.id = 130",
+    "question_id": null,
+    "question": "What is the page count for menu with page ID of 130?",
+    "difficulty": "",
+    "evidence": "page ID of 130 refers MenuPage.id = 130;"
+  },
+  {
+    "sql": "SELECT T3.price FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id INNER JOIN MenuItem AS T3 ON T2.id = T3.menu_page_id WHERE T2.image_id = 4000009194",
+    "question_id": null,
+    "question": "How much is the price of menu with image ID 4000009194?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.page_number FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id INNER JOIN MenuItem AS T3 ON T2.id = T3.menu_page_id WHERE T3.xpos > 0.75 AND T3.ypos < 0.25",
+    "question_id": null,
+    "question": "List down the page numbers for menu with dishes on the right upper corner.",
+    "difficulty": "",
+    "evidence": "on the right upper corner refers to xpos > 0.75 AND ypos < 0.25;"
+  },
+  {
+    "sql": "SELECT T2.name FROM MenuItem AS T1 INNER JOIN Dish AS T2 ON T2.id = T1.dish_id WHERE SUBSTR(T1.created_at, 7, 1) = '4'",
+    "question_id": null,
+    "question": "List down the name of dishes from menu created in April.",
+    "difficulty": "",
+    "evidence": "created in April refers to SUBSTR(created_at, 7, 1) = '4';"
+  },
+  {
+    "sql": "SELECT T2.name FROM MenuItem AS T1 INNER JOIN Dish AS T2 ON T2.id = T1.dish_id WHERE T1.menu_page_id = 1389",
+    "question_id": null,
+    "question": "List down name of dishes from menu with menu page ID 1389.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.price FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T2.id BETWEEN 1 AND 5 ORDER BY T2.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest price of dishes with menu item ID 1 to 5?",
+    "difficulty": "",
+    "evidence": "highest price refers to MAX(price); menu item ID 1 to 5 refers to MenuItem.id BETWEEN 1 AND 5;"
+  },
+  {
+    "sql": "SELECT T1.name FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T2.xpos < 0.25 AND T2.ypos < 0.25",
+    "question_id": null,
+    "question": "List down the name of dishes that were positioned on the left upper corner.",
+    "difficulty": "",
+    "evidence": "positioned on the left upper corner refers to xpos < 0.25 AND ypos < 0.25;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.uuid = '510d47e4-2958-a3d9-e040-e00a18064a99' THEN T1.dish_count ELSE 0 END) - SUM(CASE WHEN T2.uuid = '510d47e4-295a-a3d9-e040-e00a18064a99' THEN T1.dish_count ELSE 0 END) FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id",
+    "question_id": null,
+    "question": "Calculate the total dish count for menu with uuid of \"510d47e4-2958-a3d9-e040-e00a18064a99\" & \"510d47e4-295a-a3d9-e040-e00a18064a99\".",
+    "difficulty": "",
+    "evidence": "total dish count for uuid of '510d47e4-2958-a3d9-e040-e00a18064a99' = SUM(dish_count WHERE uuid = '510d47e4-2958-a3d9-e040-e00a18064a99'); total dish count for uuid of '510d47e4-295a-a3d9-e040-e00a18064a99 = SUM(dish_count WHERE uuid = '510d47e4-295a-a3d9-e040-e00a18064a99');"
+  },
+  {
+    "sql": "SELECT SUM(T2.price) FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id WHERE T1.menu_id = 12882",
+    "question_id": null,
+    "question": "Calculate the total price of items for menu with ID 12882.",
+    "difficulty": "",
+    "evidence": "total price = SUM(price);"
+  },
+  {
+    "sql": "SELECT name FROM Dish ORDER BY highest_price DESC LIMIT 5",
+    "question_id": null,
+    "question": "List the top five dishes, by descending order, in terms of highest price.",
+    "difficulty": "",
+    "evidence": "highest price refers to MAX(highest_price);"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Dish WHERE lowest_price = 0",
+    "question_id": null,
+    "question": "Among the dishes, how many of them are for free?",
+    "difficulty": "",
+    "evidence": "free refers to lowest_price = 0;"
+  },
+  {
+    "sql": "SELECT name FROM Dish WHERE first_appeared = 1855 AND last_appeared = 1900",
+    "question_id": null,
+    "question": "What dishes made their first and last appearances in 1855 and 1900, respectively?",
+    "difficulty": "",
+    "evidence": "first appearance in 1855 refers to first_appeared = 1855; last appearance in 1900 refers to last_appeared = 1900;"
+  },
+  {
+    "sql": "SELECT name FROM Menu GROUP BY name ORDER BY dish_count DESC LIMIT 10",
+    "question_id": null,
+    "question": "Write down the top ten menus with the highest dish count.",
+    "difficulty": "",
+    "evidence": "highest dish count refers to MAX(dish_count);"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM MenuItem AS T1 INNER JOIN Dish AS T2 ON T1.dish_id = T2.id WHERE T1.xpos > 0.75 AND T1.ypos < 0.25",
+    "question_id": null,
+    "question": "How many dishes appear in the right upper corner of the menu page?",
+    "difficulty": "",
+    "evidence": "appear in the right upper corner of the menu page refers to xpos > 0.75 and ypos < 0.25;"
+  },
+  {
+    "sql": "SELECT T1.last_appeared - T1.first_appeared, T2.updated_at FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.name = 'Clear green turtle'",
+    "question_id": null,
+    "question": "How long has the \"Clear Green Turtle\" dish appeared on the menu, and tell me when its latest update was?",
+    "difficulty": "",
+    "evidence": "Clear Green Turtle is a name of dish; how long a dish appeared on the menu = SUBTRACT(last_appeared, first_appeared); latest update refers to latest updated_at;"
+  },
+  {
+    "sql": "SELECT T1.name FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.last_appeared - T1.first_appeared > 100",
+    "question_id": null,
+    "question": "Tally the dishes that have appeared on the menu for more than 100 years.",
+    "difficulty": "",
+    "evidence": "appeared on the menu for more than 100 years = SUBTRACT(last_appeared, first_appeared) > 100;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.last_appeared - T1.first_appeared < 5",
+    "question_id": null,
+    "question": "How many dishes have appeared on the menu in less than 5 years?",
+    "difficulty": "",
+    "evidence": "appeared on the menu in less than 5 years = SUBTRACT(last_appeared, first_appeared) < 5;"
+  },
+  {
+    "sql": "SELECT T2.name, T1.price FROM MenuItem AS T1 INNER JOIN Dish AS T2 ON T2.id = T1.dish_id WHERE T2.lowest_price = 0",
+    "question_id": null,
+    "question": "Give me the name and menu price of dishes that were free.",
+    "difficulty": "",
+    "evidence": "dishes that were free refers to lowest_price = 0;"
+  },
+  {
+    "sql": "SELECT T1.price FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T2.id = T1.menu_page_id WHERE T2.menu_id = 12474 AND T2.page_number = 2",
+    "question_id": null,
+    "question": "How much does the dish on page 2 of menu ID 12474 cost?",
+    "difficulty": "",
+    "evidence": "page 2 refers to page_number = 2;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.created_at BETWEEN '2011-03-31 20:24:46 UTC' AND '2011-04-15 23:09:51 UTC' THEN 1 ELSE 0 END) FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id",
+    "question_id": null,
+    "question": "Among the dishes, how many of them were created between 2011-03-31 at 20:24:46 UTC and 2011-04-15 at 23:09:51 UTC.",
+    "difficulty": "",
+    "evidence": "created between 2011-03-31 at 20:24:46 UTC and 2011-04-15 at 23:09:51 UTC refers to created_at between '2011-03-31 20:24:46 UTC' AND '2011-04-15 23:09:51 UTC';"
+  },
+  {
+    "sql": "SELECT T2.sponsor FROM MenuPage AS T1 INNER JOIN Menu AS T2 ON T2.id = T1.menu_id WHERE T1.full_height = 10000",
+    "question_id": null,
+    "question": "Who are the sponsors of the menu whose image full height is more than 10000 mm?",
+    "difficulty": "",
+    "evidence": "image full height is more than 10000 mm refers to full_height > 10000;"
+  },
+  {
+    "sql": "SELECT T1.image_id, T1.full_height, T1.full_width FROM MenuPage AS T1 INNER JOIN Menu AS T2 ON T2.id = T1.menu_id WHERE T2.event = '100TH ANNIVERSARY OF BIRTH OF DANIEL WEBSTER'",
+    "question_id": null,
+    "question": "Write down the image ID, full height, and full width of the menu that were used in the \"100TH ANNIVERSARY OF BIRTH OF DANIEL WEBSTER\" event.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T1.event FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T2.full_width = 2000",
+    "question_id": null,
+    "question": "Under what events was the menu page's full width less than 2000 mm?",
+    "difficulty": "",
+    "evidence": "full width less than 2000 mm refers to full_width < 2000;"
+  },
+  {
+    "sql": "SELECT T1.name FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T2.price = 180000",
+    "question_id": null,
+    "question": "Name the dishes that cost 180,000.",
+    "difficulty": "",
+    "evidence": "cost 180,000 refers to price = 180000;"
+  },
+  {
+    "sql": "SELECT T2.xpos, T2.ypos, T1.last_appeared - T1.first_appeared FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.name = 'Small Hominy'",
+    "question_id": null,
+    "question": "What is the position coordinate on the page menu of the \"Small Hominy\" dish and how long did it appear?",
+    "difficulty": "",
+    "evidence": "position coordinate = xpos, ypos; Small Hominy is a name of dish; how long it appear = SUBTRACT(last_appeared, first_appeared);"
+  },
+  {
+    "sql": "SELECT T1.full_height * T1.full_width, T1.page_number, T1.image_id FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id INNER JOIN Dish AS T3 ON T2.dish_id = T3.id WHERE T3.name = 'Baked Stuffed Mullet & Sauce Pomard'",
+    "question_id": null,
+    "question": "Calculate the image area of the page menu for the dish named \"Baked Stuffed Mullet & Sauce Pomard\". Please include the page number and image ID.",
+    "difficulty": "",
+    "evidence": "image area = MULTIPLY(full_height, full_width);"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Dish WHERE times_appeared > Dish.menus_appeared",
+    "question_id": null,
+    "question": "How many dishes appeared more than once on a menu?",
+    "difficulty": "",
+    "evidence": "appeared more than once on a menu refers to times_appeared > menus_appeared;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu WHERE date LIKE '2015-04%' AND sponsor = 'Krogs Fiskerestaurant'",
+    "question_id": null,
+    "question": "How many menus sponsored by Krogs Fiske Restaurant were created in April 2015?",
+    "difficulty": "",
+    "evidence": "sponsored by Krogs Fiske Restaurant refers to sponsor = 'Krogs Fiskerestaurant'; created in April 2015 refers to date like '2015-04%';"
+  },
+  {
+    "sql": "SELECT name FROM Dish ORDER BY last_appeared - Dish.first_appeared DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which dish has the longest history?",
+    "difficulty": "",
+    "evidence": "longest history refers to MAX(SUBTRACT(last_appeared, first_appeared));"
+  },
+  {
+    "sql": "SELECT event FROM Menu WHERE date = '1887-07-21' AND id = 21380",
+    "question_id": null,
+    "question": "On 1887-07-21, what was the event that lead to the creation of menu id 21380?",
+    "difficulty": "",
+    "evidence": "On 1887-07-21 refers to date = '1887-07-21';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.name = 'Emil Kuehn' THEN 1 ELSE 0 END) FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id",
+    "question_id": null,
+    "question": "How many pages are there in the \"Emil Kuehn\" menu?",
+    "difficulty": "",
+    "evidence": "Emil Kuehn is a name of menu;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.name = 'Puree of split peas aux croutons' THEN 1 ELSE 0 END) FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id",
+    "question_id": null,
+    "question": "How many menus include puree of split peas aux croutons?",
+    "difficulty": "",
+    "evidence": "puree of split peas aux croutons is a name of dish;"
+  },
+  {
+    "sql": "SELECT T1.name FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE SUBSTR(T2.created_at, 1, 4) = '2011' AND SUBSTR(T2.created_at, 7, 1) = '4' AND T1.highest_price IS NULL",
+    "question_id": null,
+    "question": "What are the names of the dishes with a stable price that were created in April of 2011?",
+    "difficulty": "",
+    "evidence": "dishes with a stable price refers to highest_price is null; created in April of 2011 refers to SUBSTR(created_at,1,4) = '2011' and SUBSTR(created_at, 7, 1) = '4';"
+  },
+  {
+    "sql": "SELECT T1.name FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id GROUP BY T2.menu_id ORDER BY COUNT(T2.page_number) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the menu with the highest number of pages?",
+    "difficulty": "",
+    "evidence": "highest number of pages refers to MAX(COUNT(page_number));"
+  },
+  {
+    "sql": "SELECT T2.menu_page_id FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.name = 'Mashed potatoes'",
+    "question_id": null,
+    "question": "Provide the menu page ids of all the menu that includes mashed potatoes.",
+    "difficulty": "",
+    "evidence": "mashed potatoes is a name of dish;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T1.sponsor = 'PACIFIC MAIL STEAMSHIP COMPANY' GROUP BY T2.menu_id HAVING COUNT(T2.page_number) <= 2",
+    "question_id": null,
+    "question": "Among the menus sponsored by Pacific Mail Steamship Company, how many menus have no more than 2 pages?",
+    "difficulty": "",
+    "evidence": "sponsored by Pacific Mail Steamship Company refers to sponsor = 'PACIFIC MAIL STEAMSHIP COMPANY'; no more than 2 pages refers to COUNT(page_number) < = 2;"
+  },
+  {
+    "sql": "SELECT T1.menu_page_id FROM MenuItem AS T1 INNER JOIN Dish AS T2 ON T2.id = T1.dish_id WHERE T2.name = 'Milk' ORDER BY T1.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the menus that include milk, what is the menu page id of the menu that has the highest price?",
+    "difficulty": "",
+    "evidence": "milk is a name of dish; highest price refers to MAX(price);"
+  },
+  {
+    "sql": "SELECT T2.menu_id FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T1.sponsor = 'OCCIDENTAL & ORIENTAL STEAMSHIP COMPANY' GROUP BY T2.menu_id ORDER BY COUNT(T2.page_number) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the menu id of the menu sponsored by Occidental and Oriental Steamship Company with the highest number of pages?",
+    "difficulty": "",
+    "evidence": "sponsored by Occidental and Oriental Steamship Company refers to sponsor = 'OCCIDENTAL & ORIENTAL STEAMSHIP COMPANY'; highest number of pages refers to MAX(COUNT(page_number));"
+  },
+  {
+    "sql": "SELECT T2.xpos, T2.ypos FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.name = 'breaded veal cutlet with peas'",
+    "question_id": null,
+    "question": "List the positions of the dish \"breaded veal cutlet with peas\" on every menu where it appeared.",
+    "difficulty": "",
+    "evidence": "positions = xpos, ypos; breaded veal cutlet with peas is a name of dish;"
+  },
+  {
+    "sql": "SELECT T2.name FROM MenuItem AS T1 INNER JOIN Dish AS T2 ON T2.id = T1.dish_id WHERE T1.xpos > 0.75 AND T1.ypos > 0.75 AND T1.menu_page_id = 48706",
+    "question_id": null,
+    "question": "What are the names of the dishes shown in the lower right corner of menu page 48706?",
+    "difficulty": "",
+    "evidence": "shown in the lower right corner refers to xpos > 0.75 AND ypos > 0.75;"
+  },
+  {
+    "sql": "SELECT T4.name FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id INNER JOIN MenuItem AS T3 ON T2.id = T3.menu_page_id INNER JOIN Dish AS T4 ON T3.dish_id = T4.id WHERE T1.sponsor = 'THE SOCIETY OF THE CUMBERLAND' AND T1.event = '19NTH REUNION' AND T1.place = 'GRAND PACIFIC HOTEL,CHICAGO,ILL'",
+    "question_id": null,
+    "question": "What are the names of the dishes in the menu sponsored by The Society of Cumberland that was created for the 19th reunion at Grand Pacific Hotel in Chicago, Illinois?",
+    "difficulty": "",
+    "evidence": "sponsored by The Society of Cumberland refers to sponsor = 'THE SOCIETY OF THE CUMBERLAND'; created for the 19th reunion refers to event = '19NTH REUNION'; Grand Pacific Hotel in Chicago, Illinois refers to place = 'GRAND PACIFIC HOTEL, CHICAGO, ILL';"
+  },
+  {
+    "sql": "SELECT T4.sponsor FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id INNER JOIN Dish AS T3 ON T2.dish_id = T3.id INNER JOIN Menu AS T4 ON T4.id = T1.menu_id WHERE T3.name = 'Baked apples with cream' AND T3.id = 107 ORDER BY T2.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the menus that include baked apples with cream, who is the sponsor of the menu with the highest price?",
+    "difficulty": "",
+    "evidence": "baked apples with cream is a name of dish; highest price refers to MAX(price);"
+  },
+  {
+    "sql": "SELECT COUNT(*), T1.dish_id FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id INNER JOIN Dish AS T4 ON T1.dish_id = T4.id WHERE T3.name = 'Souper de Luxe' GROUP BY T3.id ORDER BY COUNT(T1.dish_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the average number of dishes per menu in the Souper de Luxe menus? Identify what is the name of the dish that appeared the most in all of its menus.",
+    "difficulty": "",
+    "evidence": "average number of dishes per menu = DIVIDE(COUNT(dish_id), COUNT(menu_page_id)); Souper de Luxe is a name of menu; dish that appeared the most in all of its menus refers to MAX(COUNT(dish_id));"
+  },
+  {
+    "sql": "SELECT id FROM Menu WHERE sponsor IS NULL",
+    "question_id": null,
+    "question": "Please list the IDs of all the menus that are DIYs of the restaurant.",
+    "difficulty": "",
+    "evidence": "menus that are DIYs of the restaurant refers to sponsor is null;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu WHERE event = 'LUNCH'",
+    "question_id": null,
+    "question": "How many menus were created for lunch?",
+    "difficulty": "",
+    "evidence": "created for lunch refers to event = 'LUNCH';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu WHERE page_count > 10 AND dish_count > 20",
+    "question_id": null,
+    "question": "Among the menus with over 10 pages, how many of them have over 20 dishes?",
+    "difficulty": "",
+    "evidence": "menus with over 10 pages refers to page_count > 10; over 20 dishes refers to dish_count > 20;"
+  },
+  {
+    "sql": "SELECT id FROM Menu ORDER BY dish_count DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the ID of the menu with the most number of dishes?",
+    "difficulty": "",
+    "evidence": "most number of dishes refers to MAX(COUNT(dish_count));"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu WHERE name = 'Zentral Theater Terrace'",
+    "question_id": null,
+    "question": "How many dishes are there on the menu \"Zentral Theater Terrace\"?",
+    "difficulty": "",
+    "evidence": "Zentral Theater Terrace is a name of menu;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Menu WHERE call_number IS NULL AND strftime('%Y', date) < '1950'",
+    "question_id": null,
+    "question": "Among the menus that did not support taking out or booking in advance, how many of them were created before 1950?",
+    "difficulty": "",
+    "evidence": "did not support taking out or booking in advance refers to call_number is null; created before 1950 refers to strftime('%Y', date) < '1950';"
+  },
+  {
+    "sql": "SELECT T2.image_id FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T1.name = 'Zentral Theater Terrace' AND T2.page_number = 1",
+    "question_id": null,
+    "question": "What is the image ID of page 1 of the menu \"Zentral Theater Terrace\"?",
+    "difficulty": "",
+    "evidence": "page 1 refers to page_number = 1; Zentral Theater Terrace is a name of menu;"
+  },
+  {
+    "sql": "SELECT T1.name FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T2.image_id = 5189412",
+    "question_id": null,
+    "question": "To which menu does the menu page image ID5189412 belong? Please give its name.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT CASE WHEN SUM(CASE WHEN T1.name = 'Zentral Theater Terrace' THEN T2.full_width ELSE 0 END) - SUM(CASE WHEN T1.name = 'Young''s Hotel' THEN T2.full_width ELSE 0 END) > 0 THEN 'Zentral Theater Terrace' ELSE 'Young''s Hotel' END FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id",
+    "question_id": null,
+    "question": "Which menu page has a bigger width, page 1 of \"Zentral Theater Terrace\" or page 1 of \"Young's Hotel\"?",
+    "difficulty": "",
+    "evidence": "if SUM(full_width where page_number = 1 AND menu.name = 'Zentral Theater Terrace') > SUM(full_width where page_number = 1 AND menu.name = 'Young''s Hotel'), it means Zentral Theater Terrace menu page is bigger than Young's Hotel; if SUM(full_width WHERE page_number = 1 AND menu.name = 'Young''s Hotel') < SUM(full_width WHERE page_number = 1 AND menu.name = 'Zentral Theater Terrace'), it means Young's Hotel menu page is bigger than Zentral Theater Terrace;"
+  },
+  {
+    "sql": "SELECT T1.page_number FROM MenuPage AS T1 INNER JOIN Menu AS T2 ON T2.id = T1.menu_id WHERE T2.name = 'Ritz Carlton' ORDER BY T1.full_height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which menu page of \"Ritz Carlton\" has the biggest height?",
+    "difficulty": "",
+    "evidence": "Ritz Carlton is a name of menu; biggest height refers to MAX(full_height);"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.name = 'Ritz Carlton' THEN 1 ELSE 0 END) FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T2.full_width > 1000",
+    "question_id": null,
+    "question": "Among the menu pages of \"Ritz Carlton\", how many of them have a width of over 1000?",
+    "difficulty": "",
+    "evidence": "Ritz Carlton is a name of menu; width of over 2490 refers to full_width > 1000;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.page_number = 1 THEN 1 ELSE 0 END) FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id WHERE T1.menu_id = 12882",
+    "question_id": null,
+    "question": "How many dishes are there on page 1 of menu ID12882?",
+    "difficulty": "",
+    "evidence": "page 1 refers to page_number = 1;"
+  },
+  {
+    "sql": "SELECT T3.name FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id INNER JOIN Dish AS T3 ON T2.dish_id = T3.id WHERE T1.menu_id = 12882 AND T1.page_number = 1",
+    "question_id": null,
+    "question": "Please list the names of all the dishes on page 1 of menu ID12882.",
+    "difficulty": "",
+    "evidence": "page 1 refers to page_number = 1;"
+  },
+  {
+    "sql": "SELECT T1.page_number FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id INNER JOIN Dish AS T3 ON T2.dish_id = T3.id WHERE T3.name = 'Chicken gumbo'",
+    "question_id": null,
+    "question": "Please list the page numbers of all the menu pages on which the dish \"Chicken gumbo\" had appeared.",
+    "difficulty": "",
+    "evidence": "Chicken gumbo is a name of dish;"
+  },
+  {
+    "sql": "SELECT T1.id FROM MenuPage AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.menu_page_id INNER JOIN Dish AS T3 ON T2.dish_id = T3.id WHERE T3.name = 'Chicken gumbo' ORDER BY T1.full_width DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the menu pages on which the dish \"Chicken gumbo\" had appeared, what is the menu ID of the one with the biggest width?",
+    "difficulty": "",
+    "evidence": "Chicken gumbo is a name of dish; biggest width refers to MAX(full_width);"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.name = 'Chicken gumbo' THEN 1 ELSE 0 END) FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id",
+    "question_id": null,
+    "question": "For how many times had the dish \"Chicken gumbo\" appeared on a menu page?",
+    "difficulty": "",
+    "evidence": "Chicken gumbo is a name of dish;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.name = 'Paysanne Soup' THEN 1 ELSE 0 END) FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.highest_price IS NULL",
+    "question_id": null,
+    "question": "Among the menu pages on which the dish \"Paysanne Soup\" had appeared, how many of them had a stable price for the dish?",
+    "difficulty": "",
+    "evidence": "Paysanne Soup is a name of dish; stable price refers to highest_price is null;"
+  },
+  {
+    "sql": "SELECT T2.price FROM Dish AS T1 INNER JOIN MenuItem AS T2 ON T1.id = T2.dish_id WHERE T1.name = 'Chicken gumbo' ORDER BY T2.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest price of the dish \"Chicken gumbo\" on a menu page?",
+    "difficulty": "",
+    "evidence": "highest price refers to MAX(price); Chicken gumbo is a name of dish;"
+  },
+  {
+    "sql": "SELECT T2.full_height * T2.full_width FROM Menu AS T1 INNER JOIN MenuPage AS T2 ON T1.id = T2.menu_id WHERE T1.name = 'Zentral Theater Terrace' AND T2.page_number = 1",
+    "question_id": null,
+    "question": "How much space does page 1 of the menu \"Zentral Theater Terrace\" cover?",
+    "difficulty": "",
+    "evidence": "how much space = MULTIPLY(full_height, full_width); Zentral Theater Terrace is a name of menu;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(dish_id) AS REAL) / COUNT(T3.page_count) FROM MenuItem AS T1 INNER JOIN MenuPage AS T2 ON T1.menu_page_id = T2.id INNER JOIN Menu AS T3 ON T2.menu_id = T3.id WHERE T2.menu_id = 12882",
+    "question_id": null,
+    "question": "What is the average number of dishes per menu page of menu ID12882?",
+    "difficulty": "",
+    "evidence": "average number of dishes per menu = DIVIDE(COUNT(dish_id), COUNT(page_count));"
+  }
+]

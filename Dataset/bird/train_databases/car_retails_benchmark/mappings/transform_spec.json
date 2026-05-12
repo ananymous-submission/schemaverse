@@ -1,0 +1,4892 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "customersByStatesCaNyPaBcCountyCork": {
+          "source_table": "customers",
+          "column_map": {
+            "customerId": "customerNumber",
+            "addressPrimary": "addressLine1",
+            "addressSecondary": "addressLine2",
+            "creditLimitAmount": "creditLimit",
+            "customerFullName": "customerName",
+            "phoneNumber": "phone",
+            "postalCodeValue": "postalCode",
+            "salesRepresentativeId": "salesRepEmployeeNumber",
+            "region": "state"
+          },
+          "projected_columns": [
+            "customerNumber",
+            "addressLine1",
+            "addressLine2",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber",
+            "state"
+          ],
+          "row_predicate": "((\"state\" = 'CA' OR (\"state\" = 'NY' OR (\"state\" = 'PA' OR (\"state\" = 'BC' OR \"state\" = 'Co. Cork')))) OR (rowid IN (119,121,125,141,144,146,166,167,171,187,189,201,209,227,237,242,256,273,299,303,328,333,335,363,381,382,386,406,412,443,452,458,484)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customersByCity"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customersByCity",
+          "is_row_partition": true,
+          "row_partition_partner": "customersByStatesMaCtNswVictoria",
+          "row_partition_peers": [
+            "customersByStatesMaCtNswVictoria",
+            "customersOtherStates"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "addressline1"
+        },
+        "customersByStatesMaCtNswVictoria": {
+          "source_table": "customers",
+          "column_map": {
+            "customerId": "customerNumber",
+            "addressPrimary": "addressLine1",
+            "addressSecondary": "addressLine2",
+            "creditLimitAmount": "creditLimit",
+            "customerFullName": "customerName",
+            "phoneNumber": "phone",
+            "postalCodeValue": "postalCode",
+            "salesRepresentativeId": "salesRepEmployeeNumber",
+            "region": "state"
+          },
+          "projected_columns": [
+            "customerNumber",
+            "addressLine1",
+            "addressLine2",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber",
+            "state"
+          ],
+          "row_predicate": "((\"state\" = 'MA' OR (\"state\" = 'CT' OR (\"state\" = 'NSW' OR \"state\" = 'Victoria'))) OR (rowid IN (181,239,321,339,347,348,450,475,486,487)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customersByCity"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customersByCity",
+          "is_row_partition": true,
+          "row_partition_partner": "customersOtherStates",
+          "row_partition_peers": [
+            "customersOtherStates",
+            "customersByStatesCaNyPaBcCountyCork"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "addressline1"
+        },
+        "customersOtherStates": {
+          "source_table": "customers",
+          "column_map": {
+            "customerId": "customerNumber",
+            "addressPrimary": "addressLine1",
+            "addressSecondary": "addressLine2",
+            "creditLimitAmount": "creditLimit",
+            "customerFullName": "customerName",
+            "phoneNumber": "phone",
+            "postalCodeValue": "postalCode",
+            "salesRepresentativeId": "salesRepEmployeeNumber",
+            "region": "state"
+          },
+          "projected_columns": [
+            "customerNumber",
+            "addressLine1",
+            "addressLine2",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber",
+            "state"
+          ],
+          "row_predicate": "((\"state\" IS NULL OR \"state\" NOT IN ('CA', 'MA', 'NY', 'CT', 'PA', 'BC', 'NSW', 'Victoria', 'Co. Cork')) OR (rowid IN (114,175,204,320,362,379,462)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customersByCity"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customersByCity",
+          "is_row_partition": true,
+          "row_partition_partner": "customersByStatesCaNyPaBcCountyCork",
+          "row_partition_peers": [
+            "customersByStatesCaNyPaBcCountyCork",
+            "customersByStatesMaCtNswVictoria"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "addressline1"
+        },
+        "customersByCity": {
+          "source_table": "customers",
+          "column_map": {
+            "customerId": "customerNumber",
+            "cityName": "city",
+            "contactGivenName": "contactFirstName",
+            "contactFamilyName": "contactLastName",
+            "countryName": "country",
+            "creditLimitAmount": "creditLimit",
+            "customerFullName": "customerName",
+            "phoneNumber": "phone",
+            "postalCodeValue": "postalCode",
+            "salesRepresentativeId": "salesRepEmployeeNumber"
+          },
+          "projected_columns": [
+            "customerNumber",
+            "city",
+            "contactFirstName",
+            "contactLastName",
+            "country",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customers_addressline1"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customers_addressline1",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "city"
+        },
+        "employeesContactEmails": {
+          "source_table": "employees",
+          "column_map": {
+            "employeeId": "employeeNumber",
+            "emailAddress": "email",
+            "phoneExtension": "extension",
+            "jobRole": "jobTitle",
+            "officeId": "officeCode",
+            "managerId": "reportsTo"
+          },
+          "projected_columns": [
+            "employeeNumber",
+            "email",
+            "extension",
+            "jobTitle",
+            "officeCode",
+            "reportsTo"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "employeesDirectory"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "employeesDirectory",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "email"
+        },
+        "employeesDirectory": {
+          "source_table": "employees",
+          "column_map": {
+            "employeeId": "employeeNumber",
+            "phoneExtension": "extension",
+            "givenName": "firstName",
+            "jobRole": "jobTitle",
+            "familyName": "lastName",
+            "managerId": "reportsTo"
+          },
+          "projected_columns": [
+            "employeeNumber",
+            "extension",
+            "firstName",
+            "jobTitle",
+            "lastName",
+            "reportsTo"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "employeesContactEmails"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "employeesContactEmails",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "extension"
+        },
+        "ordersWithCommentsForOtherStateCustomers": {
+          "source_table": "orders",
+          "column_map": {
+            "orderId": "orderNumber",
+            "orderNotes": "comments",
+            "customerId": "customerNumber",
+            "orderPlacedDate": "orderDate",
+            "requiredByDate": "requiredDate",
+            "dateShipped": "shippedDate",
+            "orderStatus": "status"
+          },
+          "projected_columns": [
+            "orderNumber",
+            "comments",
+            "customerNumber",
+            "orderDate",
+            "requiredDate",
+            "shippedDate",
+            "status"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "orders_comments"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "orders_comments",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "comments_2"
+        },
+        "customerPaymentRecords": {
+          "source_table": "payments",
+          "column_map": {
+            "customerId": "customerNumber",
+            "paymentReference": "checkNumber",
+            "paymentPostedDate": "paymentDate",
+            "paymentAmount": "amount"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "orderDetailsLinesFourToSix": {
+          "source_table": "orderdetails",
+          "column_map": {
+            "orderId": "orderNumber",
+            "productId": "productCode",
+            "quantity": "quantityOrdered",
+            "unitPrice": "priceEach",
+            "lineNumber": "orderLineNumber"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" > 3 AND \"orderLineNumber\" <= 6) OR (rowid IN (2,7,8,24,39,73,92,107,121,124,126,127,139,143,144,154,158,159,161,172,175,191,193,201,211,228,229,247,265,276,280,282,283,289,297,299,311,319,320,321,322,327,332,341,342,343,379,390,408,411,424,435,439,452,454,460,465,476,477,486,489,502,504,507,513,520,528,538,544,547,552,556,561,564,572,597,614,638,649,654,657,679,687,692,693,694,709,723,728,739,740,753,761,783,793,824,827,832,846,850,854,855,856,877,913,924,927,933,945,948,951,953,954,957,961,983,997,1002,1010,1026,1046,1051,1052,1071,1092,1099,1105,1110,1119,1123,1124,1127,1129,1130,1131,1142,1155,1158,1165,1167,1170,1192,1196,1204,1205,1206,1213,1230,1242,1244,1251,1257,1260,1261,1276,1285,1286,1293,1297,1306,1314,1331,1340,1350,1353,1356,1357,1362,1369,1377,1380,1384,1387,1398,1400,1402,1420,1437,1443,1451,1454,1478,1487,1512,1514,1518,1519,1525,1531,1535,1538,1541,1542,1547,1552,1560,1562,1573,1575,1586,1599,1607,1639,1645,1647,1651,1686,1697,1707,1711,1715,1729,1731,1747,1766,1769,1771,1772,1784,1791,1798,1804,1807,1808,1809,1810,1821,1822,1836,1840,1844,1851,1852,1867,1869,1876,1891,1902,1905,1914,1917,1919,1924,1927,1932,1952,1953,1974,1975,1979,2001,2003,2007,2015,2027,2028,2053,2056,2061,2063,2065,2084,2103,2115,2121,2124,2131,2145,2157,2172,2174,2185,2213,2222,2226,2238,2247,2250,2266,2267,2280,2282,2283,2294,2295,2299,2308,2310,2341,2342,2346,2360,2366,2369,2379,2390,2392,2393,2405,2406,2431,2432,2452,2464,2490,2495,2496,2498,2499,2512,2513,2518,2525,2542,2546,2555,2572,2596,2597,2611,2644,2655,2658,2668,2695,2703,2712,2725,2726,2739,2740,2750,2756,2757,2766,2767,2774,2792,2800,2804,2813,2816,2818,2827,2828,2834,2841,2842,2845,2857,2858,2863,2869,2872,2888,2894,2895,2901,2910,2912,2932,2947,2958,2969,2970,2971,2974,2991,2996)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "orderDetailsLinesSevenToNine",
+          "row_partition_peers": [
+            "orderDetailsLinesSevenToNine",
+            "orderdetails_q4",
+            "orderdetails_q1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "orderDetailsLinesSevenToNine": {
+          "source_table": "orderdetails",
+          "column_map": {
+            "orderId": "orderNumber",
+            "productId": "productCode",
+            "quantity": "quantityOrdered",
+            "unitPrice": "priceEach",
+            "lineNumber": "orderLineNumber"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" > 6 AND \"orderLineNumber\" <= 9) OR (rowid IN (3,5,20,26,47,59,64,77,91,133,150,153,156,164,180,199,213,246,254,270,277,287,290,296,298,302,325,337,345,347,356,362,373,381,389,402,442,447,450,462,484,494,529,533,535,545,550,555,559,563,565,573,574,599,616,651,658,660,667,684,701,711,712,714,717,726,727,755,775,806,820,821,826,830,843,845,857,881,889,897,901,906,908,918,919,940,941,952,963,969,1000,1003,1014,1057,1065,1072,1079,1086,1097,1104,1113,1114,1115,1141,1143,1146,1148,1153,1166,1169,1172,1200,1202,1203,1212,1217,1227,1233,1245,1246,1247,1255,1266,1275,1289,1292,1294,1298,1305,1317,1320,1321,1333,1338,1346,1352,1359,1360,1372,1396,1403,1404,1407,1414,1417,1444,1445,1453,1466,1496,1501,1502,1515,1527,1540,1549,1579,1581,1582,1600,1601,1606,1609,1623,1650,1716,1722,1725,1732,1755,1774,1794,1803,1806,1820,1828,1843,1857,1859,1872,1875,1877,1893,1937,1940,1945,1950,1980,1990,2005,2026,2030,2031,2045,2047,2057,2062,2068,2072,2076,2083,2111,2118,2129,2130,2136,2141,2147,2160,2168,2173,2175,2188,2199,2200,2208,2220,2232,2244,2248,2259,2279,2285,2296,2303,2324,2327,2337,2338,2339,2355,2368,2372,2377,2378,2395,2400,2415,2417,2429,2430,2441,2470,2474,2479,2481,2503,2516,2522,2529,2535,2536,2550,2557,2558,2576,2577,2586,2590,2598,2599,2607,2613,2614,2622,2624,2647,2653,2660,2673,2689,2690,2692,2697,2698,2713,2715,2745,2754,2758,2764,2765,2780,2791,2798,2807,2809,2821,2824,2831,2832,2836,2837,2853,2875,2877,2893,2902,2911,2918,2929,2936,2951,2977,2978,2985,2995)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "orderdetails_q4",
+          "row_partition_peers": [
+            "orderdetails_q4",
+            "orderdetails_q1",
+            "orderDetailsLinesFourToSix"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "officesPrimaryAddress": {
+          "source_table": "offices",
+          "column_map": {
+            "officeId": "officeCode",
+            "addressPrimary": "addressLine1",
+            "addressSecondary": "addressLine2",
+            "cityName": "city",
+            "countryName": "country",
+            "phoneNumber": "phone",
+            "postalCodeValue": "postalCode"
+          },
+          "projected_columns": [
+            "officeCode",
+            "addressLine1",
+            "addressLine2",
+            "city",
+            "country",
+            "phone",
+            "postalCode"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "offices_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "offices_city",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "addressline1"
+        },
+        "productsFromCarouselAndSecondGear": {
+          "source_table": "products",
+          "column_map": {
+            "productId": "productCode",
+            "productTitle": "productName",
+            "productCategory": "productLine",
+            "scale": "productScale",
+            "vendorName": "productVendor",
+            "description": "productDescription",
+            "stockQuantity": "quantityInStock",
+            "costPrice": "buyPrice",
+            "listPrice": "MSRP"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"productVendor\" = 'Carousel DieCast Legends' OR \"productVendor\" = 'Second Gear Diecast') OR (rowid IN (2,36,37,58,60,64,72,78,88,95,97)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "productsFromExotoAndGearbox",
+          "row_partition_peers": [
+            "productsFromExotoAndGearbox",
+            "productsFromHighway66AndMotorCity",
+            "products_part5",
+            "products_part1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "productsFromExotoAndGearbox": {
+          "source_table": "products",
+          "column_map": {
+            "productId": "productCode",
+            "productTitle": "productName",
+            "productCategory": "productLine",
+            "scale": "productScale",
+            "vendorName": "productVendor",
+            "description": "productDescription",
+            "stockQuantity": "quantityInStock",
+            "costPrice": "buyPrice",
+            "listPrice": "MSRP"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"productVendor\" = 'Exoto Designs' OR \"productVendor\" = 'Gearbox Collectibles') OR (rowid IN (35,59,68,77,82,106,108)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "productsFromHighway66AndMotorCity",
+          "row_partition_peers": [
+            "productsFromHighway66AndMotorCity",
+            "products_part5",
+            "products_part1",
+            "productsFromCarouselAndSecondGear"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "productsFromHighway66AndMotorCity": {
+          "source_table": "products",
+          "column_map": {
+            "productId": "productCode",
+            "productTitle": "productName",
+            "productCategory": "productLine",
+            "scale": "productScale",
+            "vendorName": "productVendor",
+            "description": "productDescription",
+            "stockQuantity": "quantityInStock",
+            "costPrice": "buyPrice",
+            "listPrice": "MSRP"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"productVendor\" = 'Highway 66 Mini Classics' OR \"productVendor\" = 'Motor City Art Classics') OR (rowid IN (24,26,31,45,48,51,87,89)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "products_part5",
+          "row_partition_peers": [
+            "products_part5",
+            "products_part1",
+            "productsFromCarouselAndSecondGear",
+            "productsFromExotoAndGearbox"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "customers": "customers_city",
+        "employees": "employees_email",
+        "orders": "orders_comments_2"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "OfficeBranch": {
+          "source_table": "offices",
+          "column_map": {
+            "BranchIdentifier": "officeCode",
+            "CityName": "city",
+            "CountryName": "country",
+            "ContactPhone": "phone",
+            "PostalZip": "postalCode",
+            "AdministrativeRegion": "state",
+            "SalesTerritory": "territory"
+          },
+          "projected_columns": [
+            "officeCode",
+            "city",
+            "country",
+            "phone",
+            "postalCode",
+            "state",
+            "territory"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "offices_addressline1"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "offices_addressline1",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "city"
+        },
+        "ProductLineCatalog": {
+          "source_table": "productlines",
+          "column_map": {
+            "ProductLineKey": "productLine",
+            "SummaryDescription": "textDescription",
+            "RichHtmlDescription": "htmlDescription",
+            "ImageData": "image"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "offices": "offices_city"
+      }
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "ord_ln_range_le3": {
+          "source_table": "orderdetails",
+          "column_map": {
+            "ord_id": "orderNumber",
+            "prod_sku": "productCode",
+            "qty_ord": "quantityOrdered",
+            "price_each": "priceEach",
+            "line_no": "orderLineNumber"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" <= 3) OR (rowid IN (14,18,23,30,31,36,45,50,55,57,58,67,71,88,89,165,167,183,186,188,194,202,203,205,210,220,225,239,250,252,256,258,308,309,316,336,367,368,370,371,397,406,410,414,422,431,432,433,444,478,485,493,495,496,499,515,516,521,527,531,532,541,543,579,581,582,589,591,602,609,623,625,626,629,631,641,642,663,668,669,690,691,703,738,748,749,751,754,767,772,774,778,779,780,803,808,809,818,834,865,868,870,890,891,910,928,929,936,938,974,982,985,989,1009,1021,1030,1032,1036,1061,1063,1066,1068,1070,1076,1085,1087,1111,1149,1152,1154,1160,1164,1176,1179,1188,1195,1215,1218,1229,1235,1241,1274,1280,1312,1315,1319,1348,1364,1371,1385,1410,1429,1548,1558,1559,1568,1571,1585,1613,1614,1615,1616,1621,1628,1631,1633,1637,1655,1658,1663,1664,1665,1666,1674,1689,1690,1698,1705,1712,1713,1728,1730,1734,1736,1738,1746,1748,1764,1765,1778,1779,1780,1816,1819,1842,1866,1878,1881,1889,1892,1896,1900,1903,1908,1938,1941,1944,1956,1988,1995,2008,2014,2018,2022,2034,2035,2037,2044,2074,2075,2080,2096,2112,2143,2153,2161,2163,2169,2179,2181,2190,2203,2205,2206,2252,2254,2260,2323,2333,2351,2353,2358,2359,2423,2425,2444,2446,2459,2472,2473,2484,2485,2508,2538,2545,2561,2562,2565,2566,2583,2587,2592,2603,2627,2628,2639,2640,2651,2671,2706,2717,2718,2771,2775,2777,2785,2812,2815,2851,2883,2896,2897,2898,2899,2923,2942,2967)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "orderdetails_q2",
+          "row_partition_peers": [
+            "orderdetails_q2",
+            "orderdetails_q3",
+            "ord_ln_gt9_or_null"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "ord_ln_gt9_or_null": {
+          "source_table": "orderdetails",
+          "column_map": {
+            "ord_id": "orderNumber",
+            "prod_sku": "productCode",
+            "qty_ord": "quantityOrdered",
+            "price_each": "priceEach",
+            "line_no": "orderLineNumber"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"orderLineNumber\" > 9 OR \"orderLineNumber\" IS NULL) OR (rowid IN (21,25,28,29,46,68,83,104,138,147,151,162,195,197,207,218,241,255,257,267,301,340,348,352,359,364,369,372,378,383,405,419,429,446,451,453,456,501,524,525,530,546,569,585,590,598,615,627,636,652,653,664,670,680,688,716,731,733,737,746,768,769,781,785,786,796,801,804,810,823,825,839,866,905,912,930,992,993,1004,1033,1034,1056,1089,1102,1116,1118,1168,1174,1186,1187,1201,1211,1232,1238,1256,1265,1269,1278,1301,1329,1336,1339,1341,1347,1349,1374,1375,1388,1416,1421,1423,1428,1455,1457,1460,1472,1473,1477,1483,1498,1510,1516,1544,1545,1557,1569,1594,1617,1643,1654,1688,1719,1721,1724,1741,1751,1758,1762,1782,1788,1793,1799,1801,1814,1817,1833,1837,1883,1897,1909,1913,1929,1955,1971,1977,1981,2004,2021,2064,2067,2079,2100,2106,2107,2114,2120,2122,2127,2150,2151,2167,2183,2209,2230,2233,2234,2253,2262,2264,2304,2325,2332,2335,2348,2352,2386,2391,2397,2398,2421,2426,2428,2445,2461,2469,2482,2504,2506,2507,2552,2553,2554,2580,2582,2589,2633,2650,2652,2670,2691,2699,2700,2708,2729,2737,2738,2749,2761,2762,2781,2795,2797,2814,2855,2861,2866,2873,2881,2906,2907,2920,2921,2948,2953,2955,2965)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "ord_ln_range_le3",
+          "row_partition_peers": [
+            "ord_ln_range_le3",
+            "orderdetails_q2",
+            "orderdetails_q3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "prod_vendor_classic_autoart_minlin": {
+          "source_table": "products",
+          "column_map": {
+            "prod_sku": "productCode",
+            "prod_name": "productName",
+            "prod_line": "productLine",
+            "scale": "productScale",
+            "vendor": "productVendor",
+            "descr": "productDescription",
+            "stock_qty": "quantityInStock",
+            "buy_price": "buyPrice",
+            "msrp": "MSRP"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"productVendor\" = 'Classic Metal Creations' OR (\"productVendor\" = 'Autoart Studio Design' OR \"productVendor\" = 'Min Lin Diecast')) OR (rowid IN (4,11,12,20,23,28,47,74,80,90,99,100,102)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "products_part2",
+          "row_partition_peers": [
+            "products_part2",
+            "products_part3",
+            "products_part4",
+            "prod_vendor_other_or_null"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "prod_vendor_other_or_null": {
+          "source_table": "products",
+          "column_map": {
+            "prod_sku": "productCode",
+            "prod_name": "productName",
+            "prod_line": "productLine",
+            "scale": "productScale",
+            "vendor": "productVendor",
+            "descr": "productDescription",
+            "stock_qty": "quantityInStock",
+            "buy_price": "buyPrice",
+            "msrp": "MSRP"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"productVendor\" IS NULL OR \"productVendor\" NOT IN ('Classic Metal Creations', 'Carousel DieCast Legends', 'Exoto Designs', 'Gearbox Collectibles', 'Highway 66 Mini Classics', 'Motor City Art Classics', 'Autoart Studio Design', 'Min Lin Diecast', 'Second Gear Diecast')) OR (rowid IN (3,18,52,57,61,62,66,101)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "prod_vendor_classic_autoart_minlin",
+          "row_partition_peers": [
+            "prod_vendor_classic_autoart_minlin",
+            "products_part2",
+            "products_part3",
+            "products_part4"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "ord_meta_notes": {
+          "source_table": "orders",
+          "column_map": {
+            "ord_id": "orderNumber",
+            "notes": "comments",
+            "cust_id": "customerNumber",
+            "ord_status": "status"
+          },
+          "projected_columns": [
+            "orderNumber",
+            "comments",
+            "customerNumber",
+            "status"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "orders_comments_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "orders_comments_2",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "comments"
+        }
+      },
+      "table_rename_map": {
+        "orderdetails": "orderdetails_q1",
+        "products": "products_part1"
+      }
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "customers_addressline1_part1": "customersByStatesCaNyPaBcCountyCork",
+        "customers_addressline1_part2": "customersByStatesMaCtNswVictoria",
+        "customers_addressline1_part3": "customersOtherStates",
+        "customers_city": "customersByCity",
+        "employees_email": "employeesContactEmails",
+        "employees_extension": "employeesDirectory",
+        "orders_comments_2": "ordersWithCommentsForOtherStateCustomers",
+        "payments": "customerPaymentRecords",
+        "orderdetails_q2": "orderDetailsLinesFourToSix",
+        "orderdetails_q3": "orderDetailsLinesSevenToNine",
+        "offices_addressline1": "officesPrimaryAddress",
+        "products_part2": "productsFromCarouselAndSecondGear",
+        "products_part3": "productsFromExotoAndGearbox",
+        "products_part4": "productsFromHighway66AndMotorCity"
+      },
+      "column_renames": {
+        "customers_addressline1_part1": {
+          "customerNumber": "customerId",
+          "addressLine1": "addressPrimary",
+          "addressLine2": "addressSecondary",
+          "creditLimit": "creditLimitAmount",
+          "customerName": "customerFullName",
+          "phone": "phoneNumber",
+          "postalCode": "postalCodeValue",
+          "salesRepEmployeeNumber": "salesRepresentativeId",
+          "state": "region"
+        },
+        "customers_addressline1_part2": {
+          "customerNumber": "customerId",
+          "addressLine1": "addressPrimary",
+          "addressLine2": "addressSecondary",
+          "creditLimit": "creditLimitAmount",
+          "customerName": "customerFullName",
+          "phone": "phoneNumber",
+          "postalCode": "postalCodeValue",
+          "salesRepEmployeeNumber": "salesRepresentativeId",
+          "state": "region"
+        },
+        "customers_addressline1_part3": {
+          "customerNumber": "customerId",
+          "addressLine1": "addressPrimary",
+          "addressLine2": "addressSecondary",
+          "creditLimit": "creditLimitAmount",
+          "customerName": "customerFullName",
+          "phone": "phoneNumber",
+          "postalCode": "postalCodeValue",
+          "salesRepEmployeeNumber": "salesRepresentativeId",
+          "state": "region"
+        },
+        "customers_city": {
+          "customerNumber": "customerId",
+          "city": "cityName",
+          "contactFirstName": "contactGivenName",
+          "contactLastName": "contactFamilyName",
+          "country": "countryName",
+          "creditLimit": "creditLimitAmount",
+          "customerName": "customerFullName",
+          "phone": "phoneNumber",
+          "postalCode": "postalCodeValue",
+          "salesRepEmployeeNumber": "salesRepresentativeId"
+        },
+        "employees_email": {
+          "employeeNumber": "employeeId",
+          "email": "emailAddress",
+          "extension": "phoneExtension",
+          "jobTitle": "jobRole",
+          "officeCode": "officeId",
+          "reportsTo": "managerId"
+        },
+        "employees_extension": {
+          "employeeNumber": "employeeId",
+          "extension": "phoneExtension",
+          "firstName": "givenName",
+          "jobTitle": "jobRole",
+          "lastName": "familyName",
+          "reportsTo": "managerId"
+        },
+        "orders_comments_2": {
+          "orderNumber": "orderId",
+          "comments": "orderNotes",
+          "customerNumber": "customerId",
+          "orderDate": "orderPlacedDate",
+          "requiredDate": "requiredByDate",
+          "shippedDate": "dateShipped",
+          "status": "orderStatus"
+        },
+        "payments": {
+          "customerNumber": "customerId",
+          "checkNumber": "paymentReference",
+          "paymentDate": "paymentPostedDate",
+          "amount": "paymentAmount"
+        },
+        "orderdetails_q2": {
+          "orderNumber": "orderId",
+          "productCode": "productId",
+          "quantityOrdered": "quantity",
+          "priceEach": "unitPrice",
+          "orderLineNumber": "lineNumber"
+        },
+        "orderdetails_q3": {
+          "orderNumber": "orderId",
+          "productCode": "productId",
+          "quantityOrdered": "quantity",
+          "priceEach": "unitPrice",
+          "orderLineNumber": "lineNumber"
+        },
+        "offices_addressline1": {
+          "officeCode": "officeId",
+          "addressLine1": "addressPrimary",
+          "addressLine2": "addressSecondary",
+          "city": "cityName",
+          "country": "countryName",
+          "phone": "phoneNumber",
+          "postalCode": "postalCodeValue"
+        },
+        "products_part2": {
+          "productCode": "productId",
+          "productName": "productTitle",
+          "productLine": "productCategory",
+          "productScale": "scale",
+          "productVendor": "vendorName",
+          "productDescription": "description",
+          "quantityInStock": "stockQuantity",
+          "buyPrice": "costPrice",
+          "MSRP": "listPrice"
+        },
+        "products_part3": {
+          "productCode": "productId",
+          "productName": "productTitle",
+          "productLine": "productCategory",
+          "productScale": "scale",
+          "productVendor": "vendorName",
+          "productDescription": "description",
+          "quantityInStock": "stockQuantity",
+          "buyPrice": "costPrice",
+          "MSRP": "listPrice"
+        },
+        "products_part4": {
+          "productCode": "productId",
+          "productName": "productTitle",
+          "productLine": "productCategory",
+          "productScale": "scale",
+          "productVendor": "vendorName",
+          "productDescription": "description",
+          "quantityInStock": "stockQuantity",
+          "buyPrice": "costPrice",
+          "MSRP": "listPrice"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "offices_city": "OfficeBranch",
+        "productlines": "ProductLineCatalog"
+      },
+      "column_renames": {
+        "offices_city": {
+          "officeCode": "BranchIdentifier",
+          "city": "CityName",
+          "country": "CountryName",
+          "phone": "ContactPhone",
+          "postalCode": "PostalZip",
+          "state": "AdministrativeRegion",
+          "territory": "SalesTerritory"
+        },
+        "productlines": {
+          "productLine": "ProductLineKey",
+          "textDescription": "SummaryDescription",
+          "htmlDescription": "RichHtmlDescription",
+          "image": "ImageData"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_3": {
+      "table_renames": {
+        "orderdetails_q1": "ord_ln_range_le3",
+        "orderdetails_q4": "ord_ln_gt9_or_null",
+        "products_part1": "prod_vendor_classic_autoart_minlin",
+        "products_part5": "prod_vendor_other_or_null",
+        "orders_comments": "ord_meta_notes"
+      },
+      "column_renames": {
+        "orderdetails_q1": {
+          "orderNumber": "ord_id",
+          "productCode": "prod_sku",
+          "quantityOrdered": "qty_ord",
+          "priceEach": "price_each",
+          "orderLineNumber": "line_no"
+        },
+        "orderdetails_q4": {
+          "orderNumber": "ord_id",
+          "productCode": "prod_sku",
+          "quantityOrdered": "qty_ord",
+          "priceEach": "price_each",
+          "orderLineNumber": "line_no"
+        },
+        "products_part1": {
+          "productCode": "prod_sku",
+          "productName": "prod_name",
+          "productLine": "prod_line",
+          "productScale": "scale",
+          "productVendor": "vendor",
+          "productDescription": "descr",
+          "quantityInStock": "stock_qty",
+          "buyPrice": "buy_price",
+          "MSRP": "msrp"
+        },
+        "products_part5": {
+          "productCode": "prod_sku",
+          "productName": "prod_name",
+          "productLine": "prod_line",
+          "productScale": "scale",
+          "productVendor": "vendor",
+          "productDescription": "descr",
+          "quantityInStock": "stock_qty",
+          "buyPrice": "buy_price",
+          "MSRP": "msrp"
+        },
+        "orders_comments": {
+          "orderNumber": "ord_id",
+          "comments": "notes",
+          "customerNumber": "cust_id",
+          "status": "ord_status"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    }
+  },
+  "vertical_split_map": {
+    "customers": {
+      "pk_columns": [
+        "customerNumber"
+      ],
+      "fragments": [
+        {
+          "suffix": "addressline1",
+          "non_pk_columns": [
+            "addressLine1",
+            "addressLine2",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber",
+            "state"
+          ],
+          "local_table": "customersByStatesCaNyPaBcCountyCork",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_addressline1",
+          "row_partition_names": [
+            "customersByStatesCaNyPaBcCountyCork",
+            "customersByStatesMaCtNswVictoria",
+            "customersOtherStates"
+          ],
+          "row_partition_predicate_column": "state"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "contactFirstName",
+            "contactLastName",
+            "country",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber"
+          ],
+          "local_table": "customersByCity",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.02918539880265479,
+          "3": 0.022553952547071432,
+          "4": 0.01876528013710411
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02918539880265479,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "addressLine1",
+            "addressLine2",
+            "postalCode",
+            "state"
+          ],
+          [
+            "city",
+            "contactFirstName",
+            "contactLastName",
+            "country",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "salesRepEmployeeNumber"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "creditLimit",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "salesRepEmployeeNumber",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "postalCode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "customerName",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "addressLine1",
+            "addressLine2",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber",
+            "state"
+          ],
+          [
+            "city",
+            "contactFirstName",
+            "contactLastName",
+            "country",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber"
+          ]
+        ],
+        "pk_columns": [
+          "customerNumber"
+        ],
+        "fragments": [
+          {
+            "suffix": "addressline1",
+            "non_pk_columns": [
+              "addressLine1",
+              "addressLine2",
+              "creditLimit",
+              "customerName",
+              "phone",
+              "postalCode",
+              "salesRepEmployeeNumber",
+              "state"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "city",
+              "contactFirstName",
+              "contactLastName",
+              "country",
+              "creditLimit",
+              "customerName",
+              "phone",
+              "postalCode",
+              "salesRepEmployeeNumber"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "customers_city",
+      "movable_candidates": [
+        "customers_addressline1_part1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=3"
+    },
+    "employees": {
+      "pk_columns": [
+        "employeeNumber"
+      ],
+      "fragments": [
+        {
+          "suffix": "email",
+          "non_pk_columns": [
+            "email",
+            "extension",
+            "jobTitle",
+            "officeCode",
+            "reportsTo"
+          ],
+          "local_table": "employeesContactEmails",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_email"
+        },
+        {
+          "suffix": "extension",
+          "non_pk_columns": [
+            "extension",
+            "firstName",
+            "jobTitle",
+            "lastName",
+            "reportsTo"
+          ],
+          "local_table": "employeesDirectory",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_extension"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "employees",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.02721387036204536
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02721387036204536,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "email",
+            "extension",
+            "jobTitle",
+            "officeCode"
+          ],
+          [
+            "firstName",
+            "lastName",
+            "reportsTo"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "reportsTo",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "extension",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "jobTitle",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "email",
+            "extension",
+            "jobTitle",
+            "officeCode",
+            "reportsTo"
+          ],
+          [
+            "extension",
+            "firstName",
+            "jobTitle",
+            "lastName",
+            "reportsTo"
+          ]
+        ],
+        "pk_columns": [
+          "employeeNumber"
+        ],
+        "fragments": [
+          {
+            "suffix": "email",
+            "non_pk_columns": [
+              "email",
+              "extension",
+              "jobTitle",
+              "officeCode",
+              "reportsTo"
+            ]
+          },
+          {
+            "suffix": "extension",
+            "non_pk_columns": [
+              "extension",
+              "firstName",
+              "jobTitle",
+              "lastName",
+              "reportsTo"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "employees_email",
+      "movable_candidates": [
+        "employees_extension"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=4"
+    },
+    "orders": {
+      "pk_columns": [
+        "orderNumber"
+      ],
+      "fragments": [
+        {
+          "suffix": "comments",
+          "non_pk_columns": [
+            "comments",
+            "customerNumber",
+            "status"
+          ],
+          "local_table": "ord_meta_notes",
+          "local_name": "local_3",
+          "vertical_fragment_base": "orders_comments"
+        },
+        {
+          "suffix": "comments_2",
+          "non_pk_columns": [
+            "comments",
+            "customerNumber",
+            "orderDate",
+            "requiredDate",
+            "shippedDate",
+            "status"
+          ],
+          "local_table": "ordersWithCommentsForOtherStateCustomers",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_comments_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.0708403451127385
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0708403451127385,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "comments",
+            "customerNumber",
+            "status"
+          ],
+          [
+            "orderDate",
+            "requiredDate",
+            "shippedDate"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "customerNumber",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "comments",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "status",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "comments",
+            "customerNumber",
+            "status"
+          ],
+          [
+            "comments",
+            "customerNumber",
+            "orderDate",
+            "requiredDate",
+            "shippedDate",
+            "status"
+          ]
+        ],
+        "pk_columns": [
+          "orderNumber"
+        ],
+        "fragments": [
+          {
+            "suffix": "comments",
+            "non_pk_columns": [
+              "comments",
+              "customerNumber",
+              "status"
+            ]
+          },
+          {
+            "suffix": "comments_2",
+            "non_pk_columns": [
+              "comments",
+              "customerNumber",
+              "orderDate",
+              "requiredDate",
+              "shippedDate",
+              "status"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "orders_comments_2",
+      "movable_candidates": [
+        "orders_comments"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+    },
+    "offices": {
+      "pk_columns": [
+        "officeCode"
+      ],
+      "fragments": [
+        {
+          "suffix": "addressline1",
+          "non_pk_columns": [
+            "addressLine1",
+            "addressLine2",
+            "city",
+            "country",
+            "phone",
+            "postalCode"
+          ],
+          "local_table": "officesPrimaryAddress",
+          "local_name": "local_1",
+          "vertical_fragment_base": "offices_addressline1"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "country",
+            "phone",
+            "postalCode",
+            "state",
+            "territory"
+          ],
+          "local_table": "OfficeBranch",
+          "local_name": "local_2",
+          "vertical_fragment_base": "offices_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "offices",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.025746204976580294
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.025746204976580294,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "addressLine1",
+            "addressLine2",
+            "phone"
+          ],
+          [
+            "city",
+            "country",
+            "postalCode",
+            "state",
+            "territory"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "postalCode",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "country",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "addressLine1",
+            "addressLine2",
+            "city",
+            "country",
+            "phone",
+            "postalCode"
+          ],
+          [
+            "city",
+            "country",
+            "phone",
+            "postalCode",
+            "state",
+            "territory"
+          ]
+        ],
+        "pk_columns": [
+          "officeCode"
+        ],
+        "fragments": [
+          {
+            "suffix": "addressline1",
+            "non_pk_columns": [
+              "addressLine1",
+              "addressLine2",
+              "city",
+              "country",
+              "phone",
+              "postalCode"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "city",
+              "country",
+              "phone",
+              "postalCode",
+              "state",
+              "territory"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "offices_city",
+      "movable_candidates": [
+        "offices_addressline1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "split_map": {
+    "customers": {
+      "pk_columns": [
+        "customerNumber"
+      ],
+      "fragments": [
+        {
+          "suffix": "addressline1",
+          "non_pk_columns": [
+            "addressLine1",
+            "addressLine2",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber",
+            "state"
+          ],
+          "local_table": "customersByStatesCaNyPaBcCountyCork",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_addressline1",
+          "row_partition_names": [
+            "customersByStatesCaNyPaBcCountyCork",
+            "customersByStatesMaCtNswVictoria",
+            "customersOtherStates"
+          ],
+          "row_partition_predicate_column": "state"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "contactFirstName",
+            "contactLastName",
+            "country",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber"
+          ],
+          "local_table": "customersByCity",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.02918539880265479,
+          "3": 0.022553952547071432,
+          "4": 0.01876528013710411
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02918539880265479,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "addressLine1",
+            "addressLine2",
+            "postalCode",
+            "state"
+          ],
+          [
+            "city",
+            "contactFirstName",
+            "contactLastName",
+            "country",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "salesRepEmployeeNumber"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "creditLimit",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "salesRepEmployeeNumber",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "postalCode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "customerName",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "addressLine1",
+            "addressLine2",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber",
+            "state"
+          ],
+          [
+            "city",
+            "contactFirstName",
+            "contactLastName",
+            "country",
+            "creditLimit",
+            "customerName",
+            "phone",
+            "postalCode",
+            "salesRepEmployeeNumber"
+          ]
+        ],
+        "pk_columns": [
+          "customerNumber"
+        ],
+        "fragments": [
+          {
+            "suffix": "addressline1",
+            "non_pk_columns": [
+              "addressLine1",
+              "addressLine2",
+              "creditLimit",
+              "customerName",
+              "phone",
+              "postalCode",
+              "salesRepEmployeeNumber",
+              "state"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "city",
+              "contactFirstName",
+              "contactLastName",
+              "country",
+              "creditLimit",
+              "customerName",
+              "phone",
+              "postalCode",
+              "salesRepEmployeeNumber"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "customers_city",
+      "movable_candidates": [
+        "customers_addressline1_part1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=3"
+    },
+    "employees": {
+      "pk_columns": [
+        "employeeNumber"
+      ],
+      "fragments": [
+        {
+          "suffix": "email",
+          "non_pk_columns": [
+            "email",
+            "extension",
+            "jobTitle",
+            "officeCode",
+            "reportsTo"
+          ],
+          "local_table": "employeesContactEmails",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_email"
+        },
+        {
+          "suffix": "extension",
+          "non_pk_columns": [
+            "extension",
+            "firstName",
+            "jobTitle",
+            "lastName",
+            "reportsTo"
+          ],
+          "local_table": "employeesDirectory",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_extension"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "employees",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.02721387036204536
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02721387036204536,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "email",
+            "extension",
+            "jobTitle",
+            "officeCode"
+          ],
+          [
+            "firstName",
+            "lastName",
+            "reportsTo"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "reportsTo",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "extension",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "jobTitle",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "email",
+            "extension",
+            "jobTitle",
+            "officeCode",
+            "reportsTo"
+          ],
+          [
+            "extension",
+            "firstName",
+            "jobTitle",
+            "lastName",
+            "reportsTo"
+          ]
+        ],
+        "pk_columns": [
+          "employeeNumber"
+        ],
+        "fragments": [
+          {
+            "suffix": "email",
+            "non_pk_columns": [
+              "email",
+              "extension",
+              "jobTitle",
+              "officeCode",
+              "reportsTo"
+            ]
+          },
+          {
+            "suffix": "extension",
+            "non_pk_columns": [
+              "extension",
+              "firstName",
+              "jobTitle",
+              "lastName",
+              "reportsTo"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "employees_email",
+      "movable_candidates": [
+        "employees_extension"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=4"
+    },
+    "orders": {
+      "pk_columns": [
+        "orderNumber"
+      ],
+      "fragments": [
+        {
+          "suffix": "comments",
+          "non_pk_columns": [
+            "comments",
+            "customerNumber",
+            "status"
+          ],
+          "local_table": "ord_meta_notes",
+          "local_name": "local_3",
+          "vertical_fragment_base": "orders_comments"
+        },
+        {
+          "suffix": "comments_2",
+          "non_pk_columns": [
+            "comments",
+            "customerNumber",
+            "orderDate",
+            "requiredDate",
+            "shippedDate",
+            "status"
+          ],
+          "local_table": "ordersWithCommentsForOtherStateCustomers",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_comments_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.0708403451127385
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0708403451127385,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "comments",
+            "customerNumber",
+            "status"
+          ],
+          [
+            "orderDate",
+            "requiredDate",
+            "shippedDate"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "customerNumber",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "comments",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "status",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "comments",
+            "customerNumber",
+            "status"
+          ],
+          [
+            "comments",
+            "customerNumber",
+            "orderDate",
+            "requiredDate",
+            "shippedDate",
+            "status"
+          ]
+        ],
+        "pk_columns": [
+          "orderNumber"
+        ],
+        "fragments": [
+          {
+            "suffix": "comments",
+            "non_pk_columns": [
+              "comments",
+              "customerNumber",
+              "status"
+            ]
+          },
+          {
+            "suffix": "comments_2",
+            "non_pk_columns": [
+              "comments",
+              "customerNumber",
+              "orderDate",
+              "requiredDate",
+              "shippedDate",
+              "status"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "orders_comments_2",
+      "movable_candidates": [
+        "orders_comments"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+    },
+    "offices": {
+      "pk_columns": [
+        "officeCode"
+      ],
+      "fragments": [
+        {
+          "suffix": "addressline1",
+          "non_pk_columns": [
+            "addressLine1",
+            "addressLine2",
+            "city",
+            "country",
+            "phone",
+            "postalCode"
+          ],
+          "local_table": "officesPrimaryAddress",
+          "local_name": "local_1",
+          "vertical_fragment_base": "offices_addressline1"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "country",
+            "phone",
+            "postalCode",
+            "state",
+            "territory"
+          ],
+          "local_table": "OfficeBranch",
+          "local_name": "local_2",
+          "vertical_fragment_base": "offices_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "offices",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.025746204976580294
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.025746204976580294,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "addressLine1",
+            "addressLine2",
+            "phone"
+          ],
+          [
+            "city",
+            "country",
+            "postalCode",
+            "state",
+            "territory"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "postalCode",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "country",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "addressLine1",
+            "addressLine2",
+            "city",
+            "country",
+            "phone",
+            "postalCode"
+          ],
+          [
+            "city",
+            "country",
+            "phone",
+            "postalCode",
+            "state",
+            "territory"
+          ]
+        ],
+        "pk_columns": [
+          "officeCode"
+        ],
+        "fragments": [
+          {
+            "suffix": "addressline1",
+            "non_pk_columns": [
+              "addressLine1",
+              "addressLine2",
+              "city",
+              "country",
+              "phone",
+              "postalCode"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "city",
+              "country",
+              "phone",
+              "postalCode",
+              "state",
+              "territory"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "offices_city",
+      "movable_candidates": [
+        "offices_addressline1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 8,
+    "eligible_candidate_count": 8,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "customers",
+      "offices",
+      "products",
+      "employees",
+      "orders",
+      "orderdetails"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/car_retails/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "products",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "orderdetails",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "customers||vfrag=addressline1": {
+      "source_table": "customers",
+      "vertical_fragment_suffix": "addressline1",
+      "num_partitions": 3,
+      "partition_names": [
+        "customersByStatesCaNyPaBcCountyCork",
+        "customersByStatesMaCtNswVictoria",
+        "customersOtherStates"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_1",
+        "local_1"
+      ],
+      "predicate_column": "state",
+      "partition_values": [
+        {
+          "merged_buckets": [
+            {
+              "value": "CA",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "NY",
+                  "includes_null": false
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "PA",
+                      "includes_null": false
+                    },
+                    {
+                      "merged_buckets": [
+                        {
+                          "value": "BC",
+                          "includes_null": false
+                        },
+                        {
+                          "value": "Co. Cork",
+                          "includes_null": false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "MA",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "CT",
+                  "includes_null": false
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "NSW",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "Victoria",
+                      "includes_null": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "CA",
+            "MA",
+            "NY",
+            "CT",
+            "PA",
+            "BC",
+            "NSW",
+            "Victoria",
+            "Co. Cork"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "((\"state\" = 'CA' OR (\"state\" = 'NY' OR (\"state\" = 'PA' OR (\"state\" = 'BC' OR \"state\" = 'Co. Cork')))) OR (rowid IN (119,121,125,141,144,146,166,167,171,187,189,201,209,227,237,242,256,273,299,303,328,333,335,363,381,382,386,406,412,443,452,458,484)))",
+        "((\"state\" = 'MA' OR (\"state\" = 'CT' OR (\"state\" = 'NSW' OR \"state\" = 'Victoria'))) OR (rowid IN (181,239,321,339,347,348,450,475,486,487)))",
+        "((\"state\" IS NULL OR \"state\" NOT IN ('CA', 'MA', 'NY', 'CT', 'PA', 'BC', 'NSW', 'Victoria', 'Co. Cork')) OR (rowid IN (114,175,204,320,362,379,462)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"state\" = 'CA' OR (\"state\" = 'NY' OR (\"state\" = 'PA' OR (\"state\" = 'BC' OR \"state\" = 'Co. Cork'))))",
+        "(\"state\" = 'MA' OR (\"state\" = 'CT' OR (\"state\" = 'NSW' OR \"state\" = 'Victoria')))",
+        "(\"state\" IS NULL OR \"state\" NOT IN ('CA', 'MA', 'NY', 'CT', 'PA', 'BC', 'NSW', 'Victoria', 'Co. Cork'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where state = CA + rows where state = NY + rows where state = PA + rows where state = BC + rows where state = Co. Cork",
+        "rows where state = MA + rows where state = CT + rows where state = NSW + rows where state = Victoria",
+        "rows where state is NULL or not in {'CA', 'MA', 'NY', 'CT', 'PA', 'BC', 'NSW', 'Victoria', 'Co. Cork'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "customersByStatesCaNyPaBcCountyCork",
+      "movable_fragments": [
+        "customersByStatesMaCtNswVictoria",
+        "customersOtherStates"
+      ],
+      "movable_fragment": "customersByStatesMaCtNswVictoria",
+      "default_movable_fragment": "customersByStatesMaCtNswVictoria",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "state",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "state"
+        ],
+        "ranked_columns": [
+          {
+            "column": "state",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "((\"state\" = 'CA' OR (\"state\" = 'NY' OR (\"state\" = 'PA' OR (\"state\" = 'BC' OR \"state\" = 'Co. Cork')))) OR (rowid IN (119,121,125,141,144,146,166,167,171,187,189,201,209,227,237,242,256,273,299,303,328,333,335,363,381,382,386,406,412,443,452,458,484)))",
+      "predicate_sql_fragment_B": "((\"state\" = 'MA' OR (\"state\" = 'CT' OR (\"state\" = 'NSW' OR \"state\" = 'Victoria'))) OR (rowid IN (181,239,321,339,347,348,450,475,486,487)))",
+      "fragment_role_A": "rows where state = CA + rows where state = NY + rows where state = PA + rows where state = BC + rows where state = Co. Cork",
+      "fragment_role_B": "rows where state = MA + rows where state = CT + rows where state = NSW + rows where state = Victoria"
+    },
+    "orderdetails": {
+      "source_table": "orderdetails",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "ord_ln_range_le3",
+        "orderDetailsLinesFourToSix",
+        "orderDetailsLinesSevenToNine",
+        "ord_ln_gt9_or_null"
+      ],
+      "partition_locals": [
+        "local_3",
+        "local_1",
+        "local_1",
+        "local_3"
+      ],
+      "predicate_column": "orderLineNumber",
+      "partition_values": [
+        {
+          "upper": 3
+        },
+        {
+          "lower": 3,
+          "upper": 6
+        },
+        {
+          "lower": 6,
+          "upper": 9
+        },
+        {
+          "lower": 9,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" <= 3) OR (rowid IN (14,18,23,30,31,36,45,50,55,57,58,67,71,88,89,165,167,183,186,188,194,202,203,205,210,220,225,239,250,252,256,258,308,309,316,336,367,368,370,371,397,406,410,414,422,431,432,433,444,478,485,493,495,496,499,515,516,521,527,531,532,541,543,579,581,582,589,591,602,609,623,625,626,629,631,641,642,663,668,669,690,691,703,738,748,749,751,754,767,772,774,778,779,780,803,808,809,818,834,865,868,870,890,891,910,928,929,936,938,974,982,985,989,1009,1021,1030,1032,1036,1061,1063,1066,1068,1070,1076,1085,1087,1111,1149,1152,1154,1160,1164,1176,1179,1188,1195,1215,1218,1229,1235,1241,1274,1280,1312,1315,1319,1348,1364,1371,1385,1410,1429,1548,1558,1559,1568,1571,1585,1613,1614,1615,1616,1621,1628,1631,1633,1637,1655,1658,1663,1664,1665,1666,1674,1689,1690,1698,1705,1712,1713,1728,1730,1734,1736,1738,1746,1748,1764,1765,1778,1779,1780,1816,1819,1842,1866,1878,1881,1889,1892,1896,1900,1903,1908,1938,1941,1944,1956,1988,1995,2008,2014,2018,2022,2034,2035,2037,2044,2074,2075,2080,2096,2112,2143,2153,2161,2163,2169,2179,2181,2190,2203,2205,2206,2252,2254,2260,2323,2333,2351,2353,2358,2359,2423,2425,2444,2446,2459,2472,2473,2484,2485,2508,2538,2545,2561,2562,2565,2566,2583,2587,2592,2603,2627,2628,2639,2640,2651,2671,2706,2717,2718,2771,2775,2777,2785,2812,2815,2851,2883,2896,2897,2898,2899,2923,2942,2967)))",
+        "((\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" > 3 AND \"orderLineNumber\" <= 6) OR (rowid IN (2,7,8,24,39,73,92,107,121,124,126,127,139,143,144,154,158,159,161,172,175,191,193,201,211,228,229,247,265,276,280,282,283,289,297,299,311,319,320,321,322,327,332,341,342,343,379,390,408,411,424,435,439,452,454,460,465,476,477,486,489,502,504,507,513,520,528,538,544,547,552,556,561,564,572,597,614,638,649,654,657,679,687,692,693,694,709,723,728,739,740,753,761,783,793,824,827,832,846,850,854,855,856,877,913,924,927,933,945,948,951,953,954,957,961,983,997,1002,1010,1026,1046,1051,1052,1071,1092,1099,1105,1110,1119,1123,1124,1127,1129,1130,1131,1142,1155,1158,1165,1167,1170,1192,1196,1204,1205,1206,1213,1230,1242,1244,1251,1257,1260,1261,1276,1285,1286,1293,1297,1306,1314,1331,1340,1350,1353,1356,1357,1362,1369,1377,1380,1384,1387,1398,1400,1402,1420,1437,1443,1451,1454,1478,1487,1512,1514,1518,1519,1525,1531,1535,1538,1541,1542,1547,1552,1560,1562,1573,1575,1586,1599,1607,1639,1645,1647,1651,1686,1697,1707,1711,1715,1729,1731,1747,1766,1769,1771,1772,1784,1791,1798,1804,1807,1808,1809,1810,1821,1822,1836,1840,1844,1851,1852,1867,1869,1876,1891,1902,1905,1914,1917,1919,1924,1927,1932,1952,1953,1974,1975,1979,2001,2003,2007,2015,2027,2028,2053,2056,2061,2063,2065,2084,2103,2115,2121,2124,2131,2145,2157,2172,2174,2185,2213,2222,2226,2238,2247,2250,2266,2267,2280,2282,2283,2294,2295,2299,2308,2310,2341,2342,2346,2360,2366,2369,2379,2390,2392,2393,2405,2406,2431,2432,2452,2464,2490,2495,2496,2498,2499,2512,2513,2518,2525,2542,2546,2555,2572,2596,2597,2611,2644,2655,2658,2668,2695,2703,2712,2725,2726,2739,2740,2750,2756,2757,2766,2767,2774,2792,2800,2804,2813,2816,2818,2827,2828,2834,2841,2842,2845,2857,2858,2863,2869,2872,2888,2894,2895,2901,2910,2912,2932,2947,2958,2969,2970,2971,2974,2991,2996)))",
+        "((\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" > 6 AND \"orderLineNumber\" <= 9) OR (rowid IN (3,5,20,26,47,59,64,77,91,133,150,153,156,164,180,199,213,246,254,270,277,287,290,296,298,302,325,337,345,347,356,362,373,381,389,402,442,447,450,462,484,494,529,533,535,545,550,555,559,563,565,573,574,599,616,651,658,660,667,684,701,711,712,714,717,726,727,755,775,806,820,821,826,830,843,845,857,881,889,897,901,906,908,918,919,940,941,952,963,969,1000,1003,1014,1057,1065,1072,1079,1086,1097,1104,1113,1114,1115,1141,1143,1146,1148,1153,1166,1169,1172,1200,1202,1203,1212,1217,1227,1233,1245,1246,1247,1255,1266,1275,1289,1292,1294,1298,1305,1317,1320,1321,1333,1338,1346,1352,1359,1360,1372,1396,1403,1404,1407,1414,1417,1444,1445,1453,1466,1496,1501,1502,1515,1527,1540,1549,1579,1581,1582,1600,1601,1606,1609,1623,1650,1716,1722,1725,1732,1755,1774,1794,1803,1806,1820,1828,1843,1857,1859,1872,1875,1877,1893,1937,1940,1945,1950,1980,1990,2005,2026,2030,2031,2045,2047,2057,2062,2068,2072,2076,2083,2111,2118,2129,2130,2136,2141,2147,2160,2168,2173,2175,2188,2199,2200,2208,2220,2232,2244,2248,2259,2279,2285,2296,2303,2324,2327,2337,2338,2339,2355,2368,2372,2377,2378,2395,2400,2415,2417,2429,2430,2441,2470,2474,2479,2481,2503,2516,2522,2529,2535,2536,2550,2557,2558,2576,2577,2586,2590,2598,2599,2607,2613,2614,2622,2624,2647,2653,2660,2673,2689,2690,2692,2697,2698,2713,2715,2745,2754,2758,2764,2765,2780,2791,2798,2807,2809,2821,2824,2831,2832,2836,2837,2853,2875,2877,2893,2902,2911,2918,2929,2936,2951,2977,2978,2985,2995)))",
+        "((\"orderLineNumber\" > 9 OR \"orderLineNumber\" IS NULL) OR (rowid IN (21,25,28,29,46,68,83,104,138,147,151,162,195,197,207,218,241,255,257,267,301,340,348,352,359,364,369,372,378,383,405,419,429,446,451,453,456,501,524,525,530,546,569,585,590,598,615,627,636,652,653,664,670,680,688,716,731,733,737,746,768,769,781,785,786,796,801,804,810,823,825,839,866,905,912,930,992,993,1004,1033,1034,1056,1089,1102,1116,1118,1168,1174,1186,1187,1201,1211,1232,1238,1256,1265,1269,1278,1301,1329,1336,1339,1341,1347,1349,1374,1375,1388,1416,1421,1423,1428,1455,1457,1460,1472,1473,1477,1483,1498,1510,1516,1544,1545,1557,1569,1594,1617,1643,1654,1688,1719,1721,1724,1741,1751,1758,1762,1782,1788,1793,1799,1801,1814,1817,1833,1837,1883,1897,1909,1913,1929,1955,1971,1977,1981,2004,2021,2064,2067,2079,2100,2106,2107,2114,2120,2122,2127,2150,2151,2167,2183,2209,2230,2233,2234,2253,2262,2264,2304,2325,2332,2335,2348,2352,2386,2391,2397,2398,2421,2426,2428,2445,2461,2469,2482,2504,2506,2507,2552,2553,2554,2580,2582,2589,2633,2650,2652,2670,2691,2699,2700,2708,2729,2737,2738,2749,2761,2762,2781,2795,2797,2814,2855,2861,2866,2873,2881,2906,2907,2920,2921,2948,2953,2955,2965)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" <= 3)",
+        "(\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" > 3 AND \"orderLineNumber\" <= 6)",
+        "(\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" > 6 AND \"orderLineNumber\" <= 9)",
+        "(\"orderLineNumber\" > 9 OR \"orderLineNumber\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where orderLineNumber <= 3",
+        "rows where 3 < orderLineNumber <= 6",
+        "rows where 6 < orderLineNumber <= 9",
+        "rows where orderLineNumber > 9 or is NULL"
+      ],
+      "home_fragment": "ord_ln_range_le3",
+      "movable_fragments": [
+        "orderDetailsLinesFourToSix",
+        "orderDetailsLinesSevenToNine",
+        "ord_ln_gt9_or_null"
+      ],
+      "movable_fragment": "orderDetailsLinesFourToSix",
+      "default_movable_fragment": "orderDetailsLinesFourToSix",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "orderLineNumber",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "orderLineNumber",
+            "rhs": "quantityOrdered",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "orderLineNumber",
+          "quantityOrdered"
+        ],
+        "ranked_columns": [
+          {
+            "column": "orderLineNumber",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "quantityOrdered",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 2996
+      },
+      "predicate_sql_fragment_A": "((\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" <= 3) OR (rowid IN (14,18,23,30,31,36,45,50,55,57,58,67,71,88,89,165,167,183,186,188,194,202,203,205,210,220,225,239,250,252,256,258,308,309,316,336,367,368,370,371,397,406,410,414,422,431,432,433,444,478,485,493,495,496,499,515,516,521,527,531,532,541,543,579,581,582,589,591,602,609,623,625,626,629,631,641,642,663,668,669,690,691,703,738,748,749,751,754,767,772,774,778,779,780,803,808,809,818,834,865,868,870,890,891,910,928,929,936,938,974,982,985,989,1009,1021,1030,1032,1036,1061,1063,1066,1068,1070,1076,1085,1087,1111,1149,1152,1154,1160,1164,1176,1179,1188,1195,1215,1218,1229,1235,1241,1274,1280,1312,1315,1319,1348,1364,1371,1385,1410,1429,1548,1558,1559,1568,1571,1585,1613,1614,1615,1616,1621,1628,1631,1633,1637,1655,1658,1663,1664,1665,1666,1674,1689,1690,1698,1705,1712,1713,1728,1730,1734,1736,1738,1746,1748,1764,1765,1778,1779,1780,1816,1819,1842,1866,1878,1881,1889,1892,1896,1900,1903,1908,1938,1941,1944,1956,1988,1995,2008,2014,2018,2022,2034,2035,2037,2044,2074,2075,2080,2096,2112,2143,2153,2161,2163,2169,2179,2181,2190,2203,2205,2206,2252,2254,2260,2323,2333,2351,2353,2358,2359,2423,2425,2444,2446,2459,2472,2473,2484,2485,2508,2538,2545,2561,2562,2565,2566,2583,2587,2592,2603,2627,2628,2639,2640,2651,2671,2706,2717,2718,2771,2775,2777,2785,2812,2815,2851,2883,2896,2897,2898,2899,2923,2942,2967)))",
+      "predicate_sql_fragment_B": "((\"orderLineNumber\" IS NOT NULL AND \"orderLineNumber\" > 3 AND \"orderLineNumber\" <= 6) OR (rowid IN (2,7,8,24,39,73,92,107,121,124,126,127,139,143,144,154,158,159,161,172,175,191,193,201,211,228,229,247,265,276,280,282,283,289,297,299,311,319,320,321,322,327,332,341,342,343,379,390,408,411,424,435,439,452,454,460,465,476,477,486,489,502,504,507,513,520,528,538,544,547,552,556,561,564,572,597,614,638,649,654,657,679,687,692,693,694,709,723,728,739,740,753,761,783,793,824,827,832,846,850,854,855,856,877,913,924,927,933,945,948,951,953,954,957,961,983,997,1002,1010,1026,1046,1051,1052,1071,1092,1099,1105,1110,1119,1123,1124,1127,1129,1130,1131,1142,1155,1158,1165,1167,1170,1192,1196,1204,1205,1206,1213,1230,1242,1244,1251,1257,1260,1261,1276,1285,1286,1293,1297,1306,1314,1331,1340,1350,1353,1356,1357,1362,1369,1377,1380,1384,1387,1398,1400,1402,1420,1437,1443,1451,1454,1478,1487,1512,1514,1518,1519,1525,1531,1535,1538,1541,1542,1547,1552,1560,1562,1573,1575,1586,1599,1607,1639,1645,1647,1651,1686,1697,1707,1711,1715,1729,1731,1747,1766,1769,1771,1772,1784,1791,1798,1804,1807,1808,1809,1810,1821,1822,1836,1840,1844,1851,1852,1867,1869,1876,1891,1902,1905,1914,1917,1919,1924,1927,1932,1952,1953,1974,1975,1979,2001,2003,2007,2015,2027,2028,2053,2056,2061,2063,2065,2084,2103,2115,2121,2124,2131,2145,2157,2172,2174,2185,2213,2222,2226,2238,2247,2250,2266,2267,2280,2282,2283,2294,2295,2299,2308,2310,2341,2342,2346,2360,2366,2369,2379,2390,2392,2393,2405,2406,2431,2432,2452,2464,2490,2495,2496,2498,2499,2512,2513,2518,2525,2542,2546,2555,2572,2596,2597,2611,2644,2655,2658,2668,2695,2703,2712,2725,2726,2739,2740,2750,2756,2757,2766,2767,2774,2792,2800,2804,2813,2816,2818,2827,2828,2834,2841,2842,2845,2857,2858,2863,2869,2872,2888,2894,2895,2901,2910,2912,2932,2947,2958,2969,2970,2971,2974,2991,2996)))",
+      "fragment_role_A": "rows where orderLineNumber <= 3",
+      "fragment_role_B": "rows where 3 < orderLineNumber <= 6"
+    },
+    "products": {
+      "source_table": "products",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 5,
+      "partition_names": [
+        "prod_vendor_classic_autoart_minlin",
+        "productsFromCarouselAndSecondGear",
+        "productsFromExotoAndGearbox",
+        "productsFromHighway66AndMotorCity",
+        "prod_vendor_other_or_null"
+      ],
+      "partition_locals": [
+        "local_3",
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_3"
+      ],
+      "predicate_column": "productVendor",
+      "partition_values": [
+        {
+          "merged_buckets": [
+            {
+              "value": "Classic Metal Creations",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "Autoart Studio Design",
+                  "includes_null": false
+                },
+                {
+                  "value": "Min Lin Diecast",
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Carousel DieCast Legends",
+              "includes_null": false
+            },
+            {
+              "value": "Second Gear Diecast",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Exoto Designs",
+              "includes_null": false
+            },
+            {
+              "value": "Gearbox Collectibles",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Highway 66 Mini Classics",
+              "includes_null": false
+            },
+            {
+              "value": "Motor City Art Classics",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "Classic Metal Creations",
+            "Carousel DieCast Legends",
+            "Exoto Designs",
+            "Gearbox Collectibles",
+            "Highway 66 Mini Classics",
+            "Motor City Art Classics",
+            "Autoart Studio Design",
+            "Min Lin Diecast",
+            "Second Gear Diecast"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "((\"productVendor\" = 'Classic Metal Creations' OR (\"productVendor\" = 'Autoart Studio Design' OR \"productVendor\" = 'Min Lin Diecast')) OR (rowid IN (4,11,12,20,23,28,47,74,80,90,99,100,102)))",
+        "((\"productVendor\" = 'Carousel DieCast Legends' OR \"productVendor\" = 'Second Gear Diecast') OR (rowid IN (2,36,37,58,60,64,72,78,88,95,97)))",
+        "((\"productVendor\" = 'Exoto Designs' OR \"productVendor\" = 'Gearbox Collectibles') OR (rowid IN (35,59,68,77,82,106,108)))",
+        "((\"productVendor\" = 'Highway 66 Mini Classics' OR \"productVendor\" = 'Motor City Art Classics') OR (rowid IN (24,26,31,45,48,51,87,89)))",
+        "((\"productVendor\" IS NULL OR \"productVendor\" NOT IN ('Classic Metal Creations', 'Carousel DieCast Legends', 'Exoto Designs', 'Gearbox Collectibles', 'Highway 66 Mini Classics', 'Motor City Art Classics', 'Autoart Studio Design', 'Min Lin Diecast', 'Second Gear Diecast')) OR (rowid IN (3,18,52,57,61,62,66,101)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"productVendor\" = 'Classic Metal Creations' OR (\"productVendor\" = 'Autoart Studio Design' OR \"productVendor\" = 'Min Lin Diecast'))",
+        "(\"productVendor\" = 'Carousel DieCast Legends' OR \"productVendor\" = 'Second Gear Diecast')",
+        "(\"productVendor\" = 'Exoto Designs' OR \"productVendor\" = 'Gearbox Collectibles')",
+        "(\"productVendor\" = 'Highway 66 Mini Classics' OR \"productVendor\" = 'Motor City Art Classics')",
+        "(\"productVendor\" IS NULL OR \"productVendor\" NOT IN ('Classic Metal Creations', 'Carousel DieCast Legends', 'Exoto Designs', 'Gearbox Collectibles', 'Highway 66 Mini Classics', 'Motor City Art Classics', 'Autoart Studio Design', 'Min Lin Diecast', 'Second Gear Diecast'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where productVendor = Classic Metal Creations + rows where productVendor = Autoart Studio Design + rows where productVendor = Min Lin Diecast",
+        "rows where productVendor = Carousel DieCast Legends + rows where productVendor = Second Gear Diecast",
+        "rows where productVendor = Exoto Designs + rows where productVendor = Gearbox Collectibles",
+        "rows where productVendor = Highway 66 Mini Classics + rows where productVendor = Motor City Art Classics",
+        "rows where productVendor is NULL or not in {'Classic Metal Creations', 'Carousel DieCast Legends', 'Exoto Designs', 'Gearbox Collectibles', 'Highway 66 Mini Classics', 'Motor City Art Classics', 'Autoart Studio Design', 'Min Lin Diecast', 'Second Gear Diecast'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "prod_vendor_classic_autoart_minlin",
+      "movable_fragments": [
+        "productsFromCarouselAndSecondGear",
+        "productsFromExotoAndGearbox",
+        "productsFromHighway66AndMotorCity",
+        "prod_vendor_other_or_null"
+      ],
+      "movable_fragment": "productsFromCarouselAndSecondGear",
+      "default_movable_fragment": "productsFromCarouselAndSecondGear",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "productVendor",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "productVendor",
+            "rhs": "productScale",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "productScale",
+          "productVendor"
+        ],
+        "ranked_columns": [
+          {
+            "column": "productVendor",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "productScale",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 110
+      },
+      "predicate_sql_fragment_A": "((\"productVendor\" = 'Classic Metal Creations' OR (\"productVendor\" = 'Autoart Studio Design' OR \"productVendor\" = 'Min Lin Diecast')) OR (rowid IN (4,11,12,20,23,28,47,74,80,90,99,100,102)))",
+      "predicate_sql_fragment_B": "((\"productVendor\" = 'Carousel DieCast Legends' OR \"productVendor\" = 'Second Gear Diecast') OR (rowid IN (2,36,37,58,60,64,72,78,88,95,97)))",
+      "fragment_role_A": "rows where productVendor = Classic Metal Creations + rows where productVendor = Autoart Studio Design + rows where productVendor = Min Lin Diecast",
+      "fragment_role_B": "rows where productVendor = Carousel DieCast Legends + rows where productVendor = Second Gear Diecast"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "employees",
+          "from_column": "reportsTo",
+          "to_table": "employees",
+          "to_column": "employeeNumber",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "employees_email",
+            "column_map": {
+              "employeeNumber": "employeeNumber",
+              "email": "email",
+              "extension": "extension",
+              "jobTitle": "jobTitle",
+              "officeCode": "officeCode",
+              "reportsTo": "reportsTo"
+            },
+            "orig_to_local": {
+              "employeeNumber": "employeeNumber",
+              "email": "email",
+              "extension": "extension",
+              "jobTitle": "jobTitle",
+              "officeCode": "officeCode",
+              "reportsTo": "reportsTo"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "employees_extension",
+            "column_map": {
+              "employeeNumber": "employeeNumber",
+              "extension": "extension",
+              "firstName": "firstName",
+              "jobTitle": "jobTitle",
+              "lastName": "lastName",
+              "reportsTo": "reportsTo"
+            },
+            "orig_to_local": {
+              "employeeNumber": "employeeNumber",
+              "extension": "extension",
+              "firstName": "firstName",
+              "jobTitle": "jobTitle",
+              "lastName": "lastName",
+              "reportsTo": "reportsTo"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "employees_email",
+            "column_map": {
+              "employeeNumber": "employeeNumber",
+              "email": "email",
+              "extension": "extension",
+              "jobTitle": "jobTitle",
+              "officeCode": "officeCode",
+              "reportsTo": "reportsTo"
+            },
+            "orig_to_local": {
+              "employeeNumber": "employeeNumber",
+              "email": "email",
+              "extension": "extension",
+              "jobTitle": "jobTitle",
+              "officeCode": "officeCode",
+              "reportsTo": "reportsTo"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "employees_extension",
+            "column_map": {
+              "employeeNumber": "employeeNumber",
+              "extension": "extension",
+              "firstName": "firstName",
+              "jobTitle": "jobTitle",
+              "lastName": "lastName",
+              "reportsTo": "reportsTo"
+            },
+            "orig_to_local": {
+              "employeeNumber": "employeeNumber",
+              "extension": "extension",
+              "firstName": "firstName",
+              "jobTitle": "jobTitle",
+              "lastName": "lastName",
+              "reportsTo": "reportsTo"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "employeesContactEmails",
+            "to_local_table": "employeesDirectory",
+            "from_local_column": "managerId",
+            "to_local_column": "employeeId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "employeesDirectory",
+            "to_local_table": "employeesContactEmails",
+            "from_local_column": "managerId",
+            "to_local_column": "employeeId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "employeesDirectory",
+            "to_local_table": "employeesDirectory",
+            "from_local_column": "managerId",
+            "to_local_column": "employeeId"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "employeesContactEmails",
+            "to_local_table": "employeesContactEmails",
+            "from_local_column": "managerId",
+            "to_local_column": "employeeId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "employees",
+          "from_column": "officeCode",
+          "to_table": "offices",
+          "to_column": "officeCode",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "employees_email",
+            "column_map": {
+              "employeeNumber": "employeeNumber",
+              "email": "email",
+              "extension": "extension",
+              "jobTitle": "jobTitle",
+              "officeCode": "officeCode",
+              "reportsTo": "reportsTo"
+            },
+            "orig_to_local": {
+              "employeeNumber": "employeeNumber",
+              "email": "email",
+              "extension": "extension",
+              "jobTitle": "jobTitle",
+              "officeCode": "officeCode",
+              "reportsTo": "reportsTo"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "employees_extension",
+            "column_map": {
+              "employeeNumber": "employeeNumber",
+              "extension": "extension",
+              "firstName": "firstName",
+              "jobTitle": "jobTitle",
+              "lastName": "lastName",
+              "reportsTo": "reportsTo"
+            },
+            "orig_to_local": {
+              "employeeNumber": "employeeNumber",
+              "extension": "extension",
+              "firstName": "firstName",
+              "jobTitle": "jobTitle",
+              "lastName": "lastName",
+              "reportsTo": "reportsTo"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "offices_addressline1",
+            "column_map": {
+              "officeCode": "officeCode",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "city": "city",
+              "country": "country",
+              "phone": "phone",
+              "postalCode": "postalCode"
+            },
+            "orig_to_local": {
+              "officeCode": "officeCode",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "city": "city",
+              "country": "country",
+              "phone": "phone",
+              "postalCode": "postalCode"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "offices_city",
+            "column_map": {
+              "officeCode": "officeCode",
+              "city": "city",
+              "country": "country",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "state": "state",
+              "territory": "territory"
+            },
+            "orig_to_local": {
+              "officeCode": "officeCode",
+              "city": "city",
+              "country": "country",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "state": "state",
+              "territory": "territory"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "employeesContactEmails",
+            "to_local_table": "officesPrimaryAddress",
+            "from_local_column": "officeId",
+            "to_local_column": "officeId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "employeesContactEmails",
+            "to_local_table": "OfficeBranch",
+            "from_local_column": "officeId",
+            "to_local_column": "BranchIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "customers",
+          "from_column": "salesRepEmployeeNumber",
+          "to_table": "employees",
+          "to_column": "employeeNumber",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part1",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part2",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part3",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_city",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "city": "city",
+              "contactFirstName": "contactFirstName",
+              "contactLastName": "contactLastName",
+              "country": "country",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "city": "city",
+              "contactFirstName": "contactFirstName",
+              "contactLastName": "contactLastName",
+              "country": "country",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "employees_email",
+            "column_map": {
+              "employeeNumber": "employeeNumber",
+              "email": "email",
+              "extension": "extension",
+              "jobTitle": "jobTitle",
+              "officeCode": "officeCode",
+              "reportsTo": "reportsTo"
+            },
+            "orig_to_local": {
+              "employeeNumber": "employeeNumber",
+              "email": "email",
+              "extension": "extension",
+              "jobTitle": "jobTitle",
+              "officeCode": "officeCode",
+              "reportsTo": "reportsTo"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "employees_extension",
+            "column_map": {
+              "employeeNumber": "employeeNumber",
+              "extension": "extension",
+              "firstName": "firstName",
+              "jobTitle": "jobTitle",
+              "lastName": "lastName",
+              "reportsTo": "reportsTo"
+            },
+            "orig_to_local": {
+              "employeeNumber": "employeeNumber",
+              "extension": "extension",
+              "firstName": "firstName",
+              "jobTitle": "jobTitle",
+              "lastName": "lastName",
+              "reportsTo": "reportsTo"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "customersByStatesCaNyPaBcCountyCork",
+            "to_local_table": "employeesDirectory",
+            "from_local_column": "salesRepresentativeId",
+            "to_local_column": "employeeId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "customersByStatesMaCtNswVictoria",
+            "to_local_table": "employeesContactEmails",
+            "from_local_column": "salesRepresentativeId",
+            "to_local_column": "employeeId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "customersByStatesMaCtNswVictoria",
+            "to_local_table": "employeesDirectory",
+            "from_local_column": "salesRepresentativeId",
+            "to_local_column": "employeeId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "customersOtherStates",
+            "to_local_table": "employeesContactEmails",
+            "from_local_column": "salesRepresentativeId",
+            "to_local_column": "employeeId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "customersByCity",
+            "to_local_table": "employeesContactEmails",
+            "from_local_column": "salesRepresentativeId",
+            "to_local_column": "employeeId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "customersByCity",
+            "to_local_table": "employeesDirectory",
+            "from_local_column": "salesRepresentativeId",
+            "to_local_column": "employeeId"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "customersByStatesCaNyPaBcCountyCork",
+            "to_local_table": "employeesContactEmails",
+            "from_local_column": "salesRepresentativeId",
+            "to_local_column": "employeeId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "customersOtherStates",
+            "to_local_table": "employeesDirectory",
+            "from_local_column": "salesRepresentativeId",
+            "to_local_column": "employeeId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "orders",
+          "from_column": "customerNumber",
+          "to_table": "customers",
+          "to_column": "customerNumber",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "orders_comments_2",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "comments": "comments",
+              "customerNumber": "customerNumber",
+              "orderDate": "orderDate",
+              "requiredDate": "requiredDate",
+              "shippedDate": "shippedDate",
+              "status": "status"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "comments": "comments",
+              "customerNumber": "customerNumber",
+              "orderDate": "orderDate",
+              "requiredDate": "requiredDate",
+              "shippedDate": "shippedDate",
+              "status": "status"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "orders_comments",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "comments": "comments",
+              "customerNumber": "customerNumber",
+              "status": "status"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "comments": "comments",
+              "customerNumber": "customerNumber",
+              "status": "status"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part1",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part2",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part3",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_city",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "city": "city",
+              "contactFirstName": "contactFirstName",
+              "contactLastName": "contactLastName",
+              "country": "country",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "city": "city",
+              "contactFirstName": "contactFirstName",
+              "contactLastName": "contactLastName",
+              "country": "country",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "ordersWithCommentsForOtherStateCustomers",
+            "to_local_table": "customersOtherStates",
+            "from_local_column": "customerId",
+            "to_local_column": "customerId"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "ordersWithCommentsForOtherStateCustomers",
+            "to_local_table": "customersByStatesCaNyPaBcCountyCork",
+            "from_local_column": "customerId",
+            "to_local_column": "customerId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "ordersWithCommentsForOtherStateCustomers",
+            "to_local_table": "customersByStatesMaCtNswVictoria",
+            "from_local_column": "customerId",
+            "to_local_column": "customerId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "ordersWithCommentsForOtherStateCustomers",
+            "to_local_table": "customersByCity",
+            "from_local_column": "customerId",
+            "to_local_column": "customerId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "ord_meta_notes",
+            "to_local_table": "customersByStatesCaNyPaBcCountyCork",
+            "from_local_column": "cust_id",
+            "to_local_column": "customerId"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "ord_meta_notes",
+            "to_local_table": "customersByStatesMaCtNswVictoria",
+            "from_local_column": "cust_id",
+            "to_local_column": "customerId"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "ord_meta_notes",
+            "to_local_table": "customersOtherStates",
+            "from_local_column": "cust_id",
+            "to_local_column": "customerId"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "ord_meta_notes",
+            "to_local_table": "customersByCity",
+            "from_local_column": "cust_id",
+            "to_local_column": "customerId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "payments",
+          "from_column": "customerNumber",
+          "to_table": "customers",
+          "to_column": "customerNumber",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "payments",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "checkNumber": "checkNumber",
+              "paymentDate": "paymentDate",
+              "amount": "amount"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "checkNumber": "checkNumber",
+              "paymentDate": "paymentDate",
+              "amount": "amount"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part1",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part2",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_addressline1_part3",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "addressLine1": "addressLine1",
+              "addressLine2": "addressLine2",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber",
+              "state": "state"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customers_city",
+            "column_map": {
+              "customerNumber": "customerNumber",
+              "city": "city",
+              "contactFirstName": "contactFirstName",
+              "contactLastName": "contactLastName",
+              "country": "country",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber"
+            },
+            "orig_to_local": {
+              "customerNumber": "customerNumber",
+              "city": "city",
+              "contactFirstName": "contactFirstName",
+              "contactLastName": "contactLastName",
+              "country": "country",
+              "creditLimit": "creditLimit",
+              "customerName": "customerName",
+              "phone": "phone",
+              "postalCode": "postalCode",
+              "salesRepEmployeeNumber": "salesRepEmployeeNumber"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "customerPaymentRecords",
+            "to_local_table": "customersByStatesCaNyPaBcCountyCork",
+            "from_local_column": "customerId",
+            "to_local_column": "customerId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "customerPaymentRecords",
+            "to_local_table": "customersByStatesMaCtNswVictoria",
+            "from_local_column": "customerId",
+            "to_local_column": "customerId"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "customerPaymentRecords",
+            "to_local_table": "customersByCity",
+            "from_local_column": "customerId",
+            "to_local_column": "customerId"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "customerPaymentRecords",
+            "to_local_table": "customersOtherStates",
+            "from_local_column": "customerId",
+            "to_local_column": "customerId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "products",
+          "from_column": "productLine",
+          "to_table": "productlines",
+          "to_column": "productLine",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "products_part2",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "products_part3",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "products_part4",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "products_part1",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "products_part5",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "productlines",
+            "column_map": {
+              "productLine": "productLine",
+              "textDescription": "textDescription",
+              "htmlDescription": "htmlDescription",
+              "image": "image"
+            },
+            "orig_to_local": {
+              "productLine": "productLine",
+              "textDescription": "textDescription",
+              "htmlDescription": "htmlDescription",
+              "image": "image"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "productsFromCarouselAndSecondGear",
+            "to_local_table": "ProductLineCatalog",
+            "from_local_column": "productCategory",
+            "to_local_column": "ProductLineKey"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "productsFromExotoAndGearbox",
+            "to_local_table": "ProductLineCatalog",
+            "from_local_column": "productCategory",
+            "to_local_column": "ProductLineKey"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "productsFromHighway66AndMotorCity",
+            "to_local_table": "ProductLineCatalog",
+            "from_local_column": "productCategory",
+            "to_local_column": "ProductLineKey"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "prod_vendor_classic_autoart_minlin",
+            "to_local_table": "ProductLineCatalog",
+            "from_local_column": "prod_line",
+            "to_local_column": "ProductLineKey"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "prod_vendor_other_or_null",
+            "to_local_table": "ProductLineCatalog",
+            "from_local_column": "prod_line",
+            "to_local_column": "ProductLineKey"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "orderdetails",
+          "from_column": "productCode",
+          "to_table": "products",
+          "to_column": null,
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "orderdetails_q2",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "orderdetails_q3",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "orderdetails_q1",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "orderdetails_q4",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "products_part2",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "products_part3",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "products_part4",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "products_part1",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "products_part5",
+            "column_map": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            },
+            "orig_to_local": {
+              "productCode": "productCode",
+              "productName": "productName",
+              "productLine": "productLine",
+              "productScale": "productScale",
+              "productVendor": "productVendor",
+              "productDescription": "productDescription",
+              "quantityInStock": "quantityInStock",
+              "buyPrice": "buyPrice",
+              "MSRP": "MSRP"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "orderdetails",
+          "from_column": "orderNumber",
+          "to_table": "orders",
+          "to_column": null,
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "orderdetails_q2",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "orderdetails_q3",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "orderdetails_q1",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "orderdetails_q4",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "productCode": "productCode",
+              "quantityOrdered": "quantityOrdered",
+              "priceEach": "priceEach",
+              "orderLineNumber": "orderLineNumber"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "orders_comments_2",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "comments": "comments",
+              "customerNumber": "customerNumber",
+              "orderDate": "orderDate",
+              "requiredDate": "requiredDate",
+              "shippedDate": "shippedDate",
+              "status": "status"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "comments": "comments",
+              "customerNumber": "customerNumber",
+              "orderDate": "orderDate",
+              "requiredDate": "requiredDate",
+              "shippedDate": "shippedDate",
+              "status": "status"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "orders_comments",
+            "column_map": {
+              "orderNumber": "orderNumber",
+              "comments": "comments",
+              "customerNumber": "customerNumber",
+              "status": "status"
+            },
+            "orig_to_local": {
+              "orderNumber": "orderNumber",
+              "comments": "comments",
+              "customerNumber": "customerNumber",
+              "status": "status"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "orderdetails_q2",
+      "source_table": "orderdetails",
+      "kind": "row_partition",
+      "from_local": "local_3",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 25,
+        "cross_local_query_count": 25,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "orderdetails_q1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "orderdetails_q3",
+      "source_table": "orderdetails",
+      "kind": "row_partition",
+      "from_local": "local_3",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 25,
+        "cross_local_query_count": 25,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "orderdetails_q1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "offices_addressline1",
+      "source_table": "offices",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_2",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "employees_email",
+        "partner_logical_table": "employees",
+        "partner_weight": 19,
+        "cross_local_query_count": 19,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "offices_city",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "orders_comments",
+      "source_table": "orders",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "orderdetails_q1",
+        "partner_logical_table": "orderdetails",
+        "partner_weight": 19,
+        "cross_local_query_count": 19,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "orders_comments_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "products_part2",
+      "source_table": "products",
+      "kind": "row_partition",
+      "from_local": "local_3",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 15,
+        "cross_local_query_count": 15,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "products_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "products_part3",
+      "source_table": "products",
+      "kind": "row_partition",
+      "from_local": "local_3",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 15,
+        "cross_local_query_count": 15,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "products_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "products_part4",
+      "source_table": "products",
+      "kind": "row_partition",
+      "from_local": "local_3",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 15,
+        "cross_local_query_count": 15,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "products_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "customers_addressline1_part1|offices_addressline1": 2,
+      "customers_addressline1_part1|offices_city": 2,
+      "customers_addressline1_part1|orderdetails_q1": 10,
+      "customers_addressline1_part1|orderdetails_q2": 10,
+      "customers_addressline1_part1|orderdetails_q3": 10,
+      "customers_addressline1_part1|orderdetails_q4": 10,
+      "customers_addressline1_part1|products_part1": 7,
+      "customers_addressline1_part1|products_part2": 7,
+      "customers_addressline1_part1|products_part3": 7,
+      "customers_addressline1_part1|products_part4": 7,
+      "customers_addressline1_part1|products_part5": 7,
+      "customers_addressline1_part2|offices_addressline1": 2,
+      "customers_addressline1_part2|offices_city": 2,
+      "customers_addressline1_part2|orderdetails_q1": 10,
+      "customers_addressline1_part2|orderdetails_q2": 10,
+      "customers_addressline1_part2|orderdetails_q3": 10,
+      "customers_addressline1_part2|orderdetails_q4": 10,
+      "customers_addressline1_part2|products_part1": 7,
+      "customers_addressline1_part2|products_part2": 7,
+      "customers_addressline1_part2|products_part3": 7,
+      "customers_addressline1_part2|products_part4": 7,
+      "customers_addressline1_part2|products_part5": 7,
+      "customers_addressline1_part3|offices_addressline1": 2,
+      "customers_addressline1_part3|offices_city": 2,
+      "customers_addressline1_part3|orderdetails_q1": 10,
+      "customers_addressline1_part3|orderdetails_q2": 10,
+      "customers_addressline1_part3|orderdetails_q3": 10,
+      "customers_addressline1_part3|orderdetails_q4": 10,
+      "customers_addressline1_part3|products_part1": 7,
+      "customers_addressline1_part3|products_part2": 7,
+      "customers_addressline1_part3|products_part3": 7,
+      "customers_addressline1_part3|products_part4": 7,
+      "customers_addressline1_part3|products_part5": 7,
+      "customers_city|offices_addressline1": 2,
+      "customers_city|offices_city": 2,
+      "customers_city|orderdetails_q1": 12,
+      "customers_city|orderdetails_q2": 12,
+      "customers_city|orderdetails_q3": 12,
+      "customers_city|orderdetails_q4": 12,
+      "customers_city|products_part1": 8,
+      "customers_city|products_part2": 8,
+      "customers_city|products_part3": 8,
+      "customers_city|products_part4": 8,
+      "customers_city|products_part5": 8,
+      "employees_email|offices_addressline1": 19,
+      "employees_email|offices_city": 17,
+      "employees_email|orderdetails_q1": 2,
+      "employees_email|orderdetails_q2": 2,
+      "employees_email|orderdetails_q3": 2,
+      "employees_email|orderdetails_q4": 2,
+      "employees_email|products_part1": 1,
+      "employees_email|products_part2": 1,
+      "employees_email|products_part3": 1,
+      "employees_email|products_part4": 1,
+      "employees_email|products_part5": 1,
+      "employees_extension|offices_addressline1": 16,
+      "employees_extension|offices_city": 14,
+      "employees_extension|orderdetails_q1": 3,
+      "employees_extension|orderdetails_q2": 3,
+      "employees_extension|orderdetails_q3": 3,
+      "employees_extension|orderdetails_q4": 3,
+      "employees_extension|products_part1": 2,
+      "employees_extension|products_part2": 2,
+      "employees_extension|products_part3": 2,
+      "employees_extension|products_part4": 2,
+      "employees_extension|products_part5": 2,
+      "offices_addressline1|payments": 1,
+      "offices_city|payments": 1,
+      "orderdetails_q1|orders_comments": 19,
+      "orderdetails_q1|orders_comments_2": 25,
+      "orderdetails_q2|orders_comments": 19,
+      "orderdetails_q2|orders_comments_2": 25,
+      "orderdetails_q3|orders_comments": 19,
+      "orderdetails_q3|orders_comments_2": 25,
+      "orderdetails_q4|orders_comments": 19,
+      "orderdetails_q4|orders_comments_2": 25,
+      "orders_comments|products_part1": 12,
+      "orders_comments|products_part2": 12,
+      "orders_comments|products_part3": 12,
+      "orders_comments|products_part4": 12
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "customers_addressline1_part1": "local_1",
+      "customers_addressline1_part2": "local_1",
+      "customers_addressline1_part3": "local_1",
+      "customers_city": "local_1",
+      "employees_email": "local_1",
+      "employees_extension": "local_1",
+      "offices_addressline1": "local_2",
+      "offices_city": "local_2",
+      "orderdetails_q1": "local_3",
+      "orderdetails_q2": "local_3",
+      "orderdetails_q3": "local_3",
+      "orderdetails_q4": "local_3",
+      "orders_comments": "local_1",
+      "orders_comments_2": "local_1",
+      "payments": "local_1",
+      "productlines": "local_2",
+      "products_part1": "local_3",
+      "products_part2": "local_3",
+      "products_part3": "local_3",
+      "products_part4": "local_3",
+      "products_part5": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "employees": {
+        "R": 1,
+        "F": 2,
+        "rho": 0.8
+      },
+      "offices": {
+        "R": 1,
+        "F": 2,
+        "rho": 0.8
+      },
+      "orders": {
+        "R": 1,
+        "F": 2,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "orderdetails": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      },
+      "products": {
+        "R": 3,
+        "F": 5,
+        "home_fragments": 5,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "orderdetails": "orderdetails_q1",
+      "products": "products_part1"
+    },
+    "intents": [
+      {
+        "source_table": "employees",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "employees_extension",
+        "anchor_fragment": "employees_email",
+        "partner_fragment": "offices_addressline1",
+        "partner_logical_table": "offices",
+        "partner_weight": 16,
+        "cross_local_query_count": 16,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "offices",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "offices_addressline1",
+        "anchor_fragment": "offices_city",
+        "partner_fragment": "employees_email",
+        "partner_logical_table": "employees",
+        "partner_weight": 19,
+        "cross_local_query_count": 19,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "orders",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "orders_comments",
+        "anchor_fragment": "orders_comments_2",
+        "partner_fragment": "orderdetails_q1",
+        "partner_logical_table": "orderdetails",
+        "partner_weight": 19,
+        "cross_local_query_count": 19,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "orderdetails",
+        "kind": "row_partition",
+        "movable_fragment": "orderdetails_q2",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 25,
+        "cross_local_query_count": 25,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "orderdetails_q1"
+      },
+      {
+        "source_table": "orderdetails",
+        "kind": "row_partition",
+        "movable_fragment": "orderdetails_q3",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 25,
+        "cross_local_query_count": 25,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "orderdetails_q1"
+      },
+      {
+        "source_table": "products",
+        "kind": "row_partition",
+        "movable_fragment": "products_part2",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 15,
+        "cross_local_query_count": 15,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "products_part1"
+      },
+      {
+        "source_table": "products",
+        "kind": "row_partition",
+        "movable_fragment": "products_part3",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 15,
+        "cross_local_query_count": 15,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "products_part1"
+      },
+      {
+        "source_table": "products",
+        "kind": "row_partition",
+        "movable_fragment": "products_part4",
+        "partner_fragment": "orders_comments_2",
+        "partner_logical_table": "orders",
+        "partner_weight": 15,
+        "cross_local_query_count": 15,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "products_part1"
+      }
+    ],
+    "moved_fragments": [
+      "offices_addressline1",
+      "orderdetails_q2",
+      "orderdetails_q3",
+      "orders_comments",
+      "products_part2",
+      "products_part3",
+      "products_part4"
+    ],
+    "pinned_fragments": [
+      "employees_email",
+      "orderdetails_q1",
+      "orders_comments_2",
+      "products_part1"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "employees",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "employees_extension",
+        "anchor_fragment": "employees_email",
+        "partner_fragment": "offices_addressline1",
+        "partner_logical_table": "offices",
+        "partner_weight": 16,
+        "cross_local_query_count": 16,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "reason": "partner_scheduled_to_move"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "offices": {
+        "columns": [
+          {
+            "name": "officeCode",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "addressLine1",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "addressLine2",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "postalCode",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "territory",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "officeCode"
+        ],
+        "pk_origin": "declared",
+        "row_count": 7
+      },
+      "employees": {
+        "columns": [
+          {
+            "name": "employeeNumber",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "lastName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "firstName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "extension",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "email",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "officeCode",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "reportsTo",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "jobTitle",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "employeeNumber"
+        ],
+        "pk_origin": "declared",
+        "row_count": 23
+      },
+      "customers": {
+        "columns": [
+          {
+            "name": "customerNumber",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "customerName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "contactLastName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "contactFirstName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "addressLine1",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "addressLine2",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "postalCode",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "salesRepEmployeeNumber",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "creditLimit",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "customerNumber"
+        ],
+        "pk_origin": "declared",
+        "row_count": 122
+      },
+      "orders": {
+        "columns": [
+          {
+            "name": "orderNumber",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "orderDate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "requiredDate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "shippedDate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "status",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "comments",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "customerNumber",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "orderNumber"
+        ],
+        "pk_origin": "declared",
+        "row_count": 326
+      },
+      "payments": {
+        "columns": [
+          {
+            "name": "customerNumber",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "checkNumber",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "paymentDate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "amount",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "customerNumber",
+          "checkNumber"
+        ],
+        "pk_origin": "declared",
+        "row_count": 273
+      },
+      "productlines": {
+        "columns": [
+          {
+            "name": "productLine",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "textDescription",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "htmlDescription",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "image",
+            "type": "BLOB",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "productLine"
+        ],
+        "pk_origin": "declared",
+        "row_count": 7
+      },
+      "products": {
+        "columns": [
+          {
+            "name": "productCode",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "productName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "productLine",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "productScale",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "productVendor",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "productDescription",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "quantityInStock",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "buyPrice",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "MSRP",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "productCode"
+        ],
+        "pk_origin": "declared",
+        "row_count": 110
+      },
+      "orderdetails": {
+        "columns": [
+          {
+            "name": "orderNumber",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "productCode",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "quantityOrdered",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "priceEach",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "orderLineNumber",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "orderNumber",
+          "productCode"
+        ],
+        "pk_origin": "declared",
+        "row_count": 2996
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "employees",
+        "from_column": "reportsTo",
+        "to_table": "employees",
+        "to_column": "employeeNumber",
+        "origin": "declared"
+      },
+      {
+        "from_table": "employees",
+        "from_column": "officeCode",
+        "to_table": "offices",
+        "to_column": "officeCode",
+        "origin": "declared"
+      },
+      {
+        "from_table": "customers",
+        "from_column": "salesRepEmployeeNumber",
+        "to_table": "employees",
+        "to_column": "employeeNumber",
+        "origin": "declared"
+      },
+      {
+        "from_table": "orders",
+        "from_column": "customerNumber",
+        "to_table": "customers",
+        "to_column": "customerNumber",
+        "origin": "declared"
+      },
+      {
+        "from_table": "payments",
+        "from_column": "customerNumber",
+        "to_table": "customers",
+        "to_column": "customerNumber",
+        "origin": "declared"
+      },
+      {
+        "from_table": "products",
+        "from_column": "productLine",
+        "to_table": "productlines",
+        "to_column": "productLine",
+        "origin": "declared"
+      },
+      {
+        "from_table": "orderdetails",
+        "from_column": "productCode",
+        "to_table": "products",
+        "to_column": null,
+        "origin": "declared"
+      },
+      {
+        "from_table": "orderdetails",
+        "from_column": "orderNumber",
+        "to_table": "orders",
+        "to_column": null,
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 8,
+      "num_fk_edges": 8,
+      "hub_tables": [
+        "employees",
+        "customers",
+        "orders",
+        "products",
+        "orderdetails"
+      ],
+      "connected_components": 1
+    }
+  }
+}

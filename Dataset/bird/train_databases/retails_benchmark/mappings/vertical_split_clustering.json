@@ -1,0 +1,629 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 8,
+    "eligible_candidate_count": 8,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "lineitem",
+      "orders",
+      "part",
+      "customer",
+      "supplier",
+      "nation"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/retails/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "orders",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "supplier",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "nation",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "customer": {
+      "pk_columns": [
+        "c_custkey"
+      ],
+      "fragments": [
+        {
+          "suffix": "frag_20231",
+          "non_pk_columns": [
+            "c_acctbal",
+            "c_address",
+            "c_name",
+            "c_nationkey"
+          ],
+          "local_table": "CustomerWithNation",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customer_frag_20231"
+        },
+        {
+          "suffix": "frag_59615",
+          "non_pk_columns": [
+            "c_acctbal",
+            "c_address",
+            "c_comment",
+            "c_mktsegment",
+            "c_name",
+            "c_phone"
+          ],
+          "local_table": "CustomerFurnitureSegment",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customer_frag_59615",
+          "row_partition_names": [
+            "CustomerFurnitureSegment",
+            "CustomerMachinerySegment",
+            "CustomerBuildingSegment",
+            "CustomerAutomobileSegment",
+            "CustomerHouseholdSegment"
+          ],
+          "row_partition_predicate_column": "c_mktsegment"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customer",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1185099586,
+        "scores_by_k": {
+          "2": 0.004732424837128809
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.004732424837128809,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "c_acctbal",
+            "c_address",
+            "c_name",
+            "c_nationkey"
+          ],
+          [
+            "c_comment",
+            "c_mktsegment",
+            "c_phone"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "c_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "c_address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "c_acctbal",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "c_acctbal",
+            "c_address",
+            "c_name",
+            "c_nationkey"
+          ],
+          [
+            "c_acctbal",
+            "c_address",
+            "c_comment",
+            "c_mktsegment",
+            "c_name",
+            "c_phone"
+          ]
+        ],
+        "pk_columns": [
+          "c_custkey"
+        ],
+        "fragments": [
+          {
+            "suffix": "frag_20231",
+            "non_pk_columns": [
+              "c_acctbal",
+              "c_address",
+              "c_name",
+              "c_nationkey"
+            ]
+          },
+          {
+            "suffix": "frag_59615",
+            "non_pk_columns": [
+              "c_acctbal",
+              "c_address",
+              "c_comment",
+              "c_mktsegment",
+              "c_name",
+              "c_phone"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "c_name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_20231",
+          "also_in_fragment_suffix": "frag_59615"
+        },
+        {
+          "column": "c_address",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_20231",
+          "also_in_fragment_suffix": "frag_59615"
+        },
+        {
+          "column": "c_acctbal",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_20231",
+          "also_in_fragment_suffix": "frag_59615"
+        }
+      ]
+    },
+    "lineitem": {
+      "pk_columns": [
+        "l_orderkey",
+        "l_linenumber"
+      ],
+      "fragments": [
+        {
+          "suffix": "frag_45133",
+          "non_pk_columns": [
+            "l_comment",
+            "l_linestatus",
+            "l_quantity",
+            "l_returnflag",
+            "l_shipinstruct",
+            "l_shipmode"
+          ],
+          "local_table": "lineItemStatusShipping",
+          "local_name": "local_3",
+          "vertical_fragment_base": "lineitem_frag_45133"
+        },
+        {
+          "suffix": "frag_54165",
+          "non_pk_columns": [
+            "l_commitdate",
+            "l_receiptdate",
+            "l_shipdate"
+          ],
+          "local_table": "lineitem_frag_54165_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "lineitem_frag_54165",
+          "row_partition_names": [
+            "lineitem_frag_54165_q1",
+            "lineitem_frag_54165_q2",
+            "lineitem_frag_54165_q3",
+            "li_commit_after_19970714"
+          ],
+          "row_partition_predicate_column": "l_commitdate"
+        },
+        {
+          "suffix": "frag_14485",
+          "non_pk_columns": [
+            "l_discount",
+            "l_extendedprice",
+            "l_tax"
+          ],
+          "local_table": "lineItemPricing",
+          "local_name": "local_3",
+          "vertical_fragment_base": "lineitem_frag_14485"
+        },
+        {
+          "suffix": "frag_42402",
+          "non_pk_columns": [
+            "l_comment",
+            "l_linestatus",
+            "l_partkey",
+            "l_quantity",
+            "l_returnflag",
+            "l_shipinstruct",
+            "l_shipmode",
+            "l_suppkey"
+          ],
+          "local_table": "li_core_records",
+          "local_name": "local_2",
+          "vertical_fragment_base": "lineitem_frag_42402"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "lineitem",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 14,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.03470581800825055,
+          "3": 0.057633986220140536,
+          "4": 0.08506132436687198,
+          "5": 0.0808952519773587
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.08506132436687198,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "l_comment",
+            "l_returnflag",
+            "l_shipinstruct",
+            "l_shipmode"
+          ],
+          [
+            "l_commitdate",
+            "l_receiptdate",
+            "l_shipdate"
+          ],
+          [
+            "l_discount",
+            "l_extendedprice",
+            "l_tax"
+          ],
+          [
+            "l_linestatus",
+            "l_partkey",
+            "l_quantity",
+            "l_suppkey"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "l_linestatus",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "l_returnflag",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "l_shipmode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "l_comment",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "l_quantity",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "l_shipinstruct",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "l_comment",
+            "l_linestatus",
+            "l_quantity",
+            "l_returnflag",
+            "l_shipinstruct",
+            "l_shipmode"
+          ],
+          [
+            "l_commitdate",
+            "l_receiptdate",
+            "l_shipdate"
+          ],
+          [
+            "l_discount",
+            "l_extendedprice",
+            "l_tax"
+          ],
+          [
+            "l_comment",
+            "l_linestatus",
+            "l_partkey",
+            "l_quantity",
+            "l_returnflag",
+            "l_shipinstruct",
+            "l_shipmode",
+            "l_suppkey"
+          ]
+        ],
+        "pk_columns": [
+          "l_orderkey",
+          "l_linenumber"
+        ],
+        "fragments": [
+          {
+            "suffix": "frag_45133",
+            "non_pk_columns": [
+              "l_comment",
+              "l_linestatus",
+              "l_quantity",
+              "l_returnflag",
+              "l_shipinstruct",
+              "l_shipmode"
+            ]
+          },
+          {
+            "suffix": "frag_54165",
+            "non_pk_columns": [
+              "l_commitdate",
+              "l_receiptdate",
+              "l_shipdate"
+            ]
+          },
+          {
+            "suffix": "frag_14485",
+            "non_pk_columns": [
+              "l_discount",
+              "l_extendedprice",
+              "l_tax"
+            ]
+          },
+          {
+            "suffix": "frag_42402",
+            "non_pk_columns": [
+              "l_comment",
+              "l_linestatus",
+              "l_partkey",
+              "l_quantity",
+              "l_returnflag",
+              "l_shipinstruct",
+              "l_shipmode",
+              "l_suppkey"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "l_linestatus",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "frag_42402",
+          "also_in_fragment_suffix": "frag_45133"
+        },
+        {
+          "column": "l_returnflag",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "frag_45133",
+          "also_in_fragment_suffix": "frag_42402"
+        },
+        {
+          "column": "l_shipmode",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "frag_45133",
+          "also_in_fragment_suffix": "frag_42402"
+        },
+        {
+          "column": "l_comment",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "frag_45133",
+          "also_in_fragment_suffix": "frag_42402"
+        },
+        {
+          "column": "l_quantity",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "frag_42402",
+          "also_in_fragment_suffix": "frag_45133"
+        },
+        {
+          "column": "l_shipinstruct",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "frag_45133",
+          "also_in_fragment_suffix": "frag_42402"
+        }
+      ]
+    },
+    "part": {
+      "pk_columns": [
+        "p_partkey"
+      ],
+      "fragments": [
+        {
+          "suffix": "frag_99399",
+          "non_pk_columns": [
+            "p_brand",
+            "p_comment",
+            "p_container",
+            "p_mfgr",
+            "p_name",
+            "p_retailprice",
+            "p_size"
+          ],
+          "local_table": "part_frag_99399_part1",
+          "local_name": "local_3",
+          "vertical_fragment_base": "part_frag_99399",
+          "row_partition_names": [
+            "part_frag_99399_part1",
+            "partIncludedBrands14And55And52And44",
+            "partOtherBrandsOrNull"
+          ],
+          "row_partition_predicate_column": "p_brand"
+        },
+        {
+          "suffix": "frag_96461",
+          "non_pk_columns": [
+            "p_comment",
+            "p_container",
+            "p_retailprice",
+            "p_size",
+            "p_type"
+          ],
+          "local_table": "part_misc_96461",
+          "local_name": "local_2",
+          "vertical_fragment_base": "part_frag_96461"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "part",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 192446679,
+        "scores_by_k": {
+          "2": 0.0191306070953423
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0191306070953423,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "p_brand",
+            "p_mfgr",
+            "p_name",
+            "p_retailprice"
+          ],
+          [
+            "p_comment",
+            "p_container",
+            "p_size",
+            "p_type"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "p_retailprice",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "p_size",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "p_comment",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "p_container",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "p_brand",
+            "p_comment",
+            "p_container",
+            "p_mfgr",
+            "p_name",
+            "p_retailprice",
+            "p_size"
+          ],
+          [
+            "p_comment",
+            "p_container",
+            "p_retailprice",
+            "p_size",
+            "p_type"
+          ]
+        ],
+        "pk_columns": [
+          "p_partkey"
+        ],
+        "fragments": [
+          {
+            "suffix": "frag_99399",
+            "non_pk_columns": [
+              "p_brand",
+              "p_comment",
+              "p_container",
+              "p_mfgr",
+              "p_name",
+              "p_retailprice",
+              "p_size"
+            ]
+          },
+          {
+            "suffix": "frag_96461",
+            "non_pk_columns": [
+              "p_comment",
+              "p_container",
+              "p_retailprice",
+              "p_size",
+              "p_type"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "p_retailprice",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_99399",
+          "also_in_fragment_suffix": "frag_96461"
+        },
+        {
+          "column": "p_size",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "frag_96461",
+          "also_in_fragment_suffix": "frag_99399"
+        },
+        {
+          "column": "p_comment",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "frag_96461",
+          "also_in_fragment_suffix": "frag_99399"
+        },
+        {
+          "column": "p_container",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "frag_96461",
+          "also_in_fragment_suffix": "frag_99399"
+        }
+      ]
+    }
+  }
+}

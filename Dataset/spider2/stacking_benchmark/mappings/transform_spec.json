@@ -1,0 +1,674 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "data_expl": {
+          "source_table": "eda",
+          "column_map": {
+            "set_name": "name",
+            "ver_num": "version",
+            "feat_key": "feature",
+            "feat_kind": "type",
+            "val_range": "range",
+            "drop_usr": "drop_user",
+            "drop_corr": "drop_correlation",
+            "tgt_flag": "target"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "mdl_eval": {
+          "source_table": "model_score",
+          "column_map": {
+            "set_name": "name",
+            "ver_num": "version",
+            "proc_step": "step",
+            "mdl_name": "model",
+            "trn_score": "train_score",
+            "tst_score": "test_score"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "soln_meta": {
+          "source_table": "solution",
+          "column_map": {
+            "set_name": "name",
+            "ver_num": "version",
+            "corr_coef": "correlation",
+            "mdl_count": "nb_model",
+            "feat_count": "nb_feature",
+            "soln_score": "score",
+            "tst_frac": "test_size",
+            "resamp_mode": "resampling"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "model_feature_relevance": {
+          "source_table": "feature_importance",
+          "column_map": {
+            "analysis_id": "name",
+            "model_version": "version",
+            "training_step": "step",
+            "feature_name": "feature",
+            "importance_score": "importance"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "analysis_problem": {
+          "source_table": "problem",
+          "column_map": {
+            "analysis_id": "name",
+            "dataset_path": "path",
+            "problem_type": "type",
+            "prediction_target": "target"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "modelDescriptor": {
+          "source_table": "model",
+          "column_map": {
+            "modelName": "name",
+            "modelVersion": "version",
+            "modelStep": "step",
+            "baseModelReference": "L1_model"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "modelImportance": {
+          "source_table": "model_importance",
+          "column_map": {
+            "modelName": "name",
+            "modelVersion": "version",
+            "modelStep": "step",
+            "associatedModelReference": "model",
+            "importanceScore": "importance"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "eda": "data_expl",
+        "model_score": "mdl_eval",
+        "solution": "soln_meta"
+      },
+      "column_renames": {
+        "eda": {
+          "name": "set_name",
+          "version": "ver_num",
+          "feature": "feat_key",
+          "type": "feat_kind",
+          "range": "val_range",
+          "drop_user": "drop_usr",
+          "drop_correlation": "drop_corr",
+          "target": "tgt_flag"
+        },
+        "model_score": {
+          "name": "set_name",
+          "version": "ver_num",
+          "step": "proc_step",
+          "model": "mdl_name",
+          "train_score": "trn_score",
+          "test_score": "tst_score"
+        },
+        "solution": {
+          "name": "set_name",
+          "version": "ver_num",
+          "correlation": "corr_coef",
+          "nb_model": "mdl_count",
+          "nb_feature": "feat_count",
+          "score": "soln_score",
+          "test_size": "tst_frac",
+          "resampling": "resamp_mode"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_2": {
+      "table_renames": {
+        "feature_importance": "model_feature_relevance",
+        "problem": "analysis_problem"
+      },
+      "column_renames": {
+        "feature_importance": {
+          "name": "analysis_id",
+          "version": "model_version",
+          "step": "training_step",
+          "feature": "feature_name",
+          "importance": "importance_score"
+        },
+        "problem": {
+          "name": "analysis_id",
+          "path": "dataset_path",
+          "type": "problem_type",
+          "target": "prediction_target"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_3": {
+      "table_renames": {
+        "model": "modelDescriptor",
+        "model_importance": "modelImportance"
+      },
+      "column_renames": {
+        "model": {
+          "name": "modelName",
+          "version": "modelVersion",
+          "step": "modelStep",
+          "L1_model": "baseModelReference"
+        },
+        "model_importance": {
+          "name": "modelName",
+          "version": "modelVersion",
+          "step": "modelStep",
+          "model": "associatedModelReference",
+          "importance": "importanceScore"
+        }
+      },
+      "naming_case_style": "camelCase"
+    }
+  },
+  "vertical_split_map": {},
+  "split_map": {},
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 7,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "problem"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/stacking/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "problem",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {},
+  "fk_map": {
+    "foreign_keys": []
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {},
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "eda": "local_1",
+      "feature_importance": "local_2",
+      "model": "local_3",
+      "model_importance": "local_3",
+      "model_score": "local_1",
+      "problem": "local_2",
+      "solution": "local_1"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "problem": {
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "path",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "type",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "target",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "name"
+        ],
+        "pk_origin": "declared",
+        "row_count": 20
+      },
+      "eda": {
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "version",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "feature",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "type",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "range",
+            "type": "BLOB",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "drop_user",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "drop_correlation",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "target",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 1547
+      },
+      "feature_importance": {
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "version",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "step",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "feature",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "importance",
+            "type": "NUMERIC",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 2887
+      },
+      "solution": {
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "version",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "correlation",
+            "type": "NUMERIC",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "nb_model",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "nb_feature",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "score",
+            "type": "NUMERIC",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "test_size",
+            "type": "NUMERIC",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "resampling",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 101
+      },
+      "model_score": {
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "version",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "step",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "model",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "train_score",
+            "type": "NUMERIC",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "test_score",
+            "type": "NUMERIC",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 2872
+      },
+      "model_importance": {
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "version",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "step",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "model",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "importance",
+            "type": "NUMERIC",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 2567
+      },
+      "model": {
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "version",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "step",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "L1_model",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 303
+      }
+    },
+    "foreign_keys": [],
+    "stats": {
+      "num_tables": 7,
+      "num_fk_edges": 0,
+      "hub_tables": [],
+      "connected_components": 7
+    }
+  }
+}

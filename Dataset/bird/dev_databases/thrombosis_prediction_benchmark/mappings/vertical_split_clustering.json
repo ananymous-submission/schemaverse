@@ -1,0 +1,731 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 3,
+    "eligible_candidate_count": 2,
+    "num_selected_for_vertical_split": 2,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "Laboratory",
+      "Patient"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/dev_databases/thrombosis_prediction/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "per_table": {
+    "Patient": {
+      "pk_columns": [
+        "ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "admission",
+          "non_pk_columns": [
+            "Admission",
+            "Description",
+            "Diagnosis",
+            "SEX"
+          ],
+          "local_table": "PatientAdmissionRecord",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Patient_admission"
+        },
+        {
+          "suffix": "admission_2",
+          "non_pk_columns": [
+            "Admission",
+            "Birthday",
+            "Description",
+            "Diagnosis",
+            "First Date"
+          ],
+          "local_table": "PatientAdmissionBefore1994Feb22",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Patient_admission_2",
+          "row_partition_names": [
+            "PatientAdmissionBefore1994Feb22",
+            "Patient_admission_2_q2",
+            "Patient_admission_2_q3",
+            "PatientAdmissionAfter1997Aug20"
+          ],
+          "row_partition_predicate_column": "Description"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Patient",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.047663259714290585
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.047663259714290585,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Admission",
+            "Diagnosis",
+            "SEX"
+          ],
+          [
+            "Birthday",
+            "Description",
+            "First Date"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Diagnosis",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Admission",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Description",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Admission",
+            "Description",
+            "Diagnosis",
+            "SEX"
+          ],
+          [
+            "Admission",
+            "Birthday",
+            "Description",
+            "Diagnosis",
+            "First Date"
+          ]
+        ],
+        "pk_columns": [
+          "ID"
+        ],
+        "fragments": [
+          {
+            "suffix": "admission",
+            "non_pk_columns": [
+              "Admission",
+              "Description",
+              "Diagnosis",
+              "SEX"
+            ]
+          },
+          {
+            "suffix": "admission_2",
+            "non_pk_columns": [
+              "Admission",
+              "Birthday",
+              "Description",
+              "Diagnosis",
+              "First Date"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Diagnosis",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "admission",
+          "also_in_fragment_suffix": "admission_2"
+        },
+        {
+          "column": "Admission",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "admission",
+          "also_in_fragment_suffix": "admission_2"
+        },
+        {
+          "column": "Description",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "admission_2",
+          "also_in_fragment_suffix": "admission"
+        }
+      ]
+    },
+    "Laboratory": {
+      "pk_columns": [
+        "ID",
+        "Date"
+      ],
+      "fragments": [
+        {
+          "suffix": "alb",
+          "non_pk_columns": [
+            "ALB",
+            "ALP",
+            "APTT",
+            "C3",
+            "C4",
+            "CPK",
+            "CRE",
+            "CRP",
+            "FG",
+            "GLU",
+            "HGB",
+            "IGA",
+            "IGG",
+            "IGM",
+            "LDH",
+            "T-BIL",
+            "T-CHO",
+            "TG",
+            "TP",
+            "UA",
+            "UN"
+          ],
+          "local_table": "Laboratory_alb_q1",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Laboratory_alb",
+          "row_partition_names": [
+            "Laboratory_alb_q1",
+            "LaboratoryAlbuminRange3Point9To4Point2",
+            "LaboratoryAlbuminRange4Point2To4Point5",
+            "LaboratoryAlbuminAbove4Point5OrMissing"
+          ],
+          "row_partition_predicate_column": "ALB"
+        },
+        {
+          "suffix": "alb_2",
+          "non_pk_columns": [
+            "ALB",
+            "ALP",
+            "C3",
+            "C4",
+            "CPK",
+            "FG",
+            "GLU",
+            "GOT",
+            "GPT",
+            "HCT",
+            "HGB",
+            "LDH",
+            "PLT",
+            "RBC",
+            "T-BIL",
+            "TP",
+            "UA",
+            "WBC"
+          ],
+          "local_table": "LaboratoryAlbuminSecondary",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Laboratory_alb_2"
+        },
+        {
+          "suffix": "aptt",
+          "non_pk_columns": [
+            "APTT",
+            "CRE",
+            "HCT",
+            "PIC",
+            "PT",
+            "TAT",
+            "TAT2",
+            "UN"
+          ],
+          "local_table": "LaboratoryCoagulationAppttPanel",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Laboratory_aptt"
+        },
+        {
+          "suffix": "centromea",
+          "non_pk_columns": [
+            "CENTROMEA",
+            "CRP",
+            "DNA",
+            "DNA-II",
+            "RNP",
+            "SC170",
+            "SM",
+            "SSA",
+            "SSB"
+          ],
+          "local_table": "LaboratoryCentromereAutoantibodyPanel",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Laboratory_centromea"
+        },
+        {
+          "suffix": "ra",
+          "non_pk_columns": [
+            "RA",
+            "RF",
+            "U-PRO"
+          ],
+          "local_table": "lab_ra_serology",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Laboratory_ra"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Laboratory",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 42,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.02949413133042173,
+          "3": 0.039176157928405037,
+          "4": 0.04577870727689618,
+          "5": 0.04612343711858576
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.04612343711858576,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "ALB",
+            "CPK",
+            "CRE",
+            "FG",
+            "GLU",
+            "IGA",
+            "IGG",
+            "IGM",
+            "T-CHO",
+            "TG",
+            "TP",
+            "UA"
+          ],
+          [
+            "ALP",
+            "C3",
+            "C4",
+            "GOT",
+            "GPT",
+            "HGB",
+            "LDH",
+            "PLT",
+            "RBC",
+            "T-BIL",
+            "WBC"
+          ],
+          [
+            "APTT",
+            "HCT",
+            "PIC",
+            "PT",
+            "TAT",
+            "TAT2",
+            "UN"
+          ],
+          [
+            "CENTROMEA",
+            "CRP",
+            "DNA",
+            "DNA-II",
+            "RNP",
+            "SC170",
+            "SM",
+            "SSA",
+            "SSB"
+          ],
+          [
+            "RA",
+            "RF",
+            "U-PRO"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "CRP",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "T-BIL",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "GLU",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "UN",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "FG",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "HGB",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "CPK",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "HCT",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "ALP",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "LDH",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "CRE",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "ALB",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "TP",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "APTT",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "UA",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "C4",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "C3",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "ALB",
+            "ALP",
+            "APTT",
+            "C3",
+            "C4",
+            "CPK",
+            "CRE",
+            "CRP",
+            "FG",
+            "GLU",
+            "HGB",
+            "IGA",
+            "IGG",
+            "IGM",
+            "LDH",
+            "T-BIL",
+            "T-CHO",
+            "TG",
+            "TP",
+            "UA",
+            "UN"
+          ],
+          [
+            "ALB",
+            "ALP",
+            "C3",
+            "C4",
+            "CPK",
+            "FG",
+            "GLU",
+            "GOT",
+            "GPT",
+            "HCT",
+            "HGB",
+            "LDH",
+            "PLT",
+            "RBC",
+            "T-BIL",
+            "TP",
+            "UA",
+            "WBC"
+          ],
+          [
+            "APTT",
+            "CRE",
+            "HCT",
+            "PIC",
+            "PT",
+            "TAT",
+            "TAT2",
+            "UN"
+          ],
+          [
+            "CENTROMEA",
+            "CRP",
+            "DNA",
+            "DNA-II",
+            "RNP",
+            "SC170",
+            "SM",
+            "SSA",
+            "SSB"
+          ],
+          [
+            "RA",
+            "RF",
+            "U-PRO"
+          ]
+        ],
+        "pk_columns": [
+          "ID",
+          "Date"
+        ],
+        "fragments": [
+          {
+            "suffix": "alb",
+            "non_pk_columns": [
+              "ALB",
+              "ALP",
+              "APTT",
+              "C3",
+              "C4",
+              "CPK",
+              "CRE",
+              "CRP",
+              "FG",
+              "GLU",
+              "HGB",
+              "IGA",
+              "IGG",
+              "IGM",
+              "LDH",
+              "T-BIL",
+              "T-CHO",
+              "TG",
+              "TP",
+              "UA",
+              "UN"
+            ]
+          },
+          {
+            "suffix": "alb_2",
+            "non_pk_columns": [
+              "ALB",
+              "ALP",
+              "C3",
+              "C4",
+              "CPK",
+              "FG",
+              "GLU",
+              "GOT",
+              "GPT",
+              "HCT",
+              "HGB",
+              "LDH",
+              "PLT",
+              "RBC",
+              "T-BIL",
+              "TP",
+              "UA",
+              "WBC"
+            ]
+          },
+          {
+            "suffix": "aptt",
+            "non_pk_columns": [
+              "APTT",
+              "CRE",
+              "HCT",
+              "PIC",
+              "PT",
+              "TAT",
+              "TAT2",
+              "UN"
+            ]
+          },
+          {
+            "suffix": "centromea",
+            "non_pk_columns": [
+              "CENTROMEA",
+              "CRP",
+              "DNA",
+              "DNA-II",
+              "RNP",
+              "SC170",
+              "SM",
+              "SSA",
+              "SSB"
+            ]
+          },
+          {
+            "suffix": "ra",
+            "non_pk_columns": [
+              "RA",
+              "RF",
+              "U-PRO"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "CRP",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "centromea",
+          "also_in_fragment_suffix": "alb"
+        },
+        {
+          "column": "T-BIL",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alb_2",
+          "also_in_fragment_suffix": "alb"
+        },
+        {
+          "column": "GLU",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alb",
+          "also_in_fragment_suffix": "alb_2"
+        },
+        {
+          "column": "UN",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aptt",
+          "also_in_fragment_suffix": "alb"
+        },
+        {
+          "column": "FG",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alb",
+          "also_in_fragment_suffix": "alb_2"
+        },
+        {
+          "column": "HGB",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alb_2",
+          "also_in_fragment_suffix": "alb"
+        },
+        {
+          "column": "CPK",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alb",
+          "also_in_fragment_suffix": "alb_2"
+        },
+        {
+          "column": "HCT",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "aptt",
+          "also_in_fragment_suffix": "alb_2"
+        },
+        {
+          "column": "ALP",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alb_2",
+          "also_in_fragment_suffix": "alb"
+        },
+        {
+          "column": "LDH",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alb_2",
+          "also_in_fragment_suffix": "alb"
+        },
+        {
+          "column": "CRE",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "alb",
+          "also_in_fragment_suffix": "aptt"
+        },
+        {
+          "column": "ALB",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alb",
+          "also_in_fragment_suffix": "alb_2"
+        },
+        {
+          "column": "TP",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alb",
+          "also_in_fragment_suffix": "alb_2"
+        },
+        {
+          "column": "APTT",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aptt",
+          "also_in_fragment_suffix": "alb"
+        },
+        {
+          "column": "UA",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alb",
+          "also_in_fragment_suffix": "alb_2"
+        },
+        {
+          "column": "C4",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alb_2",
+          "also_in_fragment_suffix": "alb"
+        },
+        {
+          "column": "C3",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alb_2",
+          "also_in_fragment_suffix": "alb"
+        }
+      ]
+    }
+  }
+}

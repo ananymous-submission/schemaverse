@@ -1,0 +1,342 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "org_divs": {
+          "source_table": "divisions",
+          "column_map": {
+            "div_id": "division",
+            "div_lbl": "name",
+            "ctry_cd": "country"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "MatchRecord": {
+          "source_table": "matchs",
+          "column_map": {
+            "DivisionCode": "Div",
+            "MatchDate": "Date",
+            "HomeTeamName": "HomeTeam",
+            "AwayTeamName": "AwayTeam",
+            "FullTimeHomeGoals": "FTHG",
+            "FullTimeAwayGoals": "FTAG",
+            "FullTimeResult": "FTR",
+            "SeasonYear": "season"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "divisions": "org_divs"
+      },
+      "column_renames": {
+        "divisions": {
+          "division": "div_id",
+          "name": "div_lbl",
+          "country": "ctry_cd"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_2": {
+      "table_renames": {
+        "matchs": "MatchRecord"
+      },
+      "column_renames": {
+        "matchs": {
+          "Div": "DivisionCode",
+          "Date": "MatchDate",
+          "HomeTeam": "HomeTeamName",
+          "AwayTeam": "AwayTeamName",
+          "FTHG": "FullTimeHomeGoals",
+          "FTAG": "FullTimeAwayGoals",
+          "FTR": "FullTimeResult",
+          "season": "SeasonYear"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    }
+  },
+  "vertical_split_map": {},
+  "split_map": {},
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 2,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "divisions"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/european_football_1/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "divisions",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {},
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "matchs",
+          "from_column": "Div",
+          "to_table": "divisions",
+          "to_column": "division",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "matchs",
+            "column_map": {
+              "Div": "Div",
+              "Date": "Date",
+              "HomeTeam": "HomeTeam",
+              "AwayTeam": "AwayTeam",
+              "FTHG": "FTHG",
+              "FTAG": "FTAG",
+              "FTR": "FTR",
+              "season": "season"
+            },
+            "orig_to_local": {
+              "Div": "Div",
+              "Date": "Date",
+              "HomeTeam": "HomeTeam",
+              "AwayTeam": "AwayTeam",
+              "FTHG": "FTHG",
+              "FTAG": "FTAG",
+              "FTR": "FTR",
+              "season": "season"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "divisions",
+            "column_map": {
+              "division": "division",
+              "name": "name",
+              "country": "country"
+            },
+            "orig_to_local": {
+              "division": "division",
+              "name": "name",
+              "country": "country"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "MatchRecord",
+            "to_local_table": "org_divs",
+            "from_local_column": "DivisionCode",
+            "to_local_column": "div_id"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "divisions|matchs": 40
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "divisions": "local_1",
+      "matchs": "local_2"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "divisions": {
+        "columns": [
+          {
+            "name": "division",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "division"
+        ],
+        "pk_origin": "declared",
+        "row_count": 21
+      },
+      "matchs": {
+        "columns": [
+          {
+            "name": "Div",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Date",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "HomeTeam",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "AwayTeam",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "FTHG",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "FTAG",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "FTR",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "season",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 123404
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "matchs",
+        "from_column": "Div",
+        "to_table": "divisions",
+        "to_column": "division",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 2,
+      "num_fk_edges": 1,
+      "hub_tables": [
+        "divisions",
+        "matchs"
+      ],
+      "connected_components": 1
+    }
+  }
+}

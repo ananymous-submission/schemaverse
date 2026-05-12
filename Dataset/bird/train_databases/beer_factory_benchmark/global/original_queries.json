@@ -1,0 +1,919 @@
+[
+  {
+    "sql": "SELECT BrandName FROM rootbeerbrand WHERE FirstBrewedYear = ( SELECT MIN(FirstBrewedYear) FROM rootbeerbrand )",
+    "question_id": null,
+    "question": "What is the name of the root beer brand that has the longest history?",
+    "difficulty": "",
+    "evidence": "name of the root beer brand refers to BrandName; longest history refers to MIN(FirstBrewedYear);"
+  },
+  {
+    "sql": "SELECT COUNT(BrandID) FROM rootbeerbrand WHERE Country = 'United States'",
+    "question_id": null,
+    "question": "How many breweries are located in North America?",
+    "difficulty": "",
+    "evidence": "North America refers to country = 'United States'; North America is the name of continent where country = 'United States' is located;"
+  },
+  {
+    "sql": "SELECT BrandName FROM rootbeerbrand WHERE FacebookPage IS NOT NULL",
+    "question_id": null,
+    "question": "Please list the names of all the root beer brands that are advertised on facebook.",
+    "difficulty": "",
+    "evidence": "name of the root beer brand refers to BrandName; advertised on facebook refers to FacebookPage IS not NULL;"
+  },
+  {
+    "sql": "SELECT BrandName FROM rootbeerbrand ORDER BY CurrentRetailPrice - WholesaleCost LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the root beer brand with the lowest unit profit available to wholesalers?",
+    "difficulty": "",
+    "evidence": "name of the root beer brand refers to BrandName; lowest unit profit available to wholesalers refers to MIN(SUBTRACT(CurrentRetailPrice, WholesaleCost));"
+  },
+  {
+    "sql": "SELECT Description FROM rootbeerbrand WHERE BrandName = 'A&W'",
+    "question_id": null,
+    "question": "What is the description of the root beer brand A&W?",
+    "difficulty": "",
+    "evidence": "A&W refers to BrandName = 'A&W';"
+  },
+  {
+    "sql": "SELECT City FROM rootbeerbrand WHERE BreweryName = 'AJ Stephans Beverages'",
+    "question_id": null,
+    "question": "In which city is the brewery AJ Stephans Beverages located?",
+    "difficulty": "",
+    "evidence": "AJ Stephans refers to BreweryName = 'AJ Stephans Beverages';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'Frank-Paul' AND T1.Last = 'Santangelo' AND STRFTIME('%Y-%m', T2.TransactionDate) = '2014-07'",
+    "question_id": null,
+    "question": "How many transactions had Frank-Paul Santangelo made in July, 2014?",
+    "difficulty": "",
+    "evidence": "in July, 2014 refers to SUBSTR(TransactionDate, 1, 4) = '2014' AND SUBSTR(TransactionDate, 6, 2) = '07';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Gender = 'M' AND STRFTIME('%Y-%m', T2.TransactionDate) = '2014-07'",
+    "question_id": null,
+    "question": "Among the transactions made in July, 2014, how many of them were made by a male customer?",
+    "difficulty": "",
+    "evidence": "in July, 2014 refers to SUBSTR(TransactionDate, 1, 4) = '2014' AND SUBSTR(TransactionDate, 6, 2) = '07'; male customer refers to Gender = 'M';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.SubscribedToEmailList = 'TRUE' AND T2.CreditCardType = 'Visa' AND STRFTIME('%Y-%m', T2.TransactionDate) = '2014-07'",
+    "question_id": null,
+    "question": "Among the users that permit the company to send regular emails to them, how many of them had made a transaction with a Visa card in July, 2014?",
+    "difficulty": "",
+    "evidence": "users permit the company to send regular emails to them refers to subscribedtoemaillist = 'TRUE'; Visa card refers to creditcardtype = 'Visa'; in July, 2014 refers to SUBSTR(TransactionDate, 1, 4) = '2014' AND SUBSTR(TransactionDate, 6, 2) = '07';"
+  },
+  {
+    "sql": "SELECT T1.First, T1.Last FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE STRFTIME('%Y-%m', T2.TransactionDate) = '2014-08' GROUP BY T1.CustomerID ORDER BY COUNT(T2.CustomerID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the customer that had made the most transactions in August, 2014?",
+    "difficulty": "",
+    "evidence": "full name = First, Last; made the most transactions refers to MAX(COUNT(TransactionID)); in August, 2014 refers to SUBSTR(TransactionDate, 1, 4) = '2014' AND SUBSTR(TransactionDate, 6, 2) = '08';"
+  },
+  {
+    "sql": "SELECT DISTINCT T4.BrandName FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeer AS T3 ON T2.RootBeerID = T3.RootBeerID INNER JOIN rootbeerbrand AS T4 ON T3.BrandID = T4.BrandID WHERE T1.First = 'Frank-Paul' AND T1.Last = 'Santangelo' AND T2.TransactionDate = '2014-07-07'",
+    "question_id": null,
+    "question": "Please list the brands of all the root beer that Frank-Paul Santangelo had purchased on 2014/7/7.",
+    "difficulty": "",
+    "evidence": "brands of the root beer refers to BrandName; purchased on 2014/7/7 refers to transactiondate = '2014-07-07';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeer AS T3 ON T2.RootBeerID = T3.RootBeerID WHERE T1.First = 'Frank-Paul' AND T1.Last = 'Santangelo' AND T2.TransactionDate = '2014-07-07' AND T3.ContainerType = 'Can'",
+    "question_id": null,
+    "question": "Of the 4 root beers that Frank-Paul Santangelo purchased on 2014/7/7, how many of them were in cans?",
+    "difficulty": "",
+    "evidence": "on 2014/7/7 refers to transactiondate = '2014-07-07'; in cans refers to containertype = 'Can';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.BrandID) FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID WHERE T2.TransactionDate LIKE '2014-08%' AND T3.BrandName = 'Bulldog'",
+    "question_id": null,
+    "question": "How many root beers of the Bulldog were purchased in August, 2014?",
+    "difficulty": "",
+    "evidence": "Bulldog refers to BrandName = 'Bulldog'; purchased in August, 2014 refers to SUBSTR(TransactionDate, 1, 4) = '2014' AND SUBSTR(TransactionDate, 6, 2) = '08';"
+  },
+  {
+    "sql": "SELECT T1.First, T1.Last FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeer AS T3 ON T2.RootBeerID = T3.RootBeerID INNER JOIN rootbeerbrand AS T4 ON T3.BrandID = T4.BrandID WHERE T4.BreweryName = 'AJ Stephans Beverages'",
+    "question_id": null,
+    "question": "Please list the full names of the customers who have purchased at least one root beer produced by AJ Stephans Beverages.",
+    "difficulty": "",
+    "evidence": "full name = First, Last; customers who have purchased at least one root beer refers to CustomerID > = 1; produced by AJ Stephans Beverages refers to BreweryName = 'AJ Stephans Beverages';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.BrandID) FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID WHERE T2.TransactionDate LIKE '2014-08%' AND T3.Twitter IS NULL",
+    "question_id": null,
+    "question": "Among the root beer brands that do not advertise on Twitter, how many of them have root beers sold in August, 2014?",
+    "difficulty": "",
+    "evidence": "do not advertise on Twitter refers to twitter IS NULL; in August, 2014 refers to SUBSTR(TransactionDate, 1, 4) = '2014' AND SUBSTR(TransactionDate, 6, 2) = '08';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CreditCardNumber FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'Frank-Paul' AND T1.Last = 'Santangelo' AND T2.TransactionDate = '2014-07-07'",
+    "question_id": null,
+    "question": "What is the number of the credit card that Frank-Paul Santangelo used to purchase root beers on 2014/7/7?",
+    "difficulty": "",
+    "evidence": "number of the credit card refers to CreditCardNumber; on 2014/7/7 refers to TransactionDate = '2014-07-07';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeer AS T3 ON T2.RootBeerID = T3.RootBeerID INNER JOIN rootbeerbrand AS T4 ON T3.BrandID = T4.BrandID WHERE T1.First = 'Frank-Paul' AND T1.Last = 'Santangelo' AND T4.ArtificialSweetener = 'FALSE' AND T4.Honey = 'FALSE'",
+    "question_id": null,
+    "question": "Among all the root beers purchased by Frank-Paul Santangelo, how many of them were non-sweetened?",
+    "difficulty": "",
+    "evidence": "non-sweetened refers to honey = 'FALSE' AND artificialsweetener = 'FALSE';"
+  },
+  {
+    "sql": "SELECT T2.TransactionDate FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Gender = 'M' GROUP BY T2.TransactionDate HAVING COUNT(T2.CustomerID) > 3",
+    "question_id": null,
+    "question": "Please list the dates on which a male customer has purchased more than 3 root beers.",
+    "difficulty": "",
+    "evidence": "dates of purchase refers to TransactionDate; male customer refers to Gender = 'M'; purchased more than 3 root beers refers to COUNT(CustomerID) > 3;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.BrandID) AS REAL) / 31 FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID WHERE T2.TransactionDate LIKE '2014-08%' AND T3.BrandName = 'A&W'",
+    "question_id": null,
+    "question": "What is the average number of root beers of the brand A&W sold in a day in August, 2014?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE(SUM(COUNT(RootBeerID WHERE BrandName = 'A&W' AND SUBSTR(TransactionDate, 1, 4) = '2014' AND SUBSTR(TransactionDate, 6, 2) = '08')), 31); A&W refers to BrandName = 'A&W'; in August, 2014 refers to SUBSTR(TransactionDate, 1, 4) = '2014' AND SUBSTR(TransactionDate, 6, 2) = '08';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T3.BreweryName = 'AJ Stephans Beverages' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.BrandID) FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID WHERE T2.TransactionDate LIKE '2014%'",
+    "question_id": null,
+    "question": "Among all the root beers sold in 2014, what is the percentage of the root beers produced by the brewery AJ Stephans Beverages?",
+    "difficulty": "",
+    "evidence": "sold in 2014 refers to SUBSTR(TransactionDate, 1, 4) = '2014'; percentage = DIVIDE(MULTIPLY(SUM(BreweryName = 'AJ Stephans Beverages'), 1.0), COUNT(RootBeerID)) WHERE SUBSTR(TransactionDate, 1, 4) = '2014'; AJ Stephans Beverages refers to BreweryName = 'AJ Stephans Beverages';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.CustomerID) FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'James' AND T1.Last = 'House'",
+    "question_id": null,
+    "question": "Tell the number of reviews given by James House.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CreditCardNumber FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'Lisa' AND T1.Last = 'Ling'",
+    "question_id": null,
+    "question": "Show the credit card number of Lisa Ling.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.Latitude, T2.Longitude FROM location AS T1 INNER JOIN geolocation AS T2 ON T1.LocationID = T2.LocationID WHERE T1.LocationName = 'Sac State American River Courtyard'",
+    "question_id": null,
+    "question": "State the coordinate of Sac State American River Courtyard.",
+    "difficulty": "",
+    "evidence": "coordinate = Latitude, Longitude; Sac State American River Courtyard refers to LocationName = 'Sac State American River Courtyard';"
+  },
+  {
+    "sql": "SELECT T2.LocationName FROM `transaction` AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T1.TransactionID = 100885",
+    "question_id": null,
+    "question": "Provide the name of the location where transaction no.100885 happened.",
+    "difficulty": "",
+    "evidence": "name of the location refers to LocationName; transaction no. refers to TransactionID; TransactionID = 100885;"
+  },
+  {
+    "sql": "SELECT T1.City FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.TransactionID = 103545",
+    "question_id": null,
+    "question": "Which city does the customer who finished transaction no.103545 live in?",
+    "difficulty": "",
+    "evidence": "transaction no. refers to TransactionID; TransactionID = 103545;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.PhoneNumber FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.CreditCardNumber = 6011179359005382",
+    "question_id": null,
+    "question": "What is the phone number of the customer who owns the credit card of number 6011179359005380?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T1.First, T1.Last FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID GROUP BY T1.CustomerID ORDER BY COUNT(T2.CustomerID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which customer has the most reviews? State the full name.",
+    "difficulty": "",
+    "evidence": "customer that has the most reviews refers to MAX(COUNT(CustomerID)); full name = First, Last;"
+  },
+  {
+    "sql": "SELECT T1.FirstPurchaseDate FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.Review = 'Tastes like Australia.'",
+    "question_id": null,
+    "question": "For the customer who leaves the review content of \"Tastes like Australia.\", when was his/her first purchase date?",
+    "difficulty": "",
+    "evidence": "review content of \"Tastes like Australia.\" refers to Review = 'Tastes like Australia.';"
+  },
+  {
+    "sql": "SELECT T2.TransactionDate FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'Natalie' AND T1.Last = 'Dorris' ORDER BY T2.TransactionDate LIMIT 1",
+    "question_id": null,
+    "question": "When did Natalie Dorris buy her first root beer?",
+    "difficulty": "",
+    "evidence": "when a customer bought their first root beer refers to FirstPurchaseDate;"
+  },
+  {
+    "sql": "SELECT T1.BreweryName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T2.StarRating = 5 GROUP BY T1.BrandID ORDER BY COUNT(T2.StarRating) DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the root beer brand with the most 5 star ratings, what is the name of the brewery?",
+    "difficulty": "",
+    "evidence": "most 5 star ratings refers to MAX(COUNT(StarRating = 5)); name of the brewery refers to BreweryName;"
+  },
+  {
+    "sql": "SELECT CASE WHEN T1.SubscribedToEmailList LIKE 'TRUE' THEN 'YES' ELSE 'NO' END AS result FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeerbrand AS T3 ON T2.BrandID = T3.BrandID WHERE T2.StarRating = 3 AND T3.BrandName = 'Frostie' AND T2.ReviewDate = '2014-04-24'",
+    "question_id": null,
+    "question": "For the customer who gave a 3 star rating to Frostie brand on 2014/4/24, did the user permit the company to send regular emails to him/her?",
+    "difficulty": "",
+    "evidence": "3 star rating refers to StarRating = 3; Frostie refers to\u00a0 BrandName = 'Frostie'; if SubscribedToEmailList = 'TRUE', it means the user permit the company to send regular emails to him/her; if SubscribedToEmailList = FALSE', it means the user did not permit the company to send regular emails to him/her; rating on 2014/4/24 refers to ReviewDate = '2014-04-24';"
+  },
+  {
+    "sql": "SELECT T1.CurrentRetailPrice - T1.WholesaleCost AS price FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T2.Review = 'The quintessential dessert root beer. No ice cream required.'",
+    "question_id": null,
+    "question": "For the root beer brand which got the review with the content of \"The quintessential dessert root beer. No ice cream required.\", what is the current retail price of the root beer?",
+    "difficulty": "",
+    "evidence": "review with the content of \"The quintessential dessert root beer. No ice cream required.\" refers to Review = 'The quintessential dessert root beer. No ice cream required.';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.StarRating = 5 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.StarRating) FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T1.BrandName = 'River City'",
+    "question_id": null,
+    "question": "What is the percentage of 5 star ratings River City brand root beer get?",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(BrandID WHERE StarRating = 5), COUNT(BrandID) WHERE BrandName = 'River City'), 1.0); 5 star ratings refers to StarRating = 5; River City refers to BrandName = 'River City';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(*) AS REAL) / COUNT(DISTINCT T1.BrandID) AS avgreview FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T1.State = 'CA'",
+    "question_id": null,
+    "question": "What is the average number of reviews of all the root beer brands from \"CA\" State?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE(COUNT(CustomerID), COUNT(BrandID) WHERE state = CA); \n"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM customers WHERE Gender = 'F' AND SubscribedToEmailList = 'TRUE'",
+    "question_id": null,
+    "question": "How many female customers permit the company to send regular emails to them?",
+    "difficulty": "",
+    "evidence": "female refers to Gender = 'F'; customer permits the company to send regular emails to them refers to SubscribedToEmailList = 'TRUE';"
+  },
+  {
+    "sql": "SELECT BrandName FROM rootbeerbrand ORDER BY FirstBrewedYear DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the brand of the beer with the shortest brewed history?",
+    "difficulty": "",
+    "evidence": "name of the brand of the beer refers to BrandName; shortest brewed history refers to MAX(FirstBrewedYear);"
+  },
+  {
+    "sql": "SELECT First, Last FROM customers ORDER BY FirstPurchaseDate LIMIT 10",
+    "question_id": null,
+    "question": "What are the full names of the first top 10 customers?",
+    "difficulty": "",
+    "evidence": "full name = First Last; first top 10 customers refers to MIN(FirstPurchaseDate) LIMIT 10;"
+  },
+  {
+    "sql": "SELECT COUNT(BreweryName) FROM rootbeerbrand WHERE Country = 'Australia'",
+    "question_id": null,
+    "question": "How many breweries are there in Australia?",
+    "difficulty": "",
+    "evidence": "Australia refers to Country = 'Australia';"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM customers WHERE First = 'Charles' AND City = 'Sacramento'",
+    "question_id": null,
+    "question": "How many customers are named Charles in Sacramento?",
+    "difficulty": "",
+    "evidence": "Sacramento refers to City = 'Sacramento';"
+  },
+  {
+    "sql": "SELECT COUNT(TransactionID) FROM `transaction` WHERE CreditCardType = 'MasterCard' AND TransactionDate LIKE '2014%'",
+    "question_id": null,
+    "question": "How many transactions were paid through MasterCard in 2014?",
+    "difficulty": "",
+    "evidence": "MasterCard refers to CreditCardType = 'MasterCard'; in 2014 refers to TransactionDate > = '2014-01-01' AND TransactionDate < = '2014-12-31';"
+  },
+  {
+    "sql": "SELECT T3.BrandName FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeerbrand AS T3 ON T2.BrandID = T3.BrandID WHERE T1.First = 'Jayne' AND T1.Last = 'Collins' AND T2.StarRating = 1",
+    "question_id": null,
+    "question": "Which brand of root beer did Jayne Collins give the lowest rating?",
+    "difficulty": "",
+    "evidence": "brand of root beer refers to BrandName; lowest rating refers to MIN(StarRating);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.BrandID) FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID INNER JOIN location AS T3 ON T1.LocationID = T3.LocationID WHERE T3.LocationName = 'Sac State American River Courtyard' AND T1.PurchaseDate LIKE '2015%' AND T2.Honey = 'TRUE' AND T2.CaneSugar = 'FALSE' AND T1.ContainerType = 'Bottle'",
+    "question_id": null,
+    "question": "How many sweet bottled root beers that do not contain cane sugar were purchased in 2015 through the selling company located in Sac State American River Courtyard?",
+    "difficulty": "",
+    "evidence": "sweet refers to Honey = 'TRUE'; bottled refers to ContainerType = 'Bottle'; do not contain cane sugar refers to CaneSugar = 'FALSE'; in 2015 refers to PurchaseDate < = '2015-12-31'; Sac State American River Courtyard refers to LocationName = 'Sac State American River Courtyard';"
+  },
+  {
+    "sql": "SELECT T2.BreweryName FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID WHERE T1.PurchaseDate BETWEEN '2016-01-01' AND '2016-12-31' GROUP BY T2.BrandID ORDER BY COUNT(T1.BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which brewery does the most purchased root beer in 2016 belong to?",
+    "difficulty": "",
+    "evidence": "most purchased root beer refers to MAX(COUNT(BrandID)); in 2016 refers to PurchaseDate > = '2016-01-01' AND PurchaseDate < = '2016-12-31';"
+  },
+  {
+    "sql": "SELECT T1.First, T1.Last FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeerbrand AS T3 ON T2.BrandID = T3.BrandID WHERE T3.BrandName = 'River City' AND T2.StarRating = 5",
+    "question_id": null,
+    "question": "What are the full names of the customer who gave River City a 5-star?",
+    "difficulty": "",
+    "evidence": "full name = First, Last; River City refers to BrandName = 'River City'; 5-star refers to StarRating = 5;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RootBeerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'Tom' AND T1.Last = 'Hanks' AND T2.TransactionDate BETWEEN '2015-01-01' AND '2016-12-31'",
+    "question_id": null,
+    "question": "How many root beers did Tom Hanks purchase between 2015 to 2016?",
+    "difficulty": "",
+    "evidence": "between 2015 to 2016 refers to TransactionDate > = '2015-01-01' AND TransactionDate < '2016-12-31';"
+  },
+  {
+    "sql": "SELECT T1.BrandName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T2.StarRating = 5",
+    "question_id": null,
+    "question": "Which brand of root beer was highly rated by customers?",
+    "difficulty": "",
+    "evidence": "brand of root beer refers to BrandName; highly rated refers to MAX(COUNT(StarRating = 5));"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeer AS T3 ON T2.RootBeerID = T3.RootBeerID INNER JOIN rootbeerbrand AS T4 ON T3.BrandID = T4.BrandID WHERE T1.First = 'Nicholas' AND T1.Last = 'Sparks' AND T4.BrandName LIKE 'Henry Weinhard%s'",
+    "question_id": null,
+    "question": "How many Henry Weinhard's were bought by Nicholas Sparks?",
+    "difficulty": "",
+    "evidence": "Henry Weinhard's refers to BrandName = 'Henry Weinhard''s';"
+  },
+  {
+    "sql": "SELECT T2.BreweryName FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID WHERE T2.FacebookPage IS NULL AND T2.Twitter IS NULL GROUP BY T2.BrandID ORDER BY COUNT(T1.BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the root beer brands that do not advertise on Facebook and Twitter, which brand has the highest number of purchases?",
+    "difficulty": "",
+    "evidence": "do not advertise on Facebook and Twitter refers to FacebookPage IS NULL AND Twitter IS NULL; highest number of purchases refers to MAX(COUNT(BrandID));"
+  },
+  {
+    "sql": "SELECT T3.LocationName FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID INNER JOIN location AS T3 ON T1.LocationID = T3.LocationID WHERE T2.BrandName = 'Dog n Suds' AND T3.LocationName IN ('Sac State American River Courtyard', 'Sac State Union') GROUP BY T1.LocationID ORDER BY COUNT(T1.BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Between Sac State Union and Sac State American River Courtyard, which location sold the most Dog n Suds root beer?",
+    "difficulty": "",
+    "evidence": "Between Sac State Union and Sac State American River Courtyard refers to LocationName IN('Sac State American River Courtyard', 'Sac State Union'); Dog n Suds refers to BrandName = 'Dog n Suds'; sold the most root beer refers to MAX(COUNT(BrandID));"
+  },
+  {
+    "sql": "SELECT COUNT(T1.BrandID) FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID WHERE T1.ContainerType = 'Can' AND T2.BrandName = 'A&W' AND T1.PurchaseDate LIKE '2016%'",
+    "question_id": null,
+    "question": "How many canned A&W were purchased in 2016?",
+    "difficulty": "",
+    "evidence": "canned refers to ContainerType = 'Can'; A&W refers to BrandName = 'A&W'; in 2016 refers to PurchaseDate > = '2016-01-01' AND PurchaseDate < = '2016-12-31';"
+  },
+  {
+    "sql": "SELECT T2.Latitude, T2.Longitude FROM location AS T1 INNER JOIN geolocation AS T2 ON T1.LocationID = T2.LocationID WHERE T1.LocationName = 'Sac State Union'",
+    "question_id": null,
+    "question": "What is the precise location of Sac State Union?",
+    "difficulty": "",
+    "evidence": "precise location = Latitude, Longitude; Sac State Union refers to LocationName = 'Sac State Union';"
+  },
+  {
+    "sql": "SELECT T1.BrandName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T2.StarRating = 5 GROUP BY T2.BrandID HAVING COUNT(T2.StarRating) >= 5",
+    "question_id": null,
+    "question": "What are the brands of the root beers that received 5-star ratings from no less than 5 customers?",
+    "difficulty": "",
+    "evidence": "brand of the root beer refers to BrandName; 5-star ratings\u00a0refers to StarRating = 5; no less than 5 customers refers to COUNT(CustomerID) > = 5;"
+  },
+  {
+    "sql": "SELECT T1.BrandName , CAST(SUM(CASE WHEN T2.PurchaseDate >= '2014-01-01' AND T2.PurchaseDate <= '2016-12-31' THEN 1 ELSE 0 END) AS REAL) / COUNT(T2.BrandID) AS purchase FROM rootbeerbrand AS T1 INNER JOIN rootbeer AS T2 ON T1.BrandID = T2.BrandID WHERE T1.BreweryName = 'Dr Pepper Snapple Group' GROUP BY T2.BrandID",
+    "question_id": null,
+    "question": "List the brands of root beer produced by Dr Pepper Snapple Group and calculate their percentage of purchases between 2014 to 2016.",
+    "difficulty": "",
+    "evidence": "brand of root beer refers to BrandName; produced by Dr Pepper Snapple Group refers to BreweryName = 'Dr Pepper Snapple Group'; percentage of purchases = MULTIPLY(DIVIDE(SUM(BrandID WHERE PurchaseDate > = '2014-01-01' AND PurchaseDate < = '2016-12-31'), COUNT(BrandID) WHERE BreweryName = 'Dr Pepper Snapple Group'), 1.0); between 2014 to 2016 refers to PurchaseDate > = '2014-01-01' AND PurchaseDate < = '2016-12-31;"
+  },
+  {
+    "sql": "SELECT T3.BrandName, T2.CustomerID FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID GROUP BY T3.BrandID ORDER BY T3.CurrentRetailPrice - T3.WholesaleCost, COUNT(T1.BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which brand of root beer has the lowest unit profit available to wholesalers? Indicate the ID of the customer that has the highest number of purchases of the said brand.",
+    "difficulty": "",
+    "evidence": "brand of root beer refers to BrandName; lowest unit profit available to wholesalers refers to MIN(SUBTRACT(CurrentRetailPrice, WholesaleCost)); ID of the customer refers to CustomerID; highest number of purchases refers to MAX(COUNT(CustomerID));"
+  },
+  {
+    "sql": "SELECT First, Last, PhoneNumber FROM customers WHERE Gender = 'M' AND City = 'Fair Oaks' AND SubscribedToEmailList = 'TRUE'",
+    "question_id": null,
+    "question": "List the full name and phone number of male customers from Fair Oaks who are subscribed to the email list.",
+    "difficulty": "",
+    "evidence": "full name = First, Last; male customers refers to Gender = 'M'; Fair Oaks refers to City = 'Fair Oaks'; subscribed to the email list refers to SubscribedToEmailList = 'TRUE';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN ContainerType = 'Can' THEN RootBeerID ELSE NULL END) AS REAL) * 100 / COUNT(RootBeerID) FROM rootbeer WHERE PurchaseDate LIKE '2014%'",
+    "question_id": null,
+    "question": "Among the root beer purchased in 2014, what percentage were sold in cans?",
+    "difficulty": "",
+    "evidence": "in 2014 refers to PurchaseDate > = '2014-01-01' AND PurchaseDate < = '2014-12-31'; percentage = MULTIPLY(DIVIDE(SUM(ContainerType = 'Can'), COUNT(RootBeerID) WHERE PurchaseDate > = '2014-01-01' AND PurchaseDate < = '2014-12-31'), 1.0); in cans refers to ContainerType = 'Can';"
+  },
+  {
+    "sql": "SELECT BrandName FROM rootbeerbrand WHERE FirstBrewedYear BETWEEN '1996' AND '2000' ORDER BY FirstBrewedYear DESC",
+    "question_id": null,
+    "question": "Give the name of the brands that brewed their first drink between 1996 and 2000 in the descending order of the date brewed.",
+    "difficulty": "",
+    "evidence": "name of the brands refers to BrandName; between 1996 and 2000 refers to FirstBrewedYear > = 1996 AND FirstBrewedYear < = 2000;"
+  },
+  {
+    "sql": "SELECT BrandID FROM rootbeerreview WHERE StarRating = 1 GROUP BY BrandID ORDER BY COUNT(BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Find the brand Id of the root beer which has the most number of customers who gave 1-star ratings.",
+    "difficulty": "",
+    "evidence": "most number of customers who gave 1-star ratings refers to MAX(COUNT(StarRating = 1)); 1-star ratings refers to StarRating = 1;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN CreditCardType = 'Visa' THEN TransactionID ELSE NULL END) AS REAL) * 100 / COUNT(TransactionID) FROM `transaction`",
+    "question_id": null,
+    "question": "Among the transactions, what percentage is done by using a visa card?",
+    "difficulty": "",
+    "evidence": "visa card refers to CreditCardType = 'Visa'; percentage = MULTIPLY(DIVIDE(SUM(CreditCardType = 'Visa'), COUNT(TransactionID)), 1.0);"
+  },
+  {
+    "sql": "SELECT COUNT(BrandID) FROM rootbeerbrand WHERE CornSyrup = 'TRUE' AND ArtificialSweetener = 'TRUE' AND AvailableInCans = 'TRUE'",
+    "question_id": null,
+    "question": "How many brands of root beers are available in cans and contain corn syrup and artificial sweeteners?",
+    "difficulty": "",
+    "evidence": "available in cans refers to AvailableInCans = 'TRUE'; contain corn syrup refers to CornSyrup = 'TRUE'; contain artificial sweeteners refers to ArtificialSweetener = 'TRUE';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.LocationName = 'Sac State American River Courtyard' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.TransactionID) FROM `transaction` AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID",
+    "question_id": null,
+    "question": "Calculate the percentage of sales done at Sac State American River Courtyard.",
+    "difficulty": "",
+    "evidence": "percentage = \u00a0 MULTIPLY(DIVIDE(SUM(LocationName = 'Sac State American River Courtyard'), COUNT(LocationID)), 1.0); Sac State American River Courtyard refers to LocationName = 'Sac State American River Courtyard';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.RootBeerID) AS REAL) / COUNT(DISTINCT T2.PurchaseDate) FROM rootbeerbrand AS T1 INNER JOIN rootbeer AS T2 ON T1.BrandID = T2.BrandID INNER JOIN `transaction` AS T3 ON T2.RootBeerID = T3.RootBeerID WHERE T1.Caffeinated = 'TRUE'",
+    "question_id": null,
+    "question": "On average how many caffeinated root beers are sold a day?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE(COUNT(RootBeerID WHERE Caffeinated = 'TRUE'), COUNT(PurchaseDate)); caffeinated refers to Caffeinated = 'TRUE';"
+  },
+  {
+    "sql": "SELECT * FROM ( SELECT T1.BrandName, T2.ContainerType FROM rootbeerbrand AS T1 INNER JOIN rootbeer AS T2 ON T1.BrandID = T2.BrandID ORDER BY T1.CurrentRetailPrice - T1.WholesaleCost DESC LIMIT 1 ) UNION ALL SELECT * FROM ( SELECT T3.BrandName, T4.ContainerType FROM rootbeerbrand AS T3 INNER JOIN rootbeer AS T4 ON T3.BrandID = T4.BrandID ORDER BY T3.CurrentRetailPrice - T3.WholesaleCost ASC LIMIT 1 )",
+    "question_id": null,
+    "question": "Find the root beer with the most and least amount of profit per unit and list the container types in which these root beers are sold.",
+    "difficulty": "",
+    "evidence": "most amount of profit per unit refers to MAX(SUBTRACT(CurrentRetailPrice, WholesaleCost)); least amount of profit per unit refers to MIN(SUBTRACT(CurrentRetailPrice, WholesaleCost));"
+  },
+  {
+    "sql": "SELECT AVG(T2.PurchasePrice) FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID WHERE T1.ContainerType = 'Bottle' AND T2.PurchasePrice > 2",
+    "question_id": null,
+    "question": "What is the average cost of root beers purchased for more than 2 dollars and sold in bottles?",
+    "difficulty": "",
+    "evidence": "average cost = DIVIDE(SUM(PurchasePrice > 2), COUNT(RootBeerID) WHERE PurchasePrice > 2); more than 2 dollars refers to PurchasePrice > 2; in bottles refers to ContainerType = 'Bottle';"
+  },
+  {
+    "sql": "SELECT COUNT(T4.BrandID) FROM `transaction` AS T1 INNER JOIN geolocation AS T2 ON T1.LocationID = T2.LocationID INNER JOIN location AS T3 ON T1.LocationID = T3.LocationID INNER JOIN rootbeer AS T4 ON T1.RootBeerID = T4.RootBeerID WHERE T2.Latitude = 38.559615 AND T2.Longitude = -121.42243 AND T4.ContainerType = 'Bottle'",
+    "question_id": null,
+    "question": "Among the root beers sold in bottles, how many are sold at the location 38.559615, -121.42243?",
+    "difficulty": "",
+    "evidence": "in bottles refers to ContainerType = 'Bottle';\u00a0 location 38.559615, -121.42243 refers to latitude = 38.559615 AND longitude = -121.42243;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.StarRating > 3 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.CustomerID) FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.SubscribedToEmailList = 'FALSE'",
+    "question_id": null,
+    "question": "Among the customers not subscribed to the mailing list, what percentage has given three or more stars in a review?",
+    "difficulty": "",
+    "evidence": "not subscribed to the mailing list refers to SubscribedToEmailList = 'FALSE'; percentage = MULTIPLY(DIVIDE(SUM(CustomerID WHERE StarRating > 3), COUNT(CustomerID) WHERE SubscribedToEmailList = 'FALSE'), 1.0);"
+  },
+  {
+    "sql": "SELECT T3.BrandName FROM rootbeer AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID WHERE T2.StarRating = 5 AND strftime('%Y', T2.ReviewDate) = '2012' GROUP BY T1.BrandID ORDER BY COUNT(T2.BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which root beer got the most five stars in 2012? Give the brand name of this beer.",
+    "difficulty": "",
+    "evidence": "most five stars refers to MAX(COUNT(StarRating = 5)); in 2012 refers to FirstBrewedYear = 2012;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeer AS T3 ON T2.RootBeerID = T3.RootBeerID INNER JOIN rootbeerbrand AS T4 ON T3.BrandID = T4.BrandID WHERE T1.Gender = 'F' AND T4.ArtificialSweetener = 'TRUE'",
+    "question_id": null,
+    "question": "In the female customers, how many bought root beer that contains artificial sweetener?",
+    "difficulty": "",
+    "evidence": "female refers to Gender = 'F'; contains artificial sweetener refers to ArtificialSweetener = 'TRUE';"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T3.CaneSugar = 'TRUE' THEN T1.BrandID ELSE NULL END) - COUNT(CASE WHEN T3.CornSyrup = 'TRUE' THEN T1.BrandID ELSE NULL END) AS DIFFERENCE FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID",
+    "question_id": null,
+    "question": "Calculate the difference between the number of root beers sold that use cane sugar and corn syrup.",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT(SUM(CaneSugar = 'TRUE'), SUM(CornSyrup = 'TRUE')); use cane sugar refers to CaneSugar = 'TRUE'; corn syrup refers to CornSyrup = 'TRUE';"
+  },
+  {
+    "sql": "SELECT T3.BreweryName FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID WHERE T2.TransactionDate LIKE '2015%' GROUP BY T3.BrandID ORDER BY COUNT(T1.BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which brewery brewed the most sold root beer in 2015?",
+    "difficulty": "",
+    "evidence": "brewery refers to BreweryName; most sold root beer refers to MAX(COUNT(BrandID)); in 2015 refers to TransactionDate > = '2015-01-01' AND TransactionDate < = '2015-12-31';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T4.BrandName = 'Dominion' THEN T1.CustomerID ELSE NULL END) AS REAL) * 100 / COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeer AS T3 ON T2.RootBeerID = T3.RootBeerID INNER JOIN rootbeerbrand AS T4 ON T3.BrandID = T4.BrandID WHERE T1.City = 'Sacramento' AND T1.Gender = 'M' AND T2.TransactionDate LIKE '2014%'",
+    "question_id": null,
+    "question": "Among the male customers in Sacramento, what percentage bought Dominion root beer in 2013?",
+    "difficulty": "",
+    "evidence": "male customers refers to Gender = 'M'; Sacramento refers to City = 'Sacramento'; percentage = MULTIPLY(DIVIDE(SUM(BrandID WHERE BrandName = 'Dominion'), COUNT(BrandID) WHERE City = 'Sacramento'), 1.0); Dominion refers to BrandName = 'Dominion'; in 2013 refers to TransactionDate > = 2013-01-01 AND TransactionDate < 2014-01-01;"
+  },
+  {
+    "sql": "SELECT (CAST(SUM(CASE WHEN T1.Honey = 'TRUE' THEN 1 ELSE 0 END) AS REAL) / COUNT(DISTINCT T3.TransactionDate)) - (CAST(SUM(CASE WHEN T1.Honey <> 'TRUE' THEN 1 ELSE 0 END) AS REAL) / COUNT(DISTINCT T3.TransactionDate)) FROM rootbeerbrand AS T1 INNER JOIN rootbeer AS T2 ON T1.BrandID = T2.BrandID INNER JOIN `transaction` AS T3 ON T2.RootBeerID = T3.RootBeerID",
+    "question_id": null,
+    "question": "What is the difference in the average number of sales per day of root beer brands that contain honey and that don\u2019t contain honey.",
+    "difficulty": "",
+    "evidence": "difference in the average = SUBTRACT(DIVIDE(MULTIPLY(SUM(Honey = 'TRUE'), 1.0), COUNT(TransactionDate)), DIVIDE(MULTIPLY(SUM(Honey = 'FALSE'), 1.0), COUNT(TransactionDate))); contain honey refers to Honey = 'TRUE'; don\u2019t contain honey refers to Honey = 'FALSE'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.First, T1.Last, T1.Email FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN location AS T3 ON T2.LocationID = T3.LocationID WHERE T3.LocationName = 'Sac State Union' AND T2.CreditCardType = 'American Express'",
+    "question_id": null,
+    "question": "Find and list the full name and email of the customers who used American Express cards in Sac State Union.",
+    "difficulty": "",
+    "evidence": "full name = First, Last; American Express cards refers to CreditCardType = 'American Express'; Sac State Union refers to LocationName = 'Sac State Union';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.BrandName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T2.StarRating = 5 AND T2.ReviewDate BETWEEN '2014-09-01' AND '2014-09-30'",
+    "question_id": null,
+    "question": "In the reviews of September 2014. Which brand of beers obtained the highest star ratings?",
+    "difficulty": "",
+    "evidence": "September 2014 refers to ReviewDate LIKE '2014-09%'; brand of beers refers to BrandName; highest star ratings refers to MAX(StarRating);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Latitude, T2.Longitude FROM `transaction` AS T1 INNER JOIN geolocation AS T2 ON T1.LocationID = T2.LocationID WHERE T1.CreditCardType = 'American Express'",
+    "question_id": null,
+    "question": "What is the precise location of all paying customers with American Express?",
+    "difficulty": "",
+    "evidence": "precise location refers to Latitude, Longitude; American Express refers to CreditCardType = 'American Express';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.City = 'Folsom' AND T2.CreditCardType = 'Visa'",
+    "question_id": null,
+    "question": "How many Folsom customers prefer to pay with Visa?",
+    "difficulty": "",
+    "evidence": "Folsom refers to City = 'Folsom'; Visa refers to CreditCardType = 'Visa';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.City FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.StarRating = 5 AND T2.ReviewDate BETWEEN '2012-11-01' AND '2012-11-30'",
+    "question_id": null,
+    "question": "From which cities are the customers who gave 5 stars in their reviews in November 2012?",
+    "difficulty": "",
+    "evidence": "5 stars refers to StarRating = 5; in November 2012 refers to ReviewDate LIKE '2012-11%';"
+  },
+  {
+    "sql": "SELECT T3.BrandName FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeerbrand AS T3 ON T2.BrandID = T3.BrandID WHERE T1.First = 'Peg' AND T1.Last = 'Winchester'",
+    "question_id": null,
+    "question": "What brands of beer has Peg Winchester consumed?",
+    "difficulty": "",
+    "evidence": "brands of beer refers to BrandName;"
+  },
+  {
+    "sql": "SELECT T1.BrandName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T2.BrandID = T1.BrandID WHERE T2.StarRating = 1 GROUP BY T1.BrandName ORDER BY COUNT(T1.BrandName) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What brand of beer has been the worst rated most times?",
+    "difficulty": "",
+    "evidence": "brand of beer refers to BrandName; worst rated most times refers to MAX(COUNT(StarRating = 1));"
+  },
+  {
+    "sql": "SELECT T2.CreditCardType FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID WHERE T3.Alcoholic = 'FALSE' GROUP BY T2.CreditCardType ORDER BY COUNT(T2.CreditCardType) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What credit card is the most used in the purchase of non-alcoholic beer?",
+    "difficulty": "",
+    "evidence": "credit card that is the most used refers to MAX(COUNT(CreditCardType)); non-alcoholic beer refers to Alcoholic = 'FALSE';"
+  },
+  {
+    "sql": "SELECT T1.First, T1.Last FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.StarRating = 5",
+    "question_id": null,
+    "question": "What is the name of all the customers who have ever given a 5-star review?",
+    "difficulty": "",
+    "evidence": "name of the customer = First, Last; 5-star review refers to StarRating = 5;"
+  },
+  {
+    "sql": "SELECT T3.Latitude FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID INNER JOIN geolocation AS T3 ON T1.LocationID = T3.LocationID WHERE T2.BrandName = 'Thomas Kemper' GROUP BY T3.Latitude ORDER BY COUNT(T1.BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "At what latitude is the Thomas Kemper brand beer consumed the most?",
+    "difficulty": "",
+    "evidence": "Thomas Kemper refers to BrandName = 'Thomas Kemper';\u00a0 latitude the beer is consumed the most refers to MAX(COUNT(Latitude));"
+  },
+  {
+    "sql": "SELECT T2.StarRating FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T1.CornSyrup = 'TRUE' GROUP BY T2.StarRating ORDER BY COUNT(T2.StarRating) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What star rating is the most common for beers containing corn syrup?",
+    "difficulty": "",
+    "evidence": "most common refers to MAX(COUNT(StarRating)); containing corn syrup refers to CornSyrup = 'TRUE';"
+  },
+  {
+    "sql": "SELECT T2.Latitude, T2.Longitude FROM location AS T1 INNER JOIN geolocation AS T2 ON T1.LocationID = T2.LocationID WHERE T1.ZipCode = 95819",
+    "question_id": null,
+    "question": "What is the precise location of zip code 95819?",
+    "difficulty": "",
+    "evidence": "precise location = Latitude, Longitude;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.BrandName FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID INNER JOIN geolocation AS T3 ON T1.LocationID = T3.LocationID WHERE T3.Latitude = '38.566129' AND T3.Longitude = '-121.426432'",
+    "question_id": null,
+    "question": "What brands of beers are manufactured at coordinates 38,566,129, -121,426,432?",
+    "difficulty": "",
+    "evidence": "coordinates 38,566,129, -121,426,432 refers to Latitude = 38.566129 AND Longitude = -121.426432;"
+  },
+  {
+    "sql": "SELECT AVG(T2.CurrentRetailPrice - T2.WholesaleCost) FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID WHERE T1.ContainerType = 'Can'",
+    "question_id": null,
+    "question": "What is the average unit profit for wholesalers of canned beers?",
+    "difficulty": "",
+    "evidence": "average unit profit = DIVIDE(SUM(SUBTRACT(CurrentRetailPrice, WholesaleCost)), COUNT(ContainerType = 'Can')); canned beers refers to ContainerType = 'Can';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.StarRating = 3 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.CustomerID) FROM rootbeerreview AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.CreditCardType = 'Discover'",
+    "question_id": null,
+    "question": "What percentage of customers who paid with a Discover Credit Card gave a 3-star rating?",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(COUNT(CustomerID WHERE StarRating = 3), COUNT(CustomerID) WHERE CreditCardType = 'Discover'), 100); Discover Credit Card refers to CreditCardType = 'Discover'; 3-star rating refers to StarRating = 3;"
+  },
+  {
+    "sql": "SELECT BrandID FROM rootbeerreview WHERE StarRating > 3",
+    "question_id": null,
+    "question": "List the brand IDs of the beers whose star rating is more than 3.",
+    "difficulty": "",
+    "evidence": "star rating is more than 3 refers to StarRating > 3;"
+  },
+  {
+    "sql": "SELECT COUNT(BrandID) FROM rootbeer WHERE ContainerType = 'Bottle' AND PurchaseDate BETWEEN '2015-04-03' AND '2015-10-26'",
+    "question_id": null,
+    "question": "How many brands of bottle root beer were purchased between 4/3/2015 and 10/26/2015?",
+    "difficulty": "",
+    "evidence": "bottle root beer refers to ContainerType = 'Bottle'; purchased between 4/3/2015 and 10/26/2015 refers to PurchaseDate BETWEEN '2015-04-23' AND '2015-10-26';"
+  },
+  {
+    "sql": "SELECT T1.First, T1.Last FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.StarRating = 5 AND T2.Review = 'The quintessential dessert root beer. No ice cream required.'",
+    "question_id": null,
+    "question": "What is the full name of the customer who gave a 5-star rating and commented \"The quintessential dessert root beer. No ice cream required\" on his review?",
+    "difficulty": "",
+    "evidence": "full name = First, Last; 5-star rating refers to StarRating = 5; commented \"The quintessential dessert root beer. No ice cream required\" refers to Review = 'The quintessential dessert root beer. No ice cream required.';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Email, T1.PhoneNumber FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.StarRating > 3 AND T1.City = 'Sacramento' AND T2.ReviewDate BETWEEN '2014-01-01' AND '2014-12-31'",
+    "question_id": null,
+    "question": "Tally the email addresses and phone numbers of customers from Sacramento who gave a star rating of more than 3 in 2014.",
+    "difficulty": "",
+    "evidence": "email addresses refers to Email; Sacramento refers to City = 'Sacramento'; star rating of more than 3 refers to StarRating > 3; in 2014 refers to ReviewDate LIKE '2014%';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.StarRating = 4 AND T1.City = 'Sacramento' AND T1.Gender = 'F' AND T1.SubscribedToEmailList = 'TRUE' AND T2.ReviewDate BETWEEN '2013-01-03' AND '2013-10-26'",
+    "question_id": null,
+    "question": "How many female mailing list subscribers from Sacramento gave a 4-star rating between 1/3/2016 and 10/26/2016?",
+    "difficulty": "",
+    "evidence": "female refers to Gender = 'F'; mailing list subscribers refers to SubscribedToEmailList = 'TRUE'; Elk Grove refers to City = 'Sacramento'; 4-star rating refers to StarRating = 4; between 1/3/2016 and 10/26/2016 refers to ReviewDate BETWEEN '2016-01-03' AND '2016-10-26';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.BreweryName, T2.BrandName FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID WHERE T1.PurchaseDate < '2015-06-06' AND T1.ContainerType = 'Can'",
+    "question_id": null,
+    "question": "Give me the brewery and brand names of canned root beer that were purchased before 6/6/2015.",
+    "difficulty": "",
+    "evidence": "canned root beer refers to ContainerType = 'Can'; purchased before 6/6/2015 refers to PurchaseDate < '2015-06-06';"
+  },
+  {
+    "sql": "SELECT T2.BrandName FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID WHERE T2.FirstBrewedYear < '1930-01-01' AND T1.ContainerType = 'Bottle' ORDER BY T2.FirstBrewedYear LIMIT 1",
+    "question_id": null,
+    "question": "List the brand names of bottled root beer whose first brewing year is no later than 1930.",
+    "difficulty": "",
+    "evidence": "bottled root beer refers to ContainerType = 'Bottle'; first brewing year is no later than 1930 refers to FirstBrewedYear < 1930;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.CustomerID) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'Anna' AND T1.Last = 'Himes' AND T2.CreditCardType = 'MasterCard' AND T2.TransactionDate BETWEEN '2014-12-25' AND '2016-05-20'",
+    "question_id": null,
+    "question": "How many times did Anna Himes use her Mastercard when paying between 12/25/2014 and 5/20/2016 ?",
+    "difficulty": "",
+    "evidence": "Mastercard refers to CreditCardType = 'MasterCard'; between 12/25/2014 and 5/20/2016 refers to TransactionDate BETWEEN '2014-12-25' AND '2016-05-20';"
+  },
+  {
+    "sql": "SELECT AVG(T2.StarRating) FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.BrandID = 10018 AND T1.Gender = 'F' AND T2.ReviewDate BETWEEN '2013-01-25' AND '2015-03-10'",
+    "question_id": null,
+    "question": "What is the average star rating given by female customers to brand ID 10018 from 1/25/2015 to 3/10/2015?",
+    "difficulty": "",
+    "evidence": "average star rating = AVG(StarRating); female customers refers to Gender = 'F; from 1/25/2015 to 3/10/2015 refers to ReviewDate BETWEEN '2015-01-25' AND '2015-03-10';"
+  },
+  {
+    "sql": "SELECT T1.BrandName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T2.CustomerID = 331115 AND T2.Review = 'Yuk, more like licorice soda.' AND T2.StarRating = 1",
+    "question_id": null,
+    "question": "What is the brand name of the root beer that gained a 1-star rating from customer ID 331115 while saying, \"Yuk, more like licorice soda\"?",
+    "difficulty": "",
+    "evidence": "1-star rating refers to StarRating = 1; saying, \"Yuk, more like licorice soda\" refers to Review = 'Yuk, more like licorice soda.';"
+  },
+  {
+    "sql": "SELECT SUM(T1.PurchasePrice) FROM `transaction` AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.LocationName = 'Sac State American River Courtyard' AND T1.CreditCardType = 'Visa' AND T1.TransactionDate BETWEEN '2014-06-03' AND '2015-11-27'",
+    "question_id": null,
+    "question": "Calculate the total purchases made by customers using their Visa credit cards in the Sac State American River Courtyard between 6/3/2014 and 11/27/2015.",
+    "difficulty": "",
+    "evidence": "total purchases = SUM(PurchasePrice); Visa credit card refers to CreditCardType = 'Visa'; Sac State American River Courtyard refers to LocationName = 'Sac State American River Courtyard'; between 6/3/2014 and 11/27/2015 refers to TransactionDate BETWEEN '2014-06-03' AND '2015-11-27';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TransactionID) FROM `transaction` AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.LocationName = 'Sac State Union' AND T1.CreditCardType = 'American Express' AND T1.TransactionDate BETWEEN '2014-01-01' AND '2014-12-31'",
+    "question_id": null,
+    "question": "How many transactions were made in Sac State Union using the American Express credit card in 2014?",
+    "difficulty": "",
+    "evidence": "Sac State Union refers to LocationName = 'Sac State Union'; American Express credit card refers to CreditCardType = 'American Express'; in 2014 refers to TransactionDate LIKE '2014%';"
+  },
+  {
+    "sql": "SELECT T2.Latitude, T2.Longitude FROM location AS T1 INNER JOIN geolocation AS T2 ON T1.LocationID = T2.LocationID WHERE T1.LocationName = 'Sac State Union'",
+    "question_id": null,
+    "question": "What is the precise coordinate of Sac State Union?",
+    "difficulty": "",
+    "evidence": "precise coordinate = Latitude, Longitude; Sac State Union refers to LocationName = 'Sac State Union';"
+  },
+  {
+    "sql": "SELECT T2.Review FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T1.BrandName = 'Bulldog' AND T2.ReviewDate = '2013-07-26'",
+    "question_id": null,
+    "question": "What did the customer say in his or her review of Bulldog root beer on 7/26/2013?",
+    "difficulty": "",
+    "evidence": "Bulldog refers to BrandName = 'Bulldog'; on 7/26/2013 refers to ReviewDate = '2013-07-26';"
+  },
+  {
+    "sql": "SELECT T1.BrandName, T1.CurrentRetailPrice - T1.WholesaleCost AS result FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T2.StarRating = 5 AND T2.ReviewDate BETWEEN '2013-01-01' AND '2013-12-31'",
+    "question_id": null,
+    "question": "List down the brand names of root beer that gained a 5-star rating from a customer's review in 2013. Calculate the unit profit available to wholesalers for each brand.",
+    "difficulty": "",
+    "evidence": "5-star rating refers to StarRating = 5; in 2013 refers to ReviewDate LIKE '2013%'; unit profit available to wholesalers = SUBTRACT(CurrentRetailPrice, WholesaleCost);"
+  },
+  {
+    "sql": "SELECT T1.First, T1.Last , strftime('%J', ReviewDate) - strftime('%J', FirstPurchaseDate) AS TIMEAGO FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID LIMIT 1",
+    "question_id": null,
+    "question": "Give me the full name of the first customer, and tell me how long ago he or she wrote his or her first review since making his or her first purchase.",
+    "difficulty": "",
+    "evidence": "full name = First, Last; how long ago = SUBTRACT(ReviewDate, FirstPurchaseDate);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CreditCardType FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'Kenneth' AND T1.Last = 'Walton'",
+    "question_id": null,
+    "question": "What is the credit card type used by Kenneth Walton?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T4.ContainerType, T3.BrandName, T1.StarRating FROM rootbeerreview AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID INNER JOIN rootbeer AS T4 ON T2.RootBeerID = T4.RootBeerID WHERE T2.RootBeerID = 100054",
+    "question_id": null,
+    "question": "What is the container type, brand name and star rating for root beer ID 10054?",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T2.RootBeerID FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T2.CustomerID = T1.CustomerID WHERE (T1.First = 'Tim' AND T1.Last = 'Ocel') OR (T1.First = 'Dawn' AND T1.Last = 'Childress')",
+    "question_id": null,
+    "question": "List out the root beers bought by Tim Ocel and Dawn Childress.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T1.RootBeerID FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T2.BrandID = T1.BrandID WHERE T2.BrandName IN ('Bulldog', 'Bundaberg', 'Dad''s', 'Dog n Suds', 'Virgil''s')",
+    "question_id": null,
+    "question": "List out the root beer ID for the brand Bulldog, Bundaberg, Dad's, Dog n Suds and Virgil's.",
+    "difficulty": "",
+    "evidence": "Bulldog, Bundaberg, Dad's, Dog n Suds and Virgil's refers to BrandName IN('Bulldog', 'Bundaberg', 'Dad''s', 'Dog n Suds', 'Virgil''s');"
+  },
+  {
+    "sql": "SELECT COUNT(T3.ContainerType) FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T2.CustomerID = T1.CustomerID INNER JOIN rootbeer AS T3 ON T3.RootBeerID = T2.RootBeerID WHERE T3.ContainerType = 'Bottle' AND T1.First = 'Jim' AND T1.Last = 'Breech'",
+    "question_id": null,
+    "question": "How many bottles of beer have been bought by Jim Breech?",
+    "difficulty": "",
+    "evidence": "bottles refers to ContainerType = 'Bottle';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.RootBeerID) FROM rootbeerbrand AS T1 INNER JOIN rootbeer AS T2 ON T1.BrandID = T2.BrandID INNER JOIN `transaction` AS T3 ON T2.RootBeerID = T3.RootBeerID WHERE T1.State = 'CA'",
+    "question_id": null,
+    "question": "How many transactions have been made to purchase a root beer brand from California?",
+    "difficulty": "",
+    "evidence": "California refers to State = 'CA';"
+  },
+  {
+    "sql": "SELECT AVG(T2.StarRating) FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.SubscribedToEmailList = 'TRUE'",
+    "question_id": null,
+    "question": "What is the average review given by a subscriber?",
+    "difficulty": "",
+    "evidence": "average review = AVG(StarRating); subscriber refers to SubscribedToEmailList = 'TRUE';"
+  },
+  {
+    "sql": "SELECT ( SELECT COUNT(T1.BrandID) FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID WHERE T2.State = 'LA' AND T1.ContainerType = 'Bottle' ) - ( SELECT COUNT(T3.BrandID) FROM rootbeer AS T3 INNER JOIN rootbeerbrand AS T4 ON T3.BrandID = T4.BrandID WHERE T4.State = 'MO' AND T3.ContainerType = 'Bottle' ) AS DIFFERENCE",
+    "question_id": null,
+    "question": "What is the amount difference between the bottles of root beer sold from Louisiana and Missouri?",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT(COUNT(ContainerType = 'Bottle' WHERE State = 'LA'), COUNT(ContainerType = 'Bottle' State = 'MO')); bottles refers to ContainerType = 'Bottle'; Louisiana refers to State = 'LA'; Missouri refers to State = 'MO';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.LocationName = 'Sac State American River Courtyard' THEN T1.TransactionID ELSE NULL END) AS REAL) * 100 / COUNT(CASE WHEN T2.LocationName = 'Sac State Union' THEN T1.TransactionID ELSE NULL END) FROM `transaction` AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID",
+    "question_id": null,
+    "question": "What is the transaction ratio being made at Sac State American River Courtyard and Sac State Union?",
+    "difficulty": "",
+    "evidence": "transaction ratio = DIVIDE(SUM(TransactionID WHERE LocationName = 'Sac State American River Courtyard'), SUM(TransactionID WHERE LocationName = 'Sac State Union')); Sac State American River Courtyard refers to LocationName = 'Sac State American River Courtyard'; Sac State Union refers to LocationName = 'Sac State Union';"
+  },
+  {
+    "sql": "SELECT T1.First, T1.Last, T2.CreditCardType FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID GROUP BY T1.CustomerID ORDER BY SUM(T2.PurchasePrice) DESC LIMIT 10",
+    "question_id": null,
+    "question": "List out the name of the top 10 spenders and what credit card type are they using.",
+    "difficulty": "",
+    "evidence": "top 10 spenders refers to MAX(PurchasePrice) LIMIT 10;"
+  },
+  {
+    "sql": "SELECT T1.BrandName, SUM(T3.PurchasePrice) FROM rootbeerbrand AS T1 INNER JOIN rootbeer AS T2 ON T1.BrandID = T2.BrandID INNER JOIN `transaction` AS T3 ON T2.RootBeerID = T3.RootBeerID WHERE T1.CaneSugar = 'FALSE' AND T1.Caffeinated = 'FALSE' GROUP BY T1.BrandName",
+    "question_id": null,
+    "question": "List out root beer brand that is not caffeinated and not containing cane sugar. What is the total amount sold for this products?",
+    "difficulty": "",
+    "evidence": "root beer brand refers to BrandName; not caffeinated refers to Caffeinated = 'FALSE'; not containing cane sugar refers to CaneSugar = 'FALSE'; total amount sold = SUM(PurchasePrice);"
+  },
+  {
+    "sql": "SELECT T2.BrandName FROM rootbeer AS T1 INNER JOIN rootbeerbrand AS T2 ON T1.BrandID = T2.BrandID GROUP BY T2.BrandID ORDER BY COUNT(T1.BrandID) LIMIT 1",
+    "question_id": null,
+    "question": "Which of the root beer brand have the lowest purchase?",
+    "difficulty": "",
+    "evidence": "root beer brand refers to BrandName; lowest purchase refers to MIN(COUNT(BrandID));"
+  },
+  {
+    "sql": "SELECT T1.BrandID, AVG(T1.StarRating) FROM rootbeerreview AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID GROUP BY T3.BrandID ORDER BY COUNT(T1.BrandID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the best seller root beer brand and what is the average star rating for this root beer?",
+    "difficulty": "",
+    "evidence": "best seller root beer refers to MAX(COUNT(BrandID)); average star rating = AVG(StarRating);"
+  },
+  {
+    "sql": "SELECT CAST((SUM(CASE WHEN T3.BrandName = 'River City' THEN T2.PurchasePrice ELSE 0 END) - SUM(CASE WHEN T3.BrandName = 'Frostie' THEN T2.PurchasePrice ELSE 0 END)) AS REAL) * 100 / SUM(CASE WHEN T3.BrandName = 'Frostie' THEN T2.PurchasePrice ELSE 0 END) FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID INNER JOIN rootbeerbrand AS T3 ON T1.BrandID = T3.BrandID",
+    "question_id": null,
+    "question": "What is the percentage difference of River City sale compare to Frostie?",
+    "difficulty": "",
+    "evidence": "percentage difference = (DIVIDE(MULTIPLY(SUBTRACT(SUM(PurchasePrice WHERE BrandName = 'River City'), SUM(PurchasePrice WHERE BrandName = 'Frostie')), 100), SUM(PurchasePrice WHERE BrandName = 'Frostie'))); River City refers to BrandName = 'River City'; Frostie refers to BrandName = 'Frostie';"
+  },
+  {
+    "sql": "SELECT DISTINCT City FROM customers WHERE State = 'CA'",
+    "question_id": null,
+    "question": "Please name all of the cities in California.",
+    "difficulty": "",
+    "evidence": "California refers to State = 'CA';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN Gender = 'F' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(SubscribedToEmailList) FROM customers WHERE SubscribedToEmailList = 'TRUE'",
+    "question_id": null,
+    "question": "What is the percentage of female customers who subscribed to the email list?",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(COUNT(CustomerID WHERE Gender = 'F'), COUNT(CustomerID) WHERE SubscribedToEmailList = 'TRUE'), 1.0); female refers to Gender = 'F'; subscribed to the email list refers to SubscribedToEmailList = 'TRUE';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CreditCardType FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.First = 'Dick' AND T1.Last = 'Ruthven'",
+    "question_id": null,
+    "question": "Which type of card did Dick Ruthven use to pay for all of his transactions?",
+    "difficulty": "",
+    "evidence": "type of card refers to CreditCardType;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TransactionID) FROM `transaction` AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.LocationName = 'Sac State Union'",
+    "question_id": null,
+    "question": "How many transactions were made at Sac State Union?",
+    "difficulty": "",
+    "evidence": "Sac State Union refers to LocationName = 'Sac State Union';"
+  },
+  {
+    "sql": "SELECT T2.StarRating FROM customers AS T1 INNER JOIN rootbeerreview AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN rootbeerbrand AS T3 ON T2.BrandID = T3.BrandID WHERE T1.First = 'Urijah' AND T1.Last = 'Faber' AND T3.BrandName = 'Frostie'",
+    "question_id": null,
+    "question": "How many stars did Urijah Faber rate for Frostie?",
+    "difficulty": "",
+    "evidence": "stars refers to StarRating; Frostie refers to BrandName = 'Frostie';"
+  },
+  {
+    "sql": "SELECT T1.BrandName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T2.BrandID = T1.BrandID WHERE T2.StarRating = 1 AND T2.Review = 'Too Spicy!'",
+    "question_id": null,
+    "question": "Which brand has the lowest star rating with a \"Too spicy!\" review?",
+    "difficulty": "",
+    "evidence": "lowest star rating refers to MIN(StarRating); \"Too spicy!\" review refers to Review = 'Too Spicy!';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TransactionID) FROM `transaction` AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.LocationName = 'Sac State American River Courtyard' AND T1.CreditCardType = 'MasterCard'",
+    "question_id": null,
+    "question": "How many purchases were made at Sac State American River Courtyard using Master Card?",
+    "difficulty": "",
+    "evidence": "Sac State American River Courtyard refers to LocationName = 'Sac State American River Courtyard'; Master Card refers to CreditCardType = 'MasterCard';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.BrandName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T1.CaneSugar = 'TRUE' AND T1.Honey = 'TRUE' AND T2.StarRating = 1 AND T2.ReviewDate LIKE '2012%'",
+    "question_id": null,
+    "question": "Which brand in 2012 has the lowest star rating and contains cane sugar as well as honey?",
+    "difficulty": "",
+    "evidence": "brand refers to BrandName; in 2012 refers to ReviewDate LIKE '2012%'; lowest star rating refers to MIN(StarRating); contains cane sugar as well as honey refers to CaneSugar = 'TRUE' AND Honey = 'TRUE';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Latitude, T1.Longitude FROM geolocation AS T1 INNER JOIN `transaction` AS T2 ON T2.LocationID = T1.LocationID INNER JOIN customers AS T3 ON T3.CustomerID = T2.CustomerID WHERE T3.First = 'Tommy' AND T3.Last = 'Kono' AND T2.TransactionDate LIKE '2014%'",
+    "question_id": null,
+    "question": "What is the precise location of the place where Tommy Kono made a purchase in 2014?",
+    "difficulty": "",
+    "evidence": "precise location = Latitude, Longitude; in 2014 refers to TransactionDate LIKE '2014%';"
+  },
+  {
+    "sql": "SELECT T1.Email FROM customers AS T1 INNER JOIN `transaction` AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.TransactionID = '100016'",
+    "question_id": null,
+    "question": "What is the email address of the customer who made a purchase in transaction 100016?",
+    "difficulty": "",
+    "evidence": "email address refers to Email; transaction 100016 refers to TransactionID = 100016;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.RootBeerID) FROM rootbeer AS T1 INNER JOIN `transaction` AS T2 ON T1.RootBeerID = T2.RootBeerID WHERE T1.ContainerType = 'Bottle' AND T2.CreditCardType = 'American Express'",
+    "question_id": null,
+    "question": "How many transactions were made to purchase a bottle of beer using American Express?",
+    "difficulty": "",
+    "evidence": "bottle of beer refers to ContainerType = 'Bottle'; American Express refers to CreditCardType = 'American Express';"
+  },
+  {
+    "sql": "SELECT T2.LocationName FROM rootbeer AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T1.ContainerType = 'Bottle' GROUP BY T2.LocationID ORDER BY COUNT(T1.LocationID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which location sold more bottles of beer?",
+    "difficulty": "",
+    "evidence": "location refers to LocationName; bottle of beer refers to ContainerType = 'Bottle'; location that sold more bottles of beer refers to MAX(COUNT(LocationID WHERE ContainerType = 'Bottle'));"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.BrandName FROM rootbeerbrand AS T1 INNER JOIN rootbeerreview AS T2 ON T1.BrandID = T2.BrandID WHERE T2.StarRating = 5 LIMIT 3",
+    "question_id": null,
+    "question": "Please name any three root beer brands that have the highest market evaluation and acceptance.",
+    "difficulty": "",
+    "evidence": "root beer brands refers to BrandName; highest market evaluation and acceptance refers to MAX(COUNT(StarRating = 5));"
+  },
+  {
+    "sql": "SELECT T2.Latitude, T2.Longitude FROM location AS T1 INNER JOIN geolocation AS T2 ON T1.LocationID = T2.LocationID WHERE T1.LocationName = 'Sac State American River Courtyard'",
+    "question_id": null,
+    "question": "What is the precise location of the Sac State American River Courtyard?",
+    "difficulty": "",
+    "evidence": "precise location = Latitude, Longitude; Sac State American River Courtyard refers to LocationName = 'Sac State American River Courtyard';"
+  }
+]

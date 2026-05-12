@@ -1,0 +1,308 @@
+{
+  "actor": {
+    "pk_columns": [
+      "ActorID"
+    ],
+    "fragments": [
+      {
+        "suffix": "biography",
+        "non_pk_columns": [
+          "Biography",
+          "Ethnicity",
+          "Gender",
+          "Height (Inches)",
+          "Name",
+          "NetWorth"
+        ],
+        "local_table": "actor_biography_q1",
+        "local_name": "local_2",
+        "vertical_fragment_base": "actor_biography",
+        "row_partition_names": [
+          "actor_biography_q1",
+          "actor_biography_q2",
+          "actor_biography_q3",
+          "actor_biographies_height_over_72"
+        ],
+        "row_partition_predicate_column": "Height (Inches)"
+      },
+      {
+        "suffix": "birth_city",
+        "non_pk_columns": [
+          "Birth City",
+          "Birth Country",
+          "Date of Birth",
+          "Ethnicity",
+          "Height (Inches)",
+          "Name",
+          "NetWorth"
+        ],
+        "local_table": "actor_birth_locations",
+        "local_name": "local_2",
+        "vertical_fragment_base": "actor_birth_city"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "actor",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 9,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.031910812018302155,
+        "3": 0.031910812018302155
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.031910812018302155,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "Biography",
+          "Ethnicity",
+          "Gender",
+          "Height (Inches)",
+          "Name",
+          "NetWorth"
+        ],
+        [
+          "Birth City",
+          "Birth Country",
+          "Date of Birth"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "Height (Inches)",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "NetWorth",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Ethnicity",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "Biography",
+          "Ethnicity",
+          "Gender",
+          "Height (Inches)",
+          "Name",
+          "NetWorth"
+        ],
+        [
+          "Birth City",
+          "Birth Country",
+          "Date of Birth",
+          "Ethnicity",
+          "Height (Inches)",
+          "Name",
+          "NetWorth"
+        ]
+      ],
+      "pk_columns": [
+        "ActorID"
+      ],
+      "fragments": [
+        {
+          "suffix": "biography",
+          "non_pk_columns": [
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ]
+        },
+        {
+          "suffix": "birth_city",
+          "non_pk_columns": [
+            "Birth City",
+            "Birth Country",
+            "Date of Birth",
+            "Ethnicity",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "actor_birth_city",
+    "movable_candidates": [
+      "actor_biography_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=1"
+  },
+  "movie": {
+    "pk_columns": [
+      "MovieID"
+    ],
+    "fragments": [
+      {
+        "suffix": "budget",
+        "non_pk_columns": [
+          "Budget",
+          "Genre",
+          "Gross",
+          "Rating",
+          "Rating Count",
+          "Release Date",
+          "Runtime",
+          "Summary"
+        ],
+        "local_table": "mv_bud_le_38m",
+        "local_name": "local_3",
+        "vertical_fragment_base": "movie_budget",
+        "row_partition_names": [
+          "mv_bud_le_38m",
+          "movie_budget_q2",
+          "movie_budget_q3",
+          "mv_bud_gt_140m_or_null"
+        ],
+        "row_partition_predicate_column": "Budget"
+      },
+      {
+        "suffix": "genre",
+        "non_pk_columns": [
+          "Genre",
+          "MPAA Rating",
+          "Rating",
+          "Release Date",
+          "Summary",
+          "Title"
+        ],
+        "local_table": "MovieGenreMetadata",
+        "local_name": "local_1",
+        "vertical_fragment_base": "movie_genre"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "movie",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 10,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.0146351814481484,
+        "3": 0.014220827788339857
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.0146351814481484,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "Budget",
+          "Gross",
+          "Rating Count",
+          "Runtime"
+        ],
+        [
+          "Genre",
+          "MPAA Rating",
+          "Rating",
+          "Release Date",
+          "Summary",
+          "Title"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "Summary",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Release Date",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Genre",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Rating",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "Budget",
+          "Genre",
+          "Gross",
+          "Rating",
+          "Rating Count",
+          "Release Date",
+          "Runtime",
+          "Summary"
+        ],
+        [
+          "Genre",
+          "MPAA Rating",
+          "Rating",
+          "Release Date",
+          "Summary",
+          "Title"
+        ]
+      ],
+      "pk_columns": [
+        "MovieID"
+      ],
+      "fragments": [
+        {
+          "suffix": "budget",
+          "non_pk_columns": [
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ]
+        },
+        {
+          "suffix": "genre",
+          "non_pk_columns": [
+            "Genre",
+            "MPAA Rating",
+            "Rating",
+            "Release Date",
+            "Summary",
+            "Title"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "movie_budget_q1",
+    "movable_candidates": [
+      "movie_genre"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+  }
+}

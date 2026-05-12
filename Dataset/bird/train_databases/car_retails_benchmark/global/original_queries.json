@@ -1,0 +1,884 @@
+[
+  {
+    "sql": "SELECT country, COUNT(customerNumber) FROM customers GROUP BY country",
+    "question_id": null,
+    "question": "List the country and how many customers are there.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.productVendor, T1.MSRP - T1.buyPrice FROM products AS T1 INNER JOIN orderdetails AS T2 ON T1.productCode = T2.productCode GROUP BY T1.productVendor, T1.MSRP, T1.buyPrice ORDER BY COUNT(T2.quantityOrdered) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which different vendor has the most amount of orders? Calculate the total estimated earnings.",
+    "difficulty": "",
+    "evidence": "amount of order refers to quantityOrdered; most amount of orders refers to SUM(QuantityOrdered); estimated earnings refers to expected profits; expected profits = SUBTRACT(msrp, buyPrice);"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.lastName, T3.firstName FROM payments AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber INNER JOIN employees AS T3 ON T2.salesRepEmployeeNumber = T3.employeeNumber WHERE STRFTIME('%Y', T1.paymentDate) = '2004' ORDER BY T1.amount DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the sales agent of the distinct customer who paid the highest amount in the year 2004?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.priceEach * T3.quantityOrdered FROM customers AS T1 INNER JOIN orders AS T2 ON T1.customerNumber = T2.customerNumber INNER JOIN orderdetails AS T3 ON T2.orderNumber = T3.orderNumber WHERE T1.customerName = 'Rovelli Gifts' AND T2.status = 'Shipped' AND STRFTIME('%Y', T2.shippedDate) = '2003'",
+    "question_id": null,
+    "question": "What was the total price of the products shipped to Rovelli Gifts Distributors Ltd. between 1/1/2003 and 12/31/2003?",
+    "difficulty": "",
+    "evidence": "Mini Gifts Distributors Ltd. Is the customer name; shippedDate between '2003-01-01' and '2003-12-31'; total price = MULTIPLY(quantityOrdered, priceEach);"
+  },
+  {
+    "sql": "SELECT COUNT(employeeNumber) FROM employees WHERE officeCode = ( SELECT officeCode FROM offices WHERE city = 'Sydney' )",
+    "question_id": null,
+    "question": "How many employees are there in Sydney?",
+    "difficulty": "",
+    "evidence": "sales agent and sales representative are synonyms; Sydney is a city;"
+  },
+  {
+    "sql": "SELECT T1.employeeNumber FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T1.reportsTo = 1143 AND T2.city = 'NYC'",
+    "question_id": null,
+    "question": "Which sales representatives in New York city whose leader is Anthony Bow with the employee number is 1143? Indicate their employee numbers.",
+    "difficulty": "",
+    "evidence": "reportsTO' is the leader of the 'employeeNumber';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T1.amount) AS REAL) / 3, MAX(T1.amount) , MIN(T1.amount) FROM payments AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber WHERE T1.paymentDate BETWEEN '2003-01-01' AND '2005-12-31'",
+    "question_id": null,
+    "question": "What is the average, highest and lowest annual payments collected between 1/1/2003 to 12/31/2005?",
+    "difficulty": "",
+    "evidence": "paymentDate BETWEEN '2003-01-01' AND '2005-12-31'; average annual payments = DIVIDE(SUM(amount), 3);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.country, T2.addressLine1, T2.addressLine2 FROM payments AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber ORDER BY T1.amount DESC LIMIT 5",
+    "question_id": null,
+    "question": "Which countries do the top 5 highest paying customers in a single payment come from? Indicate their entire address.",
+    "difficulty": "",
+    "evidence": "highest paying customer refers to MAX(amount); entire address = addressLine1+addressLine2;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.checkNumber) FROM payments AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber WHERE customerName = 'Euro+ Shopping Channel' AND STRFTIME('%Y', T1.paymentDate) = '2004'",
+    "question_id": null,
+    "question": "How many checks were issued by Euro+ Shopping Channel in the year 2004?",
+    "difficulty": "",
+    "evidence": "Euro+ Shopping Channel is a customer name; year(paymentDate) = '2004';"
+  },
+  {
+    "sql": "SELECT T1.productName FROM products AS T1 INNER JOIN orderdetails AS T2 ON T1.productCode = T2.productCode WHERE T1.productScale = '1:18' AND T1.productLine = 'Classic Cars' GROUP BY T1.productName ORDER BY SUM(T2.quantityOrdered) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Of all the classic cars, with a product scale of 1:18, which product is the most ordered product by customers?",
+    "difficulty": "",
+    "evidence": "classic car is a product line; most ordered product refers to MAX(quantityOrdered);"
+  },
+  {
+    "sql": "SELECT ( SELECT COUNT(customerNumber) FROM customers WHERE creditLimit <= 100000 AND customerNumber IN ( SELECT customerNumber FROM payments WHERE STRFTIME('%Y', paymentDate) = '2004' ) ), T1.customerName FROM customers AS T1 INNER JOIN payments AS T2 ON T1.customerNumber = T2.customerNumber WHERE T1.creditLimit <= 100000 AND STRFTIME('%Y', T2.paymentDate) = '2004' GROUP BY T1.customerNumber, T1.customerName ORDER BY SUM(T2.amount) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many customers have a credit limit of not more than 100,000 and which customer made the highest total payment amount for the year 2004?",
+    "difficulty": "",
+    "evidence": "creditLimit < = 100000; total payment amount refers to amount; highest total payment amount refers to MAX(amount); year(paymentDate) = '2004';"
+  },
+  {
+    "sql": "SELECT T2.customerName, T2.contactFirstName, T2.contactLastName, SUM(T3.amount) FROM employees AS T1 INNER JOIN customers AS T2 ON T2.salesRepEmployeeNumber = T1.employeeNumber INNER JOIN payments AS T3 ON T2.customerNumber = T3.customerNumber INNER JOIN offices AS T4 ON T1.officeCode = T4.officeCode WHERE T4.city = 'Tokyo' AND T1.reportsTo = 1056 GROUP BY T2.customerName, T2.contactFirstName, T2.contactLastName ORDER BY amount DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which of the customers, whose Tokyo-based sales representative reports to the Vice President of Sales whose employee number is 1056, has paid the highest payment? List the customer's name, the contact person and calculate the total amount of that customer's total payments.",
+    "difficulty": "",
+    "evidence": "Tokyo is a city; 'reportsTO' is the leader of the 'employeeNumber'; highest payment refers to MAX(amount); total amount of payments = SUM(amount);"
+  },
+  {
+    "sql": "SELECT T2.productName, SUM(T1.quantityOrdered * T1.priceEach) FROM orderdetails AS T1 INNER JOIN ( SELECT productCode, productName FROM products ORDER BY MSRP - buyPrice DESC LIMIT 1 ) AS T2 ON T1.productCode = T2.productCode UNION SELECT T2.productName, SUM(quantityOrdered * priceEach) FROM orderdetails AS T1 INNER JOIN ( SELECT productCode, productName FROM products ORDER BY MSRP - buyPrice ASC LIMIT 1 ) AS T2 ON T1.productCode = T2.productCode",
+    "question_id": null,
+    "question": "Which two products has the highest and lowest expected profits? Determine the total price for each product in terms of the largest quantity that was ordered.",
+    "difficulty": "",
+    "evidence": "expected profits = SUBTRACT(msrp, buyPrice); total price = MULTIPLY(quantityOrdered, priceEach)"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.orderNumber) FROM orderdetails AS T1 INNER JOIN orders AS T2 ON T1.orderNumber = T2.orderNumber WHERE T1.quantityOrdered * T1.priceEach > 4000 AND T2.status = 'Cancelled'",
+    "question_id": null,
+    "question": "How many different orders with a total price greater than 4000 are cancelled?",
+    "difficulty": "",
+    "evidence": "total price = MULTIPLY(quantityOrdered, priceEach) > 4000; cancelled orders refer to status = 'Cancelled';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.orderNumber) FROM orderdetails AS T1 INNER JOIN orders AS T2 ON T1.orderNumber = T2.orderNumber WHERE T1.quantityOrdered < 30 AND STRFTIME('%Y', T2.orderDate) = '2003'",
+    "question_id": null,
+    "question": "How many distinct orders were there in 2003 when the quantity ordered was less than 30?",
+    "difficulty": "",
+    "evidence": "year(orderDate) = '2003'; quantityOrdered < 30;"
+  },
+  {
+    "sql": "SELECT SUM(T1.quantityOrdered * T1.priceEach) FROM orderdetails AS T1 INNER JOIN orders AS T2 ON T1.orderNumber = T2.orderNumber WHERE T2.status = 'Cancelled'",
+    "question_id": null,
+    "question": "What is the total value of cancelled orders?",
+    "difficulty": "",
+    "evidence": "total value = SUM(MULTIPLY(quantityOrdered, priceEach)); cancelled orders refers to status = 'Cancelled';"
+  },
+  {
+    "sql": "SELECT SUM(T1.quantityOrdered * T1.priceEach) FROM orderdetails AS T1 INNER JOIN products AS T2 ON T1.productCode = T2.productCode WHERE T2.productLine = 'Motorcycles'",
+    "question_id": null,
+    "question": "Please calculate the total value of Motorcycles orders.",
+    "difficulty": "",
+    "evidence": "Motorcycle is a product line; total value = SUM(MULTIPLY(quantityOrdered, priceEach));"
+  },
+  {
+    "sql": "SELECT COUNT(T1.productCode) FROM orderdetails AS T1 INNER JOIN products AS T2 ON T1.productCode = T2.productCode WHERE T2.productLine = 'Planes'",
+    "question_id": null,
+    "question": "How many Planes orders were there?",
+    "difficulty": "",
+    "evidence": "Planes is a product line;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.productCode) FROM orderdetails AS T1 INNER JOIN products AS T2 ON T1.productCode = T2.productCode WHERE T2.MSRP - T2.buyPrice > 100",
+    "question_id": null,
+    "question": "How many orders which expected profits greater than 100?",
+    "difficulty": "",
+    "evidence": "expected profits greater than 100 = (SUBTRACT(msrp, buyPrice))>100;"
+  },
+  {
+    "sql": "SELECT SUM(T2.quantityOrdered * T2.priceEach) / COUNT(T3.orderNumber) FROM products AS T1 INNER JOIN orderdetails AS T2 ON T1.productCode = T2.productCode INNER JOIN orders AS T3 ON T2.orderNumber = T3.orderNumber WHERE T1.productVendor = 'Exoto Designs' AND STRFTIME('%Y', T3.orderDate) = '2005'",
+    "question_id": null,
+    "question": "Please calculate the average total price of orders from Exoto Designs Vendor in 2005.",
+    "difficulty": "",
+    "evidence": "average total price = DIVIDE(SUM(MULTIPLY(quantityOrdered, priceEach))), COUNT(orderNumber)); year(orderDate) = '2005';"
+  },
+  {
+    "sql": "SELECT COUNT(officeCode) FROM employees WHERE jobTitle = 'Sales Rep' AND officeCode = 1",
+    "question_id": null,
+    "question": "How many sales representatives who have office code is 1?",
+    "difficulty": "",
+    "evidence": "sales representative refers to jobTitle = 'Sales Rep';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.customerName FROM payments AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber WHERE T1.amount > 50000",
+    "question_id": null,
+    "question": "Please list different customer names with the payment amount of over 50,000.",
+    "difficulty": "",
+    "evidence": "amount > 50000;"
+  },
+  {
+    "sql": "SELECT SUM(T1.amount) FROM payments AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber WHERE T2.country = 'USA'",
+    "question_id": null,
+    "question": "Please calculate the total payment amount of customers who come from the USA.",
+    "difficulty": "",
+    "evidence": "USA is a country; total amount payment refers to SUM(amount);"
+  },
+  {
+    "sql": "SELECT SUM(amount) FROM payments WHERE STRFTIME('%Y', paymentDate) = '2003' AND customerNumber IN ( SELECT customerNumber FROM customers WHERE creditLimit = 0 )",
+    "question_id": null,
+    "question": "What are the total payments of customers with no credit limit in 2003?",
+    "difficulty": "",
+    "evidence": "total payment refers to SUM(amount); no credit limit refers to creditLimit = 0; year(paymentDate) = '2003';"
+  },
+  {
+    "sql": "SELECT T2.customerName, T2.phone FROM orders AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber WHERE T1.status = 'Cancelled'",
+    "question_id": null,
+    "question": "Please list the name and phone number of the customer whose order was cancelled.",
+    "difficulty": "",
+    "evidence": "cancelled order refers to status = 'Cancelled';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.country) FROM orders AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber WHERE T1.status = 'Shipped' AND T2.country = 'France' GROUP BY T2.customerNumber HAVING COUNT(T1.status) = 2",
+    "question_id": null,
+    "question": "How many French customers shipped 2 orders which have been cancelled?",
+    "difficulty": "",
+    "evidence": "French is a nationality of country = 'France'; cancelled orders refers to status = 'Cancelled';"
+  },
+  {
+    "sql": "SELECT SUM(T3.quantityOrdered * T3.priceEach) / COUNT(T2.orderNumber) FROM customers AS T1 INNER JOIN orders AS T2 ON T1.customerNumber = T2.customerNumber INNER JOIN orderdetails AS T3 ON T2.orderNumber = T3.orderNumber WHERE T2.status = 'Shipped' AND T1.country = 'Germany'",
+    "question_id": null,
+    "question": "Please calculate the average total price of shipped orders from German customers.",
+    "difficulty": "",
+    "evidence": "average total price = DIVIDE(MULTIPLY(quantityOrdered, priceEach)), COUNT(orderNumber)); German is a nationality of country = 'Germany'; shipped orders refers to status = 'Shipped';"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T2.city = 'Tokyo'",
+    "question_id": null,
+    "question": "List out full name of employees who are working in Tokyo?",
+    "difficulty": "",
+    "evidence": "Tokyo is a city; full name = firstName+lastName;"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName, T1.email FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T2.city = 'Tokyo' AND T1.jobTitle = 'Sales Rep'",
+    "question_id": null,
+    "question": "How many Sales Rep who are working in Tokyo? List out email and full name of those employees.",
+    "difficulty": "",
+    "evidence": "Sales Rep is a job title; Tokyo is a city; full name = firstName+lastName;"
+  },
+  {
+    "sql": "SELECT T1.email FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T1.reportsTo = 1002 AND T2.city = 'San Francisco'",
+    "question_id": null,
+    "question": "State the email of those who are staff of Murphy Diane whose number is 1002 and living in San Francisco",
+    "difficulty": "",
+    "evidence": "staff of refers to reportsTO; San Francisco is a city;"
+  },
+  {
+    "sql": "SELECT T1.email, T1.employeeNumber FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T2.state = 'MA' AND T2.country = 'USA'",
+    "question_id": null,
+    "question": "Determine the email and Code of employee who are working at United State, state MA",
+    "difficulty": "",
+    "evidence": "code of employee refers to employeeNumber; United States of America refers to country = 'USA';"
+  },
+  {
+    "sql": "SELECT T1.email FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T1.jobTitle LIKE '%Sales Manager%' AND T2.city = 'Sydney'",
+    "question_id": null,
+    "question": "How many Sales Manager who are working in Sydney? List out their email.",
+    "difficulty": "",
+    "evidence": "Sales Manager is a job title; Sydney is a city;"
+  },
+  {
+    "sql": "SELECT T2.email, T3.country FROM customers AS T1 INNER JOIN employees AS T2 ON T1.salesRepEmployeeNumber = T2.employeeNumber INNER JOIN offices AS T3 ON T2.officeCode = T3.officeCode WHERE T3.country = 'Australia' AND T1.creditLimit < 200000 AND T2.jobTitle = 'Sales Rep'",
+    "question_id": null,
+    "question": "How many employees who are living in Australia and have the credit limit under 200000? State their email address and countries where they are working.",
+    "difficulty": "",
+    "evidence": "Australia is a country; creditLimit < 20000;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.email FROM customers AS T1 INNER JOIN employees AS T2 ON T1.salesRepEmployeeNumber = T2.employeeNumber WHERE T2.jobTitle = 'Sales Rep' AND T1.country = 'UK' ORDER BY T1.creditLimit LIMIT 10",
+    "question_id": null,
+    "question": "State 10 emails of UK Sales Rep who have the lowest credit limit.",
+    "difficulty": "",
+    "evidence": "UK is a country; Sales Rep is a job title;"
+  },
+  {
+    "sql": "SELECT COUNT(creditLimit) FROM customers WHERE creditLimit < 220000 AND country = 'Australia'",
+    "question_id": null,
+    "question": "How many Australian customers who have credit line under 220000?",
+    "difficulty": "",
+    "evidence": "Australian is a nationality of country = 'Australia'; credit line refers to creditLimit; creditLimit < 220000;"
+  },
+  {
+    "sql": "SELECT customerNumber FROM payments ORDER BY amount DESC LIMIT 3",
+    "question_id": null,
+    "question": "List out 3 customer numbers who have highest amount payment",
+    "difficulty": "",
+    "evidence": "amount of payment refers to amount;"
+  },
+  {
+    "sql": "SELECT T1.email, T1.employeeNumber FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T2.country = 'USA' AND T2.state = 'CA' GROUP BY T1.email, T1.officeCode",
+    "question_id": null,
+    "question": "Determine the email and Code of employee who are working at United State, state CA",
+    "difficulty": "",
+    "evidence": "United States of America refers to country = 'USA'; code of employee refers to employeeNumber;"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T2.city = 'Boston'",
+    "question_id": null,
+    "question": "List out full name of employees who are working in Boston?",
+    "difficulty": "",
+    "evidence": "full name = contactFirstName, contactLastName; Boston is a city;"
+  },
+  {
+    "sql": "SELECT T2.email FROM customers AS T1 INNER JOIN employees AS T2 ON T1.salesRepEmployeeNumber = T2.employeeNumber WHERE T2.jobTitle = 'Sales Rep' AND T1.country = 'UK' GROUP BY T1.customerName, T2.email ORDER BY SUM(T1.creditLimit) DESC LIMIT 3",
+    "question_id": null,
+    "question": "State top 3 emails of UK Sales Rep who have the highest credit limit.",
+    "difficulty": "",
+    "evidence": "UK is a country; Sales Rep is a job title;"
+  },
+  {
+    "sql": "SELECT COUNT(creditLimit) FROM customers WHERE creditLimit < 220000 AND country = 'Norway'",
+    "question_id": null,
+    "question": "How many customers who are in Norway and have credit line under 220000?",
+    "difficulty": "",
+    "evidence": "Norway is a country; credit line refers to creditLimit; creditLimit<220000;"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName, T1.email FROM employees AS T1 INNER JOIN offices AS T2 ON T1.officeCode = T2.officeCode WHERE T2.city = 'Paris'",
+    "question_id": null,
+    "question": "List out full name and email of employees who are working in Paris?",
+    "difficulty": "",
+    "evidence": "full name = firstName+LastName; Paris is a city;"
+  },
+  {
+    "sql": "SELECT productCode, quantityInStock FROM products WHERE productLine = 'Motorcycles' ORDER BY quantityInStock DESC LIMIT 5",
+    "question_id": null,
+    "question": "List the product code of the top five motorcycles, by descending order, the number of quantity in stock.",
+    "difficulty": "",
+    "evidence": "motorcycle is a product line;"
+  },
+  {
+    "sql": "SELECT COUNT(customerNumber) FROM customers WHERE creditLimit = 0 AND country = 'Germany'",
+    "question_id": null,
+    "question": "Among the German customers, how many of the them has credit limit of zero?",
+    "difficulty": "",
+    "evidence": "German is a nationality of country = 'Germany'; CREDITLIMIT = 0"
+  },
+  {
+    "sql": "SELECT COUNT(customernumber) FROM ( SELECT customernumber FROM payments WHERE STRFTIME('%Y', paymentDate) >= '2003' AND STRFTIME('%Y', paymentDate) <= '2004' GROUP BY customernumber HAVING COUNT(customernumber) > 3 ) T",
+    "question_id": null,
+    "question": "From 2003 to 2004, how many customers have paid more than three times?",
+    "difficulty": "",
+    "evidence": "paymentdate BETWEEN '2003-01-01' AND '2004-12-31'; customers who have paid more than three times refers to (COUNT(customernumber)>3);"
+  },
+  {
+    "sql": "SELECT SUM(T1.priceEach - T2.buyPrice) / COUNT(*) FROM orderdetails AS T1 INNER JOIN products AS T2 ON T1.productCode = T2.productCode WHERE T2.productName = '1937 Lincoln Berline'",
+    "question_id": null,
+    "question": "What is the average actual profit by 1937 Lincoln Berline?",
+    "difficulty": "",
+    "evidence": "average actual profit = AVG(SUBTRACT(priceEach, buyPrice)); 1937 Lincoln Berline is a product name;"
+  },
+  {
+    "sql": "SELECT T1.productName FROM products AS T1 INNER JOIN orderdetails AS T2 ON T1.productCode = T2.productCode INNER JOIN orders AS T3 ON T2.orderNumber = T3.orderNumber INNER JOIN customers AS T4 ON T3.customerNumber = T4.customerNumber WHERE T1.productLine = 'Motorcycles' AND T1.productScale = '1:10' AND T4.country = 'USA' GROUP BY T1.productName ORDER BY SUM(T2.quantityOrdered) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the motorcycles with product scale of 1:10, which of them is the most ordered by American customers?",
+    "difficulty": "",
+    "evidence": "motorcycle is a product line; American is a nationality of country = 'USA';"
+  },
+  {
+    "sql": "SELECT T1.checkNumber FROM payments AS T1 INNER JOIN customers AS T2 ON T1.customerNumber = T2.customerNumber WHERE T1.paymentDate >= '2003-08-01' AND T1.paymentDate <= '2004-08-30' AND T2.customerName = 'Mini Gifts Distributors Ltd.'",
+    "question_id": null,
+    "question": "Between 8/1/2003 and 8/30/2004, how many checks were issued by Mini Gifts Distributors Ltd.? Please list their check numbers.",
+    "difficulty": "",
+    "evidence": "paymentDate BETWEEN '2003-08-01' AND '2004-08-30'; Mini Gifts Distributors Ltd. Is a customer name;"
+  },
+  {
+    "sql": "SELECT MAX(quantityOrdered * priceEach) - AVG(priceEach) FROM orderdetails WHERE productCode IN ( SELECT productCode FROM products WHERE productLine = 'Planes' )",
+    "question_id": null,
+    "question": "For the planes which has the hightest total price, how much it exceeds the average?",
+    "difficulty": "",
+    "evidence": "plane is a product line; total price = MULTIPLY(quantityOrdered, priceEach); how much the total price exceeds the average = SUBTRACT(MAX(MULTIPLY(quantityOrdered, priceEach))), AVG(priceEach));"
+  },
+  {
+    "sql": "SELECT SUM(T2.priceEach * T2.quantityOrdered) FROM products AS T1 INNER JOIN orderdetails AS T2 ON T1.productCode = T2.productCode INNER JOIN orders AS T3 ON T2.orderNumber = T3.orderNumber WHERE T3.status = 'Shipped' AND T3.orderDate BETWEEN '2003-01-01' AND '2004-12-31'",
+    "question_id": null,
+    "question": "What is the total value of shipped vintage car orders from 2003-2004?",
+    "difficulty": "",
+    "evidence": "total value = SUM(MULTIPLY(quantityOrdered, priceEach)); shipped orders refers to status = 'Shipped'; vintage car is a product line; year(orderDate) between 2003 and 2004;"
+  },
+  {
+    "sql": "SELECT T1.firstName, T1.lastName, T1.reportsTo FROM employees AS T1 INNER JOIN customers AS T2 ON T1.employeeNumber = T2.salesRepEmployeeNumber INNER JOIN payments AS T3 ON T2.customerNumber = T3.customerNumber ORDER BY T3.amount DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the sales agent of the customer who has made the highest payment? Include the full names of employee and his/her supervisor.",
+    "difficulty": "",
+    "evidence": "payment refers to amount; full name = firstName+lastName; supervisor refers to reportsTO; 'reportsTO' is the leader of the 'employeeNumber';"
+  },
+  {
+    "sql": "SELECT T2.productName, T1.quantityOrdered * T1.priceEach FROM orderdetails AS T1 INNER JOIN products AS T2 ON T1.productCode = T2.productCode INNER JOIN orders AS T3 ON T1.orderNumber = T3.orderNumber INNER JOIN customers AS T4 ON T3.customerNumber = T4.customerNumber WHERE T4.city = 'Boston' AND T4.salesRepEmployeeNumber IN ( SELECT employeeNumber FROM employees WHERE jobTitle = 'Sales Rep' ) ORDER BY T1.quantityOrdered DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest amount of order made by the sales representative in Boston? Please give the name of the product and amount.",
+    "difficulty": "",
+    "evidence": "Boston is a city; amount of order = MULTIPLY(quantityOrdered, priceEach);"
+  },
+  {
+    "sql": "SELECT SUM(T2.priceEach - T1.buyPrice) FROM products AS T1 INNER JOIN orderdetails AS T2 ON T1.productCode = T2.productCode INNER JOIN orders AS T3 ON T2.orderNumber = T3.orderNumber INNER JOIN customers AS T4 ON T3.customerNumber = T4.customerNumber WHERE T3.orderDate > '2003-01-05' AND T3.orderDate < '2005-05-10'",
+    "question_id": null,
+    "question": "What is the total actual profit gained from orders made by American customers from 2003-01-06 to 2005-05-09?",
+    "difficulty": "",
+    "evidence": "total actual profit = SUM(SUBTRACT(priceEach, buyPrice)); American is a nationality of country = 'USA'; orderDate BETWEEN '2003-01-06' AND '2005-05-09';"
+  },
+  {
+    "sql": "SELECT T3.addressLine1, T3.addressLine2, T3.phone FROM orderdetails AS T1 INNER JOIN orders AS T2 ON T1.orderNumber = T2.orderNumber INNER JOIN customers AS T3 ON T2.customerNumber = T3.customerNumber INNER JOIN employees AS T4 ON T3.salesRepEmployeeNumber = T4.employeeNumber INNER JOIN offices AS T5 ON T4.officeCode = T5.officeCode WHERE STRFTIME('%Y', T2.orderDate) = '2005' AND T4.jobTitle = 'Sales Rep' ORDER BY T1.quantityOrdered DESC LIMIT 1",
+    "question_id": null,
+    "question": "From which branch does the sales representative employee who made the most sales in 2005? Please indicates its full address and phone number.",
+    "difficulty": "",
+    "evidence": "orderDate between '2005-01-01' and '2005-12-31'; full address = addressLine1+addressLine2;"
+  },
+  {
+    "sql": "SELECT phone FROM customers WHERE contactLastName LIKE 'M%' AND country != 'Germany'",
+    "question_id": null,
+    "question": "What is the phone number of all companies where the last name of the contact person starts with the letter M and are not from Germany?",
+    "difficulty": "",
+    "evidence": "last name of contact person starts with M refers to lastName LIKE 'M%'; Germany is a country; not from Germany refers to country<>'Germany';"
+  },
+  {
+    "sql": "SELECT AVG(amount) FROM payments WHERE paymentDate BETWEEN '2004-01-01' AND '2004-06-30'",
+    "question_id": null,
+    "question": "Calculate the average amount of payments made by customers during the first half of 2004.",
+    "difficulty": "",
+    "evidence": "average amount of payments = DIVIDE(SUM(amount), COUNT(customerNumber); first half of 2014 refers to paymentDate > = '2004-01-01' AND paymentDate < '2004-07-01;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN customerNumber = 186 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(orderNumber) FROM orders WHERE status = 'Shipped' AND shippedDate BETWEEN '2005-01-01' AND '2005-12-31'",
+    "question_id": null,
+    "question": "Of all the orders placed and shipped throughout the year 2005, what percentage of those orders corresponds to customer number 186?",
+    "difficulty": "",
+    "evidence": "shipped orders refers to status = 'shipped'; year(shippedDate) = 2005; percentage = DIVIDE(SUM(customerNumber = 186)), COUNT(orderNumber)) as percentage;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customerNumber) FROM customers AS T1 INNER JOIN orders AS T2 ON T1.customerNumber = T2.customerNumber WHERE T2.status = 'Cancelled' AND T1.creditLimit > 115000",
+    "question_id": null,
+    "question": "How many customers with a canceled shipment have a credit limit greater than 115,000?",
+    "difficulty": "",
+    "evidence": "cancelled shipment refers to status = 'cancelled'; creditLimit > 115000;"
+  },
+  {
+    "sql": "SELECT T3.paymentDate FROM employees AS T1 INNER JOIN customers AS T2 ON T1.employeeNumber = T2.salesRepEmployeeNumber INNER JOIN payments AS T3 ON T2.customerNumber = T3.customerNumber WHERE T1.firstName = 'Barry' AND T1.lastName = 'Jones' AND T1.jobTitle = 'Sales Rep' ORDER BY T2.creditLimit ASC LIMIT 1",
+    "question_id": null,
+    "question": "On what date did the customer with the lowest credit limit serviced by sales representative Barry Jones make payments for his/her orders?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.reportsTo FROM employees AS T1 INNER JOIN customers AS T2 ON T1.employeeNumber = T2.salesRepEmployeeNumber WHERE T2.country = 'France'",
+    "question_id": null,
+    "question": "To whom does the employee have to inform that is the sales representative of the French customer?",
+    "difficulty": "",
+    "evidence": "inform refers to reportsTo; 'reportsTO' is the leader of the 'employeeNumber'; France is a country; country = 'France';"
+  },
+  {
+    "sql": "SELECT T1.addressLine1, T1.addressLine2 FROM customers AS T1 INNER JOIN orders AS T2 ON T1.customerNumber = T2.customerNumber WHERE T2.shippedDate = '2005-04-04' AND T2.status = 'Shipped'",
+    "question_id": null,
+    "question": "What is the full address of the customer who commented that DHL be used for the order that was shipped on April 4, 2005?",
+    "difficulty": "",
+    "evidence": "full address = addressLine1+addressLine2; shippedDate = '2005-04-04';"
+  },
+  {
+    "sql": "SELECT T2.addressLine1, T2.addressLine2 FROM employees AS T1 INNER JOIN customers AS T2 ON T1.employeeNumber = T2.salesRepEmployeeNumber INNER JOIN offices AS T3 ON T1.officeCode = T3.officeCode WHERE T2.city = 'NYC' AND T1.jobTitle = 'Sales Rep'",
+    "question_id": null,
+    "question": "What is the full address of the office where the employee who is a sales representative for the customer whose business is located in the city of New York works?",
+    "difficulty": "",
+    "evidence": "full address = addressLine1 + addressLine2; NYC is a shortname of New York City."
+  },
+  {
+    "sql": "SELECT T1.addressLine1, T1.addressLine2 FROM customers AS T1 INNER JOIN employees AS T2 ON T1.salesRepEmployeeNumber = T2.employeeNumber WHERE T2.jobTitle = 'Sales Rep'",
+    "question_id": null,
+    "question": "What is the full address of the office where 4 people work and one of them is Sales Representation?",
+    "difficulty": "",
+    "evidence": "full address = addressLine1+addressLine2; Sales Manager is a job title;"
+  },
+  {
+    "sql": "SELECT SUM(T2.MSRP - T2.buyPrice) FROM productlines AS T1 INNER JOIN products AS T2 ON T1.productLine = T2.productLine WHERE T2.productVendor = 'Carousel DieCast Legends' AND T1.textDescription LIKE '%perfect holiday or anniversary gift for executives%'",
+    "question_id": null,
+    "question": "What profit can the seller Carousel DieCast Legends make from the sale of the product described as \"The perfect holiday or anniversary gift for executives\"?",
+    "difficulty": "",
+    "evidence": "seller and product vendor are synonyms; Carousel DieCast Legends is a product vendor; profit = SUM(SUBTRACT(msrp, buyPrice));"
+  },
+  {
+    "sql": "SELECT T1.customerNumber FROM customers AS T1 INNER JOIN payments AS T2 ON T1.customerNumber = T2.customerNumber WHERE T1.city = 'Boston' GROUP BY T1.customerNumber ORDER BY SUM(T2.amount) / COUNT(T2.paymentDate) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Of the clients whose businesses are located in the city of Boston, calculate which of them has a higher average amount of payment.",
+    "difficulty": "",
+    "evidence": "average amount payment = AVG(amount);"
+  },
+  {
+    "sql": "SELECT SUM(T2.quantityOrdered) , SUM(T2.quantityOrdered * T2.priceEach) / SUM(T2.quantityOrdered) FROM products AS T1 INNER JOIN orderdetails AS T2 ON T1.productCode = T2.productCode WHERE T1.productName = '18th Century Vintage Horse Carriage'",
+    "question_id": null,
+    "question": "Calculate the total quantity ordered for 18th Century Vintage Horse Carriage and the average price.",
+    "difficulty": "",
+    "evidence": "18th Century Vintage Horse Carriage is a product name; average price = AVG(priceEach);"
+  },
+  {
+    "sql": "SELECT COUNT(t.productCode) FROM orderdetails t WHERE t.orderNumber = '10252'",
+    "question_id": null,
+    "question": "How many kinds of products did order No. 10252 contain?",
+    "difficulty": "",
+    "evidence": "Products refer to productCode;"
+  },
+  {
+    "sql": "SELECT T2.firstName, T2.lastName FROM customers AS T1 INNER JOIN employees AS T2 ON T1.salesRepEmployeeNumber = T2.employeeNumber WHERE T1.addressLine1 = '25 Maiden Lane' AND T1.addressLine2 = 'Floor No. 4'",
+    "question_id": null,
+    "question": "Who is the sales representative that made the order which was sent to 25 Maiden Lane, Floor No. 4?",
+    "difficulty": "",
+    "evidence": "Sales representative is an employee;"
+  },
+  {
+    "sql": "SELECT T1.addressLine1, T1.addressLine2 FROM offices AS T1 INNER JOIN employees AS T2 ON T1.officeCode = T2.officeCode WHERE T2.firstName = 'Foon Yue' AND T2.lastName = 'Tseng'",
+    "question_id": null,
+    "question": "Where's Foon Yue Tseng's office located at? Give the detailed address.",
+    "difficulty": "",
+    "evidence": "Detailed address comprises addressLine1 and addressLine2;"
+  },
+  {
+    "sql": "SELECT T2.orderDate FROM orderdetails AS T1 INNER JOIN orders AS T2 ON T1.orderNumber = T2.orderNumber WHERE STRFTIME('%Y-%m-%d', T2.orderDate) = '2005-04-08' OR STRFTIME('%Y-%m-%d', T2.orderDate) = '2005-04-10' ORDER BY T1.quantityOrdered * T1.priceEach DESC LIMIT 1",
+    "question_id": null,
+    "question": "Compared with the orders happened on 2005-04-08 and two days later, which day's order had a higher value?",
+    "difficulty": "",
+    "evidence": "2005-04-08 and two days later refer to orderDate = '2005-04-08' and orderDate = '2005-04-10'; order with a higher value refers to MAX(Total price) = MULTIPLY(quantityOrdered, priceEach); "
+  },
+  {
+    "sql": "SELECT SUM(t2.quantityOrdered) FROM orderdetails AS t2 INNER JOIN ( SELECT t1.productCode FROM products AS t1 ORDER BY t1.MSRP - t1.buyPrice DESC LIMIT 1 ) AS t3 ON t2.productCode = t3.productCode",
+    "question_id": null,
+    "question": "How many products with the highest expected profits were sold in total?",
+    "difficulty": "",
+    "evidence": "Products refer to productCode; Expected profits = SUBTRACT(MSRP, buyPrice);"
+  },
+  {
+    "sql": "SELECT t1.amount FROM payments AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE t2.customerName = 'Petit Auto' AND t1.paymentDate = '2004-08-09'",
+    "question_id": null,
+    "question": "How much did Petit Auto pay on 2004-08-09?",
+    "difficulty": "",
+    "evidence": "Petit Auto is name of customer; paymentDate = '2004-08-09';"
+  },
+  {
+    "sql": "SELECT t2.contactFirstName, t2.contactLastName FROM payments AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE t1.checkNumber = 'NR157385'",
+    "question_id": null,
+    "question": "What was the contact name for the check \"NR157385\"?",
+    "difficulty": "",
+    "evidence": "Contact name refers to customerName;"
+  },
+  {
+    "sql": "SELECT t2.contactFirstName, t2.contactLastName FROM orders AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE t1.orderNumber = '10160'",
+    "question_id": null,
+    "question": "Which customer made the order No. 10160? Give the contact name.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t2.addressLine1, t2.addressLine2 FROM orders AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE t1.orderNumber = '10383'",
+    "question_id": null,
+    "question": "Where was the order No. 10383 shipped to? Show me the address.",
+    "difficulty": "",
+    "evidence": "Address comprises addressLine1 and addressLine2;"
+  },
+  {
+    "sql": "SELECT t1.textDescription FROM productlines AS t1 INNER JOIN products AS t2 ON t1.productLine = t2.productLine WHERE t2.productCode = 'S18_2949'",
+    "question_id": null,
+    "question": "For the productline where the product No.S18_2949 was produced, what's the text description for that product line?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t2.email FROM customers AS t1 INNER JOIN employees AS t2 ON t1.salesRepEmployeeNumber = t2.employeeNumber WHERE t1.customerName = 'Dragon Souveniers, Ltd.'",
+    "question_id": null,
+    "question": "If Dragon Souveniers, Ltd. aren't satisfied with their order and want to send a complain e-mail, which e-mail address should they send to?",
+    "difficulty": "",
+    "evidence": "E-mail address belongs to employee; customerName = 'Dragon Souveniers, Ltd.';"
+  },
+  {
+    "sql": "SELECT COUNT(t1.customerNumber) FROM customers AS t1 INNER JOIN employees AS t2 ON t1.salesRepEmployeeNumber = t2.employeeNumber WHERE t1.country = 'France' AND t2.firstName = 'Gerard' AND t2.lastName = 'Hernandez'",
+    "question_id": null,
+    "question": "How many French customers does Gerard Hernandez take care of?",
+    "difficulty": "",
+    "evidence": "Gerakd Hermandez is an employee; French customer refers to customer from France where country = 'France'"
+  },
+  {
+    "sql": "SELECT t3.productName FROM orderdetails AS t1 INNER JOIN orders AS t2 ON t1.orderNumber = t2.orderNumber INNER JOIN products AS t3 ON t1.productCode = t3.productCode WHERE t2.customerNumber = '114' ORDER BY t2.orderDate DESC LIMIT 1",
+    "question_id": null,
+    "question": "What was the latest order that customer No.114 made? Give the name of the product.",
+    "difficulty": "",
+    "evidence": "The latest refers to the most recent orderDate;"
+  },
+  {
+    "sql": "SELECT (t1.MSRP - t2.priceEach) / t1.MSRP FROM products AS t1 INNER JOIN orderdetails AS t2 ON t1.productCode = t2.productCode WHERE t1.productCode = 'S18_3482' AND t2.orderNumber = '10108'",
+    "question_id": null,
+    "question": "For the product No. S18_3482 in the Order No.10108, how much discount did the customer have?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUBTRACT(MSRP, priceEach)), MSRP); product No. S18_3482 refers to productCode = 'S18_3482'"
+  },
+  {
+    "sql": "SELECT t2.firstName, t2.lastName FROM employees AS t1 INNER JOIN employees AS t2 ON t2.employeeNumber = t1.reportsTo WHERE t1.firstName = 'Steve' AND t1.lastName = 'Patterson'",
+    "question_id": null,
+    "question": "To whom does Steve Patterson report? Please give his or her full name.",
+    "difficulty": "",
+    "evidence": "reportsTO' is the leader of the 'employeeNumber';"
+  },
+  {
+    "sql": "SELECT t.email FROM employees t WHERE t.jobTitle = 'President'",
+    "question_id": null,
+    "question": "How do I contact the President of the company?",
+    "difficulty": "",
+    "evidence": "President refers to the jobTitle;"
+  },
+  {
+    "sql": "SELECT t2.firstName, t2.lastName FROM customers AS t1 INNER JOIN employees AS t2 ON t1.salesRepEmployeeNumber = t2.employeeNumber WHERE t1.customerName = 'Muscle Machine Inc'",
+    "question_id": null,
+    "question": "Who is the sales representitive of Muscle Machine Inc? Please give the employee's full name.",
+    "difficulty": "",
+    "evidence": "Sales representative refers to jobTitle = 'Sales Rep'; Muscle Machine Inc is name of customer;"
+  },
+  {
+    "sql": "SELECT t2.email FROM customers AS t1 INNER JOIN employees AS t2 ON t1.salesRepEmployeeNumber = t2.employeeNumber WHERE t1.customerName = 'Muscle Machine Inc'",
+    "question_id": null,
+    "question": "If I'm from the Muscle Machine Inc, to which e-mail adress should I write a letter if I want to reach the superior of my sales representitive?",
+    "difficulty": "",
+    "evidence": "Muscle Machine Inc is name of customer; superior refers to 'reportsTO', who is the leader of the 'employeeNumber'"
+  },
+  {
+    "sql": "SELECT t1.customerName FROM customers AS t1 INNER JOIN employees AS t2 ON t1.salesRepEmployeeNumber = t2.employeeNumber WHERE t2.firstName = 'Steve' AND t2.lastName = 'Patterson'",
+    "question_id": null,
+    "question": "Please list all the customers that have Steve Patterson as their sales representitive.",
+    "difficulty": "",
+    "evidence": "Steve Patterson is an employee;"
+  },
+  {
+    "sql": "SELECT COUNT(t1.customerNumber) FROM customers AS t1 INNER JOIN employees AS t2 ON t1.salesRepEmployeeNumber = t2.employeeNumber WHERE t2.firstName = 'William' AND t2.lastName = 'Patterson'",
+    "question_id": null,
+    "question": "How many customers have an employee who reports to William Patterson as their sales representitive?",
+    "difficulty": "",
+    "evidence": "reportsTO' is the leader of the 'employeeNumber';"
+  },
+  {
+    "sql": "SELECT t1.phone FROM customers AS t1 INNER JOIN employees AS t2 ON t1.salesRepEmployeeNumber = t2.employeeNumber WHERE t2.firstName = 'Leslie' AND t2.lastName = 'Jennings' ORDER BY t1.creditLimit DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the phone numbers of the top 3 customers that have the highest credit limit and have Leslie Jennings as their sales representitive.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(t1.employeeNumber) FROM employees AS t1 INNER JOIN offices AS t2 ON t1.officeCode = t2.officeCode WHERE t2.country = 'USA' AND t1.jobTitle = 'Sales Rep'",
+    "question_id": null,
+    "question": "How many sales representitives are based in the offices in the USA?",
+    "difficulty": "",
+    "evidence": "Sales representative refers to jobTitle = 'Sales Rep'; country = 'USA';"
+  },
+  {
+    "sql": "SELECT t2.addressLine1, t2.addressLine2 FROM employees AS t1 INNER JOIN offices AS t2 ON t1.officeCode = t2.officeCode WHERE t1.jobTitle = 'President'",
+    "question_id": null,
+    "question": "Where can I find the office of the President of the company?",
+    "difficulty": "",
+    "evidence": "Where can I find the office refers to address, comprising of addressLine1 and addressLine2; President is a jobTitle"
+  },
+  {
+    "sql": "SELECT t2.postalCode FROM employees AS t1 INNER JOIN offices AS t2 ON t1.officeCode = t2.officeCode WHERE t1.jobTitle = 'VP Sales'",
+    "question_id": null,
+    "question": "What's the postal code of the office the VP Sales is at?",
+    "difficulty": "",
+    "evidence": "VP Sales refers to jobTitle"
+  },
+  {
+    "sql": "SELECT SUM(t1.priceEach * t1.quantityOrdered) FROM orderdetails AS t1 INNER JOIN orders AS t2 ON t1.orderNumber = t2.orderNumber INNER JOIN customers AS t3 ON t2.customerNumber = t3.customerNumber WHERE t3.customerName = 'Cruz & Sons Co.' AND t2.orderDate = '2003-03-03'",
+    "question_id": null,
+    "question": "What is the total price of the order made by Cruz & Sons Co. on 2003/3/3?",
+    "difficulty": "",
+    "evidence": "SUM(MULTIPLY(quantityOrdered, priceEach)) where orderDate = '2003-03-03'; customerName = 'Cruz & Sons Co.'"
+  },
+  {
+    "sql": "SELECT t4.productName FROM orderdetails AS t1 INNER JOIN orders AS t2 ON t1.orderNumber = t2.orderNumber INNER JOIN customers AS t3 ON t2.customerNumber = t3.customerNumber INNER JOIN products AS t4 ON t1.productCode = t4.productCode WHERE t3.customerName = 'Cruz & Sons Co.' AND t2.orderDate = '2003-03-03'",
+    "question_id": null,
+    "question": "Which product did Cruz & Sons Co. order on 2003/3/3?",
+    "difficulty": "",
+    "evidence": "Cruz & Sons Co. is name of customer; 2003/3/3 refers to orderDate;"
+  },
+  {
+    "sql": "SELECT t4.productName FROM orderdetails AS t1 INNER JOIN orders AS t2 ON t1.orderNumber = t2.orderNumber INNER JOIN customers AS t3 ON t2.customerNumber = t3.customerNumber INNER JOIN products AS t4 ON t1.productCode = t4.productCode WHERE t3.customerName = 'Cruz & Sons Co.' ORDER BY t1.priceEach * t1.quantityOrdered DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which product did Cruz & Sons Co. ask for the biggest amount in a single order?",
+    "difficulty": "",
+    "evidence": "Cruz & Sons Co. is name of customer; the biggest amount refers to MAX(quantityOrdered)."
+  },
+  {
+    "sql": "SELECT t1.shippedDate FROM orders AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE t2.customerName = 'Cruz & Sons Co.' AND t1.orderDate = '2003-03-03'",
+    "question_id": null,
+    "question": "When were the products ordered by Cruz & Sons Co. on 2003-03-03 shipped?",
+    "difficulty": "",
+    "evidence": "Cruz & Sons Co. is name of customer; ordered on 2003-03-03 refers to orderDate;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.customerNumber) FROM orderdetails AS T1 INNER JOIN orders AS T2 ON T1.orderNumber = T2.orderNumber WHERE T1.productCode IN ( SELECT productCode FROM products WHERE productName = '1957 Chevy Pickup' )",
+    "question_id": null,
+    "question": "What is the amount of customers of 1957 Chevy Pickup by customers in a month?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t.productName, t.MSRP - t.buyPrice FROM products AS t WHERE t.productLine = 'Classic Cars' ORDER BY t.MSRP - t.buyPrice DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the product from the 'Classic Cars' production line that has the greatest expected profit.",
+    "difficulty": "",
+    "evidence": "The greatest expected profit refers to MAX(SUBTRACT(MSRP, buyPrice);"
+  },
+  {
+    "sql": "SELECT t2.customerName FROM orders AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE t1.status = 'In Process'",
+    "question_id": null,
+    "question": "List all the name of customers who have orders that are still processing.",
+    "difficulty": "",
+    "evidence": "Still processing refers to status = 'In Process';"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN JULIANDAY(t1.shippeddate) - JULIANDAY(t1.requireddate) > 3 THEN T1.customerNumber ELSE NULL END) FROM orders AS T1 INNER JOIN orderdetails AS T2 ON T1.orderNumber = T2.orderNumber WHERE T1.status = 'Shipped'",
+    "question_id": null,
+    "question": "Among all orders shipped, calculate the percentage of orders shipped at least 3 days before the required date.",
+    "difficulty": "",
+    "evidence": "Orders shipped refer to status = 'Shipped'; at least 3 days before the required date refers to SUBTRACT(shippedDate, requiredDate)>3; DIVIDE(COUNT(orderNumber where SUBTRACT(shippedDate, requiredDate)>3), (COUNT(orderNumber) as percentage;"
+  },
+  {
+    "sql": "SELECT t2.customerName FROM payments AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE STRFTIME('%Y', t1.paymentDate) = '2005' GROUP BY t2.customerNumber, t2.customerName ORDER BY SUM(t1.amount) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Find the customer who made the highest payment in 2005.",
+    "difficulty": "",
+    "evidence": "The highest payment refers to max(amount); 2005 refers to year(paymentDate);"
+  },
+  {
+    "sql": "SELECT productName, MSRP - buyPrice FROM products WHERE productCode = ( SELECT productCode FROM orderdetails ORDER BY quantityOrdered DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "Which is the most ordered quantity product? What is its expected profit margin per piece?",
+    "difficulty": "",
+    "evidence": "The most ordered quantity product refers to productName where Max(quantityOrdered); SUBTRACT(MSRP, buyPrice);"
+  },
+  {
+    "sql": "SELECT T2.firstName, T2.lastName FROM offices AS T1 INNER JOIN employees AS T2 ON T1.officeCode = T2.officeCode WHERE T2.employeeNumber = ( SELECT MAX(employeeNumber) FROM employees )",
+    "question_id": null,
+    "question": "For the order has the most product ordered, name the customer who placed the order.",
+    "difficulty": "",
+    "evidence": "The largest order in terms of total price refers to MAX(SUM(MULTIPLY(quantityOrdered, priceEach))."
+  },
+  {
+    "sql": "SELECT t3.firstName, t3.lastName FROM orders AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber INNER JOIN employees AS t3 ON t2.salesRepEmployeeNumber = t3.employeeNumber WHERE t1.status = 'Disputed'",
+    "question_id": null,
+    "question": "List all customer names with orders that are disputed.",
+    "difficulty": "",
+    "evidence": "Orders that are disputed refer to status = 'Disputed'; the sales representative means employees; names refers to firstName, lastName."
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN t1.city = 'Paris' THEN t2.employeeNumber ELSE NULL END) AS REAL) * 100 / COUNT(t2.employeeNumber) FROM offices AS t1 INNER JOIN employees AS t2 ON t1.officeCode = t2.officeCode",
+    "question_id": null,
+    "question": "What is the percentage of employees are in Paris office?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(employeeNumber) when city = 'Paris'), (COUNT(employeeNumber)) as percentage;"
+  },
+  {
+    "sql": "SELECT t2.firstName, t2.lastName FROM offices AS t1 INNER JOIN employees AS t2 ON t1.officeCode = t2.officeCode WHERE t2.jobTitle = 'Sale Manager (EMEA)'",
+    "question_id": null,
+    "question": "Name the Sales Manager of Europe, Middle East, and Africa region. In which office does he/she report to?",
+    "difficulty": "",
+    "evidence": "Sales Manager refers to jobTitle; Europe, Middle East, and Africa region refers to territory = 'EMEA';"
+  },
+  {
+    "sql": "SELECT t2.firstName, t2.lastName, t2.reportsTo FROM offices AS t1 INNER JOIN employees AS t2 ON t1.officeCode = t2.officeCode WHERE t1.country = 'Japan'",
+    "question_id": null,
+    "question": "List the name of employees in Japan office and who are they reporting to.",
+    "difficulty": "",
+    "evidence": "Japan is the name of the country; 'reportsTO' is the leader of the 'employeeNumber';"
+  },
+  {
+    "sql": "SELECT t4.customerName FROM products AS t1 INNER JOIN orderdetails AS t2 ON t1.productCode = t2.productCode INNER JOIN orders AS t3 ON t2.orderNumber = t3.orderNumber INNER JOIN customers AS t4 ON t3.customerNumber = t4.customerNumber WHERE t1.productName = '1939 Chevrolet Deluxe Coupe' ORDER BY t2.priceEach DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which customer ordered 1939 'Chevrolet Deluxe Coupe' at the highest price?",
+    "difficulty": "",
+    "evidence": "1939 'Chevrolet Deluxe Coupe' refers to productName; the highest price refers to MAX(priceEach)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN t1.customerName = 'Atelier graphique' THEN t2.amount ELSE 0 END) * 100 / SUM(t2.amount) FROM customers AS t1 INNER JOIN payments AS t2 ON t1.customerNumber = t2.customerNumber WHERE STRFTIME('%Y', t2.paymentDate) = '2004'",
+    "question_id": null,
+    "question": "What is the percentage of the payment amount in 2004 was made by Atelier graphique?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(amount) where customerName = 'Atelier graphique'), (SUM(amount)) as percentage where year(paymentDate) = 2004;"
+  },
+  {
+    "sql": "SELECT SUM((t1.priceEach - t2.buyPrice) * t1.quantityOrdered) FROM orderdetails AS t1 INNER JOIN products AS t2 ON t1.productCode = t2.productCode WHERE t1.orderNumber = '10100'",
+    "question_id": null,
+    "question": "Calculate the actual profit for order number 10100.",
+    "difficulty": "",
+    "evidence": "SUM(MULTIPLY(quantityOrdered (SUBTRACT (priceEach, buyPrice));"
+  },
+  {
+    "sql": "SELECT SUM(t.amount) FROM payments t WHERE t.customerNumber = '103'",
+    "question_id": null,
+    "question": "How much did customer 103 pay in total?",
+    "difficulty": "",
+    "evidence": "Pay in total refers to SUM(amount);"
+  },
+  {
+    "sql": "SELECT SUM(t.priceEach * t.quantityOrdered) FROM orderdetails t WHERE t.orderNumber = '10100'",
+    "question_id": null,
+    "question": "What is the total price of the order 10100?",
+    "difficulty": "",
+    "evidence": "SUM(MULTIPLY(quantityOrdered, priceEach)"
+  },
+  {
+    "sql": "SELECT t1.productName FROM products AS t1 INNER JOIN orderdetails AS t2 ON t1.productCode = t2.productCode ORDER BY t2.priceEach DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the top three product names with the highest unit price.",
+    "difficulty": "",
+    "evidence": "The highest unit price refers to MAX(priceEach)"
+  },
+  {
+    "sql": "SELECT t2.contactFirstName, t2.contactLastName FROM employees AS t1 INNER JOIN customers AS t2 ON t1.employeeNumber = t2.salesRepEmployeeNumber WHERE t1.employeeNumber = '1370' ORDER BY t2.creditLimit DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the customers of empolyee 1370, who has the highest credit limit?Please list the full name of the contact person.",
+    "difficulty": "",
+    "evidence": "Employee 1370 refers to employeeNumber = '1370';"
+  },
+  {
+    "sql": "SELECT SUM(t2.quantityOrdered) FROM products AS t1 INNER JOIN orderdetails AS t2 ON t1.productCode = t2.productCode WHERE t1.productName = '2003 Harley-Davidson Eagle Drag Bike'",
+    "question_id": null,
+    "question": "How many 2003 Harley-Davidson Eagle Drag Bikes were ordered?",
+    "difficulty": "",
+    "evidence": "2003 Harley-Davidson Eagle Drag Bikes refers to productName; how many ordered refers to COUNT(quantityOrdered);"
+  },
+  {
+    "sql": "SELECT t1.shippedDate FROM orders AS t1 INNER JOIN orderdetails AS t2 ON t1.orderNumber = t2.orderNumber ORDER BY t2.priceEach DESC LIMIT 1",
+    "question_id": null,
+    "question": "When was the product with the highest unit price shipped?",
+    "difficulty": "",
+    "evidence": "The highest unit price refers to MAX(priceEach); when shipped refers to shippedDate;"
+  },
+  {
+    "sql": "SELECT SUM(t2.quantityOrdered) FROM orders AS t1 INNER JOIN orderdetails AS t2 ON t1.orderNumber = t2.orderNumber INNER JOIN products AS t3 ON t2.productCode = t3.productCode WHERE t3.productLine = 'motorcycles' AND STRFTIME('%Y', t1.orderDate) = '2004'",
+    "question_id": null,
+    "question": "How many motorcycles have been ordered in 2004?",
+    "difficulty": "",
+    "evidence": "Motorcycles refer to productLine = 'motorcycles'; ordered in 2004 refers to year(orderDate) = 2004;"
+  },
+  {
+    "sql": "SELECT t1.orderNumber FROM orders AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE t2.creditLimit = 45300",
+    "question_id": null,
+    "question": "Please list the order number of the customer whose credit card has a limit of 45300.",
+    "difficulty": "",
+    "evidence": "Credit card does not have a limit refers to creditLimit = 45300;"
+  },
+  {
+    "sql": "SELECT t3.customerName, (t1.priceEach - t4.buyPrice) * t1.quantityOrdered FROM orderdetails AS t1 INNER JOIN orders AS t2 ON t1.orderNumber = t2.orderNumber INNER JOIN customers AS t3 ON t2.customerNumber = t3.customerNumber INNER JOIN products AS t4 ON t1.productCode = t4.productCode GROUP BY t3.customerName, t1.priceEach, t4.buyPrice, t1.quantityOrdered ORDER BY (t1.priceEach - t4.buyPrice) * t1.quantityOrdered DESC LIMIT 1",
+    "question_id": null,
+    "question": "For Which order was the most profitable, please list the customer name of the order and the profit of the order.",
+    "difficulty": "",
+    "evidence": "Most profitable order can be computed as MAX(MULTIPLY(quantityOrdered, SUBTRACT(priceEach, buyPrice))."
+  },
+  {
+    "sql": "SELECT STRFTIME('%Y', t1.paymentDate), COUNT(t1.customerNumber) FROM payments AS t1 WHERE t1.amount < 10000 GROUP BY STRFTIME('%Y', t1.paymentDate)",
+    "question_id": null,
+    "question": "How many transactions payment made by customer that is lower than 10000. Group the result by year.",
+    "difficulty": "",
+    "evidence": "Transactions payment lower than 10000 refer to COUNT(amount) < 1000; by year refers to YEAR(paymentDate)"
+  },
+  {
+    "sql": "SELECT t3.productName, SUM(t2.quantityOrdered) FROM orders AS t1 INNER JOIN orderdetails AS t2 ON t1.orderNumber = t2.orderNumber INNER JOIN products AS t3 ON t2.productCode = t3.productCode WHERE STRFTIME('%Y', t1.orderDate) = '2003' GROUP BY t3.productName ORDER BY SUM(t2.quantityOrdered) DESC LIMIT 3",
+    "question_id": null,
+    "question": "List out 3 best seller products during year 2003 with their total quantity sold during 2003.",
+    "difficulty": "",
+    "evidence": "Best selling products refer to products with MAX(quantityOrdered); 2003 refers to year(orderDate) = 2003;"
+  },
+  {
+    "sql": "SELECT t5.firstName, t5.lastName, SUM(t2.quantityOrdered) FROM products AS t1 INNER JOIN orderdetails AS t2 ON t1.productCode = t2.productCode INNER JOIN orders AS t3 ON t2.orderNumber = t3.orderNumber INNER JOIN customers AS t4 ON t3.customerNumber = t4.customerNumber INNER JOIN employees AS t5 ON t4.salesRepEmployeeNumber = t5.employeeNumber WHERE t1.productName = '1969 Harley Davidson Ultimate Chopper' GROUP BY t5.lastName, t5.firstName",
+    "question_id": null,
+    "question": "List out sale rep that has sold 1969 Harley Davidson Ultimate Chopper. List out their names and quantity sold throughout the year.",
+    "difficulty": "",
+    "evidence": "1969 Harley Davidson Ultimate Chopper refers to the name of the product; sale rep refers to employee; 2003 refers to year(orderDate) = 2003; quantity sold refers to quantityOrdered; their names refer to the name of customers; "
+  },
+  {
+    "sql": "SELECT t1.lastName, t1.firstName FROM employees AS t1 INNER JOIN offices AS t2 ON t1.officeCode = t2.officeCode WHERE t2.city = 'NYC' AND t1.jobTitle = 'Sales Rep'",
+    "question_id": null,
+    "question": "Who are the sales representatives in New York City? List their full names.",
+    "difficulty": "",
+    "evidence": "New York City refers to city = 'NYC'; sales representative refers to jobTitle = 'Sales Rep';"
+  },
+  {
+    "sql": "SELECT t2.customerName, t2.country FROM payments AS t1 INNER JOIN customers AS t2 ON t1.customerNumber = t2.customerNumber WHERE t1.checkNumber = 'GG31455'",
+    "question_id": null,
+    "question": "Identify the customer and list down the country with the check number GG31455.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(t1.orderNumber) FROM orderdetails AS t1 INNER JOIN products AS t2 ON t1.productCode = t2.productCode WHERE t2.productName = '2001 Ferrari Enzo'",
+    "question_id": null,
+    "question": "How many 2001 Ferrari Enzo were ordered?",
+    "difficulty": "",
+    "evidence": "2001 Ferrari Enzo refers to productName;"
+  },
+  {
+    "sql": "SELECT t2.productName FROM orderdetails AS t1 INNER JOIN products AS t2 ON t1.productCode = t2.productCode GROUP BY t2.productName ORDER BY SUM(t1.quantityOrdered) ASC LIMIT 5",
+    "question_id": null,
+    "question": "Which 5 products has the lowest amount of orders? List the product names.",
+    "difficulty": "",
+    "evidence": "The lowest amount of orders refers to MIN(quantityOrdered);"
+  },
+  {
+    "sql": "SELECT t1.customerName FROM customers AS t1 INNER JOIN orders AS t2 ON t1.customerNumber = t2.customerNumber WHERE t2.status = 'Disputed'",
+    "question_id": null,
+    "question": "List down the customer names with a disputed order status.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(t2.orderNumber) FROM customers AS t1 INNER JOIN orders AS t2 ON t1.customerNumber = t2.customerNumber WHERE t2.status = 'On Hold' AND t1.country = 'USA'",
+    "question_id": null,
+    "question": "How many countries from the USA have an In Process order status?",
+    "difficulty": "",
+    "evidence": "country = 'USA'"
+  },
+  {
+    "sql": "SELECT SUM(t3.priceEach * t3.quantityOrdered) FROM customers AS t1 INNER JOIN orders AS t2 ON t1.customerNumber = t2.customerNumber INNER JOIN orderdetails AS t3 ON t2.orderNumber = t3.orderNumber INNER JOIN products AS t4 ON t3.productCode = t4.productCode WHERE t4.productLine = 'Classic Cars' AND t1.customerName = 'Land of Toys Inc.' AND t2.status = 'Shipped'",
+    "question_id": null,
+    "question": "Calculate the total price of shipped orders belonging to Land of Toys Inc. under the classic car line of products.",
+    "difficulty": "",
+    "evidence": "SUM(MULTIPLY(quantityOrdered, priceEach)) where productLine = 'Classic Cars'; status = 'Shipped'; customername = 'Land of Toys Inc';"
+  }
+]

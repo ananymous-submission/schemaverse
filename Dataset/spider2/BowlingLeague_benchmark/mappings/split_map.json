@@ -1,0 +1,419 @@
+{
+  "Bowlers": {
+    "pk_columns": [
+      "BowlerID"
+    ],
+    "fragments": [
+      {
+        "suffix": "bowler",
+        "non_pk_columns": [
+          "BowlerAddress",
+          "BowlerCity",
+          "BowlerFirstName",
+          "BowlerLastName",
+          "BowlerMiddleInit",
+          "BowlerPhoneNumber",
+          "BowlerState",
+          "BowlerZip"
+        ],
+        "local_table": "bowler_profiles",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Bowlers_bowler"
+      },
+      {
+        "suffix": "bowlercity",
+        "non_pk_columns": [
+          "BowlerCity",
+          "BowlerCurrentAverage",
+          "BowlerCurrentHcp",
+          "BowlerMiddleInit",
+          "BowlerZip",
+          "TeamID"
+        ],
+        "local_table": "bowler_city_stats",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Bowlers_bowlercity"
+      },
+      {
+        "suffix": "bowler_2",
+        "non_pk_columns": [
+          "BowlerAddress",
+          "BowlerGamesBowled",
+          "BowlerPhoneNumber",
+          "BowlerState",
+          "BowlerTotalPins"
+        ],
+        "local_table": "bowlersRoster",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Bowlers_bowler_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Bowlers",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 13,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.021511346524243795,
+        "3": 0.02912138023753478,
+        "4": 0.027910589959761162
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.02912138023753478,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "BowlerAddress",
+          "BowlerCity",
+          "BowlerFirstName",
+          "BowlerLastName",
+          "BowlerMiddleInit",
+          "BowlerState",
+          "BowlerZip"
+        ],
+        [
+          "BowlerCurrentAverage",
+          "BowlerCurrentHcp",
+          "TeamID"
+        ],
+        [
+          "BowlerGamesBowled",
+          "BowlerPhoneNumber",
+          "BowlerTotalPins"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "BowlerCity",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "BowlerPhoneNumber",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "BowlerMiddleInit",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "BowlerZip",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "BowlerState",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "BowlerAddress",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "BowlerAddress",
+          "BowlerCity",
+          "BowlerFirstName",
+          "BowlerLastName",
+          "BowlerMiddleInit",
+          "BowlerPhoneNumber",
+          "BowlerState",
+          "BowlerZip"
+        ],
+        [
+          "BowlerCity",
+          "BowlerCurrentAverage",
+          "BowlerCurrentHcp",
+          "BowlerMiddleInit",
+          "BowlerZip",
+          "TeamID"
+        ],
+        [
+          "BowlerAddress",
+          "BowlerGamesBowled",
+          "BowlerPhoneNumber",
+          "BowlerState",
+          "BowlerTotalPins"
+        ]
+      ],
+      "pk_columns": [
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "bowler",
+          "non_pk_columns": [
+            "BowlerAddress",
+            "BowlerCity",
+            "BowlerFirstName",
+            "BowlerLastName",
+            "BowlerMiddleInit",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerZip"
+          ]
+        },
+        {
+          "suffix": "bowlercity",
+          "non_pk_columns": [
+            "BowlerCity",
+            "BowlerCurrentAverage",
+            "BowlerCurrentHcp",
+            "BowlerMiddleInit",
+            "BowlerZip",
+            "TeamID"
+          ]
+        },
+        {
+          "suffix": "bowler_2",
+          "non_pk_columns": [
+            "BowlerAddress",
+            "BowlerGamesBowled",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerTotalPins"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Bowlers_bowler",
+    "movable_candidates": [
+      "Bowlers_bowler_2",
+      "Bowlers_bowlercity"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+  },
+  "Bowler_Scores": {
+    "pk_columns": [
+      "MatchID",
+      "GameNumber",
+      "BowlerID"
+    ],
+    "fragments": [
+      {
+        "suffix": "handicapscore",
+        "non_pk_columns": [
+          "HandiCapScore",
+          "RawScore"
+        ],
+        "local_table": "Bowler_Scores_handicapscore_part1",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Bowler_Scores_handicapscore",
+        "row_partition_names": [
+          "Bowler_Scores_handicapscore_part1",
+          "Bowler_Scores_handicapscore_part2",
+          "bowlerHandicapScoresOtherBucket"
+        ],
+        "row_partition_predicate_column": "HandiCapScore"
+      },
+      {
+        "suffix": "handicapscore_2",
+        "non_pk_columns": [
+          "HandiCapScore",
+          "RawScore",
+          "WonGame"
+        ],
+        "local_table": "bowlerHandicapScoresStandard",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Bowler_Scores_handicapscore_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Bowler_Scores",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 3,
+      "min_non_pk_per_fragment": 1,
+      "pk_width": 3,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 474614218,
+      "scores_by_k": {
+        "2": 0.07598291437940186,
+        "3": -1.0
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.07598291437940186,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "HandiCapScore",
+          "RawScore"
+        ],
+        [
+          "WonGame"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "HandiCapScore",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "RawScore",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "HandiCapScore",
+          "RawScore"
+        ],
+        [
+          "HandiCapScore",
+          "RawScore",
+          "WonGame"
+        ]
+      ],
+      "pk_columns": [
+        "MatchID",
+        "GameNumber",
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "handicapscore",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore"
+          ]
+        },
+        {
+          "suffix": "handicapscore_2",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Bowler_Scores_handicapscore_2",
+    "movable_candidates": [
+      "Bowler_Scores_handicapscore_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=3"
+  },
+  "Bowler_Scores_Archive": {
+    "pk_columns": [
+      "MatchID",
+      "GameNumber",
+      "BowlerID"
+    ],
+    "fragments": [
+      {
+        "suffix": "handicapscore",
+        "non_pk_columns": [
+          "HandiCapScore",
+          "RawScore"
+        ],
+        "local_table": "ArchivedBowlerHandicapScore",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Bowler_Scores_Archive_handicapscore"
+      },
+      {
+        "suffix": "handicapscore_2",
+        "non_pk_columns": [
+          "HandiCapScore",
+          "RawScore",
+          "WonGame"
+        ],
+        "local_table": "ArchivedBowlerHandicapResult",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Bowler_Scores_Archive_handicapscore_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Bowler_Scores_Archive",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 3,
+      "min_non_pk_per_fragment": 1,
+      "pk_width": 3,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1389401365,
+      "scores_by_k": {
+        "2": 0.14835384800535387,
+        "3": -1.0
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.14835384800535387,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "HandiCapScore",
+          "RawScore"
+        ],
+        [
+          "WonGame"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "RawScore",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "HandiCapScore",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "HandiCapScore",
+          "RawScore"
+        ],
+        [
+          "HandiCapScore",
+          "RawScore",
+          "WonGame"
+        ]
+      ],
+      "pk_columns": [
+        "MatchID",
+        "GameNumber",
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "handicapscore",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore"
+          ]
+        },
+        {
+          "suffix": "handicapscore_2",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Bowler_Scores_Archive_handicapscore_2",
+    "movable_candidates": [
+      "Bowler_Scores_Archive_handicapscore"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+  }
+}

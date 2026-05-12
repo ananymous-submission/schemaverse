@@ -1,0 +1,289 @@
+{
+  "station": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "city",
+        "non_pk_columns": [
+          "city",
+          "dock_count",
+          "installation_date",
+          "name"
+        ],
+        "local_table": "stationCityInstalledAug232013",
+        "local_name": "local_1",
+        "vertical_fragment_base": "station_city",
+        "row_partition_names": [
+          "stationCityInstalledAug232013",
+          "stationCityInstalledAug19AndAug20",
+          "stationCityInstalledAug15AndAug21",
+          "stationCityInstalledAug22AndAug25",
+          "stationCityInstalledAug5AndAug6",
+          "stationCityInstalledOther"
+        ],
+        "row_partition_predicate_column": "installation_date"
+      },
+      {
+        "suffix": "dock_count",
+        "non_pk_columns": [
+          "dock_count",
+          "installation_date",
+          "lat",
+          "long",
+          "name"
+        ],
+        "local_table": "stationDockInventory",
+        "local_name": "local_1",
+        "vertical_fragment_base": "station_dock_count"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "station",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 6,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.044938804290315625
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.044938804290315625,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "city",
+          "dock_count",
+          "name"
+        ],
+        [
+          "installation_date",
+          "lat",
+          "long"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "installation_date",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "dock_count",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "city",
+          "dock_count",
+          "installation_date",
+          "name"
+        ],
+        [
+          "dock_count",
+          "installation_date",
+          "lat",
+          "long",
+          "name"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "dock_count",
+            "installation_date",
+            "name"
+          ]
+        },
+        {
+          "suffix": "dock_count",
+          "non_pk_columns": [
+            "dock_count",
+            "installation_date",
+            "lat",
+            "long",
+            "name"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "station_dock_count",
+    "movable_candidates": [
+      "station_city_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=0"
+  },
+  "trip": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "bike_id",
+        "non_pk_columns": [
+          "bike_id",
+          "duration",
+          "end_station_id",
+          "end_station_name",
+          "start_station_id",
+          "start_station_name",
+          "subscription_type",
+          "zip_code"
+        ],
+        "local_table": "trips_bikeid_up_to_334",
+        "local_name": "local_2",
+        "vertical_fragment_base": "trip_bike_id",
+        "row_partition_names": [
+          "trips_bikeid_up_to_334",
+          "trips_bikeid_335_to_441",
+          "trips_bikeid_442_to_546",
+          "trips_bikeid_above_546_or_null"
+        ],
+        "row_partition_predicate_column": "bike_id"
+      },
+      {
+        "suffix": "bike_id_2",
+        "non_pk_columns": [
+          "bike_id",
+          "duration",
+          "end_date",
+          "start_date",
+          "subscription_type",
+          "zip_code"
+        ],
+        "local_table": "trips_no_station_info",
+        "local_name": "local_2",
+        "vertical_fragment_base": "trip_bike_id_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "trip",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 10,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.07244941957118703,
+        "3": 0.07244941957118703
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.07244941957118703,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "bike_id",
+          "end_station_id",
+          "end_station_name",
+          "start_station_id",
+          "start_station_name",
+          "subscription_type",
+          "zip_code"
+        ],
+        [
+          "duration",
+          "end_date",
+          "start_date"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "subscription_type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "zip_code",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "duration",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "bike_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "bike_id",
+          "duration",
+          "end_station_id",
+          "end_station_name",
+          "start_station_id",
+          "start_station_name",
+          "subscription_type",
+          "zip_code"
+        ],
+        [
+          "bike_id",
+          "duration",
+          "end_date",
+          "start_date",
+          "subscription_type",
+          "zip_code"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "bike_id",
+          "non_pk_columns": [
+            "bike_id",
+            "duration",
+            "end_station_id",
+            "end_station_name",
+            "start_station_id",
+            "start_station_name",
+            "subscription_type",
+            "zip_code"
+          ]
+        },
+        {
+          "suffix": "bike_id_2",
+          "non_pk_columns": [
+            "bike_id",
+            "duration",
+            "end_date",
+            "start_date",
+            "subscription_type",
+            "zip_code"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "trip_bike_id_q1",
+    "movable_candidates": [
+      "trip_bike_id_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=0"
+  }
+}

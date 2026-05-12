@@ -1,0 +1,2823 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "comp_dates": {
+          "source_table": "companies_dates",
+          "column_map": {
+            "comp_id": "company_id",
+            "join_dt": "date_joined",
+            "found_yr": "year_founded"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "comp_finance": {
+          "source_table": "companies_funding",
+          "column_map": {
+            "comp_id": "company_id",
+            "est_val": "valuation",
+            "tot_fund": "funding",
+            "inv_list": "select_investors"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "comp_sectors": {
+          "source_table": "companies_industries",
+          "column_map": {
+            "comp_id": "company_id",
+            "sector_tag": "industry"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "inc_zip_stats": {
+          "source_table": "income_trees",
+          "column_map": {
+            "zip_code": "zipcode",
+            "est_tot": "Estimate_Total",
+            "moe_tot": "Margin_of_Error_Total",
+            "est_med_inc": "Estimate_Median_income",
+            "moe_med_inc": "Margin_of_Error_Median_income",
+            "est_mean_inc": "Estimate_Mean_income",
+            "moe_mean_inc": "Margin_of_Error_Mean_income"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "pza_menu": {
+          "source_table": "pizza_names",
+          "column_map": {
+            "pza_id": "pizza_id",
+            "pza_label": "pizza_name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "pza_recipes": {
+          "source_table": "pizza_recipes",
+          "column_map": {
+            "pza_id": "pizza_id",
+            "top_list": "toppings"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "dlv_riders": {
+          "source_table": "pizza_runners",
+          "column_map": {
+            "rider_id": "runner_id",
+            "reg_dt": "registration_date"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "orderToppingExclusions": {
+          "source_table": "pizza_get_exclusions",
+          "column_map": {
+            "exclusionId": "row_id",
+            "orderReferenceId": "order_id",
+            "excludedToppingId": "exclusions",
+            "exclusionCount": "total_exclusions"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "toppingCatalog": {
+          "source_table": "pizza_toppings",
+          "column_map": {
+            "toppingRefId": "topping_id",
+            "toppingLabel": "topping_name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "pizza_order_extras": {
+          "source_table": "pizza_get_extras",
+          "column_map": {
+            "extras_entry_id": "row_id",
+            "order_reference_id": "order_id",
+            "addon_id": "extras",
+            "addon_quantity": "extras_count"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "daily_health_statistics": {
+          "source_table": "statistics",
+          "column_map": {
+            "report_date": "date",
+            "region_name": "state",
+            "confirmed_cases_total": "total_cases",
+            "confirmed_deaths_total": "total_deaths"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 3,
+      "local_name": "local_4",
+      "tables": {
+        "CustomerOrderExclusions": {
+          "source_table": "pizza_clean_customer_orders",
+          "column_map": {
+            "CustomerIdentifier": "customer_id",
+            "SpecialInstructions": "extras",
+            "ItemExclusions": "exclusions",
+            "OrderIdentifier": "order_id",
+            "OrderTimestamp": "order_time"
+          },
+          "projected_columns": [
+            "customer_id",
+            "extras",
+            "exclusions",
+            "order_id",
+            "order_time"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CustomerOrderPizzas"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CustomerOrderPizzas",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "exclusions"
+        },
+        "CustomerOrderPizzas": {
+          "source_table": "pizza_clean_customer_orders",
+          "column_map": {
+            "CustomerIdentifier": "customer_id",
+            "SpecialInstructions": "extras",
+            "OrderIdentifier": "order_id",
+            "OrderTimestamp": "order_time",
+            "PizzaIdentifier": "pizza_id"
+          },
+          "projected_columns": [
+            "customer_id",
+            "extras",
+            "order_id",
+            "order_time",
+            "pizza_id"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CustomerOrderExclusions"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CustomerOrderExclusions",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "order_id"
+        },
+        "RunnerOrderAssignments": {
+          "source_table": "pizza_clean_runner_orders",
+          "column_map": {
+            "OrderIdentifier": "order_id",
+            "RunnerIdentifier": "runner_id",
+            "PickupTimestamp": "pickup_time",
+            "TripDistance": "distance",
+            "TripDuration": "duration",
+            "CancellationNote": "cancellation"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "RunnerOrderRecords": {
+          "source_table": "pizza_runner_orders",
+          "column_map": {
+            "OrderIdentifier": "order_id",
+            "RunnerIdentifier": "runner_id",
+            "PickupTimestamp": "pickup_time",
+            "TripDistance": "distance",
+            "TripDuration": "duration",
+            "CancellationNote": "cancellation"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "StreetTreeInventory": {
+          "source_table": "trees",
+          "column_map": {
+            "RecordIndex": "idx",
+            "TreeIdentifier": "tree_id",
+            "DiameterAtBreastHeight": "tree_dbh",
+            "StumpDiameter": "stump_diam",
+            "TreeCondition": "status",
+            "HealthStatus": "health",
+            "SpeciesLatinName": "spc_latin",
+            "SpeciesCommonName": "spc_common",
+            "StreetAddress": "address",
+            "ZipCode": "zipcode",
+            "BoroughCode": "borocode",
+            "BoroughName": "boroname",
+            "NeighborhoodName": "nta_name",
+            "StateCode": "state",
+            "LatitudeCoordinate": "latitude",
+            "LongitudeCoordinate": "longitude"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "pizza_clean_customer_orders": "pizza_clean_customer_orders_order_id"
+      }
+    },
+    {
+      "local_id": 4,
+      "local_name": "local_5",
+      "tables": {
+        "pza_order_log": {
+          "source_table": "pizza_customer_orders",
+          "column_map": {
+            "ord_id": "order_id",
+            "cust_ref": "customer_id",
+            "pza_ref": "pizza_id",
+            "excl_specs": "exclusions",
+            "add_on_codes": "extras",
+            "ord_ts": "order_time"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "lex_wordset": {
+          "source_table": "word_list",
+          "column_map": {
+            "lex_items": "words"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "companies_dates": "comp_dates",
+        "companies_funding": "comp_finance",
+        "companies_industries": "comp_sectors",
+        "income_trees": "inc_zip_stats",
+        "pizza_names": "pza_menu",
+        "pizza_recipes": "pza_recipes",
+        "pizza_runners": "dlv_riders"
+      },
+      "column_renames": {
+        "companies_dates": {
+          "company_id": "comp_id",
+          "date_joined": "join_dt",
+          "year_founded": "found_yr"
+        },
+        "companies_funding": {
+          "company_id": "comp_id",
+          "valuation": "est_val",
+          "funding": "tot_fund",
+          "select_investors": "inv_list"
+        },
+        "companies_industries": {
+          "company_id": "comp_id",
+          "industry": "sector_tag"
+        },
+        "income_trees": {
+          "zipcode": "zip_code",
+          "Estimate_Total": "est_tot",
+          "Margin_of_Error_Total": "moe_tot",
+          "Estimate_Median_income": "est_med_inc",
+          "Margin_of_Error_Median_income": "moe_med_inc",
+          "Estimate_Mean_income": "est_mean_inc",
+          "Margin_of_Error_Mean_income": "moe_mean_inc"
+        },
+        "pizza_names": {
+          "pizza_id": "pza_id",
+          "pizza_name": "pza_label"
+        },
+        "pizza_recipes": {
+          "pizza_id": "pza_id",
+          "toppings": "top_list"
+        },
+        "pizza_runners": {
+          "runner_id": "rider_id",
+          "registration_date": "reg_dt"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_2": {
+      "table_renames": {
+        "pizza_get_exclusions": "orderToppingExclusions",
+        "pizza_toppings": "toppingCatalog"
+      },
+      "column_renames": {
+        "pizza_get_exclusions": {
+          "row_id": "exclusionId",
+          "order_id": "orderReferenceId",
+          "exclusions": "excludedToppingId",
+          "total_exclusions": "exclusionCount"
+        },
+        "pizza_toppings": {
+          "topping_id": "toppingRefId",
+          "topping_name": "toppingLabel"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_3": {
+      "table_renames": {
+        "pizza_get_extras": "pizza_order_extras",
+        "statistics": "daily_health_statistics"
+      },
+      "column_renames": {
+        "pizza_get_extras": {
+          "row_id": "extras_entry_id",
+          "order_id": "order_reference_id",
+          "extras": "addon_id",
+          "extras_count": "addon_quantity"
+        },
+        "statistics": {
+          "date": "report_date",
+          "state": "region_name",
+          "total_cases": "confirmed_cases_total",
+          "total_deaths": "confirmed_deaths_total"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_4": {
+      "table_renames": {
+        "pizza_clean_customer_orders_exclusions": "CustomerOrderExclusions",
+        "pizza_clean_customer_orders_order_id": "CustomerOrderPizzas",
+        "pizza_clean_runner_orders": "RunnerOrderAssignments",
+        "pizza_runner_orders": "RunnerOrderRecords",
+        "trees": "StreetTreeInventory"
+      },
+      "column_renames": {
+        "pizza_clean_customer_orders_exclusions": {
+          "customer_id": "CustomerIdentifier",
+          "extras": "SpecialInstructions",
+          "exclusions": "ItemExclusions",
+          "order_id": "OrderIdentifier",
+          "order_time": "OrderTimestamp"
+        },
+        "pizza_clean_customer_orders_order_id": {
+          "customer_id": "CustomerIdentifier",
+          "extras": "SpecialInstructions",
+          "order_id": "OrderIdentifier",
+          "order_time": "OrderTimestamp",
+          "pizza_id": "PizzaIdentifier"
+        },
+        "pizza_clean_runner_orders": {
+          "order_id": "OrderIdentifier",
+          "runner_id": "RunnerIdentifier",
+          "pickup_time": "PickupTimestamp",
+          "distance": "TripDistance",
+          "duration": "TripDuration",
+          "cancellation": "CancellationNote"
+        },
+        "pizza_runner_orders": {
+          "order_id": "OrderIdentifier",
+          "runner_id": "RunnerIdentifier",
+          "pickup_time": "PickupTimestamp",
+          "distance": "TripDistance",
+          "duration": "TripDuration",
+          "cancellation": "CancellationNote"
+        },
+        "trees": {
+          "idx": "RecordIndex",
+          "tree_id": "TreeIdentifier",
+          "tree_dbh": "DiameterAtBreastHeight",
+          "stump_diam": "StumpDiameter",
+          "status": "TreeCondition",
+          "health": "HealthStatus",
+          "spc_latin": "SpeciesLatinName",
+          "spc_common": "SpeciesCommonName",
+          "address": "StreetAddress",
+          "zipcode": "ZipCode",
+          "borocode": "BoroughCode",
+          "boroname": "BoroughName",
+          "nta_name": "NeighborhoodName",
+          "state": "StateCode",
+          "latitude": "LatitudeCoordinate",
+          "longitude": "LongitudeCoordinate"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_5": {
+      "table_renames": {
+        "pizza_customer_orders": "pza_order_log",
+        "word_list": "lex_wordset"
+      },
+      "column_renames": {
+        "pizza_customer_orders": {
+          "order_id": "ord_id",
+          "customer_id": "cust_ref",
+          "pizza_id": "pza_ref",
+          "exclusions": "excl_specs",
+          "extras": "add_on_codes",
+          "order_time": "ord_ts"
+        },
+        "word_list": {
+          "words": "lex_items"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    }
+  },
+  "vertical_split_map": {
+    "pizza_clean_customer_orders": {
+      "pk_columns": [
+        "customer_id",
+        "extras"
+      ],
+      "fragments": [
+        {
+          "suffix": "exclusions",
+          "non_pk_columns": [
+            "exclusions",
+            "order_id",
+            "order_time"
+          ],
+          "local_table": "CustomerOrderExclusions",
+          "local_name": "local_4",
+          "vertical_fragment_base": "pizza_clean_customer_orders_exclusions"
+        },
+        {
+          "suffix": "order_id",
+          "non_pk_columns": [
+            "order_id",
+            "order_time",
+            "pizza_id"
+          ],
+          "local_table": "CustomerOrderPizzas",
+          "local_name": "local_4",
+          "vertical_fragment_base": "pizza_clean_customer_orders_order_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "pizza_clean_customer_orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 4,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.028771733410404527
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.028771733410404527,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "exclusions",
+            "order_time"
+          ],
+          [
+            "order_id",
+            "pizza_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "order_time",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "order_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "exclusions",
+            "order_id",
+            "order_time"
+          ],
+          [
+            "order_id",
+            "order_time",
+            "pizza_id"
+          ]
+        ],
+        "pk_columns": [
+          "customer_id",
+          "extras"
+        ],
+        "fragments": [
+          {
+            "suffix": "exclusions",
+            "non_pk_columns": [
+              "exclusions",
+              "order_id",
+              "order_time"
+            ]
+          },
+          {
+            "suffix": "order_id",
+            "non_pk_columns": [
+              "order_id",
+              "order_time",
+              "pizza_id"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "pizza_clean_customer_orders_order_id",
+      "movable_candidates": [
+        "pizza_clean_customer_orders_exclusions"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "split_map": {
+    "pizza_clean_customer_orders": {
+      "pk_columns": [
+        "customer_id",
+        "extras"
+      ],
+      "fragments": [
+        {
+          "suffix": "exclusions",
+          "non_pk_columns": [
+            "exclusions",
+            "order_id",
+            "order_time"
+          ],
+          "local_table": "CustomerOrderExclusions",
+          "local_name": "local_4",
+          "vertical_fragment_base": "pizza_clean_customer_orders_exclusions"
+        },
+        {
+          "suffix": "order_id",
+          "non_pk_columns": [
+            "order_id",
+            "order_time",
+            "pizza_id"
+          ],
+          "local_table": "CustomerOrderPizzas",
+          "local_name": "local_4",
+          "vertical_fragment_base": "pizza_clean_customer_orders_order_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "pizza_clean_customer_orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 4,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.028771733410404527
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.028771733410404527,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "exclusions",
+            "order_time"
+          ],
+          [
+            "order_id",
+            "pizza_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "order_time",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "order_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "exclusions",
+            "order_id",
+            "order_time"
+          ],
+          [
+            "order_id",
+            "order_time",
+            "pizza_id"
+          ]
+        ],
+        "pk_columns": [
+          "customer_id",
+          "extras"
+        ],
+        "fragments": [
+          {
+            "suffix": "exclusions",
+            "non_pk_columns": [
+              "exclusions",
+              "order_id",
+              "order_time"
+            ]
+          },
+          {
+            "suffix": "order_id",
+            "non_pk_columns": [
+              "order_id",
+              "order_time",
+              "pizza_id"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "pizza_clean_customer_orders_order_id",
+      "movable_candidates": [
+        "pizza_clean_customer_orders_exclusions"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 17,
+    "eligible_candidate_count": 10,
+    "num_selected_for_vertical_split": 10,
+    "num_from_rate_alone": 14,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "pizza_clean_customer_orders",
+      "pizza_clean_runner_orders",
+      "pizza_customer_orders",
+      "pizza_runner_orders",
+      "pizza_get_exclusions",
+      "pizza_get_extras",
+      "pizza_names",
+      "pizza_recipes",
+      "pizza_runners",
+      "pizza_toppings"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/modern_data/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "pizza_clean_runner_orders",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pizza_customer_orders",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pizza_runner_orders",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pizza_get_exclusions",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pizza_get_extras",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pizza_names",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pizza_recipes",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pizza_runners",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pizza_toppings",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {},
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "pizza_clean_customer_orders",
+          "from_column": "order_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_customer_orders_exclusions",
+            "column_map": {
+              "customer_id": "customer_id",
+              "extras": "extras",
+              "exclusions": "exclusions",
+              "order_id": "order_id",
+              "order_time": "order_time"
+            },
+            "orig_to_local": {
+              "customer_id": "customer_id",
+              "extras": "extras",
+              "exclusions": "exclusions",
+              "order_id": "order_id",
+              "order_time": "order_time"
+            }
+          },
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_customer_orders_order_id",
+            "column_map": {
+              "customer_id": "customer_id",
+              "extras": "extras",
+              "order_id": "order_id",
+              "order_time": "order_time",
+              "pizza_id": "pizza_id"
+            },
+            "orig_to_local": {
+              "customer_id": "customer_id",
+              "extras": "extras",
+              "order_id": "order_id",
+              "order_time": "order_time",
+              "pizza_id": "pizza_id"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_4",
+            "from_local_table": "CustomerOrderPizzas",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "OrderIdentifier",
+            "to_local_column": "OrderIdentifier"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_4",
+            "from_local_table": "CustomerOrderExclusions",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "OrderIdentifier",
+            "to_local_column": "OrderIdentifier"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "pizza_clean_customer_orders",
+          "from_column": "pizza_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_customer_orders_exclusions",
+            "column_map": {
+              "customer_id": "customer_id",
+              "extras": "extras",
+              "exclusions": "exclusions",
+              "order_id": "order_id",
+              "order_time": "order_time"
+            },
+            "orig_to_local": {
+              "customer_id": "customer_id",
+              "extras": "extras",
+              "exclusions": "exclusions",
+              "order_id": "order_id",
+              "order_time": "order_time"
+            }
+          },
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_customer_orders_order_id",
+            "column_map": {
+              "customer_id": "customer_id",
+              "extras": "extras",
+              "order_id": "order_id",
+              "order_time": "order_time",
+              "pizza_id": "pizza_id"
+            },
+            "orig_to_local": {
+              "customer_id": "customer_id",
+              "extras": "extras",
+              "order_id": "order_id",
+              "order_time": "order_time",
+              "pizza_id": "pizza_id"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_4",
+            "from_local_table": "CustomerOrderPizzas",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "PizzaIdentifier",
+            "to_local_column": "OrderIdentifier"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "pizza_clean_runner_orders",
+          "from_column": "order_id",
+          "to_table": "pizza_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_4",
+            "from_local_table": "RunnerOrderAssignments",
+            "to_local_table": "RunnerOrderRecords",
+            "from_local_column": "OrderIdentifier",
+            "to_local_column": "OrderIdentifier"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "pizza_clean_runner_orders",
+          "from_column": "runner_id",
+          "to_table": "pizza_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_4",
+            "from_local_table": "RunnerOrderAssignments",
+            "to_local_table": "RunnerOrderRecords",
+            "from_local_column": "RunnerIdentifier",
+            "to_local_column": "OrderIdentifier"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "pizza_customer_orders",
+          "from_column": "order_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_5",
+            "local_table": "pizza_customer_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "customer_id": "customer_id",
+              "pizza_id": "pizza_id",
+              "exclusions": "exclusions",
+              "extras": "extras",
+              "order_time": "order_time"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "customer_id": "customer_id",
+              "pizza_id": "pizza_id",
+              "exclusions": "exclusions",
+              "extras": "extras",
+              "order_time": "order_time"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_5",
+            "to_local": "local_4",
+            "from_local_table": "pza_order_log",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "ord_id",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "pizza_customer_orders",
+          "from_column": "pizza_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_5",
+            "local_table": "pizza_customer_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "customer_id": "customer_id",
+              "pizza_id": "pizza_id",
+              "exclusions": "exclusions",
+              "extras": "extras",
+              "order_time": "order_time"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "customer_id": "customer_id",
+              "pizza_id": "pizza_id",
+              "exclusions": "exclusions",
+              "extras": "extras",
+              "order_time": "order_time"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_5",
+            "to_local": "local_4",
+            "from_local_table": "pza_order_log",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "pza_ref",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "pizza_get_exclusions",
+          "from_column": "order_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "pizza_get_exclusions",
+            "column_map": {
+              "row_id": "row_id",
+              "order_id": "order_id",
+              "exclusions": "exclusions",
+              "total_exclusions": "total_exclusions"
+            },
+            "orig_to_local": {
+              "row_id": "row_id",
+              "order_id": "order_id",
+              "exclusions": "exclusions",
+              "total_exclusions": "total_exclusions"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_4",
+            "from_local_table": "orderToppingExclusions",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "orderReferenceId",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "pizza_get_exclusions",
+          "from_column": "row_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "pizza_get_exclusions",
+            "column_map": {
+              "row_id": "row_id",
+              "order_id": "order_id",
+              "exclusions": "exclusions",
+              "total_exclusions": "total_exclusions"
+            },
+            "orig_to_local": {
+              "row_id": "row_id",
+              "order_id": "order_id",
+              "exclusions": "exclusions",
+              "total_exclusions": "total_exclusions"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_4",
+            "from_local_table": "orderToppingExclusions",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "exclusionId",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "pizza_get_extras",
+          "from_column": "order_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "pizza_get_extras",
+            "column_map": {
+              "row_id": "row_id",
+              "order_id": "order_id",
+              "extras": "extras",
+              "extras_count": "extras_count"
+            },
+            "orig_to_local": {
+              "row_id": "row_id",
+              "order_id": "order_id",
+              "extras": "extras",
+              "extras_count": "extras_count"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_4",
+            "from_local_table": "pizza_order_extras",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "order_reference_id",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "pizza_get_extras",
+          "from_column": "row_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "pizza_get_extras",
+            "column_map": {
+              "row_id": "row_id",
+              "order_id": "order_id",
+              "extras": "extras",
+              "extras_count": "extras_count"
+            },
+            "orig_to_local": {
+              "row_id": "row_id",
+              "order_id": "order_id",
+              "extras": "extras",
+              "extras_count": "extras_count"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_4",
+            "from_local_table": "pizza_order_extras",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "extras_entry_id",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "pizza_names",
+          "from_column": "pizza_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "pizza_names",
+            "column_map": {
+              "pizza_id": "pizza_id",
+              "pizza_name": "pizza_name"
+            },
+            "orig_to_local": {
+              "pizza_id": "pizza_id",
+              "pizza_name": "pizza_name"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_4",
+            "from_local_table": "pza_menu",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "pza_id",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "pizza_recipes",
+          "from_column": "pizza_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "pizza_recipes",
+            "column_map": {
+              "pizza_id": "pizza_id",
+              "toppings": "toppings"
+            },
+            "orig_to_local": {
+              "pizza_id": "pizza_id",
+              "toppings": "toppings"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_4",
+            "from_local_table": "pza_recipes",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "pza_id",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "pizza_runner_orders",
+          "from_column": "order_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_4",
+            "from_local_table": "RunnerOrderRecords",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "OrderIdentifier",
+            "to_local_column": "OrderIdentifier"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "pizza_runner_orders",
+          "from_column": "runner_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_4",
+            "from_local_table": "RunnerOrderRecords",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "RunnerIdentifier",
+            "to_local_column": "OrderIdentifier"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "pizza_runners",
+          "from_column": "runner_id",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "pizza_runners",
+            "column_map": {
+              "runner_id": "runner_id",
+              "registration_date": "registration_date"
+            },
+            "orig_to_local": {
+              "runner_id": "runner_id",
+              "registration_date": "registration_date"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_4",
+            "from_local_table": "dlv_riders",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "rider_id",
+            "to_local_column": "OrderIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "trees",
+          "from_column": "borocode",
+          "to_table": "pizza_clean_runner_orders",
+          "to_column": "order_id",
+          "origin": "inferred"
+        },
+        "from_locations": [
+          {
+            "local": "local_4",
+            "local_table": "trees",
+            "column_map": {
+              "idx": "idx",
+              "tree_id": "tree_id",
+              "tree_dbh": "tree_dbh",
+              "stump_diam": "stump_diam",
+              "status": "status",
+              "health": "health",
+              "spc_latin": "spc_latin",
+              "spc_common": "spc_common",
+              "address": "address",
+              "zipcode": "zipcode",
+              "borocode": "borocode",
+              "boroname": "boroname",
+              "nta_name": "nta_name",
+              "state": "state",
+              "latitude": "latitude",
+              "longitude": "longitude"
+            },
+            "orig_to_local": {
+              "idx": "idx",
+              "tree_id": "tree_id",
+              "tree_dbh": "tree_dbh",
+              "stump_diam": "stump_diam",
+              "status": "status",
+              "health": "health",
+              "spc_latin": "spc_latin",
+              "spc_common": "spc_common",
+              "address": "address",
+              "zipcode": "zipcode",
+              "borocode": "borocode",
+              "boroname": "boroname",
+              "nta_name": "nta_name",
+              "state": "state",
+              "latitude": "latitude",
+              "longitude": "longitude"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_4",
+            "local_table": "pizza_clean_runner_orders",
+            "column_map": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            },
+            "orig_to_local": {
+              "order_id": "order_id",
+              "runner_id": "runner_id",
+              "pickup_time": "pickup_time",
+              "distance": "distance",
+              "duration": "duration",
+              "cancellation": "cancellation"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_4",
+            "from_local_table": "StreetTreeInventory",
+            "to_local_table": "RunnerOrderAssignments",
+            "from_local_column": "BoroughCode",
+            "to_local_column": "OrderIdentifier"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {},
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "companies_dates": "local_1",
+      "companies_funding": "local_1",
+      "companies_industries": "local_1",
+      "income_trees": "local_1",
+      "pizza_clean_customer_orders_exclusions": "local_4",
+      "pizza_clean_customer_orders_order_id": "local_4",
+      "pizza_clean_runner_orders": "local_4",
+      "pizza_customer_orders": "local_5",
+      "pizza_get_exclusions": "local_2",
+      "pizza_get_extras": "local_3",
+      "pizza_names": "local_1",
+      "pizza_recipes": "local_1",
+      "pizza_runner_orders": "local_4",
+      "pizza_runners": "local_1",
+      "pizza_toppings": "local_2",
+      "statistics": "local_3",
+      "trees": "local_4",
+      "word_list": "local_5"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "pizza_names": {
+        "columns": [
+          {
+            "name": "pizza_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pizza_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "pizza_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 2
+      },
+      "companies_funding": {
+        "columns": [
+          {
+            "name": "company_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "valuation",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "funding",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "select_investors",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 1085
+      },
+      "pizza_customer_orders": {
+        "columns": [
+          {
+            "name": "order_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "customer_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pizza_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "exclusions",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "extras",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "order_time",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "customer_id",
+          "extras"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 14
+      },
+      "pizza_toppings": {
+        "columns": [
+          {
+            "name": "topping_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "topping_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "topping_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 12
+      },
+      "trees": {
+        "columns": [
+          {
+            "name": "idx",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "tree_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "tree_dbh",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stump_diam",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "status",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "health",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "spc_latin",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "spc_common",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "zipcode",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "borocode",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "boroname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "nta_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "latitude",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "longitude",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 690626
+      },
+      "pizza_recipes": {
+        "columns": [
+          {
+            "name": "pizza_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "toppings",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "pizza_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 2
+      },
+      "statistics": {
+        "columns": [
+          {
+            "name": "date",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "total_cases",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "total_deaths",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 1010
+      },
+      "income_trees": {
+        "columns": [
+          {
+            "name": "zipcode",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Estimate_Total",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Margin_of_Error_Total",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Estimate_Median_income",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Margin_of_Error_Median_income",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Estimate_Mean_income",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Margin_of_Error_Mean_income",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 220
+      },
+      "pizza_clean_runner_orders": {
+        "columns": [
+          {
+            "name": "order_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "runner_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pickup_time",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "distance",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "duration",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "cancellation",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "order_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 10
+      },
+      "pizza_runner_orders": {
+        "columns": [
+          {
+            "name": "order_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "runner_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pickup_time",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "distance",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "duration",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "cancellation",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "order_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 10
+      },
+      "word_list": {
+        "columns": [
+          {
+            "name": "words",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 373804
+      },
+      "companies_dates": {
+        "columns": [
+          {
+            "name": "company_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "date_joined",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "year_founded",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 1085
+      },
+      "pizza_get_extras": {
+        "columns": [
+          {
+            "name": "row_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "order_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "extras",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "extras_count",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "row_id",
+          "order_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 6
+      },
+      "pizza_get_exclusions": {
+        "columns": [
+          {
+            "name": "row_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "order_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "exclusions",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "total_exclusions",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "row_id",
+          "order_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 4
+      },
+      "pizza_clean_customer_orders": {
+        "columns": [
+          {
+            "name": "order_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "customer_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pizza_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "exclusions",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "extras",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "order_time",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "customer_id",
+          "extras"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 14
+      },
+      "companies_industries": {
+        "columns": [
+          {
+            "name": "company_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "industry",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 1085
+      },
+      "pizza_runners": {
+        "columns": [
+          {
+            "name": "runner_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "registration_date",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "runner_id"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 4
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "pizza_clean_customer_orders",
+        "from_column": "order_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_clean_customer_orders",
+        "from_column": "pizza_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_clean_runner_orders",
+        "from_column": "order_id",
+        "to_table": "pizza_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_clean_runner_orders",
+        "from_column": "runner_id",
+        "to_table": "pizza_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_customer_orders",
+        "from_column": "order_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_customer_orders",
+        "from_column": "pizza_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_get_exclusions",
+        "from_column": "order_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_get_exclusions",
+        "from_column": "row_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_get_extras",
+        "from_column": "order_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_get_extras",
+        "from_column": "row_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_names",
+        "from_column": "pizza_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_recipes",
+        "from_column": "pizza_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_runner_orders",
+        "from_column": "order_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_runner_orders",
+        "from_column": "runner_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "pizza_runners",
+        "from_column": "runner_id",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      },
+      {
+        "from_table": "trees",
+        "from_column": "borocode",
+        "to_table": "pizza_clean_runner_orders",
+        "to_column": "order_id",
+        "origin": "inferred"
+      }
+    ],
+    "stats": {
+      "num_tables": 17,
+      "num_fk_edges": 16,
+      "hub_tables": [
+        "pizza_clean_runner_orders",
+        "pizza_names",
+        "pizza_customer_orders",
+        "trees",
+        "pizza_recipes"
+      ],
+      "connected_components": 8
+    }
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 3,
+    "eligible_candidate_count": 2,
+    "num_selected_for_vertical_split": 2,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "twitter",
+      "location"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/social_media/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "location",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "twitter": {
+      "pk_columns": [
+        "TweetID"
+      ],
+      "fragments": [
+        {
+          "suffix": "day",
+          "non_pk_columns": [
+            "Day",
+            "Hour",
+            "Lang",
+            "UserID",
+            "Weekday",
+            "text"
+          ],
+          "local_table": "tweet_daily_stats",
+          "local_name": "local_2",
+          "vertical_fragment_base": "twitter_day"
+        },
+        {
+          "suffix": "isreshare",
+          "non_pk_columns": [
+            "IsReshare",
+            "Klout",
+            "Lang",
+            "Sentiment",
+            "text"
+          ],
+          "local_table": "tweetReshareInfo",
+          "local_name": "local_1",
+          "vertical_fragment_base": "twitter_isreshare"
+        },
+        {
+          "suffix": "hour",
+          "non_pk_columns": [
+            "Hour",
+            "Klout",
+            "LocationID",
+            "Sentiment",
+            "UserID"
+          ],
+          "local_table": "tweetHourlyStats",
+          "local_name": "local_1",
+          "vertical_fragment_base": "twitter_hour"
+        },
+        {
+          "suffix": "likes",
+          "non_pk_columns": [
+            "Likes",
+            "Reach",
+            "RetweetCount"
+          ],
+          "local_table": "twitter_likes_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "twitter_likes",
+          "row_partition_names": [
+            "twitter_likes_q1",
+            "twitter_likes_q2",
+            "twitter_likes_q3",
+            "tweet_reach_above_1494"
+          ],
+          "row_partition_predicate_column": "Reach"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "twitter",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 13,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.029718541825920545,
+          "3": 0.04567992110666997,
+          "4": 0.05584892627834122
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.05584892627834122,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "Day",
+            "Hour",
+            "Lang",
+            "Weekday"
+          ],
+          [
+            "IsReshare",
+            "Sentiment",
+            "text"
+          ],
+          [
+            "Klout",
+            "LocationID",
+            "UserID"
+          ],
+          [
+            "Likes",
+            "Reach",
+            "RetweetCount"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Lang",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Klout",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Sentiment",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "text",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Hour",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "UserID",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Day",
+            "Hour",
+            "Lang",
+            "UserID",
+            "Weekday",
+            "text"
+          ],
+          [
+            "IsReshare",
+            "Klout",
+            "Lang",
+            "Sentiment",
+            "text"
+          ],
+          [
+            "Hour",
+            "Klout",
+            "LocationID",
+            "Sentiment",
+            "UserID"
+          ],
+          [
+            "Likes",
+            "Reach",
+            "RetweetCount"
+          ]
+        ],
+        "pk_columns": [
+          "TweetID"
+        ],
+        "fragments": [
+          {
+            "suffix": "day",
+            "non_pk_columns": [
+              "Day",
+              "Hour",
+              "Lang",
+              "UserID",
+              "Weekday",
+              "text"
+            ]
+          },
+          {
+            "suffix": "isreshare",
+            "non_pk_columns": [
+              "IsReshare",
+              "Klout",
+              "Lang",
+              "Sentiment",
+              "text"
+            ]
+          },
+          {
+            "suffix": "hour",
+            "non_pk_columns": [
+              "Hour",
+              "Klout",
+              "LocationID",
+              "Sentiment",
+              "UserID"
+            ]
+          },
+          {
+            "suffix": "likes",
+            "non_pk_columns": [
+              "Likes",
+              "Reach",
+              "RetweetCount"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Lang",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "day",
+          "also_in_fragment_suffix": "isreshare"
+        },
+        {
+          "column": "Klout",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "hour",
+          "also_in_fragment_suffix": "isreshare"
+        },
+        {
+          "column": "Sentiment",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "isreshare",
+          "also_in_fragment_suffix": "hour"
+        },
+        {
+          "column": "text",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "isreshare",
+          "also_in_fragment_suffix": "day"
+        },
+        {
+          "column": "Hour",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "day",
+          "also_in_fragment_suffix": "hour"
+        },
+        {
+          "column": "UserID",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "hour",
+          "also_in_fragment_suffix": "day"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1360 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 4,
+    "eligible_candidate_count": 4,
+    "num_selected_for_vertical_split": 3,
+    "num_from_rate_alone": 3,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 3,
+    "selected_original_tables": [
+      "collisions",
+      "parties",
+      "victims"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/California_Traffic_Collision/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "victims",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "collisions": {
+      "pk_columns": [
+        "case_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "alcohol_involved",
+          "non_pk_columns": [
+            "alcohol_involved",
+            "bicycle_collision",
+            "distance",
+            "intersection",
+            "motor_vehicle_involved_with",
+            "motorcycle_collision",
+            "pcf_violation",
+            "pcf_violation_category",
+            "pcf_violation_code",
+            "pcf_violation_subsection",
+            "pedestrian_collision",
+            "primary_collision_factor",
+            "tow_away",
+            "truck_collision"
+          ],
+          "local_table": "crash_alcohol_details",
+          "local_name": "local_2",
+          "vertical_fragment_base": "collisions_alcohol_involved"
+        },
+        {
+          "suffix": "beat_number",
+          "non_pk_columns": [
+            "beat_number",
+            "beat_type",
+            "caltrans_county",
+            "caltrans_district",
+            "chp_beat_class",
+            "chp_beat_type",
+            "chp_road_type",
+            "chp_shift",
+            "chp_vehicle_type_at_fault",
+            "city_division_lapd",
+            "county_city_location",
+            "jurisdiction",
+            "reporting_district",
+            "statewide_vehicle_type_at_fault"
+          ],
+          "local_table": "crash_beat_known_list",
+          "local_name": "local_2",
+          "vertical_fragment_base": "collisions_beat_number",
+          "row_partition_names": [
+            "crash_beat_known_list",
+            "crash_beat_other_bucket"
+          ],
+          "row_partition_predicate_column": "beat_number"
+        },
+        {
+          "suffix": "bicyclist_injured_count",
+          "non_pk_columns": [
+            "bicyclist_injured_count",
+            "bicyclist_killed_count",
+            "collision_severity",
+            "complaint_of_pain_injury_count",
+            "injured_victims",
+            "killed_victims",
+            "motorcyclist_injured_count",
+            "motorcyclist_killed_count",
+            "officer_id",
+            "other_visible_injury_count",
+            "party_count",
+            "pedestrian_injured_count",
+            "pedestrian_killed_count",
+            "severe_injury_count"
+          ],
+          "local_table": "crash_injury_summary",
+          "local_name": "local_2",
+          "vertical_fragment_base": "collisions_bicyclist_injured_count"
+        },
+        {
+          "suffix": "caltrans_county",
+          "non_pk_columns": [
+            "caltrans_county",
+            "collision_date",
+            "collision_time",
+            "control_device",
+            "county_location",
+            "direction",
+            "hit_and_run",
+            "latitude",
+            "lighting",
+            "longitude",
+            "not_private_property",
+            "officer_id",
+            "pedestrian_action",
+            "population",
+            "postmile",
+            "postmile_prefix",
+            "primary_collision_factor",
+            "primary_road",
+            "process_date",
+            "road_condition_1",
+            "road_condition_2",
+            "road_surface",
+            "route_suffix",
+            "secondary_road",
+            "side_of_highway",
+            "special_condition",
+            "state_highway_indicator",
+            "state_route",
+            "weather_1",
+            "weather_2"
+          ],
+          "local_table": "crash_caltrans_segment",
+          "local_name": "local_2",
+          "vertical_fragment_base": "collisions_caltrans_county"
+        },
+        {
+          "suffix": "city_division_lapd",
+          "non_pk_columns": [
+            "city_division_lapd",
+            "collision_severity",
+            "collision_time",
+            "control_device",
+            "county_city_location",
+            "county_location",
+            "direction",
+            "distance",
+            "hit_and_run",
+            "jurisdiction",
+            "latitude",
+            "lighting",
+            "location_type",
+            "longitude",
+            "motor_vehicle_involved_with",
+            "not_private_property",
+            "pedestrian_action",
+            "population",
+            "postmile",
+            "postmile_prefix",
+            "primary_ramp",
+            "process_date",
+            "ramp_intersection",
+            "secondary_ramp",
+            "secondary_road",
+            "side_of_highway",
+            "special_condition",
+            "statewide_vehicle_type_at_fault",
+            "tow_away",
+            "type_of_collision",
+            "weather_1",
+            "weather_2"
+          ],
+          "local_table": "crash_city_division_summary",
+          "local_name": "local_2",
+          "vertical_fragment_base": "collisions_city_division_lapd"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "collisions",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 74,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.030253092934192097,
+          "3": 0.04926288650357534,
+          "4": 0.05152052914988098,
+          "5": 0.056011309378521654
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.056011309378521654,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "alcohol_involved",
+            "bicycle_collision",
+            "distance",
+            "intersection",
+            "motorcycle_collision",
+            "pcf_violation",
+            "pcf_violation_category",
+            "pcf_violation_code",
+            "pcf_violation_subsection",
+            "pedestrian_collision",
+            "primary_collision_factor",
+            "tow_away",
+            "truck_collision"
+          ],
+          [
+            "beat_number",
+            "beat_type",
+            "caltrans_county",
+            "caltrans_district",
+            "chp_beat_class",
+            "chp_beat_type",
+            "chp_road_type",
+            "chp_shift",
+            "chp_vehicle_type_at_fault",
+            "city_division_lapd",
+            "jurisdiction",
+            "reporting_district"
+          ],
+          [
+            "bicyclist_injured_count",
+            "bicyclist_killed_count",
+            "collision_severity",
+            "complaint_of_pain_injury_count",
+            "injured_victims",
+            "killed_victims",
+            "motorcyclist_injured_count",
+            "motorcyclist_killed_count",
+            "officer_id",
+            "other_visible_injury_count",
+            "party_count",
+            "pedestrian_injured_count",
+            "pedestrian_killed_count",
+            "severe_injury_count"
+          ],
+          [
+            "collision_date",
+            "collision_time",
+            "county_location",
+            "latitude",
+            "lighting",
+            "longitude",
+            "not_private_property",
+            "population",
+            "postmile",
+            "primary_road",
+            "process_date",
+            "road_condition_1",
+            "road_condition_2",
+            "road_surface",
+            "route_suffix",
+            "secondary_road",
+            "side_of_highway",
+            "state_highway_indicator",
+            "state_route",
+            "weather_1"
+          ],
+          [
+            "control_device",
+            "county_city_location",
+            "direction",
+            "hit_and_run",
+            "location_type",
+            "motor_vehicle_involved_with",
+            "pedestrian_action",
+            "postmile_prefix",
+            "primary_ramp",
+            "ramp_intersection",
+            "secondary_ramp",
+            "special_condition",
+            "statewide_vehicle_type_at_fault",
+            "type_of_collision",
+            "weather_2"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "collision_severity",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "lighting",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "officer_id",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "weather_1",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "special_condition",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "weather_2",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "county_location",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "distance",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "jurisdiction",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "postmile_prefix",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "direction",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "statewide_vehicle_type_at_fault",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city_division_lapd",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "collision_time",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "control_device",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "population",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "county_city_location",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "hit_and_run",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "caltrans_county",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "side_of_highway",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "postmile",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "not_private_property",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "tow_away",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "motor_vehicle_involved_with",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "pedestrian_action",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "primary_collision_factor",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "process_date",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "latitude",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "longitude",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "secondary_road",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "alcohol_involved",
+            "bicycle_collision",
+            "distance",
+            "intersection",
+            "motor_vehicle_involved_with",
+            "motorcycle_collision",
+            "pcf_violation",
+            "pcf_violation_category",
+            "pcf_violation_code",
+            "pcf_violation_subsection",
+            "pedestrian_collision",
+            "primary_collision_factor",
+            "tow_away",
+            "truck_collision"
+          ],
+          [
+            "beat_number",
+            "beat_type",
+            "caltrans_county",
+            "caltrans_district",
+            "chp_beat_class",
+            "chp_beat_type",
+            "chp_road_type",
+            "chp_shift",
+            "chp_vehicle_type_at_fault",
+            "city_division_lapd",
+            "county_city_location",
+            "jurisdiction",
+            "reporting_district",
+            "statewide_vehicle_type_at_fault"
+          ],
+          [
+            "bicyclist_injured_count",
+            "bicyclist_killed_count",
+            "collision_severity",
+            "complaint_of_pain_injury_count",
+            "injured_victims",
+            "killed_victims",
+            "motorcyclist_injured_count",
+            "motorcyclist_killed_count",
+            "officer_id",
+            "other_visible_injury_count",
+            "party_count",
+            "pedestrian_injured_count",
+            "pedestrian_killed_count",
+            "severe_injury_count"
+          ],
+          [
+            "caltrans_county",
+            "collision_date",
+            "collision_time",
+            "control_device",
+            "county_location",
+            "direction",
+            "hit_and_run",
+            "latitude",
+            "lighting",
+            "longitude",
+            "not_private_property",
+            "officer_id",
+            "pedestrian_action",
+            "population",
+            "postmile",
+            "postmile_prefix",
+            "primary_collision_factor",
+            "primary_road",
+            "process_date",
+            "road_condition_1",
+            "road_condition_2",
+            "road_surface",
+            "route_suffix",
+            "secondary_road",
+            "side_of_highway",
+            "special_condition",
+            "state_highway_indicator",
+            "state_route",
+            "weather_1",
+            "weather_2"
+          ],
+          [
+            "city_division_lapd",
+            "collision_severity",
+            "collision_time",
+            "control_device",
+            "county_city_location",
+            "county_location",
+            "direction",
+            "distance",
+            "hit_and_run",
+            "jurisdiction",
+            "latitude",
+            "lighting",
+            "location_type",
+            "longitude",
+            "motor_vehicle_involved_with",
+            "not_private_property",
+            "pedestrian_action",
+            "population",
+            "postmile",
+            "postmile_prefix",
+            "primary_ramp",
+            "process_date",
+            "ramp_intersection",
+            "secondary_ramp",
+            "secondary_road",
+            "side_of_highway",
+            "special_condition",
+            "statewide_vehicle_type_at_fault",
+            "tow_away",
+            "type_of_collision",
+            "weather_1",
+            "weather_2"
+          ]
+        ],
+        "pk_columns": [
+          "case_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "alcohol_involved",
+            "non_pk_columns": [
+              "alcohol_involved",
+              "bicycle_collision",
+              "distance",
+              "intersection",
+              "motor_vehicle_involved_with",
+              "motorcycle_collision",
+              "pcf_violation",
+              "pcf_violation_category",
+              "pcf_violation_code",
+              "pcf_violation_subsection",
+              "pedestrian_collision",
+              "primary_collision_factor",
+              "tow_away",
+              "truck_collision"
+            ]
+          },
+          {
+            "suffix": "beat_number",
+            "non_pk_columns": [
+              "beat_number",
+              "beat_type",
+              "caltrans_county",
+              "caltrans_district",
+              "chp_beat_class",
+              "chp_beat_type",
+              "chp_road_type",
+              "chp_shift",
+              "chp_vehicle_type_at_fault",
+              "city_division_lapd",
+              "county_city_location",
+              "jurisdiction",
+              "reporting_district",
+              "statewide_vehicle_type_at_fault"
+            ]
+          },
+          {
+            "suffix": "bicyclist_injured_count",
+            "non_pk_columns": [
+              "bicyclist_injured_count",
+              "bicyclist_killed_count",
+              "collision_severity",
+              "complaint_of_pain_injury_count",
+              "injured_victims",
+              "killed_victims",
+              "motorcyclist_injured_count",
+              "motorcyclist_killed_count",
+              "officer_id",
+              "other_visible_injury_count",
+              "party_count",
+              "pedestrian_injured_count",
+              "pedestrian_killed_count",
+              "severe_injury_count"
+            ]
+          },
+          {
+            "suffix": "caltrans_county",
+            "non_pk_columns": [
+              "caltrans_county",
+              "collision_date",
+              "collision_time",
+              "control_device",
+              "county_location",
+              "direction",
+              "hit_and_run",
+              "latitude",
+              "lighting",
+              "longitude",
+              "not_private_property",
+              "officer_id",
+              "pedestrian_action",
+              "population",
+              "postmile",
+              "postmile_prefix",
+              "primary_collision_factor",
+              "primary_road",
+              "process_date",
+              "road_condition_1",
+              "road_condition_2",
+              "road_surface",
+              "route_suffix",
+              "secondary_road",
+              "side_of_highway",
+              "special_condition",
+              "state_highway_indicator",
+              "state_route",
+              "weather_1",
+              "weather_2"
+            ]
+          },
+          {
+            "suffix": "city_division_lapd",
+            "non_pk_columns": [
+              "city_division_lapd",
+              "collision_severity",
+              "collision_time",
+              "control_device",
+              "county_city_location",
+              "county_location",
+              "direction",
+              "distance",
+              "hit_and_run",
+              "jurisdiction",
+              "latitude",
+              "lighting",
+              "location_type",
+              "longitude",
+              "motor_vehicle_involved_with",
+              "not_private_property",
+              "pedestrian_action",
+              "population",
+              "postmile",
+              "postmile_prefix",
+              "primary_ramp",
+              "process_date",
+              "ramp_intersection",
+              "secondary_ramp",
+              "secondary_road",
+              "side_of_highway",
+              "special_condition",
+              "statewide_vehicle_type_at_fault",
+              "tow_away",
+              "type_of_collision",
+              "weather_1",
+              "weather_2"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "collision_severity",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "bicyclist_injured_count",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "lighting",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "officer_id",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "bicyclist_injured_count",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "weather_1",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "special_condition",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "weather_2",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "county_location",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "distance",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "alcohol_involved",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "jurisdiction",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "beat_number",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "postmile_prefix",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "direction",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "statewide_vehicle_type_at_fault",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "beat_number"
+        },
+        {
+          "column": "city_division_lapd",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "beat_number",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "collision_time",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "control_device",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "population",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "county_city_location",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "beat_number"
+        },
+        {
+          "column": "hit_and_run",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "caltrans_county",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "beat_number",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "side_of_highway",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "postmile",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "not_private_property",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "tow_away",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "alcohol_involved",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "motor_vehicle_involved_with",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "alcohol_involved"
+        },
+        {
+          "column": "pedestrian_action",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "city_division_lapd",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "primary_collision_factor",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "alcohol_involved",
+          "also_in_fragment_suffix": "caltrans_county"
+        },
+        {
+          "column": "process_date",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "latitude",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "longitude",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        },
+        {
+          "column": "secondary_road",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "caltrans_county",
+          "also_in_fragment_suffix": "city_division_lapd"
+        }
+      ]
+    },
+    "parties": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "at_fault",
+          "non_pk_columns": [
+            "at_fault",
+            "case_id",
+            "direction_of_travel",
+            "financial_responsibility",
+            "hazardous_materials",
+            "movement_preceding_collision",
+            "party_age",
+            "party_drug_physical",
+            "party_race",
+            "party_sex",
+            "party_sobriety",
+            "party_type",
+            "school_bus_related",
+            "vehicle_make",
+            "vehicle_year"
+          ],
+          "local_table": "pty_fault",
+          "local_name": "local_3",
+          "vertical_fragment_base": "parties_at_fault"
+        },
+        {
+          "suffix": "case_id",
+          "non_pk_columns": [
+            "case_id",
+            "party_number",
+            "party_number_injured",
+            "party_number_killed",
+            "party_race",
+            "party_sex"
+          ],
+          "local_table": "case_pty_counts",
+          "local_name": "local_3",
+          "vertical_fragment_base": "parties_case_id"
+        },
+        {
+          "suffix": "cellphone_in_use",
+          "non_pk_columns": [
+            "cellphone_in_use",
+            "cellphone_use_type",
+            "party_drug_physical",
+            "party_safety_equipment_1",
+            "party_safety_equipment_2"
+          ],
+          "local_table": "cp_inuse_airbag_not_deployed",
+          "local_name": "local_3",
+          "vertical_fragment_base": "parties_cellphone_in_use",
+          "row_partition_names": [
+            "cp_inuse_airbag_not_deployed",
+            "cp_inuse_lap_shldr_harness",
+            "cp_inuse_safety_varied",
+            "cp_inuse_safety_other"
+          ],
+          "row_partition_predicate_column": "party_safety_equipment_1"
+        },
+        {
+          "suffix": "at_fault_2",
+          "non_pk_columns": [
+            "at_fault",
+            "chp_vehicle_type_towed",
+            "chp_vehicle_type_towing",
+            "direction_of_travel",
+            "financial_responsibility",
+            "hazardous_materials",
+            "movement_preceding_collision",
+            "party_type",
+            "school_bus_related",
+            "statewide_vehicle_type",
+            "vehicle_make",
+            "vehicle_year"
+          ],
+          "local_table": "pty_fault_tow",
+          "local_name": "local_3",
+          "vertical_fragment_base": "parties_at_fault_2"
+        },
+        {
+          "suffix": "oaf_violation_category",
+          "non_pk_columns": [
+            "oaf_violation_category",
+            "oaf_violation_code",
+            "oaf_violation_section",
+            "oaf_violation_suffix",
+            "other_associate_factor_1",
+            "other_associate_factor_2"
+          ],
+          "local_table": "oaf_viol_meta",
+          "local_name": "local_3",
+          "vertical_fragment_base": "parties_oaf_violation_category"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "parties",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 31,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03853982984389943,
+          "3": 0.048840592403835696,
+          "4": 0.06047414401593396,
+          "5": 0.07011979151483996
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.07011979151483996,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "at_fault",
+            "direction_of_travel",
+            "financial_responsibility",
+            "hazardous_materials",
+            "party_age",
+            "party_race",
+            "party_sex",
+            "party_sobriety",
+            "party_type",
+            "school_bus_related"
+          ],
+          [
+            "case_id",
+            "party_number",
+            "party_number_injured",
+            "party_number_killed"
+          ],
+          [
+            "cellphone_in_use",
+            "cellphone_use_type",
+            "party_drug_physical",
+            "party_safety_equipment_1",
+            "party_safety_equipment_2"
+          ],
+          [
+            "chp_vehicle_type_towed",
+            "chp_vehicle_type_towing",
+            "movement_preceding_collision",
+            "statewide_vehicle_type",
+            "vehicle_make",
+            "vehicle_year"
+          ],
+          [
+            "oaf_violation_category",
+            "oaf_violation_code",
+            "oaf_violation_section",
+            "oaf_violation_suffix",
+            "other_associate_factor_1",
+            "other_associate_factor_2"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "movement_preceding_collision",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "party_drug_physical",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "party_type",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "vehicle_year",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "direction_of_travel",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "school_bus_related",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "case_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "financial_responsibility",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "at_fault",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "vehicle_make",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "party_race",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "hazardous_materials",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "party_sex",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "at_fault",
+            "case_id",
+            "direction_of_travel",
+            "financial_responsibility",
+            "hazardous_materials",
+            "movement_preceding_collision",
+            "party_age",
+            "party_drug_physical",
+            "party_race",
+            "party_sex",
+            "party_sobriety",
+            "party_type",
+            "school_bus_related",
+            "vehicle_make",
+            "vehicle_year"
+          ],
+          [
+            "case_id",
+            "party_number",
+            "party_number_injured",
+            "party_number_killed",
+            "party_race",
+            "party_sex"
+          ],
+          [
+            "cellphone_in_use",
+            "cellphone_use_type",
+            "party_drug_physical",
+            "party_safety_equipment_1",
+            "party_safety_equipment_2"
+          ],
+          [
+            "at_fault",
+            "chp_vehicle_type_towed",
+            "chp_vehicle_type_towing",
+            "direction_of_travel",
+            "financial_responsibility",
+            "hazardous_materials",
+            "movement_preceding_collision",
+            "party_type",
+            "school_bus_related",
+            "statewide_vehicle_type",
+            "vehicle_make",
+            "vehicle_year"
+          ],
+          [
+            "oaf_violation_category",
+            "oaf_violation_code",
+            "oaf_violation_section",
+            "oaf_violation_suffix",
+            "other_associate_factor_1",
+            "other_associate_factor_2"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "at_fault",
+            "non_pk_columns": [
+              "at_fault",
+              "case_id",
+              "direction_of_travel",
+              "financial_responsibility",
+              "hazardous_materials",
+              "movement_preceding_collision",
+              "party_age",
+              "party_drug_physical",
+              "party_race",
+              "party_sex",
+              "party_sobriety",
+              "party_type",
+              "school_bus_related",
+              "vehicle_make",
+              "vehicle_year"
+            ]
+          },
+          {
+            "suffix": "case_id",
+            "non_pk_columns": [
+              "case_id",
+              "party_number",
+              "party_number_injured",
+              "party_number_killed",
+              "party_race",
+              "party_sex"
+            ]
+          },
+          {
+            "suffix": "cellphone_in_use",
+            "non_pk_columns": [
+              "cellphone_in_use",
+              "cellphone_use_type",
+              "party_drug_physical",
+              "party_safety_equipment_1",
+              "party_safety_equipment_2"
+            ]
+          },
+          {
+            "suffix": "at_fault_2",
+            "non_pk_columns": [
+              "at_fault",
+              "chp_vehicle_type_towed",
+              "chp_vehicle_type_towing",
+              "direction_of_travel",
+              "financial_responsibility",
+              "hazardous_materials",
+              "movement_preceding_collision",
+              "party_type",
+              "school_bus_related",
+              "statewide_vehicle_type",
+              "vehicle_make",
+              "vehicle_year"
+            ]
+          },
+          {
+            "suffix": "oaf_violation_category",
+            "non_pk_columns": [
+              "oaf_violation_category",
+              "oaf_violation_code",
+              "oaf_violation_section",
+              "oaf_violation_suffix",
+              "other_associate_factor_1",
+              "other_associate_factor_2"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "movement_preceding_collision",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "at_fault_2",
+          "also_in_fragment_suffix": "at_fault"
+        },
+        {
+          "column": "party_drug_physical",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cellphone_in_use",
+          "also_in_fragment_suffix": "at_fault"
+        },
+        {
+          "column": "party_type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "at_fault",
+          "also_in_fragment_suffix": "at_fault_2"
+        },
+        {
+          "column": "vehicle_year",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "at_fault_2",
+          "also_in_fragment_suffix": "at_fault"
+        },
+        {
+          "column": "direction_of_travel",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "at_fault",
+          "also_in_fragment_suffix": "at_fault_2"
+        },
+        {
+          "column": "school_bus_related",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "at_fault",
+          "also_in_fragment_suffix": "at_fault_2"
+        },
+        {
+          "column": "case_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "case_id",
+          "also_in_fragment_suffix": "at_fault"
+        },
+        {
+          "column": "financial_responsibility",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "at_fault",
+          "also_in_fragment_suffix": "at_fault_2"
+        },
+        {
+          "column": "at_fault",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "at_fault",
+          "also_in_fragment_suffix": "at_fault_2"
+        },
+        {
+          "column": "vehicle_make",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "at_fault_2",
+          "also_in_fragment_suffix": "at_fault"
+        },
+        {
+          "column": "party_race",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "at_fault",
+          "also_in_fragment_suffix": "case_id"
+        },
+        {
+          "column": "hazardous_materials",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "at_fault",
+          "also_in_fragment_suffix": "at_fault_2"
+        },
+        {
+          "column": "party_sex",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "at_fault",
+          "also_in_fragment_suffix": "case_id"
+        }
+      ]
+    }
+  }
+}

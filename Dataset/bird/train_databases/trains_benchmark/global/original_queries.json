@@ -1,0 +1,282 @@
+[
+  {
+    "sql": "SELECT COUNT(id) FROM trains WHERE direction = 'east'",
+    "question_id": null,
+    "question": "How many trains are there that run in the east direction?",
+    "difficulty": "",
+    "evidence": "east is a direction"
+  },
+  {
+    "sql": "SELECT COUNT(id) FROM cars WHERE train_id = 1",
+    "question_id": null,
+    "question": "How many cars are there on train no.1?",
+    "difficulty": "",
+    "evidence": "train no.1 refers to train_id = 1"
+  },
+  {
+    "sql": "SELECT shape FROM cars WHERE train_id = 1 AND position = 4",
+    "question_id": null,
+    "question": "What is the shape of the tail car on train no.1?",
+    "difficulty": "",
+    "evidence": "train no.1 refers to train_id = 1; tail car refers to position = 4"
+  },
+  {
+    "sql": "SELECT train_id FROM cars WHERE shape IN ('elipse', 'bucket') GROUP BY train_id",
+    "question_id": null,
+    "question": "Please list the IDs of all the trains with at least one car in a non-regular shape.",
+    "difficulty": "",
+    "evidence": "non-regular shape refers to shape in ('elipse', 'bucket')"
+  },
+  {
+    "sql": "SELECT COUNT(id) FROM cars WHERE train_id = 1 AND roof = 'none'",
+    "question_id": null,
+    "question": "How many cars on train no.1 have the roof open?",
+    "difficulty": "",
+    "evidence": "train no. 1 refers to train_id = 1; roof open refers to roof = 'none'"
+  },
+  {
+    "sql": "SELECT id FROM cars WHERE train_id = 1 AND wheels = 2",
+    "question_id": null,
+    "question": "Please list the IDs of all the cars on train no.1 that have 2 wheels.",
+    "difficulty": "",
+    "evidence": "train no.1 refers to train_id = 1; 2 wheels refers to wheels = 2"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.shape IN ('bucket', 'elipse') THEN 1 ELSE 0 end)as count FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T2.direction = 'east'",
+    "question_id": null,
+    "question": "Among the trains that run in the east direction, how many of them have at least one car in a non-regular shape?",
+    "difficulty": "",
+    "evidence": "non-regular shape refers to shape in ('elipse', 'bucket')"
+  },
+  {
+    "sql": "SELECT T1.id FROM trains AS T1 INNER JOIN ( SELECT train_id, MAX(position) AS carsNum FROM cars GROUP BY train_id ) AS T2 ON T1.id = T2.train_id WHERE T1.direction = 'east' AND T2.carsNum < 4",
+    "question_id": null,
+    "question": "Please list the IDs of all the trains that run in the east direction and have less than 4 cars.",
+    "difficulty": "",
+    "evidence": "less than 4 cars refers to carsNum < 4"
+  },
+  {
+    "sql": "SELECT T1.id FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T2.direction = 'east' AND T1.sides = 'double'",
+    "question_id": null,
+    "question": "Please list the IDs of all the cars with double sides on trains that run in the west direction.",
+    "difficulty": "",
+    "evidence": "double sides on trains refers to sides = 'double'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.longCarsNum > 2 THEN 1 ELSE 0 END)as count FROM trains AS T1 INNER JOIN ( SELECT train_id, COUNT(id) AS longCarsNum FROM cars WHERE len = 'long' GROUP BY train_id ) AS T2 ON T1.id = T2.train_id WHERE T1.direction = 'west'",
+    "question_id": null,
+    "question": "Among the trains that run in the east direction, how many of them have more than 2 long cars?",
+    "difficulty": "",
+    "evidence": "more than 2 long cars refers to longCarsNum > 2"
+  },
+  {
+    "sql": "SELECT T2.direction FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.load_num = 0",
+    "question_id": null,
+    "question": "Please list the directions in which the trains with at least one empty-loaded car run.",
+    "difficulty": "",
+    "evidence": "at least one empty-loaded car run refers to load_num = 0"
+  },
+  {
+    "sql": "SELECT T2.direction FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.shape = 'ellipse'",
+    "question_id": null,
+    "question": "In which direction does the train with an ellipse-shape car run?",
+    "difficulty": "",
+    "evidence": "shape = 'ellipse'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.len = 'short' then 1 ELSE 0 END)as count FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T2.direction = 'east'",
+    "question_id": null,
+    "question": "What is the total number of short cars on all the trains that run in the east direction?",
+    "difficulty": "",
+    "evidence": "short cars refers to len = 'short'"
+  },
+  {
+    "sql": "SELECT T1.shape FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T2.direction = 'east' AND T1.position = 1 GROUP BY T1.shape",
+    "question_id": null,
+    "question": "Please list the shapes of all the head cars on the trains that run in the east direction.",
+    "difficulty": "",
+    "evidence": "head cars refers to position = 1;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.roof = 'flat' THEN 1 ELSE 0 END)as count FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T2.direction = 'east'",
+    "question_id": null,
+    "question": "How many cars on a train that runs in the east direction have a flat roof?",
+    "difficulty": "",
+    "evidence": "flat roof refers to roof = 'flat'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.load_shape = 'circle' THEN 1 ELSE 0 END)as count FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T2.direction = 'east' AND T1.roof = 'flat' ",
+    "question_id": null,
+    "question": "Among the cars on a train that runs in the east direction, how many of them have a flat roof and a circle load shape?",
+    "difficulty": "",
+    "evidence": "flat roof refers to roof = 'flat'; load_shape = 'circle'"
+  },
+  {
+    "sql": "SELECT T1.direction FROM trains AS T1 INNER JOIN ( SELECT train_id, COUNT(id) AS rectCarsNum FROM cars WHERE shape = 'rectangle' GROUP BY train_id ) AS T2 ON T1.id = T2.train_id ORDER BY T2.rectCarsNum DESC",
+    "question_id": null,
+    "question": "Trains that run in which direction have more rectangle-shaped cars in total?",
+    "difficulty": "",
+    "evidence": "more rectangle-shaped cars refers to MAX(rectCarsNum)"
+  },
+  {
+    "sql": "SELECT T2.direction FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.len = 'short' AND T1.position = 4",
+    "question_id": null,
+    "question": "Please list the directions in which the trains with 4 short cars run.",
+    "difficulty": "",
+    "evidence": "short refers to len = 'short'; 4 cars run refers to position = 4"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.id) AS REAL) / COUNT(DISTINCT T1.train_id) FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T2.direction = 'east'",
+    "question_id": null,
+    "question": "What is the average number of cars on trains that run in the east direction?",
+    "difficulty": "",
+    "evidence": "calculation = DIVIDE(count(id), count(train_id))"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(DISTINCT CASE WHEN T2.direction = 'east' THEN T1.train_id ELSE NULL END) AS REAL) * 100 / COUNT(DISTINCT T1.train_id) FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.shape IN ('bucket', 'ellipse')",
+    "question_id": null,
+    "question": "Among the trains that have at least one non-regular shaped car, what is the percentage of it running in the east direction?",
+    "difficulty": "",
+    "evidence": "non-regular shaped car refers to shape in ('bucket', 'ellipse'); calculation = MULTIPLY(DIVIDE(count(direction = 'east' then train_id)), count(train_id), 100)"
+  },
+  {
+    "sql": "SELECT COUNT(id) FROM cars WHERE shape = 'hexagon' AND len = 'short'",
+    "question_id": null,
+    "question": "How many short cars are in the shape of hexagon?",
+    "difficulty": "",
+    "evidence": "short cars refers to len = 'short'; in the shape of hexagon refers to shape = 'hexagon'"
+  },
+  {
+    "sql": "SELECT COUNT(id) FROM trains WHERE direction = 'west'",
+    "question_id": null,
+    "question": "How many trains are running west?",
+    "difficulty": "",
+    "evidence": "west is a direction"
+  },
+  {
+    "sql": "SELECT load_shape FROM cars WHERE shape = 'ellipse' AND len = 'short'",
+    "question_id": null,
+    "question": "What are the load shapes of all the short ellipse cars?",
+    "difficulty": "",
+    "evidence": "short refers to len = 'short'; ellipse cars refers to shape = 'ellipse'"
+  },
+  {
+    "sql": "SELECT id FROM trains WHERE direction = 'east'",
+    "question_id": null,
+    "question": "What are the ids of the train running east?",
+    "difficulty": "",
+    "evidence": "east is a direction"
+  },
+  {
+    "sql": "SELECT SUM(wheels) FROM cars WHERE len = 'long'",
+    "question_id": null,
+    "question": "How many wheels do the long cars have?",
+    "difficulty": "",
+    "evidence": "long cars refers to len = 'long'"
+  },
+  {
+    "sql": "SELECT direction FROM trains GROUP BY direction ORDER BY COUNT(id) DESC",
+    "question_id": null,
+    "question": "Which direction do the majority of the trains are running?",
+    "difficulty": "",
+    "evidence": "majority of train refers to MAX(count(id))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.direction = 'east' THEN 1 ELSE 0 END)as count FROM trains AS T1 INNER JOIN ( SELECT train_id, COUNT(id) AS carsNum FROM cars GROUP BY train_id ) AS T2 ON T1.id = T2.train_id WHERE T2.carsNum >= 4",
+    "question_id": null,
+    "question": "Among the trains running east, how many trains have at least 4 cars?",
+    "difficulty": "",
+    "evidence": "east is a direction; at least 4 cars refers to carsNum > = 4"
+  },
+  {
+    "sql": "SELECT T2.direction FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.position = 2 AND T1.shape = 'rectangle' GROUP BY T2.direction ORDER BY COUNT(T2.id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which direction do most of the trains with rectangle-shaped second cars run?",
+    "difficulty": "",
+    "evidence": "most of the trains refers to MAX(count(id)); second cars refers to position = 2"
+  },
+  {
+    "sql": "SELECT COUNT(T.train_id) FROM (SELECT T1.train_id FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.position = 3 AND T2.direction = 'west' AND T1.sides = 'double' GROUP BY T1.train_id)as T",
+    "question_id": null,
+    "question": "How many trains running west have double sided cars in 3rd position?",
+    "difficulty": "",
+    "evidence": "west is a direction; double sided cars refers to sides = 'double'; 3rd position refers to position = 3"
+  },
+  {
+    "sql": "SELECT COUNT(T.train_id) FROM (SELECT T1.train_id FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.position = 1 AND T2.direction = 'east' AND T1.shape = 'rectangle' GROUP BY T1.train_id)as T",
+    "question_id": null,
+    "question": "How many eastbound trains have rectangular-shaped head cars?",
+    "difficulty": "",
+    "evidence": "eastbound refers to direction = 'east'; head cars refers to position = 1"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.direction = 'west' THEN 1 ELSE 0 END)as count FROM trains AS T1 INNER JOIN ( SELECT train_id, COUNT(id) FROM cars WHERE roof = 'none' GROUP BY train_id HAVING COUNT(id) = 1 ) AS T2 ON T1.id = T2.train_id ",
+    "question_id": null,
+    "question": "Among the trains running west, how many trains have no more than one car with an open roof?",
+    "difficulty": "",
+    "evidence": "running west refers to direction = 'west'; open roof refers to roof = 'none'"
+  },
+  {
+    "sql": "SELECT T1.direction FROM trains AS T1 INNER JOIN ( SELECT train_id, COUNT(id) AS carsNum FROM cars GROUP BY train_id HAVING carsNum = 3 ) AS T2 ON T1.id = T2.train_id GROUP BY T1.direction",
+    "question_id": null,
+    "question": "Which direction does the majority of the trains that have 3 cars are running?",
+    "difficulty": "",
+    "evidence": "3 cars refers to carsNum = 3"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.train_id) FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.position = 1 AND T1.load_num = 3",
+    "question_id": null,
+    "question": "How many trains with fully loaded head cars are running east?",
+    "difficulty": "",
+    "evidence": "fully loaded refers to load_num = 3; head cars refers to position = 1"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM trains AS T1 INNER JOIN cars AS T2 ON T1.id = T2.train_id INNER JOIN ( SELECT train_id, MAX(position) AS trailPosi FROM cars GROUP BY train_id ) AS T3 ON T1.id = T3.train_id WHERE T1.direction = 'east' AND T2.position = T3.trailPosi AND T2.sides = 'double'",
+    "question_id": null,
+    "question": "How many cars running east have double-sided tail cars?",
+    "difficulty": "",
+    "evidence": "east is an direction; double-sided refers to sides = 'double'; tail refers to carsposition = trailPosi"
+  },
+  {
+    "sql": "SELECT T2.direction FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.load_num = 0",
+    "question_id": null,
+    "question": "List all the directions of the trains that have empty cars.",
+    "difficulty": "",
+    "evidence": "empty cars refers to load_num = 0"
+  },
+  {
+    "sql": "SELECT T2.direction FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.position = 2 AND T1.shape = 'diamond'",
+    "question_id": null,
+    "question": "What is the direction of the train with a diamond-shaped load in its 2nd car?",
+    "difficulty": "",
+    "evidence": "2nd car refers to position = 2"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.direction = 'west' THEN 1 ELSE 0 END)as count FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.wheels = 3 AND T1.roof = 'jagged'",
+    "question_id": null,
+    "question": "Among the trains running west, how many trains have three-wheeled, jagged roof cars?",
+    "difficulty": "",
+    "evidence": "west is an direction; three-wheeled refers to wheels = 3; jagged roof refers to roof = 'jagged'"
+  },
+  {
+    "sql": "SELECT T1.direction FROM trains AS T1 INNER JOIN ( SELECT train_id, MAX(position) AS trailPosi FROM cars GROUP BY train_id ) AS T2 ON T1.id = T2.train_id WHERE T2.trailPosi <= 2",
+    "question_id": null,
+    "question": "Provide the directions for all the trains that have 2 or less cars.",
+    "difficulty": "",
+    "evidence": "2 or less cars refers to trailPosi < = 2"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.trailPosi >= 4 THEN T1.id ELSE NULL END) AS REAL) * 100 / COUNT(T1.id) FROM trains AS T1 INNER JOIN ( SELECT train_id, MAX(position) AS trailPosi FROM cars GROUP BY train_id ) AS T2 ON T1.id = T2.train_id UNION ALL SELECT T1.direction FROM trains AS T1 INNER JOIN ( SELECT train_id, MAX(position) AS trailPosi FROM cars t GROUP BY train_id ) AS T2 ON T1.id = T2.train_id AND T2.trailPosi >= 4",
+    "question_id": null,
+    "question": "What is the percentage of all the trains with at least 4 cars? List the directions of the said trains.",
+    "difficulty": "",
+    "evidence": "at least 4 cars refers to trailPosi > = 4; calculation = MULTIPLY(DIVIDE(count(trailPosi > = 4 then id), count(id)), 100)"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.load_shape FROM ( SELECT load_shape, train_id FROM cars WHERE position = 1 ORDER BY train_id DESC ) AS T3 UNION ALL SELECT T4.load_shape FROM ( SELECT load_shape, train_id FROM cars WHERE position = 1 ORDER BY train_id DESC LIMIT 1 ) AS T4 UNION ALL SELECT (CAST(COUNT(DISTINCT CASE WHEN T2.direction = 'east' THEN T2.id ELSE NULL END) AS REAL) * 100 / COUNT(DISTINCT T2.id)) FROM cars AS T1 INNER JOIN trains AS T2 ON T1.train_id = T2.id WHERE T1.position = 1 AND T1.load_shape = ( SELECT T4.load_shape FROM ( SELECT load_shape, train_id FROM cars AS T WHERE position = 1 ORDER BY train_id DESC LIMIT 1 ) AS T4 )",
+    "question_id": null,
+    "question": "List all the load shapes of all head cars of each train and identify which load shape has the highest number. Calculate the percentage of the trains with the said head car that are running eas",
+    "difficulty": "",
+    "evidence": "which load shape has the highest number refers to MAX(load_shape); head car refers to position = 1; east is a direction; calculation = MULTIPLY(DIVIDE(count(direction = 'east' where MAX(load_shape) where position = 1 then id), count(id)), 100)"
+  }
+]

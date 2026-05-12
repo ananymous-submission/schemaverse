@@ -1,0 +1,1114 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "incidentsWithHandgun": {
+          "source_table": "incidents",
+          "column_map": {
+            "incidentId": "case_number",
+            "incidentDate": "date",
+            "incidentLocation": "location",
+            "subjectInjuryStatuses": "subject_statuses",
+            "subjectWeaponType": "subject_weapon",
+            "involvedSubjects": "subjects",
+            "involvedSubjectCount": "subject_count",
+            "respondingOfficers": "officers"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"subject_weapon\" = 'Handgun' OR (rowid IN (7,44,47,53,63,67,97,110,120,125,145,177,188,201)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "incidents_part2",
+          "row_partition_peers": [
+            "incidents_part2",
+            "incidents_part3",
+            "incidentsHandsKnifeOrOther"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "incidentsHandsKnifeOrOther": {
+          "source_table": "incidents",
+          "column_map": {
+            "incidentId": "case_number",
+            "incidentDate": "date",
+            "incidentLocation": "location",
+            "subjectInjuryStatuses": "subject_statuses",
+            "subjectWeaponType": "subject_weapon",
+            "involvedSubjects": "subjects",
+            "involvedSubjectCount": "subject_count",
+            "respondingOfficers": "officers"
+          },
+          "projected_columns": null,
+          "row_predicate": "(((\"subject_weapon\" = 'Hands' OR \"subject_weapon\" = 'Knife') OR (\"subject_weapon\" IS NULL OR \"subject_weapon\" NOT IN ('Handgun', 'Vehicle', 'Unarmed', 'Hands', 'Knife', 'Shotgun', 'Assault Rifle', 'Rifle', 'BB Rifle'))) OR (rowid IN (11,17,30,36,43,56,93,95,102,114,118,129,130,136,150,157,173,175,184,196,204)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "incidentsWithHandgun",
+          "row_partition_peers": [
+            "incidentsWithHandgun",
+            "incidents_part2",
+            "incidents_part3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "incidents": "incidents_part1"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "incident_officer": {
+          "source_table": "officers",
+          "column_map": {
+            "case_reference": "case_number",
+            "race_category": "race",
+            "gender_identity": "gender",
+            "surname": "last_name",
+            "given_name": "first_name",
+            "display_name": "full_name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "IncidentSubjects": {
+          "source_table": "subjects",
+          "column_map": {
+            "CaseNumber": "case_number",
+            "Race": "race",
+            "Gender": "gender",
+            "LastName": "last_name",
+            "FirstName": "first_name",
+            "FullName": "full_name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "VehicleInvolvedIncidents": {
+          "source_table": "incidents",
+          "column_map": {
+            "CaseNumber": "case_number",
+            "IncidentDate": "date",
+            "IncidentLocation": "location",
+            "SubjectStatuses": "subject_statuses",
+            "SubjectWeapon": "subject_weapon",
+            "SubjectsList": "subjects",
+            "SubjectCount": "subject_count",
+            "OfficerList": "officers"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"subject_weapon\" = 'Vehicle' OR (rowid IN (3,9,12,13,16,28,37,41,55,61,68,76,77,79,80,88,101,106,131,134,138,140,147,148,154,155,156,160,161,166,172,174,185,186,190,192,205,206,215,216)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "UnarmedAndFirearmIncidents",
+          "row_partition_peers": [
+            "UnarmedAndFirearmIncidents",
+            "incidents_part4",
+            "incidents_part1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "UnarmedAndFirearmIncidents": {
+          "source_table": "incidents",
+          "column_map": {
+            "CaseNumber": "case_number",
+            "IncidentDate": "date",
+            "IncidentLocation": "location",
+            "SubjectStatuses": "subject_statuses",
+            "SubjectWeapon": "subject_weapon",
+            "SubjectsList": "subjects",
+            "SubjectCount": "subject_count",
+            "OfficerList": "officers"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"subject_weapon\" = 'Unarmed' OR (\"subject_weapon\" = 'Shotgun' OR ((\"subject_weapon\" = 'Assault Rifle' OR \"subject_weapon\" = 'BB Rifle') OR \"subject_weapon\" = 'Rifle'))) OR (rowid IN (15,22,24,33,45,49,65,96,99,144,146,170,180,200)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "incidents_part4",
+          "row_partition_peers": [
+            "incidents_part4",
+            "incidents_part1",
+            "VehicleInvolvedIncidents"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "incidents_part1": "incidentsWithHandgun",
+        "incidents_part4": "incidentsHandsKnifeOrOther"
+      },
+      "column_renames": {
+        "incidents_part1": {
+          "case_number": "incidentId",
+          "date": "incidentDate",
+          "location": "incidentLocation",
+          "subject_statuses": "subjectInjuryStatuses",
+          "subject_weapon": "subjectWeaponType",
+          "subjects": "involvedSubjects",
+          "subject_count": "involvedSubjectCount",
+          "officers": "respondingOfficers"
+        },
+        "incidents_part4": {
+          "case_number": "incidentId",
+          "date": "incidentDate",
+          "location": "incidentLocation",
+          "subject_statuses": "subjectInjuryStatuses",
+          "subject_weapon": "subjectWeaponType",
+          "subjects": "involvedSubjects",
+          "subject_count": "involvedSubjectCount",
+          "officers": "respondingOfficers"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "officers": "incident_officer"
+      },
+      "column_renames": {
+        "officers": {
+          "case_number": "case_reference",
+          "race": "race_category",
+          "gender": "gender_identity",
+          "last_name": "surname",
+          "first_name": "given_name",
+          "full_name": "display_name"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_3": {
+      "table_renames": {
+        "subjects": "IncidentSubjects",
+        "incidents_part2": "VehicleInvolvedIncidents",
+        "incidents_part3": "UnarmedAndFirearmIncidents"
+      },
+      "column_renames": {
+        "subjects": {
+          "case_number": "CaseNumber",
+          "race": "Race",
+          "gender": "Gender",
+          "last_name": "LastName",
+          "first_name": "FirstName",
+          "full_name": "FullName"
+        },
+        "incidents_part2": {
+          "case_number": "CaseNumber",
+          "date": "IncidentDate",
+          "location": "IncidentLocation",
+          "subject_statuses": "SubjectStatuses",
+          "subject_weapon": "SubjectWeapon",
+          "subjects": "SubjectsList",
+          "subject_count": "SubjectCount",
+          "officers": "OfficerList"
+        },
+        "incidents_part3": {
+          "case_number": "CaseNumber",
+          "date": "IncidentDate",
+          "location": "IncidentLocation",
+          "subject_statuses": "SubjectStatuses",
+          "subject_weapon": "SubjectWeapon",
+          "subjects": "SubjectsList",
+          "subject_count": "SubjectCount",
+          "officers": "OfficerList"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    }
+  },
+  "vertical_split_map": {},
+  "split_map": {},
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 3,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "incidents"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/shooting/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "incidents",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "incidents": {
+      "source_table": "incidents",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "incidentsWithHandgun",
+        "VehicleInvolvedIncidents",
+        "UnarmedAndFirearmIncidents",
+        "incidentsHandsKnifeOrOther"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_3",
+        "local_3",
+        "local_1"
+      ],
+      "predicate_column": "subject_weapon",
+      "partition_values": [
+        {
+          "value": "Handgun",
+          "includes_null": false
+        },
+        {
+          "value": "Vehicle",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Unarmed",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "Shotgun",
+                  "includes_null": false
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "merged_buckets": [
+                        {
+                          "value": "Assault Rifle",
+                          "includes_null": false
+                        },
+                        {
+                          "value": "BB Rifle",
+                          "includes_null": false
+                        }
+                      ]
+                    },
+                    {
+                      "value": "Rifle",
+                      "includes_null": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "merged_buckets": [
+                {
+                  "value": "Hands",
+                  "includes_null": false
+                },
+                {
+                  "value": "Knife",
+                  "includes_null": false
+                }
+              ]
+            },
+            {
+              "value": "__OTHER__",
+              "includes_null": true,
+              "excluded_values": [
+                "Handgun",
+                "Vehicle",
+                "Unarmed",
+                "Hands",
+                "Knife",
+                "Shotgun",
+                "Assault Rifle",
+                "Rifle",
+                "BB Rifle"
+              ]
+            }
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"subject_weapon\" = 'Handgun' OR (rowid IN (7,44,47,53,63,67,97,110,120,125,145,177,188,201)))",
+        "(\"subject_weapon\" = 'Vehicle' OR (rowid IN (3,9,12,13,16,28,37,41,55,61,68,76,77,79,80,88,101,106,131,134,138,140,147,148,154,155,156,160,161,166,172,174,185,186,190,192,205,206,215,216)))",
+        "((\"subject_weapon\" = 'Unarmed' OR (\"subject_weapon\" = 'Shotgun' OR ((\"subject_weapon\" = 'Assault Rifle' OR \"subject_weapon\" = 'BB Rifle') OR \"subject_weapon\" = 'Rifle'))) OR (rowid IN (15,22,24,33,45,49,65,96,99,144,146,170,180,200)))",
+        "(((\"subject_weapon\" = 'Hands' OR \"subject_weapon\" = 'Knife') OR (\"subject_weapon\" IS NULL OR \"subject_weapon\" NOT IN ('Handgun', 'Vehicle', 'Unarmed', 'Hands', 'Knife', 'Shotgun', 'Assault Rifle', 'Rifle', 'BB Rifle'))) OR (rowid IN (11,17,30,36,43,56,93,95,102,114,118,129,130,136,150,157,173,175,184,196,204)))"
+      ],
+      "base_predicate_sqls": [
+        "\"subject_weapon\" = 'Handgun'",
+        "\"subject_weapon\" = 'Vehicle'",
+        "(\"subject_weapon\" = 'Unarmed' OR (\"subject_weapon\" = 'Shotgun' OR ((\"subject_weapon\" = 'Assault Rifle' OR \"subject_weapon\" = 'BB Rifle') OR \"subject_weapon\" = 'Rifle')))",
+        "((\"subject_weapon\" = 'Hands' OR \"subject_weapon\" = 'Knife') OR (\"subject_weapon\" IS NULL OR \"subject_weapon\" NOT IN ('Handgun', 'Vehicle', 'Unarmed', 'Hands', 'Knife', 'Shotgun', 'Assault Rifle', 'Rifle', 'BB Rifle')))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where subject_weapon = Handgun",
+        "rows where subject_weapon = Vehicle",
+        "rows where subject_weapon = Unarmed + rows where subject_weapon = Shotgun + rows where subject_weapon = Assault Rifle + rows where subject_weapon = BB Rifle + rows where subject_weapon = Rifle",
+        "rows where subject_weapon = Hands + rows where subject_weapon = Knife + rows where subject_weapon is NULL or not in {'Handgun', 'Vehicle', 'Unarmed', 'Hands', 'Knife', 'Shotgun', 'Assault Rifle', 'Rifle', 'BB Rifle'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "incidentsWithHandgun",
+      "movable_fragments": [
+        "VehicleInvolvedIncidents",
+        "UnarmedAndFirearmIncidents",
+        "incidentsHandsKnifeOrOther"
+      ],
+      "movable_fragment": "VehicleInvolvedIncidents",
+      "default_movable_fragment": "VehicleInvolvedIncidents",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "subject_weapon",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "subject_statuses",
+          "subject_weapon"
+        ],
+        "ranked_columns": [
+          {
+            "column": "subject_weapon",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "subject_statuses",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "pandas_g3",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"subject_weapon\" = 'Handgun' OR (rowid IN (7,44,47,53,63,67,97,110,120,125,145,177,188,201)))",
+      "predicate_sql_fragment_B": "(\"subject_weapon\" = 'Vehicle' OR (rowid IN (3,9,12,13,16,28,37,41,55,61,68,76,77,79,80,88,101,106,131,134,138,140,147,148,154,155,156,160,161,166,172,174,185,186,190,192,205,206,215,216)))",
+      "fragment_role_A": "rows where subject_weapon = Handgun",
+      "fragment_role_B": "rows where subject_weapon = Vehicle"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "officers",
+          "from_column": "case_number",
+          "to_table": "incidents",
+          "to_column": "case_number",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "officers",
+            "column_map": {
+              "case_number": "case_number",
+              "race": "race",
+              "gender": "gender",
+              "last_name": "last_name",
+              "first_name": "first_name",
+              "full_name": "full_name"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "race": "race",
+              "gender": "gender",
+              "last_name": "last_name",
+              "first_name": "first_name",
+              "full_name": "full_name"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "incidents_part1",
+            "column_map": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "incidents_part4",
+            "column_map": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "incidents_part2",
+            "column_map": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "incidents_part3",
+            "column_map": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "incident_officer",
+            "to_local_table": "incidentsWithHandgun",
+            "from_local_column": "case_reference",
+            "to_local_column": "incidentId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "incident_officer",
+            "to_local_table": "incidentsHandsKnifeOrOther",
+            "from_local_column": "case_reference",
+            "to_local_column": "incidentId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "incident_officer",
+            "to_local_table": "VehicleInvolvedIncidents",
+            "from_local_column": "case_reference",
+            "to_local_column": "CaseNumber"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "incident_officer",
+            "to_local_table": "UnarmedAndFirearmIncidents",
+            "from_local_column": "case_reference",
+            "to_local_column": "CaseNumber"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "subjects",
+          "from_column": "case_number",
+          "to_table": "incidents",
+          "to_column": "case_number",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "subjects",
+            "column_map": {
+              "case_number": "case_number",
+              "race": "race",
+              "gender": "gender",
+              "last_name": "last_name",
+              "first_name": "first_name",
+              "full_name": "full_name"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "race": "race",
+              "gender": "gender",
+              "last_name": "last_name",
+              "first_name": "first_name",
+              "full_name": "full_name"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "incidents_part1",
+            "column_map": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "incidents_part4",
+            "column_map": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "incidents_part2",
+            "column_map": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "incidents_part3",
+            "column_map": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            },
+            "orig_to_local": {
+              "case_number": "case_number",
+              "date": "date",
+              "location": "location",
+              "subject_statuses": "subject_statuses",
+              "subject_weapon": "subject_weapon",
+              "subjects": "subjects",
+              "subject_count": "subject_count",
+              "officers": "officers"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "IncidentSubjects",
+            "to_local_table": "UnarmedAndFirearmIncidents",
+            "from_local_column": "CaseNumber",
+            "to_local_column": "CaseNumber"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "IncidentSubjects",
+            "to_local_table": "VehicleInvolvedIncidents",
+            "from_local_column": "CaseNumber",
+            "to_local_column": "CaseNumber"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "IncidentSubjects",
+            "to_local_table": "incidentsWithHandgun",
+            "from_local_column": "CaseNumber",
+            "to_local_column": "incidentId"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "IncidentSubjects",
+            "to_local_table": "incidentsHandsKnifeOrOther",
+            "from_local_column": "CaseNumber",
+            "to_local_column": "incidentId"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "incidents_part2",
+      "source_table": "incidents",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "subjects",
+        "partner_logical_table": "subjects",
+        "partner_weight": 8,
+        "cross_local_query_count": 8,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "incidents_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "incidents_part3",
+      "source_table": "incidents",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "subjects",
+        "partner_logical_table": "subjects",
+        "partner_weight": 8,
+        "cross_local_query_count": 8,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "incidents_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "incidents_part1|officers": 7,
+      "incidents_part1|subjects": 8,
+      "incidents_part2|officers": 7,
+      "incidents_part2|subjects": 8,
+      "incidents_part3|officers": 7,
+      "incidents_part3|subjects": 8,
+      "incidents_part4|officers": 7,
+      "incidents_part4|subjects": 8,
+      "officers|subjects": 1
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "incidents_part1": "local_1",
+      "incidents_part2": "local_1",
+      "incidents_part3": "local_1",
+      "incidents_part4": "local_1",
+      "officers": "local_2",
+      "subjects": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {
+      "incidents": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "incidents": "incidents_part1"
+    },
+    "intents": [
+      {
+        "source_table": "incidents",
+        "kind": "row_partition",
+        "movable_fragment": "incidents_part2",
+        "partner_fragment": "subjects",
+        "partner_logical_table": "subjects",
+        "partner_weight": 8,
+        "cross_local_query_count": 8,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "incidents_part1"
+      },
+      {
+        "source_table": "incidents",
+        "kind": "row_partition",
+        "movable_fragment": "incidents_part3",
+        "partner_fragment": "subjects",
+        "partner_logical_table": "subjects",
+        "partner_weight": 8,
+        "cross_local_query_count": 8,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "incidents_part1"
+      }
+    ],
+    "moved_fragments": [
+      "incidents_part2",
+      "incidents_part3"
+    ],
+    "pinned_fragments": [
+      "incidents_part1",
+      "subjects"
+    ],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "incidents": {
+        "columns": [
+          {
+            "name": "case_number",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "date",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "location",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "subject_statuses",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "subject_weapon",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "subjects",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "subject_count",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "officers",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "case_number"
+        ],
+        "pk_origin": "declared",
+        "row_count": 219
+      },
+      "officers": {
+        "columns": [
+          {
+            "name": "case_number",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "race",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "gender",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "last_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "first_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "full_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 370
+      },
+      "subjects": {
+        "columns": [
+          {
+            "name": "case_number",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "race",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "gender",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "last_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "first_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "full_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 223
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "officers",
+        "from_column": "case_number",
+        "to_table": "incidents",
+        "to_column": "case_number",
+        "origin": "declared"
+      },
+      {
+        "from_table": "subjects",
+        "from_column": "case_number",
+        "to_table": "incidents",
+        "to_column": "case_number",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 3,
+      "num_fk_edges": 2,
+      "hub_tables": [
+        "incidents",
+        "officers",
+        "subjects"
+      ],
+      "connected_components": 1
+    }
+  }
+}

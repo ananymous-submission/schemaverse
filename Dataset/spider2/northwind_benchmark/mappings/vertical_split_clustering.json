@@ -1,0 +1,1117 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 15,
+    "eligible_candidate_count": 13,
+    "num_selected_for_vertical_split": 12,
+    "num_from_rate_alone": 12,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 5,
+    "selected_original_tables": [
+      "employees",
+      "orders",
+      "suppliers",
+      "customers",
+      "products",
+      "order_details",
+      "categories",
+      "usstates",
+      "customergroupthreshold",
+      "shippers",
+      "territories",
+      "employeeterritories"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/northwind/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "order_details",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "categories",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "usstates",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "customergroupthreshold",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "shippers",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "territories",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "employeeterritories",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "customers": {
+      "pk_columns": [
+        "address"
+      ],
+      "fragments": [
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "local_table": "CityCustomersOwnerTitle",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_city",
+          "row_partition_names": [
+            "CityCustomersOwnerTitle",
+            "CityCustomersSalesRepresentativeTitle",
+            "CityCustomersMarketingManagerTitle",
+            "CityCustomersSalesManagerTitle",
+            "CityCustomersAccountingManagerTitle",
+            "CityCustomersSalesCatchAll",
+            "CityCustomersMarketingAssistantOrSalesAgent"
+          ],
+          "row_partition_predicate_column": "contacttitle"
+        },
+        {
+          "suffix": "city_2",
+          "non_pk_columns": [
+            "city",
+            "companyname",
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode",
+            "region"
+          ],
+          "local_table": "CityCustomerCompact",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_city_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.02792759299948202
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02792759299948202,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "region"
+          ],
+          [
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "companyname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          [
+            "city",
+            "companyname",
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode",
+            "region"
+          ]
+        ],
+        "pk_columns": [
+          "address"
+        ],
+        "fragments": [
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "city",
+              "companyname",
+              "contactname",
+              "contacttitle",
+              "country",
+              "phone",
+              "region"
+            ]
+          },
+          {
+            "suffix": "city_2",
+            "non_pk_columns": [
+              "city",
+              "companyname",
+              "customerid",
+              "fax",
+              "phone",
+              "postalcode",
+              "region"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "city",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "city_2"
+        },
+        {
+          "column": "region",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "city_2"
+        },
+        {
+          "column": "companyname",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "city_2"
+        },
+        {
+          "column": "phone",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city_2",
+          "also_in_fragment_suffix": "city"
+        }
+      ]
+    },
+    "employees": {
+      "pk_columns": [
+        "postalcode"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          "local_table": "EmployeeAddresses",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_address"
+        },
+        {
+          "suffix": "birthdate",
+          "non_pk_columns": [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          "local_table": "EmployeeBirthAndHire",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_birthdate"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "photo",
+            "photopath",
+            "region",
+            "reportsto",
+            "title",
+            "titleofcourtesy"
+          ],
+          "local_table": "EmployeeAddressesWithPhoto",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_address_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "employees",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 17,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.012507479964058833,
+          "3": 0.0046008208575015795,
+          "4": 0.01795286072459659,
+          "5": 0.014808876298589605
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.01795286072459659,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          [
+            "photo",
+            "photopath",
+            "title",
+            "titleofcourtesy"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "employeeid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "reportsto",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "extension",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "country",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "photo",
+            "photopath",
+            "region",
+            "reportsto",
+            "title",
+            "titleofcourtesy"
+          ]
+        ],
+        "pk_columns": [
+          "postalcode"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "country",
+              "employeeid",
+              "extension",
+              "firstname",
+              "homephone",
+              "lastname",
+              "region",
+              "reportsto"
+            ]
+          },
+          {
+            "suffix": "birthdate",
+            "non_pk_columns": [
+              "birthdate",
+              "hiredate",
+              "notes"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "country",
+              "employeeid",
+              "extension",
+              "photo",
+              "photopath",
+              "region",
+              "reportsto",
+              "title",
+              "titleofcourtesy"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "employeeid",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "reportsto",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "extension",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "address",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "region",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "city",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "country",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        }
+      ]
+    },
+    "orders": {
+      "pk_columns": [
+        "orderid"
+      ],
+      "fragments": [
+        {
+          "suffix": "customerid",
+          "non_pk_columns": [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          "local_table": "OrdersForNamedCustomerSet",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_customerid",
+          "row_partition_names": [
+            "OrdersForNamedCustomerSet",
+            "OrdersForOtherCustomers"
+          ],
+          "row_partition_predicate_column": "customerid"
+        },
+        {
+          "suffix": "orderdate",
+          "non_pk_columns": [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          "local_table": "OrderDates",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_orderdate"
+        },
+        {
+          "suffix": "customerid_2",
+          "non_pk_columns": [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipaddress",
+            "shipcity",
+            "shipcountry",
+            "shipname",
+            "shippostalcode",
+            "shipregion"
+          ],
+          "local_table": "OrdersShippingInfo",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_customerid_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 13,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.059564409537500494,
+          "3": 0.06223281480440092,
+          "4": 0.06223281480440092
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.06223281480440092,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          [
+            "shipaddress",
+            "shipcountry",
+            "shipname"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "shipregion",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "shipcity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "freight",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "employeeid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "customerid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "shippostalcode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipaddress",
+            "shipcity",
+            "shipcountry",
+            "shipname",
+            "shippostalcode",
+            "shipregion"
+          ]
+        ],
+        "pk_columns": [
+          "orderid"
+        ],
+        "fragments": [
+          {
+            "suffix": "customerid",
+            "non_pk_columns": [
+              "customerid",
+              "employeeid",
+              "freight",
+              "shipcity",
+              "shippostalcode",
+              "shipregion",
+              "shipvia"
+            ]
+          },
+          {
+            "suffix": "orderdate",
+            "non_pk_columns": [
+              "orderdate",
+              "requireddate",
+              "shippeddate"
+            ]
+          },
+          {
+            "suffix": "customerid_2",
+            "non_pk_columns": [
+              "customerid",
+              "employeeid",
+              "freight",
+              "shipaddress",
+              "shipcity",
+              "shipcountry",
+              "shipname",
+              "shippostalcode",
+              "shipregion"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "shipregion",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "customerid",
+          "also_in_fragment_suffix": "customerid_2"
+        },
+        {
+          "column": "shipcity",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "customerid",
+          "also_in_fragment_suffix": "customerid_2"
+        },
+        {
+          "column": "freight",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "customerid",
+          "also_in_fragment_suffix": "customerid_2"
+        },
+        {
+          "column": "employeeid",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "customerid",
+          "also_in_fragment_suffix": "customerid_2"
+        },
+        {
+          "column": "customerid",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "customerid",
+          "also_in_fragment_suffix": "customerid_2"
+        },
+        {
+          "column": "shippostalcode",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "customerid",
+          "also_in_fragment_suffix": "customerid_2"
+        }
+      ]
+    },
+    "products": {
+      "pk_columns": [
+        "productid"
+      ],
+      "fragments": [
+        {
+          "suffix": "categoryid",
+          "non_pk_columns": [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          "local_table": "ProductsSupplierLowestQuartile",
+          "local_name": "local_1",
+          "vertical_fragment_base": "products_categoryid",
+          "row_partition_names": [
+            "ProductsSupplierLowestQuartile",
+            "ProductsSupplierSecondQuartile",
+            "ProductsSupplierThirdQuartile",
+            "ProductsSupplierHighestQuartile"
+          ],
+          "row_partition_predicate_column": "supplierid"
+        },
+        {
+          "suffix": "discontinued",
+          "non_pk_columns": [
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "reorderlevel",
+            "unitprice",
+            "unitsinstock",
+            "unitsonorder"
+          ],
+          "local_table": "ProductInventoryStatus",
+          "local_name": "local_1",
+          "vertical_fragment_base": "products_discontinued"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "products",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.04442152750887599,
+          "3": 0.04442152750887599
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.04442152750887599,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          [
+            "reorderlevel",
+            "unitsinstock",
+            "unitsonorder"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "discontinued",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "quantityperunit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "productname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "unitprice",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          [
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "reorderlevel",
+            "unitprice",
+            "unitsinstock",
+            "unitsonorder"
+          ]
+        ],
+        "pk_columns": [
+          "productid"
+        ],
+        "fragments": [
+          {
+            "suffix": "categoryid",
+            "non_pk_columns": [
+              "categoryid",
+              "discontinued",
+              "productname",
+              "quantityperunit",
+              "supplierid",
+              "unitprice"
+            ]
+          },
+          {
+            "suffix": "discontinued",
+            "non_pk_columns": [
+              "discontinued",
+              "productname",
+              "quantityperunit",
+              "reorderlevel",
+              "unitprice",
+              "unitsinstock",
+              "unitsonorder"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "discontinued",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "categoryid",
+          "also_in_fragment_suffix": "discontinued"
+        },
+        {
+          "column": "quantityperunit",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "categoryid",
+          "also_in_fragment_suffix": "discontinued"
+        },
+        {
+          "column": "productname",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "categoryid",
+          "also_in_fragment_suffix": "discontinued"
+        },
+        {
+          "column": "unitprice",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "categoryid",
+          "also_in_fragment_suffix": "discontinued"
+        }
+      ]
+    },
+    "suppliers": {
+      "pk_columns": [
+        "postalcode"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "country",
+            "homepage",
+            "region",
+            "supplierid"
+          ],
+          "local_table": "suppl_addr_view",
+          "local_name": "local_3",
+          "vertical_fragment_base": "suppliers_address"
+        },
+        {
+          "suffix": "companyname",
+          "non_pk_columns": [
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone",
+            "region",
+            "supplierid"
+          ],
+          "local_table": "suppl_profile_comp",
+          "local_name": "local_3",
+          "vertical_fragment_base": "suppliers_companyname"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "suppliers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.02127624642812896,
+          "3": 0.020609490474530843
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02127624642812896,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "companyname",
+            "country",
+            "region",
+            "supplierid"
+          ],
+          [
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "supplierid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "homepage",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "companyname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "contactname",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "country",
+            "homepage",
+            "region",
+            "supplierid"
+          ],
+          [
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone",
+            "region",
+            "supplierid"
+          ]
+        ],
+        "pk_columns": [
+          "postalcode"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "companyname",
+              "contactname",
+              "country",
+              "homepage",
+              "region",
+              "supplierid"
+            ]
+          },
+          {
+            "suffix": "companyname",
+            "non_pk_columns": [
+              "companyname",
+              "contactname",
+              "contacttitle",
+              "fax",
+              "homepage",
+              "phone",
+              "region",
+              "supplierid"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "supplierid",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "companyname"
+        },
+        {
+          "column": "homepage",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "companyname",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "companyname",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "companyname"
+        },
+        {
+          "column": "contactname",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "companyname",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "region",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "companyname"
+        }
+      ]
+    }
+  }
+}

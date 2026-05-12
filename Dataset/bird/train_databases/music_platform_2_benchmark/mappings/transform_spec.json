@@ -1,0 +1,505 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "PodcastSeries": {
+          "source_table": "podcasts",
+          "column_map": {
+            "SeriesId": "podcast_id",
+            "ItunesIdentifier": "itunes_id",
+            "UrlSlug": "slug",
+            "ItunesLink": "itunes_url",
+            "SeriesTitle": "title"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "PodcastReview": {
+          "source_table": "reviews",
+          "column_map": {
+            "SeriesId": "podcast_id",
+            "ReviewTitle": "title",
+            "ReviewContent": "content",
+            "RatingScore": "rating",
+            "ReviewerId": "author_id",
+            "SubmittedAt": "created_at"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "batch_executions": {
+          "source_table": "runs",
+          "column_map": {
+            "executed_at": "run_at",
+            "highest_record_id": "max_rowid",
+            "inserted_reviews_count": "reviews_added"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "pod_cat_map": {
+          "source_table": "categories",
+          "column_map": {
+            "pod_id": "podcast_id",
+            "cat_tag": "category"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "podcasts": "PodcastSeries",
+        "reviews": "PodcastReview"
+      },
+      "column_renames": {
+        "podcasts": {
+          "podcast_id": "SeriesId",
+          "itunes_id": "ItunesIdentifier",
+          "slug": "UrlSlug",
+          "itunes_url": "ItunesLink",
+          "title": "SeriesTitle"
+        },
+        "reviews": {
+          "podcast_id": "SeriesId",
+          "title": "ReviewTitle",
+          "content": "ReviewContent",
+          "rating": "RatingScore",
+          "author_id": "ReviewerId",
+          "created_at": "SubmittedAt"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "runs": "batch_executions"
+      },
+      "column_renames": {
+        "runs": {
+          "run_at": "executed_at",
+          "max_rowid": "highest_record_id",
+          "reviews_added": "inserted_reviews_count"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_3": {
+      "table_renames": {
+        "categories": "pod_cat_map"
+      },
+      "column_renames": {
+        "categories": {
+          "podcast_id": "pod_id",
+          "category": "cat_tag"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    }
+  },
+  "vertical_split_map": {},
+  "split_map": {},
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 4,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 3,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "podcasts"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/music_platform_2/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "podcasts",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {},
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "reviews",
+          "from_column": "podcast_id",
+          "to_table": "podcasts",
+          "to_column": null,
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "reviews",
+            "column_map": {
+              "podcast_id": "podcast_id",
+              "title": "title",
+              "content": "content",
+              "rating": "rating",
+              "author_id": "author_id",
+              "created_at": "created_at"
+            },
+            "orig_to_local": {
+              "podcast_id": "podcast_id",
+              "title": "title",
+              "content": "content",
+              "rating": "rating",
+              "author_id": "author_id",
+              "created_at": "created_at"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "podcasts",
+            "column_map": {
+              "podcast_id": "podcast_id",
+              "itunes_id": "itunes_id",
+              "slug": "slug",
+              "itunes_url": "itunes_url",
+              "title": "title"
+            },
+            "orig_to_local": {
+              "podcast_id": "podcast_id",
+              "itunes_id": "itunes_id",
+              "slug": "slug",
+              "itunes_url": "itunes_url",
+              "title": "title"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "categories",
+          "from_column": "podcast_id",
+          "to_table": "podcasts",
+          "to_column": null,
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "categories",
+            "column_map": {
+              "podcast_id": "podcast_id",
+              "category": "category"
+            },
+            "orig_to_local": {
+              "podcast_id": "podcast_id",
+              "category": "category"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "podcasts",
+            "column_map": {
+              "podcast_id": "podcast_id",
+              "itunes_id": "itunes_id",
+              "slug": "slug",
+              "itunes_url": "itunes_url",
+              "title": "title"
+            },
+            "orig_to_local": {
+              "podcast_id": "podcast_id",
+              "itunes_id": "itunes_id",
+              "slug": "slug",
+              "itunes_url": "itunes_url",
+              "title": "title"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "categories|podcasts": 19,
+      "categories|reviews": 17
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "categories": "local_3",
+      "podcasts": "local_1",
+      "reviews": "local_1",
+      "runs": "local_2"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "runs": {
+        "columns": [
+          {
+            "name": "run_at",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "max_rowid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "reviews_added",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 12
+      },
+      "podcasts": {
+        "columns": [
+          {
+            "name": "podcast_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "itunes_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "slug",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "itunes_url",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "title",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "podcast_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 108578
+      },
+      "reviews": {
+        "columns": [
+          {
+            "name": "podcast_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "title",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "content",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "rating",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "author_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "created_at",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 1964856
+      },
+      "categories": {
+        "columns": [
+          {
+            "name": "podcast_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "category",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "podcast_id",
+          "category"
+        ],
+        "pk_origin": "declared",
+        "row_count": 210329
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "reviews",
+        "from_column": "podcast_id",
+        "to_table": "podcasts",
+        "to_column": null,
+        "origin": "declared"
+      },
+      {
+        "from_table": "categories",
+        "from_column": "podcast_id",
+        "to_table": "podcasts",
+        "to_column": null,
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 4,
+      "num_fk_edges": 2,
+      "hub_tables": [
+        "podcasts",
+        "reviews",
+        "categories"
+      ],
+      "connected_components": 2
+    }
+  }
+}

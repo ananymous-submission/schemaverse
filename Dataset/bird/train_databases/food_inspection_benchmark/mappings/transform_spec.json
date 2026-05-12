@@ -1,0 +1,1937 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "businessLocationRecord": {
+          "source_table": "businesses",
+          "column_map": {
+            "businessId": "business_id",
+            "streetAddress": "address",
+            "applicationDate": "application_date",
+            "certificateNumber": "business_certificate",
+            "cityName": "city",
+            "latitudeCoordinate": "latitude",
+            "longitudeCoordinate": "longitude",
+            "businessName": "name",
+            "ownerFullName": "owner_name",
+            "ownerStateCode": "owner_state",
+            "contactPhoneNumber": "phone_number"
+          },
+          "projected_columns": [
+            "business_id",
+            "address",
+            "application_date",
+            "business_certificate",
+            "city",
+            "latitude",
+            "longitude",
+            "name",
+            "owner_name",
+            "owner_state",
+            "phone_number"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "businesses_address",
+            "businessOwnerPostalInfo"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "businesses_address",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "address_2"
+        },
+        "businessOwnerPostalInfo": {
+          "source_table": "businesses",
+          "column_map": {
+            "businessId": "business_id",
+            "ownerPostalCode": "owner_zip",
+            "businessPostalCode": "postal_code",
+            "taxIdentifier": "tax_code"
+          },
+          "projected_columns": [
+            "business_id",
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "businesses_address",
+            "businessLocationRecord"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "businesses_address",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "owner_zip"
+        }
+      },
+      "table_rename_map": {
+        "businesses": "businesses_address_2"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "biz_inspect": {
+          "source_table": "inspections",
+          "column_map": {
+            "biz_id": "business_id",
+            "insp_score": "score",
+            "insp_dt": "date",
+            "insp_type": "type"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "inspection_violations": {
+          "source_table": "violations",
+          "column_map": {
+            "establishment_id": "business_id",
+            "violation_date": "date",
+            "violation_type_code": "violation_type_id",
+            "risk_level": "risk_category",
+            "violation_description": "description"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "establishments_address_until_2008_01_15": {
+          "source_table": "businesses",
+          "column_map": {
+            "establishment_id": "business_id",
+            "street_address": "address",
+            "application_received_date": "application_date",
+            "city_name": "city",
+            "establishment_name": "name",
+            "proprietor_address": "owner_address",
+            "proprietor_city": "owner_city",
+            "proprietor_name": "owner_name",
+            "proprietor_state": "owner_state"
+          },
+          "projected_columns": [
+            "business_id",
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          "row_predicate": "((\"application_date\" IS NOT NULL AND \"application_date\" <= '2008-01-15') OR (rowid IN (31,56,58,66,70,77,101,108,121,126,132,140,184,221,234,239,258,272,273,275,279,320,337,429,430,431,448,462,468,494,510,522,588,591,610,615,639,642,645,741,773,792,798,799,840,843,845,847,852,891,903,917,920,951,968,972,1003,1005,1018,1047,1060,1103,1125,1139,1146,1207,1232,1236,1243,1259,1262,1289,1337,1339,1345,1347,1352,1368,1427,1444,1486,1505,1508,1517,1549,1564,1596,1615,1626,1631,1677,1685,1687,1699,1702,1724,1734,1742,1754,1768,1836,1837,1843,1867,1952,1994,2002,2020,2027,2032,2035,2050,2106,2107,2115,2136,2228,2234,2240,2245,2261,2262,2293,2309,2336,2352,2401,2455,2501,2542,2553,2561,2588,2589,2592,2619,2627,2648,2652,2653,2676,2684,2689,2725,2733,2764,2777,2780,2788,2799,2807,2821,2849,2861,2863,2896,2902,2926,2933,2941,2949,2950,2952,2970,2971,2974,3006,3019,3021,3025,3055,3102,3112,3115,3120,3122,3155,3174,3185,3207,3210,3222,3237,3241,3252,3263,3286,3299,3323,3324,3331,3338,3350,3365,3425,3429,3431,3432,3437,3439,3445,3477,3480,3488,3490,3492,3495,3497,3498,3503,3504,3515,3519,3520,3522,3528,3538,3541,3595,3607,3611,3623,3639,3674,3690,3693,3711,3729,3791,3794,3796,3867,3869,3871,3881,3895,3899,3935,3953,3986,3989,3996,4033,4042,4044,4055,4065,4067,4071,4099,4104,4122,4125,4126,4127,4136,4158,4186,4197,4221,4229,4235,4239,4243,4259,4326,4351,4405,4408,4409,4411,4416,4476,4479,4480,4519,4533,4538,4539,4544,4574,4607,4608,4621,4634,4636,4637,4638,4643,4665,4670,4681,4688,4754,4841,4844,4849,4850,4859,4874,4875,4893,4923,4932,4959,4983,4987,5032,5033,5083,5090,5096,5136,5206,5258,5291,5301,5307,5310,5312,5322,5329,5355,5364,5375,5394,5430,5564,5915,5925,5940,5942,5946,5950,5952,5955,5961,5965,6094,6150,6156,6176,6207,6219,6224,6281,6284,6322,6365,6382,6421,6425,6567,6626,6716,6750,6756,6802,6805,6807,6845,6852,6893,6899,6904,6995,7005,7055,7063,7083,7085,7104,7197,7206,7216,7225,7276,7305,7332,7361,7441,7517,7641,7644,7646,7675,7678,7692,7699,7715,7729,7736,7745,7762,7802,7806,7809,7810,7985,8004,8075,8077,8113,8202,8249,8251,8821,9103,9208,9289,9582,9599,9672,10357,10433,10438,11416,11967,13057,19357,37182,38146,62277,62658,64624,65377,66361,66698,66705,67063,67184,67839,67911,68058,68394,68395,69125,69275,69302,69316,69928,70292,73939,74013,74202,74229,74759,75177,75350,75847,76684,76708,77492,77924,78419,78819,79214,80304,80370,80384,80406,80419,80451,80479,80486,80487,80495,80514,80515,80528,80534,80545,80569,80573,80605,80631,80638,80680,80682,80763,80786,80813,80829,80841,80861,80890,80930,80931,80961,80964,80979,80989,81027,81033,81073,81077,81092,81104,81112,81131,81135,81136,81140,81153,81163,81164,81166,81170,81174,81179,81187,81190,81203,81258,81271,81297,81310,81331,81342,81349,81356,81368,81381,81425,81446,81458,81468,81509,81512,81515,81518,81528,81531,81539,81540,81553,81588,81606,81610,81637,81651,81654,81680,81683,81688,81705,81707,81716,81719,81723,81756,81781,81815,81837,81857,81861,81862,81866,81882,81886,81887,81904,81911,81912,81925,81946,81971,81974,81990,82022,82036,82042,82048,82058,82078,82090,82092,82095,82097,82102,82105,82107,82139,82141,82142,82145,82147,82176,82207,82211,82214,82215,82225,82228,82246,82259,82332,82334,82337,82339,82340,82351,82352,82373,82376,82388,82395,82409,82410,82411,82429,82452,82472,82476,82544,82546,82559,82560,82578,82601,82602,82607,82627,82636,82653,82654,82680,82714,82718,82738,82792,82812,82820,82821,82823,82847,82850,82869,82878,82883,82892,82895,82909,82911,82926,82930,82932,82938,82945,82990,82992,82994,82996,83013,83035,83040,83046,83048,83062,83102,83125,83340,83360,83366,83379,83387,83389,83399,83406,83418,83424,83449,83459,83472,83475,83504,83522,83524,83538,83553,83565,83571,83572,83575,83589,83602,83603,83610,83612,83633,83636,83640,83648,83655,83664,83687,83704,83706,83709,83711,83744,83746,83759,83776,83778,83779,83780,83804,83811,83824,83841,83843,83931,83945,83986,83991,83994,83998,84000,84065,84090,84130,84158,84165,84195,84196,84228,84321,84375,84392,84394,84420,84421,84453,84457,84476,84500,84527,84543,84545,84548,84562,84573,84582,84589,84615,84715,84716,84726,84740,84749,84759,84772,84773,84774,84793,84856,84858,84888,84889,84893,84921,84941,84961,84968,85005,85025,85047,85049,85051,85063,85091,85102,85109,85144,85154,85156,85158,85160,85162,85166,85169,85176,85212,85220,85240,85243,85244,85258,85271,85279,85310,85317,85320,85324,85333,85337,85338,85350,85363) OR rowid IN (85396,85407,85430,85433,85458,85459,85468,85495,85518,85525,85541,85550,85562,85583,85609,85625,85646,85655,85679,85682,85696,85697,85706,85714,85809,85816,85843,85851,85852,85857,85898,85899,85917,85919,85927,85944,85947,85951,85956,85968,85971,85986,86001,86111,86116,86131,86133,86148,86151,86154,86155,86158,86161,86164,86172,86213,86219,86221,86233,86256,86261,86282,86296,86297,86303,86305,86330,86344,86356,86361,86379,86384,86399,86406,86423,86428,86447,86471,86484,86488,86491,86500,86545,86551,86564,86590,86593,86643,86644,86654,86656,86658,86663,86670,86694,86715,86765,86798,86816,86849,86865,86894,86922,86925,86929,86972,86977,86986,86990,86991,86992,86994,86997,87006,87015,87048,87059,87107,87117,87122,87128,87197,87200,87201,87213,87223,87258,87277,87337,87374,87440,87469,87475,87512,87528,87541,87604,87615,87624,87631,87649,87652,87687,87691,87697,87699,87742,87762,87780,87793,87799,87802,87815,87858,87927,87932,87943,88046,88090,88110,88114,88115,88117,88118,88129,88306,88326,88381,88475,88480,88486,88490,88505,88508,88539,88575,88659,88687,88692,88702,88704,88708,88711,88713,88720,88774,88792,88829,88955,89104,89198,89200,89204,89215,89217,89328,89393,89416)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "businesses_address_2",
+            "businesses_owner_zip"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "businesses_address_2",
+          "is_row_partition": true,
+          "row_partition_partner": "establishments_address_2008_01_15_to_2012_07_03",
+          "row_partition_peers": [
+            "establishments_address_2008_01_15_to_2012_07_03",
+            "establishments_address_2012_07_03_to_2014_09_11",
+            "establishments_address_after_2014_09_11_or_null"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "establishments_address_2008_01_15_to_2012_07_03": {
+          "source_table": "businesses",
+          "column_map": {
+            "establishment_id": "business_id",
+            "street_address": "address",
+            "application_received_date": "application_date",
+            "city_name": "city",
+            "establishment_name": "name",
+            "proprietor_address": "owner_address",
+            "proprietor_city": "owner_city",
+            "proprietor_name": "owner_name",
+            "proprietor_state": "owner_state"
+          },
+          "projected_columns": [
+            "business_id",
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          "row_predicate": "((\"application_date\" IS NOT NULL AND \"application_date\" > '2008-01-15' AND \"application_date\" <= '2012-07-03') OR (rowid IN (45,141,194,217,267,283,299,315,384,393,394,502,519,547,567,573,627,631,665,670,687,709,726,758,774,811,821,824,935,949,1031,1065,1122,1135,1186,1199,1235,1282,1318,1323,1389,1452,1454,1482,1490,1520,1527,1529,1595,1617,1649,1652,1668,1671,1672,1673,1726,1791,1797,1811,1874,1896,1927,1930,1968,1977,2007,2016,2047,2051,2057,2063,2109,2124,2131,2135,2143,2144,2173,2189,2193,2226,2263,2318,2420,2454,2519,2544,2579,2580,2599,2622,2645,2706,2709,2737,2743,2778,2785,2818,2854,2871,2957,3032,3073,3082,3095,3114,3224,3272,3275,3394,3405,3457,3458,3478,3536,3614,3640,3643,3649,3676,3731,3743,3784,3825,3855,3861,3877,3948,3963,3971,3972,3980,3982,3987,4011,4021,4025,4029,4037,4045,4046,4054,4110,4111,4120,4121,4137,4140,4170,4171,4184,4242,4244,4280,4295,4365,4371,4400,4425,4438,4443,4462,4478,4500,4502,4592,4594,4598,4618,4642,4692,4708,4718,4721,4734,4746,4774,4777,4791,4801,4803,4817,4824,4892,4900,4986,5038,5039,5053,5068,5252,5254,5256,5268,5278,5770,5773,6171,6172,6278,6282,6327,6472,6494,6521,6548,6640,6680,6747,6773,6775,6786,6787,6803,6846,6880,6881,6914,7047,7096,7138,7167,7175,7176,7205,7209,7241,7243,7283,7353,7366,7375,7387,7394,7433,7461,7489,7501,7502,7519,7530,7534,7538,7559,7566,7573,7574,7618,7628,7636,7649,7653,7664,7694,7711,7748,7759,7771,7778,7779,7816,7837,7911,9155,9156,9165,9226,9232,9583,9727,9948,10170,10184,10238,10332,10376,10615,10831,10875,10931,11018,11047,11304,11365,11384,11594,11835,11860,13218,13226,13428,13623,13753,13814,14568,14575,14940,14950,15094,15222,15307,15738,15752,15806,15961,16162,16286,16329,16419,16432,16441,16673,17411,17522,17812,17946,17947,18079,18102,18120,18256,18399,18422,18428,18480,18491,18514,18577,18606,18616,18815,18824,18826,18921,18940,18953,18954,18996,19002,19003,19041,19043,19055,19056,19087,19094,19170,19175,19205,19207,19225,19379,19440,20116,20367,20625,20924,21101,21143,21407,21429,21785,21807,21909,22304,23273,24437,24534,24978,25153,25162,25375,25563,25572,25777,25878,26025,26343,26348,27167,27306,27377,27472,27555,27789,27799,27851,27854,27874,27964,27986,28035,28601,29246,29304,29312,29950,30001,30354,30532,31799,32170,32200,32578,32682,32683,32685,32715,32729,32737,32738,32823,32835,32845,32887,32995,33011,33012,33014,33020,33056,33113,33124,33160,33222,33272,33348,33386,33388,33442,33467,33468,33516,33523,33527,33564,33619,33638,33641,33710,33747,33884,33911,33936,33999,34046,34126,34181,34186,34332,34354,34395,34411,34451,34496,34577,34585,34611,34649,34708,34710,34746,34865,34885,35026,35106,35121,35240,35317,35418,35448,35503,35565,35592,35659,35660,35689,35702,35786,35805,35855,35882,35920,36001,36023,36048,36160,36177,36201,36208,36215,36216,36274,36277,36369,36378,36396,36534,36571,36589,36614,36618,36645,36677,36687,36695,36745,36750,36786,36926,37171,70996,74371,74871)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "businesses_address_2",
+            "businesses_owner_zip"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "businesses_address_2",
+          "is_row_partition": true,
+          "row_partition_partner": "establishments_address_2012_07_03_to_2014_09_11",
+          "row_partition_peers": [
+            "establishments_address_2012_07_03_to_2014_09_11",
+            "establishments_address_after_2014_09_11_or_null",
+            "establishments_address_until_2008_01_15"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "establishments_address_2012_07_03_to_2014_09_11": {
+          "source_table": "businesses",
+          "column_map": {
+            "establishment_id": "business_id",
+            "street_address": "address",
+            "application_received_date": "application_date",
+            "city_name": "city",
+            "establishment_name": "name",
+            "proprietor_address": "owner_address",
+            "proprietor_city": "owner_city",
+            "proprietor_name": "owner_name",
+            "proprietor_state": "owner_state"
+          },
+          "projected_columns": [
+            "business_id",
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          "row_predicate": "((\"application_date\" IS NOT NULL AND \"application_date\" > '2012-07-03' AND \"application_date\" <= '2014-09-11') OR (rowid IN (24159,32733,33700,36840,36861,36889,37115,37231,37319,37344,37361,37407,37575,37581,37651,37656,37658,37667,37688,37698,37792,37818,37892,38030,38073,38104,38106,38139,38231,38247,38330,38339,38424,38440,38447,38457,38564,38709,38808,38822,38875,38898,38929,39031,39049,39113,39246,39293,39294,39327,39476,39481,39495,39513,39586,39615,39630,39692,39708,39862,39936,39961,40007,40109,40123,40151,40193,40216,40217,57584,57623,57774,58574,58610,58659,58803,58861,58972,59009,59021,59028,59036,59040,59152,59153,59154,59179,59215,59251,59289,59316,59331,59374,59422,59484,59520,59577,59599,59637,59691,59761,59832,59833,59838,59898,59922,59935,59986,59987,59988,60043,60067,60085,60210,60254,60290,60334,60380,60472,60473,60484,60535,60547,60550,60590,60602,60615,60632,60644,60656,60657,60658,60711,60713,60756,60782,60787,60823,60888,60899,60933,61032,61056,61058,61093,61122,61123,61136,61187,61356,61357,61391,61436,61438,61460,61471,61493,61499,61516,61563,61579,61592,61598,61635,61690,61697,61728,61915,61923,61953,61975,61989,62000,62010,62048,62057,62064,62069,62072,62330,62334,62362,62526,62532,62550,62551,62552,62560,62561,62578,62701,62739,62746,62768,62775,62779,62780,62785,62797,62849,62853,62888,62941,62943,62990,63016,63049,63119,63124,63191,63208,63256,63258,63286,63304,63404,63489,63601,63602,63615,63624,63653,63654,63755,63757,63763,63780,63800,63897,63926,63971,63992,64057,64067,64073,64079,64101,64149,64231,64242,64313,64319,64326,64377,64379,64387,64434,64496,64524,64525,64609,64612,64621,64626,64630,64660,64661,64717,64741,64745,64859,64881,64932,64940,65014,65060,65066,65086,65103,65228,65238,65240,65245,65248,65267,65271,65291,65293,65295,65337,65348,65415,65425,65485,65524,65561,65611,65622,65635,65674,65692,65695,65770,65791,65805,65830,65852,65856,65898,65901,65906,65912,66183,66185,66191,66204,66220,66229,66255,66328,66334,66363,66394,66400,66503,66522,66571,66584,66637,66657,66679,66684,66685,66687,66695,66715,66732,66736,66806,66861,66895,66896,66900,66902,66925,66927,66932,66961,66963,66972,66985,66987,66990,66999,67043,67067,67075,67123,67149,67150,67154,67160,67167,67174,67195,67196,67218,67235,67250,67276,67359,67371,67374,67448,67489,67495,67509,67510,67552,67558,67567,67568,67601,67602,67611,67614,67615,67651,67661,67676,67690,67741,67743,67754,67786,67807,67815,67862,67863,67865,67869,67894,67917,67919,67923,67936,67937,67943,68013,68026,68036,68037,68056,68079,68089,68090,68091,68109,68128,68129,68130,68131,68160,68173,68196,68237,68247,68249,68258,68269,68274,68322,68342,68351,68352,68356,68360,68362,68379,68407,68442,68452,68467,68493,68500,68504,68510,68538,68540,68541,68600,68608,68620,68626,68659,68672,68698,68699,68701,68713,68716,68739,68742,68764,68766,68769,68774,68784,68799,68804,68814,68824,68865,68880,68894,68955,69012,69024,69041,69044,69047,69048,69049,69107,69113,69115,69118,69153,69176,69186,69188,69195,69199,69207,69215,69234,69237,69248,69250,69253,69257,69272,69279,69288,69299,69312,69313,69378,69380,69388,69397,69403,69485,69487,69511,69512,69527,69529,69575,69576,69592,69606,69615,69653,85224)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "businesses_address_2",
+            "businesses_owner_zip"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "businesses_address_2",
+          "is_row_partition": true,
+          "row_partition_partner": "establishments_address_after_2014_09_11_or_null",
+          "row_partition_peers": [
+            "establishments_address_after_2014_09_11_or_null",
+            "establishments_address_until_2008_01_15",
+            "establishments_address_2008_01_15_to_2012_07_03"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "establishments_address_after_2014_09_11_or_null": {
+          "source_table": "businesses",
+          "column_map": {
+            "establishment_id": "business_id",
+            "street_address": "address",
+            "application_received_date": "application_date",
+            "city_name": "city",
+            "establishment_name": "name",
+            "proprietor_address": "owner_address",
+            "proprietor_city": "owner_city",
+            "proprietor_name": "owner_name",
+            "proprietor_state": "owner_state"
+          },
+          "projected_columns": [
+            "business_id",
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          "row_predicate": "((\"application_date\" > '2014-09-11' OR \"application_date\" IS NULL) OR (rowid IN (1700,68242,68762,69679,69682,69684,69705,69717,69752,69762,69782,69792,69819,69828,69849,69895,69945,69958,69962,69974,69984,70017,70019,70022,70045,70058,70071,70120,70137,70143,70155,70182,70207,70220,70225,70226,70258,70305,70313,70446,70459,70495,70521,70605,70642,70651,70661,70687,70705,70707,70717,70723,70754,70823,70849,70856,70912,70920,70921,70922,70961,70971,71012,71056,71062,71067,71071,71131,71145,71149,71176,71292,71301,71307,71311,71312,71314,71320,71327,71328,71357,71366,71373,71413,71416,71425,71428,71440,71456,71460,71469,71471,71476,71501,71510,71524,71528,71530,71534,71562,71581,71592,71597,71691,71726,71743,71753,71760,71761,71766,71769,71772,71791,71799,71906,71962,71980,71990,71994,71999,72002,72020,72025,72027,72031,72038,72040,72046,72107,72125,72129,72131,72132,72164,72169,72171,73799,73849,73906,73940,73978,73990,73998,74027,74131,74165,74168,74174,74216,74217,74237,74279,74284,74305,74374,74380,74391,74436,74480,74481,74487,74496,74509,74517,74521,74549,74562,74565,74591,74593,74635,74671,74722,74755,74756,74767,74794,74800,74866,74952,74974,74978,74989,75010,75013,75044,75078,75085,75107,75108,75113,75217,75259,75302,75303,75306,75325,75349,75356,75380,75386,75399,75402,75407,75450,75452,75465,75468,75523,75526,75530,75619,75631,75636,75637,75685,75688,75689,75701,75726,75753,75778,75801,75802,75840,75850,75851,75873,75903,75934,75936,75956,75957,75961,75965,75973,75991,76059,76062,76074,76117,76123,76156,76218,76220,76223,76230,76233,76270,76297,76323,76353,76373,76374,76411,76419,76427,76441,76442,76464,76477,76492,76503,76508,76521,76533,76574,76588,76595,76606,76615,76619,76640,76677,76681,76687,76735,76747,76749,76787,76876,76883,76886,76895,76905,76909,76930,76937,76957,76958,76962,76965,76997,77004,77015,77053,77058,77065,77098,77168,77169,77173,77177,77182,77191,77213,77216,77403,77404,77406,77419,77430,77432,77438,77442,77520,77528,77532,77548,77566,77581,77623,77642,77645,77687,77706,77731,77741,77755,77759,77761,77776,77778,77781,77789,77834,77838,77840,77852,77898,77918,77926,77951,77955,77958,77960,77968,77973,78018,78019,78021,78074,78076,78105,78143,78196,78204,78215,78216,78220,78236,78241,78275,78278,78294,78300,78307,78313,78328,78336,78337,78347,78365,78368,78369,78372,78402,78472,78489,78516,78521,78528,78531,78544,78555,78577,78621,78645,78650,78670,78701,78709,78718,78729,78761,78769,78779,78784,78794,78821,78849,78851,78865,78871,78889,78910,78911,78923,78927,78963,78965,78981,78983,78985,79008,79009,79012,79025,79052,79053,79054,79069,79117,79125,79132,79146,79154,79180,79186,79187,79194,79206,79217,79218,79219,79220,79222,79246,79247,79261,79296,79334,79346,79348,79350,79406,79410,79415,79433,79434,79439,79491,79515,79518,79525,79527,79529,79545,79547,79565,79586,79587,79588,79598,79607,79631,79632,79654,79656,79667,79734,79750,79804,79821,79833,79849,79858,79869,79887,79892,79915,79946,79954,79957,79967,79992,80005,80006,80013,80019,80037,80044,80045,80069,80109,80120,80137,80138,80164,80168,80235,80236,80237,80243,80260,80295,80299,80302,80305,80315,80336,80422,80460,80591,81894,83796)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "businesses_address_2",
+            "businesses_owner_zip"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "businesses_address_2",
+          "is_row_partition": true,
+          "row_partition_partner": "establishments_address_until_2008_01_15",
+          "row_partition_peers": [
+            "establishments_address_until_2008_01_15",
+            "establishments_address_2008_01_15_to_2012_07_03",
+            "establishments_address_2012_07_03_to_2014_09_11"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "businesses_address_2": "businessLocationRecord",
+        "businesses_owner_zip": "businessOwnerPostalInfo"
+      },
+      "column_renames": {
+        "businesses_address_2": {
+          "business_id": "businessId",
+          "address": "streetAddress",
+          "application_date": "applicationDate",
+          "business_certificate": "certificateNumber",
+          "city": "cityName",
+          "latitude": "latitudeCoordinate",
+          "longitude": "longitudeCoordinate",
+          "name": "businessName",
+          "owner_name": "ownerFullName",
+          "owner_state": "ownerStateCode",
+          "phone_number": "contactPhoneNumber"
+        },
+        "businesses_owner_zip": {
+          "business_id": "businessId",
+          "owner_zip": "ownerPostalCode",
+          "postal_code": "businessPostalCode",
+          "tax_code": "taxIdentifier"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "inspections": "biz_inspect"
+      },
+      "column_renames": {
+        "inspections": {
+          "business_id": "biz_id",
+          "score": "insp_score",
+          "date": "insp_dt",
+          "type": "insp_type"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_3": {
+      "table_renames": {
+        "violations": "inspection_violations",
+        "businesses_address_q1": "establishments_address_until_2008_01_15",
+        "businesses_address_q2": "establishments_address_2008_01_15_to_2012_07_03",
+        "businesses_address_q3": "establishments_address_2012_07_03_to_2014_09_11",
+        "businesses_address_q4": "establishments_address_after_2014_09_11_or_null"
+      },
+      "column_renames": {
+        "violations": {
+          "business_id": "establishment_id",
+          "date": "violation_date",
+          "violation_type_id": "violation_type_code",
+          "risk_category": "risk_level",
+          "description": "violation_description"
+        },
+        "businesses_address_q1": {
+          "business_id": "establishment_id",
+          "address": "street_address",
+          "application_date": "application_received_date",
+          "city": "city_name",
+          "name": "establishment_name",
+          "owner_address": "proprietor_address",
+          "owner_city": "proprietor_city",
+          "owner_name": "proprietor_name",
+          "owner_state": "proprietor_state"
+        },
+        "businesses_address_q2": {
+          "business_id": "establishment_id",
+          "address": "street_address",
+          "application_date": "application_received_date",
+          "city": "city_name",
+          "name": "establishment_name",
+          "owner_address": "proprietor_address",
+          "owner_city": "proprietor_city",
+          "owner_name": "proprietor_name",
+          "owner_state": "proprietor_state"
+        },
+        "businesses_address_q3": {
+          "business_id": "establishment_id",
+          "address": "street_address",
+          "application_date": "application_received_date",
+          "city": "city_name",
+          "name": "establishment_name",
+          "owner_address": "proprietor_address",
+          "owner_city": "proprietor_city",
+          "owner_name": "proprietor_name",
+          "owner_state": "proprietor_state"
+        },
+        "businesses_address_q4": {
+          "business_id": "establishment_id",
+          "address": "street_address",
+          "application_date": "application_received_date",
+          "city": "city_name",
+          "name": "establishment_name",
+          "owner_address": "proprietor_address",
+          "owner_city": "proprietor_city",
+          "owner_name": "proprietor_name",
+          "owner_state": "proprietor_state"
+        }
+      },
+      "naming_case_style": "snake_case"
+    }
+  },
+  "vertical_split_map": {
+    "businesses": {
+      "pk_columns": [
+        "business_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          "local_table": "establishments_address_until_2008_01_15",
+          "local_name": "local_3",
+          "vertical_fragment_base": "businesses_address",
+          "row_partition_names": [
+            "establishments_address_until_2008_01_15",
+            "establishments_address_2008_01_15_to_2012_07_03",
+            "establishments_address_2012_07_03_to_2014_09_11",
+            "establishments_address_after_2014_09_11_or_null"
+          ],
+          "row_partition_predicate_column": "application_date"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "application_date",
+            "business_certificate",
+            "city",
+            "latitude",
+            "longitude",
+            "name",
+            "owner_name",
+            "owner_state",
+            "phone_number"
+          ],
+          "local_table": "businessLocationRecord",
+          "local_name": "local_1",
+          "vertical_fragment_base": "businesses_address_2"
+        },
+        {
+          "suffix": "owner_zip",
+          "non_pk_columns": [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ],
+          "local_table": "businessOwnerPostalInfo",
+          "local_name": "local_1",
+          "vertical_fragment_base": "businesses_owner_zip"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "businesses",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 15,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.03736737304188932,
+          "3": 0.05276166324826795,
+          "4": 0.029964862474001052,
+          "5": 0.03434634436995131
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.05276166324826795,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          [
+            "application_date",
+            "business_certificate",
+            "latitude",
+            "longitude",
+            "name",
+            "phone_number"
+          ],
+          [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "owner_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "application_date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "owner_state",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          [
+            "address",
+            "application_date",
+            "business_certificate",
+            "city",
+            "latitude",
+            "longitude",
+            "name",
+            "owner_name",
+            "owner_state",
+            "phone_number"
+          ],
+          [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ]
+        ],
+        "pk_columns": [
+          "business_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "application_date",
+              "city",
+              "name",
+              "owner_address",
+              "owner_city",
+              "owner_name",
+              "owner_state"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "application_date",
+              "business_certificate",
+              "city",
+              "latitude",
+              "longitude",
+              "name",
+              "owner_name",
+              "owner_state",
+              "phone_number"
+            ]
+          },
+          {
+            "suffix": "owner_zip",
+            "non_pk_columns": [
+              "owner_zip",
+              "postal_code",
+              "tax_code"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "businesses_address_2",
+      "movable_candidates": [
+        "businesses_address_q1",
+        "businesses_owner_zip"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "split_map": {
+    "businesses": {
+      "pk_columns": [
+        "business_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          "local_table": "establishments_address_until_2008_01_15",
+          "local_name": "local_3",
+          "vertical_fragment_base": "businesses_address",
+          "row_partition_names": [
+            "establishments_address_until_2008_01_15",
+            "establishments_address_2008_01_15_to_2012_07_03",
+            "establishments_address_2012_07_03_to_2014_09_11",
+            "establishments_address_after_2014_09_11_or_null"
+          ],
+          "row_partition_predicate_column": "application_date"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "application_date",
+            "business_certificate",
+            "city",
+            "latitude",
+            "longitude",
+            "name",
+            "owner_name",
+            "owner_state",
+            "phone_number"
+          ],
+          "local_table": "businessLocationRecord",
+          "local_name": "local_1",
+          "vertical_fragment_base": "businesses_address_2"
+        },
+        {
+          "suffix": "owner_zip",
+          "non_pk_columns": [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ],
+          "local_table": "businessOwnerPostalInfo",
+          "local_name": "local_1",
+          "vertical_fragment_base": "businesses_owner_zip"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "businesses",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 15,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.03736737304188932,
+          "3": 0.05276166324826795,
+          "4": 0.029964862474001052,
+          "5": 0.03434634436995131
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.05276166324826795,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          [
+            "application_date",
+            "business_certificate",
+            "latitude",
+            "longitude",
+            "name",
+            "phone_number"
+          ],
+          [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "owner_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "application_date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "owner_state",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "application_date",
+            "city",
+            "name",
+            "owner_address",
+            "owner_city",
+            "owner_name",
+            "owner_state"
+          ],
+          [
+            "address",
+            "application_date",
+            "business_certificate",
+            "city",
+            "latitude",
+            "longitude",
+            "name",
+            "owner_name",
+            "owner_state",
+            "phone_number"
+          ],
+          [
+            "owner_zip",
+            "postal_code",
+            "tax_code"
+          ]
+        ],
+        "pk_columns": [
+          "business_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "application_date",
+              "city",
+              "name",
+              "owner_address",
+              "owner_city",
+              "owner_name",
+              "owner_state"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "application_date",
+              "business_certificate",
+              "city",
+              "latitude",
+              "longitude",
+              "name",
+              "owner_name",
+              "owner_state",
+              "phone_number"
+            ]
+          },
+          {
+            "suffix": "owner_zip",
+            "non_pk_columns": [
+              "owner_zip",
+              "postal_code",
+              "tax_code"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "businesses_address_2",
+      "movable_candidates": [
+        "businesses_address_q1",
+        "businesses_owner_zip"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 3,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "businesses"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/food_inspection/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "row_partition_map": {
+    "businesses||vfrag=address": {
+      "source_table": "businesses",
+      "vertical_fragment_suffix": "address",
+      "num_partitions": 4,
+      "partition_names": [
+        "establishments_address_until_2008_01_15",
+        "establishments_address_2008_01_15_to_2012_07_03",
+        "establishments_address_2012_07_03_to_2014_09_11",
+        "establishments_address_after_2014_09_11_or_null"
+      ],
+      "partition_locals": [
+        "local_3",
+        "local_3",
+        "local_3",
+        "local_3"
+      ],
+      "predicate_column": "application_date",
+      "partition_values": [
+        {
+          "upper": "2008-01-15"
+        },
+        {
+          "lower": "2008-01-15",
+          "upper": "2012-07-03"
+        },
+        {
+          "lower": "2012-07-03",
+          "upper": "2014-09-11"
+        },
+        {
+          "lower": "2014-09-11",
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"application_date\" IS NOT NULL AND \"application_date\" <= '2008-01-15') OR (rowid IN (31,56,58,66,70,77,101,108,121,126,132,140,184,221,234,239,258,272,273,275,279,320,337,429,430,431,448,462,468,494,510,522,588,591,610,615,639,642,645,741,773,792,798,799,840,843,845,847,852,891,903,917,920,951,968,972,1003,1005,1018,1047,1060,1103,1125,1139,1146,1207,1232,1236,1243,1259,1262,1289,1337,1339,1345,1347,1352,1368,1427,1444,1486,1505,1508,1517,1549,1564,1596,1615,1626,1631,1677,1685,1687,1699,1702,1724,1734,1742,1754,1768,1836,1837,1843,1867,1952,1994,2002,2020,2027,2032,2035,2050,2106,2107,2115,2136,2228,2234,2240,2245,2261,2262,2293,2309,2336,2352,2401,2455,2501,2542,2553,2561,2588,2589,2592,2619,2627,2648,2652,2653,2676,2684,2689,2725,2733,2764,2777,2780,2788,2799,2807,2821,2849,2861,2863,2896,2902,2926,2933,2941,2949,2950,2952,2970,2971,2974,3006,3019,3021,3025,3055,3102,3112,3115,3120,3122,3155,3174,3185,3207,3210,3222,3237,3241,3252,3263,3286,3299,3323,3324,3331,3338,3350,3365,3425,3429,3431,3432,3437,3439,3445,3477,3480,3488,3490,3492,3495,3497,3498,3503,3504,3515,3519,3520,3522,3528,3538,3541,3595,3607,3611,3623,3639,3674,3690,3693,3711,3729,3791,3794,3796,3867,3869,3871,3881,3895,3899,3935,3953,3986,3989,3996,4033,4042,4044,4055,4065,4067,4071,4099,4104,4122,4125,4126,4127,4136,4158,4186,4197,4221,4229,4235,4239,4243,4259,4326,4351,4405,4408,4409,4411,4416,4476,4479,4480,4519,4533,4538,4539,4544,4574,4607,4608,4621,4634,4636,4637,4638,4643,4665,4670,4681,4688,4754,4841,4844,4849,4850,4859,4874,4875,4893,4923,4932,4959,4983,4987,5032,5033,5083,5090,5096,5136,5206,5258,5291,5301,5307,5310,5312,5322,5329,5355,5364,5375,5394,5430,5564,5915,5925,5940,5942,5946,5950,5952,5955,5961,5965,6094,6150,6156,6176,6207,6219,6224,6281,6284,6322,6365,6382,6421,6425,6567,6626,6716,6750,6756,6802,6805,6807,6845,6852,6893,6899,6904,6995,7005,7055,7063,7083,7085,7104,7197,7206,7216,7225,7276,7305,7332,7361,7441,7517,7641,7644,7646,7675,7678,7692,7699,7715,7729,7736,7745,7762,7802,7806,7809,7810,7985,8004,8075,8077,8113,8202,8249,8251,8821,9103,9208,9289,9582,9599,9672,10357,10433,10438,11416,11967,13057,19357,37182,38146,62277,62658,64624,65377,66361,66698,66705,67063,67184,67839,67911,68058,68394,68395,69125,69275,69302,69316,69928,70292,73939,74013,74202,74229,74759,75177,75350,75847,76684,76708,77492,77924,78419,78819,79214,80304,80370,80384,80406,80419,80451,80479,80486,80487,80495,80514,80515,80528,80534,80545,80569,80573,80605,80631,80638,80680,80682,80763,80786,80813,80829,80841,80861,80890,80930,80931,80961,80964,80979,80989,81027,81033,81073,81077,81092,81104,81112,81131,81135,81136,81140,81153,81163,81164,81166,81170,81174,81179,81187,81190,81203,81258,81271,81297,81310,81331,81342,81349,81356,81368,81381,81425,81446,81458,81468,81509,81512,81515,81518,81528,81531,81539,81540,81553,81588,81606,81610,81637,81651,81654,81680,81683,81688,81705,81707,81716,81719,81723,81756,81781,81815,81837,81857,81861,81862,81866,81882,81886,81887,81904,81911,81912,81925,81946,81971,81974,81990,82022,82036,82042,82048,82058,82078,82090,82092,82095,82097,82102,82105,82107,82139,82141,82142,82145,82147,82176,82207,82211,82214,82215,82225,82228,82246,82259,82332,82334,82337,82339,82340,82351,82352,82373,82376,82388,82395,82409,82410,82411,82429,82452,82472,82476,82544,82546,82559,82560,82578,82601,82602,82607,82627,82636,82653,82654,82680,82714,82718,82738,82792,82812,82820,82821,82823,82847,82850,82869,82878,82883,82892,82895,82909,82911,82926,82930,82932,82938,82945,82990,82992,82994,82996,83013,83035,83040,83046,83048,83062,83102,83125,83340,83360,83366,83379,83387,83389,83399,83406,83418,83424,83449,83459,83472,83475,83504,83522,83524,83538,83553,83565,83571,83572,83575,83589,83602,83603,83610,83612,83633,83636,83640,83648,83655,83664,83687,83704,83706,83709,83711,83744,83746,83759,83776,83778,83779,83780,83804,83811,83824,83841,83843,83931,83945,83986,83991,83994,83998,84000,84065,84090,84130,84158,84165,84195,84196,84228,84321,84375,84392,84394,84420,84421,84453,84457,84476,84500,84527,84543,84545,84548,84562,84573,84582,84589,84615,84715,84716,84726,84740,84749,84759,84772,84773,84774,84793,84856,84858,84888,84889,84893,84921,84941,84961,84968,85005,85025,85047,85049,85051,85063,85091,85102,85109,85144,85154,85156,85158,85160,85162,85166,85169,85176,85212,85220,85240,85243,85244,85258,85271,85279,85310,85317,85320,85324,85333,85337,85338,85350,85363) OR rowid IN (85396,85407,85430,85433,85458,85459,85468,85495,85518,85525,85541,85550,85562,85583,85609,85625,85646,85655,85679,85682,85696,85697,85706,85714,85809,85816,85843,85851,85852,85857,85898,85899,85917,85919,85927,85944,85947,85951,85956,85968,85971,85986,86001,86111,86116,86131,86133,86148,86151,86154,86155,86158,86161,86164,86172,86213,86219,86221,86233,86256,86261,86282,86296,86297,86303,86305,86330,86344,86356,86361,86379,86384,86399,86406,86423,86428,86447,86471,86484,86488,86491,86500,86545,86551,86564,86590,86593,86643,86644,86654,86656,86658,86663,86670,86694,86715,86765,86798,86816,86849,86865,86894,86922,86925,86929,86972,86977,86986,86990,86991,86992,86994,86997,87006,87015,87048,87059,87107,87117,87122,87128,87197,87200,87201,87213,87223,87258,87277,87337,87374,87440,87469,87475,87512,87528,87541,87604,87615,87624,87631,87649,87652,87687,87691,87697,87699,87742,87762,87780,87793,87799,87802,87815,87858,87927,87932,87943,88046,88090,88110,88114,88115,88117,88118,88129,88306,88326,88381,88475,88480,88486,88490,88505,88508,88539,88575,88659,88687,88692,88702,88704,88708,88711,88713,88720,88774,88792,88829,88955,89104,89198,89200,89204,89215,89217,89328,89393,89416)))",
+        "((\"application_date\" IS NOT NULL AND \"application_date\" > '2008-01-15' AND \"application_date\" <= '2012-07-03') OR (rowid IN (45,141,194,217,267,283,299,315,384,393,394,502,519,547,567,573,627,631,665,670,687,709,726,758,774,811,821,824,935,949,1031,1065,1122,1135,1186,1199,1235,1282,1318,1323,1389,1452,1454,1482,1490,1520,1527,1529,1595,1617,1649,1652,1668,1671,1672,1673,1726,1791,1797,1811,1874,1896,1927,1930,1968,1977,2007,2016,2047,2051,2057,2063,2109,2124,2131,2135,2143,2144,2173,2189,2193,2226,2263,2318,2420,2454,2519,2544,2579,2580,2599,2622,2645,2706,2709,2737,2743,2778,2785,2818,2854,2871,2957,3032,3073,3082,3095,3114,3224,3272,3275,3394,3405,3457,3458,3478,3536,3614,3640,3643,3649,3676,3731,3743,3784,3825,3855,3861,3877,3948,3963,3971,3972,3980,3982,3987,4011,4021,4025,4029,4037,4045,4046,4054,4110,4111,4120,4121,4137,4140,4170,4171,4184,4242,4244,4280,4295,4365,4371,4400,4425,4438,4443,4462,4478,4500,4502,4592,4594,4598,4618,4642,4692,4708,4718,4721,4734,4746,4774,4777,4791,4801,4803,4817,4824,4892,4900,4986,5038,5039,5053,5068,5252,5254,5256,5268,5278,5770,5773,6171,6172,6278,6282,6327,6472,6494,6521,6548,6640,6680,6747,6773,6775,6786,6787,6803,6846,6880,6881,6914,7047,7096,7138,7167,7175,7176,7205,7209,7241,7243,7283,7353,7366,7375,7387,7394,7433,7461,7489,7501,7502,7519,7530,7534,7538,7559,7566,7573,7574,7618,7628,7636,7649,7653,7664,7694,7711,7748,7759,7771,7778,7779,7816,7837,7911,9155,9156,9165,9226,9232,9583,9727,9948,10170,10184,10238,10332,10376,10615,10831,10875,10931,11018,11047,11304,11365,11384,11594,11835,11860,13218,13226,13428,13623,13753,13814,14568,14575,14940,14950,15094,15222,15307,15738,15752,15806,15961,16162,16286,16329,16419,16432,16441,16673,17411,17522,17812,17946,17947,18079,18102,18120,18256,18399,18422,18428,18480,18491,18514,18577,18606,18616,18815,18824,18826,18921,18940,18953,18954,18996,19002,19003,19041,19043,19055,19056,19087,19094,19170,19175,19205,19207,19225,19379,19440,20116,20367,20625,20924,21101,21143,21407,21429,21785,21807,21909,22304,23273,24437,24534,24978,25153,25162,25375,25563,25572,25777,25878,26025,26343,26348,27167,27306,27377,27472,27555,27789,27799,27851,27854,27874,27964,27986,28035,28601,29246,29304,29312,29950,30001,30354,30532,31799,32170,32200,32578,32682,32683,32685,32715,32729,32737,32738,32823,32835,32845,32887,32995,33011,33012,33014,33020,33056,33113,33124,33160,33222,33272,33348,33386,33388,33442,33467,33468,33516,33523,33527,33564,33619,33638,33641,33710,33747,33884,33911,33936,33999,34046,34126,34181,34186,34332,34354,34395,34411,34451,34496,34577,34585,34611,34649,34708,34710,34746,34865,34885,35026,35106,35121,35240,35317,35418,35448,35503,35565,35592,35659,35660,35689,35702,35786,35805,35855,35882,35920,36001,36023,36048,36160,36177,36201,36208,36215,36216,36274,36277,36369,36378,36396,36534,36571,36589,36614,36618,36645,36677,36687,36695,36745,36750,36786,36926,37171,70996,74371,74871)))",
+        "((\"application_date\" IS NOT NULL AND \"application_date\" > '2012-07-03' AND \"application_date\" <= '2014-09-11') OR (rowid IN (24159,32733,33700,36840,36861,36889,37115,37231,37319,37344,37361,37407,37575,37581,37651,37656,37658,37667,37688,37698,37792,37818,37892,38030,38073,38104,38106,38139,38231,38247,38330,38339,38424,38440,38447,38457,38564,38709,38808,38822,38875,38898,38929,39031,39049,39113,39246,39293,39294,39327,39476,39481,39495,39513,39586,39615,39630,39692,39708,39862,39936,39961,40007,40109,40123,40151,40193,40216,40217,57584,57623,57774,58574,58610,58659,58803,58861,58972,59009,59021,59028,59036,59040,59152,59153,59154,59179,59215,59251,59289,59316,59331,59374,59422,59484,59520,59577,59599,59637,59691,59761,59832,59833,59838,59898,59922,59935,59986,59987,59988,60043,60067,60085,60210,60254,60290,60334,60380,60472,60473,60484,60535,60547,60550,60590,60602,60615,60632,60644,60656,60657,60658,60711,60713,60756,60782,60787,60823,60888,60899,60933,61032,61056,61058,61093,61122,61123,61136,61187,61356,61357,61391,61436,61438,61460,61471,61493,61499,61516,61563,61579,61592,61598,61635,61690,61697,61728,61915,61923,61953,61975,61989,62000,62010,62048,62057,62064,62069,62072,62330,62334,62362,62526,62532,62550,62551,62552,62560,62561,62578,62701,62739,62746,62768,62775,62779,62780,62785,62797,62849,62853,62888,62941,62943,62990,63016,63049,63119,63124,63191,63208,63256,63258,63286,63304,63404,63489,63601,63602,63615,63624,63653,63654,63755,63757,63763,63780,63800,63897,63926,63971,63992,64057,64067,64073,64079,64101,64149,64231,64242,64313,64319,64326,64377,64379,64387,64434,64496,64524,64525,64609,64612,64621,64626,64630,64660,64661,64717,64741,64745,64859,64881,64932,64940,65014,65060,65066,65086,65103,65228,65238,65240,65245,65248,65267,65271,65291,65293,65295,65337,65348,65415,65425,65485,65524,65561,65611,65622,65635,65674,65692,65695,65770,65791,65805,65830,65852,65856,65898,65901,65906,65912,66183,66185,66191,66204,66220,66229,66255,66328,66334,66363,66394,66400,66503,66522,66571,66584,66637,66657,66679,66684,66685,66687,66695,66715,66732,66736,66806,66861,66895,66896,66900,66902,66925,66927,66932,66961,66963,66972,66985,66987,66990,66999,67043,67067,67075,67123,67149,67150,67154,67160,67167,67174,67195,67196,67218,67235,67250,67276,67359,67371,67374,67448,67489,67495,67509,67510,67552,67558,67567,67568,67601,67602,67611,67614,67615,67651,67661,67676,67690,67741,67743,67754,67786,67807,67815,67862,67863,67865,67869,67894,67917,67919,67923,67936,67937,67943,68013,68026,68036,68037,68056,68079,68089,68090,68091,68109,68128,68129,68130,68131,68160,68173,68196,68237,68247,68249,68258,68269,68274,68322,68342,68351,68352,68356,68360,68362,68379,68407,68442,68452,68467,68493,68500,68504,68510,68538,68540,68541,68600,68608,68620,68626,68659,68672,68698,68699,68701,68713,68716,68739,68742,68764,68766,68769,68774,68784,68799,68804,68814,68824,68865,68880,68894,68955,69012,69024,69041,69044,69047,69048,69049,69107,69113,69115,69118,69153,69176,69186,69188,69195,69199,69207,69215,69234,69237,69248,69250,69253,69257,69272,69279,69288,69299,69312,69313,69378,69380,69388,69397,69403,69485,69487,69511,69512,69527,69529,69575,69576,69592,69606,69615,69653,85224)))",
+        "((\"application_date\" > '2014-09-11' OR \"application_date\" IS NULL) OR (rowid IN (1700,68242,68762,69679,69682,69684,69705,69717,69752,69762,69782,69792,69819,69828,69849,69895,69945,69958,69962,69974,69984,70017,70019,70022,70045,70058,70071,70120,70137,70143,70155,70182,70207,70220,70225,70226,70258,70305,70313,70446,70459,70495,70521,70605,70642,70651,70661,70687,70705,70707,70717,70723,70754,70823,70849,70856,70912,70920,70921,70922,70961,70971,71012,71056,71062,71067,71071,71131,71145,71149,71176,71292,71301,71307,71311,71312,71314,71320,71327,71328,71357,71366,71373,71413,71416,71425,71428,71440,71456,71460,71469,71471,71476,71501,71510,71524,71528,71530,71534,71562,71581,71592,71597,71691,71726,71743,71753,71760,71761,71766,71769,71772,71791,71799,71906,71962,71980,71990,71994,71999,72002,72020,72025,72027,72031,72038,72040,72046,72107,72125,72129,72131,72132,72164,72169,72171,73799,73849,73906,73940,73978,73990,73998,74027,74131,74165,74168,74174,74216,74217,74237,74279,74284,74305,74374,74380,74391,74436,74480,74481,74487,74496,74509,74517,74521,74549,74562,74565,74591,74593,74635,74671,74722,74755,74756,74767,74794,74800,74866,74952,74974,74978,74989,75010,75013,75044,75078,75085,75107,75108,75113,75217,75259,75302,75303,75306,75325,75349,75356,75380,75386,75399,75402,75407,75450,75452,75465,75468,75523,75526,75530,75619,75631,75636,75637,75685,75688,75689,75701,75726,75753,75778,75801,75802,75840,75850,75851,75873,75903,75934,75936,75956,75957,75961,75965,75973,75991,76059,76062,76074,76117,76123,76156,76218,76220,76223,76230,76233,76270,76297,76323,76353,76373,76374,76411,76419,76427,76441,76442,76464,76477,76492,76503,76508,76521,76533,76574,76588,76595,76606,76615,76619,76640,76677,76681,76687,76735,76747,76749,76787,76876,76883,76886,76895,76905,76909,76930,76937,76957,76958,76962,76965,76997,77004,77015,77053,77058,77065,77098,77168,77169,77173,77177,77182,77191,77213,77216,77403,77404,77406,77419,77430,77432,77438,77442,77520,77528,77532,77548,77566,77581,77623,77642,77645,77687,77706,77731,77741,77755,77759,77761,77776,77778,77781,77789,77834,77838,77840,77852,77898,77918,77926,77951,77955,77958,77960,77968,77973,78018,78019,78021,78074,78076,78105,78143,78196,78204,78215,78216,78220,78236,78241,78275,78278,78294,78300,78307,78313,78328,78336,78337,78347,78365,78368,78369,78372,78402,78472,78489,78516,78521,78528,78531,78544,78555,78577,78621,78645,78650,78670,78701,78709,78718,78729,78761,78769,78779,78784,78794,78821,78849,78851,78865,78871,78889,78910,78911,78923,78927,78963,78965,78981,78983,78985,79008,79009,79012,79025,79052,79053,79054,79069,79117,79125,79132,79146,79154,79180,79186,79187,79194,79206,79217,79218,79219,79220,79222,79246,79247,79261,79296,79334,79346,79348,79350,79406,79410,79415,79433,79434,79439,79491,79515,79518,79525,79527,79529,79545,79547,79565,79586,79587,79588,79598,79607,79631,79632,79654,79656,79667,79734,79750,79804,79821,79833,79849,79858,79869,79887,79892,79915,79946,79954,79957,79967,79992,80005,80006,80013,80019,80037,80044,80045,80069,80109,80120,80137,80138,80164,80168,80235,80236,80237,80243,80260,80295,80299,80302,80305,80315,80336,80422,80460,80591,81894,83796)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"application_date\" IS NOT NULL AND \"application_date\" <= '2008-01-15')",
+        "(\"application_date\" IS NOT NULL AND \"application_date\" > '2008-01-15' AND \"application_date\" <= '2012-07-03')",
+        "(\"application_date\" IS NOT NULL AND \"application_date\" > '2012-07-03' AND \"application_date\" <= '2014-09-11')",
+        "(\"application_date\" > '2014-09-11' OR \"application_date\" IS NULL)"
+      ],
+      "predicate_kind": "afd_date_quantile",
+      "fragment_roles": [
+        "rows where application_date <= 2008-01-15",
+        "rows where 2008-01-15 < application_date <= 2012-07-03",
+        "rows where 2012-07-03 < application_date <= 2014-09-11",
+        "rows where application_date > 2014-09-11 or is NULL"
+      ],
+      "home_fragment": "establishments_address_until_2008_01_15",
+      "movable_fragments": [
+        "establishments_address_2008_01_15_to_2012_07_03",
+        "establishments_address_2012_07_03_to_2014_09_11",
+        "establishments_address_after_2014_09_11_or_null"
+      ],
+      "movable_fragment": "establishments_address_2008_01_15_to_2012_07_03",
+      "default_movable_fragment": "establishments_address_2008_01_15_to_2012_07_03",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "application_date",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "application_date",
+            "rhs": "city",
+            "precision": 1.0
+          },
+          {
+            "lhs": "application_date",
+            "rhs": "owner_city",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "application_date",
+          "city",
+          "owner_city"
+        ],
+        "ranked_columns": [
+          {
+            "column": "application_date",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "city",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "owner_city",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 6358
+      },
+      "predicate_sql_fragment_A": "((\"application_date\" IS NOT NULL AND \"application_date\" <= '2008-01-15') OR (rowid IN (31,56,58,66,70,77,101,108,121,126,132,140,184,221,234,239,258,272,273,275,279,320,337,429,430,431,448,462,468,494,510,522,588,591,610,615,639,642,645,741,773,792,798,799,840,843,845,847,852,891,903,917,920,951,968,972,1003,1005,1018,1047,1060,1103,1125,1139,1146,1207,1232,1236,1243,1259,1262,1289,1337,1339,1345,1347,1352,1368,1427,1444,1486,1505,1508,1517,1549,1564,1596,1615,1626,1631,1677,1685,1687,1699,1702,1724,1734,1742,1754,1768,1836,1837,1843,1867,1952,1994,2002,2020,2027,2032,2035,2050,2106,2107,2115,2136,2228,2234,2240,2245,2261,2262,2293,2309,2336,2352,2401,2455,2501,2542,2553,2561,2588,2589,2592,2619,2627,2648,2652,2653,2676,2684,2689,2725,2733,2764,2777,2780,2788,2799,2807,2821,2849,2861,2863,2896,2902,2926,2933,2941,2949,2950,2952,2970,2971,2974,3006,3019,3021,3025,3055,3102,3112,3115,3120,3122,3155,3174,3185,3207,3210,3222,3237,3241,3252,3263,3286,3299,3323,3324,3331,3338,3350,3365,3425,3429,3431,3432,3437,3439,3445,3477,3480,3488,3490,3492,3495,3497,3498,3503,3504,3515,3519,3520,3522,3528,3538,3541,3595,3607,3611,3623,3639,3674,3690,3693,3711,3729,3791,3794,3796,3867,3869,3871,3881,3895,3899,3935,3953,3986,3989,3996,4033,4042,4044,4055,4065,4067,4071,4099,4104,4122,4125,4126,4127,4136,4158,4186,4197,4221,4229,4235,4239,4243,4259,4326,4351,4405,4408,4409,4411,4416,4476,4479,4480,4519,4533,4538,4539,4544,4574,4607,4608,4621,4634,4636,4637,4638,4643,4665,4670,4681,4688,4754,4841,4844,4849,4850,4859,4874,4875,4893,4923,4932,4959,4983,4987,5032,5033,5083,5090,5096,5136,5206,5258,5291,5301,5307,5310,5312,5322,5329,5355,5364,5375,5394,5430,5564,5915,5925,5940,5942,5946,5950,5952,5955,5961,5965,6094,6150,6156,6176,6207,6219,6224,6281,6284,6322,6365,6382,6421,6425,6567,6626,6716,6750,6756,6802,6805,6807,6845,6852,6893,6899,6904,6995,7005,7055,7063,7083,7085,7104,7197,7206,7216,7225,7276,7305,7332,7361,7441,7517,7641,7644,7646,7675,7678,7692,7699,7715,7729,7736,7745,7762,7802,7806,7809,7810,7985,8004,8075,8077,8113,8202,8249,8251,8821,9103,9208,9289,9582,9599,9672,10357,10433,10438,11416,11967,13057,19357,37182,38146,62277,62658,64624,65377,66361,66698,66705,67063,67184,67839,67911,68058,68394,68395,69125,69275,69302,69316,69928,70292,73939,74013,74202,74229,74759,75177,75350,75847,76684,76708,77492,77924,78419,78819,79214,80304,80370,80384,80406,80419,80451,80479,80486,80487,80495,80514,80515,80528,80534,80545,80569,80573,80605,80631,80638,80680,80682,80763,80786,80813,80829,80841,80861,80890,80930,80931,80961,80964,80979,80989,81027,81033,81073,81077,81092,81104,81112,81131,81135,81136,81140,81153,81163,81164,81166,81170,81174,81179,81187,81190,81203,81258,81271,81297,81310,81331,81342,81349,81356,81368,81381,81425,81446,81458,81468,81509,81512,81515,81518,81528,81531,81539,81540,81553,81588,81606,81610,81637,81651,81654,81680,81683,81688,81705,81707,81716,81719,81723,81756,81781,81815,81837,81857,81861,81862,81866,81882,81886,81887,81904,81911,81912,81925,81946,81971,81974,81990,82022,82036,82042,82048,82058,82078,82090,82092,82095,82097,82102,82105,82107,82139,82141,82142,82145,82147,82176,82207,82211,82214,82215,82225,82228,82246,82259,82332,82334,82337,82339,82340,82351,82352,82373,82376,82388,82395,82409,82410,82411,82429,82452,82472,82476,82544,82546,82559,82560,82578,82601,82602,82607,82627,82636,82653,82654,82680,82714,82718,82738,82792,82812,82820,82821,82823,82847,82850,82869,82878,82883,82892,82895,82909,82911,82926,82930,82932,82938,82945,82990,82992,82994,82996,83013,83035,83040,83046,83048,83062,83102,83125,83340,83360,83366,83379,83387,83389,83399,83406,83418,83424,83449,83459,83472,83475,83504,83522,83524,83538,83553,83565,83571,83572,83575,83589,83602,83603,83610,83612,83633,83636,83640,83648,83655,83664,83687,83704,83706,83709,83711,83744,83746,83759,83776,83778,83779,83780,83804,83811,83824,83841,83843,83931,83945,83986,83991,83994,83998,84000,84065,84090,84130,84158,84165,84195,84196,84228,84321,84375,84392,84394,84420,84421,84453,84457,84476,84500,84527,84543,84545,84548,84562,84573,84582,84589,84615,84715,84716,84726,84740,84749,84759,84772,84773,84774,84793,84856,84858,84888,84889,84893,84921,84941,84961,84968,85005,85025,85047,85049,85051,85063,85091,85102,85109,85144,85154,85156,85158,85160,85162,85166,85169,85176,85212,85220,85240,85243,85244,85258,85271,85279,85310,85317,85320,85324,85333,85337,85338,85350,85363) OR rowid IN (85396,85407,85430,85433,85458,85459,85468,85495,85518,85525,85541,85550,85562,85583,85609,85625,85646,85655,85679,85682,85696,85697,85706,85714,85809,85816,85843,85851,85852,85857,85898,85899,85917,85919,85927,85944,85947,85951,85956,85968,85971,85986,86001,86111,86116,86131,86133,86148,86151,86154,86155,86158,86161,86164,86172,86213,86219,86221,86233,86256,86261,86282,86296,86297,86303,86305,86330,86344,86356,86361,86379,86384,86399,86406,86423,86428,86447,86471,86484,86488,86491,86500,86545,86551,86564,86590,86593,86643,86644,86654,86656,86658,86663,86670,86694,86715,86765,86798,86816,86849,86865,86894,86922,86925,86929,86972,86977,86986,86990,86991,86992,86994,86997,87006,87015,87048,87059,87107,87117,87122,87128,87197,87200,87201,87213,87223,87258,87277,87337,87374,87440,87469,87475,87512,87528,87541,87604,87615,87624,87631,87649,87652,87687,87691,87697,87699,87742,87762,87780,87793,87799,87802,87815,87858,87927,87932,87943,88046,88090,88110,88114,88115,88117,88118,88129,88306,88326,88381,88475,88480,88486,88490,88505,88508,88539,88575,88659,88687,88692,88702,88704,88708,88711,88713,88720,88774,88792,88829,88955,89104,89198,89200,89204,89215,89217,89328,89393,89416)))",
+      "predicate_sql_fragment_B": "((\"application_date\" IS NOT NULL AND \"application_date\" > '2008-01-15' AND \"application_date\" <= '2012-07-03') OR (rowid IN (45,141,194,217,267,283,299,315,384,393,394,502,519,547,567,573,627,631,665,670,687,709,726,758,774,811,821,824,935,949,1031,1065,1122,1135,1186,1199,1235,1282,1318,1323,1389,1452,1454,1482,1490,1520,1527,1529,1595,1617,1649,1652,1668,1671,1672,1673,1726,1791,1797,1811,1874,1896,1927,1930,1968,1977,2007,2016,2047,2051,2057,2063,2109,2124,2131,2135,2143,2144,2173,2189,2193,2226,2263,2318,2420,2454,2519,2544,2579,2580,2599,2622,2645,2706,2709,2737,2743,2778,2785,2818,2854,2871,2957,3032,3073,3082,3095,3114,3224,3272,3275,3394,3405,3457,3458,3478,3536,3614,3640,3643,3649,3676,3731,3743,3784,3825,3855,3861,3877,3948,3963,3971,3972,3980,3982,3987,4011,4021,4025,4029,4037,4045,4046,4054,4110,4111,4120,4121,4137,4140,4170,4171,4184,4242,4244,4280,4295,4365,4371,4400,4425,4438,4443,4462,4478,4500,4502,4592,4594,4598,4618,4642,4692,4708,4718,4721,4734,4746,4774,4777,4791,4801,4803,4817,4824,4892,4900,4986,5038,5039,5053,5068,5252,5254,5256,5268,5278,5770,5773,6171,6172,6278,6282,6327,6472,6494,6521,6548,6640,6680,6747,6773,6775,6786,6787,6803,6846,6880,6881,6914,7047,7096,7138,7167,7175,7176,7205,7209,7241,7243,7283,7353,7366,7375,7387,7394,7433,7461,7489,7501,7502,7519,7530,7534,7538,7559,7566,7573,7574,7618,7628,7636,7649,7653,7664,7694,7711,7748,7759,7771,7778,7779,7816,7837,7911,9155,9156,9165,9226,9232,9583,9727,9948,10170,10184,10238,10332,10376,10615,10831,10875,10931,11018,11047,11304,11365,11384,11594,11835,11860,13218,13226,13428,13623,13753,13814,14568,14575,14940,14950,15094,15222,15307,15738,15752,15806,15961,16162,16286,16329,16419,16432,16441,16673,17411,17522,17812,17946,17947,18079,18102,18120,18256,18399,18422,18428,18480,18491,18514,18577,18606,18616,18815,18824,18826,18921,18940,18953,18954,18996,19002,19003,19041,19043,19055,19056,19087,19094,19170,19175,19205,19207,19225,19379,19440,20116,20367,20625,20924,21101,21143,21407,21429,21785,21807,21909,22304,23273,24437,24534,24978,25153,25162,25375,25563,25572,25777,25878,26025,26343,26348,27167,27306,27377,27472,27555,27789,27799,27851,27854,27874,27964,27986,28035,28601,29246,29304,29312,29950,30001,30354,30532,31799,32170,32200,32578,32682,32683,32685,32715,32729,32737,32738,32823,32835,32845,32887,32995,33011,33012,33014,33020,33056,33113,33124,33160,33222,33272,33348,33386,33388,33442,33467,33468,33516,33523,33527,33564,33619,33638,33641,33710,33747,33884,33911,33936,33999,34046,34126,34181,34186,34332,34354,34395,34411,34451,34496,34577,34585,34611,34649,34708,34710,34746,34865,34885,35026,35106,35121,35240,35317,35418,35448,35503,35565,35592,35659,35660,35689,35702,35786,35805,35855,35882,35920,36001,36023,36048,36160,36177,36201,36208,36215,36216,36274,36277,36369,36378,36396,36534,36571,36589,36614,36618,36645,36677,36687,36695,36745,36750,36786,36926,37171,70996,74371,74871)))",
+      "fragment_role_A": "rows where application_date <= 2008-01-15",
+      "fragment_role_B": "rows where 2008-01-15 < application_date <= 2012-07-03"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "inspections",
+          "from_column": "business_id",
+          "to_table": "businesses",
+          "to_column": "business_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "inspections",
+            "column_map": {
+              "business_id": "business_id",
+              "score": "score",
+              "date": "date",
+              "type": "type"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "score": "score",
+              "date": "date",
+              "type": "type"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "businesses_address_2",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "business_certificate": "business_certificate",
+              "city": "city",
+              "latitude": "latitude",
+              "longitude": "longitude",
+              "name": "name",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state",
+              "phone_number": "phone_number"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "business_certificate": "business_certificate",
+              "city": "city",
+              "latitude": "latitude",
+              "longitude": "longitude",
+              "name": "name",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state",
+              "phone_number": "phone_number"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "businesses_owner_zip",
+            "column_map": {
+              "business_id": "business_id",
+              "owner_zip": "owner_zip",
+              "postal_code": "postal_code",
+              "tax_code": "tax_code"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "owner_zip": "owner_zip",
+              "postal_code": "postal_code",
+              "tax_code": "tax_code"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "businesses_address_q1",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "businesses_address_q2",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "businesses_address_q3",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "businesses_address_q4",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "biz_inspect",
+            "to_local_table": "businessLocationRecord",
+            "from_local_column": "biz_id",
+            "to_local_column": "businessId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "biz_inspect",
+            "to_local_table": "businessOwnerPostalInfo",
+            "from_local_column": "biz_id",
+            "to_local_column": "businessId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "biz_inspect",
+            "to_local_table": "establishments_address_until_2008_01_15",
+            "from_local_column": "biz_id",
+            "to_local_column": "establishment_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "biz_inspect",
+            "to_local_table": "establishments_address_2008_01_15_to_2012_07_03",
+            "from_local_column": "biz_id",
+            "to_local_column": "establishment_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "biz_inspect",
+            "to_local_table": "establishments_address_2012_07_03_to_2014_09_11",
+            "from_local_column": "biz_id",
+            "to_local_column": "establishment_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "biz_inspect",
+            "to_local_table": "establishments_address_after_2014_09_11_or_null",
+            "from_local_column": "biz_id",
+            "to_local_column": "establishment_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "violations",
+          "from_column": "business_id",
+          "to_table": "businesses",
+          "to_column": "business_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "violations",
+            "column_map": {
+              "business_id": "business_id",
+              "date": "date",
+              "violation_type_id": "violation_type_id",
+              "risk_category": "risk_category",
+              "description": "description"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "date": "date",
+              "violation_type_id": "violation_type_id",
+              "risk_category": "risk_category",
+              "description": "description"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "businesses_address_2",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "business_certificate": "business_certificate",
+              "city": "city",
+              "latitude": "latitude",
+              "longitude": "longitude",
+              "name": "name",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state",
+              "phone_number": "phone_number"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "business_certificate": "business_certificate",
+              "city": "city",
+              "latitude": "latitude",
+              "longitude": "longitude",
+              "name": "name",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state",
+              "phone_number": "phone_number"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "businesses_owner_zip",
+            "column_map": {
+              "business_id": "business_id",
+              "owner_zip": "owner_zip",
+              "postal_code": "postal_code",
+              "tax_code": "tax_code"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "owner_zip": "owner_zip",
+              "postal_code": "postal_code",
+              "tax_code": "tax_code"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "businesses_address_q1",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "businesses_address_q2",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "businesses_address_q3",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "businesses_address_q4",
+            "column_map": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            },
+            "orig_to_local": {
+              "business_id": "business_id",
+              "address": "address",
+              "application_date": "application_date",
+              "city": "city",
+              "name": "name",
+              "owner_address": "owner_address",
+              "owner_city": "owner_city",
+              "owner_name": "owner_name",
+              "owner_state": "owner_state"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "inspection_violations",
+            "to_local_table": "establishments_address_until_2008_01_15",
+            "from_local_column": "establishment_id",
+            "to_local_column": "establishment_id"
+          },
+          {
+            "local": "local_3",
+            "from_local_table": "inspection_violations",
+            "to_local_table": "establishments_address_2008_01_15_to_2012_07_03",
+            "from_local_column": "establishment_id",
+            "to_local_column": "establishment_id"
+          },
+          {
+            "local": "local_3",
+            "from_local_table": "inspection_violations",
+            "to_local_table": "establishments_address_2012_07_03_to_2014_09_11",
+            "from_local_column": "establishment_id",
+            "to_local_column": "establishment_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "inspection_violations",
+            "to_local_table": "establishments_address_after_2014_09_11_or_null",
+            "from_local_column": "establishment_id",
+            "to_local_column": "establishment_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "inspection_violations",
+            "to_local_table": "businessLocationRecord",
+            "from_local_column": "establishment_id",
+            "to_local_column": "businessId"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "inspection_violations",
+            "to_local_table": "businessOwnerPostalInfo",
+            "from_local_column": "establishment_id",
+            "to_local_column": "businessId"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "businesses_address_q1",
+      "source_table": "businesses",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "businesses_address_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "businesses_address_q2",
+      "source_table": "businesses",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "businesses_address_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "businesses_address_q3",
+      "source_table": "businesses",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "businesses_address_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "businesses_address_q4",
+      "source_table": "businesses",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "businesses_address_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "businesses_address_2|inspections": 27,
+      "businesses_address_2|violations": 32,
+      "businesses_address_q1|inspections": 28,
+      "businesses_address_q1|violations": 31,
+      "businesses_address_q2|inspections": 28,
+      "businesses_address_q2|violations": 31,
+      "businesses_address_q3|inspections": 28,
+      "businesses_address_q3|violations": 31,
+      "businesses_address_q4|inspections": 28,
+      "businesses_address_q4|violations": 31,
+      "businesses_owner_zip|inspections": 5,
+      "businesses_owner_zip|violations": 5,
+      "inspections|violations": 9
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "businesses_address_2": "local_1",
+      "businesses_address_q1": "local_1",
+      "businesses_address_q2": "local_1",
+      "businesses_address_q3": "local_1",
+      "businesses_address_q4": "local_1",
+      "businesses_owner_zip": "local_1",
+      "inspections": "local_2",
+      "violations": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "businesses": {
+        "R": 4,
+        "F": 6,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "businesses": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "businesses": "businesses_address_q1"
+    },
+    "intents": [
+      {
+        "source_table": "businesses",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "businesses_address_q1",
+        "anchor_fragment": "businesses_address_2",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "businesses",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "businesses_address_q2",
+        "anchor_fragment": "businesses_address_2",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "businesses",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "businesses_address_q3",
+        "anchor_fragment": "businesses_address_2",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "businesses",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "businesses_address_q4",
+        "anchor_fragment": "businesses_address_2",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "businesses",
+        "kind": "row_partition",
+        "movable_fragment": "businesses_address_q2",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "businesses_address_q1"
+      },
+      {
+        "source_table": "businesses",
+        "kind": "row_partition",
+        "movable_fragment": "businesses_address_q3",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "businesses_address_q1"
+      }
+    ],
+    "moved_fragments": [
+      "businesses_address_q1",
+      "businesses_address_q2",
+      "businesses_address_q3",
+      "businesses_address_q4"
+    ],
+    "pinned_fragments": [
+      "violations"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "businesses",
+        "kind": "row_partition",
+        "movable_fragment": "businesses_address_q2",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "businesses_address_q1",
+        "reason": "movable_already_moved"
+      },
+      {
+        "source_table": "businesses",
+        "kind": "row_partition",
+        "movable_fragment": "businesses_address_q3",
+        "partner_fragment": "violations",
+        "partner_logical_table": "violations",
+        "partner_weight": 31,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "businesses_address_q1",
+        "reason": "movable_already_moved"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "businesses": {
+        "columns": [
+          {
+            "name": "business_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "postal_code",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "latitude",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "longitude",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "phone_number",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "tax_code",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "business_certificate",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "application_date",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "owner_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "owner_address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "owner_city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "owner_state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "owner_zip",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [
+          "business_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 6358
+      },
+      "inspections": {
+        "columns": [
+          {
+            "name": "business_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "score",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "date",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "type",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 23764
+      },
+      "violations": {
+        "columns": [
+          {
+            "name": "business_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "date",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "violation_type_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "risk_category",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 36050
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "inspections",
+        "from_column": "business_id",
+        "to_table": "businesses",
+        "to_column": "business_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "violations",
+        "from_column": "business_id",
+        "to_table": "businesses",
+        "to_column": "business_id",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 3,
+      "num_fk_edges": 2,
+      "hub_tables": [
+        "businesses",
+        "inspections",
+        "violations"
+      ],
+      "connected_components": 1
+    }
+  }
+}

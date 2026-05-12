@@ -1,0 +1,743 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 11,
+    "eligible_candidate_count": 10,
+    "num_selected_for_vertical_split": 9,
+    "num_from_rate_alone": 9,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "leads_closed",
+      "products",
+      "orders",
+      "order_items",
+      "order_reviews",
+      "customers",
+      "order_payments",
+      "leads_qualified",
+      "sellers"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/E_commerce/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "order_reviews",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "customers",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "order_payments",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "leads_qualified",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "sellers",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "leads_closed": {
+      "pk_columns": [
+        "mql_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "average_stock",
+          "non_pk_columns": [
+            "average_stock",
+            "business_segment",
+            "declared_monthly_revenue",
+            "declared_product_catalog_size",
+            "has_company",
+            "has_gtin",
+            "lead_behaviour_profile",
+            "lead_type",
+            "won_date"
+          ],
+          "local_table": "LeadsClosedWithAverageStock",
+          "local_name": "local_1",
+          "vertical_fragment_base": "leads_closed_average_stock"
+        },
+        {
+          "suffix": "business_segment",
+          "non_pk_columns": [
+            "business_segment",
+            "business_type",
+            "declared_monthly_revenue",
+            "has_company",
+            "lead_behaviour_profile",
+            "lead_type",
+            "won_date"
+          ],
+          "local_table": "LeadsClosedByBusinessSegment",
+          "local_name": "local_1",
+          "vertical_fragment_base": "leads_closed_business_segment"
+        },
+        {
+          "suffix": "sdr_id",
+          "non_pk_columns": [
+            "sdr_id",
+            "seller_id",
+            "sr_id"
+          ],
+          "local_table": "LeadsClosedForSdr4b339f9567d060bcea4f5136b9f5949e",
+          "local_name": "local_1",
+          "vertical_fragment_base": "leads_closed_sdr_id",
+          "row_partition_names": [
+            "LeadsClosedForSdr4b339f9567d060bcea4f5136b9f5949e",
+            "LeadsClosedForSdr068066e24f0c643eb1d089c7dd20cd73AndSdr56bf83c4bb35763a51c2baab501b4c67",
+            "LeadsClosedForSdr9d12ef1a7eca3ec58c545c678af7869cAndSdra8387c01a09e99ce014107505b92388c",
+            "LeadsClosedForSdr9e4d1098a3b0f5da39b0bc48f9876645AndSdrde63de0d10a6012430098db33c679b0b",
+            "LeadsClosedForSdr370c9f455f93a9a96cbe9bea48e70033AndSdr09285259593c61296eef10c734121d5b",
+            "LeadsClosedForOtherSdrsOrNull"
+          ],
+          "row_partition_predicate_column": "sdr_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "leads_closed",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 13,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.04093499912408083,
+          "3": 0.043941034540131575,
+          "4": 0.053950865832269636
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.053950865832269636,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "average_stock",
+            "declared_product_catalog_size",
+            "has_gtin"
+          ],
+          [
+            "business_segment",
+            "business_type",
+            "declared_monthly_revenue",
+            "has_company",
+            "lead_behaviour_profile",
+            "lead_type",
+            "won_date"
+          ],
+          [
+            "sdr_id",
+            "seller_id",
+            "sr_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "won_date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "declared_monthly_revenue",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "has_company",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "lead_behaviour_profile",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "business_segment",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "lead_type",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "average_stock",
+            "business_segment",
+            "declared_monthly_revenue",
+            "declared_product_catalog_size",
+            "has_company",
+            "has_gtin",
+            "lead_behaviour_profile",
+            "lead_type",
+            "won_date"
+          ],
+          [
+            "business_segment",
+            "business_type",
+            "declared_monthly_revenue",
+            "has_company",
+            "lead_behaviour_profile",
+            "lead_type",
+            "won_date"
+          ],
+          [
+            "sdr_id",
+            "seller_id",
+            "sr_id"
+          ]
+        ],
+        "pk_columns": [
+          "mql_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "average_stock",
+            "non_pk_columns": [
+              "average_stock",
+              "business_segment",
+              "declared_monthly_revenue",
+              "declared_product_catalog_size",
+              "has_company",
+              "has_gtin",
+              "lead_behaviour_profile",
+              "lead_type",
+              "won_date"
+            ]
+          },
+          {
+            "suffix": "business_segment",
+            "non_pk_columns": [
+              "business_segment",
+              "business_type",
+              "declared_monthly_revenue",
+              "has_company",
+              "lead_behaviour_profile",
+              "lead_type",
+              "won_date"
+            ]
+          },
+          {
+            "suffix": "sdr_id",
+            "non_pk_columns": [
+              "sdr_id",
+              "seller_id",
+              "sr_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "won_date",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "business_segment",
+          "also_in_fragment_suffix": "average_stock"
+        },
+        {
+          "column": "declared_monthly_revenue",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "business_segment",
+          "also_in_fragment_suffix": "average_stock"
+        },
+        {
+          "column": "has_company",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "business_segment",
+          "also_in_fragment_suffix": "average_stock"
+        },
+        {
+          "column": "lead_behaviour_profile",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "business_segment",
+          "also_in_fragment_suffix": "average_stock"
+        },
+        {
+          "column": "business_segment",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "business_segment",
+          "also_in_fragment_suffix": "average_stock"
+        },
+        {
+          "column": "lead_type",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "business_segment",
+          "also_in_fragment_suffix": "average_stock"
+        }
+      ]
+    },
+    "orders": {
+      "pk_columns": [
+        "customer_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "order",
+          "non_pk_columns": [
+            "order_approved_at",
+            "order_id",
+            "order_purchase_timestamp",
+            "order_status"
+          ],
+          "local_table": "OrdersSummary",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_order"
+        },
+        {
+          "suffix": "order_2",
+          "non_pk_columns": [
+            "order_approved_at",
+            "order_delivered_carrier_date",
+            "order_delivered_customer_date",
+            "order_estimated_delivery_date",
+            "order_purchase_timestamp",
+            "order_status"
+          ],
+          "local_table": "OrdersWithDeliveryDates",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_order_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.04102158913538549
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.04102158913538549,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "order_approved_at",
+            "order_id",
+            "order_purchase_timestamp",
+            "order_status"
+          ],
+          [
+            "order_delivered_carrier_date",
+            "order_delivered_customer_date",
+            "order_estimated_delivery_date"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "order_purchase_timestamp",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "order_status",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "order_approved_at",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "order_approved_at",
+            "order_id",
+            "order_purchase_timestamp",
+            "order_status"
+          ],
+          [
+            "order_approved_at",
+            "order_delivered_carrier_date",
+            "order_delivered_customer_date",
+            "order_estimated_delivery_date",
+            "order_purchase_timestamp",
+            "order_status"
+          ]
+        ],
+        "pk_columns": [
+          "customer_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "order",
+            "non_pk_columns": [
+              "order_approved_at",
+              "order_id",
+              "order_purchase_timestamp",
+              "order_status"
+            ]
+          },
+          {
+            "suffix": "order_2",
+            "non_pk_columns": [
+              "order_approved_at",
+              "order_delivered_carrier_date",
+              "order_delivered_customer_date",
+              "order_estimated_delivery_date",
+              "order_purchase_timestamp",
+              "order_status"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "order_purchase_timestamp",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_2"
+        },
+        {
+          "column": "order_status",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_2"
+        },
+        {
+          "column": "order_approved_at",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_2"
+        }
+      ]
+    },
+    "products": {
+      "pk_columns": [
+        "product_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "product",
+          "non_pk_columns": [
+            "product_category_name",
+            "product_description_lenght",
+            "product_length_cm",
+            "product_name_lenght",
+            "product_photos_qty",
+            "product_weight_g"
+          ],
+          "local_table": "bedding_bath_and_sports_products",
+          "local_name": "local_2",
+          "vertical_fragment_base": "products_product",
+          "row_partition_names": [
+            "bedding_bath_and_sports_products",
+            "furniture_toys_and_gifts_products",
+            "beauty_health_and_household_products",
+            "auto_and_computer_accessories_products",
+            "other_or_unclassified_products"
+          ],
+          "row_partition_predicate_column": "product_category_name"
+        },
+        {
+          "suffix": "product_2",
+          "non_pk_columns": [
+            "product_category_name",
+            "product_height_cm",
+            "product_length_cm",
+            "product_photos_qty",
+            "product_weight_g",
+            "product_width_cm"
+          ],
+          "local_table": "product_master_catalog",
+          "local_name": "local_2",
+          "vertical_fragment_base": "products_product_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "products",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.05816348121430801
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.05816348121430801,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "product_category_name",
+            "product_description_lenght",
+            "product_name_lenght",
+            "product_photos_qty"
+          ],
+          [
+            "product_height_cm",
+            "product_length_cm",
+            "product_weight_g",
+            "product_width_cm"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "product_category_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "product_weight_g",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "product_photos_qty",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "product_length_cm",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "product_category_name",
+            "product_description_lenght",
+            "product_length_cm",
+            "product_name_lenght",
+            "product_photos_qty",
+            "product_weight_g"
+          ],
+          [
+            "product_category_name",
+            "product_height_cm",
+            "product_length_cm",
+            "product_photos_qty",
+            "product_weight_g",
+            "product_width_cm"
+          ]
+        ],
+        "pk_columns": [
+          "product_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "product",
+            "non_pk_columns": [
+              "product_category_name",
+              "product_description_lenght",
+              "product_length_cm",
+              "product_name_lenght",
+              "product_photos_qty",
+              "product_weight_g"
+            ]
+          },
+          {
+            "suffix": "product_2",
+            "non_pk_columns": [
+              "product_category_name",
+              "product_height_cm",
+              "product_length_cm",
+              "product_photos_qty",
+              "product_weight_g",
+              "product_width_cm"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "product_category_name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "product",
+          "also_in_fragment_suffix": "product_2"
+        },
+        {
+          "column": "product_weight_g",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "product_2",
+          "also_in_fragment_suffix": "product"
+        },
+        {
+          "column": "product_photos_qty",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "product",
+          "also_in_fragment_suffix": "product_2"
+        },
+        {
+          "column": "product_length_cm",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "product_2",
+          "also_in_fragment_suffix": "product"
+        }
+      ]
+    },
+    "order_items": {
+      "pk_columns": [
+        "order_id",
+        "order_item_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "freight_value",
+          "non_pk_columns": [
+            "freight_value",
+            "price",
+            "shipping_limit_date"
+          ],
+          "local_table": "ord_itm_frt_val",
+          "local_name": "local_3",
+          "vertical_fragment_base": "order_items_freight_value"
+        },
+        {
+          "suffix": "price",
+          "non_pk_columns": [
+            "price",
+            "product_id",
+            "seller_id",
+            "shipping_limit_date"
+          ],
+          "local_table": "ord_itm_prc_lte_39_9",
+          "local_name": "local_3",
+          "vertical_fragment_base": "order_items_price",
+          "row_partition_names": [
+            "ord_itm_prc_lte_39_9",
+            "ord_itm_prc_gt_39_9_lte_74_99",
+            "ord_itm_prc_gt_74_99_lte_134_9",
+            "ord_itm_prc_gt_134_9_or_null"
+          ],
+          "row_partition_predicate_column": "price"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "order_items",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 5,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.07231065720207261
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.07231065720207261,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "freight_value",
+            "price",
+            "shipping_limit_date"
+          ],
+          [
+            "product_id",
+            "seller_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "shipping_limit_date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "price",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "freight_value",
+            "price",
+            "shipping_limit_date"
+          ],
+          [
+            "price",
+            "product_id",
+            "seller_id",
+            "shipping_limit_date"
+          ]
+        ],
+        "pk_columns": [
+          "order_id",
+          "order_item_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "freight_value",
+            "non_pk_columns": [
+              "freight_value",
+              "price",
+              "shipping_limit_date"
+            ]
+          },
+          {
+            "suffix": "price",
+            "non_pk_columns": [
+              "price",
+              "product_id",
+              "seller_id",
+              "shipping_limit_date"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "shipping_limit_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "freight_value",
+          "also_in_fragment_suffix": "price"
+        },
+        {
+          "column": "price",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "freight_value",
+          "also_in_fragment_suffix": "price"
+        }
+      ]
+    }
+  }
+}

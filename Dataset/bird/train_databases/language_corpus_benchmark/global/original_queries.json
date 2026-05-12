@@ -1,0 +1,954 @@
+[
+  {
+    "sql": "SELECT title, words FROM pages WHERE title = ( SELECT MAX(LENGTH(title)) FROM pages )",
+    "question_id": null,
+    "question": "Name the longest Catalan language Wikipedia page title and state the number of different words in this page.",
+    "difficulty": "",
+    "evidence": "longest title refers to max(length(title))"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE words < 10",
+    "question_id": null,
+    "question": "List all the Catalan language wikipedia page title with less than 10 number of different words in these pages.",
+    "difficulty": "",
+    "evidence": "less than 10 number of different words refers to words < 10"
+  },
+  {
+    "sql": "SELECT page FROM pages WHERE title LIKE 'Art%' OR title LIKE '%Art%' OR title LIKE '%Art'",
+    "question_id": null,
+    "question": "List the page number for Catalan language wikipedia pages containing the word 'Art' in the page title.",
+    "difficulty": "",
+    "evidence": "containing the word 'Art' refers to title LIKE '% Art %'"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE revision = 16203226",
+    "question_id": null,
+    "question": "What is the title of Catalan language wikipedia page with revision page id '16203226'?",
+    "difficulty": "",
+    "evidence": "revision page id '16203226' refers to revision = 16203226"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE revision BETWEEN 106600 AND 106700",
+    "question_id": null,
+    "question": "List the titles for all Catalan language wikipedia page from revision page id 106600 to 106700.",
+    "difficulty": "",
+    "evidence": "from revision page id 106600 to 106700 refers to revision BETWEEN 106600 AND 106700"
+  },
+  {
+    "sql": "SELECT COUNT(pid) FROM pages WHERE words BETWEEN 1000 AND 2000",
+    "question_id": null,
+    "question": "How many Catalan language wikipedia pages have between 1000 to 2000 number of different words?",
+    "difficulty": "",
+    "evidence": "between 1000 to 2000 number of different words refers to words BETWEEN 1000 AND 2000"
+  },
+  {
+    "sql": "SELECT T2.pid FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid WHERE T1.word = 'decimal'",
+    "question_id": null,
+    "question": "List the page id of wikipedia about Catalan language which have the appearance of the word 'decimal'?",
+    "difficulty": "",
+    "evidence": "have the appearance of 'decimal' refers to word = 'decimal'"
+  },
+  {
+    "sql": "SELECT T1.word FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid WHERE T2.occurrences = ( SELECT MAX(occurrences) FROM pages_words )",
+    "question_id": null,
+    "question": "Which word has the most occurrences within the same page of wikipedia about Catalan language?",
+    "difficulty": "",
+    "evidence": "most occurrences refers to max(occurrences)"
+  },
+  {
+    "sql": "SELECT T1.word FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st WHERE T2.w2nd = ( SELECT wid FROM words WHERE word = 'antic' )",
+    "question_id": null,
+    "question": "List all the first words of the biwords pair where the second word is 'antic'.",
+    "difficulty": "",
+    "evidence": "first words refer to w1st.word; second word is 'antic' refers to w2nd.word = 'antic'"
+  },
+  {
+    "sql": "SELECT T1.title, T2.occurrences FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid INNER JOIN words AS T3 ON T2.wid = T3.wid WHERE T3.word = 'quipu'",
+    "question_id": null,
+    "question": "Show all the title of pages and number of occurences for each page where the word 'quipu' appears.",
+    "difficulty": "",
+    "evidence": "word 'quipu' appears refers to word = 'quipu'"
+  },
+  {
+    "sql": "SELECT AVG(T2.occurrences) FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st WHERE T2.w1st = ( SELECT wid FROM words WHERE word = 'sistema' )",
+    "question_id": null,
+    "question": "Calculate the average number of the word occurrences in which \u2018system\u2019 appeared as the first word in the pair.",
+    "difficulty": "",
+    "evidence": "average word occurrences = divide(sum(occurrences), count(occurrences)); \u2018system\u2019 appeared as the first word refers to w1st = 'system'"
+  },
+  {
+    "sql": "SELECT pages FROM langs WHERE lang = 'ca'",
+    "question_id": null,
+    "question": "What is the total pages of Wikipedia in Catalan language?",
+    "difficulty": "",
+    "evidence": "total pages refers to sum(pages); Catalan language refers to lang = 'ca'"
+  },
+  {
+    "sql": "SELECT w1st, w2nd FROM biwords WHERE occurrences = ( SELECT MAX(occurrences) FROM biwords )",
+    "question_id": null,
+    "question": "In the Catalan language, which biwords pair appeared the most in this language/page?",
+    "difficulty": "",
+    "evidence": "biwords pair refers to w1st.word w2nd.word; appeared the most refers to max(occurrences)"
+  },
+  {
+    "sql": "SELECT wid FROM langs_words WHERE occurrences <= 10",
+    "question_id": null,
+    "question": "What is the word id of the catalan language that was repeated no more than 10 times in the said language?",
+    "difficulty": "",
+    "evidence": "word id refers to wid; repeated no more than 10 times refers to occurrences < = 10"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE words = ( SELECT MAX(words) FROM pages )",
+    "question_id": null,
+    "question": "What is the title of the Catalan language Wikipedia page that has the highest number of different words?",
+    "difficulty": "",
+    "evidence": "highest number of different words refers to max(words)"
+  },
+  {
+    "sql": "SELECT page FROM pages WHERE title = 'Arqueozoologia'",
+    "question_id": null,
+    "question": "What is the wikipedia page id of Arqueozoologia?",
+    "difficulty": "",
+    "evidence": "page id refers to pid; Arqueozoologia refers to title = 'Arqueozoologia'"
+  },
+  {
+    "sql": "SELECT T2.wid, T2.occurrences FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T1.title = 'Abadia' ORDER BY T2.occurrences DESC LIMIT 1",
+    "question_id": null,
+    "question": "In Abadia, what is the word id of the of the Catalan language that appeared the highest amount of times? Indicate the how many times did they said word id appeared.",
+    "difficulty": "",
+    "evidence": "Abadia refers to title = 'Abadia'; word id refers to wid; the highest amount of times refers to max(occurrences)"
+  },
+  {
+    "sql": "SELECT T1.title FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid ORDER BY T1.words LIMIT 5",
+    "question_id": null,
+    "question": "What are the titles of the top 5 Catalan language Wikipedia page with the least number of different words? Indicate each title's word id that has appeared the most in the said pages.",
+    "difficulty": "",
+    "evidence": "least number of different words refers to min(words); word id refers to wid; appeared the most refers to max(occurrences)"
+  },
+  {
+    "sql": "SELECT SUM(occurrences) FROM biwords WHERE w1st = 86 AND w2nd = 109",
+    "question_id": null,
+    "question": "How many times did the word pair \"i\" and \"a\" appeared in the Cataln language/page?",
+    "difficulty": "",
+    "evidence": "times appeared refers to occurrences; word pair \"i\" and \"a\" refers to w1st.word = 'i' w2st.word = 'a'"
+  },
+  {
+    "sql": "SELECT T1.word, T3.word FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st INNER JOIN words AS T3 ON T3.wid = T2.w2nd WHERE T2.occurrences = 2",
+    "question_id": null,
+    "question": "What are the word pairs that occured only twice?",
+    "difficulty": "",
+    "evidence": "word pair refers to w1st.word w2nd.word; occured only twice refers to occurrences = 2"
+  },
+  {
+    "sql": "SELECT T3.w1st, T3.w2nd, T3.occurrences FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid INNER JOIN biwords AS T3 ON T2.wid = T3.w1st OR T2.wid = T3.w2nd WHERE T1.title = 'Addicio' ORDER BY T3.occurrences DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the word pair that occured the highest amount of times in Addicio? Indicate how many times such word pair occured.",
+    "difficulty": "",
+    "evidence": "word pair refers to w1st.word w2nd.word; occurred the highest amount of times refers to max(occurrences); Addicio refers to title = 'Addicio'; times occurred refer to occurrences"
+  },
+  {
+    "sql": "SELECT SUM(words) FROM pages WHERE title IN ('Adam', 'Acampada')",
+    "question_id": null,
+    "question": "What is the total word of title \"Adam\" and \"Acampada\"?",
+    "difficulty": "",
+    "evidence": "total word refers to sum(words); title \"Adam\" and \"Acampada\" refers to title IN('Adam','Acampada')"
+  },
+  {
+    "sql": "SELECT revision FROM pages WHERE title = 'Aigua dol\u00c3\u00a7a'",
+    "question_id": null,
+    "question": "What is the revision page ID of title \"Aigua dol\u00c3\u00a7a\"?",
+    "difficulty": "",
+    "evidence": "title \"Aigua dol\u00c3\u00a7a\" refers to title LIKE 'Aigua dol\u00c3\u00a7a%'"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE words = ( SELECT MAX(words) FROM pages )",
+    "question_id": null,
+    "question": "What is the title of corpus with most words?",
+    "difficulty": "",
+    "evidence": "most words refers to max(words)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN words >= 10 THEN words ELSE 0 END) AS REAL) / SUM(CASE WHEN words >= 10 THEN 1 ELSE 0 END) FROM pages",
+    "question_id": null,
+    "question": "What is the average words of the 10 fewest words title?",
+    "difficulty": "",
+    "evidence": "average words = avg(words); 10 fewest words refers to words > = 10"
+  },
+  {
+    "sql": "SELECT revision FROM pages WHERE words < 10 LIMIT 5",
+    "question_id": null,
+    "question": "Among the title with single digit word count, list down 5 revision page ID of these titles.",
+    "difficulty": "",
+    "evidence": "single digit word count refers to words < 10"
+  },
+  {
+    "sql": "SELECT pid FROM pages WHERE title LIKE 'b%'",
+    "question_id": null,
+    "question": "List down the page id of titles start with alphabet \"b\".",
+    "difficulty": "",
+    "evidence": "start with alphabet \"b\" refers to title LIKE 'b%'"
+  },
+  {
+    "sql": "SELECT T1.title FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid INNER JOIN words AS T3 ON T2.wid = T3.wid WHERE T3.word = 'desena'",
+    "question_id": null,
+    "question": "What is the title of corpus where word \"desena\" appear?",
+    "difficulty": "",
+    "evidence": "This is not"
+  },
+  {
+    "sql": "SELECT T2.wid FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T1.title = 'Sometent'",
+    "question_id": null,
+    "question": "What is the word id for title \"Sometent\"?",
+    "difficulty": "",
+    "evidence": "word id refers to wid"
+  },
+  {
+    "sql": "SELECT CASE WHEN COUNT(T1.pid) > 0 THEN 'YES' ELSE 'NO' END AS YORN FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T2.wid = 88 AND T1.title = 'Animals'",
+    "question_id": null,
+    "question": "Is word id \"88\" the word id for title \"Animals\"?",
+    "difficulty": "",
+    "evidence": "word id \"88\" refers to wid = 88"
+  },
+  {
+    "sql": "SELECT T2.occurrences FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'del' AND T3.title = 'Any anomal\u00c3\u00adstic'",
+    "question_id": null,
+    "question": "What are the occurance of word \"del\" in title \"Any anomal\u00c3\u00adstic\"?",
+    "difficulty": "",
+    "evidence": "This is not"
+  },
+  {
+    "sql": "SELECT T1.word, T3.word FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st INNER JOIN words AS T3 ON T3.wid = T2.w2nd WHERE T2.occurrences = 4 LIMIT 1",
+    "question_id": null,
+    "question": "State one biword pair with occurence of 4.",
+    "difficulty": "",
+    "evidence": "biword pair refers to w1st.word w2nd.word; occurrence of 4 refers to occurrences = 4"
+  },
+  {
+    "sql": "SELECT SUM(T2.occurrences) FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st OR T1.wid = T2.w2nd WHERE T2.w1st IN (( SELECT wid FROM words WHERE word = 'nombre' ) OR T2.w2nd IN ( SELECT wid FROM words WHERE word = 'nombre' ))",
+    "question_id": null,
+    "question": "What are the total occurence of words that paired with \"nombre\"?",
+    "difficulty": "",
+    "evidence": "total occurrence refers to sum(occurrences); paired with \"nombre\" refers to w1st.word = \"nombre\" or w2nd.word = \"nombre\""
+  },
+  {
+    "sql": "SELECT w2nd FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = 'john' ) LIMIT 10",
+    "question_id": null,
+    "question": "What are the words that were paired with \"John\", list down 10 of them.",
+    "difficulty": "",
+    "evidence": "pair with \"John\" refers to w1st.word = \"John\" or w2nd.word = \"John\""
+  },
+  {
+    "sql": "SELECT T3.revision FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'fresc'",
+    "question_id": null,
+    "question": "List down the revision page id of titles where \"fresc\" appears.",
+    "difficulty": "",
+    "evidence": "page id refers to pid; \"fresc\" refers to word = 'fresc'"
+  },
+  {
+    "sql": "SELECT T1.word AS W1, T3.word AS W2 FROM words AS T1 LEFT JOIN biwords AS T2 ON T1.wid = T2.w1st LEFT JOIN words AS T3 ON T3.wid = T2.w2nd WHERE T1.wid <= 10 GROUP BY T1.wid",
+    "question_id": null,
+    "question": "List down the words with word id from 1 to 10 and write down a paired word for each of them.",
+    "difficulty": "",
+    "evidence": "word id from 1 to 10 refers to wid BETWEEN 1 AND 10"
+  },
+  {
+    "sql": "SELECT T1.word, T1.occurrences FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid WHERE T2.pid = ( SELECT pid FROM pages WHERE title = 'Atomium' ) LIMIT 3",
+    "question_id": null,
+    "question": "For corpus title \"Atomium\", pick 3 words appear in the title and calculate the total occurence of these words.",
+    "difficulty": "",
+    "evidence": "total occurrences refers to sum(occurrences)"
+  },
+  {
+    "sql": "SELECT word FROM words WHERE occurrences = ( SELECT MAX(occurrences) FROM words )",
+    "question_id": null,
+    "question": "Indicate which is the word that is repeated the most times.",
+    "difficulty": "",
+    "evidence": "repeated the most times refer to MAX(occurrences);"
+  },
+  {
+    "sql": "SELECT pid, title FROM pages WHERE title LIKE '%0%' OR '%1%' OR '%2%' OR '%3%' OR '%4%' OR '%5%' OR '%6%' OR '%7%' OR '%8%' OR '%9%'",
+    "question_id": null,
+    "question": "Indicate the page id of Wikipedia about Catalan language of all the pages that have a numeric value in their title.",
+    "difficulty": "",
+    "evidence": "the page id of Wikipedia refers to pid; numeric value contains only numbers, LIKE '%0%' OR '%1%' OR '%2%' OR '%3%' OR '%4%' OR '%5%' OR '%6%' OR '%7%' OR '%8%' OR '%9%';"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE title = ( SELECT MIN(words) FROM pages )",
+    "question_id": null,
+    "question": "What is the title of the page that has the fewest words?",
+    "difficulty": "",
+    "evidence": "has the fewest words refers to MIN(COUNT(words));"
+  },
+  {
+    "sql": "SELECT w1st, w2nd FROM biwords WHERE occurrences = ( SELECT MAX(occurrences) FROM biwords )",
+    "question_id": null,
+    "question": "What is the pair of words that is repeated the most times? Identify them by their ID.",
+    "difficulty": "",
+    "evidence": "repeated the most times refer to MAX(occurrences); pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word;"
+  },
+  {
+    "sql": "SELECT SUM(occurrences) FROM words WHERE LENGTH(word) = 3",
+    "question_id": null,
+    "question": "How many total occurrences are there in the three-letter words?",
+    "difficulty": "",
+    "evidence": "three-letter words are words composed of exactly three letters;"
+  },
+  {
+    "sql": "SELECT AVG(words) FROM pages WHERE title LIKE 'A%'",
+    "question_id": null,
+    "question": "Calculate the average number of different words that appear on all pages whose title begins with A.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(words WHERE title = 'A%'), COUNT(words WHERE title = 'A%')) as percentage; A is a letter;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN w1st = 34 THEN 1 ELSE 0 END) AS REAL) / COUNT(w1st) FROM biwords",
+    "question_id": null,
+    "question": "Calculate the average number of repetitions in the pairs of words in which the first word id is number 34.",
+    "difficulty": "",
+    "evidence": "Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word; the first word id number 34 refers to w1st = 34; repetition refers to occurrences or times this pair appears; DIVIDE(SUM(occurrences where w1st = 34), COUNT(occurrences where w1st = 34));"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN words = 1500 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(page) FROM pages WHERE words > 300 LIMIT 3",
+    "question_id": null,
+    "question": "Calculate the percentage of pages that have 1500 different words.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(pages WHERE words = 1500), COUNT(pages)) as percentage;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN w1st = w2nd THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(w1st) FROM biwords",
+    "question_id": null,
+    "question": "Calculate the percentage of times that the same word appears in a pair.",
+    "difficulty": "",
+    "evidence": "Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word; the same word appears in a pair refers to w1st = w2nd; times refers to occurrences; DIVIDE(COUNT(occurrences where w1st = w2nd), COUNT(occurrences)) as percentage;"
+  },
+  {
+    "sql": "SELECT T3.title FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'comunitat'",
+    "question_id": null,
+    "question": "Indicate the title of all the pages in which the word comunitat appears.",
+    "difficulty": "",
+    "evidence": "This is not;"
+  },
+  {
+    "sql": "SELECT T3.page FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'ripoll'",
+    "question_id": null,
+    "question": "Indicate on how many different pages the word ripoll appears.",
+    "difficulty": "",
+    "evidence": "This is not;"
+  },
+  {
+    "sql": "SELECT occurrences FROM pages_words WHERE pid = ( SELECT pid FROM pages WHERE title = 'Llista de conflictes armats' )",
+    "question_id": null,
+    "question": "How many words are repeated on the Llista de conflictes armats page?",
+    "difficulty": "",
+    "evidence": "title = 'Llista de conflictes armats'; How many repeated refers to occurrences;"
+  },
+  {
+    "sql": "SELECT CASE WHEN COUNT(T1.wid) > 0 THEN 'yes' ELSE 'no' END FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st OR T1.wid = T2.w2nd WHERE T2.w1st = ( SELECT wid FROM words WHERE T1.word = 'fukunaga' ) AND T2.w2nd = ( SELECT wid FROM words WHERE word LIKE 'd%egees' )",
+    "question_id": null,
+    "question": "Indicate if there is any pair formed by the words fukunaga and d'egees.",
+    "difficulty": "",
+    "evidence": "Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word;\u00a0 w1st = word = 'fukunaga' or w2nd = word = 'fukunaga'; w1st = word = 'd'egees'or w2nd = word = 'd'egees';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.occurrences) AS REAL) / COUNT(T1.page) FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T1.words = 100",
+    "question_id": null,
+    "question": "Calculate the average of repetitions in the pages that have a total of 100 different words.",
+    "difficulty": "",
+    "evidence": "Repetition refers to occurrences; 100 different words refers to words = 100; DIVIDE(SUM(occurrences where words = 100), COUNT(page where words = 100)) as percentage;"
+  },
+  {
+    "sql": "SELECT page FROM pages WHERE title = 'Acampada'",
+    "question_id": null,
+    "question": "Which Wikipedia page number does the Catalan language's name, Acampada, appear on?",
+    "difficulty": "",
+    "evidence": "Wikipedia page number refers to page; title = 'Acampada';"
+  },
+  {
+    "sql": "SELECT page FROM pages WHERE words > 300 LIMIT 3",
+    "question_id": null,
+    "question": "Please list any three Wikipedia pages with more than 300 words.",
+    "difficulty": "",
+    "evidence": "more than 300 words refers to words > 300;\u00a0 list any three means limit 3; Wikipedia pages refers to page;"
+  },
+  {
+    "sql": "SELECT occurrences FROM words WHERE wid = 8",
+    "question_id": null,
+    "question": "How many times did the word number 8 appear?",
+    "difficulty": "",
+    "evidence": "word number 8 refers to wid = 8; How many times refer to occurrences;"
+  },
+  {
+    "sql": "SELECT word, wid FROM words ORDER BY occurrences DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the top three most frequently occurring words and their ids.",
+    "difficulty": "",
+    "evidence": "most frequently occurring words refer to MAX(occurrences); id refers to wid;"
+  },
+  {
+    "sql": "SELECT occurrences FROM biwords WHERE w1st = 1 AND w2nd = 25",
+    "question_id": null,
+    "question": "How frequently did the words 1 and 25 appear together?",
+    "difficulty": "",
+    "evidence": "How frequently refers to occurrences;\u00a0 word 1 refers to wid = 1; word 25 refers to wid = 25; appear together means pair, which is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word;\u00a0 w1st or w2nd = wid = 1; w1st or w2nd = wid = 25;"
+  },
+  {
+    "sql": "SELECT words FROM pages WHERE revision = 27457362",
+    "question_id": null,
+    "question": "What number of words are there on revision page 27457362?",
+    "difficulty": "",
+    "evidence": "This is not;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN occurrences > 16000 THEN lid ELSE NULL END) AS REAL) * 100 / COUNT(lid) FROM langs_words",
+    "question_id": null,
+    "question": "What is the percentage of words in the Catalan language that have a repetition of more than 16,000 times?",
+    "difficulty": "",
+    "evidence": "words in the Catalan language refers lid = 1; repetition of more than 16,000 times refers to occurrences > 16000; DIVIDE(COUNT(words where lid = 1 and occurrences > 16000), COUNT(words where lid = 1)) as percentage;"
+  },
+  {
+    "sql": "SELECT page FROM pages WHERE words = ( SELECT MAX(words) FROM pages )",
+    "question_id": null,
+    "question": "Which Wikipedia page number has the highest number of words in the Catalan language?",
+    "difficulty": "",
+    "evidence": "Wikipedia page number refers to page;\u00a0 the highest number of words in the Catalan language refers to MAX(lid = 1);"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN occurrences < 80 THEN lid ELSE NULL END) AS REAL) * 100 / COUNT(lid) FROM biwords",
+    "question_id": null,
+    "question": "What proportion of a pair of words in the Catalan language have been repeated less than 80 times?",
+    "difficulty": "",
+    "evidence": "Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word; in the Catalan language refers to lid; repeated less than 80 times refers to occurrences < 80; DIVIDE(COUNT(lid where occurrences < 80), COUNT(lid)) as percentage;"
+  },
+  {
+    "sql": "SELECT pages FROM langs WHERE lang = 'ca'",
+    "question_id": null,
+    "question": "How many Catalan-language Wikipedia pages are there overall?",
+    "difficulty": "",
+    "evidence": "Catalan-language refers to lang = 'ca';"
+  },
+  {
+    "sql": "SELECT title, revision FROM pages WHERE lid = 1 LIMIT 3",
+    "question_id": null,
+    "question": "Please list any three Wikipedia pages that are written in Catalan, together with their titles and revision page numbers.",
+    "difficulty": "",
+    "evidence": "in Catalan means in Catalan-language and refers to lid = 1; revision page numbers refer to revision;"
+  },
+  {
+    "sql": "SELECT T2.lang FROM biwords AS T1 INNER JOIN langs AS T2 ON T1.lid = T2.lid WHERE T1.w1st = 1 AND T1.w2nd = 616",
+    "question_id": null,
+    "question": "What is the language of the pair of words numbered 1 and 616?",
+    "difficulty": "",
+    "evidence": "Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word; w1st = 1; w2nd = 616;"
+  },
+  {
+    "sql": "SELECT T1.occurrences FROM langs_words AS T1 INNER JOIN words AS T2 ON T1.wid = T2.wid WHERE T2.word = 'nombre'",
+    "question_id": null,
+    "question": "How many times does the Catalan word \"nombre\" repeat itself?",
+    "difficulty": "",
+    "evidence": "the Catalan means Catalan language and refers to lid = 1; How many times repeat refers to occurrences;"
+  },
+  {
+    "sql": "SELECT word FROM words WHERE wid = 8968",
+    "question_id": null,
+    "question": "What is the second word in the pair of words number 1 and 8968?",
+    "difficulty": "",
+    "evidence": "Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word; w1st = 1; w2nd = 8968;"
+  },
+  {
+    "sql": "SELECT T2.word FROM langs_words AS T1 INNER JOIN words AS T2 ON T1.wid = T2.wid WHERE T1.occurrences = ( SELECT MAX(occurrences) FROM langs_words )",
+    "question_id": null,
+    "question": "Which word has the most repetitions in the Catalan language?",
+    "difficulty": "",
+    "evidence": "the most repetitions refer to MAX(occurrences); Catalan language refers to lid = 1;"
+  },
+  {
+    "sql": "SELECT T2.occurrences FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid WHERE T1.word = 'votives' AND T2.pid = 44",
+    "question_id": null,
+    "question": "How many times on page number 44 does the word \"votives\" appear?",
+    "difficulty": "",
+    "evidence": "How many times refers to occurrences; page number 44 refers to pid = 44;"
+  },
+  {
+    "sql": "SELECT SUM(T1.occurrences) FROM pages_words AS T1 INNER JOIN biwords AS T2 ON T2.w2nd = T1.wid WHERE T2.w2nd = 109 AND T2.w1st = 1 AND T1.pid = 16",
+    "question_id": null,
+    "question": "How many times on page number 16 does the second word in the pair of words 1 and 109 appear?",
+    "difficulty": "",
+    "evidence": "How many times appear refer to occurrences; page number 16 refers to pid = 16; Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word; w1st = 1; w2nd = 109;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.occurrences < 180 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.lid) FROM langs AS T1 INNER JOIN langs_words AS T2 ON T1.lid = T2.lid WHERE T1.lang = 'ca'",
+    "question_id": null,
+    "question": "What is the percentage of the words that have been repeated under 180 times in the Catalan language?",
+    "difficulty": "",
+    "evidence": "repeated under 180 times refers to occurrences < 180; Catalan language refers to lang = 'ca'; DIVIDE(COUNT(words WHERE occurrences < 180 and lang = 'ca'), COUNT(words WHERE lang = 'ca')) as percentage;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.words > 10000 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.page) FROM langs AS T1 INNER JOIN pages AS T2 ON T1.lid = T2.lid WHERE T1.lang = 'ca'",
+    "question_id": null,
+    "question": "What percentage of Catalan-language Wikipedia pages have more than 10,000 words?",
+    "difficulty": "",
+    "evidence": "Catalan-language refers to lang = 'ca'; more than 10,000 words refer to\u00a0words > 10000; DIVIDE(COUNT(pages WHERE words > 10000 and lang = 'ca'), COUNT(pages WHERE lang = 'ca')) as percentage;"
+  },
+  {
+    "sql": "SELECT occurrences FROM words WHERE word = 'desena'",
+    "question_id": null,
+    "question": "How many times the word \"desena\" occurs?",
+    "difficulty": "",
+    "evidence": "How many times occurs refers to occurrences;"
+  },
+  {
+    "sql": "SELECT COUNT(w1st) AS countwords FROM biwords WHERE occurrences > 10",
+    "question_id": null,
+    "question": "How many words has the appearance times greater than 10?",
+    "difficulty": "",
+    "evidence": "appearance times greater than 10 refers to occurrences > 10;"
+  },
+  {
+    "sql": "SELECT pages FROM langs",
+    "question_id": null,
+    "question": "List out the total pages of Wikipedia in Catalan language.",
+    "difficulty": "",
+    "evidence": "This is not;"
+  },
+  {
+    "sql": "SELECT COUNT(wid) FROM langs_words WHERE occurrences BETWEEN '2000' AND '5000'",
+    "question_id": null,
+    "question": "How many words have repetitions greater than 2000 and lower than 5000?",
+    "difficulty": "",
+    "evidence": "repetitions greater than 2000 and lower than 5000 refer to occurrences between 2000 and 5000;"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE revision = 106601",
+    "question_id": null,
+    "question": "List out the title of Catalan language Wikipedia page that has wikipedia revision page id as 106601.",
+    "difficulty": "",
+    "evidence": "Wikipedia revision page id as 106601 refers to revision = 106601;"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE revision = 28040864",
+    "question_id": null,
+    "question": "State the Wikipedia page title that has revision page id of 28040864.",
+    "difficulty": "",
+    "evidence": "revision page id of 28040864 refers to revision = 28040864;"
+  },
+  {
+    "sql": "SELECT SUM(occurrences) FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = 'barcelona' ) AND w2nd = ( SELECT wid FROM words WHERE word = 'precolombina' )",
+    "question_id": null,
+    "question": "How many times that the word pair of \"barcelona\" and \"precolombina\" occur?",
+    "difficulty": "",
+    "evidence": "Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word; w1st or w2nd = 'barcelona'; w1st or w2nd = 'precolombina';"
+  },
+  {
+    "sql": "SELECT T1.locale FROM langs AS T1 INNER JOIN pages AS T2 ON T1.lid = T2.lid WHERE T2.title = 'Anys 90'",
+    "question_id": null,
+    "question": "What is the locale of the language of the page titled \"Anys 90\"?",
+    "difficulty": "",
+    "evidence": "page titled \"Anys 90\" refers to title = 'Anys 90';"
+  },
+  {
+    "sql": "SELECT T1.word FROM words AS T1 INNER JOIN langs_words AS T2 ON T1.wid = T2.wid WHERE T2.occurrences = 71303",
+    "question_id": null,
+    "question": "Which word that has 71303 appearance in the Catalan language?",
+    "difficulty": "",
+    "evidence": "has 71303 appearance refers to occurrences = 71303;"
+  },
+  {
+    "sql": "SELECT T1.locale FROM langs AS T1 INNER JOIN pages AS T2 ON T1.lid = T2.lid WHERE T2.title = 'Abril'",
+    "question_id": null,
+    "question": "What is the locale of the language of the page titled \"Abril\"?",
+    "difficulty": "",
+    "evidence": "the page titled \"Abril\" refers to title = 'Abril';"
+  },
+  {
+    "sql": "SELECT words FROM langs WHERE lid = ( SELECT lid FROM biwords WHERE w1st = 100 AND w2nd = 317 )",
+    "question_id": null,
+    "question": "What is the total number of words in page containing pair of word id \"100\" and \"317\"?",
+    "difficulty": "",
+    "evidence": "Pair is a relationship of two words: w1st and w2nd, where w1st is word id of the first word and w2nd is a word id of the second word; w1st = 100; w2nd = 317;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.pages) FROM langs AS T1 INNER JOIN langs_words AS T2 ON T1.lid = T2.lid WHERE T2.occurrences = 2593",
+    "question_id": null,
+    "question": "State the total pages of the words that has repeated times of 2593.",
+    "difficulty": "",
+    "evidence": "repeated times of 2593 refers to occurrences = 2593;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.title FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T2.wid < 20",
+    "question_id": null,
+    "question": "List out the title of the word have id less than 20.",
+    "difficulty": "",
+    "evidence": "word have id less than 20 refers to wid < 20;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.wid) FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T1.words = 3",
+    "question_id": null,
+    "question": "How many word that has number of different words equal to 3?",
+    "difficulty": "",
+    "evidence": "This is not;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.wid), T1.lid FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T2.occurrences = 8",
+    "question_id": null,
+    "question": "How many word appeared 8 times? State the language id of the page.",
+    "difficulty": "",
+    "evidence": "appeared 8 times refers to occurrences = 8;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T1.words) AS REAL) * 100 / SUM(T2.occurrences) FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T1.revision < 106680",
+    "question_id": null,
+    "question": "Calculate the average percentage of word appearance in the page that have revision page id smaller than 106680.",
+    "difficulty": "",
+    "evidence": "revision page id smaller than 106680 refers to revision < 106680; word appearance refers to occurrences; DIVIDE(SUM(occurrences where revision < 106680), COUNT(occurrences)) as percentage;"
+  },
+  {
+    "sql": "SELECT T1.pages FROM langs AS T1 INNER JOIN langs_words AS T2 ON T1.lid = T2.lid WHERE T2.occurrences > 3000 GROUP BY T1.pages",
+    "question_id": null,
+    "question": "List out the total pages of the words that has repeated times more than 3000.",
+    "difficulty": "",
+    "evidence": "repeated more than 3000 times refers to occurrences > 3000;"
+  },
+  {
+    "sql": "SELECT T1.word, T3.word FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st INNER JOIN words AS T3 ON T3.wid = T2.w2nd WHERE T2.w1st = 20 AND T2.w2nd = 50",
+    "question_id": null,
+    "question": "State the name of the pair of word that have id of 20 and 50?",
+    "difficulty": "",
+    "evidence": "word that have id of 20 refers to wid = 20; word that have id of 50 refers to wid = 50;"
+  },
+  {
+    "sql": "SELECT pages FROM langs WHERE lang = 'ca'",
+    "question_id": null,
+    "question": "How many pages of Wikipedia are there in total on the Catalan language?",
+    "difficulty": "",
+    "evidence": "Catalan language refers to lang = 'ca';"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE lid = 1 AND words > 4000",
+    "question_id": null,
+    "question": "Please list the titles of the Wikipedia pages on the Catalan language with more than 4000 words.",
+    "difficulty": "",
+    "evidence": "Catalan language refers to lid = 1; more than 4000 words refers to words > 4000;"
+  },
+  {
+    "sql": "SELECT words FROM pages WHERE title = 'Asclepi'",
+    "question_id": null,
+    "question": "How many words are there on the page titled \"Asclepi\"?",
+    "difficulty": "",
+    "evidence": "page titled \"Asclepi\" refers to title = 'Asclepi' ;"
+  },
+  {
+    "sql": "SELECT CASE WHEN ( SELECT words FROM pages WHERE title = 'Asclepi' ) > ( SELECT words FROM pages WHERE title = 'Afluent' ) THEN 'Asclepi' ELSE 'Afluent' END",
+    "question_id": null,
+    "question": "Which of these pages have more words, the page titled \"Afluent\" or \"Asclepi\"?",
+    "difficulty": "",
+    "evidence": "COUNT(words where title = 'Afluent')> COUNT(words where title = 'Asclepi')"
+  },
+  {
+    "sql": "SELECT occurrences FROM words WHERE word = 'nombre'",
+    "question_id": null,
+    "question": "What is the occurrence of the word \"nombre\"?",
+    "difficulty": "",
+    "evidence": "This is not;"
+  },
+  {
+    "sql": "SELECT word FROM words WHERE occurrences > 200000",
+    "question_id": null,
+    "question": "Please list the Catalan words with an occurrence of over 200000.",
+    "difficulty": "",
+    "evidence": "occurrence of over 200000 refers to occurrences > 200000;"
+  },
+  {
+    "sql": "SELECT T2.locale FROM pages AS T1 INNER JOIN langs AS T2 ON T1.lid = T2.lid WHERE T1.title = 'Asclepi'",
+    "question_id": null,
+    "question": "What is the locale of the language of the page titled \"Asclepi\"?",
+    "difficulty": "",
+    "evidence": "page titled \"Asclepi\" refers to title = 'Asclepi' ;"
+  },
+  {
+    "sql": "SELECT T2.occurrences FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T3.title = '\u00c0bac' AND T1.word = 'grec'",
+    "question_id": null,
+    "question": "How many times did the word \"grec\" occur on the page titled \"\u00c0bac\"?",
+    "difficulty": "",
+    "evidence": "how many times occur refers to occurrences; page titled \"\u00c0bac\" refers to title = '\u00c0bac' ;"
+  },
+  {
+    "sql": "SELECT T3.title FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'grec' AND T2.occurrences > 20",
+    "question_id": null,
+    "question": "Please list the title of the pages on which the word \"grec\" occurred for over 20 times.",
+    "difficulty": "",
+    "evidence": "occurred for over 20 times refers to occurrences > 20;"
+  },
+  {
+    "sql": "SELECT SUM(T3.words) FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'grec' AND T2.occurrences = 52",
+    "question_id": null,
+    "question": "How many words are there on the page that the word \"grec\" has occurred for 52 times?",
+    "difficulty": "",
+    "evidence": "the word \"grec\" refers to word = 'grec'; occurred for 52 times refers to occurrences = 52"
+  },
+  {
+    "sql": "SELECT occurrences FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = '\u00e0bac' ) AND w2nd = ( SELECT wid FROM words WHERE word = 'xin\u00e8s' )",
+    "question_id": null,
+    "question": "What's the occurrence of the biwords pair whose first word is \"\u00e0bac\" and second word is \"xin\u00e8s\"?",
+    "difficulty": "",
+    "evidence": "\u00e0bac refers to word = '\u00e0bac'; xin\u00e8s refers to word = 'xin\u00e8s'; occurrence refers to occurrences"
+  },
+  {
+    "sql": "SELECT CASE WHEN ( SELECT occurrences FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = '\u00e0bac' ) AND w2nd = ( SELECT wid FROM words WHERE word = 'xin\u00e8s' ) ) > ( SELECT occurrences FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = '\u00e0bac' ) AND w2nd = ( SELECT wid FROM words WHERE word = 'grec' ) ) THEN '\u00e0bac-xin\u00e8s' ELSE '\u00e0bac-grec' END AS CALUS FROM words LIMIT 1",
+    "question_id": null,
+    "question": "Which biwords pair has a higher occurrence, \"\u00e0bac-xin\u00e8s\" or \"\u00e0bac-grec\"?",
+    "difficulty": "",
+    "evidence": "higher occurrence is MAX(occurrences); \u00e0bac refers to word = '\u00e0bac'; xin\u00e8s refers to word = 'xin\u00e8s'; grec refers to word = 'grec'"
+  },
+  {
+    "sql": "SELECT occurrences - ( SELECT occurrences FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = '\u00e0bac' ) AND w2nd = ( SELECT wid FROM words WHERE word = 'xin\u00e8s' ) ) AS CALUS FROM words WHERE word = '\u00e0bac'",
+    "question_id": null,
+    "question": "How many more times does the first word in the biwords pair \"\u00e0bac-xin\u00e8s\" occur than the biwords pair itself?",
+    "difficulty": "",
+    "evidence": "\u00e0bac refers to word = '\u00e0bac'; xin\u00e8s refers to word = 'xin\u00e8s'; How many more times the first word in the biwords occur than the biwords pair itself means SUBTRACT(words.occurrence, biwords.occurrences)"
+  },
+  {
+    "sql": "SELECT T1.word AS W1, T3.word AS W2 FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st INNER JOIN words AS T3 ON T3.wid = T2.w2nd WHERE T1.word = '\u00e0bac'",
+    "question_id": null,
+    "question": "Please list all the biwords pairs with \"\u00e0bac\" as its first word.",
+    "difficulty": "",
+    "evidence": "\u00e0bac refers to word = '\u00e0bac'; first word refers to w1st"
+  },
+  {
+    "sql": "SELECT COUNT(T2.w1st) FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st INNER JOIN words AS T3 ON T3.wid = T2.w2nd WHERE T1.word = '\u00e0bac'",
+    "question_id": null,
+    "question": "What is the total occurrence of the biwords pairs with \"\u00e0bac\" as its first word?",
+    "difficulty": "",
+    "evidence": "occurrence refers to occurrences; \u00e0bac refers to word = '\u00e0bac'; first word refers to w1st"
+  },
+  {
+    "sql": "SELECT COUNT(T1.pages) FROM langs AS T1 INNER JOIN biwords AS T2 ON T1.lid = T2.lid WHERE T2.w1st = ( SELECT wid FROM words WHERE word = '\u00e0bac' ) AND T2.w2nd = ( SELECT wid FROM words WHERE word = 'xin\u00e8s' )",
+    "question_id": null,
+    "question": "How many Wikipedia pages are there on the language of the biwords pair \"\u00e0bac-xin\u00e8s\"?",
+    "difficulty": "",
+    "evidence": "\u00e0bac refers to word = '\u00e0bac'; xin\u00e8s refers to word = 'xin\u00e8s'; Wikipedia pages refer to pages"
+  },
+  {
+    "sql": "SELECT CAST((SUM(CASE WHEN T3.title = '\u00c0bac' THEN T2.occurrences END) - SUM(CASE WHEN T3.title = 'Astronomia' THEN T2.occurrences END)) AS REAL) * 100 / SUM(CASE WHEN T3.title = 'Astronomia' THEN T2.occurrences END) FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'grec'",
+    "question_id": null,
+    "question": "How much higher in percentage does the word \"grec\" occur on the page titled \"\u00c0bac\" than on the page titled \"Astronomia\"?",
+    "difficulty": "",
+    "evidence": "grec refers to word = 'grec'; \u00c0bac refers to title = '\u00c0bac'; Astronomia refers to title = 'Astronomia'; percentage = DIVIDE(SUBTRACT(occurrences where title = '\u00c0bac' AND word = 'grec', occurrences where title = 'Astronomia' AND word = 'grec'), occurrences where title = 'Astronomia' AND word = 'grec')"
+  },
+  {
+    "sql": "SELECT pages FROM langs WHERE lang = 'ca'",
+    "question_id": null,
+    "question": "How many pages does the Catalan language have in Wikipedia?",
+    "difficulty": "",
+    "evidence": "Catalan language refers to lang = 'ca'"
+  },
+  {
+    "sql": "SELECT wid FROM langs_words WHERE occurrences = ( SELECT MAX(occurrences) FROM langs_words )",
+    "question_id": null,
+    "question": "Which word has the most repetitions in the Catalan language? Give the ID of the word.",
+    "difficulty": "",
+    "evidence": "word with the most repetitions refers to MAX(occurrences); ID of the word refers to wid"
+  },
+  {
+    "sql": "SELECT w2nd FROM biwords WHERE occurrences = ( SELECT MAX(occurrences) FROM biwords )",
+    "question_id": null,
+    "question": "What is the word ID for the second word for the biwords pair with most repetitions?",
+    "difficulty": "",
+    "evidence": "second word refers to w2nd; biwords pair with most repetitions refers to MAX(biwords.occurrences)"
+  },
+  {
+    "sql": "SELECT occurrences FROM words WHERE word = 'panajot'",
+    "question_id": null,
+    "question": "How many occurrences does the word \"panajot\" have?",
+    "difficulty": "",
+    "evidence": "panajot refers to word = 'panajot'"
+  },
+  {
+    "sql": "SELECT word FROM words WHERE occurrences = 340691",
+    "question_id": null,
+    "question": "Which word has the time of occurrences as 340691?",
+    "difficulty": "",
+    "evidence": "occurrences of 340691 refers to occurrences = 340691"
+  },
+  {
+    "sql": "SELECT wid FROM words WHERE word = 'periodograma'",
+    "question_id": null,
+    "question": "State the word ID for \"periodograma\".",
+    "difficulty": "",
+    "evidence": "word ID refers to wid; periodograma refers to word = 'periodograma'"
+  },
+  {
+    "sql": "SELECT T1.word FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w2nd WHERE T2.occurrences = 116430",
+    "question_id": null,
+    "question": "For the biwords pair that appears \"116430\" times, what is the second word of the pair?",
+    "difficulty": "",
+    "evidence": "the biwords pair that appears \"116430\" times refers to occurrences = 116430; second word of the pair refers to w2nd"
+  },
+  {
+    "sql": "SELECT COUNT(T1.wid) FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st INNER JOIN words AS T3 ON T3.wid = T2.w2nd WHERE T1.word = 'riu'",
+    "question_id": null,
+    "question": "How many times does the word \"riu\" appears in the biwords pair?",
+    "difficulty": "",
+    "evidence": "riu refers to word = 'riu'; SUM(w1st where wid is word = 'riu' AND w2nd where wid is word = 'riu')"
+  },
+  {
+    "sql": "SELECT T2.wid FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T1.title = 'Agricultura' ORDER BY T2.occurrences DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which word has the most appearances in the Wikipedia page with the title of \"Agricultura\"? Give the word ID.",
+    "difficulty": "",
+    "evidence": "Agricultura refers to title = 'Agricultura'; the most appearances is MAX(pages_words_sampling.occurrences)"
+  },
+  {
+    "sql": "SELECT SUM(T2.occurrences) FROM pages AS T1 INNER JOIN pages_words AS T2 ON T1.pid = T2.pid WHERE T1.title = 'Astre' AND T2.wid = 2823",
+    "question_id": null,
+    "question": "How many appearances does the word ID No. 2823 have in the Wikipedia page \"Astre\"?",
+    "difficulty": "",
+    "evidence": "Astre refers to title = 'Astre'; word ID No. 2823 refers to wid = 2823; appearances refers to pages_words_sampling.occurrences"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE pid = ( SELECT pid FROM pages_words WHERE wid = 174 ORDER BY occurrences DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "In which Wikipedia page does the word ID No. 174 have the most appearances? Give the title.",
+    "difficulty": "",
+    "evidence": "word ID No. 174 refers to wid = 174; appearances refers to pages_words_sampling.occurrences"
+  },
+  {
+    "sql": "SELECT COUNT(T2.occurrences) FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid WHERE T1.word = 'her\u00f2dot'",
+    "question_id": null,
+    "question": "How many times does the word \"her\u00f2dot\" appear in the Wikipedia page?",
+    "difficulty": "",
+    "evidence": "her\u00f2dot refers to word = 'her\u00f2dot'; times appear refers to SUM(pid)"
+  },
+  {
+    "sql": "SELECT pid FROM pages_words WHERE pid = ( SELECT pid FROM pages WHERE revision = 28278070 ) ORDER BY occurrences DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which word has the most appearances in the Wikipedia page revision ID No. 28278070? Give the word ID.",
+    "difficulty": "",
+    "evidence": "the most appearances refers to MAX(occurrences); revision ID No. 28278070 refers to revision = 28278070; word ID refers to wid"
+  },
+  {
+    "sql": "SELECT occurrences FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = 'que' ) AND w2nd = ( SELECT wid FROM words WHERE word = 'gregorio' )",
+    "question_id": null,
+    "question": "How many times does the biwords \"que gregorio\" appear in the language?",
+    "difficulty": "",
+    "evidence": "que gregorio refers to w1st = wid where word = 'que' AND w2nd = wid where word = 'gregorio'; appear refers to biwords.occurrences"
+  },
+  {
+    "sql": "SELECT COUNT(w1st) FROM biwords WHERE w2nd = ( SELECT wid FROM words WHERE word = 'base' )",
+    "question_id": null,
+    "question": "How many biword pairs contain the word \"base\" as the second word?",
+    "difficulty": "",
+    "evidence": "base refers to word = 'base'; SUM(w2nd) where w2nd = wid for word = 'base'"
+  },
+  {
+    "sql": "SELECT T2.occurrences FROM words AS T1 INNER JOIN langs_words AS T2 ON T1.wid = T2.wid WHERE T1.word = 'exemple' AND T2.lid = 1",
+    "question_id": null,
+    "question": "How many times of repetition does the word \"exemple\" show in the Catalan language?",
+    "difficulty": "",
+    "evidence": "exemple refers to word = 'exemple'; repetition refers to langs_words.occurrences; lid = 1 menas it's Catalan language"
+  },
+  {
+    "sql": "SELECT T1.word FROM words AS T1 INNER JOIN langs_words AS T2 ON T1.wid = T2.wid WHERE T2.occurrences = 274499 AND T2.lid = 1",
+    "question_id": null,
+    "question": "Which word that has 274499 repetitions in the Catalan language?",
+    "difficulty": "",
+    "evidence": "lid = 1 menas it's Catalan language; 274499 repetitions refers to occurrences = 274499"
+  },
+  {
+    "sql": "SELECT CAST(occurrences AS REAL) / ( SELECT occurrences FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = 'a' ) AND w2nd = ( SELECT wid FROM words WHERE word = 'decimal' ) ) FROM biwords WHERE w1st = ( SELECT wid FROM words WHERE word = 'a' ) AND w2nd = ( SELECT wid FROM words WHERE word = 'base' )",
+    "question_id": null,
+    "question": "How many times greater is the appearances of the biword pair \"a base\" than \"a decimal\"?",
+    "difficulty": "",
+    "evidence": "a, base AND decimal are words; wid is the ID of word; w1st is the first word of a biword pair; w2nd is the second word of a biword pair; appearances refers to biwords.occurrences; biword pair 'a base' refers to word = 'a' as w1st AND word = 'base' as w2nd; biword pair 'a decimal' refers to word = 'a' as w1st AND word = 'decimal' as w2nd; appearances of 'a base' greater than 'a decimal' refers to DIVIDE(SUBTRACT(biwords.occurrences'a base', biwords.occurrences'a decimal'), biwords.occurrences'a decimal')"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T3.title = 'Art' THEN T2.occurrences ELSE 0 END) AS REAL) * 100 / SUM(T2.occurrences) FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'grec'",
+    "question_id": null,
+    "question": "For the word \"grec\", what is the percentage of the appearances in the \"Art\" Wikipedia page have among all the appearances?",
+    "difficulty": "",
+    "evidence": "grec refers to word = 'grec'; Art refers to title = 'Art'; percentage is DIVIDE(occurrences(grec), occurences(Art))*100"
+  },
+  {
+    "sql": "SELECT COUNT(lid) FROM pages WHERE lid = 1 AND words > 4000",
+    "question_id": null,
+    "question": "How many Wikipedia pages with over 4000 different words are there on the Catalan language?",
+    "difficulty": "",
+    "evidence": "lid = 1 means it's Catalan language; over 4000 different words means words > 4000; Wikipedia pages refers to pid"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE lid = 1 AND words = 10 LIMIT 10",
+    "question_id": null,
+    "question": "Please list the titles of all the Wikipedia pages on the Catalan language with 10 different words.",
+    "difficulty": "",
+    "evidence": "lid = 1 means it's Catalan language; 10 different words refers to words = 10; titles refers to title"
+  },
+  {
+    "sql": "SELECT word FROM words WHERE occurrences = ( SELECT MAX(occurrences) FROM words )",
+    "question_id": null,
+    "question": "What is the word that occurs the most in the Catalan language?",
+    "difficulty": "",
+    "evidence": "MAX(occurrences)"
+  },
+  {
+    "sql": "SELECT title FROM pages WHERE lid = 1 ORDER BY words DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the titles of the top 3 Wikipedia pages with the most different words on the Catalan language.",
+    "difficulty": "",
+    "evidence": "lid = 1 means it's Catalan language; with most different words refers to MAX(words)"
+  },
+  {
+    "sql": "SELECT revision FROM pages WHERE lid = 1 AND title = 'Arqueologia'",
+    "question_id": null,
+    "question": "What is the revision ID for the page on Catalan titled \"Arqueologia\"?",
+    "difficulty": "",
+    "evidence": "lid = 1 means it's Catalan language; Arqueologia refers to title = 'Arqueologia'; revision ID refers to revision"
+  },
+  {
+    "sql": "SELECT COUNT(lid) FROM pages WHERE lid = 1 AND words > 300 AND revision > 28330000",
+    "question_id": null,
+    "question": "Among the wikipedia pages on Catalan with more than 300 different words, how many of them have a revision ID of over 28330000?",
+    "difficulty": "",
+    "evidence": "lid = 1 means it's Catalan language; more than 300 different words refers to words > 300; revision ID of over 28330000 refers to revision > 28330000"
+  },
+  {
+    "sql": "SELECT T2.pid FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid WHERE T1.word = 'nombre'",
+    "question_id": null,
+    "question": "Please list the page IDs of all the Wikipedia pages that have the word \"nombre\" appeared on it.",
+    "difficulty": "",
+    "evidence": "nombre refers to word = 'nombre'; page IDs refers to pid"
+  },
+  {
+    "sql": "SELECT COUNT(T2.pid) FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid WHERE T1.word = 'nombre' AND T2.occurrences > 5",
+    "question_id": null,
+    "question": "How many Wikipedia pages on Catalan are there with the word \"nombre\" appearing for more than 5 times?",
+    "difficulty": "",
+    "evidence": "nombre refers to word = 'nombre'; appear for more than 5 times refers to\u00a0 pages_words.occurrences > 5"
+  },
+  {
+    "sql": "SELECT COUNT(T2.w1st) FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w2nd WHERE T1.word = 'grec'",
+    "question_id": null,
+    "question": "How many biwords pairs are there whose second word is \"grec\"?",
+    "difficulty": "",
+    "evidence": "grec refers to word = 'grec'; wid where word = 'grec' AS w2nd"
+  },
+  {
+    "sql": "SELECT T3.title FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid INNER JOIN pages AS T3 ON T2.pid = T3.pid WHERE T1.word = 'grec' AND T2.occurrences = 52",
+    "question_id": null,
+    "question": "What is the title of the page on which the word \"grec\" has an occurrence of 52 times.",
+    "difficulty": "",
+    "evidence": "occurrence of 52 times refers to pages_words.occurrences = 52; grec refers to word = 'grec'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.w2nd) FROM words AS T1 INNER JOIN biwords AS T2 ON T1.wid = T2.w1st WHERE T1.word = '\u00e0bac' AND T2.occurrences > 10",
+    "question_id": null,
+    "question": "Among the biwords pairs with \"\u00e0bac\" as its first word, how many of them have an occurrence of over 10?",
+    "difficulty": "",
+    "evidence": "\u00e0bac refers to word = '\u00e0bac'; as first word refers to w1st; occurrence of over 10 refers to occurrences > 10"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.occurrences) AS REAL) / COUNT(T1.wid) FROM words AS T1 INNER JOIN pages_words AS T2 ON T1.wid = T2.wid WHERE T1.word = 'grec'",
+    "question_id": null,
+    "question": "What is the average occurrence of the word \"grec\" on each Wikipedia page that has this word?",
+    "difficulty": "",
+    "evidence": "grec refers to word = 'grec'; AVG(occurrences where word = 'grec')"
+  }
+]

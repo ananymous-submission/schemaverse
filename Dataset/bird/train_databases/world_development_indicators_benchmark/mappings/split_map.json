@@ -1,0 +1,748 @@
+{
+  "Country": {
+    "pk_columns": [
+      "CountryCode"
+    ],
+    "fragments": [
+      {
+        "suffix": "alpha2code",
+        "non_pk_columns": [
+          "Alpha2Code",
+          "CurrencyUnit",
+          "LongName",
+          "ShortName",
+          "TableName",
+          "Wb2Code"
+        ],
+        "local_table": "cty_alpha2_map",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Country_alpha2code"
+      },
+      {
+        "suffix": "alternativeconversionfac",
+        "non_pk_columns": [
+          "AlternativeConversionFactor",
+          "ExternalDebtReportingStatus",
+          "GovernmentAccountingConcept",
+          "IncomeGroup",
+          "NationalAccountsBaseYear",
+          "NationalAccountsReferenceYear",
+          "OtherGroups",
+          "Region",
+          "SnaPriceValuation",
+          "SystemOfNationalAccounts",
+          "SystemOfTrade",
+          "VitalRegistrationComplete"
+        ],
+        "local_table": "CountryConversionMetadata",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Country_alternativeconversionfac"
+      },
+      {
+        "suffix": "balanceofpaymentsmanuali",
+        "non_pk_columns": [
+          "BalanceOfPaymentsManualInUse",
+          "ImfDataDisseminationStandard",
+          "SourceOfMostRecentIncomeAndExpenditureData",
+          "SpecialNotes"
+        ],
+        "local_table": "countryBalanceOfPaymentsManual",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Country_balanceofpaymentsmanuali"
+      },
+      {
+        "suffix": "alpha2code_2",
+        "non_pk_columns": [
+          "Alpha2Code",
+          "AlternativeConversionFactor",
+          "ExternalDebtReportingStatus",
+          "GovernmentAccountingConcept",
+          "IncomeGroup",
+          "LendingCategory",
+          "OtherGroups",
+          "Region",
+          "SystemOfTrade",
+          "VitalRegistrationComplete",
+          "Wb2Code"
+        ],
+        "local_table": "countryAlpha2EmptyConversion",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Country_alpha2code_2",
+        "row_partition_names": [
+          "countryAlpha2EmptyConversion",
+          "countryAlpha2VariousConversion"
+        ],
+        "row_partition_predicate_column": "AlternativeConversionFactor"
+      },
+      {
+        "suffix": "latestagriculturalcensus",
+        "non_pk_columns": [
+          "LatestAgriculturalCensus",
+          "LatestHouseholdSurvey",
+          "LatestIndustrialData",
+          "LatestPopulationCensus",
+          "LatestTradeData",
+          "LatestWaterWithdrawalData",
+          "NationalAccountsBaseYear",
+          "NationalAccountsReferenceYear",
+          "PppSurveyYear"
+        ],
+        "local_table": "CountryDataRecency",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Country_latestagriculturalcensus"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Country",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 30,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.03508060537036817,
+        "3": 0.043899129850143485,
+        "4": 0.04549929959219052,
+        "5": 0.05235580594669196
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.05235580594669196,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "Alpha2Code",
+          "CurrencyUnit",
+          "LongName",
+          "ShortName",
+          "TableName"
+        ],
+        [
+          "AlternativeConversionFactor",
+          "GovernmentAccountingConcept",
+          "NationalAccountsBaseYear",
+          "NationalAccountsReferenceYear",
+          "OtherGroups",
+          "SnaPriceValuation",
+          "SystemOfNationalAccounts",
+          "SystemOfTrade"
+        ],
+        [
+          "BalanceOfPaymentsManualInUse",
+          "ImfDataDisseminationStandard",
+          "SourceOfMostRecentIncomeAndExpenditureData",
+          "SpecialNotes"
+        ],
+        [
+          "ExternalDebtReportingStatus",
+          "IncomeGroup",
+          "LendingCategory",
+          "Region",
+          "VitalRegistrationComplete",
+          "Wb2Code"
+        ],
+        [
+          "LatestAgriculturalCensus",
+          "LatestHouseholdSurvey",
+          "LatestIndustrialData",
+          "LatestPopulationCensus",
+          "LatestTradeData",
+          "LatestWaterWithdrawalData",
+          "PppSurveyYear"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "Alpha2Code",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "AlternativeConversionFactor",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "OtherGroups",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "GovernmentAccountingConcept",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "VitalRegistrationComplete",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Region",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "NationalAccountsReferenceYear",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "ExternalDebtReportingStatus",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "IncomeGroup",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Wb2Code",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "NationalAccountsBaseYear",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "SystemOfTrade",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "Alpha2Code",
+          "CurrencyUnit",
+          "LongName",
+          "ShortName",
+          "TableName",
+          "Wb2Code"
+        ],
+        [
+          "AlternativeConversionFactor",
+          "ExternalDebtReportingStatus",
+          "GovernmentAccountingConcept",
+          "IncomeGroup",
+          "NationalAccountsBaseYear",
+          "NationalAccountsReferenceYear",
+          "OtherGroups",
+          "Region",
+          "SnaPriceValuation",
+          "SystemOfNationalAccounts",
+          "SystemOfTrade",
+          "VitalRegistrationComplete"
+        ],
+        [
+          "BalanceOfPaymentsManualInUse",
+          "ImfDataDisseminationStandard",
+          "SourceOfMostRecentIncomeAndExpenditureData",
+          "SpecialNotes"
+        ],
+        [
+          "Alpha2Code",
+          "AlternativeConversionFactor",
+          "ExternalDebtReportingStatus",
+          "GovernmentAccountingConcept",
+          "IncomeGroup",
+          "LendingCategory",
+          "OtherGroups",
+          "Region",
+          "SystemOfTrade",
+          "VitalRegistrationComplete",
+          "Wb2Code"
+        ],
+        [
+          "LatestAgriculturalCensus",
+          "LatestHouseholdSurvey",
+          "LatestIndustrialData",
+          "LatestPopulationCensus",
+          "LatestTradeData",
+          "LatestWaterWithdrawalData",
+          "NationalAccountsBaseYear",
+          "NationalAccountsReferenceYear",
+          "PppSurveyYear"
+        ]
+      ],
+      "pk_columns": [
+        "CountryCode"
+      ],
+      "fragments": [
+        {
+          "suffix": "alpha2code",
+          "non_pk_columns": [
+            "Alpha2Code",
+            "CurrencyUnit",
+            "LongName",
+            "ShortName",
+            "TableName",
+            "Wb2Code"
+          ]
+        },
+        {
+          "suffix": "alternativeconversionfac",
+          "non_pk_columns": [
+            "AlternativeConversionFactor",
+            "ExternalDebtReportingStatus",
+            "GovernmentAccountingConcept",
+            "IncomeGroup",
+            "NationalAccountsBaseYear",
+            "NationalAccountsReferenceYear",
+            "OtherGroups",
+            "Region",
+            "SnaPriceValuation",
+            "SystemOfNationalAccounts",
+            "SystemOfTrade",
+            "VitalRegistrationComplete"
+          ]
+        },
+        {
+          "suffix": "balanceofpaymentsmanuali",
+          "non_pk_columns": [
+            "BalanceOfPaymentsManualInUse",
+            "ImfDataDisseminationStandard",
+            "SourceOfMostRecentIncomeAndExpenditureData",
+            "SpecialNotes"
+          ]
+        },
+        {
+          "suffix": "alpha2code_2",
+          "non_pk_columns": [
+            "Alpha2Code",
+            "AlternativeConversionFactor",
+            "ExternalDebtReportingStatus",
+            "GovernmentAccountingConcept",
+            "IncomeGroup",
+            "LendingCategory",
+            "OtherGroups",
+            "Region",
+            "SystemOfTrade",
+            "VitalRegistrationComplete",
+            "Wb2Code"
+          ]
+        },
+        {
+          "suffix": "latestagriculturalcensus",
+          "non_pk_columns": [
+            "LatestAgriculturalCensus",
+            "LatestHouseholdSurvey",
+            "LatestIndustrialData",
+            "LatestPopulationCensus",
+            "LatestTradeData",
+            "LatestWaterWithdrawalData",
+            "NationalAccountsBaseYear",
+            "NationalAccountsReferenceYear",
+            "PppSurveyYear"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Country_alternativeconversionfac",
+    "movable_candidates": [
+      "Country_alpha2code",
+      "Country_alpha2code_2_part1",
+      "Country_balanceofpaymentsmanuali",
+      "Country_latestagriculturalcensus"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=12;fk_column_endpoints_on_fragment=3"
+  },
+  "Indicators": {
+    "pk_columns": [
+      "CountryCode",
+      "IndicatorCode",
+      "Year"
+    ],
+    "fragments": [
+      {
+        "suffix": "countryname",
+        "non_pk_columns": [
+          "CountryName",
+          "IndicatorName"
+        ],
+        "local_table": "indicatorsCountryNameAll",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Indicators_countryname"
+      },
+      {
+        "suffix": "countryname_2",
+        "non_pk_columns": [
+          "CountryName",
+          "IndicatorName",
+          "Value"
+        ],
+        "local_table": "indicatorsByValueAtMost5",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Indicators_countryname_2",
+        "row_partition_names": [
+          "indicatorsByValueAtMost5",
+          "indicatorsByValueOver5To63",
+          "indicatorsByValueOver63To13467000",
+          "indicatorsByValueOver13467000OrNull"
+        ],
+        "row_partition_predicate_column": "Value"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Indicators",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 3,
+      "min_non_pk_per_fragment": 1,
+      "pk_width": 3,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.04621969800799749,
+        "3": -1.0
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.04621969800799749,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "CountryName",
+          "IndicatorName"
+        ],
+        [
+          "Value"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "CountryName",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "IndicatorName",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "CountryName",
+          "IndicatorName"
+        ],
+        [
+          "CountryName",
+          "IndicatorName",
+          "Value"
+        ]
+      ],
+      "pk_columns": [
+        "CountryCode",
+        "IndicatorCode",
+        "Year"
+      ],
+      "fragments": [
+        {
+          "suffix": "countryname",
+          "non_pk_columns": [
+            "CountryName",
+            "IndicatorName"
+          ]
+        },
+        {
+          "suffix": "countryname_2",
+          "non_pk_columns": [
+            "CountryName",
+            "IndicatorName",
+            "Value"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Indicators_countryname_2_q1",
+    "movable_candidates": [
+      "Indicators_countryname"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=1"
+  },
+  "Series": {
+    "pk_columns": [
+      "SeriesCode"
+    ],
+    "fragments": [
+      {
+        "suffix": "aggregationmethod",
+        "non_pk_columns": [
+          "AggregationMethod",
+          "BasePeriod",
+          "IndicatorName",
+          "LicenseType",
+          "Periodicity",
+          "StatisticalConceptAndMethodology",
+          "Topic",
+          "UnitOfMeasure"
+        ],
+        "local_table": "seriesAggregationMethodSocialEducationEnvironment",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Series_aggregationmethod",
+        "row_partition_names": [
+          "seriesAggregationMethodSocialEducationEnvironment",
+          "seriesAggregationMethodEconomicAndPrivate",
+          "seriesAggregationMethodOtherTopics"
+        ],
+        "row_partition_predicate_column": "Topic"
+      },
+      {
+        "suffix": "developmentrelevance",
+        "non_pk_columns": [
+          "DevelopmentRelevance",
+          "LongDefinition",
+          "ShortDefinition",
+          "StatisticalConceptAndMethodology"
+        ],
+        "local_table": "seriesDevelopmentRelevance",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Series_developmentrelevance"
+      },
+      {
+        "suffix": "generalcomments",
+        "non_pk_columns": [
+          "GeneralComments",
+          "LimitationsAndExceptions",
+          "OtherNotes"
+        ],
+        "local_table": "series_gen_comments",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Series_generalcomments"
+      },
+      {
+        "suffix": "aggregationmethod_2",
+        "non_pk_columns": [
+          "AggregationMethod",
+          "BasePeriod",
+          "IndicatorName",
+          "LicenseType",
+          "NotesFromOriginalSource",
+          "Periodicity",
+          "RelatedSourceLinks",
+          "Source",
+          "Topic"
+        ],
+        "local_table": "seriesAggregationMethodWithRelatedLinks",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Series_aggregationmethod_2"
+      },
+      {
+        "suffix": "otherweblinks",
+        "non_pk_columns": [
+          "OtherWebLinks",
+          "RelatedIndicators",
+          "RelatedSourceLinks"
+        ],
+        "local_table": "seriesOtherWebLinks",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Series_otherweblinks"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Series",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 19,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.031571633779231695,
+        "3": 0.025930521841153943,
+        "4": 0.028338242546810655,
+        "5": 0.03522241640020846
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.03522241640020846,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "AggregationMethod",
+          "BasePeriod",
+          "IndicatorName",
+          "StatisticalConceptAndMethodology",
+          "UnitOfMeasure"
+        ],
+        [
+          "DevelopmentRelevance",
+          "LongDefinition",
+          "ShortDefinition"
+        ],
+        [
+          "GeneralComments",
+          "LimitationsAndExceptions",
+          "OtherNotes"
+        ],
+        [
+          "LicenseType",
+          "NotesFromOriginalSource",
+          "Periodicity",
+          "Source",
+          "Topic"
+        ],
+        [
+          "OtherWebLinks",
+          "RelatedIndicators",
+          "RelatedSourceLinks"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "AggregationMethod",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "Topic",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "LicenseType",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "BasePeriod",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "IndicatorName",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "Periodicity",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "StatisticalConceptAndMethodology",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "RelatedSourceLinks",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "AggregationMethod",
+          "BasePeriod",
+          "IndicatorName",
+          "LicenseType",
+          "Periodicity",
+          "StatisticalConceptAndMethodology",
+          "Topic",
+          "UnitOfMeasure"
+        ],
+        [
+          "DevelopmentRelevance",
+          "LongDefinition",
+          "ShortDefinition",
+          "StatisticalConceptAndMethodology"
+        ],
+        [
+          "GeneralComments",
+          "LimitationsAndExceptions",
+          "OtherNotes"
+        ],
+        [
+          "AggregationMethod",
+          "BasePeriod",
+          "IndicatorName",
+          "LicenseType",
+          "NotesFromOriginalSource",
+          "Periodicity",
+          "RelatedSourceLinks",
+          "Source",
+          "Topic"
+        ],
+        [
+          "OtherWebLinks",
+          "RelatedIndicators",
+          "RelatedSourceLinks"
+        ]
+      ],
+      "pk_columns": [
+        "SeriesCode"
+      ],
+      "fragments": [
+        {
+          "suffix": "aggregationmethod",
+          "non_pk_columns": [
+            "AggregationMethod",
+            "BasePeriod",
+            "IndicatorName",
+            "LicenseType",
+            "Periodicity",
+            "StatisticalConceptAndMethodology",
+            "Topic",
+            "UnitOfMeasure"
+          ]
+        },
+        {
+          "suffix": "developmentrelevance",
+          "non_pk_columns": [
+            "DevelopmentRelevance",
+            "LongDefinition",
+            "ShortDefinition",
+            "StatisticalConceptAndMethodology"
+          ]
+        },
+        {
+          "suffix": "generalcomments",
+          "non_pk_columns": [
+            "GeneralComments",
+            "LimitationsAndExceptions",
+            "OtherNotes"
+          ]
+        },
+        {
+          "suffix": "aggregationmethod_2",
+          "non_pk_columns": [
+            "AggregationMethod",
+            "BasePeriod",
+            "IndicatorName",
+            "LicenseType",
+            "NotesFromOriginalSource",
+            "Periodicity",
+            "RelatedSourceLinks",
+            "Source",
+            "Topic"
+          ]
+        },
+        {
+          "suffix": "otherweblinks",
+          "non_pk_columns": [
+            "OtherWebLinks",
+            "RelatedIndicators",
+            "RelatedSourceLinks"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Series_aggregationmethod_2",
+    "movable_candidates": [
+      "Series_aggregationmethod_part1",
+      "Series_developmentrelevance",
+      "Series_generalcomments",
+      "Series_otherweblinks"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=3"
+  }
+}

@@ -1,0 +1,400 @@
+{
+  "Store Locations": {
+    "pk_columns": [
+      "StoreID"
+    ],
+    "fragments": [
+      {
+        "suffix": "areacode",
+        "non_pk_columns": [
+          "AreaCode",
+          "County",
+          "Household Income",
+          "Land Area",
+          "Median Income",
+          "Population",
+          "StateCode",
+          "Time Zone",
+          "Type",
+          "Water Area"
+        ],
+        "local_table": "store_loc_ac_le410",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Store Locations_areacode",
+        "row_partition_names": [
+          "store_loc_ac_le410",
+          "Store_Locations_areacode_q2",
+          "Store_Locations_areacode_q3",
+          "store_loc_ac_gt832"
+        ],
+        "row_partition_predicate_column": "AreaCode"
+      },
+      {
+        "suffix": "areacode_2",
+        "non_pk_columns": [
+          "AreaCode",
+          "City Name",
+          "County",
+          "Latitude",
+          "Longitude",
+          "Population",
+          "State",
+          "StateCode",
+          "Time Zone",
+          "Type"
+        ],
+        "local_table": "storeLocationsAreaCodeMaster",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Store Locations_areacode_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Store Locations",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 14,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.029951514043644243,
+        "4": 0.027951215951025656
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.029951514043644243,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "AreaCode",
+          "Household Income",
+          "Land Area",
+          "Median Income",
+          "Population",
+          "Type",
+          "Water Area"
+        ],
+        [
+          "City Name",
+          "County",
+          "Latitude",
+          "Longitude",
+          "State",
+          "StateCode",
+          "Time Zone"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "Type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "AreaCode",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Time Zone",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "County",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "StateCode",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Population",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "AreaCode",
+          "County",
+          "Household Income",
+          "Land Area",
+          "Median Income",
+          "Population",
+          "StateCode",
+          "Time Zone",
+          "Type",
+          "Water Area"
+        ],
+        [
+          "AreaCode",
+          "City Name",
+          "County",
+          "Latitude",
+          "Longitude",
+          "Population",
+          "State",
+          "StateCode",
+          "Time Zone",
+          "Type"
+        ]
+      ],
+      "pk_columns": [
+        "StoreID"
+      ],
+      "fragments": [
+        {
+          "suffix": "areacode",
+          "non_pk_columns": [
+            "AreaCode",
+            "County",
+            "Household Income",
+            "Land Area",
+            "Median Income",
+            "Population",
+            "StateCode",
+            "Time Zone",
+            "Type",
+            "Water Area"
+          ]
+        },
+        {
+          "suffix": "areacode_2",
+          "non_pk_columns": [
+            "AreaCode",
+            "City Name",
+            "County",
+            "Latitude",
+            "Longitude",
+            "Population",
+            "State",
+            "StateCode",
+            "Time Zone",
+            "Type"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Store_Locations_areacode_q1",
+    "movable_candidates": [
+      "Store Locations_areacode_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=2"
+  },
+  "Sales Orders": {
+    "pk_columns": [
+      "OrderNumber"
+    ],
+    "fragments": [
+      {
+        "suffix": "currencycode",
+        "non_pk_columns": [
+          "CurrencyCode",
+          "Discount Applied",
+          "Order Quantity",
+          "Sales Channel",
+          "Unit Cost",
+          "Unit Price",
+          "WarehouseCode"
+        ],
+        "local_table": "SalesOrdersByCurrencyQuantityUpTo3",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Sales Orders_currencycode",
+        "row_partition_names": [
+          "SalesOrdersByCurrencyQuantityUpTo3",
+          "SalesOrdersByCurrencyQuantityGreaterThan3To5",
+          "SalesOrdersByCurrencyQuantityGreaterThan5To7",
+          "SalesOrdersByCurrencyQuantityGreaterThan7OrNull"
+        ],
+        "row_partition_predicate_column": "Order Quantity"
+      },
+      {
+        "suffix": "deliverydate",
+        "non_pk_columns": [
+          "DeliveryDate",
+          "OrderDate",
+          "ProcuredDate",
+          "ShipDate"
+        ],
+        "local_table": "salesOrderDates",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Sales Orders_deliverydate"
+      },
+      {
+        "suffix": "currencycode_2",
+        "non_pk_columns": [
+          "CurrencyCode",
+          "Discount Applied",
+          "Order Quantity",
+          "Sales Channel",
+          "Unit Cost",
+          "WarehouseCode",
+          "_CustomerID",
+          "_ProductID",
+          "_SalesTeamID",
+          "_StoreID"
+        ],
+        "local_table": "salesOrdersCurrencySegment",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Sales Orders_currencycode_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Sales Orders",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 15,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.06444599045660795,
+        "3": 0.08633486365397185,
+        "4": 0.08055297951081575,
+        "5": 0.10223820516069129
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.10223820516069129,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "CurrencyCode",
+          "Discount Applied",
+          "Order Quantity",
+          "Sales Channel",
+          "Unit Cost",
+          "Unit Price",
+          "WarehouseCode"
+        ],
+        [
+          "DeliveryDate",
+          "OrderDate",
+          "ProcuredDate",
+          "ShipDate"
+        ],
+        [
+          "_CustomerID",
+          "_ProductID",
+          "_SalesTeamID",
+          "_StoreID"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "WarehouseCode",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "Sales Channel",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "Order Quantity",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "CurrencyCode",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "Unit Cost",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "Discount Applied",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "CurrencyCode",
+          "Discount Applied",
+          "Order Quantity",
+          "Sales Channel",
+          "Unit Cost",
+          "Unit Price",
+          "WarehouseCode"
+        ],
+        [
+          "DeliveryDate",
+          "OrderDate",
+          "ProcuredDate",
+          "ShipDate"
+        ],
+        [
+          "CurrencyCode",
+          "Discount Applied",
+          "Order Quantity",
+          "Sales Channel",
+          "Unit Cost",
+          "WarehouseCode",
+          "_CustomerID",
+          "_ProductID",
+          "_SalesTeamID",
+          "_StoreID"
+        ]
+      ],
+      "pk_columns": [
+        "OrderNumber"
+      ],
+      "fragments": [
+        {
+          "suffix": "currencycode",
+          "non_pk_columns": [
+            "CurrencyCode",
+            "Discount Applied",
+            "Order Quantity",
+            "Sales Channel",
+            "Unit Cost",
+            "Unit Price",
+            "WarehouseCode"
+          ]
+        },
+        {
+          "suffix": "deliverydate",
+          "non_pk_columns": [
+            "DeliveryDate",
+            "OrderDate",
+            "ProcuredDate",
+            "ShipDate"
+          ]
+        },
+        {
+          "suffix": "currencycode_2",
+          "non_pk_columns": [
+            "CurrencyCode",
+            "Discount Applied",
+            "Order Quantity",
+            "Sales Channel",
+            "Unit Cost",
+            "WarehouseCode",
+            "_CustomerID",
+            "_ProductID",
+            "_SalesTeamID",
+            "_StoreID"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Sales Orders_currencycode_2",
+    "movable_candidates": [
+      "Sales Orders_deliverydate",
+      "Sales_Orders_currencycode_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=4"
+  }
+}

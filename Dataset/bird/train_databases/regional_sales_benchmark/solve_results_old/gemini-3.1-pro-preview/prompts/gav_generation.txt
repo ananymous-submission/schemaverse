@@ -1,0 +1,172 @@
+================================================================================
+GAV Rule Generation (zero-shot)
+================================================================================
+Model:       gemini-3.1-pro-preview
+Temperature: (API default / omitted)
+Timestamp:   2026-04-30T13:50:37.616293
+Latency:     11.77s
+Tokens:      prompt=721, completion=420, total=2196
+
+--------------------------------------------------------------------------------
+PROMPT:
+--------------------------------------------------------------------------------
+
+## Role
+You are a data integration expert.
+
+## Task
+Design a unified global schema and express it as SQL **CREATE VIEW** statements.
+
+When constructing the views, you may:
+- Rename columns to produce consistent and meaningful attribute names.
+- Use relational operations such as JOIN and UNION ALL where appropriate.
+- Combine information across multiple local schemas when necessary.
+
+Reference local tables using `local_N.table_name` (e.g., `local_1.my_table`).
+
+## Output Format
+Output ONLY valid SQL CREATE VIEW statements separated by semicolons.
+No explanations. No markdown. No CREATE TABLE statements.
+
+Example:
+CREATE VIEW example_view AS
+SELECT 1 AS example_col
+FROM local_1.example_table;
+
+## Local Database Schemas
+Below are 3 independent local SQLite database schemas.
+
+### local_1
+```sql
+CREATE TABLE "cust_mast" (
+    "cust_id" INTEGER,
+    "cust_name" TEXT
+);
+
+CREATE TABLE "prod_mast" (
+    "prod_id" INTEGER,
+    "prod_name" TEXT
+);
+
+CREATE TABLE "s_ord_qty_lte_three_cur" (
+    "ord_no" TEXT,
+    "cur_code" TEXT,
+    "disc_val" REAL,
+    "ord_qty" INTEGER,
+    "sales_chan" TEXT,
+    "unit_cost" TEXT,
+    "unit_price" TEXT,
+    "wh_code" TEXT,
+    "sales_team_id" INTEGER
+);
+
+CREATE TABLE "s_ord_qty_gt_three_lte_five_cur" (
+    "ord_no" TEXT,
+    "cur_code" TEXT,
+    "disc_val" REAL,
+    "ord_qty" INTEGER,
+    "sales_chan" TEXT,
+    "unit_cost" TEXT,
+    "unit_price" TEXT,
+    "wh_code" TEXT,
+    "sales_team_id" INTEGER
+);
+
+CREATE TABLE "s_ord_qty_gt_five_lte_seven_cur" (
+    "ord_no" TEXT,
+    "cur_code" TEXT,
+    "disc_val" REAL,
+    "ord_qty" INTEGER,
+    "sales_chan" TEXT,
+    "unit_cost" TEXT,
+    "unit_price" TEXT,
+    "wh_code" TEXT,
+    "sales_team_id" INTEGER
+);
+
+CREATE TABLE "s_ord_qty_gt_seven_or_null_cur" (
+    "ord_no" TEXT,
+    "cur_code" TEXT,
+    "disc_val" REAL,
+    "ord_qty" INTEGER,
+    "sales_chan" TEXT,
+    "unit_cost" TEXT,
+    "unit_price" TEXT,
+    "wh_code" TEXT,
+    "sales_team_id" INTEGER
+);
+```
+### local_2
+```sql
+
+```
+### local_3
+```sql
+
+```
+
+
+--------------------------------------------------------------------------------
+LLM RESPONSE:
+--------------------------------------------------------------------------------
+
+CREATE VIEW customer AS
+SELECT 
+    cust_id, 
+    cust_name
+FROM local_1.cust_mast;
+
+CREATE VIEW product AS
+SELECT 
+    prod_id, 
+    prod_name
+FROM local_1.prod_mast;
+
+CREATE VIEW sales_order AS
+SELECT 
+    ord_no, 
+    cur_code, 
+    disc_val, 
+    ord_qty, 
+    sales_chan, 
+    unit_cost, 
+    unit_price, 
+    wh_code, 
+    sales_team_id
+FROM local_1.s_ord_qty_lte_three_cur
+UNION ALL
+SELECT 
+    ord_no, 
+    cur_code, 
+    disc_val, 
+    ord_qty, 
+    sales_chan, 
+    unit_cost, 
+    unit_price, 
+    wh_code, 
+    sales_team_id
+FROM local_1.s_ord_qty_gt_three_lte_five_cur
+UNION ALL
+SELECT 
+    ord_no, 
+    cur_code, 
+    disc_val, 
+    ord_qty, 
+    sales_chan, 
+    unit_cost, 
+    unit_price, 
+    wh_code, 
+    sales_team_id
+FROM local_1.s_ord_qty_gt_five_lte_seven_cur
+UNION ALL
+SELECT 
+    ord_no, 
+    cur_code, 
+    disc_val, 
+    ord_qty, 
+    sales_chan, 
+    unit_cost, 
+    unit_price, 
+    wh_code, 
+    sales_team_id
+FROM local_1.s_ord_qty_gt_seven_or_null_cur;

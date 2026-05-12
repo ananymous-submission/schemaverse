@@ -1,0 +1,5067 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "MusicAlbum": {
+          "source_table": "Album",
+          "column_map": {
+            "MusicAlbumId": "AlbumId",
+            "AlbumTitle": "Title",
+            "PerformerId": "ArtistId"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "Performer": {
+          "source_table": "Artist",
+          "column_map": {
+            "PerformerId": "ArtistId",
+            "PerformerName": "Name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "MusicGenre": {
+          "source_table": "Genre",
+          "column_map": {
+            "MusicGenreId": "GenreId",
+            "GenreName": "Name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "MediaFormat": {
+          "source_table": "MediaType",
+          "column_map": {
+            "MediaFormatId": "MediaTypeId",
+            "FormatName": "Name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "MusicTrack": {
+          "source_table": "Track",
+          "column_map": {
+            "MusicTrackId": "TrackId",
+            "MusicAlbumId": "AlbumId",
+            "FileSizeBytes": "Bytes",
+            "ComposerName": "Composer",
+            "MusicGenreId": "GenreId",
+            "MediaFormatId": "MediaTypeId",
+            "DurationMilliseconds": "Milliseconds",
+            "UnitPriceAmount": "UnitPrice"
+          },
+          "projected_columns": [
+            "TrackId",
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "GenreId",
+            "MediaTypeId",
+            "Milliseconds",
+            "UnitPrice"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Track_bytes"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Track_bytes",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "albumid"
+        }
+      },
+      "table_rename_map": {
+        "Track": "Track_albumid"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "cust_addr_us": {
+          "source_table": "Customer",
+          "column_map": {
+            "cust_id": "CustomerId",
+            "addr_line": "Address",
+            "city_nm": "City",
+            "country_cd": "Country",
+            "email_addr": "Email",
+            "fax_no": "Fax",
+            "phone_no": "Phone",
+            "postal_cd": "PostalCode",
+            "state_cd": "State",
+            "support_emp_id": "SupportRepId"
+          },
+          "projected_columns": [
+            "CustomerId",
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "row_predicate": "(\"Country\" = 'USA' OR (rowid IN (7,9,46,48,49,57)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "cust_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "cust_city",
+          "is_row_partition": true,
+          "row_partition_partner": "cust_addr_ca_gb_pt",
+          "row_partition_peers": [
+            "cust_addr_ca_gb_pt",
+            "cust_addr_br_fr",
+            "cust_addr_de_cz_in",
+            "cust_addr_other"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "cust_addr_ca_gb_pt": {
+          "source_table": "Customer",
+          "column_map": {
+            "cust_id": "CustomerId",
+            "addr_line": "Address",
+            "city_nm": "City",
+            "country_cd": "Country",
+            "email_addr": "Email",
+            "fax_no": "Fax",
+            "phone_no": "Phone",
+            "postal_cd": "PostalCode",
+            "state_cd": "State",
+            "support_emp_id": "SupportRepId"
+          },
+          "projected_columns": [
+            "CustomerId",
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "row_predicate": "((\"Country\" = 'Canada' OR (\"Country\" = 'United Kingdom' OR \"Country\" = 'Portugal')) OR (rowid IN (16,21,22,23,26,27)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "cust_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "cust_city",
+          "is_row_partition": true,
+          "row_partition_partner": "cust_addr_br_fr",
+          "row_partition_peers": [
+            "cust_addr_br_fr",
+            "cust_addr_de_cz_in",
+            "cust_addr_other",
+            "cust_addr_us"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "cust_addr_br_fr": {
+          "source_table": "Customer",
+          "column_map": {
+            "cust_id": "CustomerId",
+            "addr_line": "Address",
+            "city_nm": "City",
+            "country_cd": "Country",
+            "email_addr": "Email",
+            "fax_no": "Fax",
+            "phone_no": "Phone",
+            "postal_cd": "PostalCode",
+            "state_cd": "State",
+            "support_emp_id": "SupportRepId"
+          },
+          "projected_columns": [
+            "CustomerId",
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "row_predicate": "((\"Country\" = 'Brazil' OR \"Country\" = 'France') OR (rowid IN (14,30,32,34,52,54)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "cust_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "cust_city",
+          "is_row_partition": true,
+          "row_partition_partner": "cust_addr_de_cz_in",
+          "row_partition_peers": [
+            "cust_addr_de_cz_in",
+            "cust_addr_other",
+            "cust_addr_us",
+            "cust_addr_ca_gb_pt"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "cust_addr_de_cz_in": {
+          "source_table": "Customer",
+          "column_map": {
+            "cust_id": "CustomerId",
+            "addr_line": "Address",
+            "city_nm": "City",
+            "country_cd": "Country",
+            "email_addr": "Email",
+            "fax_no": "Fax",
+            "phone_no": "Phone",
+            "postal_cd": "PostalCode",
+            "state_cd": "State",
+            "support_emp_id": "SupportRepId"
+          },
+          "projected_columns": [
+            "CustomerId",
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "row_predicate": "((\"Country\" = 'Germany' OR (\"Country\" = 'Czech Republic' OR \"Country\" = 'India')) OR (rowid IN (10,41,42,43)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "cust_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "cust_city",
+          "is_row_partition": true,
+          "row_partition_partner": "cust_addr_other",
+          "row_partition_peers": [
+            "cust_addr_other",
+            "cust_addr_us",
+            "cust_addr_ca_gb_pt",
+            "cust_addr_br_fr"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "cust_addr_other": {
+          "source_table": "Customer",
+          "column_map": {
+            "cust_id": "CustomerId",
+            "addr_line": "Address",
+            "city_nm": "City",
+            "country_cd": "Country",
+            "email_addr": "Email",
+            "fax_no": "Fax",
+            "phone_no": "Phone",
+            "postal_cd": "PostalCode",
+            "state_cd": "State",
+            "support_emp_id": "SupportRepId"
+          },
+          "projected_columns": [
+            "CustomerId",
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "row_predicate": "((\"Country\" IS NULL OR \"Country\" NOT IN ('USA', 'Canada', 'Brazil', 'France', 'Germany', 'United Kingdom', 'Czech Republic', 'India', 'Portugal')) OR (rowid IN (5,36,37,38)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "cust_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "cust_city",
+          "is_row_partition": true,
+          "row_partition_partner": "cust_addr_us",
+          "row_partition_peers": [
+            "cust_addr_us",
+            "cust_addr_ca_gb_pt",
+            "cust_addr_br_fr",
+            "cust_addr_de_cz_in"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "cust_city": {
+          "source_table": "Customer",
+          "column_map": {
+            "cust_id": "CustomerId",
+            "city_nm": "City",
+            "comp_name": "Company",
+            "country_cd": "Country",
+            "nm": "FirstName",
+            "last_nm": "LastName",
+            "postal_cd": "PostalCode",
+            "state_cd": "State",
+            "support_emp_id": "SupportRepId"
+          },
+          "projected_columns": [
+            "CustomerId",
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Customer_address"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Customer_address",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "city"
+        },
+        "emp_addr": {
+          "source_table": "Employee",
+          "column_map": {
+            "emp_id": "EmployeeId",
+            "addr_line": "Address",
+            "city_nm": "City",
+            "country_cd": "Country",
+            "email_addr": "Email",
+            "fax_no": "Fax",
+            "phone_no": "Phone",
+            "postal_cd": "PostalCode",
+            "mgr_emp_id": "ReportsTo",
+            "state_cd": "State"
+          },
+          "projected_columns": [
+            "EmployeeId",
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "ReportsTo",
+            "State"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "emp_dates",
+            "emp_profile"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "emp_dates",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "address"
+        },
+        "emp_dates": {
+          "source_table": "Employee",
+          "column_map": {
+            "emp_id": "EmployeeId",
+            "birth_dt": "BirthDate",
+            "hire_dt": "HireDate",
+            "job_title": "Title"
+          },
+          "projected_columns": [
+            "EmployeeId",
+            "BirthDate",
+            "HireDate",
+            "Title"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "emp_addr",
+            "emp_profile"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "emp_addr",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "birthdate"
+        },
+        "emp_profile": {
+          "source_table": "Employee",
+          "column_map": {
+            "emp_id": "EmployeeId",
+            "city_nm": "City",
+            "email_addr": "Email",
+            "fax_no": "Fax",
+            "nm": "FirstName",
+            "last_nm": "LastName",
+            "phone_no": "Phone",
+            "mgr_emp_id": "ReportsTo",
+            "state_cd": "State"
+          },
+          "projected_columns": [
+            "EmployeeId",
+            "City",
+            "Email",
+            "Fax",
+            "FirstName",
+            "LastName",
+            "Phone",
+            "ReportsTo",
+            "State"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "emp_addr",
+            "emp_dates"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "emp_addr",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "city"
+        },
+        "inv_bill_addr_known": {
+          "source_table": "Invoice",
+          "column_map": {
+            "inv_id": "InvoiceId",
+            "bill_addr_line": "BillingAddress",
+            "bill_postal_cd": "BillingPostalCode",
+            "bill_state_cd": "BillingState",
+            "cust_id": "CustomerId",
+            "inv_dt": "InvoiceDate",
+            "total_amt": "Total"
+          },
+          "projected_columns": [
+            "InvoiceId",
+            "BillingAddress",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ],
+          "row_predicate": "(((((\"BillingAddress\" = '1 Infinite Loop' OR \"BillingAddress\" = '1 Microsoft Way') OR \"BillingAddress\" = '1498 rue B\u00e9langer') OR (\"BillingAddress\" = '12,Community Centre' OR \"BillingAddress\" = '120 S Orange Ave')) OR ((\"BillingAddress\" = '1033 N Park Ave' OR \"BillingAddress\" = '11, Place Bellecour') OR (\"BillingAddress\" = '110 Raeburn Pl' OR \"BillingAddress\" = '113 Lupus St'))) OR (rowid IN (6,7,10,12,13,17,19,22,25,27,29,32,33,34,36,40,41,45,47,51,58,61,63,65,66,67,69,71,75,76,78,79,93,94,95,96,104,107,113,118,119,124,126,127,133,135,137,140,143,150,156,157,160,161,164,166,171,176,178,179,183,187,190,192,195,196,197,200,202,209,214,215,220,224,225,230,231,234,236,240,241,244,250,253,254,256,259,264,266,269,270,274,275,279,280,281,286,288,290,292,295,297,302,303,304,308,311,321,322,323,329,332,334,337,342,348,349,350,356,357,361,368,370,372,373,376,379,380,383,387,392,395,396,401,403,404,405,406,410,411)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Invoice_billingaddress_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Invoice_billingaddress_2",
+          "is_row_partition": true,
+          "row_partition_partner": "Invoice_billingaddress_part2",
+          "row_partition_peers": [
+            "Invoice_billingaddress_part2"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "billingaddress"
+        }
+      },
+      "table_rename_map": {
+        "Customer": "Customer_address_part1",
+        "Employee": "Employee_address",
+        "Invoice": "Invoice_billingaddress_part1"
+      }
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "invoice_line_item": {
+          "source_table": "InvoiceLine",
+          "column_map": {
+            "invoice_line_id": "InvoiceLineId",
+            "invoice_id_key": "InvoiceId",
+            "track_id_key": "TrackId",
+            "unit_price_amount": "UnitPrice",
+            "quantity_count": "Quantity"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "media_playlist": {
+          "source_table": "Playlist",
+          "column_map": {
+            "playlist_id_key": "PlaylistId",
+            "playlist_title": "Name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "playlist_track_link": {
+          "source_table": "PlaylistTrack",
+          "column_map": {
+            "playlist_id_key": "PlaylistId",
+            "track_id_key": "TrackId"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "invoice_billing_address_full": {
+          "source_table": "Invoice",
+          "column_map": {
+            "invoice_id_key": "InvoiceId",
+            "billing_street_address": "BillingAddress",
+            "billing_city_name": "BillingCity",
+            "billing_country_name": "BillingCountry",
+            "billing_postal_code": "BillingPostalCode",
+            "billing_state_name": "BillingState",
+            "customer_id_key": "CustomerId"
+          },
+          "projected_columns": [
+            "InvoiceId",
+            "BillingAddress",
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Invoice_billingaddress"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Invoice_billingaddress",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "billingaddress_2"
+        },
+        "invoice_billing_address_other": {
+          "source_table": "Invoice",
+          "column_map": {
+            "invoice_id_key": "InvoiceId",
+            "billing_street_address": "BillingAddress",
+            "billing_postal_code": "BillingPostalCode",
+            "billing_state_name": "BillingState",
+            "customer_id_key": "CustomerId",
+            "invoice_date_time": "InvoiceDate",
+            "invoice_total_amount": "Total"
+          },
+          "projected_columns": [
+            "InvoiceId",
+            "BillingAddress",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ],
+          "row_predicate": "((\"BillingAddress\" IS NULL OR \"BillingAddress\" NOT IN ('1 Infinite Loop', '1 Microsoft Way', '1033 N Park Ave', '11, Place Bellecour', '110 Raeburn Pl', '113 Lupus St', '12,Community Centre', '120 S Orange Ave', '1498 rue B\u00e9langer')) OR (rowid IN (15,20,39,106,109,111,114,120,131,136,141,165,186,243,255,283,309,315,317,335,336,338,346,359,397,412)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "invoice_billing_address_full"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "invoice_billing_address_full",
+          "is_row_partition": true,
+          "row_partition_partner": "Invoice_billingaddress_part1",
+          "row_partition_peers": [
+            "Invoice_billingaddress_part1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "billingaddress"
+        },
+        "track_media_info": {
+          "source_table": "Track",
+          "column_map": {
+            "track_id_key": "TrackId",
+            "file_size_bytes": "Bytes",
+            "composer_name": "Composer",
+            "duration_milliseconds": "Milliseconds",
+            "track_title": "Name",
+            "track_unit_price": "UnitPrice"
+          },
+          "projected_columns": [
+            "TrackId",
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Track_albumid"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Track_albumid",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "bytes"
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "Album": "MusicAlbum",
+        "Artist": "Performer",
+        "Genre": "MusicGenre",
+        "MediaType": "MediaFormat",
+        "Track_albumid": "MusicTrack"
+      },
+      "column_renames": {
+        "Album": {
+          "AlbumId": "MusicAlbumId",
+          "Title": "AlbumTitle",
+          "ArtistId": "PerformerId"
+        },
+        "Artist": {
+          "ArtistId": "PerformerId",
+          "Name": "PerformerName"
+        },
+        "Genre": {
+          "GenreId": "MusicGenreId",
+          "Name": "GenreName"
+        },
+        "MediaType": {
+          "MediaTypeId": "MediaFormatId",
+          "Name": "FormatName"
+        },
+        "Track_albumid": {
+          "TrackId": "MusicTrackId",
+          "AlbumId": "MusicAlbumId",
+          "Bytes": "FileSizeBytes",
+          "Composer": "ComposerName",
+          "GenreId": "MusicGenreId",
+          "MediaTypeId": "MediaFormatId",
+          "Milliseconds": "DurationMilliseconds",
+          "UnitPrice": "UnitPriceAmount"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "Customer_address_part1": "cust_addr_us",
+        "Customer_address_part2": "cust_addr_ca_gb_pt",
+        "Customer_address_part3": "cust_addr_br_fr",
+        "Customer_address_part4": "cust_addr_de_cz_in",
+        "Customer_address_part5": "cust_addr_other",
+        "Customer_city": "cust_city",
+        "Employee_address": "emp_addr",
+        "Employee_birthdate": "emp_dates",
+        "Employee_city": "emp_profile",
+        "Invoice_billingaddress_part1": "inv_bill_addr_known"
+      },
+      "column_renames": {
+        "Customer_address_part1": {
+          "CustomerId": "cust_id",
+          "Address": "addr_line",
+          "City": "city_nm",
+          "Country": "country_cd",
+          "Email": "email_addr",
+          "Fax": "fax_no",
+          "Phone": "phone_no",
+          "PostalCode": "postal_cd",
+          "State": "state_cd",
+          "SupportRepId": "support_emp_id"
+        },
+        "Customer_address_part2": {
+          "CustomerId": "cust_id",
+          "Address": "addr_line",
+          "City": "city_nm",
+          "Country": "country_cd",
+          "Email": "email_addr",
+          "Fax": "fax_no",
+          "Phone": "phone_no",
+          "PostalCode": "postal_cd",
+          "State": "state_cd",
+          "SupportRepId": "support_emp_id"
+        },
+        "Customer_address_part3": {
+          "CustomerId": "cust_id",
+          "Address": "addr_line",
+          "City": "city_nm",
+          "Country": "country_cd",
+          "Email": "email_addr",
+          "Fax": "fax_no",
+          "Phone": "phone_no",
+          "PostalCode": "postal_cd",
+          "State": "state_cd",
+          "SupportRepId": "support_emp_id"
+        },
+        "Customer_address_part4": {
+          "CustomerId": "cust_id",
+          "Address": "addr_line",
+          "City": "city_nm",
+          "Country": "country_cd",
+          "Email": "email_addr",
+          "Fax": "fax_no",
+          "Phone": "phone_no",
+          "PostalCode": "postal_cd",
+          "State": "state_cd",
+          "SupportRepId": "support_emp_id"
+        },
+        "Customer_address_part5": {
+          "CustomerId": "cust_id",
+          "Address": "addr_line",
+          "City": "city_nm",
+          "Country": "country_cd",
+          "Email": "email_addr",
+          "Fax": "fax_no",
+          "Phone": "phone_no",
+          "PostalCode": "postal_cd",
+          "State": "state_cd",
+          "SupportRepId": "support_emp_id"
+        },
+        "Customer_city": {
+          "CustomerId": "cust_id",
+          "City": "city_nm",
+          "Company": "comp_name",
+          "Country": "country_cd",
+          "FirstName": "nm",
+          "LastName": "last_nm",
+          "PostalCode": "postal_cd",
+          "State": "state_cd",
+          "SupportRepId": "support_emp_id"
+        },
+        "Employee_address": {
+          "EmployeeId": "emp_id",
+          "Address": "addr_line",
+          "City": "city_nm",
+          "Country": "country_cd",
+          "Email": "email_addr",
+          "Fax": "fax_no",
+          "Phone": "phone_no",
+          "PostalCode": "postal_cd",
+          "ReportsTo": "mgr_emp_id",
+          "State": "state_cd"
+        },
+        "Employee_birthdate": {
+          "EmployeeId": "emp_id",
+          "BirthDate": "birth_dt",
+          "HireDate": "hire_dt",
+          "Title": "job_title"
+        },
+        "Employee_city": {
+          "EmployeeId": "emp_id",
+          "City": "city_nm",
+          "Email": "email_addr",
+          "Fax": "fax_no",
+          "FirstName": "nm",
+          "LastName": "last_nm",
+          "Phone": "phone_no",
+          "ReportsTo": "mgr_emp_id",
+          "State": "state_cd"
+        },
+        "Invoice_billingaddress_part1": {
+          "InvoiceId": "inv_id",
+          "BillingAddress": "bill_addr_line",
+          "BillingPostalCode": "bill_postal_cd",
+          "BillingState": "bill_state_cd",
+          "CustomerId": "cust_id",
+          "InvoiceDate": "inv_dt",
+          "Total": "total_amt"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_3": {
+      "table_renames": {
+        "InvoiceLine": "invoice_line_item",
+        "Playlist": "media_playlist",
+        "PlaylistTrack": "playlist_track_link",
+        "Invoice_billingaddress_2": "invoice_billing_address_full",
+        "Invoice_billingaddress_part2": "invoice_billing_address_other",
+        "Track_bytes": "track_media_info"
+      },
+      "column_renames": {
+        "InvoiceLine": {
+          "InvoiceLineId": "invoice_line_id",
+          "InvoiceId": "invoice_id_key",
+          "TrackId": "track_id_key",
+          "UnitPrice": "unit_price_amount",
+          "Quantity": "quantity_count"
+        },
+        "Playlist": {
+          "PlaylistId": "playlist_id_key",
+          "Name": "playlist_title"
+        },
+        "PlaylistTrack": {
+          "PlaylistId": "playlist_id_key",
+          "TrackId": "track_id_key"
+        },
+        "Invoice_billingaddress_2": {
+          "InvoiceId": "invoice_id_key",
+          "BillingAddress": "billing_street_address",
+          "BillingCity": "billing_city_name",
+          "BillingCountry": "billing_country_name",
+          "BillingPostalCode": "billing_postal_code",
+          "BillingState": "billing_state_name",
+          "CustomerId": "customer_id_key"
+        },
+        "Invoice_billingaddress_part2": {
+          "InvoiceId": "invoice_id_key",
+          "BillingAddress": "billing_street_address",
+          "BillingPostalCode": "billing_postal_code",
+          "BillingState": "billing_state_name",
+          "CustomerId": "customer_id_key",
+          "InvoiceDate": "invoice_date_time",
+          "Total": "invoice_total_amount"
+        },
+        "Track_bytes": {
+          "TrackId": "track_id_key",
+          "Bytes": "file_size_bytes",
+          "Composer": "composer_name",
+          "Milliseconds": "duration_milliseconds",
+          "Name": "track_title",
+          "UnitPrice": "track_unit_price"
+        }
+      },
+      "naming_case_style": "snake_case"
+    }
+  },
+  "vertical_split_map": {
+    "Track": {
+      "pk_columns": [
+        "TrackId"
+      ],
+      "fragments": [
+        {
+          "suffix": "albumid",
+          "non_pk_columns": [
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "GenreId",
+            "MediaTypeId",
+            "Milliseconds",
+            "UnitPrice"
+          ],
+          "local_table": "MusicTrack",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Track_albumid"
+        },
+        {
+          "suffix": "bytes",
+          "non_pk_columns": [
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ],
+          "local_table": "track_media_info",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Track_bytes"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Track",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.043745841977543755
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.043745841977543755,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "AlbumId",
+            "GenreId",
+            "MediaTypeId"
+          ],
+          [
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "UnitPrice",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Bytes",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Milliseconds",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Composer",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "GenreId",
+            "MediaTypeId",
+            "Milliseconds",
+            "UnitPrice"
+          ],
+          [
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ]
+        ],
+        "pk_columns": [
+          "TrackId"
+        ],
+        "fragments": [
+          {
+            "suffix": "albumid",
+            "non_pk_columns": [
+              "AlbumId",
+              "Bytes",
+              "Composer",
+              "GenreId",
+              "MediaTypeId",
+              "Milliseconds",
+              "UnitPrice"
+            ]
+          },
+          {
+            "suffix": "bytes",
+            "non_pk_columns": [
+              "Bytes",
+              "Composer",
+              "Milliseconds",
+              "Name",
+              "UnitPrice"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Track_albumid",
+      "movable_candidates": [
+        "Track_bytes"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=5"
+    },
+    "Customer": {
+      "pk_columns": [
+        "CustomerId"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "local_table": "cust_addr_us",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Customer_address",
+          "row_partition_names": [
+            "cust_addr_us",
+            "cust_addr_ca_gb_pt",
+            "cust_addr_br_fr",
+            "cust_addr_de_cz_in",
+            "cust_addr_other"
+          ],
+          "row_partition_predicate_column": "Country"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "local_table": "cust_city",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Customer_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Customer",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03660900642295261,
+          "3": 0.0363376707546167,
+          "4": 0.03660900642295261
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.03660900642295261,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Address",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "State",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SupportRepId",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Country",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "PostalCode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "City",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ]
+        ],
+        "pk_columns": [
+          "CustomerId"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "Address",
+              "City",
+              "Country",
+              "Email",
+              "Fax",
+              "Phone",
+              "PostalCode",
+              "State",
+              "SupportRepId"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "Company",
+              "Country",
+              "FirstName",
+              "LastName",
+              "PostalCode",
+              "State",
+              "SupportRepId"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Customer_address_part1",
+      "movable_candidates": [
+        "Customer_city"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=2"
+    },
+    "Employee": {
+      "pk_columns": [
+        "EmployeeId"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "ReportsTo",
+            "State"
+          ],
+          "local_table": "emp_addr",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Employee_address"
+        },
+        {
+          "suffix": "birthdate",
+          "non_pk_columns": [
+            "BirthDate",
+            "HireDate",
+            "Title"
+          ],
+          "local_table": "emp_dates",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Employee_birthdate"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Email",
+            "Fax",
+            "FirstName",
+            "LastName",
+            "Phone",
+            "ReportsTo",
+            "State"
+          ],
+          "local_table": "emp_profile",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Employee_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Employee",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 14,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.017374685575165943,
+          "3": 0.028918094513595376,
+          "4": 0.017187794637814356
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.028918094513595376,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "PostalCode",
+            "State"
+          ],
+          [
+            "BirthDate",
+            "HireDate",
+            "Title"
+          ],
+          [
+            "Fax",
+            "FirstName",
+            "LastName",
+            "Phone",
+            "ReportsTo"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "ReportsTo",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Phone",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Email",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "State",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Fax",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "City",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "ReportsTo",
+            "State"
+          ],
+          [
+            "BirthDate",
+            "HireDate",
+            "Title"
+          ],
+          [
+            "City",
+            "Email",
+            "Fax",
+            "FirstName",
+            "LastName",
+            "Phone",
+            "ReportsTo",
+            "State"
+          ]
+        ],
+        "pk_columns": [
+          "EmployeeId"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "Address",
+              "City",
+              "Country",
+              "Email",
+              "Fax",
+              "Phone",
+              "PostalCode",
+              "ReportsTo",
+              "State"
+            ]
+          },
+          {
+            "suffix": "birthdate",
+            "non_pk_columns": [
+              "BirthDate",
+              "HireDate",
+              "Title"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "Email",
+              "Fax",
+              "FirstName",
+              "LastName",
+              "Phone",
+              "ReportsTo",
+              "State"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Employee_address",
+      "movable_candidates": [
+        "Employee_birthdate",
+        "Employee_city"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=3"
+    },
+    "Invoice": {
+      "pk_columns": [
+        "InvoiceId"
+      ],
+      "fragments": [
+        {
+          "suffix": "billingaddress",
+          "non_pk_columns": [
+            "BillingAddress",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ],
+          "local_table": "Invoice_billingaddress_part1",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Invoice_billingaddress",
+          "row_partition_names": [
+            "Invoice_billingaddress_part1",
+            "invoice_billing_address_other"
+          ],
+          "row_partition_predicate_column": "BillingAddress"
+        },
+        {
+          "suffix": "billingaddress_2",
+          "non_pk_columns": [
+            "BillingAddress",
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId"
+          ],
+          "local_table": "invoice_billing_address_full",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Invoice_billingaddress_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Invoice",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.02279134403437809
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02279134403437809,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "BillingAddress",
+            "InvoiceDate",
+            "Total"
+          ],
+          [
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "BillingPostalCode",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "CustomerId",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "BillingAddress",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BillingState",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "BillingAddress",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ],
+          [
+            "BillingAddress",
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId"
+          ]
+        ],
+        "pk_columns": [
+          "InvoiceId"
+        ],
+        "fragments": [
+          {
+            "suffix": "billingaddress",
+            "non_pk_columns": [
+              "BillingAddress",
+              "BillingPostalCode",
+              "BillingState",
+              "CustomerId",
+              "InvoiceDate",
+              "Total"
+            ]
+          },
+          {
+            "suffix": "billingaddress_2",
+            "non_pk_columns": [
+              "BillingAddress",
+              "BillingCity",
+              "BillingCountry",
+              "BillingPostalCode",
+              "BillingState",
+              "CustomerId"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Invoice_billingaddress_part1",
+      "movable_candidates": [
+        "Invoice_billingaddress_2"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "split_map": {
+    "Track": {
+      "pk_columns": [
+        "TrackId"
+      ],
+      "fragments": [
+        {
+          "suffix": "albumid",
+          "non_pk_columns": [
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "GenreId",
+            "MediaTypeId",
+            "Milliseconds",
+            "UnitPrice"
+          ],
+          "local_table": "MusicTrack",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Track_albumid"
+        },
+        {
+          "suffix": "bytes",
+          "non_pk_columns": [
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ],
+          "local_table": "track_media_info",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Track_bytes"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Track",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.043745841977543755
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.043745841977543755,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "AlbumId",
+            "GenreId",
+            "MediaTypeId"
+          ],
+          [
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "UnitPrice",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Bytes",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Milliseconds",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Composer",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "GenreId",
+            "MediaTypeId",
+            "Milliseconds",
+            "UnitPrice"
+          ],
+          [
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ]
+        ],
+        "pk_columns": [
+          "TrackId"
+        ],
+        "fragments": [
+          {
+            "suffix": "albumid",
+            "non_pk_columns": [
+              "AlbumId",
+              "Bytes",
+              "Composer",
+              "GenreId",
+              "MediaTypeId",
+              "Milliseconds",
+              "UnitPrice"
+            ]
+          },
+          {
+            "suffix": "bytes",
+            "non_pk_columns": [
+              "Bytes",
+              "Composer",
+              "Milliseconds",
+              "Name",
+              "UnitPrice"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Track_albumid",
+      "movable_candidates": [
+        "Track_bytes"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=5"
+    },
+    "Customer": {
+      "pk_columns": [
+        "CustomerId"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "local_table": "cust_addr_us",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Customer_address",
+          "row_partition_names": [
+            "cust_addr_us",
+            "cust_addr_ca_gb_pt",
+            "cust_addr_br_fr",
+            "cust_addr_de_cz_in",
+            "cust_addr_other"
+          ],
+          "row_partition_predicate_column": "Country"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "local_table": "cust_city",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Customer_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Customer",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03660900642295261,
+          "3": 0.0363376707546167,
+          "4": 0.03660900642295261
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.03660900642295261,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Address",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "State",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SupportRepId",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Country",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "PostalCode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "City",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ]
+        ],
+        "pk_columns": [
+          "CustomerId"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "Address",
+              "City",
+              "Country",
+              "Email",
+              "Fax",
+              "Phone",
+              "PostalCode",
+              "State",
+              "SupportRepId"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "Company",
+              "Country",
+              "FirstName",
+              "LastName",
+              "PostalCode",
+              "State",
+              "SupportRepId"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Customer_address_part1",
+      "movable_candidates": [
+        "Customer_city"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=2"
+    },
+    "Employee": {
+      "pk_columns": [
+        "EmployeeId"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "ReportsTo",
+            "State"
+          ],
+          "local_table": "emp_addr",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Employee_address"
+        },
+        {
+          "suffix": "birthdate",
+          "non_pk_columns": [
+            "BirthDate",
+            "HireDate",
+            "Title"
+          ],
+          "local_table": "emp_dates",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Employee_birthdate"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Email",
+            "Fax",
+            "FirstName",
+            "LastName",
+            "Phone",
+            "ReportsTo",
+            "State"
+          ],
+          "local_table": "emp_profile",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Employee_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Employee",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 14,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.017374685575165943,
+          "3": 0.028918094513595376,
+          "4": 0.017187794637814356
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.028918094513595376,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "PostalCode",
+            "State"
+          ],
+          [
+            "BirthDate",
+            "HireDate",
+            "Title"
+          ],
+          [
+            "Fax",
+            "FirstName",
+            "LastName",
+            "Phone",
+            "ReportsTo"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "ReportsTo",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Phone",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Email",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "State",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Fax",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "City",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "ReportsTo",
+            "State"
+          ],
+          [
+            "BirthDate",
+            "HireDate",
+            "Title"
+          ],
+          [
+            "City",
+            "Email",
+            "Fax",
+            "FirstName",
+            "LastName",
+            "Phone",
+            "ReportsTo",
+            "State"
+          ]
+        ],
+        "pk_columns": [
+          "EmployeeId"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "Address",
+              "City",
+              "Country",
+              "Email",
+              "Fax",
+              "Phone",
+              "PostalCode",
+              "ReportsTo",
+              "State"
+            ]
+          },
+          {
+            "suffix": "birthdate",
+            "non_pk_columns": [
+              "BirthDate",
+              "HireDate",
+              "Title"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "Email",
+              "Fax",
+              "FirstName",
+              "LastName",
+              "Phone",
+              "ReportsTo",
+              "State"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Employee_address",
+      "movable_candidates": [
+        "Employee_birthdate",
+        "Employee_city"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=3"
+    },
+    "Invoice": {
+      "pk_columns": [
+        "InvoiceId"
+      ],
+      "fragments": [
+        {
+          "suffix": "billingaddress",
+          "non_pk_columns": [
+            "BillingAddress",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ],
+          "local_table": "Invoice_billingaddress_part1",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Invoice_billingaddress",
+          "row_partition_names": [
+            "Invoice_billingaddress_part1",
+            "invoice_billing_address_other"
+          ],
+          "row_partition_predicate_column": "BillingAddress"
+        },
+        {
+          "suffix": "billingaddress_2",
+          "non_pk_columns": [
+            "BillingAddress",
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId"
+          ],
+          "local_table": "invoice_billing_address_full",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Invoice_billingaddress_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Invoice",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.02279134403437809
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02279134403437809,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "BillingAddress",
+            "InvoiceDate",
+            "Total"
+          ],
+          [
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "BillingPostalCode",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "CustomerId",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "BillingAddress",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BillingState",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "BillingAddress",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ],
+          [
+            "BillingAddress",
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "CustomerId"
+          ]
+        ],
+        "pk_columns": [
+          "InvoiceId"
+        ],
+        "fragments": [
+          {
+            "suffix": "billingaddress",
+            "non_pk_columns": [
+              "BillingAddress",
+              "BillingPostalCode",
+              "BillingState",
+              "CustomerId",
+              "InvoiceDate",
+              "Total"
+            ]
+          },
+          {
+            "suffix": "billingaddress_2",
+            "non_pk_columns": [
+              "BillingAddress",
+              "BillingCity",
+              "BillingCountry",
+              "BillingPostalCode",
+              "BillingState",
+              "CustomerId"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Invoice_billingaddress_part1",
+      "movable_candidates": [
+        "Invoice_billingaddress_2"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 11,
+    "eligible_candidate_count": 6,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 9,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 2,
+    "selected_original_tables": [
+      "Employee",
+      "Customer",
+      "Invoice",
+      "Track",
+      "InvoiceLine",
+      "Album"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/music/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "InvoiceLine",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Album",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "Customer||vfrag=address": {
+      "source_table": "Customer",
+      "vertical_fragment_suffix": "address",
+      "num_partitions": 5,
+      "partition_names": [
+        "cust_addr_us",
+        "cust_addr_ca_gb_pt",
+        "cust_addr_br_fr",
+        "cust_addr_de_cz_in",
+        "cust_addr_other"
+      ],
+      "partition_locals": [
+        "local_2",
+        "local_2",
+        "local_2",
+        "local_2",
+        "local_2"
+      ],
+      "predicate_column": "Country",
+      "partition_values": [
+        {
+          "value": "USA",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Canada",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "United Kingdom",
+                  "includes_null": false
+                },
+                {
+                  "value": "Portugal",
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Brazil",
+              "includes_null": false
+            },
+            {
+              "value": "France",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Germany",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "Czech Republic",
+                  "includes_null": false
+                },
+                {
+                  "value": "India",
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "USA",
+            "Canada",
+            "Brazil",
+            "France",
+            "Germany",
+            "United Kingdom",
+            "Czech Republic",
+            "India",
+            "Portugal"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"Country\" = 'USA' OR (rowid IN (7,9,46,48,49,57)))",
+        "((\"Country\" = 'Canada' OR (\"Country\" = 'United Kingdom' OR \"Country\" = 'Portugal')) OR (rowid IN (16,21,22,23,26,27)))",
+        "((\"Country\" = 'Brazil' OR \"Country\" = 'France') OR (rowid IN (14,30,32,34,52,54)))",
+        "((\"Country\" = 'Germany' OR (\"Country\" = 'Czech Republic' OR \"Country\" = 'India')) OR (rowid IN (10,41,42,43)))",
+        "((\"Country\" IS NULL OR \"Country\" NOT IN ('USA', 'Canada', 'Brazil', 'France', 'Germany', 'United Kingdom', 'Czech Republic', 'India', 'Portugal')) OR (rowid IN (5,36,37,38)))"
+      ],
+      "base_predicate_sqls": [
+        "\"Country\" = 'USA'",
+        "(\"Country\" = 'Canada' OR (\"Country\" = 'United Kingdom' OR \"Country\" = 'Portugal'))",
+        "(\"Country\" = 'Brazil' OR \"Country\" = 'France')",
+        "(\"Country\" = 'Germany' OR (\"Country\" = 'Czech Republic' OR \"Country\" = 'India'))",
+        "(\"Country\" IS NULL OR \"Country\" NOT IN ('USA', 'Canada', 'Brazil', 'France', 'Germany', 'United Kingdom', 'Czech Republic', 'India', 'Portugal'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where Country = USA",
+        "rows where Country = Canada + rows where Country = United Kingdom + rows where Country = Portugal",
+        "rows where Country = Brazil + rows where Country = France",
+        "rows where Country = Germany + rows where Country = Czech Republic + rows where Country = India",
+        "rows where Country is NULL or not in {'USA', 'Canada', 'Brazil', 'France', 'Germany', 'United Kingdom', 'Czech Republic', 'India', 'Portugal'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "cust_addr_us",
+      "movable_fragments": [
+        "cust_addr_ca_gb_pt",
+        "cust_addr_br_fr",
+        "cust_addr_de_cz_in",
+        "cust_addr_other"
+      ],
+      "movable_fragment": "cust_addr_ca_gb_pt",
+      "default_movable_fragment": "cust_addr_ca_gb_pt",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "Country",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "Country",
+            "rhs": "State",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "Country",
+          "State"
+        ],
+        "ranked_columns": [
+          {
+            "column": "Country",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "State",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 59
+      },
+      "predicate_sql_fragment_A": "(\"Country\" = 'USA' OR (rowid IN (7,9,46,48,49,57)))",
+      "predicate_sql_fragment_B": "((\"Country\" = 'Canada' OR (\"Country\" = 'United Kingdom' OR \"Country\" = 'Portugal')) OR (rowid IN (16,21,22,23,26,27)))",
+      "fragment_role_A": "rows where Country = USA",
+      "fragment_role_B": "rows where Country = Canada + rows where Country = United Kingdom + rows where Country = Portugal"
+    },
+    "Invoice||vfrag=billingaddress": {
+      "source_table": "Invoice",
+      "vertical_fragment_suffix": "billingaddress",
+      "num_partitions": 2,
+      "partition_names": [
+        "inv_bill_addr_known",
+        "invoice_billing_address_other"
+      ],
+      "partition_locals": [
+        "local_2",
+        "local_3"
+      ],
+      "predicate_column": "BillingAddress",
+      "partition_values": [
+        {
+          "merged_buckets": [
+            {
+              "merged_buckets": [
+                {
+                  "merged_buckets": [
+                    {
+                      "merged_buckets": [
+                        {
+                          "value": "1 Infinite Loop",
+                          "includes_null": false
+                        },
+                        {
+                          "value": "1 Microsoft Way",
+                          "includes_null": false
+                        }
+                      ]
+                    },
+                    {
+                      "value": "1498 rue B\u00e9langer",
+                      "includes_null": false
+                    }
+                  ]
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "12,Community Centre",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "120 S Orange Ave",
+                      "includes_null": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "merged_buckets": [
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "1033 N Park Ave",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "11, Place Bellecour",
+                      "includes_null": false
+                    }
+                  ]
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "110 Raeburn Pl",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "113 Lupus St",
+                      "includes_null": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "1 Infinite Loop",
+            "1 Microsoft Way",
+            "1033 N Park Ave",
+            "11, Place Bellecour",
+            "110 Raeburn Pl",
+            "113 Lupus St",
+            "12,Community Centre",
+            "120 S Orange Ave",
+            "1498 rue B\u00e9langer"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(((((\"BillingAddress\" = '1 Infinite Loop' OR \"BillingAddress\" = '1 Microsoft Way') OR \"BillingAddress\" = '1498 rue B\u00e9langer') OR (\"BillingAddress\" = '12,Community Centre' OR \"BillingAddress\" = '120 S Orange Ave')) OR ((\"BillingAddress\" = '1033 N Park Ave' OR \"BillingAddress\" = '11, Place Bellecour') OR (\"BillingAddress\" = '110 Raeburn Pl' OR \"BillingAddress\" = '113 Lupus St'))) OR (rowid IN (6,7,10,12,13,17,19,22,25,27,29,32,33,34,36,40,41,45,47,51,58,61,63,65,66,67,69,71,75,76,78,79,93,94,95,96,104,107,113,118,119,124,126,127,133,135,137,140,143,150,156,157,160,161,164,166,171,176,178,179,183,187,190,192,195,196,197,200,202,209,214,215,220,224,225,230,231,234,236,240,241,244,250,253,254,256,259,264,266,269,270,274,275,279,280,281,286,288,290,292,295,297,302,303,304,308,311,321,322,323,329,332,334,337,342,348,349,350,356,357,361,368,370,372,373,376,379,380,383,387,392,395,396,401,403,404,405,406,410,411)))",
+        "((\"BillingAddress\" IS NULL OR \"BillingAddress\" NOT IN ('1 Infinite Loop', '1 Microsoft Way', '1033 N Park Ave', '11, Place Bellecour', '110 Raeburn Pl', '113 Lupus St', '12,Community Centre', '120 S Orange Ave', '1498 rue B\u00e9langer')) OR (rowid IN (15,20,39,106,109,111,114,120,131,136,141,165,186,243,255,283,309,315,317,335,336,338,346,359,397,412)))"
+      ],
+      "base_predicate_sqls": [
+        "((((\"BillingAddress\" = '1 Infinite Loop' OR \"BillingAddress\" = '1 Microsoft Way') OR \"BillingAddress\" = '1498 rue B\u00e9langer') OR (\"BillingAddress\" = '12,Community Centre' OR \"BillingAddress\" = '120 S Orange Ave')) OR ((\"BillingAddress\" = '1033 N Park Ave' OR \"BillingAddress\" = '11, Place Bellecour') OR (\"BillingAddress\" = '110 Raeburn Pl' OR \"BillingAddress\" = '113 Lupus St')))",
+        "(\"BillingAddress\" IS NULL OR \"BillingAddress\" NOT IN ('1 Infinite Loop', '1 Microsoft Way', '1033 N Park Ave', '11, Place Bellecour', '110 Raeburn Pl', '113 Lupus St', '12,Community Centre', '120 S Orange Ave', '1498 rue B\u00e9langer'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where BillingAddress = 1 Infinite Loop + rows where BillingAddress = 1 Microsoft Way + rows where BillingAddress = 1498 rue B\u00e9langer + rows where BillingAddress = 12,Community Centre + rows where BillingAddress = 120 S Orange Ave + rows where BillingAddress = 1033 N Park Ave + rows where BillingAddress = 11, Place Bellecour + rows where BillingAddress = 110 Raeburn Pl + rows where BillingAddress = 113 Lupus St",
+        "rows where BillingAddress is NULL or not in {'1 Infinite Loop', '1 Microsoft Way', '1033 N Park Ave', '11, Place Bellecour', '110 Raeburn Pl', '113 Lupus St', '12,Community Centre', '120 S Orange Ave', '1498 rue B\u00e9langer'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "inv_bill_addr_known",
+      "movable_fragments": [
+        "invoice_billing_address_other"
+      ],
+      "movable_fragment": "invoice_billing_address_other",
+      "default_movable_fragment": "invoice_billing_address_other",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "BillingAddress",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "BillingAddress",
+            "rhs": "BillingPostalCode",
+            "precision": 1.0
+          },
+          {
+            "lhs": "BillingAddress",
+            "rhs": "BillingState",
+            "precision": 1.0
+          },
+          {
+            "lhs": "BillingAddress",
+            "rhs": "Total",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "BillingAddress",
+          "BillingPostalCode",
+          "BillingState",
+          "Total"
+        ],
+        "ranked_columns": [
+          {
+            "column": "BillingAddress",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "BillingPostalCode",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "BillingState",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "Total",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 412
+      },
+      "predicate_sql_fragment_A": "(((((\"BillingAddress\" = '1 Infinite Loop' OR \"BillingAddress\" = '1 Microsoft Way') OR \"BillingAddress\" = '1498 rue B\u00e9langer') OR (\"BillingAddress\" = '12,Community Centre' OR \"BillingAddress\" = '120 S Orange Ave')) OR ((\"BillingAddress\" = '1033 N Park Ave' OR \"BillingAddress\" = '11, Place Bellecour') OR (\"BillingAddress\" = '110 Raeburn Pl' OR \"BillingAddress\" = '113 Lupus St'))) OR (rowid IN (6,7,10,12,13,17,19,22,25,27,29,32,33,34,36,40,41,45,47,51,58,61,63,65,66,67,69,71,75,76,78,79,93,94,95,96,104,107,113,118,119,124,126,127,133,135,137,140,143,150,156,157,160,161,164,166,171,176,178,179,183,187,190,192,195,196,197,200,202,209,214,215,220,224,225,230,231,234,236,240,241,244,250,253,254,256,259,264,266,269,270,274,275,279,280,281,286,288,290,292,295,297,302,303,304,308,311,321,322,323,329,332,334,337,342,348,349,350,356,357,361,368,370,372,373,376,379,380,383,387,392,395,396,401,403,404,405,406,410,411)))",
+      "predicate_sql_fragment_B": "((\"BillingAddress\" IS NULL OR \"BillingAddress\" NOT IN ('1 Infinite Loop', '1 Microsoft Way', '1033 N Park Ave', '11, Place Bellecour', '110 Raeburn Pl', '113 Lupus St', '12,Community Centre', '120 S Orange Ave', '1498 rue B\u00e9langer')) OR (rowid IN (15,20,39,106,109,111,114,120,131,136,141,165,186,243,255,283,309,315,317,335,336,338,346,359,397,412)))",
+      "fragment_role_A": "rows where BillingAddress = 1 Infinite Loop + rows where BillingAddress = 1 Microsoft Way + rows where BillingAddress = 1498 rue B\u00e9langer + rows where BillingAddress = 12,Community Centre + rows where BillingAddress = 120 S Orange Ave + rows where BillingAddress = 1033 N Park Ave + rows where BillingAddress = 11, Place Bellecour + rows where BillingAddress = 110 Raeburn Pl + rows where BillingAddress = 113 Lupus St",
+      "fragment_role_B": "rows where BillingAddress is NULL or not in {'1 Infinite Loop', '1 Microsoft Way', '1033 N Park Ave', '11, Place Bellecour', '110 Raeburn Pl', '113 Lupus St', '12,Community Centre', '120 S Orange Ave', '1498 rue B\u00e9langer'} (catch-all 'OTHER' bucket)"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "Album",
+          "from_column": "ArtistId",
+          "to_table": "Artist",
+          "to_column": "ArtistId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Album",
+            "column_map": {
+              "AlbumId": "AlbumId",
+              "Title": "Title",
+              "ArtistId": "ArtistId"
+            },
+            "orig_to_local": {
+              "AlbumId": "AlbumId",
+              "Title": "Title",
+              "ArtistId": "ArtistId"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Artist",
+            "column_map": {
+              "ArtistId": "ArtistId",
+              "Name": "Name"
+            },
+            "orig_to_local": {
+              "ArtistId": "ArtistId",
+              "Name": "Name"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "MusicAlbum",
+            "to_local_table": "Performer",
+            "from_local_column": "PerformerId",
+            "to_local_column": "PerformerId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Customer",
+          "from_column": "SupportRepId",
+          "to_table": "Employee",
+          "to_column": "EmployeeId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part1",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part2",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part3",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part4",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part5",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_city",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "City": "City",
+              "Company": "Company",
+              "Country": "Country",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "City": "City",
+              "Company": "Company",
+              "Country": "Country",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Employee_address",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Employee_birthdate",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "BirthDate": "BirthDate",
+              "HireDate": "HireDate",
+              "Title": "Title"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "BirthDate": "BirthDate",
+              "HireDate": "HireDate",
+              "Title": "Title"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Employee_city",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "City": "City",
+              "Email": "Email",
+              "Fax": "Fax",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "Phone": "Phone",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "City": "City",
+              "Email": "Email",
+              "Fax": "Fax",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "Phone": "Phone",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_us",
+            "to_local_table": "emp_addr",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_us",
+            "to_local_table": "emp_dates",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_us",
+            "to_local_table": "emp_profile",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_br_fr",
+            "to_local_table": "emp_addr",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_br_fr",
+            "to_local_table": "emp_dates",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_br_fr",
+            "to_local_table": "emp_profile",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_de_cz_in",
+            "to_local_table": "emp_addr",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_de_cz_in",
+            "to_local_table": "emp_profile",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_other",
+            "to_local_table": "emp_addr",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_city",
+            "to_local_table": "emp_addr",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_ca_gb_pt",
+            "to_local_table": "emp_addr",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_ca_gb_pt",
+            "to_local_table": "emp_dates",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_ca_gb_pt",
+            "to_local_table": "emp_profile",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_de_cz_in",
+            "to_local_table": "emp_dates",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_other",
+            "to_local_table": "emp_dates",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_addr_other",
+            "to_local_table": "emp_profile",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_city",
+            "to_local_table": "emp_dates",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "cust_city",
+            "to_local_table": "emp_profile",
+            "from_local_column": "support_emp_id",
+            "to_local_column": "emp_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Employee",
+          "from_column": "ReportsTo",
+          "to_table": "Employee",
+          "to_column": "EmployeeId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Employee_address",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Employee_birthdate",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "BirthDate": "BirthDate",
+              "HireDate": "HireDate",
+              "Title": "Title"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "BirthDate": "BirthDate",
+              "HireDate": "HireDate",
+              "Title": "Title"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Employee_city",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "City": "City",
+              "Email": "Email",
+              "Fax": "Fax",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "Phone": "Phone",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "City": "City",
+              "Email": "Email",
+              "Fax": "Fax",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "Phone": "Phone",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Employee_address",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Employee_birthdate",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "BirthDate": "BirthDate",
+              "HireDate": "HireDate",
+              "Title": "Title"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "BirthDate": "BirthDate",
+              "HireDate": "HireDate",
+              "Title": "Title"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Employee_city",
+            "column_map": {
+              "EmployeeId": "EmployeeId",
+              "City": "City",
+              "Email": "Email",
+              "Fax": "Fax",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "Phone": "Phone",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            },
+            "orig_to_local": {
+              "EmployeeId": "EmployeeId",
+              "City": "City",
+              "Email": "Email",
+              "Fax": "Fax",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "Phone": "Phone",
+              "ReportsTo": "ReportsTo",
+              "State": "State"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "emp_addr",
+            "to_local_table": "emp_addr",
+            "from_local_column": "mgr_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "emp_profile",
+            "to_local_table": "emp_addr",
+            "from_local_column": "mgr_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "emp_profile",
+            "to_local_table": "emp_dates",
+            "from_local_column": "mgr_emp_id",
+            "to_local_column": "emp_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "emp_addr",
+            "to_local_table": "emp_dates",
+            "from_local_column": "mgr_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "emp_addr",
+            "to_local_table": "emp_profile",
+            "from_local_column": "mgr_emp_id",
+            "to_local_column": "emp_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "emp_profile",
+            "to_local_table": "emp_profile",
+            "from_local_column": "mgr_emp_id",
+            "to_local_column": "emp_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Invoice",
+          "from_column": "CustomerId",
+          "to_table": "Customer",
+          "to_column": "CustomerId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Invoice_billingaddress_part1",
+            "column_map": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId",
+              "InvoiceDate": "InvoiceDate",
+              "Total": "Total"
+            },
+            "orig_to_local": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId",
+              "InvoiceDate": "InvoiceDate",
+              "Total": "Total"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Invoice_billingaddress_2",
+            "column_map": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingCity": "BillingCity",
+              "BillingCountry": "BillingCountry",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId"
+            },
+            "orig_to_local": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingCity": "BillingCity",
+              "BillingCountry": "BillingCountry",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Invoice_billingaddress_part2",
+            "column_map": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId",
+              "InvoiceDate": "InvoiceDate",
+              "Total": "Total"
+            },
+            "orig_to_local": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId",
+              "InvoiceDate": "InvoiceDate",
+              "Total": "Total"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part1",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part2",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part3",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part4",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_address_part5",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "Address": "Address",
+              "City": "City",
+              "Country": "Country",
+              "Email": "Email",
+              "Fax": "Fax",
+              "Phone": "Phone",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Customer_city",
+            "column_map": {
+              "CustomerId": "CustomerId",
+              "City": "City",
+              "Company": "Company",
+              "Country": "Country",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            },
+            "orig_to_local": {
+              "CustomerId": "CustomerId",
+              "City": "City",
+              "Company": "Company",
+              "Country": "Country",
+              "FirstName": "FirstName",
+              "LastName": "LastName",
+              "PostalCode": "PostalCode",
+              "State": "State",
+              "SupportRepId": "SupportRepId"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "inv_bill_addr_known",
+            "to_local_table": "cust_addr_us",
+            "from_local_column": "cust_id",
+            "to_local_column": "cust_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "inv_bill_addr_known",
+            "to_local_table": "cust_addr_ca_gb_pt",
+            "from_local_column": "cust_id",
+            "to_local_column": "cust_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "inv_bill_addr_known",
+            "to_local_table": "cust_addr_br_fr",
+            "from_local_column": "cust_id",
+            "to_local_column": "cust_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "inv_bill_addr_known",
+            "to_local_table": "cust_addr_de_cz_in",
+            "from_local_column": "cust_id",
+            "to_local_column": "cust_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "inv_bill_addr_known",
+            "to_local_table": "cust_addr_other",
+            "from_local_column": "cust_id",
+            "to_local_column": "cust_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "inv_bill_addr_known",
+            "to_local_table": "cust_city",
+            "from_local_column": "cust_id",
+            "to_local_column": "cust_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_full",
+            "to_local_table": "cust_addr_us",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_full",
+            "to_local_table": "cust_addr_ca_gb_pt",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_full",
+            "to_local_table": "cust_addr_br_fr",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_full",
+            "to_local_table": "cust_addr_de_cz_in",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_full",
+            "to_local_table": "cust_addr_other",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_full",
+            "to_local_table": "cust_city",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_other",
+            "to_local_table": "cust_addr_us",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_other",
+            "to_local_table": "cust_addr_ca_gb_pt",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_other",
+            "to_local_table": "cust_addr_br_fr",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_other",
+            "to_local_table": "cust_addr_de_cz_in",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_other",
+            "to_local_table": "cust_addr_other",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_billing_address_other",
+            "to_local_table": "cust_city",
+            "from_local_column": "customer_id_key",
+            "to_local_column": "cust_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "InvoiceLine",
+          "from_column": "TrackId",
+          "to_table": "Track",
+          "to_column": "TrackId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "InvoiceLine",
+            "column_map": {
+              "InvoiceLineId": "InvoiceLineId",
+              "InvoiceId": "InvoiceId",
+              "TrackId": "TrackId",
+              "UnitPrice": "UnitPrice",
+              "Quantity": "Quantity"
+            },
+            "orig_to_local": {
+              "InvoiceLineId": "InvoiceLineId",
+              "InvoiceId": "InvoiceId",
+              "TrackId": "TrackId",
+              "UnitPrice": "UnitPrice",
+              "Quantity": "Quantity"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Track_albumid",
+            "column_map": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Track_bytes",
+            "column_map": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "invoice_line_item",
+            "to_local_table": "track_media_info",
+            "from_local_column": "track_id_key",
+            "to_local_column": "track_id_key"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "invoice_line_item",
+            "to_local_table": "MusicTrack",
+            "from_local_column": "track_id_key",
+            "to_local_column": "MusicTrackId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "InvoiceLine",
+          "from_column": "InvoiceId",
+          "to_table": "Invoice",
+          "to_column": "InvoiceId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "InvoiceLine",
+            "column_map": {
+              "InvoiceLineId": "InvoiceLineId",
+              "InvoiceId": "InvoiceId",
+              "TrackId": "TrackId",
+              "UnitPrice": "UnitPrice",
+              "Quantity": "Quantity"
+            },
+            "orig_to_local": {
+              "InvoiceLineId": "InvoiceLineId",
+              "InvoiceId": "InvoiceId",
+              "TrackId": "TrackId",
+              "UnitPrice": "UnitPrice",
+              "Quantity": "Quantity"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Invoice_billingaddress_part1",
+            "column_map": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId",
+              "InvoiceDate": "InvoiceDate",
+              "Total": "Total"
+            },
+            "orig_to_local": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId",
+              "InvoiceDate": "InvoiceDate",
+              "Total": "Total"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Invoice_billingaddress_2",
+            "column_map": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingCity": "BillingCity",
+              "BillingCountry": "BillingCountry",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId"
+            },
+            "orig_to_local": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingCity": "BillingCity",
+              "BillingCountry": "BillingCountry",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Invoice_billingaddress_part2",
+            "column_map": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId",
+              "InvoiceDate": "InvoiceDate",
+              "Total": "Total"
+            },
+            "orig_to_local": {
+              "InvoiceId": "InvoiceId",
+              "BillingAddress": "BillingAddress",
+              "BillingPostalCode": "BillingPostalCode",
+              "BillingState": "BillingState",
+              "CustomerId": "CustomerId",
+              "InvoiceDate": "InvoiceDate",
+              "Total": "Total"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "invoice_line_item",
+            "to_local_table": "invoice_billing_address_full",
+            "from_local_column": "invoice_id_key",
+            "to_local_column": "invoice_id_key"
+          },
+          {
+            "local": "local_3",
+            "from_local_table": "invoice_line_item",
+            "to_local_table": "invoice_billing_address_other",
+            "from_local_column": "invoice_id_key",
+            "to_local_column": "invoice_id_key"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "invoice_line_item",
+            "to_local_table": "inv_bill_addr_known",
+            "from_local_column": "invoice_id_key",
+            "to_local_column": "inv_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "PlaylistTrack",
+          "from_column": "TrackId",
+          "to_table": "Track",
+          "to_column": "TrackId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "PlaylistTrack",
+            "column_map": {
+              "PlaylistId": "PlaylistId",
+              "TrackId": "TrackId"
+            },
+            "orig_to_local": {
+              "PlaylistId": "PlaylistId",
+              "TrackId": "TrackId"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Track_albumid",
+            "column_map": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Track_bytes",
+            "column_map": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "playlist_track_link",
+            "to_local_table": "track_media_info",
+            "from_local_column": "track_id_key",
+            "to_local_column": "track_id_key"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "playlist_track_link",
+            "to_local_table": "MusicTrack",
+            "from_local_column": "track_id_key",
+            "to_local_column": "MusicTrackId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "PlaylistTrack",
+          "from_column": "PlaylistId",
+          "to_table": "Playlist",
+          "to_column": "PlaylistId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "PlaylistTrack",
+            "column_map": {
+              "PlaylistId": "PlaylistId",
+              "TrackId": "TrackId"
+            },
+            "orig_to_local": {
+              "PlaylistId": "PlaylistId",
+              "TrackId": "TrackId"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "Playlist",
+            "column_map": {
+              "PlaylistId": "PlaylistId",
+              "Name": "Name"
+            },
+            "orig_to_local": {
+              "PlaylistId": "PlaylistId",
+              "Name": "Name"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "playlist_track_link",
+            "to_local_table": "media_playlist",
+            "from_local_column": "playlist_id_key",
+            "to_local_column": "playlist_id_key"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Track",
+          "from_column": "MediaTypeId",
+          "to_table": "MediaType",
+          "to_column": "MediaTypeId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Track_albumid",
+            "column_map": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Track_bytes",
+            "column_map": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "MediaType",
+            "column_map": {
+              "MediaTypeId": "MediaTypeId",
+              "Name": "Name"
+            },
+            "orig_to_local": {
+              "MediaTypeId": "MediaTypeId",
+              "Name": "Name"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "MusicTrack",
+            "to_local_table": "MediaFormat",
+            "from_local_column": "MediaFormatId",
+            "to_local_column": "MediaFormatId"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Track",
+          "from_column": "GenreId",
+          "to_table": "Genre",
+          "to_column": "GenreId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Track_albumid",
+            "column_map": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Track_bytes",
+            "column_map": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Genre",
+            "column_map": {
+              "GenreId": "GenreId",
+              "Name": "Name"
+            },
+            "orig_to_local": {
+              "GenreId": "GenreId",
+              "Name": "Name"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "MusicTrack",
+            "to_local_table": "MusicGenre",
+            "from_local_column": "MusicGenreId",
+            "to_local_column": "MusicGenreId"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Track",
+          "from_column": "AlbumId",
+          "to_table": "Album",
+          "to_column": "AlbumId",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Track_albumid",
+            "column_map": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "AlbumId": "AlbumId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "GenreId": "GenreId",
+              "MediaTypeId": "MediaTypeId",
+              "Milliseconds": "Milliseconds",
+              "UnitPrice": "UnitPrice"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Track_bytes",
+            "column_map": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            },
+            "orig_to_local": {
+              "TrackId": "TrackId",
+              "Bytes": "Bytes",
+              "Composer": "Composer",
+              "Milliseconds": "Milliseconds",
+              "Name": "Name",
+              "UnitPrice": "UnitPrice"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Album",
+            "column_map": {
+              "AlbumId": "AlbumId",
+              "Title": "Title",
+              "ArtistId": "ArtistId"
+            },
+            "orig_to_local": {
+              "AlbumId": "AlbumId",
+              "Title": "Title",
+              "ArtistId": "ArtistId"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "MusicTrack",
+            "to_local_table": "MusicAlbum",
+            "from_local_column": "MusicAlbumId",
+            "to_local_column": "MusicAlbumId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "Invoice_billingaddress_2",
+      "source_table": "Invoice",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_2",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "InvoiceLine",
+        "partner_logical_table": "InvoiceLine",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fk_fallback",
+        "anchor_fragment": "Invoice_billingaddress_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "fk_neighbor_fallback",
+        "decision_signal": "fk_fallback"
+      }
+    },
+    {
+      "local_table": "Invoice_billingaddress_part2",
+      "source_table": "Invoice",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "InvoiceLine",
+        "partner_logical_table": "InvoiceLine",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fk_fallback",
+        "anchor_fragment": "Invoice_billingaddress_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "fk_neighbor_fallback",
+        "decision_signal": "fk_fallback"
+      }
+    },
+    {
+      "local_table": "Track_bytes",
+      "source_table": "Track",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "InvoiceLine",
+        "partner_logical_table": "InvoiceLine",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fk_fallback",
+        "anchor_fragment": "Track_albumid",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "fk_neighbor_fallback",
+        "decision_signal": "fk_fallback"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {},
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "Album": "local_1",
+      "Artist": "local_1",
+      "Customer_address_part1": "local_2",
+      "Customer_address_part2": "local_2",
+      "Customer_address_part3": "local_2",
+      "Customer_address_part4": "local_2",
+      "Customer_address_part5": "local_2",
+      "Customer_city": "local_2",
+      "Employee_address": "local_2",
+      "Employee_birthdate": "local_2",
+      "Employee_city": "local_2",
+      "Genre": "local_1",
+      "InvoiceLine": "local_3",
+      "Invoice_billingaddress_2": "local_2",
+      "Invoice_billingaddress_part1": "local_2",
+      "Invoice_billingaddress_part2": "local_2",
+      "MediaType": "local_1",
+      "Playlist": "local_3",
+      "PlaylistTrack": "local_3",
+      "Track_albumid": "local_1",
+      "Track_bytes": "local_1"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "Invoice": {
+        "R": 1,
+        "F": 3,
+        "rho": 0.8
+      },
+      "Track": {
+        "R": 1,
+        "F": 2,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "Invoice": {
+        "R": 1,
+        "F": 2,
+        "home_fragments": 2,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "Invoice": "Invoice_billingaddress_part1"
+    },
+    "intents": [
+      {
+        "source_table": "Invoice",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Invoice_billingaddress_2",
+        "anchor_fragment": "Invoice_billingaddress_part1",
+        "partner_fragment": "InvoiceLine",
+        "partner_logical_table": "InvoiceLine",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "evidence_type": "fk_fallback",
+        "source_local_idx": 1,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "Track",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Track_bytes",
+        "anchor_fragment": "Track_albumid",
+        "partner_fragment": "InvoiceLine",
+        "partner_logical_table": "InvoiceLine",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "evidence_type": "fk_fallback",
+        "source_local_idx": 0,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "Invoice",
+        "kind": "row_partition",
+        "movable_fragment": "Invoice_billingaddress_part2",
+        "partner_fragment": "InvoiceLine",
+        "partner_logical_table": "InvoiceLine",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "evidence_type": "fk_fallback",
+        "source_local_idx": 1,
+        "target_local_idx": 2,
+        "anchor_fragment": "Invoice_billingaddress_part1"
+      }
+    ],
+    "moved_fragments": [
+      "Invoice_billingaddress_2",
+      "Invoice_billingaddress_part2",
+      "Track_bytes"
+    ],
+    "pinned_fragments": [
+      "InvoiceLine",
+      "Invoice_billingaddress_part1"
+    ],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "Album": {
+        "columns": [
+          {
+            "name": "AlbumId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Title",
+            "type": "NVARCHAR(160)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "ArtistId",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "AlbumId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 347
+      },
+      "Artist": {
+        "columns": [
+          {
+            "name": "ArtistId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Name",
+            "type": "NVARCHAR(120)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ArtistId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 275
+      },
+      "Customer": {
+        "columns": [
+          {
+            "name": "CustomerId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "FirstName",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "LastName",
+            "type": "NVARCHAR(20)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Company",
+            "type": "NVARCHAR(80)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Address",
+            "type": "NVARCHAR(70)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "City",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "State",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Country",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "PostalCode",
+            "type": "NVARCHAR(10)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Phone",
+            "type": "NVARCHAR(24)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Fax",
+            "type": "NVARCHAR(24)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Email",
+            "type": "NVARCHAR(60)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "SupportRepId",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "CustomerId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 59
+      },
+      "Employee": {
+        "columns": [
+          {
+            "name": "EmployeeId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "LastName",
+            "type": "NVARCHAR(20)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "FirstName",
+            "type": "NVARCHAR(20)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Title",
+            "type": "NVARCHAR(30)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "ReportsTo",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BirthDate",
+            "type": "DATETIME",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "HireDate",
+            "type": "DATETIME",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Address",
+            "type": "NVARCHAR(70)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "City",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "State",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Country",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "PostalCode",
+            "type": "NVARCHAR(10)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Phone",
+            "type": "NVARCHAR(24)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Fax",
+            "type": "NVARCHAR(24)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Email",
+            "type": "NVARCHAR(60)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "EmployeeId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 8
+      },
+      "Genre": {
+        "columns": [
+          {
+            "name": "GenreId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Name",
+            "type": "NVARCHAR(120)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "GenreId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 25
+      },
+      "Invoice": {
+        "columns": [
+          {
+            "name": "InvoiceId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "CustomerId",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "InvoiceDate",
+            "type": "DATETIME",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "BillingAddress",
+            "type": "NVARCHAR(70)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BillingCity",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BillingState",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BillingCountry",
+            "type": "NVARCHAR(40)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BillingPostalCode",
+            "type": "NVARCHAR(10)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Total",
+            "type": "NUMERIC(10,2)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "InvoiceId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 412
+      },
+      "InvoiceLine": {
+        "columns": [
+          {
+            "name": "InvoiceLineId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "InvoiceId",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "TrackId",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "UnitPrice",
+            "type": "NUMERIC(10,2)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Quantity",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "InvoiceLineId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 2240
+      },
+      "MediaType": {
+        "columns": [
+          {
+            "name": "MediaTypeId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Name",
+            "type": "NVARCHAR(120)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "MediaTypeId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 5
+      },
+      "Playlist": {
+        "columns": [
+          {
+            "name": "PlaylistId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Name",
+            "type": "NVARCHAR(120)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "PlaylistId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 18
+      },
+      "PlaylistTrack": {
+        "columns": [
+          {
+            "name": "PlaylistId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "TrackId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "PlaylistId",
+          "TrackId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 8715
+      },
+      "Track": {
+        "columns": [
+          {
+            "name": "TrackId",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Name",
+            "type": "NVARCHAR(200)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "AlbumId",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "MediaTypeId",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "GenreId",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Composer",
+            "type": "NVARCHAR(220)",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Milliseconds",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "Bytes",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "UnitPrice",
+            "type": "NUMERIC(10,2)",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "TrackId"
+        ],
+        "pk_origin": "declared",
+        "row_count": 3503
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "Album",
+        "from_column": "ArtistId",
+        "to_table": "Artist",
+        "to_column": "ArtistId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Customer",
+        "from_column": "SupportRepId",
+        "to_table": "Employee",
+        "to_column": "EmployeeId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Employee",
+        "from_column": "ReportsTo",
+        "to_table": "Employee",
+        "to_column": "EmployeeId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Invoice",
+        "from_column": "CustomerId",
+        "to_table": "Customer",
+        "to_column": "CustomerId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "InvoiceLine",
+        "from_column": "TrackId",
+        "to_table": "Track",
+        "to_column": "TrackId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "InvoiceLine",
+        "from_column": "InvoiceId",
+        "to_table": "Invoice",
+        "to_column": "InvoiceId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "PlaylistTrack",
+        "from_column": "TrackId",
+        "to_table": "Track",
+        "to_column": "TrackId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "PlaylistTrack",
+        "from_column": "PlaylistId",
+        "to_table": "Playlist",
+        "to_column": "PlaylistId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Track",
+        "from_column": "MediaTypeId",
+        "to_table": "MediaType",
+        "to_column": "MediaTypeId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Track",
+        "from_column": "GenreId",
+        "to_table": "Genre",
+        "to_column": "GenreId",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Track",
+        "from_column": "AlbumId",
+        "to_table": "Album",
+        "to_column": "AlbumId",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 11,
+      "num_fk_edges": 11,
+      "hub_tables": [
+        "Track",
+        "Employee",
+        "Album",
+        "Customer",
+        "Invoice"
+      ],
+      "connected_components": 1
+    }
+  }
+}

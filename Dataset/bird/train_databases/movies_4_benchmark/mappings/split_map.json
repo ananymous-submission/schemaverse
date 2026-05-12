@@ -1,0 +1,192 @@
+{
+  "movie": {
+    "pk_columns": [
+      "movie_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "budget",
+        "non_pk_columns": [
+          "budget",
+          "movie_status",
+          "overview",
+          "popularity",
+          "release_date",
+          "runtime",
+          "vote_average"
+        ],
+        "local_table": "movies_budget_under_one_million",
+        "local_name": "local_3",
+        "vertical_fragment_base": "movie_budget",
+        "row_partition_names": [
+          "movies_budget_under_one_million",
+          "movie_budget_q2",
+          "movie_budget_q3",
+          "movies_budget_over_forty_million_or_null"
+        ],
+        "row_partition_predicate_column": "budget"
+      },
+      {
+        "suffix": "homepage",
+        "non_pk_columns": [
+          "homepage",
+          "tagline",
+          "title"
+        ],
+        "local_table": "MovieWebPresence",
+        "local_name": "local_4",
+        "vertical_fragment_base": "movie_homepage"
+      },
+      {
+        "suffix": "budget_2",
+        "non_pk_columns": [
+          "budget",
+          "overview",
+          "release_date",
+          "revenue",
+          "runtime",
+          "vote_average",
+          "vote_count"
+        ],
+        "local_table": "filmFinancials",
+        "local_name": "local_5",
+        "vertical_fragment_base": "movie_budget_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "movie",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 12,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.008401834550443915,
+        "3": 0.010942370088420915,
+        "4": 0.010530992909691029
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.010942370088420915,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "budget",
+          "movie_status",
+          "overview",
+          "popularity",
+          "release_date"
+        ],
+        [
+          "homepage",
+          "tagline",
+          "title"
+        ],
+        [
+          "revenue",
+          "runtime",
+          "vote_average",
+          "vote_count"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "budget",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "overview",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "release_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "vote_average",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "runtime",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "budget",
+          "movie_status",
+          "overview",
+          "popularity",
+          "release_date",
+          "runtime",
+          "vote_average"
+        ],
+        [
+          "homepage",
+          "tagline",
+          "title"
+        ],
+        [
+          "budget",
+          "overview",
+          "release_date",
+          "revenue",
+          "runtime",
+          "vote_average",
+          "vote_count"
+        ]
+      ],
+      "pk_columns": [
+        "movie_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "budget",
+          "non_pk_columns": [
+            "budget",
+            "movie_status",
+            "overview",
+            "popularity",
+            "release_date",
+            "runtime",
+            "vote_average"
+          ]
+        },
+        {
+          "suffix": "homepage",
+          "non_pk_columns": [
+            "homepage",
+            "tagline",
+            "title"
+          ]
+        },
+        {
+          "suffix": "budget_2",
+          "non_pk_columns": [
+            "budget",
+            "overview",
+            "release_date",
+            "revenue",
+            "runtime",
+            "vote_average",
+            "vote_count"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "movie_budget_q1",
+    "movable_candidates": [
+      "movie_budget_2",
+      "movie_homepage"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=5"
+  }
+}

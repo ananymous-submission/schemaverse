@@ -1,0 +1,129 @@
+{
+  "prof": {
+    "pk_columns": [
+      "prof_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "email",
+        "non_pk_columns": [
+          "email",
+          "gender",
+          "graduate_from",
+          "popularity",
+          "teachingability"
+        ],
+        "local_table": "faculty_contact",
+        "local_name": "local_2",
+        "vertical_fragment_base": "prof_email"
+      },
+      {
+        "suffix": "email_2",
+        "non_pk_columns": [
+          "email",
+          "first_name",
+          "gender",
+          "graduate_from",
+          "last_name"
+        ],
+        "local_table": "faculty_profile",
+        "local_name": "local_2",
+        "vertical_fragment_base": "prof_email_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "prof",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 7,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.025715662557508536
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.025715662557508536,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "email",
+          "gender",
+          "popularity",
+          "teachingability"
+        ],
+        [
+          "first_name",
+          "graduate_from",
+          "last_name"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "email",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "gender",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "graduate_from",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "email",
+          "gender",
+          "graduate_from",
+          "popularity",
+          "teachingability"
+        ],
+        [
+          "email",
+          "first_name",
+          "gender",
+          "graduate_from",
+          "last_name"
+        ]
+      ],
+      "pk_columns": [
+        "prof_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "email",
+          "non_pk_columns": [
+            "email",
+            "gender",
+            "graduate_from",
+            "popularity",
+            "teachingability"
+          ]
+        },
+        {
+          "suffix": "email_2",
+          "non_pk_columns": [
+            "email",
+            "first_name",
+            "gender",
+            "graduate_from",
+            "last_name"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "prof_email_2",
+    "movable_candidates": [
+      "prof_email"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=1"
+  }
+}

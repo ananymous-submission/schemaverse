@@ -1,0 +1,459 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 4,
+    "eligible_candidate_count": 4,
+    "num_selected_for_vertical_split": 3,
+    "num_from_rate_alone": 3,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 2,
+    "selected_original_tables": [
+      "Nutrition",
+      "Recipe",
+      "Quantity"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/cookbook/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "Quantity",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "Nutrition": {
+      "pk_columns": [
+        "recipe_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "alcohol",
+          "non_pk_columns": [
+            "alcohol",
+            "calories",
+            "carbo",
+            "cholestrl",
+            "fiber",
+            "iron",
+            "protein",
+            "sat_fat",
+            "sodium",
+            "vitamin_a",
+            "vitamin_c"
+          ],
+          "local_table": "Nutrition_alcohol_q1",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Nutrition_alcohol",
+          "row_partition_names": [
+            "Nutrition_alcohol_q1",
+            "nutritionAlcoholFiber0_34To0_87",
+            "nutritionAlcoholFiber0_87To1_58",
+            "nutritionAlcoholFiberAbove1_58OrNull"
+          ],
+          "row_partition_predicate_column": "fiber"
+        },
+        {
+          "suffix": "alcohol_2",
+          "non_pk_columns": [
+            "alcohol",
+            "calories",
+            "carbo",
+            "pcnt_cal_carb",
+            "pcnt_cal_fat",
+            "pcnt_cal_prot",
+            "protein",
+            "sat_fat",
+            "sodium",
+            "total_fat"
+          ],
+          "local_table": "nutrition_alcohol_overview",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Nutrition_alcohol_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Nutrition",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 15,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.05635591977822576,
+          "3": 0.05412198476410048,
+          "4": 0.05451945468481342,
+          "5": 0.05149805508451786
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.05635591977822576,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "alcohol",
+            "cholestrl",
+            "fiber",
+            "iron",
+            "protein",
+            "sodium",
+            "vitamin_a",
+            "vitamin_c"
+          ],
+          [
+            "calories",
+            "carbo",
+            "pcnt_cal_carb",
+            "pcnt_cal_fat",
+            "pcnt_cal_prot",
+            "sat_fat",
+            "total_fat"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "carbo",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "protein",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "sodium",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "sat_fat",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "calories",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "alcohol",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "alcohol",
+            "calories",
+            "carbo",
+            "cholestrl",
+            "fiber",
+            "iron",
+            "protein",
+            "sat_fat",
+            "sodium",
+            "vitamin_a",
+            "vitamin_c"
+          ],
+          [
+            "alcohol",
+            "calories",
+            "carbo",
+            "pcnt_cal_carb",
+            "pcnt_cal_fat",
+            "pcnt_cal_prot",
+            "protein",
+            "sat_fat",
+            "sodium",
+            "total_fat"
+          ]
+        ],
+        "pk_columns": [
+          "recipe_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "alcohol",
+            "non_pk_columns": [
+              "alcohol",
+              "calories",
+              "carbo",
+              "cholestrl",
+              "fiber",
+              "iron",
+              "protein",
+              "sat_fat",
+              "sodium",
+              "vitamin_a",
+              "vitamin_c"
+            ]
+          },
+          {
+            "suffix": "alcohol_2",
+            "non_pk_columns": [
+              "alcohol",
+              "calories",
+              "carbo",
+              "pcnt_cal_carb",
+              "pcnt_cal_fat",
+              "pcnt_cal_prot",
+              "protein",
+              "sat_fat",
+              "sodium",
+              "total_fat"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "carbo",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alcohol_2",
+          "also_in_fragment_suffix": "alcohol"
+        },
+        {
+          "column": "protein",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alcohol",
+          "also_in_fragment_suffix": "alcohol_2"
+        },
+        {
+          "column": "sodium",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alcohol",
+          "also_in_fragment_suffix": "alcohol_2"
+        },
+        {
+          "column": "sat_fat",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alcohol_2",
+          "also_in_fragment_suffix": "alcohol"
+        },
+        {
+          "column": "calories",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "alcohol_2",
+          "also_in_fragment_suffix": "alcohol"
+        },
+        {
+          "column": "alcohol",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "alcohol",
+          "also_in_fragment_suffix": "alcohol_2"
+        }
+      ]
+    },
+    "Recipe": {
+      "pk_columns": [
+        "recipe_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "cook_min",
+          "non_pk_columns": [
+            "cook_min",
+            "directions",
+            "intro",
+            "prep_min",
+            "servings",
+            "stnd_min"
+          ],
+          "local_table": "recipeTimeOverview",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Recipe_cook_min"
+        },
+        {
+          "suffix": "intro",
+          "non_pk_columns": [
+            "intro",
+            "subtitle",
+            "title"
+          ],
+          "local_table": "recipeIntroduction",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Recipe_intro"
+        },
+        {
+          "suffix": "directions",
+          "non_pk_columns": [
+            "directions",
+            "servings",
+            "source",
+            "stnd_min",
+            "yield_unit"
+          ],
+          "local_table": "Recipe_directions_q1",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Recipe_directions",
+          "row_partition_names": [
+            "Recipe_directions_q1",
+            "Recipe_directions_q2",
+            "recipeDirectionsServingsAbove6OrNull"
+          ],
+          "row_partition_predicate_column": "servings"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Recipe",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.028236299309744316,
+          "3": 0.028312184103158444
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.028312184103158444,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "cook_min",
+            "directions",
+            "prep_min",
+            "stnd_min"
+          ],
+          [
+            "intro",
+            "subtitle",
+            "title"
+          ],
+          [
+            "servings",
+            "source",
+            "yield_unit"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "directions",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "stnd_min",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "servings",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "intro",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "cook_min",
+            "directions",
+            "intro",
+            "prep_min",
+            "servings",
+            "stnd_min"
+          ],
+          [
+            "intro",
+            "subtitle",
+            "title"
+          ],
+          [
+            "directions",
+            "servings",
+            "source",
+            "stnd_min",
+            "yield_unit"
+          ]
+        ],
+        "pk_columns": [
+          "recipe_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "cook_min",
+            "non_pk_columns": [
+              "cook_min",
+              "directions",
+              "intro",
+              "prep_min",
+              "servings",
+              "stnd_min"
+            ]
+          },
+          {
+            "suffix": "intro",
+            "non_pk_columns": [
+              "intro",
+              "subtitle",
+              "title"
+            ]
+          },
+          {
+            "suffix": "directions",
+            "non_pk_columns": [
+              "directions",
+              "servings",
+              "source",
+              "stnd_min",
+              "yield_unit"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "directions",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "cook_min",
+          "also_in_fragment_suffix": "directions"
+        },
+        {
+          "column": "stnd_min",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "cook_min",
+          "also_in_fragment_suffix": "directions"
+        },
+        {
+          "column": "servings",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "directions",
+          "also_in_fragment_suffix": "cook_min"
+        },
+        {
+          "column": "intro",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "intro",
+          "also_in_fragment_suffix": "cook_min"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1052 @@
+[
+  {
+    "sql": "SELECT SUM(T1.households) FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'ARECIBO'",
+    "question_id": null,
+    "question": "What is the total number of households in Arecibo county?",
+    "difficulty": "",
+    "evidence": "\"ARECIBO\" is the county; total number of households refer to sum(households)"
+  },
+  {
+    "sql": "SELECT T1.zip_code FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'ARECIBO' ORDER BY T1.avg_house_value DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which residential area in Arecibo county has the highest average house value? Please give its zip_code.",
+    "difficulty": "",
+    "evidence": "\"ARECIBO\" is the county; highest average house value refers to Max(avg_house_value)"
+  },
+  {
+    "sql": "SELECT SUM(T1.male_population) FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'ARECIBO'",
+    "question_id": null,
+    "question": "Please list the numbers of males in all the residential areas in Arecibo county.",
+    "difficulty": "",
+    "evidence": "\"ARECIBO\" is the county; number of males refers to Sum(male_population)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.zip_code) FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'DELAWARE' AND T1.daylight_savings = 'Yes'",
+    "question_id": null,
+    "question": "Among all the residential areas in Delaware, how many of them implement daylight saving?",
+    "difficulty": "",
+    "evidence": "\"Delaware\" is a county; implement daylight savings refers to daylight_saving = 'Yes'"
+  },
+  {
+    "sql": "SELECT T1.zip_code FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'ARECIBO' ORDER BY T1.white_population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among all the residential areas in Arecibo county, what is the zip_code of the one with the highest white population?",
+    "difficulty": "",
+    "evidence": "\"ARECIBO\" is the county; highest white population refers to Max(white_population)"
+  },
+  {
+    "sql": "SELECT T2.county FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'ARECIBO' GROUP BY T2.county ORDER BY T1.avg_income_per_household DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which county is the residential area with the highest average income per household located?",
+    "difficulty": "",
+    "evidence": "highest average income per household refers to Max(avg_income_per_household)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.county FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T1.daylight_savings = 'Yes'",
+    "question_id": null,
+    "question": "Please list the names of all the counties with at least one residential area that implements daylight saving.",
+    "difficulty": "",
+    "evidence": "implements daylight savings refers to daylight_savings = 'Yes'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.zip_code FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'HUNTINGDON' AND T1.employees > 30",
+    "question_id": null,
+    "question": "Please list the zip_codes of all the residential areas in Huntingdon county with over 30 employees.",
+    "difficulty": "",
+    "evidence": "over 30 employees refers to employee > 30; 'HUNTINGDON' is the county"
+  },
+  {
+    "sql": "SELECT SUM(T1.asian_population) FROM zip_data AS T1 INNER JOIN avoid AS T2 ON T1.zip_code = T2.zip_code WHERE T2.bad_alias = 'URB San Joaquin'",
+    "question_id": null,
+    "question": "Please list the Asian populations of all the residential areas with the bad alias \"URB San Joaquin\".",
+    "difficulty": "",
+    "evidence": "\"URB San Joaquin\" is the bad_alias"
+  },
+  {
+    "sql": "SELECT COUNT(T1.zip_code) FROM zip_data AS T1 INNER JOIN avoid AS T2 ON T1.zip_code = T2.zip_code WHERE T2.bad_alias = 'Internal Revenue Service' AND T1.time_zone = 'Eastern'",
+    "question_id": null,
+    "question": "Among the residential areas with the bad alias \"Internal Revenue Service\", how many of them are in the Eastern time zone?",
+    "difficulty": "",
+    "evidence": "\"Internal Revenue Service\" is the bad_alias; in Eastern time zone refers to time_zone = 'Eastern'"
+  },
+  {
+    "sql": "SELECT T2.bad_alias FROM zip_data AS T1 INNER JOIN avoid AS T2 ON T1.zip_code = T2.zip_code WHERE T1.avg_house_value = ( SELECT MAX(avg_house_value) FROM zip_data ) LIMIT 1",
+    "question_id": null,
+    "question": "What is the bad alias of the residential area with the highest average house value?",
+    "difficulty": "",
+    "evidence": "highest average house value refers to Max(avg_house_value)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.bad_alias FROM zip_data AS T1 INNER JOIN avoid AS T2 ON T1.zip_code = T2.zip_code WHERE T1.female_median_age > 32",
+    "question_id": null,
+    "question": "Please list the bad alias of all the residential areas with a median female age of over 32.",
+    "difficulty": "",
+    "evidence": "median female age of over 32 refers to median_female_age > 32"
+  },
+  {
+    "sql": "SELECT CAST(T1.male_population AS REAL) / T1.female_population FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'ARECIBO' AND T1.female_population <> 0 ORDER BY 1 DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest gender ratio of the residential areas in Arecibo county?",
+    "difficulty": "",
+    "evidence": "\"ARECIBO\" is the county; highest gender ration refers to Max(Divide (male_population, female_population))"
+  },
+  {
+    "sql": "SELECT SUM(T1.female_median_age) / COUNT(T1.zip_code) FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'ARECIBO'",
+    "question_id": null,
+    "question": "What is the average median female age of all the residential areas in the Arecibo county?",
+    "difficulty": "",
+    "evidence": "\"ARECIBO\" is the county; average median female age = Divide (Sum(median_female_age), Count(country))"
+  },
+  {
+    "sql": "SELECT T1.area_code FROM area_code AS T1 INNER JOIN ZIP_Data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.female_median_age > 32 GROUP BY T1.area_code",
+    "question_id": null,
+    "question": "What is the area code of the city with the female median age over 32 years old?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.alias FROM zip_data AS T1 INNER JOIN alias AS T2 ON T1.zip_code = T2.zip_code WHERE T1.city = 'Hartford'",
+    "question_id": null,
+    "question": "What is the alias of the city called Hartford?",
+    "difficulty": "",
+    "evidence": "\"Hartford\" is the city"
+  },
+  {
+    "sql": "SELECT COUNT(T2.county) FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'Alabama'",
+    "question_id": null,
+    "question": "How many counties are there in Alabama?",
+    "difficulty": "",
+    "evidence": "\"Alabama\" is the name"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.zip_code) FROM state AS T1 INNER JOIN zip_data AS T2 ON T1.abbreviation = T2.state WHERE T1.abbreviation = 'NY' AND T2.type = 'Post Office'",
+    "question_id": null,
+    "question": "How many post offices are there in New York?",
+    "difficulty": "",
+    "evidence": "\"New York\" refers to state = 'NY' and name = 'New York'; 'Post Office' is the type"
+  },
+  {
+    "sql": "SELECT T2.latitude, T2.longitude FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = '787' GROUP BY T2.latitude, T2.longitude",
+    "question_id": null,
+    "question": "What are the precise locations of the cities with an area code of 787?",
+    "difficulty": "",
+    "evidence": "precise location refers to latitude, longitude"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM state AS T1 INNER JOIN zip_data AS T2 ON T1.abbreviation = T2.state WHERE T1.abbreviation = 'CA' AND T2.type LIKE '%Community Post Office%' AND T1.name = 'California' AND T2.state = 'CA'",
+    "question_id": null,
+    "question": "In California, how many delivery receptacles are there in the community post office that has the highest number of delivery receptacles?",
+    "difficulty": "",
+    "evidence": "in California refers to name = 'California' and state = 'CA'; 'Community Post Office' is the Type"
+  },
+  {
+    "sql": "SELECT T4.county FROM zip_data AS T3 INNER JOIN country AS T4 ON T3.zip_code = T4.zip_code GROUP BY T4.county ORDER BY T3.female_population DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which county can you find the city with the highest number of females?",
+    "difficulty": "",
+    "evidence": "highest number of females refers to Max(female_population)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.name FROM zip_data AS T1 INNER JOIN state AS T2 ON T1.state = T2.abbreviation WHERE T1.division IS NULL",
+    "question_id": null,
+    "question": "What are the names of the states whose postal point is not affiliated with any organization?",
+    "difficulty": "",
+    "evidence": "postal point is not affiliated with any organization refers to division is null"
+  },
+  {
+    "sql": "SELECT T1.population_2020 - T1.population_2010 AS result_data FROM zip_data AS T1 INNER JOIN CBSA AS T2 ON T1.CBSA = T2.CBSA WHERE T2.CBSA_name = 'Allentown-Bethlehem-Easton, PA-NJ' ORDER BY T1.population_2020 DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the difference in the most populated city of Allentown-Bethlehem-Easton, PA-NJ in 2020 against its population in 2010?",
+    "difficulty": "",
+    "evidence": "\"Allentown-Bethlehem-Easton, PA-NJ\" is the CBSA_name; most populated city refers to Max(population_2020); difference = Subtract (population_2020, population_2011)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.zip_code FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state WHERE T2.county = 'NEW CASTLE' AND T1.name = 'Delaware'",
+    "question_id": null,
+    "question": "List all the zip codes in the county of New Castle in Delaware.",
+    "difficulty": "",
+    "evidence": "\"NEW CASTLE\" is the county; 'Delaware' is the name of state"
+  },
+  {
+    "sql": "SELECT COUNT(T3.cognress_rep_id) FROM zip_data AS T1 INNER JOIN state AS T2 ON T1.state = T2.abbreviation INNER JOIN congress AS T3 ON T2.abbreviation = T3.abbreviation ORDER BY T1.monthly_benefits_retired_workers DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many representatives are there in the state with the highest monthly benefit payments for retired workers?",
+    "difficulty": "",
+    "evidence": "state with highest monthly benefits payment for retired workers refers to Max(monthly_benefits_retired_workers)"
+  },
+  {
+    "sql": "SELECT COUNT(T3.city) FROM congress AS T1 INNER JOIN state AS T2 ON T1.abbreviation = T2.abbreviation INNER JOIN zip_data AS T3 ON T2.abbreviation = T3.state WHERE T1.first_name = 'Murkowski' AND T1.last_name = 'Lisa' AND T3.employees = 0",
+    "question_id": null,
+    "question": "In the state where Lisa Murkowski is the representative, how many cities have zero employees?",
+    "difficulty": "",
+    "evidence": "zero employee refers to employees = 0"
+  },
+  {
+    "sql": "SELECT t.state, T1.first_name, T1.last_name FROM zip_data AS T INNER JOIN congress AS T1 ON t.state = T1.abbreviation GROUP BY t.state ORDER BY SUM(t.asian_population) DESC LIMIT 3",
+    "question_id": null,
+    "question": "What are the top 3 states with the highest Asian population? List the full names of all the representatives in the said states.",
+    "difficulty": "",
+    "evidence": "city with highest asian population refers to Max(Sum(asian_population)); full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.name FROM country AS T1 INNER JOIN state AS T2 ON T1.state = T2.abbreviation WHERE T1.county = 'OUTAGAMIE'",
+    "question_id": null,
+    "question": "Which state is Outagamie County in? Give the full name of the state.",
+    "difficulty": "",
+    "evidence": "\"OUTAGAMIE\" is the county"
+  },
+  {
+    "sql": "SELECT T1.party FROM congress AS T1 INNER JOIN state AS T2 ON T1.abbreviation = T2.abbreviation INNER JOIN zip_data AS T3 ON T2.abbreviation = T3.state WHERE T3.zip_code = 91701 GROUP BY T1.party",
+    "question_id": null,
+    "question": "What party does the area with the zip code 91701 belong to?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(T1.male_population) FROM zip_data AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T2.county = 'NEW HAVEN'",
+    "question_id": null,
+    "question": "How many males are there in New Haven County's residential areas?",
+    "difficulty": "",
+    "evidence": "\"NEW HAVEN\" is the county; male refers to male_population"
+  },
+  {
+    "sql": "SELECT T2.alias FROM zip_data AS T1 INNER JOIN alias AS T2 ON T1.zip_code = T2.zip_code WHERE T1.latitude = 18.090875 AND T1.longitude = -66.867756",
+    "question_id": null,
+    "question": "Show the alias for the county at coordinate (18.090875, -66.867756).",
+    "difficulty": "",
+    "evidence": "coordinates refers to latitude, longitude; latitude = '18.090875; longitude = '-66.867756'"
+  },
+  {
+    "sql": "SELECT T2.area_code FROM zip_data AS T1 INNER JOIN area_code AS T2 ON T1.zip_code = T2.zip_code GROUP BY T2.area_code ORDER BY T1.over_65 DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the city with the most elders, what's its area code?",
+    "difficulty": "",
+    "evidence": "city with most elders refers to Max(over_65)"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.bad_alias) FROM zip_congress AS T1 INNER JOIN avoid AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T1.district = T3.cognress_rep_id WHERE T3.first_name = 'Thompson' AND T3.last_name = 'Bennie G'",
+    "question_id": null,
+    "question": "For the county represented by Thompson Bennie G, how many bad aliases does it have?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.latitude, T2.longitude FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = 636",
+    "question_id": null,
+    "question": "Give the location coordinates of the city with area code 636.",
+    "difficulty": "",
+    "evidence": "location coordinate refers to (latitude, longitude)"
+  },
+  {
+    "sql": "SELECT T2.zip_code FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district WHERE T1.first_name = 'Buchanan' AND T1.last_name = 'Vernon'",
+    "question_id": null,
+    "question": "Show the zip code of the county represented by Buchanan Vernon.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.state FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = 878",
+    "question_id": null,
+    "question": "Which state is area code 878 in? Give the name of the state.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.county) FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'Virginia'",
+    "question_id": null,
+    "question": "How many counties are there in Virginia State?",
+    "difficulty": "",
+    "evidence": "\"Virginia\" is the state"
+  },
+  {
+    "sql": "SELECT T1.CBSA_name, T2.latitude, T2.longitude FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T2.zip_code = 45503 GROUP BY T1.CBSA_name, T2.latitude, T2.longitude",
+    "question_id": null,
+    "question": "Give the name and the position of the cbsa officer from the area with the zip code 45503.",
+    "difficulty": "",
+    "evidence": "position refers to latitude, longitude"
+  },
+  {
+    "sql": "SELECT T1.county FROM country AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id WHERE T3.first_name = 'Hartzler' AND T3.last_name = 'Vicky' GROUP BY T1.county",
+    "question_id": null,
+    "question": "Tell the name of the county which is represented by Hartzler Vicky.",
+    "difficulty": "",
+    "evidence": "name of county refers to county"
+  },
+  {
+    "sql": "SELECT SUM(T2.male_median_age) / COUNT(T2.median_age) FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.county = 'WINDHAM'",
+    "question_id": null,
+    "question": "Calculate the average male median age of all the residential areas in Windham county.",
+    "difficulty": "",
+    "evidence": "average male median age refers to Divide (Sum(male_median_age), Count(county)); 'WINDHAM' is the county"
+  },
+  {
+    "sql": "SELECT SUM(T4.female_median_age) / COUNT(T1.county) FROM country AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id INNER JOIN zip_data AS T4 ON T1.zip_code = T4.zip_code WHERE T3.first_name = 'DeSantis' AND T3.last_name = 'Ron'",
+    "question_id": null,
+    "question": "For the county where DeSantis Ron is from, what is the average female median age?",
+    "difficulty": "",
+    "evidence": "average female median age refers to Divide (Sum(female_median_age), Count(county))"
+  },
+  {
+    "sql": "SELECT T1.area_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'Bishopville' AND T2.state = 'SC'",
+    "question_id": null,
+    "question": "What is the area code of Bishopville, SC?",
+    "difficulty": "",
+    "evidence": "\"Bishopville\" is the city; 'SC' is the state"
+  },
+  {
+    "sql": "SELECT T1.bad_alias FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'Geneva' AND T2.state = 'AL'",
+    "question_id": null,
+    "question": "Name the bad alias of Geneva, AL.",
+    "difficulty": "",
+    "evidence": "\"Geneva\" is the city; 'AL' is the state"
+  },
+  {
+    "sql": "SELECT T2.city, T2.state FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.bad_alias = 'Lawrenceville' GROUP BY T2.city, T2.state",
+    "question_id": null,
+    "question": "Which city and state has the bad alias of Lawrenceville?",
+    "difficulty": "",
+    "evidence": "\"Lawrenceville\" is the bad_alias"
+  },
+  {
+    "sql": "SELECT T1.alias, T2.bad_alias FROM alias AS T1 INNER JOIN avoid AS T2 ON T1.zip_code = T2.zip_code WHERE T1.zip_code = 38015",
+    "question_id": null,
+    "question": "Name both the alias and the bad alias of zip code 38015.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.zip_code FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district WHERE T1.first_name = 'King' AND T1.last_name = 'Steven A'",
+    "question_id": null,
+    "question": "What is the zip code of the district represented by Steven A King?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.CBSA_name, T1.CBSA_type FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T2.city = 'York' AND T2.state = 'ME'",
+    "question_id": null,
+    "question": "What is the CBSA name and type in York, ME?",
+    "difficulty": "",
+    "evidence": "\"York\" is the city; 'ME' is the state; type refers to CBSA_type"
+  },
+  {
+    "sql": "SELECT T2.city, T2.zip_code, T1.area_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.median_age >= 40 LIMIT 10",
+    "question_id": null,
+    "question": "List 10 cities with a median age over 40. Include their zip codes and area codes.",
+    "difficulty": "",
+    "evidence": "median age over 40 refers to median_age > 40"
+  },
+  {
+    "sql": "SELECT T2.county FROM avoid AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T1.bad_alias = 'Druid Hills'",
+    "question_id": null,
+    "question": "Name the county that has the bad alias of Druid Hills.",
+    "difficulty": "",
+    "evidence": "\"Druid Hills\" is the bad_alias"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.area_code FROM area_code AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code INNER JOIN state AS T3 ON T2.state = T3.abbreviation WHERE T2.county = 'PHILLIPS' AND T3.name = 'Montana'",
+    "question_id": null,
+    "question": "What is the area code of Phillips county in Montana?",
+    "difficulty": "",
+    "evidence": "\"PHILLIPS\" is the county; 'Montana' is the name of state"
+  },
+  {
+    "sql": "SELECT T2.zip_code, T1.first_name, T1.last_name FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district WHERE T1.state = 'Wisconsin' ORDER BY T1.land_area DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which district has the largest land area in Wisconsin? Write the full name of the congress representative and include the postal codes.",
+    "difficulty": "",
+    "evidence": "\"Wisconsin\" is the state; largest land area refers to Max(land_area); full name refers to first_name, last_name; postal code refers to zip_code"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.time_zone = 'Central' THEN 1 ELSE 0 END) AS count FROM zip_data AS T1 INNER JOIN state AS T2 ON T2.abbreviation = T1.state WHERE T1.time_zone = 'Central'",
+    "question_id": null,
+    "question": "How many states are in the central time zone? Write their full names.",
+    "difficulty": "",
+    "evidence": "central time zone refers to time_zone = 'Central'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.city, T2.state FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_name = 'Lexington-Fayette, KY' LIMIT 10",
+    "question_id": null,
+    "question": "Name 10 cities with their states that are under the Lexington-Fayette, KY office of the Canada Border Services Agency.",
+    "difficulty": "",
+    "evidence": "\"Lexington-Fayette, KY\" is the CBSA_name"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.party = 'Democrat' THEN 1 ELSE NULL END) AS REAL) / COUNT(CASE WHEN T2.party = 'Republican' THEN 1 ELSE NULL END)FROM zip_congress AS T1 INNER JOIN congress AS T2 ON T2.cognress_rep_id = T1.district",
+    "question_id": null,
+    "question": "What is the percentage ratio between Democrats and Republicans in Indiana? List the zip codes belonging to Democrats.",
+    "difficulty": "",
+    "evidence": "\"Democrats\" and \"Republicans\" refers to party = 'Democrat\" and party = 'Republican'; percentage ratio = Multiply (Divide (Count(party = 'Democrat\"), Count(party = 'Republican')), 100)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN state = 'Alabama' THEN cognress_rep_id ELSE NULL END) AS REAL) / COUNT(CASE WHEN state = 'Illinois' THEN cognress_rep_id ELSE NULL END) FROM congress",
+    "question_id": null,
+    "question": "Calculate the ratio between the number of representatives in Alabama and the number of representatives in Illinois.",
+    "difficulty": "",
+    "evidence": "\"Alabama\" and \"Illinois\" are both state; Ratio = Divide (Count(state = 'Alabama'), Count(state = 'Illinois'))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(population_2020) AS REAL) / COUNT(zip_code) FROM zip_data",
+    "question_id": null,
+    "question": "Calculate the average of 2020's population in each zip code.",
+    "difficulty": "",
+    "evidence": "average of 2020 population in each zip code refers to Divide (Sum(population_2020), Count(zip_code))"
+  },
+  {
+    "sql": "SELECT T2.male_population FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_name = 'Berlin, NH' GROUP BY T2.male_population",
+    "question_id": null,
+    "question": "State the male population for all zip code which were under the Berlin, NH CBSA.",
+    "difficulty": "",
+    "evidence": "\"Berlin, NH\" is the CBSA_name"
+  },
+  {
+    "sql": "SELECT T1.CBSA_name FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA GROUP BY T1.CBSA HAVING COUNT(T2.zip_code) > 10",
+    "question_id": null,
+    "question": "Which CBSAs have more than 10 zip codes?",
+    "difficulty": "",
+    "evidence": "has more than 10 zip codes refers to CBSA where count(CBSA) > 10"
+  },
+  {
+    "sql": "SELECT T1.bad_alias FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.state = 'PR'",
+    "question_id": null,
+    "question": "List all the bad alias for zip codes in Puerto Rico.",
+    "difficulty": "",
+    "evidence": "\"Puerto Rico\" refers to state = 'PR'"
+  },
+  {
+    "sql": "SELECT T1.latitude, T1.longitude FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id WHERE T3.first_name = 'Grayson' AND T3.last_name = 'Alan'",
+    "question_id": null,
+    "question": "What is the longitude and latitude for the district represented by Grayson Alan?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.state FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = 787",
+    "question_id": null,
+    "question": "What is the state for area code of 787?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id WHERE T1.population_2020 > 30000 GROUP BY T3.first_name, T3.last_name",
+    "question_id": null,
+    "question": "List all representatives of districts which have more than 30 000 population in 2020.",
+    "difficulty": "",
+    "evidence": "more than 30000 population in 2020 refers to population_2020 > 30000; representative refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T1.zip_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.state = 'MA' GROUP BY T1.zip_code HAVING COUNT(T1.area_code) > 1",
+    "question_id": null,
+    "question": "Which zip code in Massachusetts that have more than 1 area code?",
+    "difficulty": "",
+    "evidence": "\"Massachusetts\" is the state; zip code more than 1 area code refers to Count (zip_code) > 1"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.county FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'Arecibo'",
+    "question_id": null,
+    "question": "State the county for Arecibo City.",
+    "difficulty": "",
+    "evidence": "\"Arecibo\" is the city"
+  },
+  {
+    "sql": "SELECT COUNT(T2.zip_code) FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_name = 'Barre, VT'",
+    "question_id": null,
+    "question": "How many zip codes are under Barre, VT?",
+    "difficulty": "",
+    "evidence": "\"Barre, VT\" is the CBSA_name"
+  },
+  {
+    "sql": "SELECT T1.zip_code FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.county = 'SAINT CROIX' ORDER BY T2.land_area DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the zip code under Saint Croix county, which zip code has the biggest land area?",
+    "difficulty": "",
+    "evidence": "biggest land area refers to Max(land_area); \"SAINT CROIX\" is the county"
+  },
+  {
+    "sql": "SELECT T1.population_2020 - T1.population_2010 FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id WHERE T3.first_name = 'Griffin' AND T3.last_name = 'Tim'",
+    "question_id": null,
+    "question": "Calculate the difference between the 2020 population and the 2010 population for the districts represented by Griffin Tim.",
+    "difficulty": "",
+    "evidence": "difference = Subtract (population_2020, population_2010)"
+  },
+  {
+    "sql": "SELECT CAST(T2.asian_population AS REAL) * 100 / T2.population_2010 FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_name = 'Atmore, AL'",
+    "question_id": null,
+    "question": "Based on the population in 2020, calculate the percentage for the population of Asian in the zip code where the CBSA was Atmore, AL.",
+    "difficulty": "",
+    "evidence": "\"Atmore, AL\" is CBSA_name; percentage = Divide(asian_population, population_2020) * 100"
+  },
+  {
+    "sql": "SELECT T2.city FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = 939 ORDER BY T2.asian_population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the cities with an area code 939, which city has the highest Asian population?",
+    "difficulty": "",
+    "evidence": "highest asian population refers to Max(asian_population)"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.name, T2.state FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state INNER JOIN zip_data AS T3 ON T2.zip_code = T3.zip_code WHERE T3.elevation = 1039",
+    "question_id": null,
+    "question": "Give the name of the country and state of the city with elevation of 1039.",
+    "difficulty": "",
+    "evidence": "elevation of 1039 refers to elevation = 1039"
+  },
+  {
+    "sql": "SELECT T1.alias, T2.elevation FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.zip_code = 1028",
+    "question_id": null,
+    "question": "Provide the alias and elevation of the city with zip code 1028.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.area_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.land_area = ( SELECT MAX(land_area) FROM zip_data )",
+    "question_id": null,
+    "question": "What is the area code of the city with the largest land area?",
+    "difficulty": "",
+    "evidence": "largest land area refers to Max(land_area)"
+  },
+  {
+    "sql": "SELECT T1.area_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.white_population BETWEEN 1700 AND 2000",
+    "question_id": null,
+    "question": "Give the area code of the city with the white population ranging between 1700 to 2000.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(T2.asian_population) FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.alias = 'Leeds'",
+    "question_id": null,
+    "question": "What is the Asian population in the city with the alias Leeds?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.area_code, T2.county FROM area_code AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code INNER JOIN zip_data AS T3 ON T1.zip_code = T3.zip_code WHERE T3.city = 'Savoy'",
+    "question_id": null,
+    "question": "List down the area code and country of the city named Savoy.",
+    "difficulty": "",
+    "evidence": "Savoy is the city;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.alias FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.population_2010 = 0",
+    "question_id": null,
+    "question": "What are the alias of the cities with 0 population in 2010?",
+    "difficulty": "",
+    "evidence": "with 0 population in 2010 refers to population_2010 = 0;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.city) FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = 608 AND T2.daylight_savings = 'Yes'",
+    "question_id": null,
+    "question": "Among the cities with area code 608, how many cities implement daylight savings?",
+    "difficulty": "",
+    "evidence": "implement daylight savings refers to daylight_savings = 'Yes';"
+  },
+  {
+    "sql": "SELECT AVG(T2.elevation) FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.alias = 'Amherst'",
+    "question_id": null,
+    "question": "Provide the average elevation of the cities with alias Amherst.",
+    "difficulty": "",
+    "evidence": "AVG(elevation) where alias = 'Amherst';"
+  },
+  {
+    "sql": "SELECT T2.county FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state INNER JOIN zip_data AS T3 ON T2.zip_code = T3.zip_code WHERE T3.city = 'Dalton' GROUP BY T2.county",
+    "question_id": null,
+    "question": "What is the country and state of the city named Dalton?",
+    "difficulty": "",
+    "evidence": "Dalton is the city;"
+  },
+  {
+    "sql": "SELECT T1.alias FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.type = 'Post Office' LIMIT 5",
+    "question_id": null,
+    "question": "Give at least five alias of cities with a postal point of post office.",
+    "difficulty": "",
+    "evidence": "postal point of post office refers to type = 'Post Office';"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T2.type = 'P.O. Box Only' THEN 1 ELSE NULL END) - COUNT(CASE WHEN T2.type = 'Post Office' THEN 1 ELSE NULL END) AS DIFFERENCE FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = 787",
+    "question_id": null,
+    "question": "What is the difference in the number of cities with P.O. box only and cities with Post Office among the cities with area code 787?",
+    "difficulty": "",
+    "evidence": "SUBTRACT(COUNT(type = 'P.O. Box Only'), COUNT(type = 'Post Office')) where area_code = 787;"
+  },
+  {
+    "sql": "SELECT CAST((SUM(T2.population_2020) - SUM(T2.population_2010)) AS REAL) * 100 / SUM(T2.population_2010) FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'Arroyo'",
+    "question_id": null,
+    "question": "Among the cities belonging to the country named Arroyo, calculate the percentage of increase in the population in these cities from 2010 to 2020.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUBTRACT(SUM(population_2020)), SUM(population_2010)), SUM(population_2010) as percentage where county = 'ARROYO';"
+  },
+  {
+    "sql": "SELECT T2.zip_code, T2.city FROM state AS T1 INNER JOIN zip_data AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'Texas' AND T2.total_beneficiaries > 10000",
+    "question_id": null,
+    "question": "Among the postal points in Texas, provide the zip codes and cities of postal points which have total beneficiaries of above 10000.",
+    "difficulty": "",
+    "evidence": "Texas is the name of the state, in which name = 'Texas'; total beneficiaries of above 10000 refer to total_beneficiaries > 10000;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.zip_code) FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.county = 'DISTRICT OF COLUMBIA' AND T2.black_population > 20000",
+    "question_id": null,
+    "question": "Among the postal points in the District of Columbia, how many of them have an area with above 20000 black population?",
+    "difficulty": "",
+    "evidence": "District of Columbia refers to county = 'DISTRICT OF COLUMBIA'; postal points refer to zip_code; area with above 20000 black population refers to black_population > 20000;"
+  },
+  {
+    "sql": "SELECT T2.city, T1.alias FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.zip_code = 19019",
+    "question_id": null,
+    "question": "Provide the city where zip code 19019 is located and the alias of that city.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.bad_alias FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'Camuy'",
+    "question_id": null,
+    "question": "List the bad alias of the postal point located in Camuy.",
+    "difficulty": "",
+    "evidence": "postal points refer to zip_code; Camuy is the city;"
+  },
+  {
+    "sql": "SELECT T1.zip_code, T1.city, T3.first_name, T3.last_name FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id GROUP BY T2.district ORDER BY T1.population_2020 DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the zip code, city, and congress representative's full names of the area which has highest population in 2020.",
+    "difficulty": "",
+    "evidence": "representative's full names refer to first_name, last_name; area which has highest population in 2020 refers to MAX(population_2020);"
+  },
+  {
+    "sql": "SELECT COUNT(T2.zip_code) FROM state AS T1 INNER JOIN zip_data AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'Illinois' AND T2.daylight_savings = 'Yes' AND T2.region = 'Midwest'",
+    "question_id": null,
+    "question": "Among the daylight savings areas in the Midwest region, how many postal points are there in Illinois?",
+    "difficulty": "",
+    "evidence": "postal points refer to zip_code; the daylight savings areas refer to daylight_savings = 'Yes'; Illinois is the name of the state, in which name = 'Illinois';"
+  },
+  {
+    "sql": "SELECT T2.county, T2.zip_code FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'Virgin Islands'",
+    "question_id": null,
+    "question": "Provide the countries and the zip codes in the Virgin Islands.",
+    "difficulty": "",
+    "evidence": "the Virgin Islands refer to state where name = 'Virgin Islands';"
+  },
+  {
+    "sql": "SELECT T2.zip_code, T1.alias FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'Greeneville'",
+    "question_id": null,
+    "question": "Provide the zip codes and the alias of Greeneville.",
+    "difficulty": "",
+    "evidence": "Greeneville is the city;"
+  },
+  {
+    "sql": "SELECT CASE WHEN COUNT(CASE WHEN T1.first_name = 'Smith' AND T1.last_name = 'Adrian' THEN T2.zip_code ELSE NULL END) > COUNT(CASE WHEN T1.first_name = 'Heck' AND T1.last_name = 'Joe' THEN T2.zip_code ELSE NULL END) THEN 'Smith Adrian>Heck Joe' ELSE 'Smith Adrian<=Heck Joe' END AS COMPARE FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district",
+    "question_id": null,
+    "question": "Compare the numbers of postal points under Smith Adrian and Heck Joe.",
+    "difficulty": "",
+    "evidence": "COUNT(zip_code where first_name = 'Smith' and last_name = 'Adrian') > COUNT(zip_code where first_name = 'Heck' and last_name = 'Joe');"
+  },
+  {
+    "sql": "SELECT T2.zip_code, T1.CBSA_name FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T2.city = 'Oxford'",
+    "question_id": null,
+    "question": "Provide the zip codes and CBSA officers of the postal point in Oxford.",
+    "difficulty": "",
+    "evidence": "CBSA officers refer to CBSA_name; postal point refers to zip_code; Oxford is the city;"
+  },
+  {
+    "sql": "SELECT T2.zip_code, T2.organization FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_name = 'Kingsport-Bristol, TN-VA'",
+    "question_id": null,
+    "question": "Provide the zip codes and their affiliated organization for the postal point under Kingsport-Bristol, TN-VA.",
+    "difficulty": "",
+    "evidence": "postal point under Kingsport-Bristol, TN-VA refers to zip_code where CBSA_name = 'Kingsport-Bristol, TN-VA'; affiliated organization refers to organization from CBSA;"
+  },
+  {
+    "sql": "SELECT T1.zip_code, T3.first_name, T3.last_name FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id WHERE T1.organization = 'Readers Digest'",
+    "question_id": null,
+    "question": "Provide the zip codes and the congress representatives' names of the postal points which are affiliated with Readers Digest.",
+    "difficulty": "",
+    "evidence": "representative's full names refer to first_name, last_name; postal points affiliated with Readers Digest refer to zip_code where organization = 'Readers Digest';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.type = 'Post Office' THEN T2.zip_code ELSE NULL END) AS REAL) * 100 / COUNT(T2.zip_code) FROM state AS T1 INNER JOIN zip_data AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'California'",
+    "question_id": null,
+    "question": "Among the postal points in California, calculate the percentage of them in post office types.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(zip_code where type = 'Post Office'), COUNT(zip_code)) as percentage where name = 'California';"
+  },
+  {
+    "sql": "SELECT T2.zip_code FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district WHERE T1.House = 'House of Repsentatives' GROUP BY T2.zip_code",
+    "question_id": null,
+    "question": "What are the zip code for the Senate house?",
+    "difficulty": "",
+    "evidence": "House of Repsentatives can stand for senate house"
+  },
+  {
+    "sql": "SELECT T2.city FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code GROUP BY T1.bad_alias ORDER BY COUNT(T1.zip_code) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which city has the most bad aliases?",
+    "difficulty": "",
+    "evidence": "the most bad aliases refer to MAX(COUNT(bad_alias));"
+  },
+  {
+    "sql": "SELECT T2.county FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'Georgia' GROUP BY T2.county",
+    "question_id": null,
+    "question": "List all the counties in Georgia.",
+    "difficulty": "",
+    "evidence": "Georgia is the name of the state, in which name = 'Georgia';"
+  },
+  {
+    "sql": "SELECT T2.latitude, T2.longitude FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = 410",
+    "question_id": null,
+    "question": "List all the locations of postal points with the area code \"410\".",
+    "difficulty": "",
+    "evidence": "latitude and longitude coordinates can be used to identify the location; postal points refer to zip_code;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.CBSA_name FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T2.avg_house_value = ( SELECT MAX(avg_house_value) FROM zip_data ) LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the CBSA of the city with the highest average house value?",
+    "difficulty": "",
+    "evidence": "the highest average house value refers to avg_house_value;"
+  },
+  {
+    "sql": "SELECT T1.bad_alias FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'East Setauket'",
+    "question_id": null,
+    "question": "What are the bad aliases of the postal points from East Setauket?",
+    "difficulty": "",
+    "evidence": "East Setauket is the city;"
+  },
+  {
+    "sql": "SELECT SUM(T2.population_2010) FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.county = 'WILCOX'",
+    "question_id": null,
+    "question": "What was the population of Wilcox County in 2010?",
+    "difficulty": "",
+    "evidence": "population of Wilcox County in 2010 refers to SUM(population_2010) where county = 'WILCOX';"
+  },
+  {
+    "sql": "SELECT T1.zip_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code GROUP BY T2.asian_population ORDER BY T2.asian_population DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the code of the area with the largest Asian population?",
+    "difficulty": "",
+    "evidence": "the code of the area refers to area_code; area with the largest Asian population refers to MAX(asian_population);"
+  },
+  {
+    "sql": "SELECT T2.city FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_type = 'Micro'",
+    "question_id": null,
+    "question": "List all the cities with micro CBSA.",
+    "difficulty": "",
+    "evidence": "micro CBSA refers to CBSA_type = 'Micro';"
+  },
+  {
+    "sql": "SELECT T1.name FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state GROUP BY T2.state ORDER BY COUNT(T2.county) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the state with the most counties?",
+    "difficulty": "",
+    "evidence": "the most counties refer to MAX(COUNT(county));"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.district = 'FL-10' THEN 1 ELSE 0 END) FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code",
+    "question_id": null,
+    "question": "What is the number of households in the \"FL-10\" district?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.avg_income_per_household FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.bad_alias = 'Danzig'",
+    "question_id": null,
+    "question": "What is the average household income in the city known as \"Danzig\"?",
+    "difficulty": "",
+    "evidence": "average household income refers to avg_income_per_household; city known as \"Danzig\" refers to bad_alias = 'Danzig';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.state FROM state AS T1 INNER JOIN zip_data AS T2 ON T1.abbreviation = T2.state WHERE T2.female_population > ( SELECT AVG(female_population) FROM zip_data )",
+    "question_id": null,
+    "question": "What are the states with an above-average female population?",
+    "difficulty": "",
+    "evidence": "above-average female population refers to female_population > DIVIDE(SUM(female_population), COUNT(state));"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.county = 'CORYELL' THEN T2.households ELSE 0 END) AS REAL) * 100 / SUM(T2.households) FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code",
+    "question_id": null,
+    "question": "What percentage of households are in \"Coroyell\" out of its state?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(households where county = 'CORYELL'), SUM(households)) as percentage;"
+  },
+  {
+    "sql": "SELECT T1.CBSA_name, T1.CBSA_type FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T2.city = 'Cabo Rojo' GROUP BY T1.CBSA_name, T1.CBSA_type",
+    "question_id": null,
+    "question": "What is the name and the position of the CBSA officer in the city of Cabo Rojo?",
+    "difficulty": "",
+    "evidence": "name of the CBSA officer refers to CBSA_name; position of the CBSA officer refers to CBSA_type;"
+  },
+  {
+    "sql": "SELECT T1.county FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'Las Marias'",
+    "question_id": null,
+    "question": "Indicate the country name of the city Las Marias.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.city) FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id WHERE T3.first_name = 'Pierluisi' AND T3.last_name = 'Pedro'",
+    "question_id": null,
+    "question": "How many cities does congressman Pierluisi Pedro represent?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.bad_alias FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.city = 'Aguadilla'",
+    "question_id": null,
+    "question": "Provide the names of bad aliases in the city of Aguadilla.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id WHERE T1.city = 'Guanica'",
+    "question_id": null,
+    "question": "Indicate the name of the congressman represent in Guanica.",
+    "difficulty": "",
+    "evidence": "name of congressman implies full name which refers to first_name, last_name; Guanica is the city;"
+  },
+  {
+    "sql": "SELECT T2.state FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code GROUP BY T2.state ORDER BY COUNT(T1.bad_alias) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which state has the most bad aliases?",
+    "difficulty": "",
+    "evidence": "the most bad aliases refer to MAX(COUNT(bad_alias));"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T2.city = 'Aguada' THEN T1.bad_alias ELSE NULL END) - COUNT(CASE WHEN T2.city = 'Aguadilla' THEN T1.bad_alias ELSE NULL END) AS DIFFERENCE FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code",
+    "question_id": null,
+    "question": "What is the difference in the number of bad alias between Aguada city and Aguadilla city?",
+    "difficulty": "",
+    "evidence": "SUBTRACT(COUNT(bad_alias where city = 'Aguada'), COUNT(bad_alias where city = 'Aguadilla'));"
+  },
+  {
+    "sql": "SELECT T2.state FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_type = 'Metro' GROUP BY T2.state HAVING COUNT(T1.CBSA_type) > 50",
+    "question_id": null,
+    "question": "Which state has greater than 50 CBSA officers of metro type?",
+    "difficulty": "",
+    "evidence": "greater than 50 CBSA officers of metro type refers to COUNT(CBSA_type = 'Metro') > 50;"
+  },
+  {
+    "sql": "SELECT SUM(T2.population_2020) FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.county = 'ARECIBO'",
+    "question_id": null,
+    "question": "Provide the population of Arecibo in 2020.",
+    "difficulty": "",
+    "evidence": "population of Arecibo in 2020 refers to SUM(population_2020) where county = 'ARECIBO';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.county FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.population_2010 > 10000",
+    "question_id": null,
+    "question": "Indicate the name of the country with a population greater than 10000 in 2010.",
+    "difficulty": "",
+    "evidence": "population greater than 10000 in 2010 refers to population_2010 > 10000;"
+  },
+  {
+    "sql": "SELECT T1.county FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code GROUP BY T1.county ORDER BY T2.households DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the country with the largest number of households in a residential area.",
+    "difficulty": "",
+    "evidence": "the largest number of households refers to MAX(households);"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.households > 10000 THEN T1.zip_code ELSE NULL END) AS REAL) * 100 / COUNT(T1.zip_code) FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code",
+    "question_id": null,
+    "question": "Calculate the percentage of households in residential areas of countries over 10000.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(households > 10000), SUM(households)) as percentage;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.type = 'Post Office' THEN T1.zip_code ELSE NULL END) AS REAL) * 100 / COUNT(T1.zip_code) FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.county = 'SAINT CROIX'",
+    "question_id": null,
+    "question": "Among the types of postal points in Saint Croix, what percentage of postal points is the post office?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(type = 'Post Office' ), COUNT(type)) as percentage where county = 'SAINT CROIX';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.county FROM area_code AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code INNER JOIN zip_data AS T3 ON T1.zip_code = T3.zip_code WHERE T1.area_code = '787' AND T3.type = 'Unique Post Office'",
+    "question_id": null,
+    "question": "Among the area code 787, list the country of the cities with a postal point type of unique postal office.",
+    "difficulty": "",
+    "evidence": "postal point type of unique postal office refers to type = 'Unique Post Office';"
+  },
+  {
+    "sql": "SELECT T2.elevation FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.alias = 'East Longmeadow'",
+    "question_id": null,
+    "question": "What is the elevation of the city with the alias East Longmeadow?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.area_code) FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.daylight_savings = 'No'",
+    "question_id": null,
+    "question": "In cities that do not implement daylight savings, what is the total number of cities?",
+    "difficulty": "",
+    "evidence": "do not implement daylight savings refers to daylight_savings = 'No';"
+  },
+  {
+    "sql": "SELECT T2.county, T1.area_code FROM area_code AS T1 INNER JOIN country AS T2 ON T1.zip_code = T2.zip_code WHERE T1.zip_code = 1116",
+    "question_id": null,
+    "question": "Give the country and area code of the city with zip code 1116.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.type FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.alias = 'St Thomas'",
+    "question_id": null,
+    "question": "Among the cities with alias St Thomas, provide the type of postal point for each city.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.city FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state INNER JOIN zip_data AS T3 ON T2.zip_code = T3.zip_code WHERE T1.name = 'Oklahoma' AND T2.county = 'NOBLE'",
+    "question_id": null,
+    "question": "List down the names of the cities belonging to Noble, Oklahoma.",
+    "difficulty": "",
+    "evidence": "the county of Noble is located in the state of Oklahoma;"
+  },
+  {
+    "sql": "SELECT T1.area_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.water_area = ( SELECT MAX(water_area) FROM zip_data )",
+    "question_id": null,
+    "question": "Among the listed cities, provide the area code of the city with the largest water area.",
+    "difficulty": "",
+    "evidence": "the largest water area refers to MAX(water_area);"
+  },
+  {
+    "sql": "SELECT T1.alias FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.population_2020 = ( SELECT MAX(population_2020) FROM zip_data )",
+    "question_id": null,
+    "question": "Provide the alias of the city with the highest population in year 2020.",
+    "difficulty": "",
+    "evidence": "the highest population in year 2020 refers to MAX(population_2020);"
+  },
+  {
+    "sql": "SELECT T3.elevation FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state INNER JOIN zip_data AS T3 ON T2.zip_code = T3.zip_code WHERE T1.name = 'Massachusetts' AND T2.county = 'HAMPDEN' GROUP BY T3.elevation",
+    "question_id": null,
+    "question": "What is the elevation of the city belonging to Hampden, Massachusetts?",
+    "difficulty": "",
+    "evidence": "the county of Hampden is located in the state of Massachusetts."
+  },
+  {
+    "sql": "SELECT T1.area_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.hispanic_population = ( SELECT MAX(hispanic_population) FROM zip_data )",
+    "question_id": null,
+    "question": "List the area code of the city with the highest Hispanic population.",
+    "difficulty": "",
+    "evidence": "the highest Hispanic population refers to MAX(hispanic_population);"
+  },
+  {
+    "sql": "SELECT T1.alias FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.asian_population = 7",
+    "question_id": null,
+    "question": "Give the alias of the cities with an Asian population of 7.",
+    "difficulty": "",
+    "evidence": "Asian population of 7 refers to asian_population = 7;"
+  },
+  {
+    "sql": "SELECT AVG(T2.white_population) FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.area_code = 920",
+    "question_id": null,
+    "question": "What is the average of the white population in the cities with area code 920?",
+    "difficulty": "",
+    "evidence": "AVG(white_population) where area_code = 920;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.county_fips < 20 THEN T2.zip_code ELSE NULL END) AS REAL) * 100 / COUNT(T2.zip_code) FROM alias AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.alias = 'Ponce'",
+    "question_id": null,
+    "question": "Among the cities with alias Ponce, what is the percentage of cities with a country level FIPS code of less than 20?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(county_fips < 20), COUNT(county_fips)) as percentage where alias = 'Ponce';"
+  },
+  {
+    "sql": "SELECT T1.county FROM country AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.population_2020 > 0.97 * ( SELECT AVG(population_2020) FROM zip_data )",
+    "question_id": null,
+    "question": "List down the country of the cities with a population greater than 97% of the average population of all countries in 2020.",
+    "difficulty": "",
+    "evidence": "population_2020 > MULTIPLY(0.97, AVG(population_2020));"
+  },
+  {
+    "sql": "SELECT COUNT(T2.zip_code) FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district WHERE T1.first_name = 'Kirkpatrick' AND T1.last_name = 'Ann'",
+    "question_id": null,
+    "question": "Count the number of postal points in the district represented by Kirkpatrick Ann.",
+    "difficulty": "",
+    "evidence": "postal points refer to zip_code;"
+  },
+  {
+    "sql": "SELECT T2.zip_code, T2.latitude, T2.longitude FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_name = 'Allentown-Bethlehem-Easton, PA-NJ'",
+    "question_id": null,
+    "question": "Provide the zip codes and coordinates of the postal points under Allentown-Bethlehem-Easton, PA-NJ.",
+    "difficulty": "",
+    "evidence": "coordinates refer to latitude and longitude; under Allentown-Bethlehem-Easton, PA-NJ refers to CBSA_name = 'Allentown-Bethlehem-Easton, PA-NJ';"
+  },
+  {
+    "sql": "SELECT T1.zip_code, T2.city, T2.latitude, T2.longitude FROM avoid AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T1.bad_alias = 'Shared Reshipper'",
+    "question_id": null,
+    "question": "Provide the zip codes, cities, and locations of the postal points that have Shared Reshipper as a bad alias.",
+    "difficulty": "",
+    "evidence": "latitude and longitude coordinates can be used to identify the location;"
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code INNER JOIN congress AS T3 ON T2.district = T3.cognress_rep_id WHERE T1.city = 'Garfield'",
+    "question_id": null,
+    "question": "Who are the congress representatives of the postal points in Garfield?",
+    "difficulty": "",
+    "evidence": "Who are the congress representatives refer to first_name, last_name; Garfield is the city;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.zip_code) FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T1.CBSA_name = 'New York-Newark-Jersey City, NY-NJ-PA'",
+    "question_id": null,
+    "question": "Count the number of postal points under New York-Newark-Jersey City, NY-NJ-PA.",
+    "difficulty": "",
+    "evidence": "postal points refer to zip_code; under New York-Newark-Jersey City, NY-NJ-PA refers to CBSA_name = 'New York-Newark-Jersey City, NY-NJ-PA';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.zip_code) FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district WHERE T1.state = 'Puerto Rico'",
+    "question_id": null,
+    "question": "How many postal points are there under the congress representative in Puerto Rico?",
+    "difficulty": "",
+    "evidence": "postal points refer to zip_code; Puerto Rico refers to state = 'Puerto Rico';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.zip_code), COUNT(DISTINCT T2.county) FROM state AS T1 INNER JOIN country AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'West Virginia'",
+    "question_id": null,
+    "question": "Describe the number of postal points and the countries in West Virginia.",
+    "difficulty": "",
+    "evidence": "postal points refer to zip_code; West Virginia is the name of the state, in which name = 'West Virginia';"
+  },
+  {
+    "sql": "SELECT T1.zip_code, T1.area_code FROM area_code AS T1 INNER JOIN zip_data AS T2 ON T1.zip_code = T2.zip_code WHERE T2.type = 'Community Post Office ' AND T2.elevation > 6000",
+    "question_id": null,
+    "question": "Provide the zip codes and area codes of the postal points with the community post office type at the elevation above 6000.",
+    "difficulty": "",
+    "evidence": "community post office type refers to type = 'Community Post Office'; elevation above 6000 refers to elevation > 6000;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.zip_code) FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district WHERE T1.state = 'Mississippi'",
+    "question_id": null,
+    "question": "How many postal points are there under the congress representative from the House of Representatives in Mississippi?",
+    "difficulty": "",
+    "evidence": "postal points refer to zip_code; Mississippi is the name of the state, in which name = 'Mississippi';"
+  },
+  {
+    "sql": "SELECT T2.district FROM zip_data AS T1 INNER JOIN zip_congress AS T2 ON T1.zip_code = T2.zip_code WHERE T1.city = 'East Springfield'",
+    "question_id": null,
+    "question": "Provide the congress representatives' IDs of the postal points in East Springfield.",
+    "difficulty": "",
+    "evidence": "congress representatives' IDs refer to CID; East Springfield is the city;"
+  },
+  {
+    "sql": "SELECT T1.CBSA_name FROM CBSA AS T1 INNER JOIN zip_data AS T2 ON T1.CBSA = T2.CBSA WHERE T2.employees = ( SELECT MAX(employees) FROM zip_data )",
+    "question_id": null,
+    "question": "Who is the CBSA officer of the post point in the area with the highest number of employees?",
+    "difficulty": "",
+    "evidence": "CBSA officer refers to CBSA_name; the highest number of employees refers to MAX(employees);"
+  },
+  {
+    "sql": "SELECT COUNT(T2.zip_code) FROM state AS T1 INNER JOIN zip_data AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'Ohio' AND T2.type = 'Unique Post Office'",
+    "question_id": null,
+    "question": "How many postal points with unique post office types are there in Ohio?",
+    "difficulty": "",
+    "evidence": "postal points refer to zip_code; unique post office types refer to type = 'Unique Post Office'; Ohio is the name of the state, in which name = 'Ohio';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.total_beneficiaries) AS REAL) / COUNT(T2.zip_code) FROM state AS T1 INNER JOIN zip_data AS T2 ON T1.abbreviation = T2.state WHERE T1.name = 'Guam'",
+    "question_id": null,
+    "question": "Calculate the average number of beneficiaries per postal point in Guam.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(total_beneficiaries), COUNT(zip_code)) where name = 'Guam';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.party = 'Democrat' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*), SUM(CASE WHEN T1.state = 'Hawaii' THEN 1 ELSE 0 END) FROM congress AS T1 INNER JOIN zip_congress AS T2 ON T1.cognress_rep_id = T2.district",
+    "question_id": null,
+    "question": "Calculate the percentage of congress representatives from the Democrat party. Among them, how many postal points are in the Hawaii state?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(party = 'Democrat'), COUNT(congress_rep_id)) as percentage; postal points refer to zip_code; state = 'Hawaii';"
+  }
+]

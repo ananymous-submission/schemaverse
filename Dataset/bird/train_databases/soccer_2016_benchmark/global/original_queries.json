@@ -1,0 +1,1808 @@
+[
+  {
+    "sql": "SELECT COUNT(Player_Id) FROM Player WHERE SUBSTR(DOB, 1, 4) > 1985",
+    "question_id": null,
+    "question": "How many players were born after the year 1985?",
+    "difficulty": "",
+    "evidence": "born after the year 1985 refers to SUBSTR(DOB, 1, 4) > 1985"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM `Match` WHERE SUBSTR(Match_Date, 1, 4) = '2008' AND SUBSTR(Match_Date, 7, 1) = '5'",
+    "question_id": null,
+    "question": "How many matches were there in May, 2008?",
+    "difficulty": "",
+    "evidence": "in May 2008 refers to SUBSTR(Match_Date, 1, 4) = '2008' AND SUBSTR(Match_Date, 7, 1) = '5'"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM `Match` WHERE Man_of_the_Match = 41",
+    "question_id": null,
+    "question": "For how many times has player no.41 won the \"man of the match\" award?",
+    "difficulty": "",
+    "evidence": "player no.41 won the \"man of the match\" refers to Man_of_the_Match = 41"
+  },
+  {
+    "sql": "SELECT Match_Id FROM `Match` WHERE SUBSTR(Match_Date, 1, 4) = '2008'",
+    "question_id": null,
+    "question": "Please list the IDs of all the matches in the year 2008.",
+    "difficulty": "",
+    "evidence": "ID of matches refers to Match_Id; in the year 2008 refers to SUBSTR(Match_Date, 1, 4) = '2008'"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T2.Country_Name = 'Australia' THEN T1.Player_Id ELSE NULL END) FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_Id",
+    "question_id": null,
+    "question": "How many players are from Australia?",
+    "difficulty": "",
+    "evidence": "Australia refers to Country_Name = 'Australia'"
+  },
+  {
+    "sql": "SELECT T1.Country_Name FROM Country AS T1 INNER JOIN Player AS T2 ON T2.Country_Name = T1.Country_Id WHERE T2.Country_Name IS NOT NULL ORDER BY T2.DOB LIMIT 1",
+    "question_id": null,
+    "question": "Which country is the oldest player from?",
+    "difficulty": "",
+    "evidence": "country refers to Country_Name; the oldest refers to min(DOB)"
+  },
+  {
+    "sql": "SELECT T1.Bowling_Skill FROM Bowling_Style AS T1 INNER JOIN Player AS T2 ON T2.Bowling_skill = T1.Bowling_Id WHERE T2.Player_Name = 'SC Ganguly'",
+    "question_id": null,
+    "question": "What is the bowling skill of SC Ganguly?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN SUBSTR(T1.DOB, 1, 4) > 1985 THEN 1 ELSE 0 END) FROM Player AS T1 INNER JOIN Batting_Style AS T2 ON T1.Batting_hand = T2.Batting_Id WHERE T2.Batting_Hand = 'Right-hand bat'",
+    "question_id": null,
+    "question": "Among the players who use the right hand as their batting hand, how many of them were born after 1985?",
+    "difficulty": "",
+    "evidence": "right hand as batting hand refers to Batting_Hand = 'Right-hand bat'; born after 1985 refers to SUBSTR(DOB, 1, 4) > 1985"
+  },
+  {
+    "sql": "SELECT T2.Player_Name FROM Country AS T1 INNER JOIN Player AS T2 ON T2.Country_Name = T1.Country_id INNER JOIN Batting_Style AS T3 ON T2.Batting_hand = T3.Batting_Id WHERE T1.Country_Name = 'Australia' AND T3.Batting_Hand = 'Right-hand bat'",
+    "question_id": null,
+    "question": "Please list the names of the players who use the right hand as their batting hand and are from Australia.",
+    "difficulty": "",
+    "evidence": "name of player refers to Player_Name; right hand as batting hand refers to Batting_Hand = 'Right-hand bat'; Australia refers to Country_Name = 'Australia'"
+  },
+  {
+    "sql": "SELECT T2.Bowling_Skill FROM Player AS T1 INNER JOIN Bowling_Style AS T2 ON T1.Bowling_skill = T2.Bowling_Id INNER JOIN Country AS T3 ON T1.Country_Name = T3.Country_Id WHERE T3.Country_Name = 'Australia' GROUP BY T2.Bowling_Skill",
+    "question_id": null,
+    "question": "Please list the bowling skills of all the players from Australia.",
+    "difficulty": "",
+    "evidence": "Australia refers to Country_Name = 'Australia'"
+  },
+  {
+    "sql": "SELECT MIN(T1.DOB) FROM Player AS T1 INNER JOIN Bowling_Style AS T2 ON T1.Bowling_skill = T2.Bowling_Id WHERE T2.Bowling_Skill = 'Legbreak'",
+    "question_id": null,
+    "question": "Among the players whose bowling skill is \"Legbreak\", when was the oldest one of them born?",
+    "difficulty": "",
+    "evidence": "the oldest refers to min(DOB); date of birth refers to DOB"
+  },
+  {
+    "sql": "SELECT T1.Bowling_Skill FROM Bowling_Style AS T1 INNER JOIN Player AS T2 ON T2.Bowling_skill = T1.Bowling_Id GROUP BY T1.Bowling_Skill ORDER BY COUNT(T1.Bowling_Skill) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the bowling skill used by most players?",
+    "difficulty": "",
+    "evidence": "bowling skill used by most players refers to max(count(Bowling_Skill))"
+  },
+  {
+    "sql": "SELECT T2.Player_Name FROM Match AS T1 INNER JOIN Player AS T2 ON T2.Player_Id = T1.Man_of_the_Match WHERE T1.Match_Date = '2008-04-18'",
+    "question_id": null,
+    "question": "What is the name of the player who won the \"man of the match\" award in the match on 2008/4/18?",
+    "difficulty": "",
+    "evidence": "name of player refers to Player_Name; on 2008/4/18 refers to Match_Date = '2008-04-18'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.Role_Desc = 'Captain' THEN 1 ELSE 0 END) FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Rolee AS T3 ON T2.Role_Id = T3.Role_Id WHERE T1.Player_Name = 'SC Ganguly'",
+    "question_id": null,
+    "question": "For how many times has SC Ganguly played as team captain in a match?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'; team captain refers to Role_Desc = 'Captain'"
+  },
+  {
+    "sql": "SELECT T2.Role_Id FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Rolee AS T3 ON T2.Role_Id = T3.Role_Id INNER JOIN Match AS T4 ON T2.Match_Id = T4.Match_Id WHERE T1.Player_Name = 'SC Ganguly' AND T4.Match_Date = '2008-04-18'",
+    "question_id": null,
+    "question": "What is the role of SC Ganguly in the match on 2008/4/18?",
+    "difficulty": "",
+    "evidence": "role refers to of Role_Id; SC Ganguly refers to Player_Name = 'SC Ganguly'; on 2008/4/18 refers to Match_Date = '2008-04-18'"
+  },
+  {
+    "sql": "SELECT MAX(T3.Win_Margin) FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Match AS T3 ON T2.Match_Id = T3.Match_Id WHERE T1.Player_Name = 'SC Ganguly'",
+    "question_id": null,
+    "question": "Among all the matches SC Ganguly has played in, what is the highest winning margin?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'; the highest winning margin refers to max(Win_Margin)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T3.Win_Margin) AS REAL) / COUNT(*) FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Match AS T3 ON T2.Match_Id = T3.Match_Id WHERE T1.Player_Name = 'SC Ganguly'",
+    "question_id": null,
+    "question": "What is the average winning margin of all the matches SC Ganguly has played in?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'; the average winning margin = divide(sum(Win_Margin), count(Match_Id)) where Player_Name = 'SC Ganguly'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Batting_Hand = 'Right-hand bat' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Player_Id) FROM Player AS T1 INNER JOIN Batting_Style AS T2 ON T1.Batting_hand = T2.Batting_Id WHERE SUBSTR(T1.DOB, 1, 4) > 1985",
+    "question_id": null,
+    "question": "Among all the players born after the year 1985, what is the percentage of the players who use the right hand as their batting hand?",
+    "difficulty": "",
+    "evidence": "born after the year 1985 refers to SUBSTR(DOB, 1, 4) > 1985; right hand as batting hand refers to Batting_Hand = 'Right-hand bat'; percentage = divide(count(Player_Id where Batting_Hand = 'Right-hand bat'), count(Player_Id)) * 100% where SUBSTR(DOB, 1, 4) > 1985"
+  },
+  {
+    "sql": "SELECT Player_Name FROM Player ORDER BY DOB DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the name of the youngest player.",
+    "difficulty": "",
+    "evidence": "name of player refers to Player_Name; the youngest refers to max(DOB)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Toss_Winner = ( SELECT Team_Id FROM Team WHERE Team_Name = 'Sunrisers Hyderabad' ) THEN 1 ELSE 0 END) FROM `Match`",
+    "question_id": null,
+    "question": "How many times has Sunrisers Hyderabad been the toss winner of a game?",
+    "difficulty": "",
+    "evidence": "Sunrisers Hyderabad refers to Team_Name = 'Sunrisers Hyderabad'; time of toss winner refers to count(Toss_Winner)"
+  },
+  {
+    "sql": "SELECT T2.Player_Name FROM Ball_by_Ball AS T1 INNER JOIN Player AS T2 ON T1.Striker = T2.Player_Id WHERE T1.Match_Id = 419169 AND T1.Over_Id = 3 AND T1.Ball_Id = 2 AND T1.Innings_No = 2",
+    "question_id": null,
+    "question": "Give the name of the striker in the match no. 419169, over no.3, ball no.2, inning no.2.",
+    "difficulty": "",
+    "evidence": "name of the striker refers to Player_Name; match no. 419169 refers to Match_Id = 419169; over no.3 refers to Over_Id = 3; ball no.2 refers to Ball_Id = 2; inning no.2 refers to Innings_No = 2"
+  },
+  {
+    "sql": "SELECT T2.Venue_Name FROM `Match` AS T1 INNER JOIN Venue AS T2 ON T1.Venue_Id = T2.Venue_Id WHERE T1.Win_Margin = 138",
+    "question_id": null,
+    "question": "Give the name of venue for the game with a win margin of 138 points.",
+    "difficulty": "",
+    "evidence": "name of venue refers to Venue_Name; a win margin of 138 points refers to Win_Margin = 138"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Match AS T2 ON T1.Player_Id = T2.Man_of_the_Match WHERE T2.Match_Date = '2008-05-12'",
+    "question_id": null,
+    "question": "For the game on 2008/5/12, who was the man of the match?",
+    "difficulty": "",
+    "evidence": "on 2008/5/12 refers to Match_Date = '2008-05-12'; name refers to Player_Name;"
+  },
+  {
+    "sql": "SELECT T3.Player_Name FROM Player_Match AS T1 INNER JOIN Rolee AS T2 ON T1.Role_Id = T2.Role_Id INNER JOIN Player AS T3 ON T1.Player_Id = T3.Player_Id WHERE T1.Match_Id = '419117' AND T2.Role_Desc = 'CaptainKeeper'",
+    "question_id": null,
+    "question": "State the name of captain keeper of the match no.419117.",
+    "difficulty": "",
+    "evidence": "name refers to Player_Name; captain keeper refers to Role_Desc = 'CaptainKeeper'; match no.419117 refers to Match_Id = '419117'"
+  },
+  {
+    "sql": "SELECT T2.Player_Name FROM Season AS T1 INNER JOIN Player AS T2 ON T1.Man_of_the_Series = T2.Player_Id WHERE T1.Season_Year = 2013",
+    "question_id": null,
+    "question": "Who was the man of the series in 2013? Give the full name.",
+    "difficulty": "",
+    "evidence": "full name refers to Player_Name; in 2013 refers to Season_Year = 2013"
+  },
+  {
+    "sql": "SELECT T2.DOB FROM Season AS T1 INNER JOIN Player AS T2 ON T1.Man_of_the_Series = T2.Player_Id WHERE T1.Season_Year = 2014 AND T1.Orange_Cap IS NOT NULL",
+    "question_id": null,
+    "question": "Give the date of birth of the 2014 Orange Cap winner.",
+    "difficulty": "",
+    "evidence": "date of birth refers to DOB; 2014 refers to Season_Year = 2014; Orange Cap winner refers to Orange_Cap IS NOT NULL"
+  },
+  {
+    "sql": "SELECT T3.Country_Name FROM Season AS T1 INNER JOIN Player AS T2 ON T1.Man_of_the_Series = T2.Player_Id INNER JOIN Country AS T3 ON T2.Country_Name = T3.Country_Id WHERE T1.Season_Id = 7 AND T1.Purple_Cap IS NOT NULL",
+    "question_id": null,
+    "question": "What is the nationality of the 7th season Purple Cap winner?",
+    "difficulty": "",
+    "evidence": "nationality refers to Country_Name; the 7th season refers to Season_Id = 7; Purple Cap winner refers to Purple_Cap IS NOT NULL"
+  },
+  {
+    "sql": "SELECT T2.Country_Name FROM City AS T1 INNER JOIN Country AS T2 ON T1.Country_Id = T2.Country_Id WHERE T1.City_Name = 'Ranchi'",
+    "question_id": null,
+    "question": "Which country does Ranchi city belong to?",
+    "difficulty": "",
+    "evidence": "country refers to Country_Name; Ranchi city refers to City_Name = 'Ranchi'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Country_Name = 'India' THEN 1 ELSE 0 END) FROM City AS T1 INNER JOIN Country AS T2 ON T1.Country_Id = T2.Country_Id",
+    "question_id": null,
+    "question": "How many Indian cities are there in the database?",
+    "difficulty": "",
+    "evidence": "Indian refers to Country_Name = 'India'"
+  },
+  {
+    "sql": "SELECT T1.City_Name FROM City AS T1 INNER JOIN Venue AS T2 ON T1.City_Id = T2.City_Id GROUP BY T1.City_Id ORDER BY COUNT(T2.Venue_Id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the name of the city with the most venues.",
+    "difficulty": "",
+    "evidence": "name of the city refers to City_Name; the most venues refers to max(count(Venue_Id))"
+  },
+  {
+    "sql": "SELECT T2.Batting_hand FROM Player AS T1 INNER JOIN Batting_Style AS T2 ON T1.Batting_hand = T2.Batting_Id WHERE T1.Player_Name = 'MK Pandey'",
+    "question_id": null,
+    "question": "What is the batting hand of MK Pandey?",
+    "difficulty": "",
+    "evidence": "MK Pandey refers to Player_Name = 'MK Pandey'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Country_Name = 'India' THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN T2.Country_Name = 'South Africa' THEN 1 ELSE 0 END) FROM City AS T1 INNER JOIN Country AS T2 ON T1.Country_Id = T2.Country_Id",
+    "question_id": null,
+    "question": "In the database, how many times is the number of Indian cities to the South African cities?",
+    "difficulty": "",
+    "evidence": "Indian refers to Country_Name = 'India'; South African refers to Country_Name = 'South Africa'; how many times = divide(count(City_Id where Country_Name = 'India'), count(City_Id where Country_Name = 'South Africa'))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Venue_Name = 'M Chinnaswamy Stadium' THEN 1 ELSE 0 END) - SUM(CASE WHEN T2.Venue_Name = 'Maharashtra Cricket Association Stadium' THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Venue AS T2 ON T1.Venue_Id = T2.Venue_Id",
+    "question_id": null,
+    "question": "How many times does M Chinnaswamy Stadium host games than Maharashtra Cricket Association Stadium?",
+    "difficulty": "",
+    "evidence": "M Chinnaswamy Stadium refers to Venue_Name = 'M Chinnaswamy Stadium'; Maharashtra Cricket Association Stadium refers to Venue_Name = 'Maharashtra Cricket Association Stadium'; how many times = divide(count(Match_Id where Venue_Name = 'M Chinnaswamy Stadium'), count(Match_Id where Venue_Name = 'Maharashtra Cricket Association Stadium'))"
+  },
+  {
+    "sql": "SELECT Player_Name FROM Player ORDER BY DOB ASC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the oldest player?",
+    "difficulty": "",
+    "evidence": "name of the player refers to Player_Name; the oldest refers to min(DOB)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN SUBSTR(Match_Date, 7, 1) = '5' THEN 1 ELSE 0 END) FROM `Match` WHERE SUBSTR(Match_Date, 1, 4) = '2008'",
+    "question_id": null,
+    "question": "How many matches were played on May 2008?",
+    "difficulty": "",
+    "evidence": "in May 2008 refers to SUBSTR(Match_Date, 1, 4) = '2008' AND SUBSTR(Match_Date, 7, 1) = '5'"
+  },
+  {
+    "sql": "SELECT COUNT(Player_Id) AS cnt FROM Player WHERE DOB BETWEEN '1990-01-01' AND '1999-12-31'",
+    "question_id": null,
+    "question": "How many players were born in the 90s?",
+    "difficulty": "",
+    "evidence": "born in the 90s refers to DOB > = '1990-01-01' AND DOB < = '1999-12-31'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Team_1 = 10 OR Team_2 = 10 THEN 1 ELSE 0 END) FROM `Match` WHERE SUBSTR(Match_Date, 1, 4) = '2012'",
+    "question_id": null,
+    "question": "How many matches did Team 10 play in 2012?",
+    "difficulty": "",
+    "evidence": "Team 10 refers to Team_1 = 10 OR Team_2 = 10; in 2012 refers to SUBSTR(Match_Date, 1, 4) = '2012'"
+  },
+  {
+    "sql": "SELECT Orange_Cap FROM Season GROUP BY Orange_Cap HAVING COUNT(Season_Year) > 1",
+    "question_id": null,
+    "question": "List the id of the player who won the Orange Cap for 2 consecutive seasons.",
+    "difficulty": "",
+    "evidence": "id of the player who won the Orange Cap refers to Orange_Cap; for 2 consecutive seasons refers to count(Season_Year) > 1"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM `Match` WHERE Season_Id = 7",
+    "question_id": null,
+    "question": "How many matches were played in Season 7?",
+    "difficulty": "",
+    "evidence": "Season 7 refers to Season_Id = 7"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Country_Name = 'South Africa' THEN 1 ELSE 0 END) FROM Country AS T1 INNER JOIN Umpire AS T2 ON T1.Country_ID = T2.Umpire_Country",
+    "question_id": null,
+    "question": "How many umpires are from South Africa?",
+    "difficulty": "",
+    "evidence": "South Africa refers to Country_Name = 'South Africa'"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Match AS T2 ON T1.Player_Id = T2.Man_of_the_Match GROUP BY T2.Man_of_the_Match ORDER BY COUNT(T2.Man_of_the_Match) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the player with the highest number of outstanding player awards in a particular match?",
+    "difficulty": "",
+    "evidence": "name of the player refers to Player_Name; the highest number of outstanding player awards refers to max(count(Man_of_the_Match))"
+  },
+  {
+    "sql": "SELECT T1.Country_Name FROM Country AS T1 INNER JOIN Player AS T2 ON T1.Country_Id = T2.Country_Name GROUP BY T2.Country_Name ORDER BY COUNT(T2.Country_Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which country do the majority of the players are from?",
+    "difficulty": "",
+    "evidence": "country refers to Country_Name; the majority of the players\u00a0 refers to max(count(Country_Name))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Player_Name = 'CH Gayle' THEN 1 ELSE 0 END) AS cnt FROM Player AS T1 INNER JOIN Season AS T2 ON T1.Player_Id = T2.Orange_Cap",
+    "question_id": null,
+    "question": "How many Orange Cap awards were won by CH Gayle?",
+    "difficulty": "",
+    "evidence": "CH Gayle refers to Player_Name = 'CH Gayle'"
+  },
+  {
+    "sql": "SELECT T1.Season_Id FROM `Match` AS T1 INNER JOIN Venue AS T2 ON T1.Venue_Id = T2.Venue_Id WHERE T2.Venue_Name = 'M Chinnaswamy Stadium' GROUP BY T1.Season_Id ORDER BY COUNT(T1.Season_Id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which season played the highest number of matches at M Chinnaswamy Stadium?",
+    "difficulty": "",
+    "evidence": "season refers to Season_Id; the highest number of matches refers to max(count(Season_Id)); M Chinnaswamy Stadium refers to Venue_Name = 'M Chinnaswamy Stadium'"
+  },
+  {
+    "sql": "SELECT Team_Name FROM Team WHERE Team_Id = ( SELECT Match_Winner FROM `Match` WHERE season_Id = 1 GROUP BY Match_Winner ORDER BY COUNT(Match_Winner) DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "What is the name of the team that won the most number of matches in season 1?",
+    "difficulty": "",
+    "evidence": "name of the team refers to Team_Name; the most number of matches refers to max(count(Match_Winner)); season 1 refers to season_Id = 1"
+  },
+  {
+    "sql": "SELECT T3.Venue_Name FROM Team AS T1 INNER JOIN Match AS T2 ON T1.Team_Id = T2.Team_1 INNER JOIN Venue AS T3 ON T2.Venue_Id = T3.Venue_Id WHERE T1.Team_Name = 'Kolkata Knight Riders' GROUP BY T3.Venue_Id ORDER BY COUNT(T3.Venue_Id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which venue did Kolkata Knight Riders play most of their matches as a Team 1?",
+    "difficulty": "",
+    "evidence": "venue refers to Venue_Name; Kolkata Knight Riders refers to Team_Name = 'Kolkata Knight Riders'; most of their matches refers to max(count(Venue_Id)); Team 1 refers to Team_Id = Team_1"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM Team AS T1 INNER JOIN ( SELECT COUNT(Team_1) AS a, Team_1 FROM Match WHERE Team_1 <> Match_Winner GROUP BY Team_1 UNION SELECT COUNT(Team_2) AS a, Team_2 FROM Match WHERE Team_2 <> Match_Winner GROUP BY Team_2 ORDER BY a DESC LIMIT 1 ) AS T2 ON T1.Team_Id = T2.Team_1",
+    "question_id": null,
+    "question": "Which team has the highest number of losses of all time?",
+    "difficulty": "",
+    "evidence": "name of the team refers to Team_Name; the highest number of losses refers to max(add(count(Team_1 where Team_Id = Team_1 and Team_1 <> Match_Winner), count(Team_2 where Team_Id = Team_2 and Team_2 <> Match_Winner)))"
+  },
+  {
+    "sql": "SELECT Player_Name FROM Player WHERE Player_Id = ( SELECT Man_of_the_Match FROM `Match` ORDER BY match_date ASC LIMIT 1 )",
+    "question_id": null,
+    "question": "Who is the player who won the first ever \"man of the match\" award?",
+    "difficulty": "",
+    "evidence": "name of the player refers to Player_Name; the first ever refers to min(match_date); \"man of the match\" award refers to Player_Id in 'Man_of_the_Match'"
+  },
+  {
+    "sql": "SELECT Match_Date FROM `Match` WHERE team_1 = ( SELECT Team_Id FROM Team WHERE Team_Name = 'Chennai Super Kings' ) OR Team_2 = ( SELECT Team_Id FROM Team WHERE Team_Name = 'Chennai Super Kings' ) ORDER BY Match_Date ASC LIMIT 1",
+    "question_id": null,
+    "question": "When did Chennai Super Kings play its first match?",
+    "difficulty": "",
+    "evidence": "match date refers to Match_Date; Chennai Super Kings refers to Team_Name = 'Chennai Super Kings'; first match refers to min(Match_Date)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Batting_hand = 'Left-hand bat' THEN 1 ELSE 0 END) AS cnt FROM Batting_Style AS T1 INNER JOIN Player AS T2 ON T1.Batting_Id = T2.Batting_hand INNER JOIN Country AS T3 ON T2.Country_Name = T3.Country_Id WHERE T3.Country_Name = 'India'",
+    "question_id": null,
+    "question": "How many players with left-hand batting style are from India?",
+    "difficulty": "",
+    "evidence": "left-hand batting style refers to Batting_hand = 'Left-hand bat'; India refers to Country_Name = 'India'"
+  },
+  {
+    "sql": "SELECT T4.Player_Name FROM Team AS T1 INNER JOIN Player_Match AS T2 ON T1.Team_id = T2.Team_id INNER JOIN Rolee AS T3 ON T2.Role_Id = T3.Role_Id INNER JOIN Player AS T4 ON T2.Player_Id = T4.Player_Id WHERE T1.Team_Name = 'Deccan Chargers' AND T1.Team_Id = 8 AND T3.Role_Desc = 'Captain' AND T3.Role_Id = 1 GROUP BY T4.Player_Id ORDER BY COUNT(T3.Role_Id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the player that has the highest number of roles as a captain for Deccan Chargers?",
+    "difficulty": "",
+    "evidence": "name of the player refers to Player_Name; the highest number of roles refers to max(count(Role_Id)); as a captain refers to Role_Desc = 'Captain'; Deccan Chargers refers to Team_Name = 'Deccan Chargers'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.Batting_hand = 'Right-hand bat' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.Player_Id) FROM Batting_Style AS T1 INNER JOIN Player AS T2 ON T2.Batting_hand = T1.Batting_Id",
+    "question_id": null,
+    "question": "What is the percentage of all right-handed batting players among all the other players?",
+    "difficulty": "",
+    "evidence": "right-handed batting refers to Batting_hand = 'Right-hand bat'; percentage = divide(count(Player_Id where Batting_hand = 'Right-hand bat'), count(Player_Id)) * 100%"
+  },
+  {
+    "sql": "SELECT Player_name FROM Player WHERE DOB = '1981-07-07'",
+    "question_id": null,
+    "question": "Name the player who is born on July 7, 1981.",
+    "difficulty": "",
+    "evidence": "name of the player refers to Player_Name; born on July 7 1981 refers to DOB = '1981-07-07'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Player_Id = 2 THEN 1 ELSE 0 END) FROM Player_Match",
+    "question_id": null,
+    "question": "How many matches were played by the player with player ID 2?",
+    "difficulty": "",
+    "evidence": "player ID 2 refers to Player_Id = 2"
+  },
+  {
+    "sql": "SELECT T2.Team_Name FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Team_1 ORDER BY T1.Win_Margin DESC LIMIT 1",
+    "question_id": null,
+    "question": "List the first team's name in the match with the highest winning margin.",
+    "difficulty": "",
+    "evidence": "team's name refers to Team_Name; first team refers to Team_Id = Team_1; the highest winning margin refers to max(Win_Margin)"
+  },
+  {
+    "sql": "SELECT T3.Country_Name FROM Venue AS T1 INNER JOIN City AS T2 ON T2.City_Id = T1.City_Id INNER JOIN Country AS T3 ON T3.Country_Id = T2.Country_id WHERE T1.Venue_Name = 'St George''s Park'",
+    "question_id": null,
+    "question": "Give the country where St. George's Park is located.",
+    "difficulty": "",
+    "evidence": "country refers to Country_Name; St. George's Park refers to Venue_Name = 'St George''s Park'"
+  },
+  {
+    "sql": "SELECT T3.Team_Name FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T2.Player_Id = T1.Player_Id INNER JOIN Team AS T3 ON T3.Team_Id = T2.Team_Id WHERE T2.Match_Id = 335990 AND T3.Team_Name = 'Mumbai Indians' GROUP BY T3.Team_Name",
+    "question_id": null,
+    "question": "List the player's name of Mumbai Indians in the match ID 335990.",
+    "difficulty": "",
+    "evidence": "Mumbai Indians refers to Team_Name = 'Mumbai Indians'; match ID 335990 refers to Match_Id = 335990"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM Team AS T1 INNER JOIN Match AS T2 ON T1.Team_Id = T2.Match_Winner WHERE T2.Match_Date = '2009-05-07' AND T2.Win_Margin = 7",
+    "question_id": null,
+    "question": "Provide the winning team's name in the match with the point of winning margin of 7 on May 7, 2009.",
+    "difficulty": "",
+    "evidence": "the winning team refers to Team_Id = Match_Winner; the point of winning margin of 7 refers to Win_Margin = 7; on May 7 2009 refers to Match_Date = '2009-05-07'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Outcome_Type = 'Superover' THEN 1 ELSE 0 END) FROM Match AS T1 INNER JOIN Outcome AS T2 ON T2.Outcome_Id = T1.Outcome_type",
+    "question_id": null,
+    "question": "How many of the matches are Superover?",
+    "difficulty": "",
+    "evidence": "Superover refers to Outcome_Type = 'Superover'"
+  },
+  {
+    "sql": "SELECT T1.City_Name FROM City AS T1 INNER JOIN Country AS T2 ON T2.Country_Id = T1.Country_id WHERE T2.Country_Name = 'U.A.E'",
+    "question_id": null,
+    "question": "List the cities located in U.A.E.",
+    "difficulty": "",
+    "evidence": "city refers to City_Name; U.A.E refers to Country_Name = 'U.A.E'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Team_Name = 'Pune Warriors' THEN 1 ELSE 0 END) FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Match_Winner",
+    "question_id": null,
+    "question": "What is the total number of won matches of the team named \"Pune Warriors\"?",
+    "difficulty": "",
+    "evidence": "the team named \"Pune Warriors\" refers to Team_Name = 'Pune Warriors'; the total number of won matches = count(Team_Name where Team_Id = Match_Winner)"
+  },
+  {
+    "sql": "SELECT T2.Team_Name FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Match_Winner WHERE T1.Match_Date LIKE '2015%' AND T1.Match_Id = 829768",
+    "question_id": null,
+    "question": "Among the matches held in 2015, who is the winning team in the match ID 829768?",
+    "difficulty": "",
+    "evidence": "in 2015 refers to Match_Date LIKE '2015%'; the winning team refers to Team_Id = Match_Winner; match ID 829768 refers to Match_Id = 829768"
+  },
+  {
+    "sql": "SELECT T3.Role_Desc FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T2.Player_Id = T1.Player_Id INNER JOIN Rolee AS T3 ON T3.Role_Id = T2.Role_Id WHERE T2.Match_Id = 335992 AND T1.Player_Name = 'K Goel'",
+    "question_id": null,
+    "question": "What is the role of K Goel in the match ID 335992?",
+    "difficulty": "",
+    "evidence": "role refers to Role_Desc; K Goel refers to Player_Name = 'K Goel'; match ID 335992 refers to Match_Id = 335992"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Country_Name = 'South Africa' THEN 1 ELSE 0 END) FROM City AS T1 INNER JOIN Country AS T2 ON T2.Country_Id = T1.Country_id",
+    "question_id": null,
+    "question": "How many cities are located in South Africa?",
+    "difficulty": "",
+    "evidence": "South Africa refers to Country_Name = 'South Africa'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Venue_Name = 'Newlands' THEN 1 ELSE 0 END) FROM Match AS T1 INNER JOIN Venue AS T2 ON T2.Venue_Id = T1.Venue_Id",
+    "question_id": null,
+    "question": "How many matches were held at the venue named \"Newlands\"?",
+    "difficulty": "",
+    "evidence": "the venue named \"Newlands\" refers to Venue_Name = 'Newlands'"
+  },
+  {
+    "sql": "SELECT T1.Win_Margin FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Team_1 INNER JOIN Team AS T3 ON T3.Team_Id = T1.Team_2 WHERE (T2.Team_Name = 'Mumbai Indians' AND T3.Team_Name = 'Royal Challengers Bangalore' AND T1.Match_Date = '2008-05-28') OR (T2.Team_Name = 'Royal Challengers Bangalore' AND T3.Team_Name = 'Mumbai Indians' AND T1.Match_Date = '2008-05-28')",
+    "question_id": null,
+    "question": "Provide the point of the winning margin in a match between Mumbai Indians and Royal Challengers Bangalore on May 28, 2008.",
+    "difficulty": "",
+    "evidence": "point of the winning margin refers to Win_Margin; Mumbai Indians refers to Team_Name = 'Mumbai Indians'; Royal Challengers Bangalore refers to Team_Name = 'Royal Challengers Bangalore'; on May 28 2008 refers to Match_Date = '2008-05-28'"
+  },
+  {
+    "sql": "SELECT DISTINCT CASE WHEN T1.Win_Margin < ( SELECT AVG(Win_Margin) * 0.3 FROM Match WHERE Match_Date LIKE '2011%' ) THEN T2.Team_Name END, CASE WHEN T1.Win_Margin < ( SELECT AVG(Win_Margin) * 0.3 FROM Match WHERE Match_Date LIKE '2011%' ) THEN T3.Team_Name END FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Team_1 INNER JOIN Team AS T3 ON T3.Team_Id = T1.Team_2 WHERE T1.Match_Date LIKE '2011%'",
+    "question_id": null,
+    "question": "List the names of the first andthe second teams that played a match with the point of the winning margin lower than the 30% of the average winning margin of the matches held in 2011.",
+    "difficulty": "",
+    "evidence": "name of the team refers to Team_Name; in 2011 refers to Match_Date LIKE '2011%'; the point of winning margin lower than 30% of the average winning margin refers to Win_Margin < multiply(avg(Win_Margin), 0.3) where Match_Date LIKE '2011%'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.Role_Desc = 'Captain' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Role_Id) FROM Rolee AS T1 INNER JOIN Player_Match AS T2 ON T2.Role_Id = T1.Role_Id INNER JOIN Player AS T3 ON T3.Player_Id = T2.Player_Id WHERE T3.DOB LIKE '1977%'",
+    "question_id": null,
+    "question": "Among the players born in 1977, what is the percentage of the players with a role as a captain?",
+    "difficulty": "",
+    "evidence": "born in 1977 refers to DOB LIKE '1977%'; a role as a captain refers to Role_Desc = 'Captain'; percentage = divide(count(Role_Id where Role_Desc = 'Captain'), count(Role_Id)) * 100% where DOB LIKE '1977%'"
+  },
+  {
+    "sql": "SELECT COUNT(Over_Id) FROM Ball_by_Ball WHERE Match_Id = 335996 AND Innings_No = 1",
+    "question_id": null,
+    "question": "How many overs were there in the first innings of match ID \"335996\"?",
+    "difficulty": "",
+    "evidence": "the first innings refers to Innings_No = 1; match ID \"335996\" refers to Match_Id = 335996"
+  },
+  {
+    "sql": "SELECT Over_Id, Ball_Id, Innings_No FROM Batsman_Scored WHERE Match_Id = 336004 ORDER BY Runs_Scored DESC LIMIT 1",
+    "question_id": null,
+    "question": "List the over IDs, ball IDs, and innings numbers of the match ID \"336004\" while the batsman got the maximum scores.",
+    "difficulty": "",
+    "evidence": "over ID refers to Over_Id; ball ID refers to Ball_Id; innings number refers to Innings_No; match ID \"336004\" refers to Match_Id = 336004; batsman got the maximum scores refers to max(Runs_Scored)"
+  },
+  {
+    "sql": "SELECT Match_Id FROM Ball_by_Ball WHERE Over_Id = 20 GROUP BY Match_Id LIMIT 5",
+    "question_id": null,
+    "question": "Describe any five matches IDs that reached over ID 20.",
+    "difficulty": "",
+    "evidence": "reached over ID 20 refers to Over_Id = 20"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Match_Id = 548335 THEN 1 ELSE 0 END) FROM Wicket_Taken WHERE Innings_No = 1",
+    "question_id": null,
+    "question": "How many players got out in the first inning of match ID \"548335\"?",
+    "difficulty": "",
+    "evidence": "got out refers to Player_Out; the first inning refers to Innings_No = 1; match ID \"548335\" refers to Match_Id = 548335"
+  },
+  {
+    "sql": "SELECT Player_name FROM Player WHERE DOB LIKE '1971%'",
+    "question_id": null,
+    "question": "List the players' names who were born in 1971.",
+    "difficulty": "",
+    "evidence": "players' name refers to Player_name; born in 1971 refers to DOB LIKE '1971%'"
+  },
+  {
+    "sql": "SELECT Match_Id FROM Match WHERE Match_Date LIKE '%2015-04-18%'",
+    "question_id": null,
+    "question": "Provide the match IDs which were held on 18th April 2015.",
+    "difficulty": "",
+    "evidence": "on 18th April 2015 refers to DATE(Match_Date) = '2015-04-18'"
+  },
+  {
+    "sql": "SELECT T1.Match_Id FROM Wicket_Taken AS T1 INNER JOIN Out_Type AS T2 ON T2.Out_Id = T1.Kind_Out WHERE T2.Out_Name = 'hit wicket'",
+    "question_id": null,
+    "question": "List the match IDs which had players out by hit wickets.",
+    "difficulty": "",
+    "evidence": "had players out by hit wickets refers to Out_Name = 'hit wicket'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Innings_No = 2 THEN 1 ELSE 0 END) FROM Wicket_Taken AS T1 INNER JOIN Out_Type AS T2 ON T2.Out_Id = T1.Kind_Out WHERE T2.Out_Name = 'stumped'",
+    "question_id": null,
+    "question": "How many players got out by being stumped in the second innings of all matches?",
+    "difficulty": "",
+    "evidence": "got out by being stumped refers to Out_Name = 'stumped'; the second innings refers to Innings_No = 2"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Player_Name = 'Yuvraj Singh' THEN 1 ELSE 0 END) FROM Match AS T1 INNER JOIN Player AS T2 ON T2.Player_Id = T1.Man_of_the_Match",
+    "question_id": null,
+    "question": "How many times did Yuvraj Singh receive the Man of the Match award?",
+    "difficulty": "",
+    "evidence": "Yuvraj Singh refers to Player_Name = 'Yuvraj Singh'; receive the Man of the Match award refers to Player_Id = Man_of_the_Match"
+  },
+  {
+    "sql": "SELECT T2.Player_Name, T2.DOB FROM Country AS T1 INNER JOIN Player AS T2 ON T2.Country_Name = T1.Country_Id WHERE T2.DOB LIKE '1977%' AND T1.Country_Name = 'England'",
+    "question_id": null,
+    "question": "Among the players who were born in 1977, provide names and birthdates of the players from England.",
+    "difficulty": "",
+    "evidence": "born in 1977 refers to DOB LIKE '1977%'; name refers to Player_Name; birthdate refers to DOB; England refers to Country_Name = 'England'"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Match AS T2 ON T2.Man_of_the_Match = T1.Player_Id INNER JOIN Season AS T3 ON T3.Season_Id = T2.Season_Id WHERE T3.Season_Year = 2010 GROUP BY T1.Player_Name",
+    "question_id": null,
+    "question": "Who got the Man of the Series Award in 2010?",
+    "difficulty": "",
+    "evidence": "player's name refers to Player_Name; got the Man of the Series Award refers to Man_of_the_Match = Player_Id; in 2010 refers to Season_Year = 2010"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.Match_Winner = 3 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Match_Id) FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Team_1 INNER JOIN Team AS T3 ON T3.Team_Id = T1.Team_2 WHERE T2.Team_Name = 'Chennai Super Kings' OR T3.Team_Name = 'Chennai Super Kings'",
+    "question_id": null,
+    "question": "Calculate the win rate of the team \"Chennai Super Kings\".",
+    "difficulty": "",
+    "evidence": "team \"Chennai Super Kings\" refers to Team_Name = 'Chennai Super Kings'; win rate = divide(count(Match_Id where Match_Winner = 3), count(Match_Id)) * 100%"
+  },
+  {
+    "sql": "SELECT T4.Player_Name, T5.Country_Name FROM Player_Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Team_Id INNER JOIN Match AS T3 ON T3.Match_Id = T1.Match_Id INNER JOIN Player AS T4 ON T4.Player_Id = T1.Player_Id INNER JOIN Country AS T5 ON T5.Country_Id = T4.Country_Name WHERE T2.Team_Name = 'Gujarat Lions' AND T3.Match_Date = '2016-04-11'",
+    "question_id": null,
+    "question": "List the names and countries of the players from Gujarat Lions who played in the match held on 11th April 2016.",
+    "difficulty": "",
+    "evidence": "player's name refers to Player_Name; country refers to Country_Name; Gujarat Lions refers to Team_Name = 'Gujarat Lions'; on 11th April 2016 refers to Match_Date = '2016-04-11'"
+  },
+  {
+    "sql": "SELECT T1.Player_Name, T1.DOB FROM Player AS T1 INNER JOIN Bowling_Style AS T2 ON T2.Bowling_Id = T1.Bowling_skill WHERE T2.Bowling_skill = 'Left-arm fast'",
+    "question_id": null,
+    "question": "Provide the names and birthdates of players who have left-arm fast skills.",
+    "difficulty": "",
+    "evidence": "player's name refers to Player_Name; birthdate refers to DOB; have left-arm fast skills refers to Bowling_skill = 'Left-arm fast'"
+  },
+  {
+    "sql": "SELECT T1.Country_Name FROM Country AS T1 INNER JOIN Umpire AS T2 ON T2.Umpire_Country = T1.Country_Id WHERE T2.Umpire_Name = 'BR Doctrove'",
+    "question_id": null,
+    "question": "Where did BR Doctrove come from?",
+    "difficulty": "",
+    "evidence": "the country the umpire comes from refers to Country_Name; BR Doctrove refers to Umpire_Name = 'BR Doctrove'"
+  },
+  {
+    "sql": "SELECT T3.Player_Name FROM Player_Match AS T1 INNER JOIN Match AS T2 ON T2.Match_Id = T1.Match_Id INNER JOIN Player AS T3 ON T3.Player_Id = T1.Player_Id INNER JOIN Rolee AS T4 ON T4.Role_Id = T1.Role_Id WHERE T2.Match_Date = '2008-06-01' AND T4.Role_Desc = 'Captain' AND T2.Match_Winner = T1.Team_Id",
+    "question_id": null,
+    "question": "Who was the captain of the winning team in the match held on 1st June 2008?",
+    "difficulty": "",
+    "evidence": "player's name refers to Player_Name; captain refers to Role_Desc = 'Captain'; the winning team refers to Match_Winner = Team_Id; on 1st June 2008 refers to Match_Date = '2008-06-01'"
+  },
+  {
+    "sql": "SELECT T3.Team_Name, COUNT(T2.Match_Id) FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T2.Player_Id = T1.Player_Id INNER JOIN Team AS T3 ON T3.Team_Id = T2.Team_Id WHERE T1.Player_Name = 'CK Kapugedera'",
+    "question_id": null,
+    "question": "Which team did CK Kapugedera belong to? How many matches did he play?",
+    "difficulty": "",
+    "evidence": "team refers to Team_Name; CK Kapugedera refers to Player_Name = 'CK Kapugedera'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Venue_Name = 'Wankhede Stadium' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T3.Match_Id) FROM City AS T1 INNER JOIN Venue AS T2 ON T2.City_Id = T1.City_Id INNER JOIN Match AS T3 ON T3.Venue_Id = T2.Venue_Id WHERE T1.City_Name = 'Mumbai'",
+    "question_id": null,
+    "question": "Among the matches held in Mumbai, how many percent of them were held in Wankhede Stadium?",
+    "difficulty": "",
+    "evidence": "Mumbai refers to City_Name = 'Mumbai'; Wankhede Stadium refers to Venue_Name = 'Wankhede Stadium'; percent = divide(count(Match_Id where Venue_Name = 'Wankhede Stadium'), count(Match_Id)) * 100% where City_Name = 'Mumbai'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Out_Name = 'bowled' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Player_Out) FROM Wicket_Taken AS T1 INNER JOIN Out_Type AS T2 ON T2.Out_Id = T1.Kind_Out WHERE T1.Match_Id = 392187",
+    "question_id": null,
+    "question": "Among the players out in match ID 392187, calculate the percentage of players out by bowl.",
+    "difficulty": "",
+    "evidence": "out by bowl refers to Out_Name = 'bowled'; percentage = divide(count(Player_Out where Out_Name = 'bowled'), count(Player_Out)) * 100% where Match_Id = 392187"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Toss_Name = 'field' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.Toss_Id) FROM Match AS T1 INNER JOIN Toss_Decision AS T2 ON T2.Toss_Id = T1.Toss_Decide WHERE T1.Match_Date BETWEEN '2010-01-01' AND '2016-12-31'",
+    "question_id": null,
+    "question": "How many percent of the toss-winners decided to bowl first on the pitch from 2010 to 2016?",
+    "difficulty": "",
+    "evidence": "decide to bowl first refers to Toss_Name = 'field'; from 2010 to 2016 refers to Match_Date BETWEEN '2010-01-01' AND '2016-12-31'; percent = divide(count(Toss_Id where Toss_Name = 'field'), count(Toss_Id)) * 100% where Match_Date BETWEEN '2010-01-01' AND '2016-12-31'"
+  },
+  {
+    "sql": "SELECT Toss_Winner FROM Match WHERE Toss_Decide = 2",
+    "question_id": null,
+    "question": "List down the ID of toss winners who decided to bat after winning the \"toss of the coin\".",
+    "difficulty": "",
+    "evidence": "decided to bat refers to Toss_Decide = 2; ID of toss winners refers to Toss_winner"
+  },
+  {
+    "sql": "SELECT T1.Match_Id FROM Match AS T1 INNER JOIN Player AS T2 ON T2.Player_Id = T1.Man_of_the_Match WHERE T2.Player_Name = 'BB McCullum'",
+    "question_id": null,
+    "question": "List down the match ID of matches that the \"man of the match\" award was given to BB McCullum.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.DOB FROM Match AS T1 INNER JOIN Player AS T2 ON T2.Player_Id = T1.Man_of_the_Match",
+    "question_id": null,
+    "question": "List down the DOB of players who received the \"man of the match\" award.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Team_Name FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Toss_Winner WHERE T1.Match_Id BETWEEN 336010 AND 336020",
+    "question_id": null,
+    "question": "List down the name of teams that won the toss of the coin from matches with ID from 336010 to 336020.",
+    "difficulty": "",
+    "evidence": "name of teams refers to Team_Name; won the toss refers to Toss_Winner; matches with ID from 336010 to 336020\u00a0 refers to Match_Id BETWEEN 336010 AND 336020"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Team_Name = 'Mumbai Indians' THEN 1 ELSE 0 END) FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Match_Winner",
+    "question_id": null,
+    "question": "How many matches have Mumbai Indians won?",
+    "difficulty": "",
+    "evidence": "Mumbai Indians refers to Team_Name = 'Mumbai Indians'; won refers to Match_Winner"
+  },
+  {
+    "sql": "SELECT T2.Team_Name FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Team_2 WHERE T1.Team_1 = ( SELECT Team_Id FROM Team WHERE Team_Name = 'Pune Warriors' ) GROUP BY T2.Team_Name",
+    "question_id": null,
+    "question": "List down names of teams that have played as second team against Pune Warriors.",
+    "difficulty": "",
+    "evidence": "names of teams refers to Team_Name; second team refers to Team_2; Pune Warriors refers to Team_Name = 'Pune Warriors'"
+  },
+  {
+    "sql": "SELECT T2.Team_Name FROM Match AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Match_Winner WHERE T1.Match_Id = 336000",
+    "question_id": null,
+    "question": "What is the name of the team that won match ID 336000?",
+    "difficulty": "",
+    "evidence": "name of the team refers to Team_Name; won refers to Match_Winner"
+  },
+  {
+    "sql": "SELECT T1.Match_Id FROM Match AS T1 INNER JOIN Venue AS T2 ON T2.Venue_Id = T1.Venue_Id WHERE T2.Venue_Name = 'Brabourne Stadium'",
+    "question_id": null,
+    "question": "What are the match IDs that were played at Brabourne Stadium?",
+    "difficulty": "",
+    "evidence": "at Brabourne Stadium refers to Venue_Name = 'Brabourne Stadium'"
+  },
+  {
+    "sql": "SELECT T2.Venue_Name FROM Match AS T1 INNER JOIN Venue AS T2 ON T2.Venue_Id = T1.Venue_Id WHERE T1.Season_Id = 2 GROUP BY T2.Venue_Name",
+    "question_id": null,
+    "question": "List down the name of venues in season 2.",
+    "difficulty": "",
+    "evidence": "name of venues refers to Venue_Name; season 2 refers to Season_Id = 2"
+  },
+  {
+    "sql": "SELECT T1.City_Name FROM City AS T1 INNER JOIN Venue AS T2 ON T2.City_Id = T1.City_Id WHERE T2.Venue_Name = 'M Chinnaswamy Stadium'",
+    "question_id": null,
+    "question": "What is the city of M Chinnaswamy Stadium?",
+    "difficulty": "",
+    "evidence": "city refers to City_Name; M Chinnaswamy Stadium refers to Venue_Name = 'M Chinnaswamy Stadium'"
+  },
+  {
+    "sql": "SELECT T2.Venue_Name FROM City AS T1 INNER JOIN Venue AS T2 ON T2.City_Id = T1.City_Id WHERE T1.City_Name = 'Mumbai'",
+    "question_id": null,
+    "question": "List down all of the venues in Mumbai.",
+    "difficulty": "",
+    "evidence": "venues refers to Venue_Name; Mumbai refers to City_Name = 'Mumbai'"
+  },
+  {
+    "sql": "SELECT T2.Match_Winner FROM Venue AS T1 INNER JOIN Match AS T2 ON T1.Venue_Id = T2.Venue_Id WHERE T1.Venue_Name LIKE 'St George%'",
+    "question_id": null,
+    "question": "List down all of the winning teams' IDs that played in St George's Park.",
+    "difficulty": "",
+    "evidence": "winning teams' refers to Match_Winner; played in St George's Park refers to Venue_Name like 'St George%'"
+  },
+  {
+    "sql": "SELECT T2.City_Name FROM Venue AS T1 INNER JOIN City AS T2 ON T1.City_Id = T2.City_Id WHERE T1.Venue_Name LIKE 'St George%'",
+    "question_id": null,
+    "question": "Is SuperSport Park located at Centurion?",
+    "difficulty": "",
+    "evidence": "SuperSport Park refers to Venue_Name = 'SuperSport Park'; Centurion refers to City_Name = 'Centurion'"
+  },
+  {
+    "sql": "SELECT SUM(T2.Match_Winner) FROM Team AS T1 INNER JOIN Match AS T2 ON T1.Team_Id = T2.Match_Winner WHERE T1.Team_Name = 'Deccan Chargers'",
+    "question_id": null,
+    "question": "Calculate the total winning match for Deccan Chargers.",
+    "difficulty": "",
+    "evidence": "winning refers to Match_Winner; Deccan Chargers refers to Team_Name = 'Deccan Chargers'"
+  },
+  {
+    "sql": "SELECT SUM(T1.Venue_Name) FROM Venue AS T1 INNER JOIN City AS T2 ON T1.City_Id = T2.City_Id WHERE T2.City_Name = 'Pune'",
+    "question_id": null,
+    "question": "Count the total venues located in Pune City.",
+    "difficulty": "",
+    "evidence": "Pune City refers to City_Name = 'Pune'"
+  },
+  {
+    "sql": "SELECT Ball_Id FROM Ball_by_Ball WHERE Non_Striker = Ball_Id ORDER BY Ball_Id DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the player id of the player who was at the non-striker end for the most number of balls in the match 501219.",
+    "difficulty": "",
+    "evidence": "most number of balls refers to max(Ball_Id); match 501219 refers to Match_Id = 501219;\nplayer id also refers to non_striker or ball_id"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN 1 < Over_Id AND Over_Id < 25 THEN 1 ELSE 0 END) AS REAL) * 100 / SUM(Runs_Scored) FROM Batsman_Scored WHERE Innings_No = 1",
+    "question_id": null,
+    "question": "Calculate the average runs scored during the first half of all first innings.",
+    "difficulty": "",
+    "evidence": "first half refers to 1 < Over_Id and Over_Id < 25; average = divide(sum(Over_Id) when 1 < Over_Id and Over_Id < 25, sum(Runs_Scored)) as percentage; first innings refers to Innings_No = 1"
+  },
+  {
+    "sql": "SELECT AVG(Innings_No) FROM Extra_Runs WHERE Innings_No = 2",
+    "question_id": null,
+    "question": "What are the average extra runs given in the second innings of every match?",
+    "difficulty": "",
+    "evidence": "second innings refers to Innings_No = 2; average extra runs = divide(sum(Extra_Runs), count(Innings_No)) when Innings_No = 2"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN Win_Margin > 100 THEN 1 ELSE 0 END) AS REAL) * 100 / TOTAL(Match_Id) FROM `Match`",
+    "question_id": null,
+    "question": "Among the matches, what percentage have a winning margin above 100?",
+    "difficulty": "",
+    "evidence": "winning margin above 100 refers to Win_Margin > 100; percentage = divide(count(Match_Id) when Win_Margin > 100, count(Match_Id)) as percentage"
+  },
+  {
+    "sql": "SELECT Player_Name FROM Player WHERE DOB BETWEEN '1970-01-01' AND '1990-12-31' ORDER BY DOB DESC",
+    "question_id": null,
+    "question": "List the name of the players born between 1970 and 1990 in descending order of age.",
+    "difficulty": "",
+    "evidence": "name of the players refers to Player_Name; born between 1970 and 1990 refers to DOB between '1970-01-01' and '1990-12-31'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Fielders = '' THEN 1 ELSE 0 END) FROM Wicket_Taken WHERE Over_Id = 3",
+    "question_id": null,
+    "question": "Of the wickets taken in the third overs, how many are without the involvement of fielders?",
+    "difficulty": "",
+    "evidence": "third overs refers to Over_Id = 3; without the involvement of fielders refers to Fielders = ''"
+  },
+  {
+    "sql": "SELECT T2.Country_Id, COUNT(T1.Umpire_Id) FROM Umpire AS T1 INNER JOIN Country AS T2 ON T2.Country_Id = T1.Umpire_Country GROUP BY T2.Country_Id ORDER BY COUNT(T1.Umpire_Id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "From which country does the most umpires are from? How many of them are from the mentioned country?\n",
+    "difficulty": "",
+    "evidence": "which country refers to Country_Id; most umpires refers to max(count(Umpire_Id))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Role_Desc = 'CaptainKeeper' THEN 1 ELSE 0 END) AS REAL) * 100 / TOTAL(T1.Player_Id) FROM Player_Match AS T1 INNER JOIN Rolee AS T2 ON T1.Role_Id = T2.Role_Id",
+    "question_id": null,
+    "question": "Among the players, what percentage are both captain and keeper?",
+    "difficulty": "",
+    "evidence": "captain and keeper refers to Role_Desc = 'CaptainKeeper'; percentage = divide(count(Player_Id) when Role_Desc = 'CaptainKeeper', count(Player_Id)) as percentage"
+  },
+  {
+    "sql": "SELECT Player_Out FROM Wicket_Taken AS T1 INNER JOIN Out_Type AS T2 ON T1.Kind_Out = T2.Out_Id WHERE Out_Name = 'hit wicket'",
+    "question_id": null,
+    "question": "In the players, how many were out by hit wicket?",
+    "difficulty": "",
+    "evidence": "out by hit wicket refers to Out_Name = 'hit wicket'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.Batting_hand = 'Right-hand bat' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.Country_Name) FROM Batting_Style AS T1 INNER JOIN Player AS T2 ON T1.Batting_id = T2.Batting_hand",
+    "question_id": null,
+    "question": "On average, how many players from each country bat with their right hand?",
+    "difficulty": "",
+    "evidence": "bat with their right hand refers to Batting_hand = 'Right-hand bat'; average = divide(count(Player_Id) when Batting_hand = 'Right-hand bat', count(Country_Name))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Bowling_skill = ' Legbreak' THEN 1 ELSE 0 END) AS REAL) * 100 / TOTAL(T1.Player_Id) FROM Player AS T1 INNER JOIN Bowling_Style AS T2 ON T1.Bowling_skill = T2.Bowling_Id",
+    "question_id": null,
+    "question": "What percentage of players have Legbreak skill?",
+    "difficulty": "",
+    "evidence": "Legbreak skill refers to Bowling_skill = 'Legbreak' ; percentage = divide(sum(Player_Id) when Bowling_skill = 'Legbreak', count(Player_Id)) as percentage"
+  },
+  {
+    "sql": "SELECT COUNT(T2.Win_Id) FROM `Match` AS T1 INNER JOIN Win_By AS T2 ON T1.Win_Type = T2.Win_Id WHERE T2.Win_Type = 'wickets' AND T1.Win_Margin < 50",
+    "question_id": null,
+    "question": "In the matches where the winning margin is less than fifty, how many teams won by wicket?",
+    "difficulty": "",
+    "evidence": "winning margin is less than fifty refers to Win_Margin < 50; won by wicket refers to Win_Type = 'wickets'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Team_2 = T1.Match_Winner THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Venue AS T2 ON T1.Venue_Id = T2.Venue_Id WHERE T1.Team_1 = T1.Toss_Winner",
+    "question_id": null,
+    "question": "In how many venues did team 2 win the toss and lose the match?",
+    "difficulty": "",
+    "evidence": "team 2 win the toss refers to Toss_Winner = Team_2 ; lose the match refers to Match_Winner = Team_1"
+  },
+  {
+    "sql": "SELECT T2.Player_Name, T3.Country_Name FROM Season AS T1 INNER JOIN Player AS T2 ON T1.Man_of_the_Series = T2.Player_Id INNER JOIN Country AS T3 ON T2.Country_Name = T3.Country_Id WHERE T1.Season_Year = 2012",
+    "question_id": null,
+    "question": "Which player became the man of the series in the year 2012? Give the name and country of this player.",
+    "difficulty": "",
+    "evidence": "year 2012 refers to Season_Year = 2012; name of player refers to Player_Name.; country of this player refers to Country_Name"
+  },
+  {
+    "sql": "SELECT T2.Venue_Name FROM `Match` AS T1 INNER JOIN Venue AS T2 ON T1.Venue_Id = T2.Venue_Id GROUP BY T2.Venue_Name ORDER BY COUNT(T2.Venue_Id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the name of the venue where the most number of matches are held.",
+    "difficulty": "",
+    "evidence": "name of the venue refers to Venue_Name; most number of matches refers to max(count(Venue_Id))"
+  },
+  {
+    "sql": "SELECT T4.City_Name FROM `Match` AS T1 INNER JOIN Win_By AS T2 ON T1.Win_Type = T2.Win_Id INNER JOIN Venue AS T3 ON T1.Venue_Id = T3.Venue_Id INNER JOIN City AS T4 ON T3.City_Id = T4.City_Id WHERE T2.Win_Type = 'NO Result' GROUP BY T4.City_Id ORDER BY COUNT(T2.Win_Type) ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which city hosted the least number of no-result matches?",
+    "difficulty": "",
+    "evidence": "city refers to City_Name; no-result matches refers to Win_type = 'NoResult'; least number refers to min(count(Win_type = 'NoResult'))"
+  },
+  {
+    "sql": "SELECT T2.Player_Name FROM Season AS T1 INNER JOIN Player AS T2 ON T1.Man_of_the_Series = T2.Player_Id WHERE T1.Man_of_the_Series > 1",
+    "question_id": null,
+    "question": "Write the name of the player who was the man of the series more than one time.",
+    "difficulty": "",
+    "evidence": "name of the player refers to Player_Name; man of the series more than one time refers to count(Man_of_the_Series) > 1"
+  },
+  {
+    "sql": "SELECT T1.Player_Name, T4.Country_Name FROM Player AS T1 INNER JOIN Wicket_Taken AS T2 ON T1.Player_Id = T2.Fielders INNER JOIN Out_Type AS T3 ON T2.Kind_Out = T3.Out_Id INNER JOIN Country AS T4 ON T1.Country_Name = T4.Country_Id GROUP BY T1.Player_Name ORDER BY COUNT(T3.Out_Name) ASC",
+    "question_id": null,
+    "question": "List the name and country of the players who got more than average catches in ascending order of the number of catches.",
+    "difficulty": "",
+    "evidence": "name and country of the players refers to Player_Name and Country_Name; catches refers to Out_name = 'caught'; average catches refers to divide(count(Player_ID) when Out_name = 'caught', sum(Player_ID))"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.Team_1 = T1.Match_Winner = T1.Toss_Winner THEN 1 ELSE 0 END) AS REAL) * 100 / TOTAL(T1.Team_1) FROM `Match` AS T1 INNER JOIN Win_By AS T2 ON T1.Win_Type = T2.Win_Id INNER JOIN Toss_Decision AS T3 ON T1.Toss_Decide = T3.Toss_Id WHERE T3.Toss_Name = 'field' AND T2.Win_Type = 'runs'",
+    "question_id": null,
+    "question": "Of the matches that were won by runs by team 1, what percentage have team 1 won the toss and decided to field?",
+    "difficulty": "",
+    "evidence": "won by runs refers to Win_Type = 'runs'; won the toss and decided to field refers to Toss_Winner and Toss_Name = 'field'; percentage = divide(count(Team_1) when Match_Winner = Team_1 and Toss_Winner = Team_1, count(Team_1)) as percentage"
+  },
+  {
+    "sql": "SELECT AVG(T1.Player_Out) FROM Wicket_Taken AS T1 INNER JOIN Out_Type AS T2 ON T1.Kind_Out = T2.Out_Id WHERE T2.Out_Name = 'lbw'",
+    "question_id": null,
+    "question": "What is the difference in the average number of players out by lbw and runout in the matches?",
+    "difficulty": "",
+    "evidence": "out by lbw refers to Out_Id = 4; runout refers to Out_Id = 3; average out by lbw refers to\u00a0 avg(Player_Out when Out_Id = 4); average out by runout refers to\u00a0 avg(Player_Out when Out_Id = 3)"
+  },
+  {
+    "sql": "SELECT DISTINCT Over_Id FROM Ball_by_Ball WHERE Striker = 7",
+    "question_id": null,
+    "question": "Identify by their ID all the overs in which the player with ID 7 was on strike.",
+    "difficulty": "",
+    "evidence": "Identify by their ID all the overs refers to Over_Id; player with ID 7 was on strike refers to Striker = 7"
+  },
+  {
+    "sql": "SELECT COUNT(Team_1) FROM `Match` WHERE Team_1 = Toss_Winner AND Toss_Decide = 2",
+    "question_id": null,
+    "question": "How many first teams chose to bat after winning the toss?",
+    "difficulty": "",
+    "evidence": "first teams refers to Team_1; chose to bat after winning the toss refers to Toss_Winner and Toss_Decide = 2"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Match_Date LIKE '2010-03%' THEN 1 ELSE 0 END) FROM `Match`",
+    "question_id": null,
+    "question": "How many games were played in March 2010?",
+    "difficulty": "",
+    "evidence": "were played in March 2010 refers to Match_Date = '2010-03%'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN DOB < '1990-06-29' THEN 1 ELSE 0 END) FROM Player WHERE Player_Name != 'Gurkeerat Singh'",
+    "question_id": null,
+    "question": "How many players are older than Gurkeerat Singh player?",
+    "difficulty": "",
+    "evidence": "older than Gurkeerat Singh player refers to DOB ! = 'Gurkeerat Singh' and DOB < '1990-06-29'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Player_Name = 'SR Watson' THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Player AS T2 ON T1.Man_of_the_Match = T2.Player_Id",
+    "question_id": null,
+    "question": "How many times has SR Watson been named 'Man of the Match'?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Player_Name FROM Player_Match AS T1 INNER JOIN Team AS T2 ON T1.Team_Id = T2.Team_Id INNER JOIN Player AS T3 ON T1.Player_Id = T3.Player_Id WHERE T2.Team_Name = 'Delhi Daredevils' GROUP BY T3.Player_Name ORDER BY COUNT(T1.Role_Id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Indicate the name of the most versatile players of the Delhi Daredevils.",
+    "difficulty": "",
+    "evidence": "if a player has multiple roles in a match, it means this player is versatile; name refers to Player_Name; most versatile player refers to MAX(COUNT(Role_id)); Delhi Daredevils refers to Team_Name = 'Delhi Daredevils'"
+  },
+  {
+    "sql": "SELECT T3.Player_Name FROM Season AS T1 INNER JOIN Match AS T2 ON T1.Man_of_the_Series = T2.Man_of_the_Match INNER JOIN Player AS T3 ON T2.Man_of_the_Match = T3.Player_Id GROUP BY T3.Player_Name ORDER BY COUNT(T1.Man_of_the_Series) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the player who has been chosen the most times for 'Man of the Series'?",
+    "difficulty": "",
+    "evidence": "name of the player refers to Player_Name; most times for 'Man of the Series' refers to max(count(Man_of_the_Match))"
+  },
+  {
+    "sql": "SELECT T4.Season_Year, T4.Orange_Cap FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Match AS T3 ON T2.Match_Id = T3.Match_Id INNER JOIN Season AS T4 ON T3.Season_Id = T4.Season_Id WHERE T1.Player_Name = 'SP Narine' GROUP BY T4.Season_Year, T4.Orange_Cap",
+    "question_id": null,
+    "question": "In what year did SP Narine win the Orange Cap?",
+    "difficulty": "",
+    "evidence": "year refers to Season_Year"
+  },
+  {
+    "sql": "SELECT T5.Team_Name, T1.Orange_Cap, T1.Purple_Cap FROM Season AS T1 INNER JOIN Match AS T2 ON T1.Season_Id = T2.Season_Id INNER JOIN Player_Match AS T3 ON T2.Match_Id = T3.Match_Id INNER JOIN Player AS T4 ON T3.Player_Id = T4.Player_Id INNER JOIN Team AS T5 ON T3.Team_Id = T5.Team_Id GROUP BY T5.Team_Name, T1.Orange_Cap, T1.Purple_Cap",
+    "question_id": null,
+    "question": "Which teams have had a player awarded the Purple Cap and another with the Orange Cap in the same season?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_Id WHERE T2.Country_Name = 'Zimbabwea'",
+    "question_id": null,
+    "question": "List all Zimbabwean players.",
+    "difficulty": "",
+    "evidence": "Zimbabwean refers to Country_Name = 'Zimbabwea'; players refers to Player_Name"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Batting_hand = 'Left-hand bat' THEN 1 ELSE 0 END) FROM Player AS T1 INNER JOIN Batting_Style AS T2 ON T1.Batting_hand = T2.Batting_Id",
+    "question_id": null,
+    "question": "How many players bat with their left hands?",
+    "difficulty": "",
+    "evidence": "bat with their left hands refers to Batting_hand = 'Left-hand bat'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Win_Type != 'runs' THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Win_By AS T2 ON T1.Win_Type = T2.Win_Id",
+    "question_id": null,
+    "question": "How many games were not won by runs?",
+    "difficulty": "",
+    "evidence": "not won by runs refers to Win_Type ! = 'runs'"
+  },
+  {
+    "sql": "SELECT T1.Umpire_Name FROM Umpire AS T1 INNER JOIN Country AS T2 ON T1.Umpire_Country = T2.Country_Id WHERE T2.Country_Name = 'New Zealand'",
+    "question_id": null,
+    "question": "List the name of all New Zealand umpires.",
+    "difficulty": "",
+    "evidence": "New Zealand umpires refers to Country_Name = 'New Zealand'; name of umpires refers to Umpire_Name"
+  },
+  {
+    "sql": "SELECT T3.Country_Name FROM Bowling_Style AS T1 INNER JOIN Player AS T2 ON T1.Bowling_Id = T2.Bowling_skill INNER JOIN Country AS T3 ON T2.Country_Name = T3.Country_Id WHERE T1.Bowling_skill = 'Slow left-arm chinaman'",
+    "question_id": null,
+    "question": "In which country do most players have the 'slow left-arm chinaman' bowling style?",
+    "difficulty": "",
+    "evidence": "'slow left-arm chinaman' bowling style refers to Bowling_skill = 'Slow left-arm chinaman'; most players\u00a0 refers to max(count(Country_Id))"
+  },
+  {
+    "sql": "SELECT T1.Venue_Name FROM Venue AS T1 INNER JOIN Match AS T2 ON T1.Venue_Id = T2.Venue_Id INNER JOIN Team AS T3 ON T2.Team_1 = T3.Team_Id WHERE T3.Team_Name = 'Kochi Tuskers Kerala' GROUP BY T1.Venue_Name",
+    "question_id": null,
+    "question": "In which venue did Kochi Tuskers Kerala play most of their matches?",
+    "difficulty": "",
+    "evidence": "Kochi Tuskers Kerala refers to Team_Name = 'Kochi Tuskers Kerala'; most of their matches refers to max(Venue_Id)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Runs_Scored) FROM Batsman_Scored AS T1 INNER JOIN Ball_by_Ball AS T2 ON T1.Match_Id = T2.Match_Id INNER JOIN Match AS T3 ON T2.Match_Id = T3.Match_Id INNER JOIN Team AS T4 ON T3.Team_1 = T4.Team_Id WHERE T2.Team_Batting = 1 OR T2.Team_Batting = 2 AND T4.Team_Name = 'Delhi Daredevils'",
+    "question_id": null,
+    "question": "In how many games in which the batting team was the Delhi Daredevils were no runs scored?",
+    "difficulty": "",
+    "evidence": "batting team was the Delhi Daredevils refers to Team_Name = 'Delhi Daredevils' and Team_1 = Team_Id where Team_Batting = 1 or Team_2 = Team_Id where Team_Batting = 2; no runs scored refers to Runs_Scored = 0"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.Win_Margin < 10 THEN 1 ELSE 0 END) AS REAL) * 100 / TOTAL(T1.Venue_Id) FROM Venue AS T1 INNER JOIN Match AS T2 ON T1.Venue_Id = T2.Venue_Id WHERE T1.Venue_Name = 'Dr DY Patil Sports Academy'",
+    "question_id": null,
+    "question": "In what percentage of games played at the Dr DY Patil Sports Academy venue did the winning team win by a margin of less than 10?",
+    "difficulty": "",
+    "evidence": "Dr DY Patil Sports Academy venue refers to Venue_Name = 'Dr DY Patil Sports Academy'; win by a margin of less than 10 refers to Win_Margin < 10; percentage = divide(count(Venue_Id) when Win_Margin < 10, sum(Venue_Id)) as percentage"
+  },
+  {
+    "sql": "SELECT AVG(T1.Extra_Runs) FROM Extra_Runs AS T1 INNER JOIN Extra_Type AS T2 ON T1.Extra_Type_Id = T2.Extra_Id WHERE T2.Extra_Name = 'noballs'",
+    "question_id": null,
+    "question": "What is the average number of extra runs made as noballs?",
+    "difficulty": "",
+    "evidence": "noballs refers to Extra_Name = 'noballs' ; average number = divide(sum(Extra_Runs), count(Extra_Runs))"
+  },
+  {
+    "sql": "SELECT Player_Id FROM Player ORDER BY Bowling_skill DESC LIMIT 5",
+    "question_id": null,
+    "question": "List the player's ID of the top five players, by descending order, in terms of bowling skill.",
+    "difficulty": "",
+    "evidence": "player's ID refers to Player_Id"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Player WHERE DOB < '1975-10-16' AND Bowling_skill < 3",
+    "question_id": null,
+    "question": "How many players were born before 10/16/1975, and have a bowling skill of less than 3?",
+    "difficulty": "",
+    "evidence": "born before 10/16/1975 refers to DOB < 1975-10-16; bowling skill of less than 3 refers to Bowling_skill < 3"
+  },
+  {
+    "sql": "SELECT Player_Name FROM Player ORDER BY DOB DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the youngest player?",
+    "difficulty": "",
+    "evidence": "name refers to Player_Name; youngest player refers to max(DOB)"
+  },
+  {
+    "sql": "SELECT Man_of_the_Series FROM Season WHERE 2011 < Season_Year < 2015",
+    "question_id": null,
+    "question": "Tally the player IDs of \"Man of the Series\" awardees for the seasons from 2011 to 2015.",
+    "difficulty": "",
+    "evidence": "seasons from 2011 to 2015 refers to 2011 < Season_Year < 2015"
+  },
+  {
+    "sql": "SELECT SUM(Runs_Scored) FROM Batsman_Scored WHERE Match_Id = 335988 AND Innings_No = 2",
+    "question_id": null,
+    "question": "What is the total number of runs scored by the batsmen during the 2nd inning of the match ID 335988?",
+    "difficulty": "",
+    "evidence": "number of runs refers to Runs_Scored; 2nd inning refers to Innings_No = 2"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Runs_Scored > 3 THEN 1 ELSE 0 END) FROM Batsman_Scored WHERE 335989 < Match_Id < 337000 AND Innings_No = 1 AND Over_Id = 1 AND Ball_Id = 1",
+    "question_id": null,
+    "question": "Between match nos. 335989 and 337000, how many times did a batsman score more than 3 runs during over no. 1, ball no. 1, and inning no. 1 of the matches?",
+    "difficulty": "",
+    "evidence": "Between match no. 335989 and 337000 refers to 335989 < Match_Id < 337000; batsman score more than 3 runs during over no. 1, ball no. 1, and inning no. 1 of the matches refers to Runs_Scored > 3 and\u00a0 Over_Id = 1 and Ball_Id = 1 and Innings_No = 1"
+  },
+  {
+    "sql": "SELECT T1.Match_Id, T1.Match_Date FROM `Match` AS T1 INNER JOIN Venue AS T2 ON T1.Venue_Id = T2.Venue_Id WHERE T2.Venue_Name = 'Kingsmead'",
+    "question_id": null,
+    "question": "Give me the match ID and date of the matches that were held in Kingsmead for three consecutive days.",
+    "difficulty": "",
+    "evidence": "date of the matches refers to Match_Date; held in Kingsmead refers to Venue_Name = 'Kingsmead'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Venue_Name = 'MA Chidambaram Stadium' THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Venue AS T2 ON T1.Venue_Id = T2.Venue_Id WHERE Match_Date BETWEEN '2009-05-09' AND '2011-08-08'",
+    "question_id": null,
+    "question": "How many times did the matches were held in MA Chidambaram Stadium from 5/9/2009 to 8/8/2011?",
+    "difficulty": "",
+    "evidence": "MA Chidambaram Stadium refers to Venue_Name = 'MA Chidambaram Stadium' ; from 5/9/2009 to 8/8/2011 refers to Match_Date between '2009-05-09' and '2011-08-08'"
+  },
+  {
+    "sql": "SELECT T2.Venue_Name, T3.City_Name FROM `Match` AS T1 INNER JOIN Venue AS T2 ON T1.Venue_Id = T2.Venue_Id INNER JOIN City AS T3 ON T2.City_Id = T3.City_Id WHERE T1.Match_Id = '336005'",
+    "question_id": null,
+    "question": "Where was the ID 336005 match held? Please give me the venue and the city.",
+    "difficulty": "",
+    "evidence": "ID 336005 match refers to Match_Id = '336005'; venue refers to Venue_Name; city refers to City_Name"
+  },
+  {
+    "sql": "SELECT T2.Toss_Name, T1.Toss_Decide, T1.Toss_Winner FROM `Match` AS T1 INNER JOIN Toss_Decision AS T2 ON T1.Toss_Decide = T2.Toss_Id WHERE T1.Match_Id = '336011'",
+    "question_id": null,
+    "question": "Which team wins the toss during the match ID 336011, and can you tell me whether they decided to bat or field?",
+    "difficulty": "",
+    "evidence": "wins the toss refers to Toss_Winner; whether they decided to bat or field refers to Toss_Name"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.DOB < '1980-4-11' THEN 1 ELSE 0 END) FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_Id WHERE T2.Country_Name = 'South Africa'",
+    "question_id": null,
+    "question": "Among the South African players, how many were born before 4/11/1980?",
+    "difficulty": "",
+    "evidence": "South African players refers to Country_Name = 'South Africa'; born before 4/11/1980 refers to DOB < '1980-4-11'"
+  },
+  {
+    "sql": "SELECT T2.Player_Name FROM Bowling_Style AS T1 INNER JOIN Player AS T2 ON T1.Bowling_Id = T2.Bowling_skill WHERE T1.Bowling_skill = 'Legbreak'",
+    "question_id": null,
+    "question": "Write down the name of players whose bowling skill is Legbreak.",
+    "difficulty": "",
+    "evidence": "name of players refers to Player_Name"
+  },
+  {
+    "sql": "SELECT T1.Match_Date, T4.Role_Desc FROM `Match` AS T1 INNER JOIN Player_Match AS T2 ON T1.Match_Id = T2.Match_Id INNER JOIN Player AS T3 ON T2.Player_Id = T3.Player_Id INNER JOIN Rolee AS T4 ON T2.Role_Id = T4.Role_Id ORDER BY T3.DOB DESC LIMIT 1",
+    "question_id": null,
+    "question": "When and for what role did the youngest player appear in his first match?",
+    "difficulty": "",
+    "evidence": "When refers to Match_Date; youngest player refers to max(DOB); first match refers to min(Match_Date)"
+  },
+  {
+    "sql": "SELECT T1.Match_Id FROM `Match` AS T1 INNER JOIN Player AS T2 ON T1.Man_of_the_Match = T2.Player_Id WHERE T2.Player_Name = 'V Kohli'",
+    "question_id": null,
+    "question": "Tally the match IDs in which V Kohli is the \"Man of the Match\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Match_Date BETWEEN '2011%' AND '2012%' THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Player AS T2 ON T2.Player_Id = T1.Man_of_the_Match INNER JOIN Country AS T3 ON T3.Country_Id = T2.Country_Name WHERE T3.Country_Name = 'Australia'",
+    "question_id": null,
+    "question": "From 2011 to 2012, how many Australian players became the \"Man of the Match\"?",
+    "difficulty": "",
+    "evidence": "From 2011 to 2012 refers to Match_Date between '2011%' and '2012%'; Australian players refers to Country_Name = 'Australia'"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Season AS T2 ON T1.Player_Id = T2.Man_of_the_Series = T2.Orange_Cap",
+    "question_id": null,
+    "question": "Who among the players won both \"Man of the Series\" and \"Orange Cap\" in the same season?",
+    "difficulty": "",
+    "evidence": "Who refers to Player_Name;"
+  },
+  {
+    "sql": "SELECT T1.Match_Date FROM `Match` AS T1 INNER JOIN Team AS T2 ON T1.Match_Winner = T2.Team_Id WHERE T2.Team_Name = 'Sunrisers Hyderabad'",
+    "question_id": null,
+    "question": "When did the Sunrisers Hyderabad win their first match?",
+    "difficulty": "",
+    "evidence": "Sunrisers Hyderabad refers to Team_Name = 'Sunrisers Hyderabad'; win their first match refers to Match_Winner and min(Match_Date)"
+  },
+  {
+    "sql": "SELECT T1.Umpire_Name, T1.Umpire_Id FROM Umpire AS T1 INNER JOIN Country AS T2 ON T1.Umpire_Country = T2.Country_Id WHERE T2.Country_Name = 'England'",
+    "question_id": null,
+    "question": "Write down the player names and IDs of the English umpires.",
+    "difficulty": "",
+    "evidence": "English umpires refers to Country_Name = 'England'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.Toss_Name = 'bat' THEN T3.Runs_Scored ELSE NULL END) AS REAL) / SUM(CASE WHEN T1.Toss_Name = 'field' THEN 1 ELSE 0 END) FROM Toss_Decision AS T1 INNER JOIN Match AS T2 ON T1.Toss_Id = T2.Toss_Decide INNER JOIN Batsman_Scored AS T3 ON T2.Match_Id = T3.Match_Id WHERE T2.Match_Id = 335987 AND T2.Match_Date = '2008-04-18' GROUP BY T3.Over_Id HAVING COUNT(T1.Toss_Name = 'field') = 17",
+    "question_id": null,
+    "question": "Calculate the run rate at the end of 17 overs of the match ID 335987 on 4/18/2008.",
+    "difficulty": "",
+    "evidence": "4/18/2008 refers to Match_Date = 4/18/2008; end of 17 overs refers to count(Toss_Name = 'field' ) = 17; run rate = divide(sum(Runs_Scored) when Toss_Name = 'bat', sum(Over_Id) when Toss_Name = 'field')"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.Toss_Name = 'bat' THEN T3.Runs_Scored ELSE NULL END) AS REAL) / SUM(CASE WHEN T1.Toss_Name = 'field' THEN 1 ELSE 0 END) FROM Toss_Decision AS T1 INNER JOIN Match AS T2 ON T1.Toss_Id = T2.Toss_Decide INNER JOIN Batsman_Scored AS T3 ON T2.Match_Id = T3.Match_Id WHERE T2.Match_Id = 335987 AND T2.Match_Date = '2008-04-18' GROUP BY T3.Over_Id HAVING COUNT(T1.Toss_Name = 'field') = 16",
+    "question_id": null,
+    "question": "Compute the run rate at the end of 16 overs of the match ID 335999. Please include the name of the \"Man of_the Match\".",
+    "difficulty": "",
+    "evidence": "end of 16 overs refers to count(Toss_Name = 'field' ) = 16; run rate = divide(count(Runs_Scored) when Toss_Name = 'bat', sum(Over_Id)when Toss_Name = 'field'); name refers to Player_Name"
+  },
+  {
+    "sql": "SELECT Match_Id FROM `Match` ORDER BY Match_Winner DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the id of the team with the highest number of matches won?",
+    "difficulty": "",
+    "evidence": "id of the team refers to Team_Id; highest number of matches won refers to max(count(Match_Winner))"
+  },
+  {
+    "sql": "SELECT DOB FROM Player GROUP BY DOB ORDER BY COUNT(DOB) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which year do the majority of the players were born?",
+    "difficulty": "",
+    "evidence": "year refers to DOB; majority of the players refers to max(count(Player_Id))"
+  },
+  {
+    "sql": "SELECT Match_Date FROM `Match` ORDER BY Win_Margin DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the date of the match that has the highest wager on the final result of a game?",
+    "difficulty": "",
+    "evidence": "date of the match refers to Match_Date; highest wager refers to max(Win_Margin)"
+  },
+  {
+    "sql": "SELECT Season_Id FROM `Match` GROUP BY Season_Id ORDER BY COUNT(Match_Id) LIMIT 1",
+    "question_id": null,
+    "question": "Which season has the fewest number of matches?",
+    "difficulty": "",
+    "evidence": "fewest number of matches refers to min(count(Match_Id))"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM `Match` GROUP BY Man_of_the_Match HAVING COUNT(Match_Id) >= 5",
+    "question_id": null,
+    "question": "How many players have won at least 5 man of the match awards?",
+    "difficulty": "",
+    "evidence": "won at least 5 man of the match awards refers to COUNT(Match_Id) > = 5"
+  },
+  {
+    "sql": "SELECT T1.Player_name FROM Player AS T1 INNER JOIN Match AS T2 ON T1.Player_Id = T2.Man_of_the_Match WHERE T2.Season_Id = 9 ORDER BY T2.Match_Date DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the player who received the man of the match award during the last match of Season 9?",
+    "difficulty": "",
+    "evidence": "Who refers to Player_Name; last match of Season 9 refers to max(Match_Date) where Season_Id = 9"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM team AS T1 INNER JOIN Match AS T2 ON T1.Team_Id = T2.Match_Winner WHERE T2.Season_Id = 1 ORDER BY T2.Match_Date LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the team that won the first ever match?",
+    "difficulty": "",
+    "evidence": "name of the team refers to Team_Name; won the first ever match refers to Match_Winner where max(Match_Date)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Country_Name = 'U.A.E' THEN 1 ELSE 0 END) FROM City AS T1 INNER JOIN country AS T2 ON T1.Country_id = T2.Country_id",
+    "question_id": null,
+    "question": "How many cities are in U.A.E?",
+    "difficulty": "",
+    "evidence": "U.A.E refers to Country_Name = 'U.A.E'"
+  },
+  {
+    "sql": "SELECT T1.Umpire_Name FROM Umpire AS T1 INNER JOIN country AS T2 ON T2.Country_Id = T1.Umpire_Country WHERE T2.Country_Name = 'England'",
+    "question_id": null,
+    "question": "List the names of all the umpires from England.",
+    "difficulty": "",
+    "evidence": "from England refers to Country_Name = 'England'"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Bowling_Style AS T2 ON T1.Bowling_skill = T2.Bowling_Id WHERE T2.Bowling_skill = 'Legbreak'",
+    "question_id": null,
+    "question": "How many players bowl in the legbreak style?",
+    "difficulty": "",
+    "evidence": "legbreak style refers to Bowling_skill = 'Legbreak'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Season_Id = 8 THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Team AS T2 ON T1.Team_1 = T2.Team_Id OR T1.Team_2 = T2.Team_Id WHERE T2.Team_Name = 'Rajasthan Royals'",
+    "question_id": null,
+    "question": "How many matches did Rajasthan Royals play in Season 8?",
+    "difficulty": "",
+    "evidence": " Season 8 refers to Season_Id = 8"
+  },
+  {
+    "sql": "SELECT T2.Country_Name FROM Umpire AS T1 INNER JOIN country AS T2 ON T2.Country_Id = T1.Umpire_Country WHERE T1.Umpire_Name = 'TH Wijewardene'",
+    "question_id": null,
+    "question": "Which country is umpire TH Wijewardene from?",
+    "difficulty": "",
+    "evidence": "country refers to Country_Name"
+  },
+  {
+    "sql": "SELECT T1.Venue_Name FROM Venue AS T1 INNER JOIN City AS T2 ON T1.City_Id = T2.City_Id WHERE T2.City_Name = 'Abu Dhabi'",
+    "question_id": null,
+    "question": "What are the names of the venues in Abu Dhabi?",
+    "difficulty": "",
+    "evidence": "names of the venues refers to Venue_Name; Abu Dhabi refers to City_Name = 'Abu Dhabi'"
+  },
+  {
+    "sql": "SELECT T1.Country_Name FROM Country AS T1 INNER JOIN Player AS T2 ON T1.Country_Id = T2.Country_Name ORDER BY T2.DOB DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country is the youngest player from?",
+    "difficulty": "",
+    "evidence": "country refers to Country_Name; youngest player refers to max(DOB)"
+  },
+  {
+    "sql": "SELECT T3.Player_Name FROM `Match` AS T1 INNER JOIN Player_Match AS T2 ON T1.Match_Winner = T2.Team_Id INNER JOIN Player AS T3 ON T2.Player_Id = T3.Player_Id WHERE T1.Season_Id = 1 ORDER BY T1.Match_Date LIMIT 1",
+    "question_id": null,
+    "question": "List all the names of the winning team's players in the first match of season 1.",
+    "difficulty": "",
+    "evidence": "names refers to Player_Name; winning team's refers to Match_Winner; first match of season 1 refers to Season_Id = 1 and min(Match_Date)"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Season AS T2 ON T1.Player_Id = T2.Purple_Cap ORDER BY T2.Season_Year - SUBSTR(T1.DOB, 1, 4) LIMIT 1",
+    "question_id": null,
+    "question": "Who is the youngest player to have won the Purple Cap?",
+    "difficulty": "",
+    "evidence": "Who refers to Player_Name; youngest player to have won the Purple Cap refers to min(subtract(Season_Year, DOB))"
+  },
+  {
+    "sql": "SELECT T1.Venue_Name, T2.City_Name, T3.Country_Name FROM Venue AS T1 INNER JOIN City AS T2 ON T1.City_Id = T2.City_Id INNER JOIN Country AS T3 ON T2.Country_Id = T3.Country_Id INNER JOIN Match AS T4 ON T1.Venue_Id = T4.Venue_Id ORDER BY T4.Match_Date DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the complete name of the venue, city and country where the last match was held.",
+    "difficulty": "",
+    "evidence": "name of the venue, city and country refers to Venue_Name and City_Name and Country_Name; last match refers to max(Match_Date)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Innings_No = 1 THEN 1 ELSE 0 END) AS IN1 , SUM(CASE WHEN Innings_No = 2 THEN 1 ELSE 0 END) AS IN2 FROM Ball_by_Ball WHERE Match_Id = 336011",
+    "question_id": null,
+    "question": "How many overs were there in each innings of match ID \"336011\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Ball_Id, Runs_Scored, Innings_No FROM Batsman_Scored WHERE Match_Id = 335988 AND Over_Id = 20",
+    "question_id": null,
+    "question": "List the ball IDs, scores, and innings numbers in the over ID 20 of match ID \"335988\".",
+    "difficulty": "",
+    "evidence": "innings numbers refers to Innings_No"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM `Match` WHERE Match_Date LIKE '2011%'",
+    "question_id": null,
+    "question": "How many matches were held in 2011?",
+    "difficulty": "",
+    "evidence": "held in 2011 refers to Match_Date like '2011%';"
+  },
+  {
+    "sql": "SELECT 2022 - SUBSTR(DOB, 1, 4) FROM Player WHERE Player_Name = 'Ishan Kishan'",
+    "question_id": null,
+    "question": "How old is Ishan Kishan in 2022?",
+    "difficulty": "",
+    "evidence": "old refers to SUBTRACT(2022, SUBSTR(DOB, 1, 4)); Ishan Kishan refers to Player_Name = 'Ishan Kishan';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN Toss_Winner = Match_Winner THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN Match_Date LIKE '2012%' THEN 1 ELSE 0 END) FROM `Match`",
+    "question_id": null,
+    "question": "Calculate the win rate of the toss-winners in 2012.",
+    "difficulty": "",
+    "evidence": "in 2012 refers to Match_Date like '2012%'; win rate refers to DIVIDE(COUNT(Toss_Winner = Match_Winner), COUNT(Match_Date like '2012%'))"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM `Match` WHERE Match_Date LIKE '2009%' AND Win_Margin < 10",
+    "question_id": null,
+    "question": "How many matches in 2009 had win margins of less than 10?",
+    "difficulty": "",
+    "evidence": "in 2009 refers to Match_Date like '2009%'; win margins of less than 10 refers to Win_Margin < 10;"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Match AS T3 ON T2.Match_Id = T3.Match_Id WHERE SUBSTR(T3.Match_Date, 1, 4) = '2014' AND SUBSTR(T3.Match_Date, 7, 1) = '6' LIMIT 2",
+    "question_id": null,
+    "question": "Provide the players' names in both teams of the match that was held in June 2014.",
+    "difficulty": "",
+    "evidence": "held in June 2014 refers to SUBSTR(Match_Date, 7, 1) = 6 and SUBSTR(Match_Date, 1, 4) = 2014"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Player_Name = 'Mohammad Hafeez' THEN 1 ELSE 0 END) FROM Player_Match AS T1 INNER JOIN Player AS T2 ON T1.Player_Id = T2.Player_Id",
+    "question_id": null,
+    "question": "How many matches did Mohammad Hafeez play?",
+    "difficulty": "",
+    "evidence": "Mohammad Hafeez refers to Player_Name = 'Mohammad Hafeez';"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_Id WHERE T2.Country_Name = 'South Africa' AND T1.DOB LIKE '1984%'",
+    "question_id": null,
+    "question": "Among the players from South Africa, provide the players' names who were born in 1984.",
+    "difficulty": "",
+    "evidence": "from South Africa refers to Country_Name = 'South Africa'; born in 1984 refers to DOB like '1984%';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.Match_Winner = T2.Team_Id THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Match_Id) FROM `Match` AS T1 INNER JOIN Team AS T2 ON T1.Team_1 = T2.Team_Id OR T1.Team_2 = T2.Team_Id WHERE T2.Team_Name = 'Mumbai Indians' AND T1.Match_Date LIKE '2009%'",
+    "question_id": null,
+    "question": "Among the\" Mumbai Indians\" team that played in 2009, how many percent of the matches did they win?",
+    "difficulty": "",
+    "evidence": "played in 2009 Match_Date like '2009%'; Mumbai Indians\" team refers to Team_Name = 'Mumbai Indians'; percent of the matches did they win refers to DIVIDE(COUNT(Match_Winner = Team_Id), COUNT(Match_Id))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Batting_hand = 'Left-hand bat' THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN T2.Batting_hand = 'Right-hand bat' THEN 1 ELSE 0 END) FROM Player AS T1 INNER JOIN Batting_Style AS T2 ON T1.Batting_hand = T2.Batting_Id",
+    "question_id": null,
+    "question": "What is the ratio of players with batting hands of left and right?",
+    "difficulty": "",
+    "evidence": "batting hands of left refers to Batting_hand = 'Left-hand bat'; right refers to Batting_hand = 2; ratio refers to DIVIDE(COUNT(Batting_hand = 'Right-hand bat'), COUNT(Batting_hand = 2))"
+  },
+  {
+    "sql": "SELECT T1.Player_Name, T2.Country_Name FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_Id ORDER BY T1.DOB LIMIT 1",
+    "question_id": null,
+    "question": "Who is the eldest player and where did he/she come from?",
+    "difficulty": "",
+    "evidence": "eldest player refers to MIN(DOB); where he/she come from refers to Country_Name"
+  },
+  {
+    "sql": "SELECT T1.Bowling_skill FROM Bowling_Style AS T1 INNER JOIN Player AS T2 ON T1.Bowling_Id = T2.Bowling_skill INNER JOIN Country AS T3 ON T2.Country_Name = T3.Country_Id WHERE T3.Country_Name = 'Zimbabwea'",
+    "question_id": null,
+    "question": "Which bowling skills did the players from Zimbabwea have?",
+    "difficulty": "",
+    "evidence": "Zimbabwea refers to Country_Name = 'Zimbabwea';"
+  },
+  {
+    "sql": "SELECT T1.Umpire_Id, T1.Umpire_Name FROM Umpire AS T1 INNER JOIN Country AS T2 ON T1.Umpire_Country = T2.Country_Id WHERE T2.Country_Name = 'New Zealand'",
+    "question_id": null,
+    "question": "List the IDs and names of the umpires from New Zealand.",
+    "difficulty": "",
+    "evidence": "New Zealand refers to Country_Name = 'New Zealand'; ID of the umpire refers to Umpire_Id; name of the umpire refers to Umpire_Name"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Team AS T3 ON T2.Team_Id = T3.Team_Id INNER JOIN Rolee AS T4 ON T2.Role_Id = T4.Role_Id WHERE T3.Team_Name = 'Rising Pune Supergiants' AND T4.Role_Desc = 'CaptainKeeper' GROUP BY T1.Player_Name",
+    "question_id": null,
+    "question": "Who was the captain-keeper of Rising Pune Supergiants?",
+    "difficulty": "",
+    "evidence": "captain-keeper refers to Role_Desc = 'CaptainKeeper'; Rising Pune Supergiants refers to Role_Desc = 'CaptainKeeper'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Match_Date LIKE '2013%' THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Team AS T2 ON T1.Match_Winner = T2.Team_Id WHERE T2.Team_Name = 'Sunrisers Hyderabad'",
+    "question_id": null,
+    "question": "How many matches did the Sunrisers Hyderabad team win in 2013?",
+    "difficulty": "",
+    "evidence": "Sunrisers Hyderabad team refers to Team_Name = 'Sunrisers Hyderabad'; in 2013 refers to Match_Date like '2013%';"
+  },
+  {
+    "sql": "SELECT T1.Match_Id FROM Extra_Runs AS T1 INNER JOIN Extra_Type AS T2 ON T1.Extra_Type_Id = T2.Extra_Id WHERE T2.Extra_Name = 'penalty'",
+    "question_id": null,
+    "question": "Provide match ID which had the extra type of penalty.",
+    "difficulty": "",
+    "evidence": "extra type of penalty refers to Extra_Name = 'penalty';"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM Team AS T1 INNER JOIN Match AS T2 ON T1.Team_Id = T2.Team_1 OR T1.Team_Id = T2.Team_2 INNER JOIN Win_By AS T3 ON T2.Win_Type = T3.Win_Id WHERE SUBSTR(T2.Match_Date, 1, 4) = '2015' AND T3.Win_Type = 'Tie' LIMIT 1",
+    "question_id": null,
+    "question": "Name the teams played in a match which resulted in a tie in 2015.",
+    "difficulty": "",
+    "evidence": "resulted in a tie refers to Win_Type = 'Tie'; in 2015 refers to SUBSTR(Match_Date, 1, 4) = 2015"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.Player_Out) AS REAL) / COUNT(T1.Match_Id), SUM(CASE WHEN T2.Out_Name = 'lbw' THEN 1 ELSE 0 END) FROM Wicket_Taken AS T1 INNER JOIN Out_Type AS T2 ON T1.Kind_Out = T2.Out_Id WHERE T1.Innings_No = 2",
+    "question_id": null,
+    "question": "Calculate the average players out in the first innings per match. How many of them were out by the leg before wicket?",
+    "difficulty": "",
+    "evidence": "out by the leg refers to Out_Name = 'lbw'; out in the first innings refers to Innings_No = 2;"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM `Match` WHERE Match_Date LIKE '2008%'",
+    "question_id": null,
+    "question": "How many matches are there in 2008?",
+    "difficulty": "",
+    "evidence": "in 2008 refers to Match_Date like '2008%'"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM Wicket_Taken WHERE innings_no = 2",
+    "question_id": null,
+    "question": "Count the matches with a total of two innings.",
+    "difficulty": "",
+    "evidence": "total of two innings refers to innings_no = 2;"
+  },
+  {
+    "sql": "SELECT T1.Country_Name FROM Country AS T1 INNER JOIN city AS T2 ON T1.Country_Id = T2.Country_Id WHERE city_name = 'Rajkot'",
+    "question_id": null,
+    "question": "Which is the country of the city named \"Rajkot\"?",
+    "difficulty": "",
+    "evidence": "city named \"Rajkot\" refers to city_name = 'Rajkot';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.win_type = 'wickets' THEN 1 ELSE 0 END) FROM `Match` AS T1 INNER JOIN Win_By AS T2 ON T1.Win_Type = T2.Win_Id",
+    "question_id": null,
+    "question": "How many of the matches are Superover?",
+    "difficulty": "",
+    "evidence": "are Superover refers to win_type = 'wickets';"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM Team AS T1 INNER JOIN Match AS T2 ON T1.Team_Id = T2.Team_1 WHERE T2.win_margin = 38 AND match_date = '2009-04-30'",
+    "question_id": null,
+    "question": "What are the teams that played in a match with the point of winning margin of 38 on April 30, 2009?",
+    "difficulty": "",
+    "evidence": "point of winning margin of 38 refers to win_margin = 38; on April 30, 2009 refers to match_date = '2009-04-30'; team refers to Team_Name;"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM Team AS T1 INNER JOIN Player_Match AS T2 ON T1.Team_Id = T2.Team_Id INNER JOIN Player AS T3 ON T2.Player_Id = T3.Player_Id WHERE T2.match_id = 335989 AND T3.player_name = 'T Kohli'",
+    "question_id": null,
+    "question": "Give the name of the team of T Kohli in the match ID 335989.",
+    "difficulty": "",
+    "evidence": "team of T Kohli refers to player_name = 'T Kohli';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Venue_name) FROM Venue AS T1 INNER JOIN City AS T2 ON T1.City_Id = T2.City_Id INNER JOIN Country AS T3 ON T2.Country_Id = T3.Country_Id WHERE T3.country_name = 'South Africa' AND T2.city_name = 'Centurion'",
+    "question_id": null,
+    "question": "How many venues are located at Centurion, South Africa?",
+    "difficulty": "",
+    "evidence": "venues are located at Centurion refers to city_name = 'Centurion'; South Africa refers to country_name = 'South Africa'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Match_Winner) FROM `Match` AS T1 INNER JOIN Team AS T2 ON T2.Team_Id = T1.Team_1 OR T2.Team_Id = T1.Team_2 WHERE T2.team_name = 'Delhi Daredevils' AND T1.Match_Date LIKE '2014%'",
+    "question_id": null,
+    "question": "Among the matches of Delhi Daredevils in 2014, how many won matches are there?",
+    "difficulty": "",
+    "evidence": "Delhi Daredevils refers to team_name = 'Delhi Daredevils'; in 2014 refers to Match_Date contains '2014';"
+  },
+  {
+    "sql": "SELECT T2.match_id FROM Team AS T1 INNER JOIN Match AS T2 ON T1.team_id = T2.match_winner WHERE T1.team_name = 'Royal Challengers Bangalore' AND T2.match_date LIKE '2012%' ORDER BY T2.win_margin DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the matches played by Royal Challengers Bangalore, what is the match ID of the match with the highest winning margin?",
+    "difficulty": "",
+    "evidence": "Royal Challengers Bangalore refers to team_name = 'Royal Challengers Bangalore'; highest winning margin refers to MAX(win_margin)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Match_Id) FROM Player_Match AS T1 INNER JOIN Player AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Rolee AS T3 ON T1.Role_Id = T3.Role_Id WHERE T2.Player_Name = 'K Goel' AND T3.Role_Id = 3",
+    "question_id": null,
+    "question": "How many times did K Goel played as a player only?",
+    "difficulty": "",
+    "evidence": "K Goel refers to Player_Name = 'K Goel'; played as a player only refers to Role_Id = 3"
+  },
+  {
+    "sql": "SELECT AVG(T1.win_margin) FROM Match AS T1 INNER JOIN Venue AS T2 ON T1.venue_id = T2.venue_id WHERE T2.venue_name = 'Newlands'",
+    "question_id": null,
+    "question": "What is the average winning margin of the matches held in Newlands?",
+    "difficulty": "",
+    "evidence": "average winning margin refers to avg(win_margin); held in Newlands refers to venue_name = 'Newlands'"
+  },
+  {
+    "sql": "SELECT Team_Name FROM Team WHERE Team_Id = ( SELECT CASE WHEN Team_1 = Match_Winner THEN Team_2 ELSE Team_1 END FROM Match WHERE match_id = 336039 )",
+    "question_id": null,
+    "question": "Provide the losing team's name in the match ID 336039.",
+    "difficulty": "",
+    "evidence": "losing team's name refers to Team_Id NOT in \"match_winner\" column"
+  },
+  {
+    "sql": "SELECT T1.Venue_Name FROM Venue AS T1 INNER JOIN Match AS T2 ON T1.venue_id = T2.venue_id WHERE T2.match_id = 829768",
+    "question_id": null,
+    "question": "What is the venue for the match ID 829768?",
+    "difficulty": "",
+    "evidence": "\nvenue refers to Venue_Name"
+  },
+  {
+    "sql": "SELECT T1.team_name FROM Team AS T1 INNER JOIN Match AS T2 ON T1.team_id = T2.team_2 ORDER BY T2.win_margin LIMIT 1",
+    "question_id": null,
+    "question": "What is the second team's name in the match with the lowest winning margin?",
+    "difficulty": "",
+    "evidence": "lowest winning margin refers to MIN(win_margin); team name refers to team_name; second team refers to team_2"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Match_Winner = 7 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.Match_Winner) FROM Team AS T1 INNER JOIN Match AS T2 ON T1.Team_Id = T2.Match_Winner WHERE T2.Match_Date LIKE '2013%'",
+    "question_id": null,
+    "question": "Among the matches in 2013, what is the percentage of winning of the team \"Mumbai Indians\"?",
+    "difficulty": "",
+    "evidence": "in 2013 refers to Match_Date like '2013%'; winning of the team \"Mumbai Indians\" refers to Match_Winner = 7; percentage refers to DIVIDE(COUNT(Match_Winner = 7), COUNT(Match_Winner))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.Role_Id = 1 THEN 1 ELSE 0 END) - SUM(CASE WHEN T3.Role_Id > 1 THEN 1 ELSE 0 END) FROM Player_Match AS T1 INNER JOIN Player AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Rolee AS T3 ON T1.Role_Id = T3.Role_Id WHERE T2.Player_Name = 'SC Ganguly'",
+    "question_id": null,
+    "question": "What is the difference between the number of matches where SC Ganguly played as a Captain and those matches where he played other roles?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'; played as a Captain refers to Role_Id = 1; played other roles refers to Role_Id > 1; difference refers to SUBTRACT(COUNT(Role_Id = 1), COUNT(Role_Id > 1))"
+  },
+  {
+    "sql": "SELECT COUNT(Player_Name) FROM Player WHERE Bowling_skill > 2",
+    "question_id": null,
+    "question": "How many players have the bowling skill greater than 2?",
+    "difficulty": "",
+    "evidence": "bowling skill greater than 2 refers to Bowling_skill > 2"
+  },
+  {
+    "sql": "SELECT COUNT(Player_Name) FROM Player WHERE DOB LIKE '1970%'",
+    "question_id": null,
+    "question": "How many players were born in 1970?",
+    "difficulty": "",
+    "evidence": "born in 1970 refers to DOB like '1970%';"
+  },
+  {
+    "sql": "SELECT COUNT(Player_Name) FROM Player WHERE DOB LIKE '198%' AND Bowling_skill = 2",
+    "question_id": null,
+    "question": "How many players were born in the 80s and have bowling skill of 2?",
+    "difficulty": "",
+    "evidence": "born in the 80s refers to DOB like '198%'; have bowling skill of 2 refers to Bowling_skill = 2;"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM Match WHERE Match_date LIKE '2008-04%'",
+    "question_id": null,
+    "question": "How many matches are there in April, 2008?",
+    "difficulty": "",
+    "evidence": "in April, 2008 refers to Match_date like '2008-04%'"
+  },
+  {
+    "sql": "SELECT City_Name FROM City WHERE Country_ID = 3",
+    "question_id": null,
+    "question": "What is the city name of country ID 3?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM Match WHERE Match_Date LIKE '2008%' AND Match_Winner IS NOT NULL",
+    "question_id": null,
+    "question": "How many victory matches were there in 2008?",
+    "difficulty": "",
+    "evidence": "in 2008 refers to Match_Date like '2008%'"
+  },
+  {
+    "sql": "SELECT Country_id FROM City WHERE City_Name = 'East London'",
+    "question_id": null,
+    "question": "Provide the country ID of East London.",
+    "difficulty": "",
+    "evidence": "East London refers to City_Name = 'East London'"
+  },
+  {
+    "sql": "SELECT 2008 - strftime('%Y', DOB) FROM Player WHERE Player_Name = 'SC Ganguly'",
+    "question_id": null,
+    "question": "How old is SC Ganguly in 2008?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'; old refers to SUBTRACT(2008, strftime('%Y',DOB))"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Batting_Style AS T2 ON T1.Batting_hand = T2.Batting_Id WHERE T2.Batting_hand = 'Left-hand bat'",
+    "question_id": null,
+    "question": "List the names of players who play by the left hand.",
+    "difficulty": "",
+    "evidence": "play by the left hand refers to Batting_hand = \u00a0 'Left-hand bat'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Player_Id) FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_ID WHERE T2.Country_Name = 'India'",
+    "question_id": null,
+    "question": "How many players are Indians?",
+    "difficulty": "",
+    "evidence": "are Indians refers to Country_Name = 'India'"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_ID WHERE T2.Country_Name = 'England'",
+    "question_id": null,
+    "question": "List the name of England players.",
+    "difficulty": "",
+    "evidence": "England players refers to Country_Name = 'England'"
+  },
+  {
+    "sql": "SELECT T1.Venue_Name FROM Venue AS T1 INNER JOIN City AS T2 ON T1.City_ID = T2.City_ID WHERE T2.City_Name = 'Bangalore'",
+    "question_id": null,
+    "question": "What is the venue name of Bandladore?",
+    "difficulty": "",
+    "evidence": "Bandladore refers to City_Name = 'Bangalore'"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Match AS T2 ON T1.Player_Id = T2.Man_of_the_Match INNER JOIN Player_Match AS T3 ON T3.Player_Id = T1.Player_Id INNER JOIN Season AS T4 ON T2.Season_Id = T4.Season_Id WHERE T4.Season_Year = 2008 GROUP BY T1.Player_Name",
+    "question_id": null,
+    "question": "What are the names of players who participated in season year 2008?",
+    "difficulty": "",
+    "evidence": "season year 2008 refers to Season_Year = 2008"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Batsman_Scored AS T3 ON T2.Match_ID = T3.Match_ID WHERE T3.Runs_Scored < 3 GROUP BY T1.Player_Name",
+    "question_id": null,
+    "question": "What are the names of players that have run scored less than 3?",
+    "difficulty": "",
+    "evidence": "scored less than 3 refers to Runs_Scored < 3; name of player refers to Player_name;"
+  },
+  {
+    "sql": "SELECT T3.Role_Desc FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Rolee AS T3 ON T2.Role_Id = T3.Role_Id WHERE T1.Player_Name = 'SC Ganguly' GROUP BY T3.Role_Desc",
+    "question_id": null,
+    "question": "What is the role of SC Ganguly?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'; role refers to Role_Desc"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Rolee AS T3 ON T2.Role_Id = T3.Role_Id WHERE T3.Role_Desc = 'Keeper' GROUP BY T1.Player_Name",
+    "question_id": null,
+    "question": "List the names of players who played as a keeper.",
+    "difficulty": "",
+    "evidence": "played as a keeper refers to Role_Desc = 'Keeper'; name of player refers to Player_Name;"
+  },
+  {
+    "sql": "SELECT T1.Player_Name FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Team AS T3 ON T2.Team_Id = T3.Team_Id WHERE T3.Team_Id = 1 GROUP BY T1.Player_Name",
+    "question_id": null,
+    "question": "What are the names of players in team 1?",
+    "difficulty": "",
+    "evidence": "in team 1 refers to Team_Id = 1; name of player refers to Player_Name;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Player_Id) FROM Player_Match AS T1 INNER JOIN Match AS T2 ON T1.Match_Id = T2.Match_Id INNER JOIN Rolee AS T3 ON T1.Role_Id = T3.Role_Id WHERE T3.Role_Desc = 'Captain' AND T2.Match_Date LIKE '2008%'",
+    "question_id": null,
+    "question": "How many players played as a captain in season year 2008?",
+    "difficulty": "",
+    "evidence": "played as a captain refers to Role_Desc = 'Captain'; in season year 2008 refers Match_Date like '2008%'"
+  },
+  {
+    "sql": "SELECT T5.Team_Name FROM Player AS T1 INNER JOIN Match AS T2 ON T1.Player_Id = T2.Man_of_the_Match INNER JOIN Player_Match AS T3 ON T3.Player_Id = T1.Player_Id INNER JOIN Season AS T4 ON T2.Season_Id = T4.Season_Id INNER JOIN Team AS T5 ON T3.Team_Id = T5.Team_Id WHERE T4.Season_Year = 2008 AND T1.Player_Name = 'SC Ganguly' GROUP BY T5.Team_Name",
+    "question_id": null,
+    "question": "Which teams did SC Ganguly join in season year 2008?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'; in season year 2008 refers to Season_Year = 2008"
+  },
+  {
+    "sql": "SELECT T2.Win_Type FROM Match AS T1 INNER JOIN Win_By AS T2 ON T1.Win_Type = T2.Win_Id WHERE T1.Match_Id = 336000",
+    "question_id": null,
+    "question": "What type did match ID 336000 win?",
+    "difficulty": "",
+    "evidence": "type of match won refers to Win_Type"
+  },
+  {
+    "sql": "SELECT T2.Country_Name FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_ID WHERE T1.Player_Name = 'SB Joshi'",
+    "question_id": null,
+    "question": "Where did SB Joshi come from?",
+    "difficulty": "",
+    "evidence": "SB Joshi refers to Player_Name = 'SB Joshi'; where the player come from refers to Country_Name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Player_Id) FROM Player AS T1 INNER JOIN Bowling_Style AS T2 ON T1.Bowling_skill = T2.Bowling_Id WHERE T2.Bowling_skill = 'Left-arm fast'",
+    "question_id": null,
+    "question": "How many players have left arm fast in bowling skill?",
+    "difficulty": "",
+    "evidence": "have left arm fast in bowling skill refers to Bowling_skill = 'Left-arm fast';"
+  },
+  {
+    "sql": "SELECT T2.Outcome_Type FROM Match AS T1 INNER JOIN Outcome AS T2 ON T1.Outcome_type = T2.Outcome_Id WHERE T1.Match_Id = '392195'",
+    "question_id": null,
+    "question": "What is the outcome type of match ID 392195?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.City_Name FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_Id INNER JOIN City AS T3 ON T2.Country_Id = T3.Country_Id ORDER BY T1.DOB LIMIT 1",
+    "question_id": null,
+    "question": "Who is the youngest player and which city did he/she come from?",
+    "difficulty": "",
+    "evidence": "youngest player refers to MIN(DOB); city refers to City_Name"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.Match_Id) FROM Team AS T1 INNER JOIN Match AS T2 ON T1.team_id = T2.match_winner INNER JOIN Player_Match AS T3 ON T1.Team_Id = T3.Team_Id INNER JOIN Season AS T4 ON T2.Season_Id = T4.Season_Id WHERE T1.Team_Name = 'Kings XI Punjab' AND T4.Season_Year = 2008",
+    "question_id": null,
+    "question": "How many matches did team Kings XI Punjab win in season year 2008?",
+    "difficulty": "",
+    "evidence": "in season year 2008 refers to Season_Year = 2008; team Kings XI Punjab refers to Team_Name = 'Kings XI Punjab'"
+  },
+  {
+    "sql": "SELECT COUNT(T.Season_Year) FROM ( SELECT T4.Season_Year FROM Team AS T1 INNER JOIN Match AS T2 ON T1.team_id = T2.match_winner INNER JOIN Player_Match AS T3 ON T1.Team_Id = T3.Team_Id INNER JOIN Season AS T4 ON T2.Season_Id = T4.Season_Id WHERE T1.Team_Name = 'Pune Warriors' GROUP BY T4.Season_Year ) T",
+    "question_id": null,
+    "question": "How many seasons did Pune Warriors participate in?",
+    "difficulty": "",
+    "evidence": "Pune Warriors refers to Team_Name = 'Pune Warriors'"
+  },
+  {
+    "sql": "SELECT T1.DOB, T3.Role_Desc FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Rolee AS T3 ON T2.Role_Id = T3.Role_Id WHERE T1.Player_Name = 'R Dravid' GROUP BY T1.DOB, T3.Role_Desc",
+    "question_id": null,
+    "question": "What year was R Dravid born and the role he played?",
+    "difficulty": "",
+    "evidence": "R Dravid refers to Player_Name = 'R Dravid'; year born refers to DOB; role refers to Role_Desc"
+  },
+  {
+    "sql": "SELECT COUNT(T2.Man_of_the_Match) FROM Player AS T1 INNER JOIN Match AS T2 ON T1.Player_Id = T2.Man_of_the_Match INNER JOIN Player_Match AS T3 ON T3.Player_Id = T1.Player_Id WHERE T1.Player_Name = 'SC Ganguly'",
+    "question_id": null,
+    "question": "How many times did SC Ganguly be the man of the match?",
+    "difficulty": "",
+    "evidence": "SC Ganguly refers to Player_Name = 'SC Ganguly'"
+  },
+  {
+    "sql": "SELECT COUNT(T.Match_Id) FROM ( SELECT T2.Match_Id FROM Team AS T1 INNER JOIN Match AS T2 ON T1.team_id = T2.match_winner INNER JOIN Player_Match AS T3 ON T1.Team_Id = T3.Team_Id WHERE T1.Team_Name = 'Mumbai Indians' AND T2.Match_Date LIKE '2008%' GROUP BY T2.Match_Id ) T",
+    "question_id": null,
+    "question": "How many matches did team Mumbai Indians win in 2008?",
+    "difficulty": "",
+    "evidence": "team Mumbai Indians refers to Team_Name = 'Mumbai Indians'; in 2008 refers to Match_Date like '2008%'"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM Team AS T1 INNER JOIN Match AS T2 ON T1.team_id = T2.match_winner INNER JOIN Player_Match AS T3 ON T1.Team_Id = T3.Team_Id INNER JOIN Win_By AS T4 ON T2.Win_Type = T4.Win_Id WHERE T2.Match_Id = '335993' GROUP BY T1.Team_Name",
+    "question_id": null,
+    "question": "Which team won by wickets in match ID 335993?",
+    "difficulty": "",
+    "evidence": "team refers to Team_Name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Match_Id) FROM Match AS T1 INNER JOIN Win_By AS T2 ON T1.Win_Type = T2.Win_Id WHERE T2.Win_type = 'wickets'",
+    "question_id": null,
+    "question": "Count the matches that were won by wickets in all season.",
+    "difficulty": "",
+    "evidence": "won by wickets refers to Win_type = 'wickets';"
+  },
+  {
+    "sql": "SELECT T4.Role_Desc FROM Player AS T1 INNER JOIN Player_Match AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Match AS T3 ON T2.Match_Id = T3.Match_Id INNER JOIN Rolee AS T4 ON T2.Role_Id = T4.Role_Id INNER JOIN Season AS T5 ON T3.Season_Id = T5.Season_Id WHERE T1.Player_name = 'W Jaffer' AND T5.Season_Year = 2012",
+    "question_id": null,
+    "question": "What is the role of W Jaffer in season year 2012?",
+    "difficulty": "",
+    "evidence": "W Jaffer refers to Player_name = 'W Jaffer'; in season year 2012 refers to Season_Year = 2012; role refers to Role_Desc"
+  },
+  {
+    "sql": "SELECT CASE WHEN COUNT(T2.Man_of_the_Match) > 5 THEN T1.Player_Name ELSE 0 END FROM Player AS T1 INNER JOIN Match AS T2 ON T1.Player_Id = T2.Man_of_the_Match INNER JOIN Player_Match AS T3 ON T3.Player_Id = T1.Player_Id INNER JOIN Season AS T4 ON T2.Season_Id = T4.Season_Id WHERE T4.Season_Year = 2008",
+    "question_id": null,
+    "question": "What are the names of players who had been man of the match more than 5 times in season year 2008?",
+    "difficulty": "",
+    "evidence": "man of the match more than 5 times refers to COUNT(Man_of_the_Match) > 5; in season year 2008 refers to Season_Year = 2008; name of player refers to Player_Name;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Country_Name = 'India' THEN 1 ELSE 0 END) AS REAL) / COUNT(T1.Player_Id) FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_ID WHERE strftime('%Y', T1.DOB) BETWEEN '1975' AND '1985'",
+    "question_id": null,
+    "question": "What is the average of Indian players that were born between 1975 and 1985 among all players?",
+    "difficulty": "",
+    "evidence": "Indian players refers to Country_Name = 'India'; born between 1975 and 1985 refers to strftime('%Y',T1.DOB) between '1975' and '1985'; average refers to DIVIDE(COUNT(Country_Name = 'India'), COUNT(Player_Id))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Batting_hand = 'Left-hand bat' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Player_Id) FROM Player AS T1 INNER JOIN Batting_Style AS T2 ON T1.Batting_hand = T2.Batting_Id",
+    "question_id": null,
+    "question": "Calculate the percentage of left hand batting style players among all players.",
+    "difficulty": "",
+    "evidence": "left hand batting style players refers to Batting_hand = 'Left-hand bat'; percentage refers to DIVIDE(COUNT(Batting_hand = 'Left-hand bat'), COUNT(Player_Id)) * 100.0"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.win_type = 1 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Win_Type) FROM Match AS T1 INNER JOIN Win_By AS T2 ON T1.Win_Type = T2.Win_Id",
+    "question_id": null,
+    "question": "What is the percentage of matches that are won by runs?",
+    "difficulty": "",
+    "evidence": "won by runs refers to win_type = 1; percentage refers to DIVIDE(COUNT(win_type = 1), COUNT(Win_Type)) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(Match_Id) FROM Match WHERE win_margin = 7",
+    "question_id": null,
+    "question": "How many matches have 7 points of winning margin?",
+    "difficulty": "",
+    "evidence": "have 7 points of winning margin refers to win_margin = 7;"
+  },
+  {
+    "sql": "SELECT COUNT(Player_Id) FROM Player WHERE strftime('%Y', DOB) BETWEEN '1970' AND '1975'",
+    "question_id": null,
+    "question": "What is the total number of players born between 1970 to 1975?",
+    "difficulty": "",
+    "evidence": "born between 1970 to 1975 refers to strftime('%Y',DOB) between '1970' and '1975'"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM Team AS T1 INNER JOIN Match AS T2 ON T1.team_id = T2.match_winner WHERE T2.Win_Margin = 6 AND T2.Match_Date = '2009-04-26'",
+    "question_id": null,
+    "question": "Who is the winning team in a match held on April 26, 2009 with a winning margin of 6 points?",
+    "difficulty": "",
+    "evidence": "winning margin of 6 points refers to Win_Margin = 6; held on April 26, 2009 refers to Match_Date = '2009-04-26'"
+  },
+  {
+    "sql": "SELECT T1.Team_Name FROM Team AS T1 INNER JOIN Match AS T2 ON T1.team_id = T2.match_winner INNER JOIN Win_By AS T3 ON T2.win_type = T3.win_id WHERE T2.Match_Id = 419135",
+    "question_id": null,
+    "question": "In the match ID 419135, who won by runs?",
+    "difficulty": "",
+    "evidence": "who refers to Team_Name"
+  },
+  {
+    "sql": "SELECT T2.Match_Id FROM Venue AS T1 INNER JOIN Match AS T2 ON T1.venue_id = T2.venue_id WHERE T1.Venue_Name = 'St George''s Park' ORDER BY T2.Win_Margin DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the matches held in St. George's Park, give the match ID of the match with the highest winning margin points.",
+    "difficulty": "",
+    "evidence": "held in St. George's Park refers to Venue_Name = 'St George''s Park'; highest winning margin points refers to MAX(Win_Margin)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Player AS T1 INNER JOIN Country AS T2 ON T1.Country_Name = T2.Country_ID WHERE T2.Country_Name = 'Sri Lanka'",
+    "question_id": null,
+    "question": "How many of the players are from Sri Lanka?",
+    "difficulty": "",
+    "evidence": "from Sri Lanka refers to Country_Name = 'Sri Lanka';"
+  },
+  {
+    "sql": "SELECT T2.Player_Name FROM Player_Match AS T1 INNER JOIN Player AS T2 ON T1.Player_Id = T2.Player_Id INNER JOIN Rolee AS T3 ON T1.Role_Id = T3.Role_Id WHERE T3.Role_Desc = 'Captain' GROUP BY T2.Player_Name",
+    "question_id": null,
+    "question": "List the player's name who played as a captain.",
+    "difficulty": "",
+    "evidence": "played as a captain refers to Role_Desc = 'captain'; player refers to Player_Name"
+  },
+  {
+    "sql": "SELECT T1.Venue_Name, T3.Team_Name FROM Venue AS T1 INNER JOIN Match AS T2 ON T1.venue_id = T2.venue_id INNER JOIN Team AS T3 ON T2.match_winner = T3.Team_Id WHERE T2.Match_Id = 392194",
+    "question_id": null,
+    "question": "Give the match's venue and winning team for the match ID 392194.",
+    "difficulty": "",
+    "evidence": "venue refers to Venue_Name; winning team refers to match_winner"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T3.Win_Type = 'wickets' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T3.Win_Type) FROM Team AS T1 INNER JOIN Match AS T2 ON T1.Team_Id = T2.Match_Winner INNER JOIN Win_By AS T3 ON T2.Win_Type = T3.Win_Id WHERE T1.Team_Name = 'Delhi Daredevils'",
+    "question_id": null,
+    "question": "Among the matches of Delhi Daredevils in 2009, what is the percentage of their matches won by wickets?",
+    "difficulty": "",
+    "evidence": "Delhi Daredevils refers to team_name = 'Delhi Daredevils'; in 2009 refers to Match_Date = '2009%'; won by wickets refers to Win_Type = 'wickets'; percentage refers to DIVIDE(COUNT(Win_Type = 'wickets'), COUNT(Win_Type))"
+  }
+]

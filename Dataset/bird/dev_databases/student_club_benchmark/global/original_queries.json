@@ -1,0 +1,1108 @@
+[
+  {
+    "sql": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.first_name = 'Angela' AND T1.last_name = 'Sanders'",
+    "question_id": 1312,
+    "question": "What's Angela Sanders's major?",
+    "difficulty": "simple",
+    "evidence": "Angela Sanders is the full name; full name refers to first_name, last_name; major refers to major_name."
+  },
+  {
+    "sql": "SELECT COUNT(T1.member_id) FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.college = 'College of Engineering'",
+    "question_id": 1313,
+    "question": "How many students in the Student_Club are from the College of Engineering?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.department = 'Art and Design Department'",
+    "question_id": 1314,
+    "question": "Please list the full names of the students in the Student_Club that come from the Art and Design Department.",
+    "difficulty": "simple",
+    "evidence": "full name refers to first_name, last_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.event_id) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'Women''s Soccer'",
+    "question_id": 1315,
+    "question": "How many students of the Student_Club have attended the event \"Women's Soccer\"?",
+    "difficulty": "simple",
+    "evidence": "Women's Soccer is an event name"
+  },
+  {
+    "sql": "SELECT T3.phone FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T1.event_name = 'Women''s Soccer'",
+    "question_id": 1316,
+    "question": "Please list the phone numbers of the students from the Student_Club that has attended the event \"Women's Soccer\".",
+    "difficulty": "moderate",
+    "evidence": "Women's Soccer is an event name; phone numbers refers to phone"
+  },
+  {
+    "sql": "SELECT COUNT(T1.event_id) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T1.event_name = 'Women''s Soccer' AND T3.t_shirt_size = 'Medium'",
+    "question_id": 1317,
+    "question": "Among the students from the Student_Club who attended the event \"Women's Soccer\", how many of them want a T-shirt that's in medium size?",
+    "difficulty": "moderate",
+    "evidence": "Women's Soccer is an event name; T-shirt that is in medium size refers to t_shirt_size = 'Medium'"
+  },
+  {
+    "sql": "SELECT T1.event_name FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event GROUP BY T1.event_name ORDER BY COUNT(T2.link_to_event) DESC LIMIT 1",
+    "question_id": 1318,
+    "question": "What is the event that has the highest attendance of the students from the Student_Club?",
+    "difficulty": "simple",
+    "evidence": "event with highest attendance refers to MAX(COUNT(link_to_event))"
+  },
+  {
+    "sql": "SELECT T2.college FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.position LIKE 'vice president'",
+    "question_id": 1319,
+    "question": "Which college is the vice president of the Student_Club from?",
+    "difficulty": "simple",
+    "evidence": "Vice President is a position of the Student Club"
+  },
+  {
+    "sql": "SELECT T1.event_name FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T3.first_name = 'Maya' AND T3.last_name = 'Mclean'",
+    "question_id": 1320,
+    "question": "Please list the event names of all the events attended by Maya Mclean.",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.event_id) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T3.first_name = 'Sacha' AND T3.last_name = 'Harrison' AND SUBSTR(T1.event_date, 1, 4) = '2019'",
+    "question_id": 1321,
+    "question": "How many events of the Student_Club did Sacha Harrison attend in 2019?",
+    "difficulty": "moderate",
+    "evidence": "events attended in 2019 refers to YEAR(event_date) = 2019"
+  },
+  {
+    "sql": "SELECT T1.event_name FROM event AS T1  INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event GROUP BY T1.event_id  HAVING COUNT(T2.link_to_event) > 10 EXCEPT SELECT T1.event_name  FROM event AS T1  WHERE T1.type = 'Meeting'",
+    "question_id": 1322,
+    "question": "Among the events attended by more than 10 members of the Student_Club, how many of them are meetings?",
+    "difficulty": "moderate",
+    "evidence": "meetings events refers to type = 'Meeting'; attended by more than 10 members refers to COUNT(event_id) > 10"
+  },
+  {
+    "sql": "SELECT T1.event_name FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event GROUP BY T1.event_id HAVING COUNT(T2.link_to_event) > 20 EXCEPT SELECT T1.event_name FROM event AS T1  WHERE T1.type = 'Fundraiser'",
+    "question_id": 1323,
+    "question": "List all the names of events that had an attendance of over 20 students but were not fundraisers.",
+    "difficulty": "moderate",
+    "evidence": "name of events refers to event_name; attendance of over 20 students COUNT(event_id) > 20."
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.link_to_event) AS REAL) / COUNT(DISTINCT T2.link_to_event) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event WHERE SUBSTR(T1.event_date, 1, 4) = '2020' AND T1.type = 'Meeting'",
+    "question_id": 1324,
+    "question": "What is the average attendance of meetings in 2020?",
+    "difficulty": "moderate",
+    "evidence": "meetings in 2020 refers to type = 'Meeting' where YEAR(event_date) = 2020; average = DIVIDE(COUNT(event_id), COUNT(DISTINCT event_name))"
+  },
+  {
+    "sql": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
+    "question_id": 1325,
+    "question": "What is the most expensive item that was spent in support of club events?",
+    "difficulty": "simple",
+    "evidence": "item in support of club events refers to expense_description; most expensive refers to MAX(cost)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.member_id) FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.major_name = 'Environmental Engineering'",
+    "question_id": 1326,
+    "question": "How many members of the Student_Club have majored Environmental Engineering?\n",
+    "difficulty": "simple",
+    "evidence": "'Environmental Engineering' is the major name"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member INNER JOIN event AS T3 ON T2.link_to_event = T3.event_id WHERE T3.event_name = 'Laugh Out Loud'",
+    "question_id": 1327,
+    "question": "List the full name of all the members of the Student_Club who attended the \"Laugh Out Loud\" event.",
+    "difficulty": "moderate",
+    "evidence": "full name of members refers to first_name, last_name; 'Laugh Out Loud' is an event name;"
+  },
+  {
+    "sql": "SELECT T1.last_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.major_name = 'Law and Constitutional Studies'",
+    "question_id": 1328,
+    "question": "List the last name of all the students who majored Law and Constitutional Studies. \n",
+    "difficulty": "simple",
+    "evidence": "'Law and Constitutional Studies' is the major name"
+  },
+  {
+    "sql": "SELECT T2.county FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Sherri' AND T1.last_name = 'Ramsey'",
+    "question_id": 1329,
+    "question": "What county did Sherri Ramsey grew up?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.college FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.first_name = 'Tyler' AND T1.last_name = 'Hewitt'",
+    "question_id": 1330,
+    "question": "What college offers the major that Tyler Hewitt took?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.amount FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.position = 'Vice President'",
+    "question_id": 1331,
+    "question": "What is the amount of the funds that the Vice President received?",
+    "difficulty": "simple",
+    "evidence": "'Vice President' is a position of Student Club; funds received refers to amount."
+  },
+  {
+    "sql": "SELECT T2.spent FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'September Meeting' AND T2.category = 'Food' AND SUBSTR(T1.event_date, 6, 2) = '09'",
+    "question_id": 1332,
+    "question": "How much did the Student_Club members spend on food in September Meeting?",
+    "difficulty": "moderate",
+    "evidence": "amount spent refers to spent; spend on food in September Meeting refers to category = 'Food' where event_name = 'September Meeting'"
+  },
+  {
+    "sql": "SELECT T2.city, T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.position = 'President'",
+    "question_id": 1333,
+    "question": "What city and state did the President of the Student_Club grow up?",
+    "difficulty": "simple",
+    "evidence": "'President' is a position of Student Club;"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T2.state = 'Illinois'",
+    "question_id": 1334,
+    "question": "List the full name of the Student_Club members that grew up in Illinois state.",
+    "difficulty": "simple",
+    "evidence": "full name of member refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.spent FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'September Meeting' AND T2.category = 'Advertisement' AND SUBSTR(T1.event_date, 6, 2) = '09'",
+    "question_id": 1335,
+    "question": "How much did the Student_Club members spend on advertisement in September Meeting?",
+    "difficulty": "moderate",
+    "evidence": "amount spent refers to spent; spend on food in September Meeting refers to category = 'Advertisement' where event_name = 'September Meeting'"
+  },
+  {
+    "sql": "SELECT T2.department FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.last_name = 'Pierce' OR T1.last_name = 'Guidi'",
+    "question_id": 1336,
+    "question": "What department offers the major that Pierce and Guidi took?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(T2.amount) FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'October Speaker'",
+    "question_id": 1337,
+    "question": "What is the total budgeted amount for all category in \"October Speaker\" event?",
+    "difficulty": "simple",
+    "evidence": "total budgeted amount refers to SUM(amount) where event_name = 'October Speaker'"
+  },
+  {
+    "sql": "SELECT T3.approved FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget WHERE T1.event_name = 'October Meeting' AND T1.event_date LIKE '2019-10-08%'",
+    "question_id": 1338,
+    "question": "Was each expense in October Meeting on October 8, 2019 approved?",
+    "difficulty": "moderate",
+    "evidence": "event_name = 'October Meeting' where event_date = '2019-10-08'; approved = True means expenses was approved; approved = False means expenses was not approved"
+  },
+  {
+    "sql": "SELECT AVG(T2.cost) FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.last_name = 'Allen' AND T1.first_name = 'Elijah' AND (SUBSTR(T2.expense_date, 6, 2) = '09' OR SUBSTR(T2.expense_date, 6, 2) = '10')",
+    "question_id": 1339,
+    "question": "Calculate the total average cost that Elijah Allen spent in the events on September and October.",
+    "difficulty": "challenging",
+    "evidence": "Elijah Allen is the full name; full name refers to first_name, last_name; The 5th and 6th string of the expense_date in the expense table can refer to month; events in September and October refers to month(expense_date) = 9 OR month(expense_date) = 10"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN SUBSTR(T1.event_date, 1, 4) = '2019' THEN T2.spent ELSE 0 END) - SUM(CASE WHEN SUBSTR(T1.event_date, 1, 4) = '2020' THEN T2.spent ELSE 0 END) AS num FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event",
+    "question_id": 1340,
+    "question": "Calculate the difference of the total amount spent in all events by the Student_Club in year 2019 and 2020.",
+    "difficulty": "moderate",
+    "evidence": "The first 4 strings of the event_date values in the event table can represent year; The difference of the total amount spent = SUBTRACT(spent where YEAR(event_date) = 2019, spent where YEAR(event_date) = 2020)"
+  },
+  {
+    "sql": "SELECT location FROM event WHERE event_name = 'Spring Budget Review'",
+    "question_id": 1341,
+    "question": "Give the location for \"Spring Budget Review\".",
+    "difficulty": "simple",
+    "evidence": "'Spring Budget Review' is an event name;"
+  },
+  {
+    "sql": "SELECT cost FROM expense WHERE expense_description = 'Posters' AND expense_date = '2019-09-04'",
+    "question_id": 1342,
+    "question": "What was the cost for the \"Posters\" on 2019/9/4?",
+    "difficulty": "simple",
+    "evidence": "'Poster' is an event description; on 2019/9/14 refers to event_date = '2019-09-04'"
+  },
+  {
+    "sql": "SELECT remaining FROM budget WHERE category = 'Food' AND amount = ( SELECT MAX(amount) FROM budget WHERE category = 'Food' )",
+    "question_id": 1343,
+    "question": "With the biggest budget for the \"Food\", what was the remaining of it?",
+    "difficulty": "simple",
+    "evidence": "remaining of budget refers to remaining, biggest budget for 'Food' refers to MAX(budget.amount) where category = 'Food'"
+  },
+  {
+    "sql": "SELECT notes FROM income WHERE source = 'Fundraising' AND date_received = '2019-09-14'",
+    "question_id": 1344,
+    "question": "What was the notes of the fundraising on 2019/9/14?",
+    "difficulty": "simple",
+    "evidence": "fundraising on 2019/9/14 refers to source = 'Fundraising' where date_received = '2019-09-14'"
+  },
+  {
+    "sql": "SELECT COUNT(major_name) FROM major WHERE college = 'College of Humanities and Social Sciences'",
+    "question_id": 1345,
+    "question": "How many majors are there in \"College of Humanities and Social Sciences\"?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT phone FROM member WHERE first_name = 'Carlo' AND last_name = 'Jacobs'",
+    "question_id": 1346,
+    "question": "Tell the phone number of \"Carlo Jacobs\".",
+    "difficulty": "simple",
+    "evidence": "Carlo Jacobs is the full name; full name refers to first_name, last_name;"
+  },
+  {
+    "sql": "SELECT T2.county FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Adela' AND T1.last_name = 'O''Gallagher'",
+    "question_id": 1347,
+    "question": "Tell the hometown county for \"Adela O'Gallagher\".",
+    "difficulty": "simple",
+    "evidence": "hometown county refers to county"
+  },
+  {
+    "sql": "SELECT COUNT(T2.event_id) FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T2.event_name = 'November Meeting' AND T1.remaining < 0",
+    "question_id": 1348,
+    "question": "For all the budgets for \"November Meeting\", how many of them had exceeded the budget?",
+    "difficulty": "simple",
+    "evidence": "'November Meeting' is an event name; remaining < 0 means the cost had exceeded the budget"
+  },
+  {
+    "sql": "SELECT SUM(T1.amount) FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T2.event_name = 'September Speaker'",
+    "question_id": 1349,
+    "question": "Provide the total number of the budget amount for \"September Speaker\" event.",
+    "difficulty": "simple",
+    "evidence": "'September Speaker' is an event name; total number of budget amount refers to SUM(amount)"
+  },
+  {
+    "sql": "SELECT T1.event_status FROM budget AS T1 INNER JOIN expense AS T2 ON T1.budget_id = T2.link_to_budget WHERE T2.expense_description = 'Post Cards, Posters' AND T2.expense_date = '2019-08-20'",
+    "question_id": 1350,
+    "question": "What is the status of the event which bought \"Post Cards, Posters\" on 2019/8/20?",
+    "difficulty": "moderate",
+    "evidence": "'Post Cards, Posters' is an expense description; on 2019/8/20 refers to expense_date = '2019-8-20'; status of event refers to event_status"
+  },
+  {
+    "sql": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.first_name = 'Brent' AND T1.last_name = 'Thomason'",
+    "question_id": 1351,
+    "question": "What was Brent Thomason's major?",
+    "difficulty": "simple",
+    "evidence": "Brent Thomason is the full name; full name refers to first_name, last_name; major refers to major_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.member_id) FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.major_name = 'Business' AND T1.t_shirt_size = 'Medium'",
+    "question_id": 1352,
+    "question": "For all the club members from \"Business\" major, how many of them wear medium size t-shirt?",
+    "difficulty": "moderate",
+    "evidence": "'Business' is a major name; wear medium size t-shirt refers to t_shirt_size = 'Medium'"
+  },
+  {
+    "sql": "SELECT T2.type FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Christof' AND T1.last_name = 'Nielson'",
+    "question_id": 1353,
+    "question": "What's Christof Nielson's zip code type?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.position = 'Vice President'",
+    "question_id": 1354,
+    "question": "State the major name for the Vice President of the club.",
+    "difficulty": "simple",
+    "evidence": "'Vice President' is a position of Student Club"
+  },
+  {
+    "sql": "SELECT T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Sacha' AND T1.last_name = 'Harrison'",
+    "question_id": 1355,
+    "question": "Where is the hometown state for \"Sacha Harrison\"?",
+    "difficulty": "simple",
+    "evidence": "hometown state refers to state;"
+  },
+  {
+    "sql": "SELECT T2.department FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.position = 'President'",
+    "question_id": 1356,
+    "question": "Which department was the President of the club in?",
+    "difficulty": "simple",
+    "evidence": "'President' is a position of Student Club"
+  },
+  {
+    "sql": "SELECT T2.date_received FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Connor' AND T1.last_name = 'Hilton' AND T2.source = 'Dues'",
+    "question_id": 1357,
+    "question": "State the date Connor Hilton paid his/her dues.",
+    "difficulty": "simple",
+    "evidence": "Connor Hilton is the full name; full name refers to first_name, last_name; date the dues was paid refers to date_received where source = 'Dues';"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T2.source = 'Dues' ORDER BY T2.date_received LIMIT 1",
+    "question_id": 1358,
+    "question": "Who was the first one paid his/her dues? Tell the full name.",
+    "difficulty": "simple",
+    "evidence": "full name refers to first_name, last_name; first paid dues refers to MIN(received_date) where source = 'Dues'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.event_name = 'Yearly Kickoff' THEN T1.amount ELSE 0 END) AS REAL) / SUM(CASE WHEN T2.event_name = 'October Meeting' THEN T1.amount ELSE 0 END) FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T1.category = 'Advertisement' AND T2.type = 'Meeting'",
+    "question_id": 1359,
+    "question": "How many times was the budget in Advertisement for \"Yearly Kickoff\" meeting more than \"October Meeting\"?",
+    "difficulty": "challenging",
+    "evidence": "budget in Advertisement refer to category = 'Advertisement' in the budget table; DIVIDE(SUM(amount when event_name = 'Yearly Kickoff'), SUM(amount when event_name = 'October Meeting'))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.category = 'Parking' THEN T1.amount ELSE 0 END) AS REAL) * 100 / SUM(T1.amount) FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T2.event_name = 'November Speaker'",
+    "question_id": 1360,
+    "question": "What percentage was the budget for Parking to the total budget for the \"November Speaker\"?",
+    "difficulty": "moderate",
+    "evidence": "DIVDE(SUM( amount where category = 'Parking' and event_name = 'November Speaker'), COUNT(event_name = 'November Speaker)) * 100"
+  },
+  {
+    "sql": "SELECT SUM(cost) FROM expense WHERE expense_description = 'Pizza'",
+    "question_id": 1361,
+    "question": "What is the total cost of the pizzas for all the events?",
+    "difficulty": "simple",
+    "evidence": "total cost of the pizzas refers to SUM(cost) where expense_description = 'Pizza'"
+  },
+  {
+    "sql": "SELECT COUNT(city) FROM zip_code WHERE county = 'Orange County' AND state = 'Virginia'",
+    "question_id": 1362,
+    "question": "How many cities are there in Orange County, Virginia?",
+    "difficulty": "simple",
+    "evidence": "Orange County is the county name, Virginia is the state name"
+  },
+  {
+    "sql": "SELECT department FROM major WHERE college = 'College of Humanities and Social Sciences'",
+    "question_id": 1363,
+    "question": "List all of the College of Humanities and Social Sciences' departments.",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.city, T2.county, T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Amy' AND T1.last_name = 'Firth'",
+    "question_id": 1364,
+    "question": "Where is Amy Firth's hometown?",
+    "difficulty": "simple",
+    "evidence": "hometown refers to city, county, state"
+  },
+  {
+    "sql": "SELECT T2.expense_description FROM budget AS T1 INNER JOIN expense AS T2 ON T1.budget_id = T2.link_to_budget ORDER BY T1.remaining LIMIT 1",
+    "question_id": 1365,
+    "question": "What are the expenses of the budget with the lowest remaining?",
+    "difficulty": "simple",
+    "evidence": "expense of budget refers to expense_description; lowest remaining refers to MIN(remaining)"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.member_id FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T1.event_name = 'October Meeting'",
+    "question_id": 1366,
+    "question": "List all the members who attended the event \"October Meeting\".",
+    "difficulty": "simple",
+    "evidence": "'October Meeting' is an event name;"
+  },
+  {
+    "sql": "SELECT T2.college FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id GROUP BY T2.major_id ORDER BY COUNT(T2.college) DESC LIMIT 1",
+    "question_id": 1367,
+    "question": "Which college do most of the members go to?",
+    "difficulty": "simple",
+    "evidence": "college most members go refers to MAX(COUNT(major.college))"
+  },
+  {
+    "sql": "SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.phone = '809-555-3360'",
+    "question_id": 1368,
+    "question": "What does the person with the phone number \"809-555-3360\" major in?",
+    "difficulty": "simple",
+    "evidence": "major in refers to major_name"
+  },
+  {
+    "sql": "SELECT T2.event_name FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id ORDER BY T1.amount DESC LIMIT 1",
+    "question_id": 1369,
+    "question": "Which event has the highest budget amount?",
+    "difficulty": "simple",
+    "evidence": "event refers to event_name; highest budget amount refers to MAX(amount)"
+  },
+  {
+    "sql": "SELECT T2.expense_id, T2.expense_description FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.position = 'Vice President'",
+    "question_id": 1370,
+    "question": "List all the expenses incurred by the vice president.",
+    "difficulty": "simple",
+    "evidence": "expense refers to expense_description; 'Vice President' is a position of the Student Club"
+  },
+  {
+    "sql": "SELECT COUNT(T2.link_to_member) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'Women''s Soccer'",
+    "question_id": 1371,
+    "question": "How many members attended the \"Women's Soccer\" event?",
+    "difficulty": "simple",
+    "evidence": "'Women's Soccer' is the event name;"
+  },
+  {
+    "sql": "SELECT T2.date_received FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Casey' AND T1.last_name = 'Mason'",
+    "question_id": 1372,
+    "question": "When did the member, Casey Mason, received the income?",
+    "difficulty": "simple",
+    "evidence": "when the income was received refers to date_received"
+  },
+  {
+    "sql": "SELECT COUNT(T2.member_id) FROM zip_code AS T1 INNER JOIN member AS T2 ON T1.zip_code = T2.zip WHERE T1.state = 'Maryland'",
+    "question_id": 1373,
+    "question": "How many of the members' hometowns are from Maryland state?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.link_to_event) FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member WHERE T1.phone = '954-555-6240'",
+    "question_id": 1374,
+    "question": "How many events did the member with the phone number \"954-555-6240\" attend?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.department = 'School of Applied Sciences, Technology and Education'",
+    "question_id": 1375,
+    "question": "List all the members of the \"School of Applied Sciences, Technology and Education\" department.",
+    "difficulty": "moderate",
+    "evidence": "list all members means to list all the full name; full name refers to first_name, last_name;"
+  },
+  {
+    "sql": "SELECT T2.event_name FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T2.status = 'Closed' ORDER BY T1.spent / T1.amount DESC LIMIT 1",
+    "question_id": 1376,
+    "question": "Among all the closed events, which event has the highest spend-to-budget ratio?",
+    "difficulty": "moderate",
+    "evidence": "closed events refers to event_name where status = 'Closed'; highest spend-to budget ratio refers to MAX(DIVIDE(spent, amount))"
+  },
+  {
+    "sql": "SELECT COUNT(member_id) FROM member WHERE position = 'President'",
+    "question_id": 1377,
+    "question": "How many student have the position of president?",
+    "difficulty": "simple",
+    "evidence": "'President' is a position of Student Club"
+  },
+  {
+    "sql": "SELECT MAX(spent) FROM budget",
+    "question_id": 1378,
+    "question": "What is the highest amount of budget spend for an event?",
+    "difficulty": "simple",
+    "evidence": "highest amount of budget spend refers to MAX(spent)"
+  },
+  {
+    "sql": "SELECT COUNT(event_id) FROM event WHERE type = 'Meeting' AND SUBSTR(event_date, 1, 4) = '2020'",
+    "question_id": 1379,
+    "question": "How many meeting events were held in 2020?",
+    "difficulty": "simple",
+    "evidence": "meeting events refers to type = 'Meeting'; held in 2020 refers to YEAR(event_date) = 2020"
+  },
+  {
+    "sql": "SELECT SUM(spent) FROM budget WHERE category = 'Food'",
+    "question_id": 1380,
+    "question": "What is the total amount of money spent for food?",
+    "difficulty": "simple",
+    "evidence": "total amount of money spent refers to SUM(spent); spent for food refers to category = 'Food'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member GROUP BY T2.link_to_member HAVING COUNT(T2.link_to_event) > 7",
+    "question_id": 1381,
+    "question": "List the name of students that have attended more than 7 events.",
+    "difficulty": "moderate",
+    "evidence": "name of students means the full name; full name refers to first_name, last_name; attended more than 7 events refers to COUNT(link_to_event) > 7"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member INNER JOIN event AS T4 ON T3.link_to_event = T4.event_id WHERE T4.event_name = 'Community Theater' AND T1.major_name = 'Interior Design'",
+    "question_id": 1382,
+    "question": "Among the students majored in interior design, who have attended the Community Theater event?",
+    "difficulty": "moderate",
+    "evidence": "majored in music refers to major_name = 'Interior Design'; 'Community Theater' is the event name;"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T2.city = 'Georgetown' AND T2.state = 'South Carolina'",
+    "question_id": 1383,
+    "question": "State the name of students from Georgetown, South Carolina.",
+    "difficulty": "simple",
+    "evidence": "name of students means the full name; full name refers to first_name, last_name; Georgetown is a city; South Carolina is a state"
+  },
+  {
+    "sql": "SELECT T2.amount FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Grant' AND T1.last_name = 'Gilmour'",
+    "question_id": 1384,
+    "question": "How many income generated by Grant Gilmour?",
+    "difficulty": "simple",
+    "evidence": "income generated refers to income.amount"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T2.amount > 40",
+    "question_id": 1385,
+    "question": "Which student was able to generate income more than $40?",
+    "difficulty": "simple",
+    "evidence": "name of students means the full name; full name refers to first_name, last_name; generate income more than $50 refers to income.amount > 40"
+  },
+  {
+    "sql": "SELECT SUM(T3.cost) FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget WHERE T1.event_name = 'Yearly Kickoff'",
+    "question_id": 1386,
+    "question": "What is the total expense for the Yearly Kickoff?",
+    "difficulty": "simple",
+    "evidence": "'Yearly Kickoff' is an event name; total expense refers to SUM(cost)"
+  },
+  {
+    "sql": "SELECT T4.first_name, T4.last_name FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget INNER JOIN member AS T4 ON T3.link_to_member = T4.member_id WHERE T1.event_name = 'Yearly Kickoff'",
+    "question_id": 1387,
+    "question": "Which student has been entrusted to manage the budget for the Yearly Kickoff?",
+    "difficulty": "moderate",
+    "evidence": "name of students means the full name; full name refers to first_name, last_name;'Yearly Kickoff' is an event name;"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name, T2.source FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.first_name, T1.last_name, T2.source ORDER BY SUM(T2.amount) DESC LIMIT 1",
+    "question_id": 1388,
+    "question": "Which students manage to generate the highest income. State his/her full name along with the income source.",
+    "difficulty": "moderate",
+    "evidence": "name of students means the full name; full name refers to first_name, last_name; generate the highest income refers to MAX(income.amount);"
+  },
+  {
+    "sql": "SELECT T1.event_name FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget ORDER BY T3.cost LIMIT 1",
+    "question_id": 1389,
+    "question": "Which event has the lowest cost?",
+    "difficulty": "simple",
+    "evidence": "event refers to event_name; lowest cost means MIN(cost)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.event_name = 'Yearly Kickoff' THEN T3.cost ELSE 0 END) AS REAL) * 100 / SUM(T3.cost) FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget",
+    "question_id": 1390,
+    "question": "Based on the total cost for all event, what is the percentage of cost for Yearly Kickoff event?",
+    "difficulty": "moderate",
+    "evidence": "percentage = DIVIDE(SUM(cost where event_name = 'Yearly Kickoff'), SUM(cost)) * 100"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN major_name = 'Finance' THEN 1 ELSE 0 END) / SUM(CASE WHEN major_name = 'Physics' THEN 1 ELSE 0 END) AS ratio FROM major",
+    "question_id": 1391,
+    "question": "What is the ratio between students majored in finance and physics?",
+    "difficulty": "simple",
+    "evidence": "DIVDE(SUM(major_name = 'Finance'), SUM(major_name = 'Physics'))"
+  },
+  {
+    "sql": "SELECT source FROM income WHERE date_received BETWEEN '2019-09-01' and '2019-09-30' ORDER BY source DESC LIMIT 1",
+    "question_id": 1392,
+    "question": "Indicate the top source of funds received in September 2019 based on their amount.",
+    "difficulty": "simple",
+    "evidence": "top source funds refers to MAX(source); September 2019 means date_received BETWEEN '2019-09-01' and '2019-09-30'"
+  },
+  {
+    "sql": "SELECT first_name, last_name, email FROM member WHERE position = 'Secretary'",
+    "question_id": 1393,
+    "question": "Provide the full name and email address of the Student_Club's Secretary.",
+    "difficulty": "simple",
+    "evidence": "full name refers to first_name, last_name; 'Secretary' is a position of Student Club"
+  },
+  {
+    "sql": "SELECT COUNT(T2.member_id) FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major WHERE T1.major_name = 'Physics Teaching'",
+    "question_id": 1394,
+    "question": "How many members of the Student_Club have major in 'Physics Teaching'?",
+    "difficulty": "simple",
+    "evidence": "'Physics Teaching' is the major_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.link_to_member) FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'Community Theater' AND SUBSTR(T1.event_date, 1, 4) = '2019'",
+    "question_id": 1395,
+    "question": "How many members did attend the event 'Community Theater' in 2019?",
+    "difficulty": "moderate",
+    "evidence": "event 'Community Theater' in 2019 refers to event_name = 'Community Theater' where YEAR(event_date) = 2019"
+  },
+  {
+    "sql": "SELECT COUNT(T3.link_to_event), T1.major_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member WHERE T2.first_name = 'Luisa' AND T2.last_name = 'Guidi'",
+    "question_id": 1396,
+    "question": "Provide the number of events attended by Luisa Guidi. What is her major?",
+    "difficulty": "simple",
+    "evidence": "major refers to major_name;"
+  },
+  {
+    "sql": "SELECT SUM(spent) / COUNT(spent) FROM budget WHERE category = 'Food' AND event_status = 'Closed'",
+    "question_id": 1397,
+    "question": "On average, how much did the Student_Club spend on food for the typical event in the past?",
+    "difficulty": "simple",
+    "evidence": "DIVIDE(SUM(spent), COUNT(spent)) where category = 'Food'; 'event in the past' means event_status = 'Closed'"
+  },
+  {
+    "sql": "SELECT T2.event_name FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T1.category = 'Advertisement' ORDER BY T1.spent DESC LIMIT 1",
+    "question_id": 1398,
+    "question": "Name the event with the highest amount spent on advertisement.",
+    "difficulty": "moderate",
+    "evidence": "Name of event refers to event_name; highest amount spent on advertisement refers to MAX(spent) where category = 'Advertisement'"
+  },
+  {
+    "sql": "SELECT CASE WHEN T3.event_name = 'Women''s Soccer' THEN 'YES' END AS result FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member INNER JOIN event AS T3 ON T2.link_to_event = T3.event_id WHERE T1.first_name = 'Maya' AND T1.last_name = 'Mclean'",
+    "question_id": 1399,
+    "question": "Did Maya Mclean attend the 'Women's Soccer' event?",
+    "difficulty": "moderate",
+    "evidence": "Maya Mclean is the full name; full name refers to first_name, last_name; 'Women's Soccer' is an event_name"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN type = 'Community Service' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(type) FROM event WHERE SUBSTR(event_date, 1, 4) = '2019'",
+    "question_id": 1400,
+    "question": "Among all events hold by the Student_Club in 2019, find the percentage share of events related to 'Community Service'",
+    "difficulty": "moderate",
+    "evidence": "DIVIDE(SUM(type = 'Community Service'), COUNT(event_id)) * 100 where event_date BETWEEN' 2019-01-01' and '2019-12-31'"
+  },
+  {
+    "sql": "SELECT T3.cost FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget WHERE T1.event_name = 'September Speaker' AND T3.expense_description = 'Posters'",
+    "question_id": 1401,
+    "question": "Indicate the cost of posters for 'September Speaker' event.",
+    "difficulty": "moderate",
+    "evidence": "'Posters' is the expense description; 'September Speaker' is an event name"
+  },
+  {
+    "sql": "SELECT t_shirt_size FROM member GROUP BY t_shirt_size ORDER BY COUNT(t_shirt_size) DESC LIMIT 1",
+    "question_id": 1402,
+    "question": "What is the most popular size of t-shirt ordered by the club members?",
+    "difficulty": "simple",
+    "evidence": "most popular size of t-shirt ordered refers to MAX(COUNT(t_shirt_size))"
+  },
+  {
+    "sql": "SELECT T2.event_name FROM budget AS T1 INNER JOIN event AS T2 ON T2.event_id = T1.link_to_event WHERE T1.event_status = 'Closed' AND T1.remaining < 0 ORDER BY T1.remaining LIMIT 1",
+    "question_id": 1403,
+    "question": "Indicate the name of the closed event whose cost has exceeded the budget the most.",
+    "difficulty": "moderate",
+    "evidence": "closed events refers to event_name where status = 'Closed'; exceed the budget the most refers to MIN(remaining) where remaining < 0"
+  },
+  {
+    "sql": "SELECT T1.type, SUM(T3.cost) FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget WHERE T1.event_name = 'October Meeting'",
+    "question_id": 1404,
+    "question": "Identify the type of expenses and their total value approved for 'October Meeting' event.",
+    "difficulty": "moderate",
+    "evidence": "total value refers to SUM(cost); 'October Meeting' is an event name;"
+  },
+  {
+    "sql": "SELECT T2.category, SUM(T2.amount) FROM event AS T1 JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'April Speaker' GROUP BY T2.category ORDER BY SUM(T2.amount) ASC",
+    "question_id": 1405,
+    "question": "Calculate the amount budgeted for 'April Speaker' event. List all the budgeted categories for said event in an ascending order based on their amount budgeted.",
+    "difficulty": "moderate",
+    "evidence": "'April Speaker' is an event name; amount budgeted refers to SUM(amount); budget categories refers to category"
+  },
+  {
+    "sql": "SELECT budget_id FROM budget WHERE category = 'Food' AND amount = ( SELECT MAX(amount) FROM budget )",
+    "question_id": 1406,
+    "question": "Among the budgets for Food, which one has the highest budgeted amount?",
+    "difficulty": "simple",
+    "evidence": "MAX(amount) where category = 'Food'"
+  },
+  {
+    "sql": "SELECT budget_id FROM budget WHERE category = 'Advertisement' ORDER BY amount DESC LIMIT 3",
+    "question_id": 1407,
+    "question": "Among the budgets for Advertising, list out top three which have the most budgeted amount?",
+    "difficulty": "simple",
+    "evidence": "MAX(amount) where category = 'Advertisement'"
+  },
+  {
+    "sql": "SELECT SUM(cost) FROM expense WHERE expense_description = 'Parking'",
+    "question_id": 1408,
+    "question": "Calculate the total cost spent for Parking in the list.",
+    "difficulty": "simple",
+    "evidence": "total cost spent for Parking refers to SUM(cost) where expense_description = 'Parking'"
+  },
+  {
+    "sql": "SELECT SUM(cost) FROM expense WHERE expense_date = '2019-08-20'",
+    "question_id": 1409,
+    "question": "Mention the total expense used on 8/20/2019.",
+    "difficulty": "simple",
+    "evidence": "total expense refers SUM(cost) where expense_date = '2019-08-20'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name, SUM(T2.cost) FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.member_id = 'rec4BLdZHS2Blfp4v'",
+    "question_id": 1410,
+    "question": "List out the full name and total cost that member id \"rec4BLdZHS2Blfp4v\" incurred?",
+    "difficulty": "simple",
+    "evidence": "full name refers to first_name, last name"
+  },
+  {
+    "sql": "SELECT T2.expense_description FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.first_name = 'Sacha' AND T1.last_name = 'Harrison'",
+    "question_id": 1411,
+    "question": "State what kind of expenses that Sacha Harrison incurred?",
+    "difficulty": "simple",
+    "evidence": "kind of expenses refers to expense_description; Sacha Harrison is the full name; full name refers to first_name, last_name;"
+  },
+  {
+    "sql": "SELECT T2.expense_description FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.t_shirt_size = 'X-Large'",
+    "question_id": 1412,
+    "question": "What kind of expenses incurred by members who have X-Large in size of tee shirt?",
+    "difficulty": "simple",
+    "evidence": "kind of expenses refers to expense_description; t_shirt_size = 'X-Large'"
+  },
+  {
+    "sql": "SELECT T1.zip FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T2.cost < 50",
+    "question_id": 1413,
+    "question": "Mention the zip code of member who incurred less than 50USD.",
+    "difficulty": "simple",
+    "evidence": "incurred less than 50USD refers to cost < 50"
+  },
+  {
+    "sql": "SELECT T1.major_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major WHERE T2.first_name = 'Phillip' AND T2.last_name = 'Cullen'",
+    "question_id": 1414,
+    "question": "State the name of major that Phillip Cullen has joined.",
+    "difficulty": "simple",
+    "evidence": "name of major refers to major_name"
+  },
+  {
+    "sql": "SELECT T2.position FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major WHERE T1.major_name = 'Business'",
+    "question_id": 1415,
+    "question": "List out the position of members who joined major of Business.",
+    "difficulty": "simple",
+    "evidence": "'Business' is the major name"
+  },
+  {
+    "sql": "SELECT COUNT(T2.member_id) FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major WHERE T1.major_name = 'Business' AND T2.t_shirt_size = 'Medium'",
+    "question_id": 1416,
+    "question": "How many members of Business have the Medium size of tee shirt?",
+    "difficulty": "simple",
+    "evidence": "members of Economics refers to major_name = 'Business'; t_shirt_size = 'Medium'"
+  },
+  {
+    "sql": "SELECT T1.type FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T2.remaining > 30",
+    "question_id": 1417,
+    "question": "List out the type of events which have remaining budget more than 30 USD.",
+    "difficulty": "simple",
+    "evidence": "remaining budget more than 30 USD refers to remaining > 30"
+  },
+  {
+    "sql": "SELECT T2.category FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.location = 'MU 215'",
+    "question_id": 1418,
+    "question": "Mention the category of events which were held at MU 215.",
+    "difficulty": "simple",
+    "evidence": "held at MU 215 refers to location = 'MU 215'"
+  },
+  {
+    "sql": "SELECT T2.category FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_date = '2020-03-24T12:00:00'",
+    "question_id": 1419,
+    "question": "What is the category of event which was taken place in 2020-03-24T12:00:00?",
+    "difficulty": "simple",
+    "evidence": "taken place in 2020-03-24T12:00:00 refers to event_date = '2020-03-24T12:00:00'"
+  },
+  {
+    "sql": "SELECT T1.major_name FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major WHERE T2.position = 'Vice President'",
+    "question_id": 1420,
+    "question": "State the name of major that Vice President has joined.",
+    "difficulty": "simple",
+    "evidence": "name of major refers to major_name; 'Vice President' is position of Student Club"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.major_name = 'Business' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.member_id) FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.position = 'Member'",
+    "question_id": 1421,
+    "question": "Calculate the percentage of members who are major Business in the list?",
+    "difficulty": "moderate",
+    "evidence": "DIVIDE(SUM(position = 'Member' and major_name = 'Business'), COUNT(member_id)) * 100"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.category FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.location = 'MU 215'",
+    "question_id": 1422,
+    "question": "State the category of events were held at MU 215.",
+    "difficulty": "simple",
+    "evidence": "'MU 215' is the location of event; "
+  },
+  {
+    "sql": "SELECT COUNT(income_id) FROM income WHERE amount = 50",
+    "question_id": 1423,
+    "question": "How many income are received with an amount of 50?",
+    "difficulty": "simple",
+    "evidence": "amount of 50 refers to amount = 50"
+  },
+  {
+    "sql": "SELECT COUNT(member_id) FROM member WHERE position = 'Member' AND t_shirt_size = 'X-Large'",
+    "question_id": 1424,
+    "question": "Among the members, how many of them have an extra large t-shirt size?",
+    "difficulty": "simple",
+    "evidence": "among the members refers to position = 'Member'; extra large t-shirt size refers to t_shirt_size = 'X-Large'"
+  },
+  {
+    "sql": "SELECT COUNT(major_id) FROM major WHERE department = 'School of Applied Sciences, Technology and Education' AND college = 'College of Agriculture and Applied Sciences'",
+    "question_id": 1425,
+    "question": "In the College of Agriculture and Applied Sciences, how many majors are under the department of School of Applied Sciences, Technology and Education?",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.last_name, T1.department, T1.college FROM major AS T1 INNER JOIN member AS T2 ON T1.major_id = T2.link_to_major WHERE T2.position = 'Member' AND T1.major_name = 'Environmental Engineering'",
+    "question_id": 1426,
+    "question": "List the last name of members with a major in environmental engineering and include its department and college name.",
+    "difficulty": "moderate",
+    "evidence": "'Environmental Engineering' is the major_name;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.category, T1.type FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.location = 'MU 215' AND T2.spent = 0 AND T1.type = 'Guest Speaker'",
+    "question_id": 1427,
+    "question": "What are the budget category of the events located at MU 215 and a guest speaker type with a 0 budget spent?",
+    "difficulty": "moderate",
+    "evidence": "budget category refers to category; events located at refers to location; type = 'Guest Speaker'; 0 budget spent refers to spent = 0; "
+  },
+  {
+    "sql": "SELECT city, state FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major INNER JOIN zip_code AS T3 ON T3.zip_code = T1.zip WHERE department = 'Electrical and Computer Engineering Department' AND position = 'Member'",
+    "question_id": 1428,
+    "question": "List the city and state of members enrolled under electrical and computer engineering department.",
+    "difficulty": "moderate",
+    "evidence": "'Electrical and Computer Engineering Department' is the department; members enrolled refers to position = 'Member'"
+  },
+  {
+    "sql": "SELECT T2.event_name FROM attendance AS T1 INNER JOIN event AS T2 ON T2.event_id = T1.link_to_event INNER JOIN member AS T3 ON T1.link_to_member = T3.member_id WHERE T3.position = 'Vice President' AND T2.location = '900 E. Washington St.' AND T2.type = 'Social'",
+    "question_id": 1429,
+    "question": "What is the name of the social event that was attended by the vice president of the Student_Club located at 900 E. Washington St.?",
+    "difficulty": "challenging",
+    "evidence": "name of social event refers to event_name where type = 'Social'; 'Vice President' is position; located at refers to location"
+  },
+  {
+    "sql": "SELECT T1.last_name, T1.position FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T2.expense_date = '2019-09-10' AND T2.expense_description = 'Pizza'",
+    "question_id": 1430,
+    "question": "What is the last name and position of the student that bought pizza on 09/10/2019?",
+    "difficulty": "moderate",
+    "evidence": "bought pizza on 09/10/2019 refers to expense_description = 'Pizza' where expense_date = '2019-09-10'"
+  },
+  {
+    "sql": "SELECT T3.last_name FROM attendance AS T1 INNER JOIN event AS T2 ON T2.event_id = T1.link_to_event INNER JOIN member AS T3 ON T1.link_to_member = T3.member_id WHERE T2.event_name = 'Women''s Soccer' AND T3.position = 'Member'",
+    "question_id": 1431,
+    "question": "List the last name of the members of the club that attended the women's soccer event.",
+    "difficulty": "moderate",
+    "evidence": "members of the club refers to position = 'Member'; 'Women's Soccer' is event name;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.amount = 50 THEN 1.0 ELSE 0 END) AS REAL) * 100 / COUNT(T2.income_id) FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member WHERE T1.position = 'Member' AND T1.t_shirt_size = 'Medium'",
+    "question_id": 1432,
+    "question": "Among the members with t-shirt size of medium, what is the percentage of the amount 50 received by the Student_Club?",
+    "difficulty": "moderate",
+    "evidence": "t_shirt_size = 'Medium' where position = 'Member'; percentage = DIVIDE(COUNT(amount = 50), COUNT(member_id)) * 100"
+  },
+  {
+    "sql": "SELECT DISTINCT county FROM zip_code WHERE type = 'PO Box' AND county IS NOT NULL",
+    "question_id": 1433,
+    "question": "Which countries have zip codes with post office boxes?",
+    "difficulty": "simple",
+    "evidence": "zip codes that have post office boxes refers to type = 'PO Box'"
+  },
+  {
+    "sql": "SELECT zip_code FROM zip_code WHERE type = 'PO Box' AND county = 'San Juan Municipio' AND state = 'Puerto Rico'",
+    "question_id": 1434,
+    "question": "What are the zip codes that have post office boxes in the country of the country of San Juan Municipio whose state is Puerto Rico?",
+    "difficulty": "simple",
+    "evidence": "zip codes that have post office boxes refers to type = 'PO Box'"
+  },
+  {
+    "sql": "SELECT DISTINCT event_name FROM event WHERE type = 'Game' AND date(SUBSTR(event_date, 1, 10)) BETWEEN '2019-03-15' AND '2020-03-20' AND status = 'Closed'",
+    "question_id": 1435,
+    "question": "List the names of closed event as \"game\" that was closed from 3/15/2019 to 3/20/2020.",
+    "difficulty": "moderate",
+    "evidence": "name of events refers event_name; game event that was closed refers to type = 'Game' where status = 'Closed'; event_date BETWEEN '2019-03-15' and '2020-03-20'; "
+  },
+  {
+    "sql": "SELECT DISTINCT T3.link_to_event FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member WHERE T1.cost > 50",
+    "question_id": 1436,
+    "question": "Please provide links to events for members who have paid more than 50 dollar.",
+    "difficulty": "simple",
+    "evidence": "have paid more than 50 dollar refers to cost > 50"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.link_to_member, T3.link_to_event FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id INNER JOIN attendance AS T3 ON T2.member_id = T3.link_to_member WHERE date(SUBSTR(T1.expense_date, 1, 10)) BETWEEN '2019-01-10' AND '2019-11-19' AND T1.approved = 'true'",
+    "question_id": 1437,
+    "question": "Which members who were approved from 1/10/2019 to 11/19/2019? Please identify the member who attended the event and the link to their event.",
+    "difficulty": "challenging",
+    "evidence": "approved from 1/10/2019 to 11/19/2019 refers to approved = 'true' and expense_date BETWEEN '2019-01-10' and '2019-11-19'"
+  },
+  {
+    "sql": "SELECT T2.college FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.link_to_major = 'rec1N0upiVLy5esTO' AND T1.first_name = 'Katy'",
+    "question_id": 1438,
+    "question": "Please indicate the college of the person whose first name is Katy with the link to the major \"rec1N0upiVLy5esTO\".",
+    "difficulty": "simple",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.phone FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T2.major_name = 'Business' AND T2.college = 'College of Agriculture and Applied Sciences'",
+    "question_id": 1439,
+    "question": "Please list the phone numbers of the members who majored in business at the College of Agriculture and Applied Sciences.",
+    "difficulty": "moderate",
+    "evidence": "'College of Agriculture and Applied Sciences' is the college; majored in business refers to major_name = 'Business'; phone numbers refers to phone"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.email FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE date(SUBSTR(T2.expense_date, 1, 10)) BETWEEN '2019-09-10' AND '2019-11-19' AND T2.cost > 20",
+    "question_id": 1440,
+    "question": "List emails of people who paid more than 20 dollars from 9/10/2019 to 11/19/2019.",
+    "difficulty": "moderate",
+    "evidence": "expense_date BETWEEN '2019-09-10' and '2019-11-19'; cost > 20"
+  },
+  {
+    "sql": "SELECT COUNT(T1.member_id) FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.position = 'Member' AND T2.major_name LIKE '%Education%' AND T2.college = 'College of Education & Human Services'",
+    "question_id": 1441,
+    "question": "How many members have education major in the College of Education & Human Services?",
+    "difficulty": "moderate",
+    "evidence": "'education' is the major name; 'Member' is a position of club;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN remaining < 0 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(budget_id) FROM budget",
+    "question_id": 1442,
+    "question": "What is the percentage of the events that went over budget?",
+    "difficulty": "simple",
+    "evidence": "went over budget refers to remaining < 0; percentage = DIVIDE(SUM(remaining < 0), COUNT(event_id)) * 100"
+  },
+  {
+    "sql": "SELECT event_id, location, status FROM event WHERE date(SUBSTR(event_date, 1, 10)) BETWEEN '2019-11-01' AND '2020-03-31'",
+    "question_id": 1443,
+    "question": "Give the event ID, location, and status of events conducted from November 2019 to March 2020.",
+    "difficulty": "simple",
+    "evidence": "event_date BETWEEN '2019-11-01' and '2020-03-31'"
+  },
+  {
+    "sql": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
+    "question_id": 1444,
+    "question": "List the expenses that spend more than fifty dollars on average.",
+    "difficulty": "simple",
+    "evidence": "expense refers to expense_description; spend more than fifty dollars on average refers to DIVIDE( SUM(cost), COUNT(expense_id) ) > 50"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM member WHERE t_shirt_size = 'X-Large'",
+    "question_id": 1445,
+    "question": "Find the full name of members whose t-shirt size is extra large.",
+    "difficulty": "simple",
+    "evidence": "full name refers to first_name, last_name; t_shirt_size = 'X-Large'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN type = 'PO Box' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(zip_code) FROM zip_code",
+    "question_id": 1446,
+    "question": "Calculate the percentage of zip codes that are PO boxes.",
+    "difficulty": "simple",
+    "evidence": "DIVIDE(SUM(type = 'PO Box'), COUNT(zip_code)) * 100"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.event_name, T1.location FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T2.remaining > 0",
+    "question_id": 1447,
+    "question": "List the name and location of events that underspend its budget.",
+    "difficulty": "simple",
+    "evidence": "name of event refers to event_name; underspend its budget refers to remaining > 0"
+  },
+  {
+    "sql": "SELECT T1.event_name, T1.event_date FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget WHERE T3.expense_description = 'Pizza' AND T3.cost > 50 AND T3.cost < 100",
+    "question_id": 1448,
+    "question": "Find the name and date of events with expenses for pizza that were more than fifty dollars but less than a hundred dollars.",
+    "difficulty": "challenging",
+    "evidence": "name of event refers to event_name; date of event refers to event_date; expenses for pizza refers to expense_description = 'Pizza' where cost > 50 and cost < 100"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first_name, T1.last_name, T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major INNER JOIN expense AS T3 ON T1.member_id = T3.link_to_member WHERE T3.cost > 100",
+    "question_id": 1449,
+    "question": "What is the name and major of members who had to spend more than a hundred dollars on an expense?",
+    "difficulty": "moderate",
+    "evidence": "full name refers to first_name, last_name; major of members refers to major_name; spend more than a hundred dollars on an expense refers to cost > 100"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.city, T3.county FROM income AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id INNER JOIN zip_code AS T3 ON T3.zip_code = T2.zip WHERE T1.amount > 40",
+    "question_id": 1450,
+    "question": "In the events with more than forty incomes, list the city and country in which the event is happening.",
+    "difficulty": "simple",
+    "evidence": "more than fifty incomes refers to income > 40"
+  },
+  {
+    "sql": "SELECT T2.member_id FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id INNER JOIN budget AS T3 ON T1.link_to_budget = T3.budget_id INNER JOIN event AS T4 ON T3.link_to_event = T4.event_id GROUP BY T2.member_id HAVING COUNT(DISTINCT T4.event_id) > 1 ORDER BY SUM(T1.cost) DESC LIMIT 1",
+    "question_id": 1451,
+    "question": "Among the members who incurred expenses in more than one event, who paid the most amount?",
+    "difficulty": "challenging",
+    "evidence": "paid the most amount refers to for expense incurred in more than one event refers to MAX(cost where COUNT(event_id) > 1)"
+  },
+  {
+    "sql": "SELECT AVG(T1.cost) FROM expense AS T1 INNER JOIN member as T2 ON T1.link_to_member = T2.member_id WHERE T2.position != 'Member'",
+    "question_id": 1452,
+    "question": "What is the average amount paid by students in a position other than a member?",
+    "difficulty": "moderate",
+    "evidence": "position other than a member refers to position ! = 'Member'; average amount paid = DIVIDE( SUM(cost), COUNT(event_id))"
+  },
+  {
+    "sql": "SELECT T1.event_name FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget WHERE T2.category = 'Parking' AND T3.cost < (SELECT AVG(cost) FROM expense)",
+    "question_id": 1453,
+    "question": "List the name of events with less than average parking cost.",
+    "difficulty": "moderate",
+    "evidence": "name of events refers to event_name; less than average parking cost refers to cost < DIVIDE(SUM(cost), COUNT(event_id)) where category = 'Parking'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.type = 'Meeting' THEN T3.cost ELSE 0 END) * 100 / SUM(T3.cost) FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event INNER JOIN expense AS T3 ON T2.budget_id = T3.link_to_budget",
+    "question_id": 1454,
+    "question": "What is the percentage of the cost for the meeting events?",
+    "difficulty": "moderate",
+    "evidence": "meeting events refers to type = 'Meeting'; percentage = DIVIDE( SUM(cost), COUNT(event_id)) * 100"
+  },
+  {
+    "sql": "SELECT T2.budget_id FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id WHERE T1.expense_description = 'Water, chips, cookies' ORDER BY T1.cost DESC LIMIT 1",
+    "question_id": 1455,
+    "question": "Which budget allowed the most money for water, chips, and cookies?",
+    "difficulty": "moderate",
+    "evidence": "budget allowed refers to expense_description; expense_description = 'Water, chips, cookies'; most money refers to MAX(cost)"
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T1.link_to_member = T3.member_id ORDER BY T2.spent DESC LIMIT 5",
+    "question_id": 1456,
+    "question": "List the full name of the top five members who spend the most money in the descending order of spending.",
+    "difficulty": "moderate",
+    "evidence": "full name refers to first_name, last_name; spend the most money refers to MAX(expense.cost)"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.first_name, T3.last_name, T3.phone FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T3.member_id = T1.link_to_member WHERE T1.cost > ( SELECT AVG(T1.cost) FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id INNER JOIN member AS T3 ON T3.member_id = T1.link_to_member )",
+    "question_id": 1457,
+    "question": "Give the full name and contact number of members who had to spend more than average on each expense.",
+    "difficulty": "challenging",
+    "evidence": "full name refers to first_name, last_name; contact number refers to phone; had spent more than average on each expense refers to cost > AVG(cost)"
+  },
+  {
+    "sql": "SELECT CAST((SUM(CASE WHEN T2.state = 'New Jersey' THEN 1 ELSE 0 END) - SUM(CASE WHEN T2.state = 'Vermont' THEN 1 ELSE 0 END)) AS REAL) * 100 / COUNT(T1.member_id) AS diff FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip",
+    "question_id": 1458,
+    "question": "Calculate the difference in the percentage of members in New Jersey and Vermont.",
+    "difficulty": "moderate",
+    "evidence": "SUBTRACT( DIVIDE( SUM(state = 'New Jersey'), COUNT(position = 'Member')), DIVIDE( SUM(state = 'Vermont'), COUNT(position = 'Member')) )"
+  },
+  {
+    "sql": "SELECT T2.major_name, T2.department FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.first_name = 'Garrett' AND T1.last_name = 'Gerke'",
+    "question_id": 1459,
+    "question": "What is the major of Garrett Gerke and which department does it belong to?",
+    "difficulty": "simple",
+    "evidence": "major refers to major name;"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name, T1.cost FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id WHERE T1.expense_description = 'Water, Veggie tray, supplies'",
+    "question_id": 1460,
+    "question": "Write the full name of the member who spent money for water, veggie tray and supplies and include the cost of it.",
+    "difficulty": "challenging",
+    "evidence": "full name refers to first_name, last name; spent money for refers expense description; expense_description = 'Water, Veggie tray, supplies'"
+  },
+  {
+    "sql": "SELECT T1.last_name, T1.phone FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T2.major_name = 'Elementary Education'",
+    "question_id": 1461,
+    "question": "List the last names of students under the Elementary Education major and include their phone numbers.",
+    "difficulty": "simple",
+    "evidence": "'Elementary Education' is the major name; phone numbers refers to phone"
+  },
+  {
+    "sql": "SELECT T2.category, T2.amount FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.event_name = 'January Speaker'",
+    "question_id": 1462,
+    "question": "What category was budgeted for the 'January Speaker' event and how much was the amount budgeted for that category?",
+    "difficulty": "simple",
+    "evidence": "amount budgeted refers to amount, 'January Speaker' is the event name;"
+  },
+  {
+    "sql": "SELECT T1.event_name FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T2.category = 'Food'",
+    "question_id": 1463,
+    "question": "List the event names which were budgeted for the food.",
+    "difficulty": "simple",
+    "evidence": "budgeted for food refers to category = 'Food'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.first_name, T3.last_name, T4.amount FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T3.member_id = T2.link_to_member INNER JOIN income AS T4 ON T4.link_to_member = T3.member_id WHERE T4.date_received = '2019-09-09'",
+    "question_id": 1464,
+    "question": "Write the full names of students who received funds on the date of 9/9/2019 and include the amount received.",
+    "difficulty": "challenging",
+    "evidence": "full name refers to first_name, last_name, amount of funds received refers to amount, received funds on date refers to date_received"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.category FROM expense AS T1 INNER JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id WHERE T1.expense_description = 'Posters'",
+    "question_id": 1465,
+    "question": "Which budget category does the expense 'Posters' fall to?",
+    "difficulty": "simple",
+    "evidence": "'Posters' refers to expense description"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name, college FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T1.position = 'Secretary'",
+    "question_id": 1466,
+    "question": "Write the full name of the club member with the position of 'Secretary' and list which college the club member belongs to.",
+    "difficulty": "simple",
+    "evidence": "full name refers to first_name, last name"
+  },
+  {
+    "sql": "SELECT SUM(T1.spent), T2.event_name FROM budget AS T1 INNER JOIN event AS T2 ON T1.link_to_event = T2.event_id WHERE T1.category = 'Speaker Gifts' GROUP BY T2.event_name",
+    "question_id": 1467,
+    "question": "Calculate the total amount spent on speaker gifts and list the name of the event they were spent on.",
+    "difficulty": "simple",
+    "evidence": "total amount spent = SUM(spent) where category = 'Speaker Gifts'"
+  },
+  {
+    "sql": "SELECT T2.city FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T1.first_name = 'Garrett' AND T1.last_name = 'Gerke'",
+    "question_id": 1468,
+    "question": "Where is the hometown of Garrett Gerke?",
+    "difficulty": "simple",
+    "evidence": "hometown refers to city"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name, T1.position FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T2.city = 'Lincolnton' AND T2.state = 'North Carolina' AND T2.zip_code = 28092",
+    "question_id": 1469,
+    "question": "Which student has the hometown of Lincolnton, North Carolina with the zip code of 28092? List their full name and position.",
+    "difficulty": "moderate",
+    "evidence": "full name refers to first_name, last_name, hometown of Lincolnton, North Carolina refers to city = 'Lincolnton' AND state = 'North Carolina'"
+  }
+]

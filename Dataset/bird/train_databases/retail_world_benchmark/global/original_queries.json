@@ -1,0 +1,2613 @@
+[
+  {
+    "sql": "SELECT COUNT(EmployeeID) FROM Employees WHERE TitleOfCourtesy = 'Dr.'",
+    "question_id": null,
+    "question": "How many employees have obtained a doctorate?",
+    "difficulty": "",
+    "evidence": "doctorate refers to TitleOfCourtesy = 'Dr.;"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE EmployeeID = ( SELECT ReportsTo FROM Employees WHERE LastName = 'Davolio' AND FirstName = 'Nancy' )",
+    "question_id": null,
+    "question": "To whom does Nancy Davolio report? Please give that employee's full name.",
+    "difficulty": "",
+    "evidence": "to whom refers to ReportsTo; full name = FirstName, LastName;"
+  },
+  {
+    "sql": "SELECT HomePhone FROM Employees WHERE LastName = 'Davolio' AND FirstName = 'Nancy'",
+    "question_id": null,
+    "question": "Which phone number should I call if I want to reach Nancy Davolio's home?",
+    "difficulty": "",
+    "evidence": "phone number of Nancy Davolio's home refers to HomePhone WHERE FirstName = 'Nancy' AND LastName = 'Davolio';"
+  },
+  {
+    "sql": "SELECT COUNT(EmployeeID) FROM Employees WHERE ReportsTo = ( SELECT EmployeeID FROM Employees WHERE LastName = 'Fuller' AND FirstName = 'Andrew' )",
+    "question_id": null,
+    "question": "How many employees have Andrew Fuller as their direct supervisor?",
+    "difficulty": "",
+    "evidence": "direct supervisor refers to ReportsTo where the person being reported to is usually the direct supervisor of the reporter;"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE Salary = ( SELECT MAX(Salary) FROM Employees )",
+    "question_id": null,
+    "question": "Which employee has the highest salary? Please give his or her full name.",
+    "difficulty": "",
+    "evidence": "highest salary refers to MAX(Salary); full name = FirstName, LastName;"
+  },
+  {
+    "sql": "SELECT ( SELECT Salary FROM Employees WHERE LastName = 'Fuller' AND FirstName = 'Andrew' ) - ( SELECT Salary FROM Employees WHERE LastName = 'Davolio' AND FirstName = 'Nancy' ) AS RESULT",
+    "question_id": null,
+    "question": "How much higher is the salary of Andrew Fuller than that of Nancy Davolio?",
+    "difficulty": "",
+    "evidence": "how much higher = SUBTRACT(SUM(Salary WHERE LastName = 'Fuller' and FirstName = 'Andrew'), SUM(Salary WHERE LastName = 'Davolio' and FirstName = 'Nancy'));"
+  },
+  {
+    "sql": "SELECT COUNT(Country) FROM Employees WHERE Title = 'Sales Representative' AND Country = 'UK'",
+    "question_id": null,
+    "question": "Among the employees working as Sales Representatives, how many of them are located in the UK?",
+    "difficulty": "",
+    "evidence": "Sales Representatives refers to Title = 'Sales Representative'; UK refers to Country = 'UK';"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T3.TerritoryDescription = 'Hollis'",
+    "question_id": null,
+    "question": "Which employee is in charge of the sales in Hollis? Please give the employee's full name.",
+    "difficulty": "",
+    "evidence": "Hollis refers to TerritoryDescription = 'Hollis'; full name = FirstName, LastName;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.TerritoryID) FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Nancy' AND T1.LastName = 'Davolio'",
+    "question_id": null,
+    "question": "The sales of how many territories is Nancy Davolio in charge of?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.TerritoryDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.FirstName = 'Nancy' AND T1.LastName = 'Davolio'",
+    "question_id": null,
+    "question": "Please list the names of all the territories whose sales are taken in charge by Nancy Davolio.",
+    "difficulty": "",
+    "evidence": "names of all territories refers to TerritoryDescription;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.TerritoryID) FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.City = 'London'",
+    "question_id": null,
+    "question": "The sales of how many territories in total do the employees in London take charge of?",
+    "difficulty": "",
+    "evidence": "London refers to city = 'London';"
+  },
+  {
+    "sql": "SELECT T3.TerritoryDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.ReportsTo = ( SELECT EmployeeID FROM Employees WHERE FirstName = 'Andrew' AND LastName = 'Fuller' )",
+    "question_id": null,
+    "question": "Please list the territories whose sales are taken in charge by the employees who report to Andrew Fuller.",
+    "difficulty": "",
+    "evidence": "territories refers to TerritoryDescription;"
+  },
+  {
+    "sql": "SELECT COUNT(COUNTEID) FROM ( SELECT T1.EmployeeID AS COUNTEID FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.Country = 'UK' GROUP BY T1.EmployeeID HAVING COUNT(T2.TerritoryID) > 4 ) T1",
+    "question_id": null,
+    "question": "How many employees in the UK takes charge of the sales in over 4 territories?",
+    "difficulty": "",
+    "evidence": "UK refers to Country = 'UK'; employees with over 4 territories refers to EmployeeID WHERE TerritoryID > 4;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TerritoryID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Eastern'",
+    "question_id": null,
+    "question": "How many territories are there in the Eastern Region?",
+    "difficulty": "",
+    "evidence": "Eastern Region refers to RegionDescription = 'Eastern';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.TerritoryDescription FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Eastern'",
+    "question_id": null,
+    "question": "Please list all the territories in the Eastern Region.",
+    "difficulty": "",
+    "evidence": "territories refers to TerritoryDescription; Eastern Region refers to RegionDescription = 'Eastern';"
+  },
+  {
+    "sql": "SELECT COUNT(T.EmployeeID) FROM ( SELECT T3.EmployeeID FROM Region AS T1 INNER JOIN Territories AS T2 ON T1.RegionID = T2.RegionID INNER JOIN EmployeeTerritories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.RegionDescription = 'Eastern' GROUP BY T3.EmployeeID ) T",
+    "question_id": null,
+    "question": "How many employees in total are in charge of the sales in the Eastern Region?",
+    "difficulty": "",
+    "evidence": "Eastern Region refers to RegionDescription = 'Eastern';"
+  },
+  {
+    "sql": "SELECT T1.HomePhone FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID INNER JOIN Region AS T4 ON T3.RegionID = T4.RegionID WHERE T4.RegionDescription = 'Eastern ' GROUP BY T1.HomePhone",
+    "question_id": null,
+    "question": "Please list the home phone numbers of the employees who are in charge of the sales in the territories in the Eastern Region.",
+    "difficulty": "",
+    "evidence": "home phone numbers refers to HomePhone; Eastern Region refers to RegionDescription = 'Eastern';"
+  },
+  {
+    "sql": "SELECT ( SELECT COUNT(T1.TerritoryID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Eastern' ) - ( SELECT COUNT(T1.TerritoryID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Southern' ) AS Calu",
+    "question_id": null,
+    "question": "How many more territories are there in than Eastern Region than in the Southern Region?",
+    "difficulty": "",
+    "evidence": "how many more = SUBTRACT(SUM(RegionDescription = 'Eastern'), SUM(RegionDescription = 'Southern')); Eastern Region refers to RegionDescription = 'Eastern'; Southern Region refers to RegionDescription = 'Southern';"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.OrderID = 10248",
+    "question_id": null,
+    "question": "Please list the names of all the products ordered in order no. 10248.",
+    "difficulty": "",
+    "evidence": "names of the products refers to ProductName; order no. refers to OrderID;"
+  },
+  {
+    "sql": "SELECT T2.Quantity FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.OrderID = 10273 AND T1.ProductName = 'Ikura'",
+    "question_id": null,
+    "question": "What is the quantity of Ikura ordered in order no. 10273?",
+    "difficulty": "",
+    "evidence": "Ikura refers to ProductName = 'Ikura'; order no. refers to OrderID;"
+  },
+  {
+    "sql": "SELECT T2.UnitPrice * T2.Quantity FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.OrderID = 10273 AND T1.ProductName = 'Ikura'",
+    "question_id": null,
+    "question": "What is the total price of Ikura ordered in order no. 10273?",
+    "difficulty": "",
+    "evidence": "total price = MULTIPLY(UnitPrice, Quantity); Ikura refers to ProductName = 'Ikura'; order no. refers to OrderID;"
+  },
+  {
+    "sql": "SELECT T1.UnitsInStock + T1.UnitsOnOrder FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.OrderID = 10248 ORDER BY T2.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the total production of the product that is ordered in the highest quantity in order no. 10248?",
+    "difficulty": "",
+    "evidence": "total production of the product = SUM(units in stock, units on order); order no. refers to OrderID;"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.OrderID = 10248 ORDER BY T1.ReorderLevel DESC LIMIT 1",
+    "question_id": null,
+    "question": "Of all the products ordered in order no. 10248, which product has the highest user satisfaction?",
+    "difficulty": "",
+    "evidence": "order no. refers to OrderID; highest user satisfaction refers to MAX(ReorderLevel);"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T1.ProductName = 'Tofu'",
+    "question_id": null,
+    "question": "How many orders have asked for the product Tofu?",
+    "difficulty": "",
+    "evidence": "product refers to ProductName;"
+  },
+  {
+    "sql": "SELECT T2.OrderID FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Discontinued = 1",
+    "question_id": null,
+    "question": "Please list the IDs of the orders with a product whose production is not continuous.",
+    "difficulty": "",
+    "evidence": "IDs of the orders refers to OrderID; production is not continuous refers to Discontinued = 1;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T1.ProductName = 'Ikura' AND T2.UnitPrice < T1.UnitPrice",
+    "question_id": null,
+    "question": "Of all the orders that have ordered Ikura, how many of them enjoys a unit price that's lower than its standard unit price?",
+    "difficulty": "",
+    "evidence": "Ikura refers to ProductName = 'Ikura'; ordered unit price that's lower than its standard unit price refers to \"Order Details\".UnitPrice < \"Product\".UnitPrice;"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Aniseed Syrup'",
+    "question_id": null,
+    "question": "What is the name of the supplier company for Aniseed Syrup?",
+    "difficulty": "",
+    "evidence": "name of the supplier refers to CompanyName; Aniseed Syrup refers to ProductName = 'Aniseed Syrup';"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.Country = 'Japan'",
+    "question_id": null,
+    "question": "Please list the names of all the products whose supplier is in Japan.",
+    "difficulty": "",
+    "evidence": "names of the products refers to ProductName; Japan refers to Country = 'Japan';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Phone FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.UnitsInStock < T1.UnitsOnOrder",
+    "question_id": null,
+    "question": "Please list the phone numbers of the suppliers of the products that have a higher units on order than units in stock.",
+    "difficulty": "",
+    "evidence": "UnitsInStock < UnitsOnOrder;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Discontinued) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.Country = 'USA' AND T1.Discontinued = 1",
+    "question_id": null,
+    "question": "Among the products that are no longer in continuous production, how many of them have their supplier in the USA?",
+    "difficulty": "",
+    "evidence": "no longer continuous refers to Discontinued = 1; USA refers to Country = 'USA';"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.UnitPrice = ( SELECT MAX(UnitPrice) FROM Products )",
+    "question_id": null,
+    "question": "Who is the supplier of the product with the highest unit price?",
+    "difficulty": "",
+    "evidence": "supplier of the product refers to CompanyName; highest unit price refers to MAX(UnitPrice);"
+  },
+  {
+    "sql": "SELECT AVG(T1.Salary) FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID GROUP BY T1.EmployeeID HAVING COUNT(T2.TerritoryID) > 4",
+    "question_id": null,
+    "question": "What is the average salary of the employees who takes charge of the sales of over 4 territories?",
+    "difficulty": "",
+    "evidence": "average salary = DIVIDE(SUM(Salary), COUNT(EmployeeID)); employees who takes charge of over 4 territories refers to EmployeeID WHERE COUNT(TerritoryID) > 4;"
+  },
+  {
+    "sql": "SELECT CAST((T1.UnitPrice - T2.UnitPrice) AS REAL) * 100 / T1.UnitPrice FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.OrderID = 10273 AND T1.ProductName = 'Ikura'",
+    "question_id": null,
+    "question": "How much lower in percentage is the unit price of Ikura in order no. 10273 than its standard unit price?",
+    "difficulty": "",
+    "evidence": "how much lower in percentage = MULTIPLY(DIVIDE(SUBTRACT(Products.UnitPrice, Order Details.UnitPrice), Products.UnitPrice), 100); Ikura refers to ProductName = 'Ikura'; order no. refers to OrderID;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.Quantity) AS REAL) / COUNT(T2.OrderID) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T1.ProductName = 'Ikura'",
+    "question_id": null,
+    "question": "What is the average quantity of Ikura ordered in one order?",
+    "difficulty": "",
+    "evidence": "average = AVG(Quantity); Ikura refers to ProductName = 'Ikura';"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.OrderID = 10248 ORDER BY T1.UnitsOnOrder / T1.UnitsInStock DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the products ordered in order no. 10248, which product has the biggest ratio of units on order to units in stock?",
+    "difficulty": "",
+    "evidence": "order no. refers to OrderID; biggest ratio = MAX(DIVIDE(UnitsOnOrder, UnitsInStock));"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE BirthDate = ( SELECT MAX(BirthDate) FROM Employees )",
+    "question_id": null,
+    "question": "Give the full name of the youngest employee.",
+    "difficulty": "",
+    "evidence": "full name = FirstName, LastName; youngest refers to latest BirthDate;"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE HireDate = ( SELECT MAX(HireDate) FROM Employees )",
+    "question_id": null,
+    "question": "Who is the newest hired employee? Give the full name.",
+    "difficulty": "",
+    "evidence": "newest hired refers to latest HireDate; full name = FirstName, LastName;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Michael' AND T1.LastName = 'Suyama'",
+    "question_id": null,
+    "question": "Provide the number of orders that were handled by Michael Suyama.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.TerritoryDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.TitleOfCourtesy = 'Mr.' AND T1.FirstName = 'Robert' AND T1.LastName = 'King'",
+    "question_id": null,
+    "question": "Give the name of the territory where Mr. Robert King works.",
+    "difficulty": "",
+    "evidence": "name of territory refers to TerritoryDescription; Mr. refers to TitleOfCourtesy = 'Mr';"
+  },
+  {
+    "sql": "SELECT T3.TerritoryDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.EmployeeID = ( SELECT ReportsTo FROM Employees WHERE TitleOfCourtesy = 'Ms.' AND FirstName = 'Laura' AND LastName = 'Callahan' )",
+    "question_id": null,
+    "question": "Which territory does Ms. Laura Callahan's direct supervisor work in? Give the name of the territory.",
+    "difficulty": "",
+    "evidence": "Ms. refers to TitleOfCourtesy = 'Ms'; ReportsTo\u2019 represents a hierarchical relationship where the person being reported to is usually the direct supervisor of the reporter; name of the territory refers to TerritoryDescription;"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T3.TerritoryDescription = 'Santa Monica'",
+    "question_id": null,
+    "question": "Who is in charge of the \"Santa Monica\" territory? Give the full name.",
+    "difficulty": "",
+    "evidence": "Santa Monica refers to TerritoryDescription = 'Santa Monica'; full name = FirstName, MiddleName, LastName;"
+  },
+  {
+    "sql": "SELECT T1.HomePhone FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T3.TerritoryDescription = 'Savannah'",
+    "question_id": null,
+    "question": "Give the home phone number of the employee who is in charge of \"Savannah\" territory.",
+    "difficulty": "",
+    "evidence": "home phone number refers to HomePhone; Savannah refers to TerritoryDescription = 'Savannah';"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity) FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID WHERE T1.CustomerID = 'HILAA' AND T1.OrderDate LIKE '1997-12-25%'",
+    "question_id": null,
+    "question": "For the order from \"HILAA\" on 1997/12/25, what was the total quantity of the products in that order?",
+    "difficulty": "",
+    "evidence": "HILLA refers to CustomerID = 'HILAA'; on 1997/12/25 refers to OrderDate = '1997/12/25';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.ProductID) FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID WHERE T1.Freight = ( SELECT MAX(Freight) FROM Orders ) GROUP BY T1.OrderID",
+    "question_id": null,
+    "question": "For the order paying the highest freight, how many kinds of products does it contain?",
+    "difficulty": "",
+    "evidence": "highest freight refers to MAX(Freight); kinds of products refers to ProductID;"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T1.OrderID = 10585",
+    "question_id": null,
+    "question": "Tell the name of the shipper company for the order No.10585.",
+    "difficulty": "",
+    "evidence": "name of the shipper company refers to ShipName; order No. refers to OrderID;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Federal Shipping'",
+    "question_id": null,
+    "question": "Give the number of orders that were shipped by \"Federal Shipping\".",
+    "difficulty": "",
+    "evidence": "Federal Shipping refers to CompanyName = 'Federal Shipping';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID WHERE T2.CategoryName = 'Dairy Products'",
+    "question_id": null,
+    "question": "How many kinds of products are there in the the category of \"dairy products\"?",
+    "difficulty": "",
+    "evidence": "kinds of products refers to ProductID; category refers to CategoryName;"
+  },
+  {
+    "sql": "SELECT T2.CategoryName FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID WHERE T1.ProductName = 'Tofu'",
+    "question_id": null,
+    "question": "Which category does \"tofu\" belong to?",
+    "difficulty": "",
+    "evidence": "category refers to CategoryName; tofu refers to ProductName = 'Tofu';"
+  },
+  {
+    "sql": "SELECT SUM(T1.UnitsInStock + T1.UnitsOnOrder) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Escargots Nouveaux'",
+    "question_id": null,
+    "question": "What is the total production of the products from the supplier \u201cEscargots Nouveaux\u201d?",
+    "difficulty": "",
+    "evidence": "total production of the products = add(units in stock , units on order); supplier \u201cEscargots Nouveaux\u201d refers to CompanyName = 'Escargots Nouveaux'"
+  },
+  {
+    "sql": "SELECT T1.ReorderLevel FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Nord-Ost-Fisch Handelsgesellschaft mbH'",
+    "question_id": null,
+    "question": "Give the reorder level for the products from the supplier \"Nord-Ost-Fisch Handelsgesellschaft mbH\".",
+    "difficulty": "",
+    "evidence": "supplier \"Nord-Ost-Fisch Handelsgesellschaft mbH\" refers to CompanyName = 'Nord-Ost-Fisch Handelsgesellschaft mbH'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Karkki Oy'",
+    "question_id": null,
+    "question": "How many kinds of products are supplied by \"Karkki Oy\" company?",
+    "difficulty": "",
+    "evidence": "supplied by refers to CompanyName"
+  },
+  {
+    "sql": "SELECT T2.ContactName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Gudbrandsdalsost'",
+    "question_id": null,
+    "question": "Give the contact name of the supplier for the product \"Gudbrandsdalsost\".",
+    "difficulty": "",
+    "evidence": "product refers to ProductName"
+  },
+  {
+    "sql": "SELECT T2.Country FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Scottish Longbreads'",
+    "question_id": null,
+    "question": "Tell the country name of the supplier for \"Scottish Longbreads\".",
+    "difficulty": "",
+    "evidence": "\"Scottish Longbreads\" refers to ProductName = 'Scottish Longbreads'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TerritoryID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Northern'",
+    "question_id": null,
+    "question": "Give the number of territories in the \"Northern\" region.",
+    "difficulty": "",
+    "evidence": "\"Northern\" region refers to RegionDescription = 'Northern'"
+  },
+  {
+    "sql": "SELECT T2.RegionDescription FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T1.TerritoryDescription = 'Columbia'",
+    "question_id": null,
+    "question": "Which region is \"Columbia\" in?",
+    "difficulty": "",
+    "evidence": "region refers to RegionID; \"Columbia\" refers to TerritoryDescription = 'Columbia'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.CompanyName = 'United Package' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T1.CustomerID = 'WHITC'",
+    "question_id": null,
+    "question": "For the orders of Customer \"WHITC\", what is the percentage of the orders were fulfilled with shipper company \"United Package\"?",
+    "difficulty": "",
+    "evidence": "Customer \"WHITC\" refers to CustomerID = 'WHITC'; shipper company \"United Package\" refers to CompanyName = 'United Package'; percentage = divide(count(ShipperID where CompanyName = 'United Package') , count(ShipperID)) * 100%"
+  },
+  {
+    "sql": "SELECT CAST((COUNT(CASE WHEN T2.CompanyName = 'United Package' THEN 1 ELSE NULL END) - COUNT(CASE WHEN T2.CompanyName = 'Speedy Express' THEN 1 ELSE NULL END)) AS REAL) * 100 / COUNT(CASE WHEN T2.CompanyName = 'Speedy Express' THEN 1 ELSE NULL END) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID",
+    "question_id": null,
+    "question": "How many percent more orders were fulfilled with shipper company \"United Package\" than with \"Speedy Express\"?",
+    "difficulty": "",
+    "evidence": "percent = divide(subtract(count(OrderID where CompanyName = 'United Package') , count(OrderID where CompanyName = 'Speedy Express')) , count(OrderID where CompanyName = 'Speedy Express')) * 100%"
+  },
+  {
+    "sql": "SELECT CAST(( SELECT COUNT(T1.TerritoryID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Eastern' ) AS REAL) / ( SELECT COUNT(T1.TerritoryID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Southern' ) AS Calu",
+    "question_id": null,
+    "question": "How many times is the number of territories in \"Eastern Region\" than \"Southern Region\"?",
+    "difficulty": "",
+    "evidence": "\"Eastern Region\" refers to RegionDescription = 'Eastern'; \"Southern Region\" refers to RegionDescription = 'Southern'; times = divide(count(TerritoryDescription where RegionDescription = 'Eastern') , count(TerritoryDescription where RegionDescription = 'Southern'))"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM Customers GROUP BY Country ORDER BY COUNT(CustomerID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many customers are there in the country with the highest number of customers?",
+    "difficulty": "",
+    "evidence": "highest number refers to max(count(CustomerID))"
+  },
+  {
+    "sql": "SELECT OrderID FROM Orders WHERE Freight > 800",
+    "question_id": null,
+    "question": "What are the order ids of the orders with freight of over 800?",
+    "difficulty": "",
+    "evidence": "freight of over 800 refers to Freight > 800"
+  },
+  {
+    "sql": "SELECT Address, City, Region, Country, PostalCode FROM Customers WHERE CompanyName = 'Island Trading'",
+    "question_id": null,
+    "question": "What is the Island Trading customer's complete address?",
+    "difficulty": "",
+    "evidence": "Island Trading refers to CompanyName = 'Island Trading'; complete address = Address, City, Region, Country, PostalCode"
+  },
+  {
+    "sql": "SELECT ProductName FROM Products WHERE UnitPrice = ( SELECT MAX(UnitPrice) FROM Products )",
+    "question_id": null,
+    "question": "What is the most expensive product?",
+    "difficulty": "",
+    "evidence": "product refers to ProductName; most expensive refers to max(UnitPrice)"
+  },
+  {
+    "sql": "SELECT COUNT(SupplierID) FROM Suppliers WHERE Country = 'USA'",
+    "question_id": null,
+    "question": "How many suppliers are there in the United States of America?",
+    "difficulty": "",
+    "evidence": "United States of America refers to Country = 'USA'"
+  },
+  {
+    "sql": "SELECT ProductName FROM Products WHERE ReorderLevel = ( SELECT MAX(ReorderLevel) FROM Products )",
+    "question_id": null,
+    "question": "Which product have the highest user satisfaction?",
+    "difficulty": "",
+    "evidence": "product refers to ProductName; highest user satisfaction refers to max(ReorderLevel)"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE Salary = ( SELECT MAX(Salary) FROM Employees )",
+    "question_id": null,
+    "question": "What is the full name of the employee with the highest salary?",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName LastName; highest salary refers to max(Salary)"
+  },
+  {
+    "sql": "SELECT ProductName FROM Products WHERE Discontinued = 1",
+    "question_id": null,
+    "question": "What are the names of the products that were discountinued?",
+    "difficulty": "",
+    "evidence": "discontinued refers to Discontinued = 1; name of products refers to ProductName"
+  },
+  {
+    "sql": "SELECT AVG(Salary) FROM Employees WHERE Title = 'Sales Representative' AND Country = 'UK'",
+    "question_id": null,
+    "question": "What is the average salary of sales representatives in the United Kingdom?",
+    "difficulty": "",
+    "evidence": "average salary = avg(Salary); sales representative refers to Title = 'Sales Representative'; in the United Kingdom refers to Country = 'UK'"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T1.ShipCountry = 'USA' GROUP BY T2.CompanyName ORDER BY COUNT(T2.CompanyName) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most widely used shipping company in the United States of America?",
+    "difficulty": "",
+    "evidence": "most widely used refers to max(count(ShipVia)); shipping company refers to CompanyName; in the United States of America refers to ShipCountry = 'USA'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductName) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Pavlova, Ltd.'",
+    "question_id": null,
+    "question": "How many products were supplied by Pavlova, Ltd.?",
+    "difficulty": "",
+    "evidence": "Pavlova, Ltd. refers to CompanyName = 'Pavlova, Ltd.'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T1.CustomerID = 'GREAL' AND T2.CompanyName = 'United Package'",
+    "question_id": null,
+    "question": "How many orders were shipped to GREAL via United Package?",
+    "difficulty": "",
+    "evidence": "GREAL refers to CustomerID = 'GREAL'; via United Package refers to CompanyName = 'United Package'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ReorderLevel = ( SELECT MAX(ReorderLevel) FROM Products )",
+    "question_id": null,
+    "question": "What are the names of the suppliers whose products have the highest user satisfaction?",
+    "difficulty": "",
+    "evidence": "name of the supplier refers to SupplierID; highest user satisfaction refers to max(ReorderLevel)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'United Package'",
+    "question_id": null,
+    "question": "In total, how many orders were shipped via United Package?",
+    "difficulty": "",
+    "evidence": "via United Package refers to CompanyName = 'United Package'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Discontinued) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.Discontinued = 1 AND T2.Country = 'Australia'",
+    "question_id": null,
+    "question": "How many suppliers in Australia whose products were discontinued?",
+    "difficulty": "",
+    "evidence": "in Australia refers to Country = 'Australia'; discontinued refers to Discontinued = 1"
+  },
+  {
+    "sql": "SELECT T2.UnitPrice * T2.Quantity + T1.Freight FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID ORDER BY T2.UnitPrice * T2.Quantity + T1.Freight DESC LIMIT 2",
+    "question_id": null,
+    "question": "How much is the total purchase price, including freight, of the top 2 most expensive products?",
+    "difficulty": "",
+    "evidence": "total purchase price including freight refers to add(multiply(UnitPrice , Quantity) , Freight); most expensive refers to max(UnitPrice)"
+  },
+  {
+    "sql": "SELECT T1.SupplierID FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID GROUP BY T1.SupplierID ORDER BY COUNT(*) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the supplier that supplies the most products to the company?",
+    "difficulty": "",
+    "evidence": "name of the supplier refers to SupplierID; the most product refers to max(count(ProductID))"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.ProductName FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.UnitPrice < 5",
+    "question_id": null,
+    "question": "What are the names of the products that were ordered that have a unit price of no more than 5?",
+    "difficulty": "",
+    "evidence": "unit price of no more than 5 refers to UnitPrice < 5; name of products refers to ProductName"
+  },
+  {
+    "sql": "SELECT T1.Title FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID GROUP BY T1.Title ORDER BY COUNT(T2.TerritoryID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the title of the employee with the highest number of territories in charge?",
+    "difficulty": "",
+    "evidence": "highest number of territories refers to max(TerritoryID)"
+  },
+  {
+    "sql": "SELECT T1.ProductID FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID GROUP BY T1.ProductID ORDER BY COUNT(*) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most ordered products by customers?",
+    "difficulty": "",
+    "evidence": "most ordered refers to max(count(ProductID)); product refers to ProductID"
+  },
+  {
+    "sql": "SELECT T3.TerritoryDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.TitleOfCourtesy = 'Dr.'",
+    "question_id": null,
+    "question": "Which territories is the employee with a doctorate in charge of? List all of the territory descriptions.",
+    "difficulty": "",
+    "evidence": "with a doctorate refers to TitleOfCourtesy = 'Dr.'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.TerritoryDescription FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Eastern' ORDER BY T1.TerritoryDescription",
+    "question_id": null,
+    "question": "What are the territory descriptions of territories in the Eastern region?",
+    "difficulty": "",
+    "evidence": "in the Eastern region refers to RegionDescription = 'Eastern'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.TerritoryID) AS REAL) / COUNT(DISTINCT T1.EmployeeID) FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.Title = 'Sales Representative'",
+    "question_id": null,
+    "question": "What is the average number of territories do each sales representative is in charge of?",
+    "difficulty": "",
+    "evidence": "sales representative refers to Title = 'Sales Representative'; average number of territories = divide(count(TerritoryID) , count(EmployeeID)) where Title = 'Sales Representative'"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID WHERE T2.CategoryName = 'Beverages' ORDER BY T1.ReorderLevel DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the beverages, which product has the highest customer satisfaction?",
+    "difficulty": "",
+    "evidence": "beverage refers to CategoryName = 'Beverages'; highest customer satisfaction refers to max(ReorderLevel)"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID GROUP BY T1.FirstName, T1.LastName ORDER BY COUNT(*) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the employee who handled the highest amount of orders?",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName LastName; highest amount of orders refers to max(count(OrderID))"
+  },
+  {
+    "sql": "SELECT COUNT(T2.ProductID) FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID GROUP BY T2.ProductID ORDER BY COUNT(T1.Freight) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many products were ordered in the order with the highest freight?",
+    "difficulty": "",
+    "evidence": "highest freight refers to max(Freight)"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID WHERE T2.CategoryName = 'Seafood' ORDER BY T1.UnitsInStock + T1.UnitsOnOrder DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the seafood products, which product have the highest total production of the production?",
+    "difficulty": "",
+    "evidence": "seafood product refers to CategoryName = 'Seafood'; product refers to ProductID; highest total production refers to max(add(units in stock, units on order))"
+  },
+  {
+    "sql": "SELECT MAX(Salary) - MIN(Salary) FROM ( SELECT T1.Salary FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID GROUP BY T1.EmployeeID, T1.Salary ORDER BY COUNT(T2.TerritoryID) DESC LIMIT 2 ) T1",
+    "question_id": null,
+    "question": "What is the difference in salary of the top 2 employees with the highest number of territories in charge?",
+    "difficulty": "",
+    "evidence": "highest number of territories refers to max(TerritoryID); difference in salary = subtract(employeeA.Salary, employeeB.Salary)"
+  },
+  {
+    "sql": "SELECT SUM(UnitPrice) / COUNT(UnitPrice) FROM Products WHERE UnitsInStock > 50",
+    "question_id": null,
+    "question": "What is the average price of products with more than fifty units in stock?",
+    "difficulty": "",
+    "evidence": "more than fifty units in stock refers to UnitsInStock > 50; average price = avg(UnitPrice where UnitsInStock > 50)"
+  },
+  {
+    "sql": "SELECT CompanyName FROM `Customer and Suppliers by City` WHERE CITY = ( SELECT City FROM `Customer and Suppliers by City` GROUP BY City ORDER BY COUNT(Relationship) DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "List the company names of customers from the city with the most customers.",
+    "difficulty": "",
+    "evidence": "most customers refers to max(count(Relationship))"
+  },
+  {
+    "sql": "SELECT CompanyName, ContactName, ContactTitle FROM Customers WHERE City = 'Madrid'",
+    "question_id": null,
+    "question": "Find and list the company name, company contact name, and contact title of customers from Madrid.",
+    "difficulty": "",
+    "evidence": "from Madrid refers to City = 'Madrid'"
+  },
+  {
+    "sql": "SELECT FirstName, LastName, HomePhone FROM Employees ORDER BY BirthDate DESC",
+    "question_id": null,
+    "question": "Give the full name and contact number of employees in descending order of age.",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName LastName; contact number refers to HomePhone; descending order of age refers to order by BirthDate desc limit 1"
+  },
+  {
+    "sql": "SELECT AVG(UnitPrice) AS avg FROM Invoices WHERE Country = 'UK'",
+    "question_id": null,
+    "question": "Calculate the average price of products shipped to the UK.",
+    "difficulty": "",
+    "evidence": "average price = divide(sum(UnitPrice) , count(ProductID)); the UK refers to Country = 'UK'"
+  },
+  {
+    "sql": "SELECT ProductID FROM `Order Details` GROUP BY ProductID ORDER BY SUM(Quantity) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among all the orders, which products sold for the most amount?",
+    "difficulty": "",
+    "evidence": "the most amount refers to max(sum(Quantity))"
+  },
+  {
+    "sql": "SELECT T2.CompanyName, T2.Address, T2.Phone FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.UnitPrice > 30",
+    "question_id": null,
+    "question": "List the name, address, and phone number of companies that supply products for more than thirty dollars per unit.",
+    "difficulty": "",
+    "evidence": "more than thirty dollars per unit refers to UnitPrice > 30"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.CompanyName, T1.Address FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.Freight > ( SELECT AVG(Freight) FROM Orders )",
+    "question_id": null,
+    "question": "Among the customers, list customers' company names and addresses who paid more than average in freight.",
+    "difficulty": "",
+    "evidence": "paid more than average in freight refers to Freight > divide(sum(Freight) , count(OrderID))"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T3.TerritoryDescription = 'Wilton'",
+    "question_id": null,
+    "question": "Find and list the full name of employees who are from the territory, Wilton.",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName LastName; Wilton refers to TerritoryDescription = 'Wilton'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.Discontinued = 1 AND T2.Country != 'USA'",
+    "question_id": null,
+    "question": "List the names of non-US suppliers that have discontinued.",
+    "difficulty": "",
+    "evidence": "non-US refers to Country <> 'USA'; discontinued refers to Discontinued = 1"
+  },
+  {
+    "sql": "SELECT T3.ProductName FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.OrderDate LIKE '1998%' ORDER BY T3.UnitPrice + T1.Freight DESC LIMIT 5",
+    "question_id": null,
+    "question": "List the top five most costly products in 1998.",
+    "difficulty": "",
+    "evidence": "most costly refers to max(add(unit price , Freight)); in 1998 refers to OrderDate > = '1998-01-01 00:00:00' AND OrderDate < '1999-01-01 00:00:00'"
+  },
+  {
+    "sql": "SELECT COUNT(T3.CustomerID) FROM Shippers AS T1 INNER JOIN Orders AS T2 ON T1.ShipperID = T2.ShipVia INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T2.ShipName = 'Federal Shipping'",
+    "question_id": null,
+    "question": "Of the customers who are from Canada, how many used Federal Shipping?",
+    "difficulty": "",
+    "evidence": "from Canada refers to Country = 'Canada'; Federal Shipping refers to ShipName = 'Federal Shipping'"
+  },
+  {
+    "sql": "SELECT T3.ProductName FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID GROUP BY T3.ProductName ORDER BY COUNT(*) DESC LIMIT 10",
+    "question_id": null,
+    "question": "List the name of the top ten most ordered product's names in descending order of the number of orders.",
+    "difficulty": "",
+    "evidence": "most ordered refers to max(COUNT(OrderID))"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID GROUP BY T2.SupplierID, T2.CompanyName ORDER BY COUNT(T1.ProductName) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which supplier supplies the most amount of products?",
+    "difficulty": "",
+    "evidence": "supplier refers to SupplierID; most amount refers to max(count(ProductID))"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.FirstName, T1.LastName, T4.RegionDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID INNER JOIN Region AS T4 ON T3.RegionID = T4.RegionID ORDER BY T1.FirstName",
+    "question_id": null,
+    "question": "Please list the full name and region of each employee in alphabetical order.",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName LastName; region refers to RegionDescription"
+  },
+  {
+    "sql": "SELECT FirstName, LastName, Title, address FROM Employees WHERE EmployeeID = ( SELECT T1.EmployeeID FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.OrderDate BETWEEN '1996-01-01 00:00:00' AND '1997-01-01 00:00:00' GROUP BY T1.EmployeeID ORDER BY COUNT(T2.OrderID) DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "Which employee handled the most amount of orders in 1996? Give the full name, title, and address of this employee.",
+    "difficulty": "",
+    "evidence": "most amount of orders refers to max(count(OrderID)); in 1996 refers to OrderDate > = '1996-01-01 00:00:00' AND OrderDate < '1997-01-01 00:00:00'; full name refers to FirstName, LastName"
+  },
+  {
+    "sql": "SELECT AVG(T2.UnitPrice) FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Shippers AS T3 ON T1.ShipVia = T3.ShipperID WHERE T1.OrderDate LIKE '1997%' AND T3.CompanyName = 'United Package'",
+    "question_id": null,
+    "question": "What was the average unit price of products shipped via United Package in 1997?",
+    "difficulty": "",
+    "evidence": "via United Package refers to CompanyName = 'United Package'; in 1997 refers to OrderDate > = '1997-01-01 00:00:00' AND OrderDate < '1998-01-01 00:00:00'; average unit price = divide(sum(UnitPrice), count(ShipperID))"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.CompanyName = 'Speedy Express' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.ShipVia) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID",
+    "question_id": null,
+    "question": "Calculate the percentage of shipping done through Speedy Express.",
+    "difficulty": "",
+    "evidence": "through Speedy Express refers to CompanyName = 'Speedy Express'; percentage = divide(count(ShipperID where CompanyName = 'Speedy Express') , count(ShipperID)) * 100%"
+  },
+  {
+    "sql": "SELECT TitleOfCourtesy FROM Employees ORDER BY Salary LIMIT 3",
+    "question_id": null,
+    "question": "Indicate the courtesy title of the 3 employees who have the lowest salary.",
+    "difficulty": "",
+    "evidence": "courtesy title refers to TitleOfCourtesy; the lowest salary refers to MIN(Salary);"
+  },
+  {
+    "sql": "SELECT LastName FROM Employees WHERE ReportsTo = ( SELECT EmployeeID FROM Employees WHERE Title = 'Vice President, Sales' )",
+    "question_id": null,
+    "question": "What is the last name of the employees who must report to the Vice President of Sales?",
+    "difficulty": "",
+    "evidence": "report to represents a hierarchical relationship where the person being reported to is usually the direct supervisor of the reporter; Vice President of Sales refers to Title = 'Vice President, Sales';"
+  },
+  {
+    "sql": "SELECT UnitPrice * Quantity * (1 - Discount) AS THETOP FROM `Order Details` ORDER BY UnitPrice * Quantity * (1 - Discount) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest total price paid for an order?",
+    "difficulty": "",
+    "evidence": "the highest total price paid for an order can be calculated as MAX(MULTIPLY(UnitPrice, Quantity, SUBTRACT(1-Discount)));"
+  },
+  {
+    "sql": "SELECT ProductName FROM Products ORDER BY UnitsInStock + UnitsOnOrder DESC LIMIT 3",
+    "question_id": null,
+    "question": "Which 3 products are produced in greater quantity?",
+    "difficulty": "",
+    "evidence": "3 products produced in greater quantity refer to MAX(SUM(UnitsInStock, UnitsOnOrder)) Limit 3;"
+  },
+  {
+    "sql": "SELECT ProductID FROM Products ORDER BY ReorderLevel ASC, UnitPrice DESC LIMIT 1",
+    "question_id": null,
+    "question": "Of the 10 products with the highest unit price, identify by their ID the ones that have generated the least satisfaction.",
+    "difficulty": "",
+    "evidence": "High reorder level generally means high user satisfaction of the product and vice versa; the least satisfaction refers to MIN(ReorderLevel); the highest unit price refers to MAX(UnitPrice);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CategoryID) FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID WHERE T1.CategoryName = 'Dairy Products' AND T2.Discontinued = 0",
+    "question_id": null,
+    "question": "How many non-discontinued products are there in the dairy category?",
+    "difficulty": "",
+    "evidence": "non-discontinued products in the dairy category refer to ProductID where Discontinued = 0 and CategoryName = 'Dairy Products';"
+  },
+  {
+    "sql": "SELECT T3.TerritoryDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.Title = 'Inside Sales Coordinator'",
+    "question_id": null,
+    "question": "What territories is the Inside Sales Coordinator in charge of?",
+    "difficulty": "",
+    "evidence": "territories refer to TerritoryDescription; Title = 'Inside Sales Coordinator';"
+  },
+  {
+    "sql": "SELECT T1.CompanyName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.Freight > 2000000",
+    "question_id": null,
+    "question": "Indicate the name of the companies that have freighted products for a value greater than 2,000,000.",
+    "difficulty": "",
+    "evidence": "freighted products for a value greater than 2,000,000 refer to Freight > 2000000; name of companies refers to CompanyName;"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T1.ShipCity = 'Aachen' GROUP BY T2.CompanyName ORDER BY COUNT(T1.ShipVia) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Through which companies have products been shipped the most times to the city of Aachen?",
+    "difficulty": "",
+    "evidence": "shipped the most times refer to MAX(COUNT(ShipVia)); city of Aachen refers to ShipCity = 'Aache'; companies refers to CompanyName;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID INNER JOIN Region AS T4 ON T3.RegionID = T4.RegionID WHERE T4.RegionDescription = 'Northern'",
+    "question_id": null,
+    "question": "List the full name of all employees who work in the Northern region.",
+    "difficulty": "",
+    "evidence": "full names = FirstName, LastName; Northern region refers to RegionDescription = 'Northern';"
+  },
+  {
+    "sql": "SELECT T2.ContactName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Pavlova'",
+    "question_id": null,
+    "question": "What is the name of the contact person of the Pavlova supplier company?",
+    "difficulty": "",
+    "evidence": "contact person refers to ContactName; Pavlova is the name of the product;"
+  },
+  {
+    "sql": "SELECT T3.ProductName FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.ShipCity = 'Paris'",
+    "question_id": null,
+    "question": "Indicate the name of the products that have been shipped to the city of Paris.",
+    "difficulty": "",
+    "evidence": "shipped to the city of Paris refers to ShipCity = 'Paris';"
+  },
+  {
+    "sql": "SELECT T4.ProductName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID INNER JOIN Products AS T4 ON T3.ProductID = T4.ProductID WHERE T1.PostalCode = 28023 ORDER BY T3.Quantity LIMIT 1",
+    "question_id": null,
+    "question": "What product is the least shipped to the postal code 28023?",
+    "difficulty": "",
+    "evidence": "the least shipped product refers ProductName where MIN(Quantity);"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID INNER JOIN Region AS T4 ON T3.RegionID = T4.RegionID WHERE T4.RegionDescription = 'Southern' AND T1.ReportsTo = ( SELECT EmployeeID FROM Employees WHERE FirstName = 'Andrew' AND LastName = 'Fuller' )",
+    "question_id": null,
+    "question": "What is the full name of the employee in charge of the Southern region who is to report to Andrew Fuller?",
+    "difficulty": "",
+    "evidence": "full names = FirstName, LastName; report to represents a hierarchical relationship where the person being reported to is usually the direct supervisor of the reporter; Andrew Fuller refers to Employees WHERE FirstName = 'Andrew' AND LastName = 'Fuller'; Southern region refers to RegionDescription = 'Southern';"
+  },
+  {
+    "sql": "SELECT T2.OrderDate FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID INNER JOIN Products AS T4 ON T3.ProductID = T4.ProductID WHERE T4.ProductName = 'Filo Mix' AND T3.Quantity = 9 AND T1.CompanyName = 'Du monde entier'",
+    "question_id": null,
+    "question": "On what date did the Du monde entier company request that 9 units of Filo Mix be sent to it?",
+    "difficulty": "",
+    "evidence": "9 units of Filo Mix refer to ProductName where Quantity = 9; Du monde entier is the name of the customer; date refers to OrderDate;"
+  },
+  {
+    "sql": "SELECT T3.CategoryName FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Categories AS T3 ON T1.CategoryID = T3.CategoryID WHERE T2.OrderID = 10933",
+    "question_id": null,
+    "question": "Indicate the name of the categories to which the products of order number 10933 belong.",
+    "difficulty": "",
+    "evidence": "order number 10933 refers to OrderID = 10933;"
+  },
+  {
+    "sql": "SELECT T1.HomePhone FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T3.TerritoryDescription = 'Portsmouth'",
+    "question_id": null,
+    "question": "What is the phone number for the employee in charge of the Portsmouth territory?",
+    "difficulty": "",
+    "evidence": "phone refers to HomePhone; Portsmouth territory refers to TerritoryDescription = 'Portsmouth';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.Quantity) AS REAL) / COUNT(T2.OrderID) FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Shippers AS T3 ON T1.ShipVia = T3.ShipperID WHERE T1.ShippedDate LIKE '1996-11%' AND T3.CompanyName = 'Federal Shipping'",
+    "question_id": null,
+    "question": "What is the average quantity of product that have been shipped by Federal Shipping in November 1996?",
+    "difficulty": "",
+    "evidence": "Federal Shipping refers to CompanyName = 'Federal Shipping'; DIVIDE(SUM(Quantity), COUNT(ProductID)) where CompanyName = 'Federal Shipping' and ShippedDate > = '1996-11-01 00:00:00' AND ShippedDate < '1996-12-01 00:00:00';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.ShippedDate LIKE '1996-09%' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.ShipVia) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'United Package' AND T1.ShippedDate LIKE '1996%'",
+    "question_id": null,
+    "question": "Of all the shipments made by United Package throughout the year 1996, what percentage correspond to the month of September?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(OrderID where CompanyName = 'United Package' and ShippedDate > = '1996-09-01 00:00:00' AND ShippedDate < '1996-09-30 00:00:00')), (COUNT(OrderID where CompanyName = 'United Package' and ShippedDate > = '1996-01-01 00:00:00' AND ShippedDate < '1997-01-01 00:00:00')) as percentage; \n"
+  },
+  {
+    "sql": "SELECT COUNT(ContactTitle) FROM Customers WHERE Country = 'Mexico' AND ContactTitle = 'Owner'",
+    "question_id": null,
+    "question": "How many owners are located in Mexico?",
+    "difficulty": "",
+    "evidence": "owners in Mexico refer to ContactTitle where Country = 'Mexico';"
+  },
+  {
+    "sql": "SELECT Address, City, Region, PostalCode, Country FROM Customers WHERE ContactName = 'Andr Fonseca'",
+    "question_id": null,
+    "question": "What is the full address of Andr Fonseca?",
+    "difficulty": "",
+    "evidence": "full address includes Address, City, Region, PostalCode and Country; ContactName = 'Andr Fonseca';"
+  },
+  {
+    "sql": "SELECT CompanyName FROM Customers WHERE Phone LIKE '(171)%'",
+    "question_id": null,
+    "question": "What are the companies that have the same phone area code as 171?",
+    "difficulty": "",
+    "evidence": "phone area code as 171 refers to Phone LIKE '(171)%'; companies refer to CompanyName;"
+  },
+  {
+    "sql": "SELECT ( SELECT COUNT(Title) FROM Employees WHERE Country = 'UK' AND Title = 'Sales Representative' ) - ( SELECT COUNT(Title) FROM Employees WHERE Country = 'USA' AND Title = 'Sales Representative' ) AS DIFFERENCE",
+    "question_id": null,
+    "question": "What is the difference in the number of employees from the UK and the USA who work as sales representatives?",
+    "difficulty": "",
+    "evidence": "SUBTRACT(COUNT(EmployeeID where Country = 'UK' and Title = 'sales representative'), COUNT(EmployeeID where Country = 'USA' and Title = 'sales representative'));"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM Customers WHERE City = 'Sao Paulo' AND Country = 'Brazil' AND ContactTitle = 'Sales Associate'",
+    "question_id": null,
+    "question": "How many sales associates are located in Sao Paulo, Brazil?",
+    "difficulty": "",
+    "evidence": "sales associates refer to ContactTitle; Sao Paulo is the name of the city in the country Brazil;"
+  },
+  {
+    "sql": "SELECT T1.LastName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.OrderID = 10521 AND T2.CustomerID = 'CACTU'",
+    "question_id": null,
+    "question": "What is the family name of the employee who shipped the order 10521 to CACTU?",
+    "difficulty": "",
+    "evidence": "order 10521 refers to OrderID = 10521; CustomerID = 'CACTU'; family name refers to LastName;"
+  },
+  {
+    "sql": "SELECT T2.Freight FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.OrderID = 10692 AND T1.CompanyName = 'Alfreds Futterkiste'",
+    "question_id": null,
+    "question": "What is the shipping cost for order number 10692 from the company Alfreds Futterkiste?",
+    "difficulty": "",
+    "evidence": "Alfreds Futterkiste is the name of the company; order number 10692 refers to OrderID = 10692;"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T1.OrderID = 10558",
+    "question_id": null,
+    "question": "What is the shipping company for order number 10558?",
+    "difficulty": "",
+    "evidence": "order number 10558 refers to OrderID = 10558;"
+  },
+  {
+    "sql": "SELECT T1.OrderID FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Speedy Express' LIMIT 3",
+    "question_id": null,
+    "question": "Please list any three order numbers that have been shipped using Speedy Express.",
+    "difficulty": "",
+    "evidence": "Speedy Express is the name of the shipping company; three order numbers refer to OrderID LIMIT 3;"
+  },
+  {
+    "sql": "SELECT T2.ProductName FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID WHERE T1.CategoryName = 'Beverages'",
+    "question_id": null,
+    "question": "What are the products that belong to the beverage category?",
+    "difficulty": "",
+    "evidence": "products belong to beverage category refer to ProductName where CategoryName = 'beverage';"
+  },
+  {
+    "sql": "SELECT T1.Description FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID WHERE T2.ProductName = 'tofu'",
+    "question_id": null,
+    "question": "What is the description of the category that tofu belongs to?",
+    "difficulty": "",
+    "evidence": "tofu is the name of the product;"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Gula Malacca'",
+    "question_id": null,
+    "question": "Which company supplies Gula Malacca?",
+    "difficulty": "",
+    "evidence": "Gula Malacca is the name of the product; company refers to CompanyName;"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Aux joyeux ecclsiastiques'",
+    "question_id": null,
+    "question": "What are the products that are supplied by Aux joyeux ecclsiastiques?",
+    "difficulty": "",
+    "evidence": "Aux joyeux ecclsiastiques is the name of supply company; products refer to ProductName;"
+  },
+  {
+    "sql": "SELECT T1.UnitPrice FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName LIKE 'Mayumi%' AND T1.ProductName = 'Konbu'",
+    "question_id": null,
+    "question": "How much per unit of Konbu does Mayumi's charge?",
+    "difficulty": "",
+    "evidence": "Mayumi's is the name of the company; how much per unit of Konbu refers to UnitPrice where ProductName = 'Konbu';"
+  },
+  {
+    "sql": "SELECT T2.ContactName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Camembert Pierrot'",
+    "question_id": null,
+    "question": "Who is the person to contact to get Camembert Pierrot?",
+    "difficulty": "",
+    "evidence": "Camembert Pierrot is the name of the product; person to contact refers to ContactName;"
+  },
+  {
+    "sql": "SELECT T2.ProductName FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID WHERE T2.Discontinued = 1 AND T1.CategoryName = 'Meat/Poultry' LIMIT 3",
+    "question_id": null,
+    "question": "Please name any three products that have been discontinued in the meat or poultry category.",
+    "difficulty": "",
+    "evidence": "three products that have been discontinued refer to ProductName LIMIT 3 where Discontinued = 1; CategoryName = 'Meat/Poultry';"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Heli Swaren GmbH & Co. KG' ORDER BY T1.ReorderLevel DESC LIMIT 2",
+    "question_id": null,
+    "question": "Please name any two products that have the highest satisfaction levels among users of Heli Swaren GmbH & Co. KG.",
+    "difficulty": "",
+    "evidence": "High reorder level generally means high user satisfaction; the highest satisfaction levels refer to MAX(ReorderLevel); two products refer to ProductName LIMIT 2; CompanyName = 'Heli Swaren GmbH & Co. KG';"
+  },
+  {
+    "sql": "SELECT ContactName FROM Suppliers WHERE CompanyName = 'Heli Swaren GmbH & Co. KG'",
+    "question_id": null,
+    "question": "Who is the one representing the company \"Heli Swaren GmbH & Co. KG\"?",
+    "difficulty": "",
+    "evidence": "Heli Swaren GmbH & Co. KG is the name of the company; who is representing refers to ContactName;"
+  },
+  {
+    "sql": "SELECT Country FROM Customers WHERE CompanyName = 'Drachenblut Delikatessen'",
+    "question_id": null,
+    "question": "From which country is the company \"Drachenblut Delikatessen\" from?",
+    "difficulty": "",
+    "evidence": "Drachenblut Delikatessen is the company name;"
+  },
+  {
+    "sql": "SELECT COUNT(TerritoryID) FROM Territories",
+    "question_id": null,
+    "question": "How many territories are there?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(UnitPrice) FROM `Order Details` GROUP BY OrderID ORDER BY SUM(UnitPrice) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the largest total price for an order?",
+    "difficulty": "",
+    "evidence": "the largest total price for an order can be calculated as MAX(MULTIPLY(UnitPrice, Quantity, SUBTRACT(1-Discount)));"
+  },
+  {
+    "sql": "SELECT ProductName FROM Products WHERE UnitPrice = ( SELECT MAX(UnitPrice) FROM Products )",
+    "question_id": null,
+    "question": "Which product is the most expensive?",
+    "difficulty": "",
+    "evidence": "most expensive product refers to ProductName where MAX(UnitPrice);"
+  },
+  {
+    "sql": "SELECT COUNT(ShipCountry) FROM Orders WHERE ShipCountry = 'France'",
+    "question_id": null,
+    "question": "How many of the orders are shipped to France?",
+    "difficulty": "",
+    "evidence": "shipped to France refers to ShipCountry = 'France';"
+  },
+  {
+    "sql": "SELECT T2.RegionDescription FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T1.TerritoryDescription = 'Hoffman Estates'",
+    "question_id": null,
+    "question": "Which region does Hoffman Estates belong to?",
+    "difficulty": "",
+    "evidence": "Hoffman Estates refer to TerritoryDescription;"
+  },
+  {
+    "sql": "SELECT T2.HomePage FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Thringer Rostbratwurst'",
+    "question_id": null,
+    "question": "What is the homepage link for the company that supplies the product \"Thringer Rostbratwurst\"?",
+    "difficulty": "",
+    "evidence": "ProductName = 'Thringer Rostbratwurst';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.FirstName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.ShipCity = 'Reims'",
+    "question_id": null,
+    "question": "List the first names of the employees who take the orders that ship to the city of \"Reims\".",
+    "difficulty": "",
+    "evidence": "ship to the city of \"Reims\" refers to ShipCity = Reims';"
+  },
+  {
+    "sql": "SELECT T2.Quantity FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T2.ProductID = T1.ProductID WHERE T1.ProductName = 'Manjimup Dried Apples' ORDER BY T2.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the largest quantity of \"Manjimup Dried Apples\" for an order?",
+    "difficulty": "",
+    "evidence": "the largest quantity of \"Manjimup Dried Apples\" refers to MAX(Quantity) where ProductName = 'Manjimup Dried Apples';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Speedy Express'",
+    "question_id": null,
+    "question": "How many orders were shipped by \"Speedy Express\"?",
+    "difficulty": "",
+    "evidence": "\"Speedy Express\" is the name of the shipping company; orders refer to OrderID;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.TerritoryDescription FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Southern'",
+    "question_id": null,
+    "question": "Make a list of all the territories in the Southern region.",
+    "difficulty": "",
+    "evidence": "territories in the Southern region refer to TerritoryDescription WHERE RegionDescription = 'Southern';"
+  },
+  {
+    "sql": "SELECT T2.UnitPrice FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID WHERE T1.Description = 'Cheeses'",
+    "question_id": null,
+    "question": "What are the prices on cheese products?",
+    "difficulty": "",
+    "evidence": "prices on cheese refer to UnitPrice WHERE Description = 'Cheeses';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.CompanyName = 'Laughing Bacchus Wine Cellars'",
+    "question_id": null,
+    "question": "How many orders did \"Laughing Bacchus Wine Cellars\" make?",
+    "difficulty": "",
+    "evidence": "\"Laughing Bacchus Wine Cellars\" is the name of the company; orders refer to OrderID;"
+  },
+  {
+    "sql": "SELECT T3.ProductName FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.ShipAddress = 'Starenweg 5' GROUP BY T3.ProductName",
+    "question_id": null,
+    "question": "List all the products that were shipped to Starenweg 5.",
+    "difficulty": "",
+    "evidence": "products shipped to Starenweg 5 refer to ProductName where ShipAddress = 'Starenweg 5';"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Bigfoot Breweries'",
+    "question_id": null,
+    "question": "What are the products by the company \"Bigfoot Breweries\"?",
+    "difficulty": "",
+    "evidence": "Bigfoot Breweries is the name of the company; products refer to ProductName;"
+  },
+  {
+    "sql": "SELECT T3.TerritoryDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.LastName = 'King' AND T1.FirstName = 'Robert'",
+    "question_id": null,
+    "question": "What are the names of Robert King's territories?",
+    "difficulty": "",
+    "evidence": "Robert King is a full name of an employee where LastName = 'King' AND FirstName = 'Robert'; names of territories refer to TerritoryDescription;"
+  },
+  {
+    "sql": "SELECT T1.ContactName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.ShipCountry = 'Switzerland' GROUP BY T1.ContactName",
+    "question_id": null,
+    "question": "Provide the name of the contact person who made the orders that shipped to Switzerland.",
+    "difficulty": "",
+    "evidence": "shipped to Switzerland refers to ShipCountry = 'Switzerland'; contact person refers to Customers;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.Title = 'Sales Representative' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.OrderID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID",
+    "question_id": null,
+    "question": "What proportion of orders are taken by the Sales Representative?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(OrderID where Title = 'Sales Representative'), COUNT(OrderID)) as percentage;"
+  },
+  {
+    "sql": "SELECT COUNT(Country) FROM Employees WHERE TitleOfCourtesy = 'Dr.' AND Country = 'USA'",
+    "question_id": null,
+    "question": "Among the USA employess, how many of them has PhD title of courtesy?",
+    "difficulty": "",
+    "evidence": "\"USA\" is the Country; PhD title of courtesy refers to TitleOfCourtesy = 'Dr.'"
+  },
+  {
+    "sql": "SELECT AVG(Salary) FROM Employees WHERE EmployeeID BETWEEN 1 AND 9",
+    "question_id": null,
+    "question": "What is the average salary for employees from ID 1 to 9?",
+    "difficulty": "",
+    "evidence": "ID 1 to 9 refers to EmployeeID BETWEEN 1 AND 9; Average salary = AVG(Salary)"
+  },
+  {
+    "sql": "SELECT SUM(Salary) FROM Employees WHERE Country = 'UK'",
+    "question_id": null,
+    "question": "Calculate the total salary for employees from UK.",
+    "difficulty": "",
+    "evidence": "\"UK\" is the Country; total salary refers to Sum(Salary)"
+  },
+  {
+    "sql": "SELECT CASE WHEN HomePhone = '(206) 555-1189' THEN 'YES' ELSE 'NO' END FROM Employees WHERE FirstName = 'Laura' AND LastName = 'Callahan'",
+    "question_id": null,
+    "question": "Is (206) 555-1189 the home phone number for Laura Callahan?",
+    "difficulty": "",
+    "evidence": "\"Laura Callahan\" refers to FirstName = 'Laura AND LastName = 'Callahan"
+  },
+  {
+    "sql": "SELECT Notes FROM Employees WHERE Salary = ( SELECT MAX(Salary) FROM Employees )",
+    "question_id": null,
+    "question": "Write down the notes of employee with the highest salary.",
+    "difficulty": "",
+    "evidence": "highest salary refers to Max(Salary)"
+  },
+  {
+    "sql": "SELECT T2.CustomerID FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Michael' AND T1.LastName = 'Suyama'",
+    "question_id": null,
+    "question": "List down the customer ids who placed order with Michael Suyama.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.ShipCountry FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Janet' AND T1.LastName = 'Leverling'",
+    "question_id": null,
+    "question": "Where are the ship countries of orders placed by Janet Leverling?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.EmployeeID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Margaret' AND T1.LastName = 'Peacock'",
+    "question_id": null,
+    "question": "How many orders have Margaret Peacock placed?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(SUM(T1.Salary) AS REAL) / COUNT(T2.EmployeeID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Andrew' AND T1.LastName = 'Fuller'",
+    "question_id": null,
+    "question": "Calculate the average salary per order for Andrew Fuller.",
+    "difficulty": "",
+    "evidence": "average salary = AVG(Salary)"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Exotic Liquids'",
+    "question_id": null,
+    "question": "What are the product names of Exotic Liquids?",
+    "difficulty": "",
+    "evidence": "\"Exotic Liquids\" is the CompanyName"
+  },
+  {
+    "sql": "SELECT T1.QuantityPerUnit FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Tokyo Traders'",
+    "question_id": null,
+    "question": "List down the quantity per unit for products of Tokyo Traders.",
+    "difficulty": "",
+    "evidence": "\"Tokyo Traders\" is the CompanyName"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Discontinued) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'New Orleans Cajun Delights'",
+    "question_id": null,
+    "question": "How many products have been discountinued by New Orleans Cajun Delights?",
+    "difficulty": "",
+    "evidence": "\"New Orleans Cajun Delights\" is the CompanyName; discontinued refers to Discontinued = 1"
+  },
+  {
+    "sql": "SELECT SUM(T1.UnitPrice) / COUNT(T1.SupplierID) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Formaggi Fortini s.r.l.'",
+    "question_id": null,
+    "question": "Please calculate the average unit price for products of Formaggi Fortini s.r.l.",
+    "difficulty": "",
+    "evidence": "\"Formaggi Fortini s.r.l.\" is the CompanyName; average unit price = AVG(UnitPrice)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.SupplierID) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.Country = 'Japan'",
+    "question_id": null,
+    "question": "Calculate the total products that are supplied by Japan suppliers.",
+    "difficulty": "",
+    "evidence": "Japan Supplier refers to Country = 'Japan'; total product refers to Count (ProductName)"
+  },
+  {
+    "sql": "SELECT T2.ContactName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Teatime Chocolate Biscuits'",
+    "question_id": null,
+    "question": "What is the contact name for product Teatime Chocolate Biscuits?",
+    "difficulty": "",
+    "evidence": "\"Teatime Chocolate Biscuits\" is the ProductName"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ReorderLevel = ( SELECT MAX(ReorderLevel) FROM Products )",
+    "question_id": null,
+    "question": "List down the company names that have the highest reorder level.",
+    "difficulty": "",
+    "evidence": "Highest reorder level refers to Max(ReorderLevel)"
+  },
+  {
+    "sql": "SELECT T2.ContactTitle FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.QuantityPerUnit = '10 boxes x 12 pieces'",
+    "question_id": null,
+    "question": "What is the contact title for the person who supplied a product that is 10 boxes x 12 pieces.",
+    "difficulty": "",
+    "evidence": "\"10 boxes x 12 pieces\" is the QuantityPerUnit"
+  },
+  {
+    "sql": "SELECT SUM(T1.UnitsOnOrder) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Exotic Liquids'",
+    "question_id": null,
+    "question": "What is the total units on order from Exotic Liquids?",
+    "difficulty": "",
+    "evidence": "\"Exotic Liquids\" is the CompanyName; total unit on order = Sum(UnitsOnOrder)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.CompanyName = 'Gai pturage' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.SupplierID) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID",
+    "question_id": null,
+    "question": "Calculate the percentage of products supplied by Gai pturage over all products.",
+    "difficulty": "",
+    "evidence": "\"Gai pturage\" is the CompanyName; Percentage = Divide (Count(SupplierID where CompanyName = 'Gai pturage'), Count (SupplierID)) * 100"
+  },
+  {
+    "sql": "SELECT ProductID FROM Products ORDER BY UnitsInStock DESC LIMIT 5",
+    "question_id": null,
+    "question": "List the product ID of the top five products, by descending order, the number of quantities in stock.",
+    "difficulty": "",
+    "evidence": "by descending in number of quantity in stock refers to max(UnitsInStock)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Products WHERE Discontinued = 1",
+    "question_id": null,
+    "question": "Among the products, how many of them were discontinued in production?",
+    "difficulty": "",
+    "evidence": "discontinued refers to Discontinued = 1"
+  },
+  {
+    "sql": "SELECT Address, HomePhone, Salary FROM Employees WHERE Title = 'Sales Manager'",
+    "question_id": null,
+    "question": "Give me the address, home phone and salary of the Sales Manager.",
+    "difficulty": "",
+    "evidence": "\"Sales Manage\" is the Title"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE Title = 'Vice President, Sales'",
+    "question_id": null,
+    "question": "What is the full name of the Vice President of Sales. Give me the URL of his/her photo.",
+    "difficulty": "",
+    "evidence": "\"Vice Present of Sales\" refers to Title = 'Vice President, Sales'; full name refers to FirstName, LastName; url of photo refers to PhotoPath"
+  },
+  {
+    "sql": "SELECT CompanyName FROM `Sales Totals by Amount` ORDER BY SaleAmount DESC LIMIT 10",
+    "question_id": null,
+    "question": "Write down the top ten companies with the most total sales by amount.",
+    "difficulty": "",
+    "evidence": "most total sales refers to Max(SaleAmount); companies refers to CompanyName"
+  },
+  {
+    "sql": "SELECT AVG(ProductSales) FROM `Sales by Category` GROUP BY CategoryName",
+    "question_id": null,
+    "question": "What is the average sales for each categories?",
+    "difficulty": "",
+    "evidence": "average sales = AVG(ProductSales)"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T1.ProductName LIKE 'Uncle Bob%s Organic Dried Pears'",
+    "question_id": null,
+    "question": "Compute the total order quantity for Uncle Bob's Organic Dried Pears so far.",
+    "difficulty": "",
+    "evidence": "\"Uncle Bob's Organic Dried Pears\" is the ProductName; total order quantity refers to Sum(Quantity)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Categories AS T3 ON T1.CategoryID = T3.CategoryID WHERE T3.CategoryName = 'Seafood' AND T2.Quantity > 50",
+    "question_id": null,
+    "question": "Among the seafoods, how many of them have an order quantity of more than 50?",
+    "difficulty": "",
+    "evidence": "\"Seafood\" is the CategoryName; order quantity of more than 50 refers to Quantity > 50"
+  },
+  {
+    "sql": "SELECT T1.ProductName, T1.ProductID, T1.ReorderLevel FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Pavlova, Ltd.'",
+    "question_id": null,
+    "question": "List the products whose supplier is Pavlova, Ltd. Please include the product ID and re-order level.",
+    "difficulty": "",
+    "evidence": "\"Pavlova, Ltd\" is the CompanyName; products refers to ProductName"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.Discontinued = 1",
+    "question_id": null,
+    "question": "Who are the suppliers of the discontinued products?",
+    "difficulty": "",
+    "evidence": "discontinued product refers to Discontinued = 1; supplier refers to CompanyName"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.EmployeeID < 4",
+    "question_id": null,
+    "question": "Among the employees, give me the full names of those who have less than 4 territories.",
+    "difficulty": "",
+    "evidence": "less than 4 territories refers to EmployeeID where Count(TerritoryID) < 4"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.FirstName) FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID INNER JOIN Region AS T4 ON T3.RegionID = T4.RegionID WHERE T4.RegionDescription = 'Eastern'",
+    "question_id": null,
+    "question": "How many employees have territories in the Eastern region?",
+    "difficulty": "",
+    "evidence": "\"Eastern\" is the RegionDescription"
+  },
+  {
+    "sql": "SELECT COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Federal Shipping' AND T1.ShippedDate BETWEEN '1997-03-01 00:00:00' AND '1997-10-08 23:59:59'",
+    "question_id": null,
+    "question": "From 1/3/97 to 8/10/97, how many orders were shipped via Federal Shipping?",
+    "difficulty": "",
+    "evidence": "from 1/3/97 to 8/10/97 refers to 1997-03-01 < ShippedDate < 1997-10-08; 'Federal Shipping' is the CompanyName"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CustomerID FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.LastName = 'Peacock' AND T1.FirstName = 'Margaret' AND T2.ShipCountry = 'Brazil' AND T2.ShippedDate BETWEEN '1997-03-31 00:00:00' AND '1997-12-10 23:59:59'",
+    "question_id": null,
+    "question": "Tally the customer ID of orders that were shipped to Brazil by Margaret Peacock from 3/31/97 to 12/10/97.",
+    "difficulty": "",
+    "evidence": "\"Brazil\" is the ShipCountry; from 3/31/97 to 12/10/97 refers to 1997-03-31 < ShippedDate < 1997-10-12"
+  },
+  {
+    "sql": "SELECT T1.ReorderLevel FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Quantity = 1",
+    "question_id": null,
+    "question": "What is the re-order level of products that have an order quantity of 1?",
+    "difficulty": "",
+    "evidence": "order quantity of 1 refers to Quantity = 1"
+  },
+  {
+    "sql": "SELECT T1.UnitPrice * T1.UnitsInStock FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID",
+    "question_id": null,
+    "question": "What is the stock value of every condiments?",
+    "difficulty": "",
+    "evidence": "\"Condiments\" is the CategoryName; Stock value = MULTIPLY( UnitPrice, UnitInStock)"
+  },
+  {
+    "sql": "SELECT COUNT(T2.TerritoryID) FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Anne' AND T1.LastName = 'Dodsworth'",
+    "question_id": null,
+    "question": "How many territories are owned by Anne Dodsworth?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.CompanyName, TIMESTAMPDIFF(DAY, T2.ShippedDate, T2.RequiredDate) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Country = 'USA' AND TIMESTAMPDIFF(DAY, T2.ShippedDate, T2.RequiredDate) < 0",
+    "question_id": null,
+    "question": "Which of the American customers have experienced a delay in the shipment and how long was the longest?",
+    "difficulty": "",
+    "evidence": "\"American\" refers to Country = 'USA'; longest delay in shipment refers to Max(Subtract(RequiredDate, ShippedDate)); customer refers to CustomerID"
+  },
+  {
+    "sql": "SELECT T1.ContactName, T1.Phone FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID GROUP BY T2.OrderID, T1.ContactName, T1.Phone ORDER BY SUM(T3.UnitPrice * T3.Quantity * (1 - T3.Discount)) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the contact name and phone number of the customer who has made the most total payment on the order to date?",
+    "difficulty": "",
+    "evidence": "most total payment = Max(Multiply(Quantity, UnitPrice, Subtract(1, Discount)))"
+  },
+  {
+    "sql": "SELECT T4.LastName, T4.FirstName, T4.ReportsTo , T1.Quantity * T1.UnitPrice * (1 - T1.Discount) AS payment FROM `Order Details` AS T1 INNER JOIN Orders AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID INNER JOIN Employees AS T4 ON T2.EmployeeID = T4.EmployeeID ORDER BY payment DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the sales representative of the customer who has made the highest payment? Include the full name of employee and his/her supervisor.",
+    "difficulty": "",
+    "evidence": "highest payment refers to Max(Multiply(Quantity, UnitPrice, Subtract(1, Discount))); full name refers to FirstName, LastName; his/her supervisor refers to 'ReportsTo'"
+  },
+  {
+    "sql": "SELECT COUNT(City) FROM Customers WHERE Country = 'Germany' AND City = 'Berlin'",
+    "question_id": null,
+    "question": "How many customers are there in Berlin, Germany?",
+    "difficulty": "",
+    "evidence": "\"Berlin\" is the City; 'Germany' is the Country"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductName) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Exotic Liquids'",
+    "question_id": null,
+    "question": "How many products does the company Exotic Liquids supply?",
+    "difficulty": "",
+    "evidence": "\"Exotic Liquids\" is the CompanyName of supplier"
+  },
+  {
+    "sql": "SELECT T2.CompanyName, T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.UnitPrice = ( SELECT MIN(UnitPrice) FROM Products )",
+    "question_id": null,
+    "question": "Which company has the lowest unit price? Please give the company name and the product name.",
+    "difficulty": "",
+    "evidence": "lowest unit price refers to Min(UnitPrice)"
+  },
+  {
+    "sql": "SELECT SUM(T1.UnitPrice) / COUNT(T2.SupplierID) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Tokyo Traders'",
+    "question_id": null,
+    "question": "What is the average unit price of Tokyo Traders' products?",
+    "difficulty": "",
+    "evidence": "\"Tokyo Traders\" is the CompanyName; average unit price = AVG(UnitPrice)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.RegionID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Eastern'",
+    "question_id": null,
+    "question": "How many territories are there in the Eastern region?",
+    "difficulty": "",
+    "evidence": "\"Eastern\" is the RegionDescription"
+  },
+  {
+    "sql": "SELECT T2.RegionID FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID GROUP BY T2.RegionID ORDER BY COUNT(T1.TerritoryID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which region has the most territories?",
+    "difficulty": "",
+    "evidence": "region refers to RegionDescription; most territories refers to Max(Count(TerritoryID))"
+  },
+  {
+    "sql": "SELECT T2.RegionDescription FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T1.TerritoryID = 2116",
+    "question_id": null,
+    "question": "Which region does territory id 2116 belong to?",
+    "difficulty": "",
+    "evidence": "region refers to RegionDescription"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.City = 'Madrid' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.City) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE STRFTIME('%Y', T2.OrderDate) = 1996",
+    "question_id": null,
+    "question": "What percentage of orders were placed by customers in Madrid city in 1996?",
+    "difficulty": "",
+    "evidence": "\"Madrid\" is the City; in 1996 refers to YEAR (OrderDate) = 1996; percentage = Divide (Count (CustomerID where City = 'Madrid'), Count (CustomerID)) * 100"
+  },
+  {
+    "sql": "SELECT FirstName, LastName, Title FROM Employees",
+    "question_id": null,
+    "question": "Please list the full names and titles of all employees.",
+    "difficulty": "",
+    "evidence": "full name refers to LastName, FirstName"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE Salary = ( SELECT MAX(Salary) FROM Employees )",
+    "question_id": null,
+    "question": "Who has the highest salary? Please give their first name.",
+    "difficulty": "",
+    "evidence": "highest salary refers to Max(Salary)"
+  },
+  {
+    "sql": "SELECT COUNT(Title) FROM Employees WHERE Salary > 2000 AND Title = 'Sales Representative'",
+    "question_id": null,
+    "question": "How many sales representatives whose salaries are higher than 2000?",
+    "difficulty": "",
+    "evidence": "\"Sales Representative\" is the Title; higher than 2000 refers to Salary > 2000"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE STRFTIME('%Y', T2.OrderDate) = '1996' AND T1.Country = 'UK'",
+    "question_id": null,
+    "question": "In 1996, how many orders were from customers in the UK?",
+    "difficulty": "",
+    "evidence": "in 1996 refers to YEAR (OrderDate) = 1996; 'UK' is the Country;"
+  },
+  {
+    "sql": "SELECT T1.CompanyName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE STRFTIME('%Y', T2.OrderDate) = '1998' GROUP BY T1.CompanyName ORDER BY COUNT(T2.OrderID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which company had the most orders in 1998?",
+    "difficulty": "",
+    "evidence": "in 1998 refers to YEAR (OrderDate) = 1998; most orders = Max(Count(CustomerID)); company refers to CompanyName"
+  },
+  {
+    "sql": "SELECT COUNT(T2.CustomerID) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE STRFTIME('%Y', T2.OrderDate) = '1996' GROUP BY T1.Country",
+    "question_id": null,
+    "question": "Please calculate the number of orders from customers by country in 1996.",
+    "difficulty": "",
+    "evidence": "in 1996 refer to YEAR(OrderDate) = 1996; number of order = Count(OrderID)"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE STRFTIME('%Y', T2.OrderDate) = '1999' AND T1.CompanyName = 'Hanna Moos'",
+    "question_id": null,
+    "question": "How many orders were from Hanna Moos company in 1999?",
+    "difficulty": "",
+    "evidence": "\"Hanna Moos\" is the CompanyName; in 1999 refer to YEAR (OrderDate) = 1999"
+  },
+  {
+    "sql": "SELECT datediff(T2.ShippedDate, T2.OrderDate) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.CompanyName = 'Berglunds snabbkp' ORDER BY datediff(T2.ShippedDate, T2.OrderDate) LIMIT 1",
+    "question_id": null,
+    "question": "How many days was the fastest shipping of Berglunds snabbkp's order?",
+    "difficulty": "",
+    "evidence": "Berglunds snabbkp is the CompanyName; fastest shipping = Min(Subtract(ShippedDate, OrderDate))"
+  },
+  {
+    "sql": "SELECT T1.CompanyName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.OrderID = 10257",
+    "question_id": null,
+    "question": "Which company placed the order with the id 10257?",
+    "difficulty": "",
+    "evidence": "\"10257\" is the OrderID; company refers to CompanyName"
+  },
+  {
+    "sql": "SELECT STRFTIME('%Y', T2.OrderDate) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.CompanyName = 'Around the Horn' GROUP BY STRFTIME('%Y', T2.OrderDate) ORDER BY COUNT(T2.OrderID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which year did Around the Horn place the most orders?",
+    "difficulty": "",
+    "evidence": "Around the Horn is the CompanyName; year with the most order refers to Year (OrderDate) where Max(Count(OrderID))"
+  },
+  {
+    "sql": "SELECT COUNT(EmployeeID) FROM Employees WHERE ReportsTo = ( SELECT EmployeeID FROM Employees WHERE LastName = 'Fuller' AND FirstName = 'Andrew' )",
+    "question_id": null,
+    "question": "How many employees report to Andrew Fuller?",
+    "difficulty": "",
+    "evidence": "\"Andrew Fuller\" refers to FirstName = 'Andrew' AND LastName = 'Fuller'; report to refers to ReportsTo ! = NULL"
+  },
+  {
+    "sql": "SELECT Country FROM Suppliers GROUP BY Country ORDER BY COUNT(SupplierID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country are the majority of the suppliers located?",
+    "difficulty": "",
+    "evidence": "majority of the suppliers located refers to MAX(COUNT(SupplierID))"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE ReportsTo = ( SELECT EmployeeID FROM Employees WHERE Title = 'Sales Manager' )",
+    "question_id": null,
+    "question": "What is the full name of the employees who report to the Sales Manager?",
+    "difficulty": "",
+    "evidence": "full name refers to LastName, FirstName; the Sales Manager refers to Title = 'Sales Manager'; report to refers to ReportsTo is not NULL;"
+  },
+  {
+    "sql": "SELECT COUNT(OrderID) FROM Orders WHERE OrderDate LIKE '1996-08%' GROUP BY CustomerID ORDER BY COUNT(OrderID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In August of 1996, how many orders were placed by the customer with the highest amount of orders?",
+    "difficulty": "",
+    "evidence": "August of 1996 refers to OrderDate = '1996-8'; highest amount of orders refers to MAX(COUNT(OrderID))"
+  },
+  {
+    "sql": "SELECT Salary FROM Employees WHERE HireDate = ( SELECT MIN(HireDate) FROM Employees )",
+    "question_id": null,
+    "question": "How much is the salary of the first employee that was hired?",
+    "difficulty": "",
+    "evidence": "first employee that was hired refers to MIN(HireDate)"
+  },
+  {
+    "sql": "SELECT MAX(TIMESTAMPDIFF(YEAR, BirthDate, HireDate)) FROM Employees",
+    "question_id": null,
+    "question": "How old was the oldest employee at the time he or she was hired?",
+    "difficulty": "",
+    "evidence": "oldest employee at the time he or she was hired refers to MAX(SUBTRACT(HireDate, Birthdate))"
+  },
+  {
+    "sql": "SELECT SUM(T2.UnitPrice * T2.Quantity) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Discontinued = 1",
+    "question_id": null,
+    "question": "What is the total sales amount of all discontinued products?",
+    "difficulty": "",
+    "evidence": "discontinued products refers to Discontinued = 1; total sales amount refers to SUM(MULTIPLY(UnitPrice, Quantity))"
+  },
+  {
+    "sql": "SELECT T2.CategoryName FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID WHERE T1.Discontinued = 1 GROUP BY T2.CategoryName ORDER BY COUNT(T1.ProductID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the category of the product that has the highest number of discontinued products?",
+    "difficulty": "",
+    "evidence": "discontinued products refers to Discontinued = 1; highest number of discontinued products refers to MAX(Discontinued = 1)"
+  },
+  {
+    "sql": "SELECT COUNT(T2.ProductID) FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID INNER JOIN `Order Details` AS T3 ON T2.ProductID = T3.ProductID INNER JOIN Orders AS T4 ON T3.OrderID = T4.OrderID WHERE T1.CategoryName = 'Condiments' AND T1.CategoryID = 2 AND T4.OrderDate LIKE '1997%'",
+    "question_id": null,
+    "question": "How many condiments were sold in 1997?",
+    "difficulty": "",
+    "evidence": "\"Condiments\" is the CategoryName; in 1997 refers to year(OrderDate) = 1997;"
+  },
+  {
+    "sql": "SELECT T1.CompanyName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID GROUP BY T1.CompanyName ORDER BY COUNT(T3.ProductID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the customer who purchased the highest number of products in a single order?",
+    "difficulty": "",
+    "evidence": "highest number of products refers to MAX(COUNT(ProductID))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T1.ShipVia) AS REAL) / 12 FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Federal Shipping' AND T1.ShippedDate LIKE '1996%'",
+    "question_id": null,
+    "question": "What is the monthly average number of products shipped via Federal Shipping for the year 1996?",
+    "difficulty": "",
+    "evidence": "monthly average number of products refers to DIVIDE(SUM(OrderID), 12); shipped via Federal Shipping refers to CompanyName = 'Federal Shipping'; for the year 1996 refers to year(ShippedDate) = 1996"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName LIKE 'G%day, Mate'",
+    "question_id": null,
+    "question": "Which products are being supplied by \"G'day, Mate\"? List all of their names.",
+    "difficulty": "",
+    "evidence": "supplied by \"G'day, Mate\" refers to CompanyName = 'G''day, Mate';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RegionDescription), T1.TerritoryDescription, COUNT(*) AS num FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID GROUP BY T1.TerritoryDescription ORDER BY num DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many territories are there in the region with the highest number of territories?",
+    "difficulty": "",
+    "evidence": "highest number of territories refers to max(TerritoryID)"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.UnitPrice = ( SELECT MAX(UnitPrice) FROM Products )",
+    "question_id": null,
+    "question": "What is the company name of the supplier who supplies the product with the highest unit price?",
+    "difficulty": "",
+    "evidence": "the highest unit price refers to MAX(UnitPrice);"
+  },
+  {
+    "sql": "SELECT COUNT(EID) FROM ( SELECT T1.EmployeeID AS EID FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.TitleOfCourtesy IN ('Ms.' OR 'Mrs.') GROUP BY T1.EmployeeID HAVING COUNT(T2.TerritoryID) >= 3 ) T1",
+    "question_id": null,
+    "question": "How many female employees are in charge of 3 or more territories?",
+    "difficulty": "",
+    "evidence": "female employees refers to TitleOfCourtesy = 'Mrs.' or TitleOfCourtesy = 'Ms.'; in charge of 3 or more territories refers to TerritoryID > = 3;"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID ORDER BY T1.ReorderLevel DESC LIMIT 8",
+    "question_id": null,
+    "question": "Who are the top 8 suppliers supplying the products with the highest user satisfaction?",
+    "difficulty": "",
+    "evidence": "highest user satisfaction refers to max(ReorderLevel);"
+  },
+  {
+    "sql": "SELECT T1.CompanyName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID WHERE T3.Discount = 0 GROUP BY T1.CompanyName ORDER BY SUM(T3.UnitPrice * T3.Quantity) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the company name of the customer who made the biggest amount of purchase in a single order before discount?",
+    "difficulty": "",
+    "evidence": "biggest amount of purchase in a single order refers to MAX(MULTIPLY(UnitPrice, Quantity)); before discount refers to Discount = 0"
+  },
+  {
+    "sql": "SELECT SUM(T3.UnitPrice * T3.Quantity) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID WHERE T1.FirstName = 'Nancy' AND T1.LastName = 'Davolio' AND T2.OrderDate LIKE '1996-12%' AND T3.Discount = 0",
+    "question_id": null,
+    "question": "What was the total amount of sales handled by Nancy Davolio in December 1996, excluding discounts?",
+    "difficulty": "",
+    "evidence": "in December 1996 refers to year(OrderDate) = 1996 AND month(OrderDate) = 12; excluding discounts refers to Discount = 0; total amount of sales refers to MULTIPLY((UnitPrice, Quantity))"
+  },
+  {
+    "sql": "SELECT SUM(T2.UnitPrice * T2.Quantity * (1 - T2.Discount)) FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID WHERE T1.OrderDate LIKE '1997%'",
+    "question_id": null,
+    "question": "What is the total amount of sales made in the year 1997?",
+    "difficulty": "",
+    "evidence": "year 1997 refers to year(OrderDate) = 1997; total amount of sales refers to (UnitPrice * Quantity)"
+  },
+  {
+    "sql": "SELECT SUM(T2.UnitPrice * T2.Quantity * (1 - T2.Discount)) / 3 FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID WHERE T1.ShippedDate BETWEEN '1996-01-01 00:00:00' AND '1998-12-31 23:59:59'",
+    "question_id": null,
+    "question": "What is the average annual amount of shipped sales from 1997 to 1998?",
+    "difficulty": "",
+    "evidence": "from 1997 to 1998 refers to ShippedDate > '1996-1-1' and ShippedDate < '1998-12-31'; average annual amount refers to SUM(MULTIPLY(UnitPrice, Quantity, SUBTRACT(1, Discount)))"
+  },
+  {
+    "sql": "SELECT COUNT(OrderID) FROM Orders WHERE ShipCountry = 'Venezuela' AND STRFTIME('%Y', ShippedDate) = '1996'",
+    "question_id": null,
+    "question": "How many orders were shipped to Venezuela in 1996?",
+    "difficulty": "",
+    "evidence": "shipped to Venezuela refers to ShipCountry = 'Venezuela'; in 1996 refers to year(ShippedDate) = '1996';"
+  },
+  {
+    "sql": "SELECT CategoryID, Description FROM Categories WHERE CategoryName = 'Condiments'",
+    "question_id": null,
+    "question": "What are the ID and description of the condiments category?",
+    "difficulty": "",
+    "evidence": "condiments category refers to CategoryName = 'Condiments'; the ID refers to CategoryID"
+  },
+  {
+    "sql": "SELECT ProductID, OrderID, UnitPrice FROM `Order Details` WHERE UnitPrice * Quantity * (1 - Discount) > 15000",
+    "question_id": null,
+    "question": "List the order IDs, product IDs and unit price of orders which total payment is greater than 15000.",
+    "difficulty": "",
+    "evidence": "total payment is greater than 15000 refers to MULTIPLY((Quantity * UnitPrice * (1 - Discount))) > 15000\n"
+  },
+  {
+    "sql": "SELECT TerritoryID FROM EmployeeTerritories WHERE EmployeeID = 7",
+    "question_id": null,
+    "question": "Provide the territory IDs under employee ID of 7.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CompanyName, HomePage FROM Suppliers WHERE City = 'Sydney'",
+    "question_id": null,
+    "question": "Provide the supplier company name in Sydney and its homepage address if available.",
+    "difficulty": "",
+    "evidence": "in Sydney refers to City = 'Sydney';"
+  },
+  {
+    "sql": "SELECT FirstName, LastName , TIMESTAMPDIFF(YEAR, BirthDate, HireDate) AS AGE FROM Employees WHERE Title = 'Vice President, Sales'",
+    "question_id": null,
+    "question": "Write down the full name of Vie President of Sales and his age when he was hired.",
+    "difficulty": "",
+    "evidence": "Vice President of Sales refers to Title = 'Vice President, Sales';"
+  },
+  {
+    "sql": "SELECT CompanyName FROM Suppliers WHERE Country = 'Germany'",
+    "question_id": null,
+    "question": "List the supplier company names located in Germany.",
+    "difficulty": "",
+    "evidence": "located in Germany refers to Country = 'Germany';"
+  },
+  {
+    "sql": "SELECT TitleOfCourtesy, FirstName, LastName , TIMESTAMPDIFF(YEAR, BirthDate, NOW()) AS ages FROM Employees WHERE City = 'London'",
+    "question_id": null,
+    "question": "List the employees' full names and ages in 2022 who lived in London.",
+    "difficulty": "",
+    "evidence": "in London refers to City = 'London'; ages in 2022 refers to SUBTRACT(2022, year(BirthDate)); full names refers to FirstName, LastName"
+  },
+  {
+    "sql": "SELECT CompanyName, Address, Phone, Fax FROM Customers WHERE City = 'London'",
+    "question_id": null,
+    "question": "List down the customer company names, addresses, phones and faxes which are located in London.",
+    "difficulty": "",
+    "evidence": "in London refers to City = 'London'"
+  },
+  {
+    "sql": "SELECT FirstName, LastName, Title FROM Employees WHERE ReportsTo = ( SELECT EmployeeID FROM Employees WHERE Title = 'Sales Manager' )",
+    "question_id": null,
+    "question": "List the full name of employees and titles who have to report to Sales Manager.",
+    "difficulty": "",
+    "evidence": "Sales Manager refers to Title = 'Sales Manager'; full name refers to FirstName, LastName"
+  },
+  {
+    "sql": "SELECT CompanyName, City FROM Customers WHERE Country = 'Canada'",
+    "question_id": null,
+    "question": "List all the customer company names and cities located in Canada.",
+    "difficulty": "",
+    "evidence": "located in Canada refers to Country = 'Canada'"
+  },
+  {
+    "sql": "SELECT UnitsInStock + UnitsOnOrder, ProductName FROM Products WHERE QuantityPerUnit = '10 - 500 g pkgs.'",
+    "question_id": null,
+    "question": "Find the total production amount and product names which had \"10 - 500 g pkgs.\" as quantity per unit.",
+    "difficulty": "",
+    "evidence": "total production amount refers to ADD(UnitsInstock, UnitsOnOrder)"
+  },
+  {
+    "sql": "SELECT T2.ProductName, T1.CategoryName FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID ORDER BY T2.ReorderLevel DESC LIMIT 1",
+    "question_id": null,
+    "question": "List all the product names and categories of the highest reorder level.",
+    "difficulty": "",
+    "evidence": "Highest reorder level refers to Max(ReorderLevel)"
+  },
+  {
+    "sql": "SELECT T2.CompanyName, T2.City, T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.UnitsInStock + UnitsOnOrder > 120",
+    "question_id": null,
+    "question": "Describe the supplier companies, cities and products which total production amount is more than 120.",
+    "difficulty": "",
+    "evidence": "total production amount is more than 120 refers to ADD(UnitsInstock, UnitsOnOrder) > 120"
+  },
+  {
+    "sql": "SELECT T2.ContactName, T2.ContactTitle, T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Escargots Nouveaux'",
+    "question_id": null,
+    "question": "Provide the contact person name, title and supplied products by \"Escargots Nouveaux\" company.",
+    "difficulty": "",
+    "evidence": "\"Escargots Nouveaux\" company refers to CompanyName = 'Escargots Nouveaux';"
+  },
+  {
+    "sql": "SELECT T3.TerritoryID, T3.TerritoryDescription, T4.RegionDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID INNER JOIN Region AS T4 ON T3.RegionID = T4.RegionID WHERE T1.TitleOfCourtesy = 'Mrs.' AND T1.LastName = 'Peacock' AND T1.FirstName = 'Margaret'",
+    "question_id": null,
+    "question": "List the territory IDs, description and region description under the in-charge of Mrs. Margaret Peacock.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.Country = 'Spain'",
+    "question_id": null,
+    "question": "What were the products supplied by the company in Spain?",
+    "difficulty": "",
+    "evidence": "company in Spain refers to Country = 'Spain'; product supplied refers to ProductName"
+  },
+  {
+    "sql": "SELECT T3.ProductName FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.RequiredDate LIKE '1998-03-26%' AND T1.CustomerID = 'WILMK'",
+    "question_id": null,
+    "question": "What products were ordered by the customer ID \"WILMK\" which were required on 3/26/1998?",
+    "difficulty": "",
+    "evidence": "required on 3/26/1998 refers to RequiredDate = '1998-03-26 00:00:00'; products ordered refers to ProductName"
+  },
+  {
+    "sql": "SELECT T2.ProductName, T1.CategoryName FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID WHERE T2.ReorderLevel = ( SELECT MAX(ReorderLevel) FROM Products )",
+    "question_id": null,
+    "question": "Provide the list of product IDs and names under the meat/poultry category.",
+    "difficulty": "",
+    "evidence": "meat/poultry category refers to CategoryName = 'Meat/Poultry';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Country = 'Ireland'",
+    "question_id": null,
+    "question": "How many orders were made by the customers in Ireland.",
+    "difficulty": "",
+    "evidence": "in Ireland refers to Country = 'Ireland';"
+  },
+  {
+    "sql": "SELECT T4.ProductName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID INNER JOIN Products AS T4 ON T3.ProductID = T4.ProductID WHERE T1.Country = 'Norway' AND STRFTIME('%Y', T2.OrderDate) = '1996'",
+    "question_id": null,
+    "question": "Provide the products list which were ordered in 1996 by the company in Norway.",
+    "difficulty": "",
+    "evidence": "ordered in 1996 refers to year(OrderDate) = 1996; in Norway refers to Country = 'Norway'"
+  },
+  {
+    "sql": "SELECT T5.CompanyName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID INNER JOIN Products AS T4 ON T3.ProductID = T4.ProductID INNER JOIN Suppliers AS T5 ON T4.SupplierID = T5.SupplierID WHERE T1.FirstName = 'Anne' AND T1.LastName = 'Dodsworth' AND T2.ShipCountry = 'Brazil' AND T2.OrderDate LIKE '1996-12%'",
+    "question_id": null,
+    "question": "Among orders shipping to Brazil, mention the supplier company of the order which was done by employee Anne Dodsworth in December, 1996 .",
+    "difficulty": "",
+    "evidence": "shipping to Brazil refers to ShipCountry = 'Brazil'; in December, 1996\u00a0 refers to year(OrderDate) = 1996 and month(OrderDate) = 12;"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName, T1.Title, T1.Salary , COUNT(T2.OrderID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE ShipCountry = 'USA' GROUP BY T1.FirstName, T1.LastName, T1.Title, T1.Salary, T1.BirthDate ORDER BY T1.BirthDate LIMIT 1",
+    "question_id": null,
+    "question": "Mention the oldest empoyee's full name, title, salary and number of orders which were shipped to USA by him.",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName, LastName; shipped to USA refers to ShipCountry = 'USA'"
+  },
+  {
+    "sql": "SELECT T1.TerritoryID, T1.TerritoryDescription FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Southern'",
+    "question_id": null,
+    "question": "List down the territory IDs and descriptions existed in Southern region.",
+    "difficulty": "",
+    "evidence": "in Southern region refers to RegionDescription = 'Southern';"
+  },
+  {
+    "sql": "SELECT SUM(T2.UnitPrice * T2.Quantity * (1 - T2.Discount)) / COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Categories AS T3 ON T1.CategoryID = T3.CategoryID WHERE T3.CategoryName = 'Confections'",
+    "question_id": null,
+    "question": "Calculate the average payment per product under confections category.",
+    "difficulty": "",
+    "evidence": "under confections category refers to CategoryName = 'Confections';"
+  },
+  {
+    "sql": "SELECT SUM(T3.UnitPrice * T3.Quantity * (1 - T3.Discount)) AS TOTALPAYMENT FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID WHERE T1.City = 'San Francisco'",
+    "question_id": null,
+    "question": "Find the total payment of the orders by customers from San Francisco.",
+    "difficulty": "",
+    "evidence": "from San Francisco refers to City = 'San Francisco'; total payment refers to sum(MULTIPLY(UnitPrice, Quantity, SUBTRACT(1, Discount)))"
+  },
+  {
+    "sql": "SELECT SUM(T1.UnitsInStock + T1.UnitsOnOrder) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.Country = 'Japan'",
+    "question_id": null,
+    "question": "Calculate the total production for each product which were supplied from Japan",
+    "difficulty": "",
+    "evidence": "from Japan refers to Country = 'Japan'; total production refers to ADD(UnitsInstock, UnitsOnOrder)"
+  },
+  {
+    "sql": "SELECT T2.ProductName, T3.CategoryName FROM Suppliers AS T1 INNER JOIN Products AS T2 ON T1.SupplierID = T2.SupplierID INNER JOIN Categories AS T3 ON T2.CategoryID = T3.CategoryID WHERE T1.Country = 'Australia' AND T2.Discontinued = 1",
+    "question_id": null,
+    "question": "Among the supplied products from Australia, describe the discontinued products and the category.",
+    "difficulty": "",
+    "evidence": "from Australia refers to Country = 'Australia'; discontinued products refers to Discontinued = 1;"
+  },
+  {
+    "sql": "SELECT T3.Country, T1.OrderID FROM `Order Details` AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Suppliers AS T3 ON T2.SupplierID = T3.SupplierID WHERE T2.ProductName = 'Ipoh Coffee' ORDER BY T1.UnitPrice * T1.Quantity * (1 - T1.Discount) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Mention the supplier country of Ipoh Coffee and the order ID which had maximum in total payment.",
+    "difficulty": "",
+    "evidence": "Ipoh Coffee refers to ProductName = 'Ipoh Coffee'; maximum in total payment refers to MAX(MULTIPLY(UnitPrice, Quantity, SUBTRACT(1, Discount)))"
+  },
+  {
+    "sql": "SELECT T1.ProductName , SUM(T2.UnitPrice * T2.Quantity * (1 - T2.Discount)) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T2.OrderID = 10979 GROUP BY T1.ProductName",
+    "question_id": null,
+    "question": "Provide the list of products ordered by ID 10979 and calculate its total payment.",
+    "difficulty": "",
+    "evidence": "ordered by ID 10979 refers to OrderID = '10979'; total payment refers to SUM(MULTIPLY(UnitPrice, Quantity, SUBTRACT(1, Discount)))"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.ContactName, T1.ContactTitle FROM Suppliers AS T1 INNER JOIN Products AS T2 ON T1.SupplierID = T2.SupplierID INNER JOIN Categories AS T3 ON T2.CategoryID = T3.CategoryID WHERE T3.CategoryName = 'Grains/Cereals' AND T1.SupplierID BETWEEN 1 AND 10 LIMIT 1",
+    "question_id": null,
+    "question": "Among the products under grains/cereals category, provide the contact person and title of the supplier with one digit ID.",
+    "difficulty": "",
+    "evidence": "grains/cereals category refers to CategoryName = 'Grains/Cereals'; supplier with one digit ID refers to SupplierID between 1 and 10;"
+  },
+  {
+    "sql": "SELECT T2.Phone, COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Speedy Express' AND T1.ShippedDate LIKE '1998-01-30%' GROUP BY T2.Phone",
+    "question_id": null,
+    "question": "Provide Speedy Express's phone number and number of shipped orders on 30th January, 1998.",
+    "difficulty": "",
+    "evidence": "Speedy Express's refers to CompanyName = 'Speedy Express'; orders on 30th January, 1998 refers to ShippedDate = '1998-01-30 00:00:00'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.ProductName FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE DATEDIFF(T1.ShippedDate, T1.RequiredDate) < 0",
+    "question_id": null,
+    "question": "Describe the ordered products which were the most overdue from required date.",
+    "difficulty": "",
+    "evidence": "the most overdue from required date refers to MIN(SUBTRACT(ShippedDate, RequiredDate) < 0)"
+  },
+  {
+    "sql": "SELECT T4.ProductName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID INNER JOIN Products AS T4 ON T3.ProductID = T4.ProductID WHERE T1.Title = 'Inside Sales Coordinator' AND T2.ShippedDate LIKE '1996%' AND T2.ShipCountry = 'Mexico'",
+    "question_id": null,
+    "question": "Under the in-charge of inside sales coordinator, provide the product lists which were shipped to Mexico in 1996.",
+    "difficulty": "",
+    "evidence": "shipped to Mexico refers to ShipCountry = 'Mexico'; in 1996 refers to year(ShippedDate) = 1996; charge of inside sales coordinator refers to Title = 'Inside Sales Coordinator'"
+  },
+  {
+    "sql": "SELECT T2.ProductName FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID WHERE T1.CategoryName = 'Dairy Products' AND T2.ReorderLevel = ( SELECT MAX(ReorderLevel) FROM Products )",
+    "question_id": null,
+    "question": "Identify the name of the most popular dairy product in terms of reorder quantity.",
+    "difficulty": "",
+    "evidence": "'dairy product' refers to CategoryName; most popular reorder quantity refers to MAX(ReorderLevel)"
+  },
+  {
+    "sql": "SELECT SUM(UnitsInStock + UnitsOnOrder) FROM Products WHERE ProductName = 'Mascarpone Fabioli'",
+    "question_id": null,
+    "question": "Calculate the production volume of the dairy product 'Mascarpone Fabioli'.",
+    "difficulty": "",
+    "evidence": "'Mascarpone Fabioli' is a ProductName; calculation = SUM(UnitsInStock, UnitsOnOrder)"
+  },
+  {
+    "sql": "SELECT T2.ProductName, T1.CategoryName FROM Categories AS T1 INNER JOIN Products AS T2 ON T1.CategoryID = T2.CategoryID WHERE T2.UnitPrice IN (( SELECT MIN(UnitPrice) FROM Products ), ( SELECT MAX(UnitPrice) FROM Products ))",
+    "question_id": null,
+    "question": "Identify the name and product category for the most expensive and the least expensive products.",
+    "difficulty": "",
+    "evidence": "name of product refers to ProductName; category of product refers to CategoryName; the most expensive products refers to MAX(UnitPrice); the least expensive products refers to MIN(UnitPrice);"
+  },
+  {
+    "sql": "SELECT T1.CompanyName FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID GROUP BY T2.CustomerID ORDER BY SUM(T3.UnitPrice * T3.Quantity * (1 - T3.Discount)) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Identify the customer, which placed the largest order in terms of value.",
+    "difficulty": "",
+    "evidence": "value refers to SUM(UnitPrice * Quantity * SUBTRACT(1, Discount)); the largest order in value refers to MAX(value)"
+  },
+  {
+    "sql": "SELECT COUNT(T2.EmployeeID) FROM Territories AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.TerritoryID = T2.TerritoryID INNER JOIN Region AS T3 ON T1.RegionID = T3.RegionID WHERE T3.RegionDescription = 'Northern'",
+    "question_id": null,
+    "question": "Identify the number of employees in Northern sales region.",
+    "difficulty": "",
+    "evidence": "Northern sales region refers to RegionDescription = 'Northern'"
+  },
+  {
+    "sql": "SELECT SUM(UnitPrice * Quantity * (1 - Discount)) / COUNT(OrderID) FROM `Order Details`",
+    "question_id": null,
+    "question": "What is the average value of the sales order?",
+    "difficulty": "",
+    "evidence": "calculation = DIVIDE(SUM(UnitPrice * Quantity * SUBTRACT(1, Discount)), COUNT(OrderID))"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN Discontinued = 1 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(ProductID) FROM Products",
+    "question_id": null,
+    "question": "Find the percentage of discontinued products in Northwind's portfolio of products.",
+    "difficulty": "",
+    "evidence": "discontinued products refers to Discontinued = 1; calculation = DIVIDE(SUM(Discontinued = 1), COUNT(ProductID)) * 100"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.OrderID = 10274",
+    "question_id": null,
+    "question": "Provide the full name of the employee who processed the sales order with ID 10274.",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName, LastName; sales order with ID 10274 refers to OrderID = 10274"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.CompanyName = 'GROSELLA-Restaurante'",
+    "question_id": null,
+    "question": "Calculate the total number of orders placed by the company 'GROSELLA-Restaurante'.",
+    "difficulty": "",
+    "evidence": "'GROSELLA-Restaurante' refers to CompanyName;"
+  },
+  {
+    "sql": "SELECT T4.ProductName, T3.Quantity FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID INNER JOIN Products AS T4 ON T3.ProductID = T4.ProductID INNER JOIN Customers AS T5 ON T2.CustomerID = T5.CustomerID WHERE T1.FirstName = 'Nancy' AND T1.LastName = 'Davolio' AND T5.CompanyName = 'GROSELLA-Restaurante'",
+    "question_id": null,
+    "question": "Name products and their quantity ordered by the company 'GROSELLA-Restaurante' in the sales order that was processed by Nancy Davolio.",
+    "difficulty": "",
+    "evidence": "name products refers to ProductName; 'GROSELLA-Restaurante' refers to CompanyName; 'Nancy Davolio' is the full name of an employee; full name refers to FirstName, LastName;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) , SUM(T3.UnitPrice * T3.Quantity * (1 - T3.Discount)) / COUNT(T2.OrderID) FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID WHERE T1.CompanyName = 'Laughing Bacchus Wine Cellars'",
+    "question_id": null,
+    "question": "Identify the total number of orders placed by the customer 'Laughing Bacchus Wine Cellars' and it's average value.",
+    "difficulty": "",
+    "evidence": "'Laughing Bacchus Wine Cellars' refers to CompanyName; calculation = DIVIDE(SUM(UnitPrice * Quantity * SUBTRACT(1, Discount)), COUNT(OrderID))"
+  },
+  {
+    "sql": "SELECT COUNT(T2.Quantity) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T1.ProductName = 'Pavlova'",
+    "question_id": null,
+    "question": "How many boxes of 'Pavlova' did Northwind sell?",
+    "difficulty": "",
+    "evidence": "'Pavlova' is a ProductName"
+  },
+  {
+    "sql": "SELECT ( SELECT MIN(Salary) FROM Employees WHERE Title = 'Sales Representative' ) AS MIN , ( SELECT MAX(Salary) FROM Employees WHERE Title = 'Sales Representative' ) AS MAX",
+    "question_id": null,
+    "question": "What is the salary range for sales representative in Northwind?",
+    "difficulty": "",
+    "evidence": "salary range is BETWEEN max(Salary) AND min(Salary); sales representative is a title"
+  },
+  {
+    "sql": "SELECT COUNT(SupplierID) FROM Suppliers WHERE Country = 'USA'",
+    "question_id": null,
+    "question": "How many suppliers does Northwind have in USA?",
+    "difficulty": "",
+    "evidence": "'USA' is a country; supplier refers to CompanyName"
+  },
+  {
+    "sql": "SELECT ProductName FROM Products WHERE Discontinued = 1",
+    "question_id": null,
+    "question": "What products are no longer sold by Northwind?",
+    "difficulty": "",
+    "evidence": "no longer sold refers to Discontinued = 1; products refers to ProductName"
+  },
+  {
+    "sql": "SELECT ContactName FROM Customers WHERE CompanyName = 'Eastern Connection' AND ContactTitle = 'Sales Agent'",
+    "question_id": null,
+    "question": "Who is the Sales Agent for the company 'Eastern Connection'?",
+    "difficulty": "",
+    "evidence": "'Eastern Connection' is a CompanyName; 'Sales Agent' is a ContactTitle"
+  },
+  {
+    "sql": "SELECT COUNT(ShipperID) FROM Shippers",
+    "question_id": null,
+    "question": "How many companies do ship Northwind's orders?",
+    "difficulty": "",
+    "evidence": "companies refers to ShipperID"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.ShipCountry = 'Austria' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.OrderID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Andrew' AND T1.LastName = 'Fuller'",
+    "question_id": null,
+    "question": "Identify the total number of orders processed by Northwind employee named Andrew Fuller. What percent of those orders was shipped to Austria?",
+    "difficulty": "",
+    "evidence": "'Andrew Fuller' is the full name of an employee; full name refers to FistName, LastName; Austria refers to ShipCountry; calculation = DIVIDE(SUM(ShipCountry = 'Austria'), COUNT(OrderID)) * 100"
+  },
+  {
+    "sql": "SELECT CategoryName FROM Categories WHERE Description = 'Soft drinks, coffees, teas, beers, and ales'",
+    "question_id": null,
+    "question": "Indicate category name of soft drinks, coffees, teas, beers, and ales in description list.",
+    "difficulty": "",
+    "evidence": "Soft drinks, coffees, teas, beers, and ales' is Description of CategoryName"
+  },
+  {
+    "sql": "SELECT Phone FROM Customers WHERE CompanyName = 'Around the Horn'",
+    "question_id": null,
+    "question": "List the phone number of company named Around the Horn.",
+    "difficulty": "",
+    "evidence": "phone number refers to Phone; 'Around the Horn' is a CompanyName"
+  },
+  {
+    "sql": "SELECT Fax FROM Customers WHERE CompanyName = 'Blondesddsl pre et fils' AND City = 'Strasbourg'",
+    "question_id": null,
+    "question": "Indicate the fax of the company Blondesddsl pre et fils in Strasbourg city.",
+    "difficulty": "",
+    "evidence": "'Blondesddsl pre et fils' is a CompanyName"
+  },
+  {
+    "sql": "SELECT COUNT(CompanyName) FROM Customers WHERE City = 'London'",
+    "question_id": null,
+    "question": "How many companies are there in the city of London?",
+    "difficulty": "",
+    "evidence": "companies refers to CompanyName;"
+  },
+  {
+    "sql": "SELECT Address FROM Customers WHERE CompanyName = 'Eastern Connection' AND ContactName = 'Ann Devon'",
+    "question_id": null,
+    "question": "Indicate the address of the company Eastern Connection whose contact name is Ann Devon.",
+    "difficulty": "",
+    "evidence": "'Eastern Connection' is a CompanyName; 'Ann Devon' is the full name of an employee; full name refers to FirstName, LastName"
+  },
+  {
+    "sql": "SELECT CompanyName FROM Customers WHERE Country = 'France'",
+    "question_id": null,
+    "question": "Indicate which company is located in France?",
+    "difficulty": "",
+    "evidence": "company refers to CompanyName; France is a country"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductName) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Exotic Liquids'",
+    "question_id": null,
+    "question": "How many product names does the supplier Exotic Liquids have?",
+    "difficulty": "",
+    "evidence": "'Exotic Liquids' is a CompanyName"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.UnitPrice = ( SELECT MAX(UnitPrice) FROM Products )",
+    "question_id": null,
+    "question": "What is the name of the company that has the product with the highest unit price?",
+    "difficulty": "",
+    "evidence": "name of the company refers to CompanyName; the highest unit price refers to MAX(UnitPrice)"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.City = 'London' ORDER BY T1.UnitsInStock DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which company name in London city has the most stocked products?",
+    "difficulty": "",
+    "evidence": "the most stocked products refers to MAX(UnitsInStock)"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Exotic Liquids' ORDER BY T1.ReorderLevel DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which product of Exotic Liquids company that have the highest reorder levels?",
+    "difficulty": "",
+    "evidence": "'Exotic Liquids' is a CompanyName; the highest reorder levels refers to MAX(ReorderLevel)"
+  },
+  {
+    "sql": "SELECT T3.CategoryName FROM Suppliers AS T1 INNER JOIN Products AS T2 ON T1.SupplierID = T2.SupplierID INNER JOIN Categories AS T3 ON T2.CategoryID = T3.CategoryID WHERE T1.CompanyName = 'New Orleans Cajun Delights' AND T2.ProductName LIKE 'Chef Anton%s Gumbo Mix'",
+    "question_id": null,
+    "question": "Provide the category name of the Chef Anton's Gumbo Mix product that New Orleans Cajun Delights company has.",
+    "difficulty": "",
+    "evidence": "'Chef Anton's Gumbo Mix' is a ProductName; 'New Orleans Cajun Delights' is a CompanyName;"
+  },
+  {
+    "sql": "SELECT T2.Country FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName = 'Ipoh Coffee' AND T2.CompanyName = 'Leka Trading'",
+    "question_id": null,
+    "question": "Indicate the name of the country where Leka Trading supplies Ipoh Coffee product.",
+    "difficulty": "",
+    "evidence": "'Leka Trading' is a CompanyName; 'Ipoh Coffee' is a ProductName"
+  },
+  {
+    "sql": "SELECT T2.CategoryName FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID WHERE T1.UnitsOnOrder = ( SELECT MAX(T1.UnitsOnOrder) FROM Products )",
+    "question_id": null,
+    "question": "Indicate the category name of the product name with the highest units on order.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT ( SELECT T1.UnitPrice FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'New Orleans Cajun Delights' AND T1.ProductName LIKE 'Chef Anton%s Cajun Seasoning' ) - ( SELECT T1.UnitPrice FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'New Orleans Cajun Delights' AND T1.ProductName LIKE 'Chef Anton%s Gumbo Mix' ) AS calu",
+    "question_id": null,
+    "question": "What is the difference in number of unit price from Chef Anton's Cajun Seasoning product and Chef Anton's Gumbo Mix product of New Orleans Cajun Delights company.",
+    "difficulty": "",
+    "evidence": "Chef Anton's Cajun Seasoning' AND 'Chef Anton''s Gumbo Mix' are ProductName; 'New Orleans Cajun Delights' is a CompanyName; calculation = SUBTRACT(UnitPrice where ProductName = 'Chef Anton's Cajun Seasoning', UnitPrice where ProductName = 'Chef Anton''s Gumbo Mix')"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName LIKE 'Cooperativa de Quesos%' AND T1.UnitPrice > 20",
+    "question_id": null,
+    "question": "Which of Cooperativa de Quesos 'Las Cabras' products have a unit price greater than 20?",
+    "difficulty": "",
+    "evidence": "Cooperativa de Quesos 'Las Cabras'' is a CompanyName; unit price greater than 20 refers to UnitPrice > 20"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.ProductName FROM Suppliers AS T1 INNER JOIN Products AS T2 ON T1.SupplierID = T2.SupplierID INNER JOIN `Order Details` AS T3 ON T2.ProductID = T3.ProductID WHERE T1.CompanyName = 'Tokyo Traders' AND T3.Quantity > 40",
+    "question_id": null,
+    "question": "Please indicate the product name of Tokyo Traders company with order quantity greater than 40.",
+    "difficulty": "",
+    "evidence": "'Tokyo Traders' is a CompanyName; order quantity greater than 40 refers to Quantity > 40"
+  },
+  {
+    "sql": "SELECT T3.CategoryName FROM Suppliers AS T1 INNER JOIN Products AS T2 ON T1.SupplierID = T2.SupplierID INNER JOIN Categories AS T3 ON T2.CategoryID = T3.CategoryID WHERE T2.UnitsInStock > 100 AND T1.CompanyName = 'Exotic Liquids'",
+    "question_id": null,
+    "question": "List all category name of Exotic Liquids 's product with units in stock over 100.",
+    "difficulty": "",
+    "evidence": "'Exotic Liquids' is a CompanyName; units in stock over 100 refers to UnitsInStock > 100"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Quantity < 50 THEN 1 ELSE 0 END) , CAST(SUM(IF(T2.Quantity < 50, 1, 0)) AS REAL) / COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID",
+    "question_id": null,
+    "question": "How many product names have order quantity less than 50? Calculate the percentage of orders less than 50 out of total order quantity.",
+    "difficulty": "",
+    "evidence": "order quantity less than 50 refers to Quantity < 50; Calculation = DIVIDE(SUM(Quantity < 50), SUM(ProductID)) * 100"
+  },
+  {
+    "sql": "SELECT SUM(IF(T1.ProductName = 'Geitost', 1, 0)) AS sum , CAST(SUM(IF(T1.ProductName = 'Geitost', 1, 0)) AS REAL) / COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID",
+    "question_id": null,
+    "question": "Please indicate total order quantity of product Geitost and calculate the percentage of such product among all the order quantity.",
+    "difficulty": "",
+    "evidence": "'Geitost' is a ProductName; calculation = DIVIDE(ProductName = 'Geitost', COUNT(ProductID)) * 100"
+  },
+  {
+    "sql": "SELECT Title FROM Employees WHERE FirstName = 'Robert' AND LastName = 'King'",
+    "question_id": null,
+    "question": "What is the position of Robert King?",
+    "difficulty": "",
+    "evidence": "'Robert King' is the full name of an employee; full name refers to FirstName, LastName; position refers to Title"
+  },
+  {
+    "sql": "SELECT CompanyName FROM Shippers WHERE Phone = '(503) 555-9931'",
+    "question_id": null,
+    "question": "Write the shipping company name with the telephone number of (503) 555-9931.",
+    "difficulty": "",
+    "evidence": "telephone number of (503) 555-9931 refers to Phone = '(503) 555-9931'"
+  },
+  {
+    "sql": "SELECT Address, HomePhone FROM Employees WHERE FirstName = 'Margaret' AND LastName = 'Peacock'",
+    "question_id": null,
+    "question": "Write the address and phone number of Margaret Peacock.",
+    "difficulty": "",
+    "evidence": "Margaret Peacock is the full name of an employee; full name refers to FirstName, LastName; phone number refers to HomePhone"
+  },
+  {
+    "sql": "SELECT DISTINCT ShipAddress, ShipCity, ShipRegion, ShipPostalCode, ShipCountry FROM Orders WHERE ShipName = 'Rattlesnake Canyon Grocery'",
+    "question_id": null,
+    "question": "What is the full address of Rattlesnake Canyon Grocery?",
+    "difficulty": "",
+    "evidence": "full address refers to ShipAddress, ShipCity, ShipRegion,ShipPostalCode, ShipCountry; 'Rattlesnake Canyon Grocery' is a ShipName;"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID WHERE T2.CategoryName = 'Confections'",
+    "question_id": null,
+    "question": "List all product names under Confections.",
+    "difficulty": "",
+    "evidence": "'Confections' is a CompanyName;"
+  },
+  {
+    "sql": "SELECT T2.CompanyName, T2.ContactName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T1.ProductName LIKE 'Sir Rodney%s Marmalade'",
+    "question_id": null,
+    "question": "Sir Rodney's Marmalade is supplied by which company and who is the contact for this company?",
+    "difficulty": "",
+    "evidence": "'Sir Rodney's Marmalade' is a ProductName; company refers to CompanyName; contact for a company refers to ContactName"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T3.TerritoryDescription = 'Denver'",
+    "question_id": null,
+    "question": "What is the full name of the employee who is in charge of the territory of Denver?",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName, LastName; Denver is a TerritoryDescription"
+  },
+  {
+    "sql": "SELECT T3.TerritoryDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.FirstName = 'Laura' AND T1.LastName = 'Callahan'",
+    "question_id": null,
+    "question": "List all the territories where Laura Callahan is in charge.",
+    "difficulty": "",
+    "evidence": "territories refers to TerritoryDescription; Laura Callahan is the full name of an employee; full name refers to FirstName, LastName"
+  },
+  {
+    "sql": "SELECT COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Federal Shipping' AND T1.ShipVia = 3",
+    "question_id": null,
+    "question": "How many orders were shipped via Federal Shipping?",
+    "difficulty": "",
+    "evidence": "'Federal Shipping' is a CompanyName; orders refers to OrderID"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.Country = 'Finland'",
+    "question_id": null,
+    "question": "Name the products where the suppliers come from Finland.",
+    "difficulty": "",
+    "evidence": "'Finland' is a Country; product refers to ProductName; suppliers refers to SupplierID"
+  },
+  {
+    "sql": "SELECT T2.CategoryName, T2.Description FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID WHERE T1.ProductName = 'Mozzarella di Giovanni'",
+    "question_id": null,
+    "question": "The product 'Mozzarella di Giovanni' belongs in which category? Include the category's description as well.",
+    "difficulty": "",
+    "evidence": "Mozzarella di Giovanni' is a ProductName; category refers to CategoryName;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.CompanyName FROM Suppliers AS T1 INNER JOIN Products AS T2 ON T1.SupplierID = T2.SupplierID INNER JOIN Categories AS T3 ON T2.CategoryID = T3.CategoryID WHERE T3.Description = 'Cheeses'",
+    "question_id": null,
+    "question": "Name the suppliers that supply products under the category 'cheeses.'",
+    "difficulty": "",
+    "evidence": "suppliers refers to CompanyName; 'cheeses' is a Description"
+  },
+  {
+    "sql": "SELECT T1.ProductName FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Zaanse Snoepfabriek'",
+    "question_id": null,
+    "question": "Name all products supplied by Zaanse Snoepfabriek.",
+    "difficulty": "",
+    "evidence": "products refers to ProductName; 'Zaanse Snoepfabriek' is a CompanyName"
+  },
+  {
+    "sql": "SELECT T1.UnitPrice FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Plutzer Lebensmittelgromrkte AG' AND T1.Discontinued = 1",
+    "question_id": null,
+    "question": "Which products by Plutzer Lebensmittelgromrkte AG were discontinued and what are their price?",
+    "difficulty": "",
+    "evidence": "products refers to ProductName; 'Plutzer Lebensmittelgromrkte AG' is a CompanyName; price refers to UnitPrice; \ndiscontinued products refers to discontinued = 1"
+  },
+  {
+    "sql": "SELECT T1.ShipCity FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T3.ProductName = 'Mishi Kobe Niku'",
+    "question_id": null,
+    "question": "List the cities where the product 'Mishi Kobe Niku' were shipped to.",
+    "difficulty": "",
+    "evidence": "cities refers to ShipCity; 'Mishi Kobe Niku' is a ProductName"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.ShipCountry = 'Sweden' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Speedy Express'",
+    "question_id": null,
+    "question": "What percentage does the shipment of products by Speedy Express to Sweden make up to the shipping company's total?",
+    "difficulty": "",
+    "evidence": "Speedy Express is a company; Sweden is a ShipCountry; calculation = DIVIDE(SUM(ShipCountry = 'Sweden'), SEM(ShipCountry)) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(TerritoryID) FROM Territories WHERE RegionID = 1",
+    "question_id": null,
+    "question": "How many territory fall into region 1?",
+    "difficulty": "",
+    "evidence": "region 1 refers to RegionID = 1\n\n"
+  },
+  {
+    "sql": "SELECT COUNT(TerritoryDescription) FROM Territories WHERE RegionID IN (1, 2, 3, 4) GROUP BY RegionID",
+    "question_id": null,
+    "question": "What are the the total number of territory in each region?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(SupplierID) FROM Suppliers WHERE Country = 'UK'",
+    "question_id": null,
+    "question": "How many suppliers are from UK?",
+    "difficulty": "",
+    "evidence": "from UK refers to Country = 'UK'"
+  },
+  {
+    "sql": "SELECT ContactName FROM Suppliers WHERE CompanyName = 'Tokyo Traders'",
+    "question_id": null,
+    "question": "Please give the contact name for Tokyo Traders.",
+    "difficulty": "",
+    "evidence": "Tokyo Traders refers to CompanyName = 'Tokyo Traders'"
+  },
+  {
+    "sql": "SELECT COUNT(Country) FROM Employees WHERE Country = 'USA' AND Title = 'Sales Representative'",
+    "question_id": null,
+    "question": "How many employees from USA with Sales Representative title?",
+    "difficulty": "",
+    "evidence": "from USA refers to Country = 'USA'"
+  },
+  {
+    "sql": "SELECT Salary, Title FROM Employees WHERE Salary = ( SELECT MAX(Salary) FROM Employees )",
+    "question_id": null,
+    "question": "What are the highest salary earn by the the employee and what is his/her position in the company?",
+    "difficulty": "",
+    "evidence": "highest salary refers to max(salary); position refers to Title"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN Suppliers AS T2 ON T1.SupplierID = T2.SupplierID WHERE T2.CompanyName = 'Plutzer Lebensmittelgromrkte AG' AND T1.UnitsInStock = 0 AND T1.UnitsOnOrder = 0",
+    "question_id": null,
+    "question": "How many products supplied by Plutzer Lebensmittelgromrkte AG that is currently out of stock and on order?",
+    "difficulty": "",
+    "evidence": "Plutzer Lebensmittelgromrkte AG refers to CompanyName; is currently out of stock and on order refers to UnitsInStock = 0 and UnitsOnOrder > 0"
+  },
+  {
+    "sql": "SELECT T1.ProductName, T2.Quantity FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID ORDER BY T1.UnitPrice DESC LIMIT 1",
+    "question_id": null,
+    "question": "What product have the highest unit price and how many quantity have been being sold?",
+    "difficulty": "",
+    "evidence": "product refers to ProductID; highest unit price refers to Max(UnitPrice)"
+  },
+  {
+    "sql": "SELECT T1.Title FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID GROUP BY T1.Title ORDER BY COUNT(T2.OrderID) LIMIT 1",
+    "question_id": null,
+    "question": "Which employee has created the least order and please indicates the employee's title?",
+    "difficulty": "",
+    "evidence": "least order refers to Min(OrderID)"
+  },
+  {
+    "sql": "SELECT T2.ProductID FROM Customers AS T1 INNER JOIN `Order Details` AS T2 WHERE T1.Country = 'Germany' GROUP BY T2.ProductID ORDER BY COUNT(T2.ProductID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most common product ordered by a customer from Germany?",
+    "difficulty": "",
+    "evidence": "most common product refers to max(count(ProductID)); customer from Germany\u00a0refers to Country = 'Germany'"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity * T2.UnitPrice) FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Shippers AS T3 ON T1.ShipVia = T3.ShipperID WHERE T3.CompanyName = 'Speedy Express' AND T1.ShipCountry = 'Brazil'",
+    "question_id": null,
+    "question": "What are the total products value shipped to Brazil by Speedy Express Company?",
+    "difficulty": "",
+    "evidence": "shipped to Brazil refers to ShipCountry = 'Brazil'; by Speedy Express Company refers to CompanyName = 'Speedy Express'; total products value refers to sum(MULTIPLY(UnitPrice, Quantity))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.EmployeeID), SUM(T3.Quantity * T3.UnitPrice) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID WHERE T1.ReportsTo = 2 ORDER BY SUM(T3.UnitPrice * T3.Quantity) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many subordinates does employee ID 2 have and what is the biggest order in terms of value that his/her subordinates have created?",
+    "difficulty": "",
+    "evidence": "subordinates of employee ID 2 refers to EmployeeID where ReportsTo = 2;\u00a0 biggest order in terms of value refers to max(MULTIPLY(Quantity, UnitPrice))"
+  },
+  {
+    "sql": "SELECT SUM(T3.UnitPrice * T3.Quantity) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID WHERE T1.Title = 'Sales Representative' ORDER BY SUM(T3.UnitPrice * T3.Quantity)",
+    "question_id": null,
+    "question": "How many sales values have been created by sales representative and which sales representative have the highest sales?",
+    "difficulty": "",
+    "evidence": "sales representative refers to Title = 'Sales Representative'; sales values refers to MULTIPLY(Quantity, UnitPrice); the highest sales refers to max(MULTIPLY(Quantity, UnitPrice))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.EmployeeID), T3.RegionID FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T1.Country = 'UK' GROUP BY T3.RegionID",
+    "question_id": null,
+    "question": "How many employees is a UK citizen and are they all covering the same region?",
+    "difficulty": "",
+    "evidence": "is a UK citizen refers to Country = 'UK'"
+  },
+  {
+    "sql": "SELECT T1.CompanyName, T2.ShipCountry FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN `Order Details` AS T3 ON T2.OrderID = T3.OrderID GROUP BY T1.CompanyName, T2.ShipCountry ORDER BY COUNT(T3.ProductID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which customer have the biggest purchase in one order and where does this order being ship to?",
+    "difficulty": "",
+    "evidence": "biggest purchase refers to max(ProductID.Order_Details); ship to refers to ShipCountry"
+  },
+  {
+    "sql": "SELECT T1.CustomerID, T4.CategoryName FROM Orders AS T1 INNER JOIN `Order Details` AS T2 ON T1.OrderID = T2.OrderID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID INNER JOIN Categories AS T4 ON T3.CategoryID = T4.CategoryID ORDER BY T1.CustomerID DESC, T4.CategoryName DESC",
+    "question_id": null,
+    "question": "Which customer is a regular customer in this shop and what are the products category that he mostly buy?",
+    "difficulty": "",
+    "evidence": "regular customer refers to max(count(CustomerID)); products category refers to CategoryName; mostly buy refers to max(count(CategoryID))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.UnitPrice * T3.Quantity) FROM Products AS T1 INNER JOIN Categories AS T2 ON T1.CategoryID = T2.CategoryID INNER JOIN `Order Details` AS T3 ON T1.ProductID = T3.ProductID WHERE T2.CategoryName = 'Confections' GROUP BY T3.Quantity ORDER BY T3.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "What are the most popular confections product and calculate the total sales generated by this product?",
+    "difficulty": "",
+    "evidence": "most popular confections product refers to ProductID = max(count(MULTIPLY(Quantity, UnitPrice))) from CategoryName = 'Confections' ;\u00a0 total sales refers to sum(MULTIPLY(Quantity, UnitPrice))"
+  },
+  {
+    "sql": "SELECT ProductName FROM Products WHERE ProductID = 77",
+    "question_id": null,
+    "question": "What is the name of product with the ID of 77?",
+    "difficulty": "",
+    "evidence": "name of product refers to ProductName; ID refers to ProductID"
+  },
+  {
+    "sql": "SELECT CompanyName FROM Suppliers WHERE Country = 'USA'",
+    "question_id": null,
+    "question": "State the company name of all suppliers in USA.",
+    "difficulty": "",
+    "evidence": "in USA refers to Country = 'USA'"
+  },
+  {
+    "sql": "SELECT Title FROM Employees WHERE FirstName = 'Laura' AND LastName = 'Callahan'",
+    "question_id": null,
+    "question": "What is the position title for Laura Callahan?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T3.CompanyName = 'Victuailles en stock'",
+    "question_id": null,
+    "question": "State the name of employee that manages the order from Victuailles en stock?",
+    "difficulty": "",
+    "evidence": "name of employee refers to FirstName; from Victuailles en stock refers to CompanyName = 'Victuailles en stock'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'Federal Shipping'",
+    "question_id": null,
+    "question": "How many orders were shipped by Federal Shipping?",
+    "difficulty": "",
+    "evidence": "Federal Shipping refers to CompanyName = 'Federal Shipping'"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID WHERE T3.TerritoryDescription = 'Morristown'",
+    "question_id": null,
+    "question": "Who was taking charge of orders from Morristown?",
+    "difficulty": "",
+    "evidence": "Morristown refers to TerritoryDescription = 'Morristown'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.TerritoryDescription FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Northern'",
+    "question_id": null,
+    "question": "State the name of all territories in Northern region.",
+    "difficulty": "",
+    "evidence": "name of all territories refers to TerritoryDescription; Northern region refers to RegionDescription = 'Northern'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.FirstName = 'Michael' AND T1.LastName = 'Suyama'",
+    "question_id": null,
+    "question": "How many orders were handled by Michael Suyama. State the order ID.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(( SELECT COUNT(T1.TerritoryID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Northern' ) AS REAL) * 100 / ( SELECT COUNT(T1.TerritoryID) FROM Territories AS T1 INNER JOIN Region AS T2 ON T1.RegionID = T2.RegionID WHERE T2.RegionDescription = 'Westerns' ) AS Calu",
+    "question_id": null,
+    "question": "What is the ratio number of territories in Northern region and number territories in Western region?",
+    "difficulty": "",
+    "evidence": "Northern region refers to RegionID = 3; Western region refers to RegionID = 2 ; ratio = divide((TerritoryDescription where RegionID = 3), (TerritoryDescription where RegionID = 2))"
+  },
+  {
+    "sql": "SELECT EmployeeID FROM EmployeeTerritories WHERE TerritoryID BETWEEN 1000 AND 2000",
+    "question_id": null,
+    "question": "Provide employees' ID who are in-charge of territory ID from 1000 to 2000.",
+    "difficulty": "",
+    "evidence": "territory ID from 1000 to 2000 refers to TerritoryID BETWEEN 1000 and 2000"
+  },
+  {
+    "sql": "SELECT T3.RegionID, T3.TerritoryDescription, T4.RegionDescription FROM Employees AS T1 INNER JOIN EmployeeTerritories AS T2 ON T1.EmployeeID = T2.EmployeeID INNER JOIN Territories AS T3 ON T2.TerritoryID = T3.TerritoryID INNER JOIN Region AS T4 ON T3.RegionID = T4.RegionID WHERE T1.LastName = 'Davolio' AND T1.FirstName = 'Nancy'",
+    "question_id": null,
+    "question": "List down the territory IDs, descriptions and region description which are under the in-charge of Nancy Davolio,",
+    "difficulty": "",
+    "evidence": "descriptions refers to TerritoryDescription; region refers to RegionDescription"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName, COUNT(T2.OrderID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.Title = 'Sales Representative' AND STRFTIME('%Y', T1.HireDate) = '1992' GROUP BY T1.EmployeeID, T1.FirstName, T1.LastName",
+    "question_id": null,
+    "question": "Describe Sales Representative names who were hired in 1992 and compare the number of orders among them.",
+    "difficulty": "",
+    "evidence": "Sales Representative refers to Title = 'Sales Representative'\uff1bwere hired in 1992 refers to HireDate = '1992'"
+  },
+  {
+    "sql": "SELECT SUM(T2.UnitPrice * T2.Quantity * (1 - T2.Discount)) AS sum FROM Products AS T1 INNER JOIN `Order Details` AS T2 ON T1.ProductID = T2.ProductID WHERE T1.ProductName = 'Vegie-spread'",
+    "question_id": null,
+    "question": "Calculate the total payment of orders for Vegie-spread product.",
+    "difficulty": "",
+    "evidence": "Vegie-spread product refers to ProductName = 'Vegie-spread'\uff1btotal payment = MULTIPLY(UnitPrice, Quantity, (1-Discount))"
+  },
+  {
+    "sql": "SELECT T1.CompanyName FROM Suppliers AS T1 INNER JOIN Products AS T2 ON T1.SupplierID = T2.SupplierID INNER JOIN `Order Details` AS T3 ON T2.ProductID = T3.ProductID INNER JOIN Orders AS T4 ON T3.OrderID = T4.OrderID WHERE date(T4.OrderDate) = '1996-08-14'",
+    "question_id": null,
+    "question": "List down the company names which supplied products for the order on 14th August, 1996.",
+    "difficulty": "",
+    "evidence": "products refers to Order_Details.ProductID; on 14th August, 1996 refers to OrderDate = '8/14/1996'"
+  },
+  {
+    "sql": "SELECT T2.ProductName, T1.CompanyName FROM Suppliers AS T1 INNER JOIN Products AS T2 ON T1.SupplierID = T2.SupplierID INNER JOIN `Order Details` AS T3 ON T2.ProductID = T3.ProductID WHERE T3.OrderID = 10337 ORDER BY T2.ReorderLevel DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the product lists in order ID 10337, write down the product names and suppliers which had the highest in reorder level.",
+    "difficulty": "",
+    "evidence": "suppliers refers to CompanyName; highest in reorder level refers to Max(ReorderLevel)"
+  },
+  {
+    "sql": "SELECT T1.CompanyName FROM Shippers AS T1 INNER JOIN Orders AS T2 ON T1.ShipperID = T2.ShipVia WHERE STRFTIME('%Y', T2.ShippedDate) = '1998' GROUP BY T1.CompanyName ORDER BY COUNT(T2.OrderID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the shipper which had the most shipments in first quarter of 1998.",
+    "difficulty": "",
+    "evidence": "Name the shipper refers to CompanyName; most shipments refers to max(count(OrderID)); first quarter of 1998 refers to ShippedDate = 1998/1 and ShippedDate = 1998/2 and ShippedDate = 1998/3 and ShippedDate = 1998/4"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM Customers WHERE City = 'London'",
+    "question_id": null,
+    "question": "How many customers are located in London?",
+    "difficulty": "",
+    "evidence": "London refers to City = 'London'"
+  },
+  {
+    "sql": "SELECT Title FROM Employees WHERE FirstName = 'Michael' AND LastName = 'Suyama'",
+    "question_id": null,
+    "question": "What is the title of Michael Suyama?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Employees WHERE BirthDate = '1955-03-04 00:00:00'",
+    "question_id": null,
+    "question": "List out the full name of employee who has birth day on \"3/4/1955 12:00:00 AM\".",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName, LastName; brith day refers to BirthDate"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.OrderID = 10250",
+    "question_id": null,
+    "question": "Mention the first name of employee who took care the order id 10250.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.City = 'Tacoma'",
+    "question_id": null,
+    "question": "How many orders that the employees who are located in Tacoma handled?",
+    "difficulty": "",
+    "evidence": "located in Tacoma refers to City = 'Tacoma'"
+  },
+  {
+    "sql": "SELECT T1.Country FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.OrderID = 10257",
+    "question_id": null,
+    "question": "What is the country location of the employee who handled order id 10257?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Title FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.OrderID = 10257",
+    "question_id": null,
+    "question": "What is the title of the employee who handled order id 10270?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Phone FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.OrderID = 10264",
+    "question_id": null,
+    "question": "Give the phone number of the customer who placed the order id 10264.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Region FROM Customers AS T1 INNER JOIN Orders AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.OrderID = 10276",
+    "question_id": null,
+    "question": "What is the region where the customer who placed the order id 10276 located?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName, AVG(T1.Salary) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.ShipCountry = 'Brazil' GROUP BY T1.FirstName, T1.LastName ORDER BY SUM(T1.Salary) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the employees who handled orders to Brazil, who has the highest salary and calculate the average salary of them.",
+    "difficulty": "",
+    "evidence": "orders to Brazil refers to ShipCountry = 'Brazil'; highest salary refers to max(salary); average salary = AVG(Salary)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN STRFTIME('%Y', T2.ShippedDate) = '1996' THEN T1.Salary ELSE 0 END) AS REAL) * 100 / SUM(T1.Salary) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID",
+    "question_id": null,
+    "question": "Calculate the percentage salary of employees who handled orders shipped in 1996.",
+    "difficulty": "",
+    "evidence": "shipped in 1996 refers to ShippedDate = 1996; percentage salary = divide(sum(Salary when ShippedDate = 1996), sum(Salary)) as percentage"
+  },
+  {
+    "sql": "SELECT T1.HireDate FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.OrderID = 10281",
+    "question_id": null,
+    "question": "When was the employee who handled order id 10281 hired?",
+    "difficulty": "",
+    "evidence": "When was hired refers to HireDate"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OrderID) FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T1.ReportsTo = 5",
+    "question_id": null,
+    "question": "How many orders was handled by employees who reported to employee id 5?",
+    "difficulty": "",
+    "evidence": "reported to employee id 5 refers to ReportsTo = 5"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN Orders AS T2 ON T1.EmployeeID = T2.EmployeeID WHERE T2.OrderID = 10280",
+    "question_id": null,
+    "question": "Give the full name of employee who handled the order id 10280.",
+    "difficulty": "",
+    "evidence": "full name refers to FirstName, LastName"
+  },
+  {
+    "sql": "SELECT T2.CompanyName FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T1.OrderID = 10260",
+    "question_id": null,
+    "question": "State the shipping company of order id 10260.",
+    "difficulty": "",
+    "evidence": "shipping company refers to CompanyName"
+  },
+  {
+    "sql": "SELECT COUNT(T1.OrderID) FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T2.CompanyName = 'United Package'",
+    "question_id": null,
+    "question": "How many orders have been shipped through United Package?",
+    "difficulty": "",
+    "evidence": "shipped through refers to ShipVia; United Package refers to CompanyName = 'United Package'"
+  },
+  {
+    "sql": "SELECT T2.Phone FROM Orders AS T1 INNER JOIN Shippers AS T2 ON T1.ShipVia = T2.ShipperID WHERE T1.OrderID = 10260",
+    "question_id": null,
+    "question": "List out the phone number of the shipping company of order id 10296.",
+    "difficulty": "",
+    "evidence": "shipping company refers to Shippers; phone number refers to Phone"
+  }
+]

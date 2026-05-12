@@ -1,0 +1,975 @@
+[
+  {
+    "sql": "SELECT COUNT(OBJ_SAMPLE_ID) FROM IMG_OBJ WHERE IMG_ID = 1",
+    "question_id": null,
+    "question": "How many object samples are there in image no.1?",
+    "difficulty": "",
+    "evidence": "object samples refers to OBJ_SAMPLE_ID; image no.1 refers to IMG_ID = 1"
+  },
+  {
+    "sql": "SELECT COUNT(T1.IMG_ID) FROM ( SELECT IMG_ID FROM IMG_OBJ GROUP BY IMG_ID HAVING COUNT(OBJ_SAMPLE_ID) > 20 ) T1",
+    "question_id": null,
+    "question": "How many images have over 20 object samples?",
+    "difficulty": "",
+    "evidence": "over 20 object samples refers to COUNT(OBJ_SAMPLE_ID) > 20"
+  },
+  {
+    "sql": "SELECT IMG_ID FROM IMG_OBJ GROUP BY IMG_ID ORDER BY COUNT(OBJ_SAMPLE_ID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the ID of the image with the most number of object samples?",
+    "difficulty": "",
+    "evidence": "ID of the image refers to IMG_ID; most number of object samples refers to max(count(OBJ_SAMPLE_ID))"
+  },
+  {
+    "sql": "SELECT OBJ_SAMPLE_ID FROM IMG_OBJ WHERE IMG_ID = 1 AND OBJ_CLASS_ID = 297",
+    "question_id": null,
+    "question": "Please list the IDs of the object samples in class no. 297 in image no.1.",
+    "difficulty": "",
+    "evidence": "IDs of the object samples refers to OBJ_SAMPLE_ID; class no. 297 in image no.1 refers to IMG_ID = 1 and OBJ_CLASS_ID = 297"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN IMG_ID = 5 THEN 1 ELSE 0 END) FROM IMG_REL WHERE OBJ1_SAMPLE_ID = OBJ2_SAMPLE_ID",
+    "question_id": null,
+    "question": "How many self-relations are there between the object samples in image no.5?",
+    "difficulty": "",
+    "evidence": "self-relations refers to OBJ1_SAMPLE_ID = OBJ2_SAMPLE_ID; image no.5 refers to IMG_ID = 5"
+  },
+  {
+    "sql": "SELECT T2.X, T2.Y, T2.W, T2.H FROM IMG_REL AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.IMG_ID = T2.IMG_ID WHERE T1.IMG_ID = 5 AND T1.OBJ1_SAMPLE_ID = T1.OBJ2_SAMPLE_ID",
+    "question_id": null,
+    "question": "What is the bounding box of the object sample in image no.5 that has a self-relation?",
+    "difficulty": "",
+    "evidence": "bounding box of the object sample refers to (x, y, W, H); image no.5 refers to IMG_ID = 5; has a self-relation refers to OBJ1_SAMPLE_ID = OBJ2_SAMPLE_ID"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.OBJ_CLASS = 'man' THEN 1 ELSE 0 END) FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.IMG_ID = 1",
+    "question_id": null,
+    "question": "How many object samples in image no.1 are in the class of \"man\"?",
+    "difficulty": "",
+    "evidence": "object samples refers to OBJ_CLASS_ID; image no.1 refers to IMG_ID = 1; in the class of \"man\" refers to OBJ_CLASS = 'man'"
+  },
+  {
+    "sql": "SELECT COUNT(T.IMG_ID) FROM ( SELECT T2.IMG_ID FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.OBJ_CLASS = 'man' GROUP BY T2.IMG_ID ) T",
+    "question_id": null,
+    "question": "How many images have at least one object sample in the class of \"man\"?",
+    "difficulty": "",
+    "evidence": "have at least one object sample in the class of \"man\" refers to count(IMG_ID where OBJ_CLASS = 'man') > = 1"
+  },
+  {
+    "sql": "SELECT T1.OBJ_CLASS FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.IMG_ID = 1 GROUP BY T1.OBJ_CLASS",
+    "question_id": null,
+    "question": "Please list the classes of all the object samples in image no.1.",
+    "difficulty": "",
+    "evidence": "classes of all the object samples refers to OBJ_CLASS; image no.1 refers to IMG_ID = 1"
+  },
+  {
+    "sql": "SELECT T1.PRED_CLASS FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.IMG_ID = 1 AND T2.OBJ1_SAMPLE_ID = 8 AND T2.OBJ2_SAMPLE_ID = 4",
+    "question_id": null,
+    "question": "What is the relation between object sample no.8 and object sample no.4 in image no.1?",
+    "difficulty": "",
+    "evidence": "relation refers to PRED_CLASS; object sample no.8 and object sample no.4 refers to OBJ1_SAMPLE_ID = 8 AND OBJ2_SAMPLE_ID = 4; image no.1 refers to IMG_ID = 1"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.PRED_CLASS = 'parked on' THEN 1 ELSE 0 END) FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.IMG_ID = 1 AND T2.OBJ1_SAMPLE_ID != OBJ2_SAMPLE_ID",
+    "question_id": null,
+    "question": "How many pairs of object samples in image no.1 have the relation of \"parked on\"?",
+    "difficulty": "",
+    "evidence": "pairs of object samples refers to OBJ1_SAMPLE_ID and OBJ2_SAMPLE_ID; image no.1 refers to IMG_ID = 1; relation of \"parked on\" refers to PRED_CLASS = 'parked on'"
+  },
+  {
+    "sql": "SELECT T1.PRED_CLASS FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.OBJ1_SAMPLE_ID = 14 AND T2.OBJ2_SAMPLE_ID = 14",
+    "question_id": null,
+    "question": "Please list all the predicted relation classes of object sample no.14 in image no.1.",
+    "difficulty": "",
+    "evidence": "predicted relation classes refers to PRED_CLASS; object sample no.14 in image no.1 refers to OBJ1_SAMPLE_ID = 14 AND OBJ2_SAMPLE_ID = 14 and IMG_ID = 1"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.PRED_CLASS = 'parked on' THEN 1 ELSE 0 END) FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.OBJ1_SAMPLE_ID != T2.OBJ2_SAMPLE_ID",
+    "question_id": null,
+    "question": "How many images have at least one pair of object samples with the relation \"parked on\"?",
+    "difficulty": "",
+    "evidence": "How many images have at least one pair of object samples with the relation \"parked on\" refers to count(IMG_ID) where OBJ1_SAMPLE_ID ! = OBJ2_SAMPLE_ID and PRED_CLASS = 'parked on'"
+  },
+  {
+    "sql": "SELECT T2.IMG_ID FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T1.PRED_CLASS = 'parked on' AND T2.OBJ1_SAMPLE_ID != T2.OBJ2_SAMPLE_ID GROUP BY T2.IMG_ID HAVING COUNT(T2.IMG_ID) > 2",
+    "question_id": null,
+    "question": "Please list the IDs of all the images with more than 2 pairs of object samples with the relation \"parked on\".",
+    "difficulty": "",
+    "evidence": "IDs of all the images refers to IMG_ID; relation \"parked on\" refers to PRED_CLASS = 'parked on'; more than 2 pairs refers to count(IMG_ID) where OBJ1_SAMPLE_ID ! = OBJ2_SAMPLE_ID"
+  },
+  {
+    "sql": "SELECT T1.PRED_CLASS FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.IMG_ID = 5 AND T2.OBJ1_SAMPLE_ID = T2.OBJ2_SAMPLE_ID",
+    "question_id": null,
+    "question": "To which predicted relation class does the self-relation of the object sample in image no.5 belong?",
+    "difficulty": "",
+    "evidence": "predicted relation class refers to PRED_CLASS; self-relations refers to OBJ1_SAMPLE_ID = OBJ2_SAMPLE_ID; image no.5 refers to IMG_ID = 5"
+  },
+  {
+    "sql": "SELECT T3.X, T3.Y, T3.W, T3.H FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.OBJ1_SAMPLE_ID = T3.OBJ_CLASS_ID WHERE T2.IMG_ID = 1 AND T1.PRED_CLASS = 'by'",
+    "question_id": null,
+    "question": "What are the bounding boxes of the object samples with a predicted relation class of \"by\" in image no.1?",
+    "difficulty": "",
+    "evidence": "bounding boxes of the object samples refers to (x, y, W, H); predicted relation class of \"by\" refers to PRED_CLASS = 'by'; image no.1 refers to IMG_ID = 1"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T3.Y) AS REAL) / COUNT(CASE WHEN T1.PRED_CLASS = 'parked on' THEN 1 ELSE NULL END) FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.OBJ1_SAMPLE_ID = T3.OBJ_CLASS_ID WHERE T2.IMG_ID = 1 AND T2.OBJ1_SAMPLE_ID != T2.OBJ2_SAMPLE_ID",
+    "question_id": null,
+    "question": "What is the average difference in the y coordinate of 2 object samples with the relation \"parked on\" in image no.1?",
+    "difficulty": "",
+    "evidence": "relation \"parked on\" refers to PRED_CLASS = 'parked on'; image no.1 refers to IMG_ID = 1; average difference in the y coordinate = divide(sum(Y), count(PRED_CLASS)) where OBJ1_SAMPLE_ID ! = OBJ2_SAMPLE_ID"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.OBJ_CLASS = 'man' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.OBJ_CLASS_ID) FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.IMG_ID = 1",
+    "question_id": null,
+    "question": "What is the percentage of the object samples in the class of \"man\" in image no.1?",
+    "difficulty": "",
+    "evidence": "object samples refers to OBJ_SAMPLE_ID; class of \"man\" refers to OBJ_CLASS = 'man'; image no.1 refers to IMG_ID = 1; percentage = divide(count(OBJ_SAMPLE_ID)when OBJ_CLASS = 'man', count(OBJ_SAMPLE_ID)) as percentage"
+  },
+  {
+    "sql": "SELECT COUNT(ATT_CLASS_ID) FROM ATT_CLASSES",
+    "question_id": null,
+    "question": "State the total number of the attribute classes.",
+    "difficulty": "",
+    "evidence": "attribute classes refers to ATT_CLASS"
+  },
+  {
+    "sql": "SELECT COUNT(OBJ_CLASS_ID) FROM OBJ_CLASSES",
+    "question_id": null,
+    "question": "How many object classes are there in the database?",
+    "difficulty": "",
+    "evidence": "object classes refers to OBJ_CLASS"
+  },
+  {
+    "sql": "SELECT COUNT(PRED_CLASS_ID) FROM PRED_CLASSES",
+    "question_id": null,
+    "question": "Provide the number of predicted classes.",
+    "difficulty": "",
+    "evidence": "predicted classes refers to PRED_CLASS"
+  },
+  {
+    "sql": "SELECT T2.X, T2.Y, T2.W, T2.H FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.IMG_ID = 2324765 AND T1.OBJ_CLASS = 'kite'",
+    "question_id": null,
+    "question": "Give the bounding box of the kite in image no.2324765.",
+    "difficulty": "",
+    "evidence": "bounding box refers to (x, y, W, H); kite refers to OBJ_CLASS = 'kite'; image no.2324765 refers to IMG_ID = 2324765"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.ATT_CLASS = 'white' THEN 1 ELSE 0 END) FROM IMG_OBJ_ATT AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.IMG_ID = 2347915",
+    "question_id": null,
+    "question": "How many white objects are there in image no.2347915?",
+    "difficulty": "",
+    "evidence": "white objects refers to ATT_CLASS = 'white'; image no.2347915 refers to IMG_ID = 2347915"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.ATT_CLASS = 'white' THEN 1 ELSE 0 END) FROM IMG_OBJ_ATT AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.IMG_ID = 2347915",
+    "question_id": null,
+    "question": "Give the number of samples in image no.2377985 whose attribute is electrical.",
+    "difficulty": "",
+    "evidence": "number of samples refers to OBJ_SAMPLE_ID; image no.2377985 refers to IMG_ID = 2377985; attribute is electrical refers to ATT_CLASS = 'electrical'"
+  },
+  {
+    "sql": "SELECT T1.PRED_CLASS FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.IMG_ID = 2345511 AND T2.OBJ1_SAMPLE_ID = 12 AND T2.OBJ2_SAMPLE_ID = 8",
+    "question_id": null,
+    "question": "What is the relationship between object sample no.12 and no.8 of image no.2345511?",
+    "difficulty": "",
+    "evidence": "relationship refers to PRED_CLASS; object sample no.12 and no.8 of image no.2345511 refers to IMG_ID = 2345511 AND OBJ1_SAMPLE_ID = 12 AND OBJ2_SAMPLE_ID = 8"
+  },
+  {
+    "sql": "SELECT T2.OBJ1_SAMPLE_ID FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.IMG_ID = 2345524 AND T1.PRED_CLASS = 'lying on' AND T2.OBJ2_SAMPLE_ID = 1",
+    "question_id": null,
+    "question": "Give the object number of the sample which has the relationship of \"lying on\" with object sample no.1 from image no.2345524.",
+    "difficulty": "",
+    "evidence": "object number of the sample refers to OBJ1_SAMPLE_ID; object sample no.1 from image no.2345524 refers to OBJ2_SAMPLE_ID = 1 and IMG_ID = 2345524"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OBJ_SAMPLE_ID) FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.IMG_ID = 6 AND T1.OBJ_CLASS = 'food'",
+    "question_id": null,
+    "question": "How many samples of food object are there in image no.6?",
+    "difficulty": "",
+    "evidence": "samples of food object refers to OBJ_CLASS = 'food'; image no.6 refers to IMG_ID = 6"
+  },
+  {
+    "sql": "SELECT COUNT(T.IMG_ID) FROM ( SELECT T2.IMG_ID FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.OBJ_CLASS = 'suit' GROUP BY T2.IMG_ID ) T",
+    "question_id": null,
+    "question": "Give the number of images containing the object sample of \"suit\".",
+    "difficulty": "",
+    "evidence": "number of images refers to IMG_ID; object sample of \"suit\" refers to OBJ_CLASS = 'suit'"
+  },
+  {
+    "sql": "SELECT T1.PRED_CLASS FROM PRED_CLASSES AS T1 INNER JOIN IMG_REL AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.OBJ1_SAMPLE_ID = T3.OBJ_SAMPLE_ID INNER JOIN OBJ_CLASSES AS T4 ON T3.OBJ_CLASS_ID = T4.OBJ_CLASS_ID WHERE (T4.OBJ_CLASS = 'feathers' OR T4.OBJ_CLASS = 'onion') AND T2.IMG_ID = 2345528 GROUP BY T1.PRED_CLASS",
+    "question_id": null,
+    "question": "What is the relationship between \"feathers\" and \"onion\" in image no.2345528?",
+    "difficulty": "",
+    "evidence": "relationship refers to PRED_CLASS; \"feathers\" and \"onion\" in image no.2345528 refers to IMG_ID = 2345528 and OBJ_CLASS = 'feathers' and OBJ_CLASS = 'onion'"
+  },
+  {
+    "sql": "SELECT T2.ATT_CLASS FROM IMG_OBJ_att AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T1.IMG_ID = T3.IMG_ID INNER JOIN OBJ_CLASSES AS T4 ON T3.OBJ_CLASS_ID = T4.OBJ_CLASS_ID WHERE T4.OBJ_CLASS = 'weeds' AND T1.IMG_ID = 2377988",
+    "question_id": null,
+    "question": "Tell the attribute of the weeds in image no.2377988.",
+    "difficulty": "",
+    "evidence": "attribute of the weeds refers to OBJ_CLASS = 'weeds'; image no.2377988 refers to IMG_ID = 2377988"
+  },
+  {
+    "sql": "SELECT T4.OBJ_CLASS_ID, T4.OBJ_CLASS FROM IMG_OBJ_att AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T1.IMG_ID = T3.IMG_ID INNER JOIN OBJ_CLASSES AS T4 ON T3.OBJ_CLASS_ID = T4.OBJ_CLASS_ID WHERE T2.ATT_CLASS = 'blurry' AND T1.IMG_ID = 22377993",
+    "question_id": null,
+    "question": "What is the object whose attribute is blurry in image no.2377993? Give the explanation about the object.",
+    "difficulty": "",
+    "evidence": "attribute is blurry refers to ATT_CLASS = 'blurry'; image no.2377993 refers to IMG_ID = 22377993; explanation about the object refers to OBJ_CLASS"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.OBJ_CLASS = 'wall' THEN 1 ELSE 0 END) FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.IMG_ID = 2353079",
+    "question_id": null,
+    "question": "How many samples of \"wall\" are there in image no.2353079?",
+    "difficulty": "",
+    "evidence": "samples of \"wall\" refers to OBJ_SAMPLE_ID and OBJ_CLASS = 'wall' ; image no.2353079 refers to IMG_ID = 2353079"
+  },
+  {
+    "sql": "SELECT T1.OBJ_CLASS FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.IMG_ID = 2320341 AND T2.OBJ_SAMPLE_ID = 10",
+    "question_id": null,
+    "question": "State the object class of sample no.10 of image no.2320341.",
+    "difficulty": "",
+    "evidence": "object class refers to OBJ_CLASS; sample no.10 refers to OBJ_SAMPLE_ID = 10; image no.2320341 refers to IMG_ID = 2320341"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.OBJ_CLASS = 'broccoli' THEN T2.OBJ_SAMPLE_ID ELSE NULL END) AS REAL) / COUNT(CASE WHEN T1.OBJ_CLASS = 'tomato' THEN T2.OBJ_SAMPLE_ID ELSE NULL END) times FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID",
+    "question_id": null,
+    "question": "How many times is the number of images containing \"broccoli\" than \"tomato\"?",
+    "difficulty": "",
+    "evidence": "images refers to IMG_ID; \"broccoli\" refers to OBJ_CLASS = 'broccoli'; \"tomato\" refers to OBJ_CLASS = 'tomato' ; How many times = divide(count(OBJ_SAMPLE_ID) when OBJ_CLASS = 'broccoli', count(OBJ_SAMPLE_ID) when OBJ_CLASS = 'tomato')"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ( SELECT IMG_ID FROM IMG_OBJ_att GROUP BY IMG_ID HAVING COUNT(ATT_CLASS_ID) > 25 ) T1",
+    "question_id": null,
+    "question": "How many images have at least 25 attributes?",
+    "difficulty": "",
+    "evidence": "images refers to IMG_ID; have at least 25 attributes refers to count(ATT_CLASS_ID) > = 25"
+  },
+  {
+    "sql": "SELECT DISTINCT IMG_ID FROM IMG_REL WHERE OBJ1_SAMPLE_ID = OBJ2_SAMPLE_ID",
+    "question_id": null,
+    "question": "List all the ids of the images that have a self-relation relationship.",
+    "difficulty": "",
+    "evidence": "ids of the images refers to IMG_ID; self-relations refers to OBJ1_SAMPLE_ID = OBJ2_SAMPLE_ID"
+  },
+  {
+    "sql": "SELECT COUNT(ATT_CLASS_ID) FROM IMG_OBJ_att GROUP BY IMG_ID ORDER BY COUNT(ATT_CLASS_ID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many objects are there in the attribute class id with the highest number of objects?",
+    "difficulty": "",
+    "evidence": "objects refers to OBJ_SAMPLE_ID; attribute class id with the highest number of objects refers to max(COUNT(ATT_CLASS_ID))"
+  },
+  {
+    "sql": "SELECT OBJ_CLASS_ID FROM OBJ_CLASSES WHERE OBJ_CLASS IN ('bus', 'train', 'aeroplane', 'car', 'etc')",
+    "question_id": null,
+    "question": "What are the id of all the objects belonging to the transportation class?",
+    "difficulty": "",
+    "evidence": "id of all the objects belonging to the transportation class refers to OBJ_CLASS_ID and OBJ_CLASS IN ('bus', 'train', 'aeroplane', 'car', 'etc.')"
+  },
+  {
+    "sql": "SELECT ATT_CLASS_ID FROM ATT_CLASSES WHERE ATT_CLASS = 'very large'",
+    "question_id": null,
+    "question": "What are the corresponding classes for the \"very large bike\" attribute?",
+    "difficulty": "",
+    "evidence": "attribute refers to ATT_CLASS"
+  },
+  {
+    "sql": "SELECT OBJ_CLASS_ID FROM OBJ_CLASSES WHERE OBJ_CLASS = 'onion'",
+    "question_id": null,
+    "question": "What is the unique id number identifying the onion object class?",
+    "difficulty": "",
+    "evidence": "unique id number identifying refers to OBJ_CLASS_ID; onion object class refers to OBJ_CLASS = 'onion'"
+  },
+  {
+    "sql": "SELECT T2.ATT_CLASS FROM IMG_OBJ_att AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.IMG_ID = 8",
+    "question_id": null,
+    "question": "List all the corresponding classes for attributes of image id 8.",
+    "difficulty": "",
+    "evidence": "classes for attributes refers to ATT_CLASS; image id 8 refers to IMG_ID = 8"
+  },
+  {
+    "sql": "SELECT T2.X, T2.Y, T2.W, T2.H FROM IMG_REL AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.IMG_ID = T2.IMG_ID WHERE T1.PRED_CLASS_ID = 144 AND T1.IMG_ID = 3",
+    "question_id": null,
+    "question": "What is the bounding box of the object with image id 4 and a prediction relationship class id of 144?",
+    "difficulty": "",
+    "evidence": "bounding box of the object refers to (x, y, W, H); image id refers to IMG_ID; prediction relationship class id of 144 refers to PRED_CLASS_ID = 144"
+  },
+  {
+    "sql": "SELECT COUNT(IMGID) FROM ( SELECT T1.IMG_ID AS IMGID FROM IMG_OBJ_att AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T2.ATT_CLASS = 'black' GROUP BY T1.IMG_ID HAVING COUNT(T1.ATT_CLASS_ID) >= 5 ) T3",
+    "question_id": null,
+    "question": "How many images have at least 5 \"black\" classes?",
+    "difficulty": "",
+    "evidence": "images refers to IMG_ID; have at least 5 \"black\" classes refers to count(ATT_CLASS_ID) where ATT_CLASS = 'black' > = 5"
+  },
+  {
+    "sql": "SELECT T1.PRED_CLASS_ID FROM IMG_REL AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.IMG_ID = T2.IMG_ID ORDER BY T2.H DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the prediction relationship class id of the tallest image?",
+    "difficulty": "",
+    "evidence": "prediction relationship class id refers to PRED_CLASS_ID; tallest image refers to max(H)"
+  },
+  {
+    "sql": "SELECT T1.IMG_ID AS IMGID FROM IMG_OBJ_att AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T2.ATT_CLASS = 'white' GROUP BY T1.IMG_ID ORDER BY COUNT(T1.ATT_CLASS_ID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which image has the highest number of \"white\" class attributes?",
+    "difficulty": "",
+    "evidence": "\"white\" class attributes refers to ATT_CLASS = 'white'; highest number refers to max(count(ATT_CLASS_ID))"
+  },
+  {
+    "sql": "SELECT T2.X, T2.Y FROM IMG_REL AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.IMG_ID = T2.IMG_ID WHERE T1.PRED_CLASS_ID = 98",
+    "question_id": null,
+    "question": "What are the x and y coordinates of all the images with a prediction relationship class id of 98?",
+    "difficulty": "",
+    "evidence": "prediction relationship class id of 98 refers to PRED_CLASS_ID = 98"
+  },
+  {
+    "sql": "SELECT COUNT(T2.PRED_CLASS_ID) FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T1.IMG_ID = 3050 AND T2.PRED_CLASS = 'has'",
+    "question_id": null,
+    "question": "How many prediction classes with \"has\" captions are there for image id 3050?",
+    "difficulty": "",
+    "evidence": "prediction classes with \"has\" captions refers to PRED_CLASS = 'has'; image id 3050 refers to IMG_ID = 3050"
+  },
+  {
+    "sql": "SELECT T1.OBJ_CLASS FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.X = 0 AND T2.Y = 0 GROUP BY T1.OBJ_CLASS",
+    "question_id": null,
+    "question": "List all the explanations about object classes of all the images with an x and y coordinate of 0.",
+    "difficulty": "",
+    "evidence": "explanations about distinct object classes refers to OBJ_CLASS; images refers to IMG_ID; x and y coordinate of 0 refers to X = 0 AND Y = 0"
+  },
+  {
+    "sql": "SELECT T2.PRED_CLASS FROM IMG_REL AS T1 INNER JOIN pred_classes AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T1.OBJ1_SAMPLE_ID = T1.OBJ2_SAMPLE_ID GROUP BY T2.PRED_CLASS",
+    "question_id": null,
+    "question": "What are the captions of all the self-relation relationship prediction classes?",
+    "difficulty": "",
+    "evidence": "self-relation relationship refers to OBJ1_SAMPLE_ID = OBJ2_SAMPLE_ID and PRED_CLASS; captions of prediction classes refers to PRED_CLASS"
+  },
+  {
+    "sql": "SELECT T2.X, T2.Y, T2.H, T2.W FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.IMG_ID = 2222 AND T1.OBJ_CLASS = 'feathers'",
+    "question_id": null,
+    "question": "Give all the bounding boxes for image 2222 whose object classes are feathers.",
+    "difficulty": "",
+    "evidence": "bounding boxes refers to (x, y, W, H); image 2222 refers to IMG_ID = 2222; object classes are feathers refers to OBJ_CLASS = 'feathers'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.PRED_CLASS_ID) FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T1.OBJ1_SAMPLE_ID != T1.OBJ2_SAMPLE_ID AND T2.PRED_CLASS = 'on'",
+    "question_id": null,
+    "question": "Among the objects that have multiple relations, how many images whose captions for the prediction class ids are \"on\"?",
+    "difficulty": "",
+    "evidence": "objects that have multiple relations refers to OBJ1_SAMPLE_ID ! = OBJ2_SAMPLE_ID; captions for the prediction class ids are \"on\" refers to PRED_CLASS = 'on'"
+  },
+  {
+    "sql": "SELECT T1.OBJ_CLASS FROM OBJ_CLASSES AS T1 INNER JOIN IMG_OBJ AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.X = 0 AND T2.Y = 0 AND T2.W = 135 AND T2.H = 212",
+    "question_id": null,
+    "question": "What is the object class of the image with a bounding box of 0, 0, 135, 212?",
+    "difficulty": "",
+    "evidence": "object class of the image refers to OBJ_CLASS; bounding box of 0, 0, 135, 212 refers to X = 0 AND Y = 0 AND W = 135 AND H = 212"
+  },
+  {
+    "sql": "SELECT T1.W, T1.H FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 3 AND T2.OBJ_CLASS = 'keyboard'",
+    "question_id": null,
+    "question": "Provide the dimensions of the bounding box that contains the keyboard that was spotted in image no. 3.",
+    "difficulty": "",
+    "evidence": "dimensions of the bounding box refers to (W, H); keyboard refers to OBJ_CLASS = 'keyboard'; image no. 3 refers to IMG_ID = 3"
+  },
+  {
+    "sql": "SELECT T1.X, T1.Y FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 6 AND T2.OBJ_CLASS = 'folk'",
+    "question_id": null,
+    "question": "Identify the border's coordinates on the X and Y axes that enclose a folk in image no. 6.",
+    "difficulty": "",
+    "evidence": "coordinates on the X and Y axes refers to X and Y; folk refers to OBJ_CLASS = 'folk'; image no. 6 refers to IMG_ID = 6"
+  },
+  {
+    "sql": "SELECT T1.X, T1.Y, T1.W, T1.H FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 285930 AND T2.OBJ_CLASS = 'onion'",
+    "question_id": null,
+    "question": "Define the onion's bounding box on image no. 285930.",
+    "difficulty": "",
+    "evidence": "bounding box refers to (X, Y, W, H); onion refers to OBJ_CLASS = 'onion'; image no.285930 refers to IMG_ID = 285930"
+  },
+  {
+    "sql": "SELECT SUM(IIF(T1.IMG_ID = 1, 1, 0)), SUM(IIF(T1.X = 341 AND T1.Y = 27 AND T1.W = 42 AND T1.H = 51, 1, 0)) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID",
+    "question_id": null,
+    "question": "How many objects can you spot in image no. 72? What objects may be identified on the same image and within the bounding box represented as (341, 27, 42, 51)?",
+    "difficulty": "",
+    "evidence": "How many objects refers to OBJ_CLASS_ID; image no. 72 refers to IMG_ID = 72; What objects refers to OBJ_CLASS; bounding box represented as (341, 27, 42, 51) refers to X = 341 and Y = 27 and W = 42 and H = 51"
+  },
+  {
+    "sql": "SELECT T2.ATT_CLASS FROM IMG_OBJ_ATT AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.IMG_ID = 5 GROUP BY T2.ATT_CLASS HAVING COUNT(T2.ATT_CLASS) > 2",
+    "question_id": null,
+    "question": "On image no. 5, name the attributes that are composed of multiple objects.",
+    "difficulty": "",
+    "evidence": "image no. 5 refers to IMG_ID = 5; name the attributes refers to ATT_CLASS; multiple objects refers to count(ATT_CLASS) > = 2"
+  },
+  {
+    "sql": "SELECT T4.ATT_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID INNER JOIN IMG_OBJ_ATT AS T3 ON T1.IMG_ID = T3.IMG_ID INNER JOIN ATT_CLASSES AS T4 ON T3.ATT_CLASS_ID = T4.ATT_CLASS_ID WHERE T2.OBJ_CLASS = 'wall' AND T1.IMG_ID = 27 GROUP BY T4.ATT_CLASS",
+    "question_id": null,
+    "question": "What attributes are used to describe the wall on image no. 27.",
+    "difficulty": "",
+    "evidence": "What attributes refers to ATT_CLASS; wall on image no. 27 refers to OBJ_CLASS = 'wall' and IMG_ID = 27"
+  },
+  {
+    "sql": "SELECT T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID INNER JOIN IMG_OBJ_ATT AS T3 ON T1.IMG_ID = T3.IMG_ID INNER JOIN ATT_CLASSES AS T4 ON T3.ATT_CLASS_ID = T4.ATT_CLASS_ID WHERE T4.ATT_CLASS = 'scattered' AND T1.IMG_ID = 10 GROUP BY T2.OBJ_CLASS",
+    "question_id": null,
+    "question": "Name the object element that is described as being scattered on image no. 10.",
+    "difficulty": "",
+    "evidence": "Name the object element refers to OBJ_CLASS; scattered refers to ATT_CLASS = 'scattered'; image no. 10 refers to IMG_ID = 10"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.IMG_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'bridge'",
+    "question_id": null,
+    "question": "How many images contain 'bridge' as an object element?",
+    "difficulty": "",
+    "evidence": "images refers to IMG_ID; 'bridge' as an object element refers to OBJ_CLASS = 'bridge'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(OBJ_CLASS_ID) AS REAL) / COUNT(DISTINCT IMG_ID) FROM IMG_OBJ",
+    "question_id": null,
+    "question": "How many object elements are there on average in each image?",
+    "difficulty": "",
+    "evidence": "object elements refers to OBJ_CLASS_ID; average = divide(count(OBJ_CLASS_ID), count(IMG_ID))"
+  },
+  {
+    "sql": "SELECT T4.ATT_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID INNER JOIN IMG_OBJ_ATT AS T3 ON T1.IMG_ID = T3.IMG_ID INNER JOIN ATT_CLASSES AS T4 ON T3.ATT_CLASS_ID = T4.ATT_CLASS_ID WHERE T2.OBJ_CLASS = 'van' AND T1.IMG_ID = 1 GROUP BY T4.ATT_CLASS",
+    "question_id": null,
+    "question": "What colour is the van that can be spotted in image no. 1?",
+    "difficulty": "",
+    "evidence": "colour refers to ATT_CLASS; van refers to OBJ_CLASS = 'van'; image no. 1 refers to IMG_ID = 1"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.OBJ_CLASS, T4.ATT_CLASS, T6.PRED_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID INNER JOIN IMG_OBJ_ATT AS T3 ON T1.IMG_ID = T3.IMG_ID INNER JOIN ATT_CLASSES AS T4 ON T3.ATT_CLASS_ID = T4.ATT_CLASS_ID INNER JOIN IMG_REL AS T5 ON T1.IMG_ID = T5.IMG_ID INNER JOIN PRED_CLASSES AS T6 ON T5.PRED_CLASS_ID = T6.PRED_CLASS_ID WHERE T1.IMG_ID = 1 AND T1.X = 388 AND T1.Y = 369 AND T1.W = 48 AND T1.H = 128",
+    "question_id": null,
+    "question": "Describe the objects, their attributes, and the relationships that comprise the scene on image no. 1 within the bounding box, represented as (388, 369, 48, 128).",
+    "difficulty": "",
+    "evidence": "objects refers to OBJ_CLASS; attributes refers to ATT_CLASS; relationships refers to PRED_CLASS; image no. 1 refers to IMG_ID = 1; bounding box, represented as (388, 369, 48, 128) refers to X = 388 and Y = 369 and W = 48 and H = 128"
+  },
+  {
+    "sql": "SELECT T2.PRED_CLASS FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T1.IMG_ID = 1 AND T1.OBJ1_SAMPLE_ID = 25 AND T1.OBJ2_SAMPLE_ID = 2",
+    "question_id": null,
+    "question": "What is the relationship between object sample no. 25 and object sample no. 2 on image no. 1?",
+    "difficulty": "",
+    "evidence": "relationship refers to PRED_CLASS; object sample no. 25 and object sample no. 2 refers to OBJ1_SAMPLE_ID = 25 and OBJ2_SAMPLE_ID = 2; image no. 1 refers to IMG_ID = 1"
+  },
+  {
+    "sql": "SELECT COUNT(ATT_CLASS_ID) FROM IMG_OBJ_ATT WHERE IMG_ID = 4 AND OBJ_SAMPLE_ID = 7",
+    "question_id": null,
+    "question": "How many attributes are related to the object sample no. 7 on image no. 4?",
+    "difficulty": "",
+    "evidence": "How many attributes refers to ATT_CLASS_ID; object sample no. 7 on image no. 4 refers to IMG_ID = 4 and OBJ_SAMPLE_ID = 7"
+  },
+  {
+    "sql": "SELECT COUNT(OBJ_CLASS_ID) FROM IMG_OBJ WHERE IMG_ID = 31",
+    "question_id": null,
+    "question": "How many object elements can be detected on image no. 31?",
+    "difficulty": "",
+    "evidence": "How many object elements refers to OBJ_CLASS_ID; image no. 31 refers to IMG_ID = 31"
+  },
+  {
+    "sql": "SELECT ATT_CLASS_ID FROM IMG_OBJ_ATT WHERE IMG_ID = 20 GROUP BY ATT_CLASS_ID ORDER BY COUNT(ATT_CLASS_ID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "On image no. 20, identify the attribute ID that is composed of the highest number of objects.",
+    "difficulty": "",
+    "evidence": "image no. 20 refers to IMG_ID = 20; attribute ID refers to ATT_CLASS_ID; highest number of objects refers to max(count(ATT_CLASS_ID))"
+  },
+  {
+    "sql": "SELECT X, Y, W, H FROM IMG_OBJ WHERE IMG_ID = 42 AND OBJ_SAMPLE_ID = 7",
+    "question_id": null,
+    "question": "Define the bounding box of the object sample no. 7 on image no. 42.",
+    "difficulty": "",
+    "evidence": "bounding box of the object refers to (X, Y, W, H); sample no.7 on image no.42 refers to IMG_ID = 42 and OBJ_SAMPLE_ID = 7"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.ATT_CLASS = 'white' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(OBJ_SAMPLE_ID) FROM IMG_OBJ_ATT AS T1 INNER JOIN ATT_CLASSES AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.IMG_ID = 99",
+    "question_id": null,
+    "question": "On image no. 99 identify the percentage of objects that are described as white.",
+    "difficulty": "",
+    "evidence": "image no. 99 refers to IMG_ID = 99; described as white refers to ATT_CLASS = 'white'; percentage = divide(count(OBJ_SAMPLE_ID) where ATT_CLASS = 'white', count(OBJ_SAMPLE_ID)) as percentage"
+  },
+  {
+    "sql": "SELECT COUNT(ATT_CLASS_ID) FROM IMG_OBJ_ATT WHERE IMG_ID = 5",
+    "question_id": null,
+    "question": "How many attribute classes are there for image id 5?",
+    "difficulty": "",
+    "evidence": "attribute classes refer to ATT_CLASS_ID; image id 5 refers to IMG_ID = 5;"
+  },
+  {
+    "sql": "SELECT OBJ_CLASS FROM OBJ_CLASSES WHERE OBJ_CLASS_ID = 10",
+    "question_id": null,
+    "question": "State the explanation about object class 10.",
+    "difficulty": "",
+    "evidence": "explanation about object class 10 refers to OBJ_CLASS where OBJ_CLASS_ID = 10;"
+  },
+  {
+    "sql": "SELECT T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.X = 422 AND T1.Y = 63 AND T1.W = 77 AND T1.H = 363",
+    "question_id": null,
+    "question": "Name the object class of the image with a bounding (422, 63, 77, 363).",
+    "difficulty": "",
+    "evidence": "image with a bounding (422, 63, 77, 363) refers to OBJ_CLASS_ID where X = 422 and Y = 63 and W = 77 and H = 363;"
+  },
+  {
+    "sql": "SELECT PRED_CLASS FROM PRED_CLASSES WHERE PRED_CLASS_ID = 12",
+    "question_id": null,
+    "question": "What is the caption for the prediction class id 12?",
+    "difficulty": "",
+    "evidence": "caption for the prediction class id 12 refers to PRED_CLASS where PRED_CLASS_ID = 12;"
+  },
+  {
+    "sql": "SELECT X, Y, W, H FROM IMG_OBJ WHERE IMG_ID = 8",
+    "question_id": null,
+    "question": "Indicate the bounding box of the image 8.",
+    "difficulty": "",
+    "evidence": "bounding box refers to X, Y, W, H from IMG_OBJ; image 8 refers to IMG_ID = 8;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.OBJ_CLASS = 'tip' THEN 1 ELSE 0 END) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 908",
+    "question_id": null,
+    "question": "How many object samples in image no.908 are in the class of tip?",
+    "difficulty": "",
+    "evidence": "object samples in the class of \"tip\" refer to OBJ_CLASS_ID where OBJ_CLASS = 'tip'; image no.5 refers to IMG_ID = 5;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.OBJ_CLASS = 'kitchen' THEN 1 ELSE 0 END) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 41",
+    "question_id": null,
+    "question": "List out the number of object samples in image no.41 which are in the class of \"kitchen\"?",
+    "difficulty": "",
+    "evidence": "object samples in the class of \"kitchen\" refer to OBJ_CLASS_ID where OBJ_CLASS = 'kitchen'; image no.41 refers to IMG_ID = 41 ;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.IMG_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'paint'",
+    "question_id": null,
+    "question": "Count the image numbers that contain the \"paint\" object.",
+    "difficulty": "",
+    "evidence": "image numbers that contain the \"paint\" object refer to IMG_ID where OBJ_CLASS = 'paint';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.IMG_ID = 2315533 THEN 1 ELSE 0 END) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'clouds'",
+    "question_id": null,
+    "question": "How many samples of clouds are there in the image no.2315533?",
+    "difficulty": "",
+    "evidence": "samples of clouds refer to IMG_ID where OBJ_CLASS = 'cloud'; image no.2315533 refers to IMG_ID = 2315533;"
+  },
+  {
+    "sql": "SELECT OBJ_CLASS_ID FROM OBJ_CLASSES WHERE OBJ_CLASS = 'onion'",
+    "question_id": null,
+    "question": "Which object classes belong to the onion category?",
+    "difficulty": "",
+    "evidence": "onion category refers to OBJ_CLASS = 'onion';"
+  },
+  {
+    "sql": "SELECT T1.X, T1.Y, T1.W, T1.H FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 1344 AND T2.OBJ_CLASS = 'spoon'",
+    "question_id": null,
+    "question": "What is the bounding box of \"spoon\" in image id 1344?",
+    "difficulty": "",
+    "evidence": "the bounding box refers to X, Y, W, H from IMG_OBJ; image id 1344 refers to IMG_ID = 1344; \"spoon\" refers to OBJ_CLASS = 'spoon';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.OBJ_CLASS = 'surface' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.OBJ_CLASS_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 2654",
+    "question_id": null,
+    "question": "What is the percentage of \"surface\" object samples in image No.2654?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(OBJ_CLASS_ID where OBJ_CLASS = 'surface'), COUNT(OBJ_CLASS_ID)) as percentage where IMG_ID = 2654;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.IMG_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'wood'",
+    "question_id": null,
+    "question": "How many images include the \"wood\" objects?",
+    "difficulty": "",
+    "evidence": "images refer to IMG_ID; \"wood\" objects refer to OBJ_CLASS = 'wood';"
+  },
+  {
+    "sql": "SELECT T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID ORDER BY T1.H DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the object class of the image with tallest bounding box.",
+    "difficulty": "",
+    "evidence": "bounding box refers to X, Y, W, H from IMG_OBJ; tallest relates to the height of the bounding box which refers to MAX(H); object class refers to OBJ_CLASS;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.OBJ_CLASS = 'airplane' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.OBJ_CLASS) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID",
+    "question_id": null,
+    "question": "Calculate the percentage of \"airplane\" object class in the table.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(OBJ_SAMPLE_ID where OBJ_CLASS = 'airplane'), COUNT(OBJ_CLASS)) as percentage;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.IMG_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'animal' AND T1.IMG_ID = 660",
+    "question_id": null,
+    "question": "How many samples of animal objects are there in image no.660?",
+    "difficulty": "",
+    "evidence": "samples of animal objects refer to OBJ_SAMPLE_ID where OBJ_CLASS = 'animal'; image no.660 refers to IMG_ID = 660;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.OBJ_CLASS = 'bed' THEN 1 ELSE 0 END) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 1098",
+    "question_id": null,
+    "question": "Name number of samples of \"bed\" object are there in the image No.1098?",
+    "difficulty": "",
+    "evidence": "samples of \"bed\" object refer to OBJ_SAMPLE_ID where OBJ_CLASS = 'bed'; image No.1098 refers to IMG_ID = 1098;"
+  },
+  {
+    "sql": "SELECT T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID ORDER BY T1.H LIMIT 1",
+    "question_id": null,
+    "question": "Name the object class of the image with lowest bounding box.",
+    "difficulty": "",
+    "evidence": "bounding box refers to X, Y, W, H from IMG_OBJ; lowest relates to the height of the bounding box which refers to MIN(H);"
+  },
+  {
+    "sql": "SELECT T1.X, T1.Y, T1.W, T1.H FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 250 AND T2.OBJ_CLASS = 'kitchen'",
+    "question_id": null,
+    "question": "Indicating the bounding box of \"kitchen\" in image id 250.",
+    "difficulty": "",
+    "evidence": "bounding box refers to X, Y, W, H from IMG_OBJ; \"kitchen\" in image id 250 refers to OBJ_CLASS = 'kitchen' where IMG_ID = 250;"
+  },
+  {
+    "sql": "SELECT IMG_ID FROM IMG_OBJ GROUP BY IMG_ID HAVING COUNT(IMG_ID) > 20",
+    "question_id": null,
+    "question": "Which images have more than 20 object samples?",
+    "difficulty": "",
+    "evidence": "images have more than 20 object samples refer to IMG_ID where COUNT(OBJ_SAMPLE_ID) > 20;"
+  },
+  {
+    "sql": "SELECT OBJ_SAMPLE_ID FROM IMG_OBJ WHERE IMG_ID = 8 ORDER BY W DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which object in image 8 is the widest? State its object sample ID.",
+    "difficulty": "",
+    "evidence": "widest relates to the width of the bounding\nbox of the object which refers to MAX(W); object in image 8 refers to OBJ_SAMPLE_ID where IMG_ID = 8;"
+  },
+  {
+    "sql": "SELECT OBJ_SAMPLE_ID FROM IMG_OBJ WHERE IMG_ID = 5 AND X = 634 AND Y = 468",
+    "question_id": null,
+    "question": "Find the object in image 5 where the object with the coordinate of (634, 468).",
+    "difficulty": "",
+    "evidence": "object in image 5 refers to OBJ_SAMPLE_ID where IMG_ID = 5; coordinates of (634, 468) refer to X and Y coordinates of the bounding box in which X = 634 and Y = 468;"
+  },
+  {
+    "sql": "SELECT OBJ_SAMPLE_ID FROM IMG_OBJ_ATT GROUP BY OBJ_SAMPLE_ID ORDER BY COUNT(OBJ_SAMPLE_ID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which object has the highest attribute classes?",
+    "difficulty": "",
+    "evidence": "object has the highest attribute classes refers to OBJ_SAMPLE_ID where MAX(COUNT(OBJ_SAMPLE_ID));"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN IMG_ID = 1 THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN IMG_ID = 6 THEN 1 ELSE 0 END) FROM IMG_OBJ",
+    "question_id": null,
+    "question": "What is the ratio between the number of object samples in image 1 and the number of object samples in image 6?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(OBJ_SAMPLE_ID where IMG_ID = 1), SUM(OBJ_SAMPLE_ID where IMG_ID = 6));"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(OBJ_SAMPLE_ID) AS REAL) / COUNT(DISTINCT IMG_ID) FROM IMG_OBJ",
+    "question_id": null,
+    "question": "Calculate the average of object samples for the image.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(OBJ_SAMPLE_ID), COUNT(IMG_ID));"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.IMG_ID FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.ATT_CLASS = 'wired'",
+    "question_id": null,
+    "question": "List all the IDs of images that have objects with the attributes of 'wired'.",
+    "difficulty": "",
+    "evidence": "IDs of images refer to IMG_ID; objects with the attributes of 'wired' refer to ATT_CLASS = 'wired';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 10",
+    "question_id": null,
+    "question": "List all the object classes in image 10.",
+    "difficulty": "",
+    "evidence": "object classes refer to OBJ_CLASS; image 10 refers to IMG_ID = 10;"
+  },
+  {
+    "sql": "SELECT T1.ATT_CLASS FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.IMG_ID = T3.IMG_ID INNER JOIN OBJ_CLASSES AS T4 ON T3.OBJ_CLASS_ID = T4.OBJ_CLASS_ID WHERE T3.IMG_ID = 1314 AND T4.OBJ_CLASS = 'tip'",
+    "question_id": null,
+    "question": "List attributes for object class 'tip' In image 1314.",
+    "difficulty": "",
+    "evidence": "attributes for object refer to ATT_CLASS; class 'tip' in image 1314 refers to OBJ_CLASS = 'tip' where IMG_ID = 1314;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.PRED_CLASS FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T2.PRED_CLASS_ID = T1.PRED_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T1.IMG_ID = T3.IMG_ID AND T1.OBJ1_SAMPLE_ID = T3.OBJ_SAMPLE_ID INNER JOIN OBJ_CLASSES AS T4 ON T3.OBJ_CLASS_ID = T4.OBJ_CLASS_ID WHERE T1.IMG_ID = 2360078 AND T1.OBJ1_SAMPLE_ID = 15 OR T1.OBJ2_SAMPLE_ID = 18",
+    "question_id": null,
+    "question": "What is the prediction class between object class 'chain' and 'label' in image 2360078?",
+    "difficulty": "",
+    "evidence": "prediction class refers to PRED_CLASS; object class 'chain' refers to OBJ_CLASS = 'chain'; object class 'label' refers to OBJ_CLASS = 'label'; image 2360078 refers to IMG_ID = 2360078;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.OBJ_SAMPLE_ID) FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.ATT_CLASS = 'polka dot'",
+    "question_id": null,
+    "question": "How many images have objects with the attributes of polka dot?",
+    "difficulty": "",
+    "evidence": "attributes of polka dot refer to ATT_CLASS = 'polka dot'; images refer to IMG_ID;"
+  },
+  {
+    "sql": "SELECT T1.ATT_CLASS FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.IMG_ID = T3.IMG_ID WHERE T2.IMG_ID = 400 ORDER BY T3.W DESC LIMIT 1",
+    "question_id": null,
+    "question": "What are the attributes of the widest object in image 400?",
+    "difficulty": "",
+    "evidence": "attributes refer to ATT_CLASS; the widest relates to the width of the bounding\nbox of the object which refers to MAX(W); image 400 refers to IMG_ID = 400;"
+  },
+  {
+    "sql": "SELECT OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID GROUP BY T2.OBJ_CLASS ORDER BY COUNT(T1.OBJ_CLASS_ID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the name of the object class that has in most images.",
+    "difficulty": "",
+    "evidence": "object class that has in most images refers to OBJ_CLASS where MAX(COUNT(OBJ_CLASS_ID));"
+  },
+  {
+    "sql": "SELECT T1.H, T1.W FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 1 AND T2.OBJ_CLASS = 'van'",
+    "question_id": null,
+    "question": "State the width and height of the object with the class of 'van' in image 1.",
+    "difficulty": "",
+    "evidence": "The bounding box's W and H abbreviations stand for the object's width and height respectively; class of 'van' in image 1 refers to OBJ_CLASS = 'van' where IMG_ID = 1;"
+  },
+  {
+    "sql": "SELECT T3.OBJ_SAMPLE_ID, T3.X, T3.Y FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.IMG_ID = T3.IMG_ID WHERE T3.IMG_ID = 1 AND T1.ATT_CLASS = 'sparse'",
+    "question_id": null,
+    "question": "State the coordinate of X and Y for the object with the attribute of 'sparse' in image 1.",
+    "difficulty": "",
+    "evidence": "coordinates of X and Y for the object refer to X and Y coordinates of the bounding box; attribute of 'sparse' in image 1 refers to IMG_ID = 1 where ATT_CLASS = 'sparse';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.OBJ_CLASS = 'street lights' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.OBJ_SAMPLE_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID",
+    "question_id": null,
+    "question": "Calculate the percentage of object samples that are related to street lights.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(OBJ_SAMPLE_ID where OBJ_CLASS = 'street lights'), COUNT(OBJ_SAMPLE_ID)) as percentage;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.OBJ_SAMPLE_ID) AS REAL) * 100 / COUNT(CASE WHEN T1.IMG_ID = 5 THEN 1 ELSE 0 END) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'windows'",
+    "question_id": null,
+    "question": "Based on image 5, what is the percentage of images that belong windows object class?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(OBJ_SAMPLE_ID where OBJ_CLASS = 'windows' and IMG_ID = 5), COUNT(OBJ_SAMPLE_ID where IMG_ID = 5)) as percentage;"
+  },
+  {
+    "sql": "SELECT COUNT(IMG_ID) FROM IMG_OBJ WHERE X = 5 AND Y = 5",
+    "question_id": null,
+    "question": "How many images have an x-coordinate of 5 and y-coordinate of 5?",
+    "difficulty": "",
+    "evidence": "X and Y refer to coordinates of the bounding box where X = 5 and Y = 5; images refer to IMG_ID;"
+  },
+  {
+    "sql": "SELECT COUNT(IMG_ID) FROM IMG_OBJ WHERE OBJ_SAMPLE_ID < 15",
+    "question_id": null,
+    "question": "How many images have less than 15 object samples?",
+    "difficulty": "",
+    "evidence": "images refer to IMG_ID; less than 15 object samples refer to COUNT(OBJ_SAMPLE_ID) < 15;"
+  },
+  {
+    "sql": "SELECT COUNT(IMG_ID) FROM IMG_OBJ WHERE OBJ_CLASS_ID = 10",
+    "question_id": null,
+    "question": "How many images have a total of 10 attribute classes?",
+    "difficulty": "",
+    "evidence": "images refer to IMG_ID; total of 10 attribute classes refers to COUNT(OBJ_CLASS_ID) = 10;"
+  },
+  {
+    "sql": "SELECT IMG_ID FROM IMG_REL GROUP BY PRED_CLASS_ID HAVING COUNT(DISTINCT OBJ1_SAMPLE_ID) != 0 AND COUNT(DISTINCT OBJ2_SAMPLE_ID) != 0",
+    "question_id": null,
+    "question": "List the ID of all images with objects that have multiple relations.",
+    "difficulty": "",
+    "evidence": "ID of all images refer to IMG_ID; if two objects (OBJ1_SAMPLE_ID,\nOBJ2_SAMPLE_ID) has\nmultiple PRED_CLASS_ID, it\nmeans these two objects\nhave multiple relations;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.IMG_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'vegetables' OR T2.OBJ_CLASS = 'fruits'",
+    "question_id": null,
+    "question": "How many images have \"vegetable\" and \"fruits\" as their object classes?",
+    "difficulty": "",
+    "evidence": "images refer to IMG_ID; \"vegetables\" and \"fruits\" as object classes refer to OBJ_CLASS = 'vegetables' and OBJ_CLASS = 'fruits';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.IMG_ID FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.PRED_CLASS = 'parked on'",
+    "question_id": null,
+    "question": "What is the image ID with a predicted class of \"parked on\"?",
+    "difficulty": "",
+    "evidence": "predicted class of \"parked on\" refers to PRED_CLASS = 'parked on';"
+  },
+  {
+    "sql": "SELECT T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.X = 5 AND T1.Y = 5",
+    "question_id": null,
+    "question": "List all the object classes of the images that have a (5,5) coordinate.",
+    "difficulty": "",
+    "evidence": "object classes refer to OBJ_CLASS; (5,5) coordinates refer to X and Y coordinates of the bounding box where X = 5 and Y = 5;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.IMG_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'keyboard'",
+    "question_id": null,
+    "question": "How many images have \"keyboard\" as their object class?",
+    "difficulty": "",
+    "evidence": "images refer to IMG_ID; \"keyboard\" as object class refers to OBJ_CLASS = 'keyboard';"
+  },
+  {
+    "sql": "SELECT T1.W, T1.H FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'keyboard' AND T1.X = 5 AND T1.Y = 647",
+    "question_id": null,
+    "question": "What are the width and height of the bounding box of the object with \"keyboard\" as their object class and (5, 647) as their coordinate?",
+    "difficulty": "",
+    "evidence": "The bounding box's W and H abbreviations stand for the object's width and height respectively; \"keyboard\" as object class refers to OBJ_CLASS = 'keyboard'; (5, 647) as coordinate refers to X and Y coordinates of the bounding box where X = 5 and Y = 647;"
+  },
+  {
+    "sql": "SELECT T2.IMG_ID FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.ATT_CLASS = 'horse'",
+    "question_id": null,
+    "question": "List all the ID of the images that have an attribute class of \"horse\".",
+    "difficulty": "",
+    "evidence": "ID of all images refer to IMG_ID; attribute class of \"horse\" refers to ATT_CLASS = 'horse';"
+  },
+  {
+    "sql": "SELECT T3.X, T3.Y FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.IMG_ID = T3.IMG_ID INNER JOIN OBJ_CLASSES AS T4 ON T3.OBJ_CLASS_ID = T4.OBJ_CLASS_ID WHERE T1.ATT_CLASS = 'horse' AND T4.OBJ_CLASS = 'fur'",
+    "question_id": null,
+    "question": "Provide the x-coordinate and y-coordinate of the image with an attribute class of ''horse\" and an object class of \"fur\".",
+    "difficulty": "",
+    "evidence": "attribute class of \"horse\" refers to ATT_CLASS = 'horse'; object class of \"fur\" refers to OBJ_CLASS = 'fur';"
+  },
+  {
+    "sql": "SELECT T1.ATT_CLASS FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T2.IMG_ID = 15",
+    "question_id": null,
+    "question": "List all the attribute classes of the image ID \"15\".",
+    "difficulty": "",
+    "evidence": "attribute classes of the image ID \"15\" refer to ATT_CLASS where IMG_ID = 15;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.IMG_ID) FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T2.PRED_CLASS = 'reading'",
+    "question_id": null,
+    "question": "For those objects that have multiple relations, how many images have a prediction class of \"reading\"?",
+    "difficulty": "",
+    "evidence": "prediction class of \"reading\" refers to PRED_CLASS = 'reading'; if two objects (OBJ1_SAMPLE_ID,\nOBJ2_SAMPLE_ID) has\nmultiple PRED_CLASS_ID, it\nmeans these two objects\nhave multiple relations;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.IMG_ID) FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T1.ATT_CLASS = 'picture'",
+    "question_id": null,
+    "question": "How many images have \"picture\" as their attribute class?",
+    "difficulty": "",
+    "evidence": "images have \"picture\" as their attribute class refer to IMG_ID where ATT_CLASS = 'picture';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.IMG_ID) FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.IMG_ID = T3.IMG_ID INNER JOIN OBJ_CLASSES AS T4 ON T3.OBJ_CLASS_ID = T4.OBJ_CLASS_ID WHERE T1.ATT_CLASS = 'picture' AND T4.OBJ_CLASS = 'bear'",
+    "question_id": null,
+    "question": "How many images have \"picture\" as their attribute class and \"bear\" as their object class?",
+    "difficulty": "",
+    "evidence": "\"picture\" as attribute class refers to ATT_CLASS = 'picture'; \"bear\" as object class refers to OBJ_CLASS = 'bear'; images refer to IMG_ID;"
+  },
+  {
+    "sql": "SELECT T1.ATT_CLASS FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.IMG_ID = T3.IMG_ID WHERE T3.X = 5 AND T3.Y = 5",
+    "question_id": null,
+    "question": "List all the attribute classes of the images that have a (5,5) coordinate.",
+    "difficulty": "",
+    "evidence": "attribute classes refer to ATT_CLASS; (5,5) coordinate refers to X and Y coordinates of the bounding box where X = 5 and Y = 5;"
+  },
+  {
+    "sql": "SELECT AVG(T1.IMG_ID) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'keyboard'",
+    "question_id": null,
+    "question": "Calculate the average number of images with an attribute class of \"keyboard\".",
+    "difficulty": "",
+    "evidence": "AVG(IMG_ID) where OBJ_CLASS = 'keyboard';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.OBJ_CLASS = 'man' THEN 1 ELSE 0 END) AS REAL) / COUNT(CASE WHEN T2.OBJ_CLASS = 'person' THEN 1 ELSE 0 END) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID",
+    "question_id": null,
+    "question": "Calculate the ratio of the total number of images with an object class of \"man\" and \"person\".",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(IMG_ID where OBJ_CLASS = 'man'), COUNT(IMG_ID where OBJ_CLASS = 'person'));"
+  },
+  {
+    "sql": "SELECT OBJ_SAMPLE_ID FROM IMG_OBJ WHERE IMG_ID = 17 AND X = 0 AND Y = 0",
+    "question_id": null,
+    "question": "List the object sample IDs of image ID 17 with coordinates (0,0).",
+    "difficulty": "",
+    "evidence": "object sample ID refers to OBJ_SAMPLE_ID; image ID 17 refers to IMG_ID = 17; coordinates (0,0) refer to X and Y coordinates of the bounding box where X = 0 and Y = 0;"
+  },
+  {
+    "sql": "SELECT W, H FROM IMG_OBJ WHERE OBJ_SAMPLE_ID = 2",
+    "question_id": null,
+    "question": "List all bounding box widths and heights of object sample ID 2.",
+    "difficulty": "",
+    "evidence": "The bounding box's W and H abbreviations stand for the object's width and height respectively; object sample ID 2 refers to OBJ_SAMPLE_ID = 2;"
+  },
+  {
+    "sql": "SELECT COUNT(IMG_ID) FROM IMG_OBJ WHERE IMG_ID = 12 AND Y = 0",
+    "question_id": null,
+    "question": "In the Y coordinate of image ID 12, how many are 0?",
+    "difficulty": "",
+    "evidence": "Y coordinate many are 0 refers to Y coordinates of the bounding box where Y = 0; image ID 12 refers to IMG_ID = 12;"
+  },
+  {
+    "sql": "SELECT T1.ATT_CLASS FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T2.IMG_ID = 22",
+    "question_id": null,
+    "question": "List all the attribute classes of image ID 22.",
+    "difficulty": "",
+    "evidence": "attribute classes of image ID 22 refer to ATT_CLASS where MG_ID = 22;"
+  },
+  {
+    "sql": "SELECT T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 36 AND T1.X = 0 AND T1.Y = 0",
+    "question_id": null,
+    "question": "List the object classes of image ID 36 with coordinates (0,0).",
+    "difficulty": "",
+    "evidence": "object classes of image ID 36 refers to OBJ_CLASS where IMG_ID = 36; coordinates (0,0) refer to X and Y coordinates of the bounding box where X = 0 and Y = 0;"
+  },
+  {
+    "sql": "SELECT T1.IMG_ID, T1.X, T1.Y FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T2.OBJ_CLASS = 'pizza' LIMIT 10",
+    "question_id": null,
+    "question": "Write 10 coordinates with the object class \"pizza.\"",
+    "difficulty": "",
+    "evidence": "coordinates for the object refer to X, Y, W and H coordinates of the bounding box; object class \"pizza\" refers to OBJ_CLASS = 'pizza';"
+  },
+  {
+    "sql": "SELECT T1.IMG_ID, T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.X = 126 AND T1.Y = 363",
+    "question_id": null,
+    "question": "What object class is in the X and Y coordinates of 126 and 363?",
+    "difficulty": "",
+    "evidence": "object class refers to OBJ_CLASS; X and Y coordinates of 126 and 363 refer to coordinates of the bounding box where X = 126 and Y = 363;"
+  },
+  {
+    "sql": "SELECT T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 56 GROUP BY T2.OBJ_CLASS ORDER BY COUNT(T2.OBJ_CLASS_ID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most common object class of image ID 56?",
+    "difficulty": "",
+    "evidence": "the most common object class of image ID 56 refers to MAX(COUNT(OBJ_CLASS_ID)) where IMG_ID = 56;"
+  },
+  {
+    "sql": "SELECT T1.W, T1.H, T2.OBJ_CLASS FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 22",
+    "question_id": null,
+    "question": "Write the object classes of image ID 22 alongside the object's width and height.",
+    "difficulty": "",
+    "evidence": "object classes of image ID 22 refers to OBJ_CLASS where IMG_ID = 22; the object's width and heigh refer to W and H coordinates of the bounding box respectively;"
+  },
+  {
+    "sql": "SELECT T2.PRED_CLASS FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T1.IMG_ID = 68",
+    "question_id": null,
+    "question": "What is the predicate class of image ID 68?",
+    "difficulty": "",
+    "evidence": "predicate class of image ID 68 refers to PRED_CLASS where IMG_ID = 68;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.PRED_CLASS) FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T1.IMG_ID = 107 AND T2.PRED_CLASS = 'has'",
+    "question_id": null,
+    "question": "How many 'has' predicate classes does image ID 107 have?",
+    "difficulty": "",
+    "evidence": "has' predicate classes refers to PRED_CLASS = 'has'; image ID 107 refers to IMG_ID = 107;"
+  },
+  {
+    "sql": "SELECT T2.PRED_CLASS FROM IMG_REL AS T1 INNER JOIN PRED_CLASSES AS T2 ON T1.PRED_CLASS_ID = T2.PRED_CLASS_ID WHERE T1.IMG_ID = 4434 ORDER BY T2.PRED_CLASS DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the most common predicate class of image ID 4434.",
+    "difficulty": "",
+    "evidence": "the most common predicate class of image ID 4434 MAX(PRED_CLASS) where IMG_ID = 4434;"
+  },
+  {
+    "sql": "SELECT T1.X, T1.Y FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 1764 AND T2.OBJ_CLASS = 'dress'",
+    "question_id": null,
+    "question": "Count the number of 'dress' object classes and include their X and Y coordinates in image ID 1764.",
+    "difficulty": "",
+    "evidence": "dress' object classes refer to OBJ_CLASS = 'dress'; image ID 1764 refers to IMG_ID = 1764; X and Y refer to coordinates of the bounding box;"
+  },
+  {
+    "sql": "SELECT T3.OBJ_SAMPLE_ID, T3.X, T3.Y FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID INNER JOIN IMG_OBJ AS T3 ON T2.IMG_ID = T3.IMG_ID WHERE T3.IMG_ID = 23 AND T1.ATT_CLASS = 'cast'",
+    "question_id": null,
+    "question": "Give the X and Y coordinates of the sample object of image ID 23 that has the 'cast' attribute class.",
+    "difficulty": "",
+    "evidence": "X and Y refer to coordinates of the bounding box; image ID 23 refers to IMG_ID = 23; 'cast' attribute class refers to ATT_CLASS = 'cast';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ATT_CLASS) FROM ATT_CLASSES AS T1 INNER JOIN IMG_OBJ_ATT AS T2 ON T1.ATT_CLASS_ID = T2.ATT_CLASS_ID WHERE T2.IMG_ID = 2355735 AND T1.ATT_CLASS = 'blue'",
+    "question_id": null,
+    "question": "How many 'blue' attribute classes are there on image ID 2355735?",
+    "difficulty": "",
+    "evidence": "blue' attribute classes on image ID 2355735 refer to ATT_CLASS = 'blue' where IMG_ID = 2355735;"
+  },
+  {
+    "sql": "SELECT T2.OBJ_CLASS, AVG(T1.W), AVG(T1.H) FROM IMG_OBJ AS T1 INNER JOIN OBJ_CLASSES AS T2 ON T1.OBJ_CLASS_ID = T2.OBJ_CLASS_ID WHERE T1.IMG_ID = 47 GROUP BY T2.OBJ_CLASS",
+    "question_id": null,
+    "question": "What is the average width and height of the objects in image ID 47? List their object classes as well.",
+    "difficulty": "",
+    "evidence": "The bounding box's W and H abbreviations stand for the object's width and height in which average width and height refer to AVG(W) and AVG(H) respectively; image ID 47 refers to IMG_ID = 47; object classes refer to OBJ_CLASS;"
+  }
+]

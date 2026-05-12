@@ -1,0 +1,21 @@
+CREATE TABLE "coin_price_history" (
+    "snapshot_date" DATE,
+    "asset_id" INTEGER,
+    "market_rank" INTEGER,
+    "market_capitalization" REAL,
+    "last_price" REAL,
+    "opening_price" REAL,
+    "highest_price" REAL,
+    "lowest_price" REAL,
+    "closing_price" REAL,
+    "high_timestamp" TEXT,
+    "low_timestamp" TEXT,
+    "volume_past_day" REAL,
+    "percent_change_one_hour" REAL,
+    "percent_change_one_day" REAL,
+    "percent_change_one_week" REAL,
+    "circulating_supply_amount" REAL,
+    "total_supply_amount" REAL,
+    "maximum_supply_amount" REAL,
+    "market_pair_count" INTEGER
+);

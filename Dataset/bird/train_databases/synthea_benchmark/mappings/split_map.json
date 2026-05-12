@@ -1,0 +1,606 @@
+{
+  "claims": {
+    "pk_columns": [
+      "ID"
+    ],
+    "fragments": [
+      {
+        "suffix": "billableperiod",
+        "non_pk_columns": [
+          "BILLABLEPERIOD",
+          "DIAGNOSIS",
+          "ORGANIZATION",
+          "TOTAL"
+        ],
+        "local_table": "claims_billable_period_up_to_2010_03_31",
+        "local_name": "local_1",
+        "vertical_fragment_base": "claims_billableperiod",
+        "row_partition_names": [
+          "claims_billable_period_up_to_2010_03_31",
+          "claims_billable_period_after_2010_03_31_to_2012_10_14",
+          "claims_billable_period_after_2012_10_14_to_2015_05_06",
+          "claims_billable_period_after_2015_05_06_or_null"
+        ],
+        "row_partition_predicate_column": "BILLABLEPERIOD"
+      },
+      {
+        "suffix": "billableperiod_2",
+        "non_pk_columns": [
+          "BILLABLEPERIOD",
+          "DIAGNOSIS",
+          "ENCOUNTER",
+          "PATIENT",
+          "TOTAL"
+        ],
+        "local_table": "claims_billable_detail_encounter_patient",
+        "local_name": "local_1",
+        "vertical_fragment_base": "claims_billableperiod_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "claims",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 6,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.012289471050495144
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.012289471050495144,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "BILLABLEPERIOD",
+          "ORGANIZATION",
+          "TOTAL"
+        ],
+        [
+          "DIAGNOSIS",
+          "ENCOUNTER",
+          "PATIENT"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "DIAGNOSIS",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "TOTAL",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "BILLABLEPERIOD",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "BILLABLEPERIOD",
+          "DIAGNOSIS",
+          "ORGANIZATION",
+          "TOTAL"
+        ],
+        [
+          "BILLABLEPERIOD",
+          "DIAGNOSIS",
+          "ENCOUNTER",
+          "PATIENT",
+          "TOTAL"
+        ]
+      ],
+      "pk_columns": [
+        "ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "billableperiod",
+          "non_pk_columns": [
+            "BILLABLEPERIOD",
+            "DIAGNOSIS",
+            "ORGANIZATION",
+            "TOTAL"
+          ]
+        },
+        {
+          "suffix": "billableperiod_2",
+          "non_pk_columns": [
+            "BILLABLEPERIOD",
+            "DIAGNOSIS",
+            "ENCOUNTER",
+            "PATIENT",
+            "TOTAL"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "claims_billableperiod_2",
+    "movable_candidates": [
+      "claims_billableperiod_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=2"
+  },
+  "allergies": {
+    "pk_columns": [
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE"
+    ],
+    "fragments": [
+      {
+        "suffix": "description",
+        "non_pk_columns": [
+          "DESCRIPTION",
+          "START",
+          "STOP"
+        ],
+        "local_table": "PatientAllergyRecords",
+        "local_name": "local_2",
+        "vertical_fragment_base": "allergies_description"
+      },
+      {
+        "suffix": "start",
+        "non_pk_columns": [
+          "START",
+          "STOP"
+        ],
+        "local_table": "allergiesStartKnownDates",
+        "local_name": "local_3",
+        "vertical_fragment_base": "allergies_start",
+        "row_partition_names": [
+          "allergiesStartKnownDates",
+          "allergiesStartOtherOrNull"
+        ],
+        "row_partition_predicate_column": "START"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "allergies",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 3,
+      "min_non_pk_per_fragment": 1,
+      "pk_width": 3,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 213348186,
+      "scores_by_k": {
+        "2": 0.13025560996408125,
+        "3": -1.0
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.13025560996408125,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "DESCRIPTION"
+        ],
+        [
+          "START",
+          "STOP"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "START",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "STOP",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "DESCRIPTION",
+          "START",
+          "STOP"
+        ],
+        [
+          "START",
+          "STOP"
+        ]
+      ],
+      "pk_columns": [
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE"
+      ],
+      "fragments": [
+        {
+          "suffix": "description",
+          "non_pk_columns": [
+            "DESCRIPTION",
+            "START",
+            "STOP"
+          ]
+        },
+        {
+          "suffix": "start",
+          "non_pk_columns": [
+            "START",
+            "STOP"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "allergies_description",
+    "movable_candidates": [
+      "allergies_start_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+  },
+  "medications": {
+    "pk_columns": [
+      "START",
+      "PATIENT",
+      "ENCOUNTER",
+      "CODE"
+    ],
+    "fragments": [
+      {
+        "suffix": "description",
+        "non_pk_columns": [
+          "DESCRIPTION",
+          "REASONCODE",
+          "REASONDESCRIPTION"
+        ],
+        "local_table": "medicationsPenicillinV250Mg",
+        "local_name": "local_3",
+        "vertical_fragment_base": "medications_description",
+        "row_partition_names": [
+          "medicationsPenicillinV250Mg",
+          "medications_description_part2",
+          "medications_description_part3",
+          "medicationsOtherOrNull"
+        ],
+        "row_partition_predicate_column": "DESCRIPTION"
+      },
+      {
+        "suffix": "description_2",
+        "non_pk_columns": [
+          "DESCRIPTION",
+          "REASONCODE",
+          "STOP"
+        ],
+        "local_table": "MedicationsWithStopDate",
+        "local_name": "local_2",
+        "vertical_fragment_base": "medications_description_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "medications",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 4,
+      "min_non_pk_per_fragment": 0,
+      "pk_width": 4,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1389401365,
+      "scores_by_k": {
+        "2": 0.02463926375561129,
+        "3": 0.013747922495323653,
+        "4": -1.0
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.02463926375561129,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "DESCRIPTION",
+          "REASONCODE",
+          "REASONDESCRIPTION"
+        ],
+        [
+          "STOP"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "DESCRIPTION",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "REASONCODE",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "DESCRIPTION",
+          "REASONCODE",
+          "REASONDESCRIPTION"
+        ],
+        [
+          "DESCRIPTION",
+          "REASONCODE",
+          "STOP"
+        ]
+      ],
+      "pk_columns": [
+        "START",
+        "PATIENT",
+        "ENCOUNTER",
+        "CODE"
+      ],
+      "fragments": [
+        {
+          "suffix": "description",
+          "non_pk_columns": [
+            "DESCRIPTION",
+            "REASONCODE",
+            "REASONDESCRIPTION"
+          ]
+        },
+        {
+          "suffix": "description_2",
+          "non_pk_columns": [
+            "DESCRIPTION",
+            "REASONCODE",
+            "STOP"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "medications_description_part1",
+    "movable_candidates": [
+      "medications_description_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+  },
+  "patients": {
+    "pk_columns": [
+      "patient"
+    ],
+    "fragments": [
+      {
+        "suffix": "address",
+        "non_pk_columns": [
+          "address",
+          "birthdate",
+          "birthplace",
+          "deathdate",
+          "ethnicity",
+          "first",
+          "gender",
+          "marital",
+          "race"
+        ],
+        "local_table": "patientDemographics",
+        "local_name": "local_3",
+        "vertical_fragment_base": "patients_address"
+      },
+      {
+        "suffix": "drivers",
+        "non_pk_columns": [
+          "drivers",
+          "passport",
+          "ssn"
+        ],
+        "local_table": "PatientsWithSpecificPassports",
+        "local_name": "local_2",
+        "vertical_fragment_base": "patients_drivers",
+        "row_partition_names": [
+          "PatientsWithSpecificPassports",
+          "PatientsWithOtherOrNullPassports"
+        ],
+        "row_partition_predicate_column": "passport"
+      },
+      {
+        "suffix": "address_2",
+        "non_pk_columns": [
+          "address",
+          "birthplace",
+          "ethnicity",
+          "first",
+          "last",
+          "maiden",
+          "marital",
+          "race"
+        ],
+        "local_table": "patient_address_demographics",
+        "local_name": "local_1",
+        "vertical_fragment_base": "patients_address_2"
+      },
+      {
+        "suffix": "gender",
+        "non_pk_columns": [
+          "gender",
+          "prefix",
+          "suffix"
+        ],
+        "local_table": "patient_demographics_name",
+        "local_name": "local_1",
+        "vertical_fragment_base": "patients_gender"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "patients",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 16,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.027942898839137996,
+        "3": 0.03875639668163208,
+        "4": 0.04050233002904708,
+        "5": 0.03806054616155912
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.04050233002904708,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "address",
+          "birthdate",
+          "birthplace",
+          "deathdate",
+          "ethnicity",
+          "race"
+        ],
+        [
+          "drivers",
+          "passport",
+          "ssn"
+        ],
+        [
+          "first",
+          "last",
+          "maiden",
+          "marital"
+        ],
+        [
+          "gender",
+          "prefix",
+          "suffix"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "marital",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "race",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "address",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "ethnicity",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "first",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "birthplace",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "gender",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "address",
+          "birthdate",
+          "birthplace",
+          "deathdate",
+          "ethnicity",
+          "first",
+          "gender",
+          "marital",
+          "race"
+        ],
+        [
+          "drivers",
+          "passport",
+          "ssn"
+        ],
+        [
+          "address",
+          "birthplace",
+          "ethnicity",
+          "first",
+          "last",
+          "maiden",
+          "marital",
+          "race"
+        ],
+        [
+          "gender",
+          "prefix",
+          "suffix"
+        ]
+      ],
+      "pk_columns": [
+        "patient"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "birthdate",
+            "birthplace",
+            "deathdate",
+            "ethnicity",
+            "first",
+            "gender",
+            "marital",
+            "race"
+          ]
+        },
+        {
+          "suffix": "drivers",
+          "non_pk_columns": [
+            "drivers",
+            "passport",
+            "ssn"
+          ]
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "birthplace",
+            "ethnicity",
+            "first",
+            "last",
+            "maiden",
+            "marital",
+            "race"
+          ]
+        },
+        {
+          "suffix": "gender",
+          "non_pk_columns": [
+            "gender",
+            "prefix",
+            "suffix"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "patients_address",
+    "movable_candidates": [
+      "patients_address_2",
+      "patients_drivers_part1",
+      "patients_gender"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=8"
+  }
+}

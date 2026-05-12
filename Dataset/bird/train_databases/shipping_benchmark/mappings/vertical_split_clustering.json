@@ -1,0 +1,210 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 5,
+    "eligible_candidate_count": 5,
+    "num_selected_for_vertical_split": 4,
+    "num_from_rate_alone": 4,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "customer",
+      "driver",
+      "shipment",
+      "city"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/shipping/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "driver",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "shipment",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "city",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "customer": {
+      "pk_columns": [
+        "cust_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          "local_table": "customer_address_part1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "customer_address",
+          "row_partition_names": [
+            "customer_address_part1",
+            "cust_addr_retail",
+            "cust_addr_wholesale"
+          ],
+          "row_partition_predicate_column": "cust_type"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "annual_revenue",
+            "city",
+            "phone",
+            "state",
+            "zip"
+          ],
+          "local_table": "customer_address_records",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customer_address_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customer",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.01827779684819713
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.01827779684819713,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type"
+          ],
+          [
+            "phone",
+            "state",
+            "zip"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "annual_revenue",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "phone",
+            "state",
+            "zip"
+          ]
+        ],
+        "pk_columns": [
+          "cust_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "annual_revenue",
+              "city",
+              "cust_name",
+              "cust_type",
+              "phone"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "annual_revenue",
+              "city",
+              "phone",
+              "state",
+              "zip"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "address",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "city",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "annual_revenue",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "address_2"
+        },
+        {
+          "column": "phone",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "address_2",
+          "also_in_fragment_suffix": "address"
+        }
+      ]
+    }
+  }
+}

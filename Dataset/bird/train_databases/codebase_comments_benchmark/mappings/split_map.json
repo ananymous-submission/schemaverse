@@ -1,0 +1,152 @@
+{
+  "Method": {
+    "pk_columns": [
+      "Id"
+    ],
+    "fragments": [
+      {
+        "suffix": "apicalls",
+        "non_pk_columns": [
+          "ApiCalls",
+          "Name",
+          "NameTokenized",
+          "SampledAt",
+          "SolutionId",
+          "Summary"
+        ],
+        "local_table": "api_call_samp_le_636442016951865234",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Method_apicalls",
+        "row_partition_names": [
+          "api_call_samp_le_636442016951865234",
+          "api_call_samp_636442016951865234_to_636445887174882578",
+          "api_call_samp_636445887174882578_to_636451447756376719",
+          "api_call_samp_gt_636451447756376719_or_null"
+        ],
+        "row_partition_predicate_column": "SampledAt"
+      },
+      {
+        "suffix": "apicalls_2",
+        "non_pk_columns": [
+          "ApiCalls",
+          "CommentIsXml",
+          "FullComment",
+          "Lang",
+          "SampledAt",
+          "SolutionId",
+          "Summary"
+        ],
+        "local_table": "api_call_meta",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Method_apicalls_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Method",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 9,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.02543252512104483
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.02543252512104483,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "ApiCalls",
+          "Name",
+          "NameTokenized",
+          "SolutionId"
+        ],
+        [
+          "CommentIsXml",
+          "FullComment",
+          "Lang",
+          "SampledAt",
+          "Summary"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "SolutionId",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "ApiCalls",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "SampledAt",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Summary",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "ApiCalls",
+          "Name",
+          "NameTokenized",
+          "SampledAt",
+          "SolutionId",
+          "Summary"
+        ],
+        [
+          "ApiCalls",
+          "CommentIsXml",
+          "FullComment",
+          "Lang",
+          "SampledAt",
+          "SolutionId",
+          "Summary"
+        ]
+      ],
+      "pk_columns": [
+        "Id"
+      ],
+      "fragments": [
+        {
+          "suffix": "apicalls",
+          "non_pk_columns": [
+            "ApiCalls",
+            "Name",
+            "NameTokenized",
+            "SampledAt",
+            "SolutionId",
+            "Summary"
+          ]
+        },
+        {
+          "suffix": "apicalls_2",
+          "non_pk_columns": [
+            "ApiCalls",
+            "CommentIsXml",
+            "FullComment",
+            "Lang",
+            "SampledAt",
+            "SolutionId",
+            "Summary"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Method_apicalls_2",
+    "movable_candidates": [
+      "Method_apicalls_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=0"
+  }
+}

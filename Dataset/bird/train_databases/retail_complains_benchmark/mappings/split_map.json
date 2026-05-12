@@ -1,0 +1,678 @@
+{
+  "callcenterlogs": {
+    "pk_columns": [
+      "Complaint ID"
+    ],
+    "fragments": [
+      {
+        "suffix": "date_received",
+        "non_pk_columns": [
+          "Date received",
+          "priority",
+          "type"
+        ],
+        "local_table": "cc_recv_le_20130829",
+        "local_name": "local_1",
+        "vertical_fragment_base": "callcenterlogs_date_received",
+        "row_partition_names": [
+          "cc_recv_le_20130829",
+          "cc_recv_20130830_20150325",
+          "cc_recv_20150326_20160822",
+          "cc_recv_gt_20160822_null"
+        ],
+        "row_partition_predicate_column": "Date received"
+      },
+      {
+        "suffix": "call_id",
+        "non_pk_columns": [
+          "call_id",
+          "outcome",
+          "phonefinal",
+          "rand client",
+          "server",
+          "vru+line"
+        ],
+        "local_table": "cc_call_meta",
+        "local_name": "local_1",
+        "vertical_fragment_base": "callcenterlogs_call_id"
+      },
+      {
+        "suffix": "call_id_2",
+        "non_pk_columns": [
+          "call_id",
+          "outcome",
+          "phonefinal",
+          "ser_exit",
+          "ser_start",
+          "ser_time",
+          "server",
+          "vru+line"
+        ],
+        "local_table": "cc_call_serv",
+        "local_name": "local_1",
+        "vertical_fragment_base": "callcenterlogs_call_id_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "callcenterlogs",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 12,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.040758596180349056,
+        "3": 0.05553231402951869,
+        "4": 0.05540842161635027
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.05553231402951869,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "Date received",
+          "priority",
+          "type"
+        ],
+        [
+          "call_id",
+          "phonefinal",
+          "rand client",
+          "vru+line"
+        ],
+        [
+          "outcome",
+          "ser_exit",
+          "ser_start",
+          "ser_time",
+          "server"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "outcome",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "server",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "vru+line",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "phonefinal",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "call_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "Date received",
+          "priority",
+          "type"
+        ],
+        [
+          "call_id",
+          "outcome",
+          "phonefinal",
+          "rand client",
+          "server",
+          "vru+line"
+        ],
+        [
+          "call_id",
+          "outcome",
+          "phonefinal",
+          "ser_exit",
+          "ser_start",
+          "ser_time",
+          "server",
+          "vru+line"
+        ]
+      ],
+      "pk_columns": [
+        "Complaint ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "date_received",
+          "non_pk_columns": [
+            "Date received",
+            "priority",
+            "type"
+          ]
+        },
+        {
+          "suffix": "call_id",
+          "non_pk_columns": [
+            "call_id",
+            "outcome",
+            "phonefinal",
+            "rand client",
+            "server",
+            "vru+line"
+          ]
+        },
+        {
+          "suffix": "call_id_2",
+          "non_pk_columns": [
+            "call_id",
+            "outcome",
+            "phonefinal",
+            "ser_exit",
+            "ser_start",
+            "ser_time",
+            "server",
+            "vru+line"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "callcenterlogs_call_id_2",
+    "movable_candidates": [
+      "callcenterlogs_call_id",
+      "callcenterlogs_date_received_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+  },
+  "client": {
+    "pk_columns": [
+      "client_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "address_1",
+        "non_pk_columns": [
+          "address_1",
+          "address_2",
+          "age",
+          "city",
+          "district_id",
+          "email",
+          "phone",
+          "sex",
+          "social",
+          "zipcode"
+        ],
+        "local_table": "client_address_1_q1",
+        "local_name": "local_3",
+        "vertical_fragment_base": "client_address_1",
+        "row_partition_names": [
+          "client_address_1_q1",
+          "clientAddressAge32To45",
+          "clientAddressAge46To59",
+          "clientAddressAge60OrAbove"
+        ],
+        "row_partition_predicate_column": "age"
+      },
+      {
+        "suffix": "age",
+        "non_pk_columns": [
+          "age",
+          "city",
+          "district_id",
+          "email",
+          "sex",
+          "social",
+          "state",
+          "zipcode"
+        ],
+        "local_table": "clientAgeProfile",
+        "local_name": "local_3",
+        "vertical_fragment_base": "client_age"
+      },
+      {
+        "suffix": "day",
+        "non_pk_columns": [
+          "day",
+          "month",
+          "year"
+        ],
+        "local_table": "client_date_parts",
+        "local_name": "local_1",
+        "vertical_fragment_base": "client_day"
+      },
+      {
+        "suffix": "first",
+        "non_pk_columns": [
+          "first",
+          "last",
+          "middle"
+        ],
+        "local_table": "ClientNameProfile",
+        "local_name": "local_2",
+        "vertical_fragment_base": "client_first"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "client",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 17,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.03384996618019624,
+        "3": 0.04429462433693748,
+        "4": 0.0542086345816863,
+        "5": 0.0532597019208287
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.0542086345816863,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "address_1",
+          "address_2",
+          "email",
+          "phone",
+          "social"
+        ],
+        [
+          "age",
+          "city",
+          "district_id",
+          "sex",
+          "state",
+          "zipcode"
+        ],
+        [
+          "day",
+          "month",
+          "year"
+        ],
+        [
+          "first",
+          "last",
+          "middle"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "social",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "zipcode",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "city",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "age",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "sex",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "email",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "district_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "address_1",
+          "address_2",
+          "age",
+          "city",
+          "district_id",
+          "email",
+          "phone",
+          "sex",
+          "social",
+          "zipcode"
+        ],
+        [
+          "age",
+          "city",
+          "district_id",
+          "email",
+          "sex",
+          "social",
+          "state",
+          "zipcode"
+        ],
+        [
+          "day",
+          "month",
+          "year"
+        ],
+        [
+          "first",
+          "last",
+          "middle"
+        ]
+      ],
+      "pk_columns": [
+        "client_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address_1",
+          "non_pk_columns": [
+            "address_1",
+            "address_2",
+            "age",
+            "city",
+            "district_id",
+            "email",
+            "phone",
+            "sex",
+            "social",
+            "zipcode"
+          ]
+        },
+        {
+          "suffix": "age",
+          "non_pk_columns": [
+            "age",
+            "city",
+            "district_id",
+            "email",
+            "sex",
+            "social",
+            "state",
+            "zipcode"
+          ]
+        },
+        {
+          "suffix": "day",
+          "non_pk_columns": [
+            "day",
+            "month",
+            "year"
+          ]
+        },
+        {
+          "suffix": "first",
+          "non_pk_columns": [
+            "first",
+            "last",
+            "middle"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "client_address_1_q1",
+    "movable_candidates": [
+      "client_age",
+      "client_day",
+      "client_first"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=3"
+  },
+  "events": {
+    "pk_columns": [
+      "Complaint ID",
+      "Client_ID"
+    ],
+    "fragments": [
+      {
+        "suffix": "company_response_to_cons",
+        "non_pk_columns": [
+          "Company response to consumer",
+          "Consumer complaint narrative",
+          "Consumer consent provided?",
+          "Consumer disputed?",
+          "Issue",
+          "Sub-issue",
+          "Timely response?"
+        ],
+        "local_table": "CompanyResponsesToConsumers",
+        "local_name": "local_2",
+        "vertical_fragment_base": "events_company_response_to_cons"
+      },
+      {
+        "suffix": "consumer_complaint_narra",
+        "non_pk_columns": [
+          "Consumer complaint narrative",
+          "Consumer consent provided?",
+          "Consumer disputed?",
+          "Issue",
+          "Sub-issue",
+          "Timely response?"
+        ],
+        "local_table": "ev_cons_narr",
+        "local_name": "local_1",
+        "vertical_fragment_base": "events_consumer_complaint_narra"
+      },
+      {
+        "suffix": "date_received",
+        "non_pk_columns": [
+          "Date received",
+          "Date sent to company"
+        ],
+        "local_table": "ev_recv_le_20130524",
+        "local_name": "local_1",
+        "vertical_fragment_base": "events_date_received",
+        "row_partition_names": [
+          "ev_recv_le_20130524",
+          "ev_recv_20130525_20141229",
+          "ev_recv_20141230_20160308",
+          "ev_recv_gt_20160308_null"
+        ],
+        "row_partition_predicate_column": "Date received"
+      },
+      {
+        "suffix": "product",
+        "non_pk_columns": [
+          "Product",
+          "Sub-product"
+        ],
+        "local_table": "ev_product",
+        "local_name": "local_1",
+        "vertical_fragment_base": "events_product"
+      },
+      {
+        "suffix": "submitted_via",
+        "non_pk_columns": [
+          "Submitted via",
+          "Tags"
+        ],
+        "local_table": "ComplaintSubmissionChannels",
+        "local_name": "local_2",
+        "vertical_fragment_base": "events_submitted_via"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "events",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 13,
+      "min_non_pk_per_fragment": 2,
+      "pk_width": 2,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.06334110893456457,
+        "3": 0.07467181503473966,
+        "4": 0.08483971299112558,
+        "5": 0.10234017259489359
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.10234017259489359,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "Company response to consumer",
+          "Consumer disputed?",
+          "Timely response?"
+        ],
+        [
+          "Consumer complaint narrative",
+          "Consumer consent provided?",
+          "Issue",
+          "Sub-issue"
+        ],
+        [
+          "Date received",
+          "Date sent to company"
+        ],
+        [
+          "Product",
+          "Sub-product"
+        ],
+        [
+          "Submitted via",
+          "Tags"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "Consumer consent provided?",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Consumer complaint narrative",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Sub-issue",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Issue",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Consumer disputed?",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Timely response?",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "Company response to consumer",
+          "Consumer complaint narrative",
+          "Consumer consent provided?",
+          "Consumer disputed?",
+          "Issue",
+          "Sub-issue",
+          "Timely response?"
+        ],
+        [
+          "Consumer complaint narrative",
+          "Consumer consent provided?",
+          "Consumer disputed?",
+          "Issue",
+          "Sub-issue",
+          "Timely response?"
+        ],
+        [
+          "Date received",
+          "Date sent to company"
+        ],
+        [
+          "Product",
+          "Sub-product"
+        ],
+        [
+          "Submitted via",
+          "Tags"
+        ]
+      ],
+      "pk_columns": [
+        "Complaint ID",
+        "Client_ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "company_response_to_cons",
+          "non_pk_columns": [
+            "Company response to consumer",
+            "Consumer complaint narrative",
+            "Consumer consent provided?",
+            "Consumer disputed?",
+            "Issue",
+            "Sub-issue",
+            "Timely response?"
+          ]
+        },
+        {
+          "suffix": "consumer_complaint_narra",
+          "non_pk_columns": [
+            "Consumer complaint narrative",
+            "Consumer consent provided?",
+            "Consumer disputed?",
+            "Issue",
+            "Sub-issue",
+            "Timely response?"
+          ]
+        },
+        {
+          "suffix": "date_received",
+          "non_pk_columns": [
+            "Date received",
+            "Date sent to company"
+          ]
+        },
+        {
+          "suffix": "product",
+          "non_pk_columns": [
+            "Product",
+            "Sub-product"
+          ]
+        },
+        {
+          "suffix": "submitted_via",
+          "non_pk_columns": [
+            "Submitted via",
+            "Tags"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "events_company_response_to_cons",
+    "movable_candidates": [
+      "events_consumer_complaint_narra",
+      "events_date_received_q1",
+      "events_product",
+      "events_submitted_via"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+  }
+}

@@ -1,0 +1,804 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "AcademicInstitution": {
+          "source_table": "university",
+          "column_map": {
+            "AcademicInstitutionId": "id",
+            "CountryReferenceId": "country_id",
+            "OfficialName": "university_name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "InstitutionYearlyStatistics": {
+          "source_table": "university_year",
+          "column_map": {
+            "AcademicInstitutionId": "university_id",
+            "AcademicYear": "year",
+            "StudentCount": "num_students",
+            "StudentToStaffRatio": "student_staff_ratio",
+            "InternationalStudentPercentage": "pct_international_students",
+            "FemaleStudentPercentage": "pct_female_students"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "score_metric": {
+          "source_table": "ranking_criteria",
+          "column_map": {
+            "metric_id": "id",
+            "scoring_system_id": "ranking_system_id",
+            "metric_label": "criteria_name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "institution_ranking_snapshot": {
+          "source_table": "university_ranking_year",
+          "column_map": {
+            "institution_id": "university_id",
+            "metric_id": "ranking_criteria_id",
+            "assessment_year": "year",
+            "metric_score": "score"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "geo_ctry": {
+          "source_table": "country",
+          "column_map": {
+            "ctry_id": "id",
+            "ctry_name": "country_name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "rank_sys": {
+          "source_table": "ranking_system",
+          "column_map": {
+            "rank_id": "id",
+            "rank_label": "system_name"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "university": "AcademicInstitution",
+        "university_year": "InstitutionYearlyStatistics"
+      },
+      "column_renames": {
+        "university": {
+          "id": "AcademicInstitutionId",
+          "country_id": "CountryReferenceId",
+          "university_name": "OfficialName"
+        },
+        "university_year": {
+          "university_id": "AcademicInstitutionId",
+          "year": "AcademicYear",
+          "num_students": "StudentCount",
+          "student_staff_ratio": "StudentToStaffRatio",
+          "pct_international_students": "InternationalStudentPercentage",
+          "pct_female_students": "FemaleStudentPercentage"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "ranking_criteria": "score_metric",
+        "university_ranking_year": "institution_ranking_snapshot"
+      },
+      "column_renames": {
+        "ranking_criteria": {
+          "id": "metric_id",
+          "ranking_system_id": "scoring_system_id",
+          "criteria_name": "metric_label"
+        },
+        "university_ranking_year": {
+          "university_id": "institution_id",
+          "ranking_criteria_id": "metric_id",
+          "year": "assessment_year",
+          "score": "metric_score"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_3": {
+      "table_renames": {
+        "country": "geo_ctry",
+        "ranking_system": "rank_sys"
+      },
+      "column_renames": {
+        "country": {
+          "id": "ctry_id",
+          "country_name": "ctry_name"
+        },
+        "ranking_system": {
+          "id": "rank_id",
+          "system_name": "rank_label"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    }
+  },
+  "vertical_split_map": {},
+  "split_map": {},
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 6,
+    "eligible_candidate_count": 2,
+    "num_selected_for_vertical_split": 2,
+    "num_from_rate_alone": 5,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "ranking_criteria",
+      "university"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/university/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "ranking_criteria",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "university",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {},
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "ranking_criteria",
+          "from_column": "ranking_system_id",
+          "to_table": "ranking_system",
+          "to_column": "id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "ranking_criteria",
+            "column_map": {
+              "id": "id",
+              "ranking_system_id": "ranking_system_id",
+              "criteria_name": "criteria_name"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "ranking_system_id": "ranking_system_id",
+              "criteria_name": "criteria_name"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "ranking_system",
+            "column_map": {
+              "id": "id",
+              "system_name": "system_name"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "system_name": "system_name"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "score_metric",
+            "to_local_table": "rank_sys",
+            "from_local_column": "scoring_system_id",
+            "to_local_column": "rank_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "university",
+          "from_column": "country_id",
+          "to_table": "country",
+          "to_column": "id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "university",
+            "column_map": {
+              "id": "id",
+              "country_id": "country_id",
+              "university_name": "university_name"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "country_id": "country_id",
+              "university_name": "university_name"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "country",
+            "column_map": {
+              "id": "id",
+              "country_name": "country_name"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "country_name": "country_name"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "AcademicInstitution",
+            "to_local_table": "geo_ctry",
+            "from_local_column": "CountryReferenceId",
+            "to_local_column": "ctry_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "university_ranking_year",
+          "from_column": "university_id",
+          "to_table": "university",
+          "to_column": "id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "university_ranking_year",
+            "column_map": {
+              "university_id": "university_id",
+              "ranking_criteria_id": "ranking_criteria_id",
+              "year": "year",
+              "score": "score"
+            },
+            "orig_to_local": {
+              "university_id": "university_id",
+              "ranking_criteria_id": "ranking_criteria_id",
+              "year": "year",
+              "score": "score"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "university",
+            "column_map": {
+              "id": "id",
+              "country_id": "country_id",
+              "university_name": "university_name"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "country_id": "country_id",
+              "university_name": "university_name"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "institution_ranking_snapshot",
+            "to_local_table": "AcademicInstitution",
+            "from_local_column": "institution_id",
+            "to_local_column": "AcademicInstitutionId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "university_ranking_year",
+          "from_column": "ranking_criteria_id",
+          "to_table": "ranking_criteria",
+          "to_column": "id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "university_ranking_year",
+            "column_map": {
+              "university_id": "university_id",
+              "ranking_criteria_id": "ranking_criteria_id",
+              "year": "year",
+              "score": "score"
+            },
+            "orig_to_local": {
+              "university_id": "university_id",
+              "ranking_criteria_id": "ranking_criteria_id",
+              "year": "year",
+              "score": "score"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "ranking_criteria",
+            "column_map": {
+              "id": "id",
+              "ranking_system_id": "ranking_system_id",
+              "criteria_name": "criteria_name"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "ranking_system_id": "ranking_system_id",
+              "criteria_name": "criteria_name"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "institution_ranking_snapshot",
+            "to_local_table": "score_metric",
+            "from_local_column": "metric_id",
+            "to_local_column": "metric_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "university_year",
+          "from_column": "university_id",
+          "to_table": "university",
+          "to_column": "id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "university_year",
+            "column_map": {
+              "university_id": "university_id",
+              "year": "year",
+              "num_students": "num_students",
+              "student_staff_ratio": "student_staff_ratio",
+              "pct_international_students": "pct_international_students",
+              "pct_female_students": "pct_female_students"
+            },
+            "orig_to_local": {
+              "university_id": "university_id",
+              "year": "year",
+              "num_students": "num_students",
+              "student_staff_ratio": "student_staff_ratio",
+              "pct_international_students": "pct_international_students",
+              "pct_female_students": "pct_female_students"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "university",
+            "column_map": {
+              "id": "id",
+              "country_id": "country_id",
+              "university_name": "university_name"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "country_id": "country_id",
+              "university_name": "university_name"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "InstitutionYearlyStatistics",
+            "to_local_table": "AcademicInstitution",
+            "from_local_column": "AcademicInstitutionId",
+            "to_local_column": "AcademicInstitutionId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "country|ranking_criteria": 3,
+      "country|university": 31,
+      "country|university_ranking_year": 6,
+      "country|university_year": 9,
+      "ranking_criteria|ranking_system": 10,
+      "ranking_criteria|university": 18,
+      "university|university_ranking_year": 29,
+      "university_ranking_year|university_year": 5
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "country": "local_3",
+      "ranking_criteria": "local_2",
+      "ranking_system": "local_3",
+      "university": "local_1",
+      "university_ranking_year": "local_2",
+      "university_year": "local_1"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "country": {
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "country_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 74
+      },
+      "ranking_system": {
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "system_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 3
+      },
+      "ranking_criteria": {
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "ranking_system_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "criteria_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 21
+      },
+      "university": {
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "country_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "university_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 1247
+      },
+      "university_ranking_year": {
+        "columns": [
+          {
+            "name": "university_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "ranking_criteria_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "year",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "score",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 29612
+      },
+      "university_year": {
+        "columns": [
+          {
+            "name": "university_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "year",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "num_students",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "student_staff_ratio",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "pct_international_students",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "pct_female_students",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 1085
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "ranking_criteria",
+        "from_column": "ranking_system_id",
+        "to_table": "ranking_system",
+        "to_column": "id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "university",
+        "from_column": "country_id",
+        "to_table": "country",
+        "to_column": "id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "university_ranking_year",
+        "from_column": "university_id",
+        "to_table": "university",
+        "to_column": "id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "university_ranking_year",
+        "from_column": "ranking_criteria_id",
+        "to_table": "ranking_criteria",
+        "to_column": "id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "university_year",
+        "from_column": "university_id",
+        "to_table": "university",
+        "to_column": "id",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 6,
+      "num_fk_edges": 5,
+      "hub_tables": [
+        "university",
+        "ranking_criteria",
+        "university_ranking_year",
+        "country",
+        "ranking_system"
+      ],
+      "connected_components": 1
+    }
+  }
+}

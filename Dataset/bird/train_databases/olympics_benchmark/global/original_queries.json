@@ -1,0 +1,1185 @@
+[
+  {
+    "sql": "SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'John Aalberg'",
+    "question_id": null,
+    "question": "Please list the names of all the Olympic games that John Aalberg has taken part in.",
+    "difficulty": "",
+    "evidence": "name of the Olympic games refers to games_name;"
+  },
+  {
+    "sql": "SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'John Aalberg' AND T2.age = 31",
+    "question_id": null,
+    "question": "What was the name of the Olympic game that John Aalberg took part in when he was 31?",
+    "difficulty": "",
+    "evidence": "when he was 31 refers to age = 31; name of the Olympic games refers to games_name;"
+  },
+  {
+    "sql": "SELECT T2.age FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'John Aalberg' AND T1.games_name = '1994 Winter'",
+    "question_id": null,
+    "question": "When John Aalberg took part in the 1994 Winter Olympic Game, how old was he?",
+    "difficulty": "",
+    "evidence": "how old was he refers to age; 1994 Winter refers to games_name = '1994 Winter';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.person_id) FROM person_region AS T1 INNER JOIN noc_region AS T2 ON T1.region_id = T2.id WHERE T2.region_name = 'Finland'",
+    "question_id": null,
+    "question": "How many Olympic competitors are from Finland?",
+    "difficulty": "",
+    "evidence": "competitors refer to person_id; from Finland refers to region_name = 'Finland';"
+  },
+  {
+    "sql": "SELECT T3.full_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Finland'",
+    "question_id": null,
+    "question": "Please list the names of all the Olympic competitors from Finland.",
+    "difficulty": "",
+    "evidence": "names of competitors refer to full_name; from Finland refers to region_name = 'Finland';"
+  },
+  {
+    "sql": "SELECT T1.region_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'John Aalberg'",
+    "question_id": null,
+    "question": "The Olympic competitor John Aalberg is from which region?",
+    "difficulty": "",
+    "evidence": "from which region refers to region_name;"
+  },
+  {
+    "sql": "SELECT T1.noc FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.gender = 'M' ORDER BY T3.height DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the NOC code of the region where the tallest male Olympic competitor is from?",
+    "difficulty": "",
+    "evidence": "NOC code of the region refers to noc; male refers to gender = 'M'; the tallest refers to MAX(height);"
+  },
+  {
+    "sql": "SELECT COUNT(T3.id) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Finland' AND T3.gender = 'F'",
+    "question_id": null,
+    "question": "Among all the Olympic competitors from Finland, how many of them are female?",
+    "difficulty": "",
+    "evidence": "competitors from Finland refer to id where region_name = 'Finland'; female refers to gender = 'F';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T3.games_name = '1992 Summer'",
+    "question_id": null,
+    "question": "In which city was the 1992 Summer Olympic Games held?",
+    "difficulty": "",
+    "evidence": "In which city refers to city_name; 1992 Summer Olympic Games refer to games_name = '1992 Summer';"
+  },
+  {
+    "sql": "SELECT T3.games_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'London'",
+    "question_id": null,
+    "question": "Please list the names of the Olympic games that were held in London.",
+    "difficulty": "",
+    "evidence": "held in London refers to city_name = 'London';"
+  },
+  {
+    "sql": "SELECT T3.games_year FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'London' ORDER BY T3.games_year LIMIT 1",
+    "question_id": null,
+    "question": "In which year did London hold its earliest Olympic game?",
+    "difficulty": "",
+    "evidence": "In which year refers to games_year; London refers to city_name = 'London'; earliest Olympic game refers to MIN(games_year);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.games_id) FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id WHERE T2.city_name = 'London'",
+    "question_id": null,
+    "question": "For how many times has London held the Olympic games?",
+    "difficulty": "",
+    "evidence": "London refers to city_name = 'London'; how many times refer to COUNT(games_id);"
+  },
+  {
+    "sql": "SELECT AVG(T3.height) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Finland' AND T3.gender = 'M'",
+    "question_id": null,
+    "question": "What is the average height of the male Olympic competitors from Finland?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(height), COUNT(id)) where region_name = 'Finland' and gender = 'M';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T5.region_name = 'Finland' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T3.id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id INNER JOIN person_region AS T4 ON T3.id = T4.person_id INNER JOIN noc_region AS T5 ON T4.region_id = T5.id WHERE T1.games_name = '1994 Winter'",
+    "question_id": null,
+    "question": "Among the competitors of the 1994 Winter Olympic Game, what is the percentage of those from Finland?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(id where region_name = 'Finland'), COUNT(id)) as percentage where games_name = '1994 Winter';"
+  },
+  {
+    "sql": "SELECT T1.sport_name FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T2.event_name LIKE 'Shooting Women%s Trap'",
+    "question_id": null,
+    "question": "Which sport does the event \"Shooting Women's Trap\" belong to?",
+    "difficulty": "",
+    "evidence": "sport refers to sport_name; event \"Shooting Women's Trap\" refers to event_name = 'Shooting Women''s Trap';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T3.games_name = '1936 Winter'",
+    "question_id": null,
+    "question": "Which city was the host of 1936 Winter Olympic Games?",
+    "difficulty": "",
+    "evidence": "Which city refers to city_name; 1936 Winter Olympic refers to games_name = '1936 Winter';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.id) FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'London'",
+    "question_id": null,
+    "question": "How many Olympic Games has London hosted?",
+    "difficulty": "",
+    "evidence": "London refers to city_name = 'London';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.event_name) FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T1.sport_name = 'Swimming'",
+    "question_id": null,
+    "question": "Tell the number of swimming related events.",
+    "difficulty": "",
+    "evidence": "swimming refers to sport_name = 'Swimming';"
+  },
+  {
+    "sql": "SELECT T1.region_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'Peter Kohnke'",
+    "question_id": null,
+    "question": "For Peter Kohnke, show the name of his/her region.",
+    "difficulty": "",
+    "evidence": "name of his/her region refers to region_name;"
+  },
+  {
+    "sql": "SELECT T2.games_id FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id WHERE T1.full_name = 'Jessica Carolina Aguilera Aguilera'",
+    "question_id": null,
+    "question": "Which game has Jessica Carolina Aguilera Aguilera participated in? Give the id of the game.",
+    "difficulty": "",
+    "evidence": "id of the game refers to games_id;"
+  },
+  {
+    "sql": "SELECT T1.sport_name FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id GROUP BY T1.sport_name ORDER BY COUNT(T2.event_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Show the name of the sport with the most events.",
+    "difficulty": "",
+    "evidence": "name of the sport with the most events refers to sport_name where MAX(COUNT(id));"
+  },
+  {
+    "sql": "SELECT T3.full_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Sweden' ORDER BY T3.height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the name of the tallest athlete from Sweden.",
+    "difficulty": "",
+    "evidence": "the tallest athlete refers to id where MAX(height); from Sweden refers to region_name = 'Sweden'; name refers to full_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.person_id) FROM person_region AS T1 INNER JOIN noc_region AS T2 ON T1.region_id = T2.id WHERE T2.region_name = 'Guatemala'",
+    "question_id": null,
+    "question": "How many athletes in the database are from Guatemala?",
+    "difficulty": "",
+    "evidence": "from Guatemala refers to region_name = 'Guatemala';"
+  },
+  {
+    "sql": "SELECT T1.full_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id GROUP BY T2.person_id ORDER BY COUNT(T2.person_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who has participated in the most Olympic Games in the database?",
+    "difficulty": "",
+    "evidence": "Who refers to full_name; participated in the most Olympic Games refers to MAX(COUNT(games_id));"
+  },
+  {
+    "sql": "SELECT T1.full_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id WHERE T2.id = 90991",
+    "question_id": null,
+    "question": "Show the name of the competitor id 90991.",
+    "difficulty": "",
+    "evidence": "name of the competitor refers to full_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.id) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id WHERE T1.full_name = 'Martina Kohlov'",
+    "question_id": null,
+    "question": "How many competitor ids does Martina Kohlov have?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(T1.weight AS REAL) / (T1.height * T1.height) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id WHERE T2.id = 147420",
+    "question_id": null,
+    "question": "Calculate the bmi of the competitor id 147420.",
+    "difficulty": "",
+    "evidence": "DIVIDE(weight), MULTIPLY(height, height) where id = 147420;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T3.gender = 'M' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.person_id) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Estonia'",
+    "question_id": null,
+    "question": "What is the percentage of male athletes from Estonia?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(id where gender = 'M'), COUNT(id)) as percentage where region_name = 'Estonia';"
+  },
+  {
+    "sql": "SELECT T1.full_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id ORDER BY T2.age LIMIT 1",
+    "question_id": null,
+    "question": "Who is the youngest person who participated in the Olympics?",
+    "difficulty": "",
+    "evidence": "Who is the youngest person refers to full_name where MIN(age);"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM competitor_event AS T1 INNER JOIN games_competitor AS T2 ON T1.competitor_id = T2.id INNER JOIN event AS T3 ON T1.event_id = T3.id WHERE T3.event_name LIKE 'Basketball Men%s Basketball' AND T2.age = 24",
+    "question_id": null,
+    "question": "How many 24 years old competitors competed in Men's Basketball?",
+    "difficulty": "",
+    "evidence": "24 years old competitors refer to id where age = 24; Men's Basketball refers to event_name = 'Basketball Men''s Basketball';"
+  },
+  {
+    "sql": "SELECT T2.event_name FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T1.sport_name = 'Art Competitions'",
+    "question_id": null,
+    "question": "What are the names of the events under Art Competitions?",
+    "difficulty": "",
+    "evidence": "Art Competitions refer to sport_name = 'Art Competitions'; names of events refers to event_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN competitor_event AS T3 ON T2.id = T3.competitor_id INNER JOIN medal AS T4 ON T3.medal_id = T4.id WHERE T1.full_name = 'Henk Jan Zwolle' AND T4.medal_name = 'Gold'",
+    "question_id": null,
+    "question": "How many gold medals does Henk Jan Zwolle have?",
+    "difficulty": "",
+    "evidence": "gold medals refer to medal_name = 'Gold';"
+  },
+  {
+    "sql": "SELECT T2.event_name FROM competitor_event AS T1 INNER JOIN event AS T2 ON T1.event_id = T2.id INNER JOIN medal AS T3 ON T1.medal_id = T3.id WHERE T3.medal_name = 'Gold' GROUP BY T2.id ORDER BY COUNT(T1.event_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the event where competitors received the most gold medals?",
+    "difficulty": "",
+    "evidence": "received the most gold medals refers to MAX(COUNT(medal_name = 'Gold'));"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id WHERE T1.region_name = 'Australia'",
+    "question_id": null,
+    "question": "How many athletes are from Australia?",
+    "difficulty": "",
+    "evidence": "from Australia refer region_name = 'Australia';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id GROUP BY T2.id HAVING COUNT(T1.games_id) >= 3",
+    "question_id": null,
+    "question": "Which cities hosted at least 3 Olympic games?",
+    "difficulty": "",
+    "evidence": "cities refer to city_name; hosted at least 3 Olympic games refers to COUNT(games_id) > = 3;"
+  },
+  {
+    "sql": "SELECT COUNT(T3.id) FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'Stockholm' AND T3.season = 'Summer'",
+    "question_id": null,
+    "question": "How many Summer games were held in Stockholm?",
+    "difficulty": "",
+    "evidence": "Summer games refer to id where season = 'Summer'; in Stockholm refers to city_name = 'Stockholm';"
+  },
+  {
+    "sql": "SELECT T2.region_name FROM person_region AS T1 INNER JOIN noc_region AS T2 ON T1.region_id = T2.id GROUP BY T2.region_name ORDER BY COUNT(T1.person_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which region do most of the athletes are from?",
+    "difficulty": "",
+    "evidence": "region refers to region_name; most of the athletes refer to MAX(COUNT(person_id));"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id ORDER BY T3.games_year LIMIT 1",
+    "question_id": null,
+    "question": "Where was the first Olympic game held?",
+    "difficulty": "",
+    "evidence": "Where it was held refers to city_name; the first Olympic game refers to id where MIN(games_year);"
+  },
+  {
+    "sql": "SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id ORDER BY T2.age LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the game in which the oldest Olympian has ever participated?",
+    "difficulty": "",
+    "evidence": "the oldest Olympian refers to id where MAX(age); name of the game refers to games_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '1928 Summer'",
+    "question_id": null,
+    "question": "How many athletes competed in the 1992 Summer Olympics?",
+    "difficulty": "",
+    "evidence": "1992 Summer Olympics refer to games_name = '1928 Summer';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.event_id) , CAST(COUNT(CASE WHEN T4.id = '1' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T4.id) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN competitor_event AS T3 ON T2.id = T3.competitor_id INNER JOIN medal AS T4 ON T3.medal_id = T4.id WHERE T1.full_name = 'Michael Fred Phelps, II'",
+    "question_id": null,
+    "question": "How many Olympic events did Michael Phelps II join in total? Find the percentage of the events where he won a gold medal.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(event_id where medal_name = 'Gold'), COUNT(event_id)) as percentage where full_name = 'Michael Fred Phelps, II';"
+  },
+  {
+    "sql": "SELECT P1 , ( SELECT MAX(P2) - MIN(P2) FROM ( SELECT COUNT(T2.person_id) AS P2 FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name IN ('1988 Winter', '1988 Summer') GROUP BY T1.season ) ORDER BY P2 DESC LIMIT 1 ) FROM ( SELECT T1.season AS P1, COUNT(T2.person_id) AS P2 FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name IN ('1988 Winter', '1988 Summer') GROUP BY T1.season ) ORDER BY P2 DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the Winter and Summer Olympics of 1988, which game has the most number of competitors? Find the difference of the number of competitors between the two games.",
+    "difficulty": "",
+    "evidence": "the most number of competitors refer to MAX(COUNT(person_id)); SUBTRACT(COUNT(person_id where games_name = '1988 Summer'), COUNT(person_id where games_name = '1988 Winter'));"
+  },
+  {
+    "sql": "SELECT age FROM games_competitor GROUP BY age ORDER BY COUNT(person_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What age of the competitors is the most numerous?",
+    "difficulty": "",
+    "evidence": "age is the most numerous refers to age where MAX(COUNT(person_id));"
+  },
+  {
+    "sql": "SELECT city_name FROM city WHERE city_name LIKE 'M%'",
+    "question_id": null,
+    "question": "In which cities beginning with the letter M have the Olympic Games been held?",
+    "difficulty": "",
+    "evidence": "cities beginning with the letter M refer to city_name LIKE 'M%';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T3.games_name IN ('1976 Summer', '1976 Winter')",
+    "question_id": null,
+    "question": "In which cities were the 1976 winter and summer games held?",
+    "difficulty": "",
+    "evidence": "cities refer to city_name; 1976 winter and summer games refer to games_name IN ('1976 Winter', '1976 Summer');"
+  },
+  {
+    "sql": "SELECT T4.medal_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN competitor_event AS T3 ON T2.id = T3.competitor_id INNER JOIN medal AS T4 ON T3.medal_id = T4.id WHERE T1.full_name = 'Coleen Dufresne (-Stewner)'",
+    "question_id": null,
+    "question": "What was the medal that Coleen Dufresne got?",
+    "difficulty": "",
+    "evidence": "What medal refers to medal_name;"
+  },
+  {
+    "sql": "SELECT T1.full_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN competitor_event AS T3 ON T2.id = T3.competitor_id INNER JOIN medal AS T4 ON T3.medal_id = T4.id WHERE T4.id != 4 GROUP BY T1.full_name ORDER BY COUNT(T4.id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the competitor who has won the most medals?",
+    "difficulty": "",
+    "evidence": "name of the competitor refers to full_name; won the most medals refer to MAX(COUNT(medal_id));"
+  },
+  {
+    "sql": "SELECT T1.region_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'Estelle Nze Minko'",
+    "question_id": null,
+    "question": "Where is competitor Estelle Nze Minko from?",
+    "difficulty": "",
+    "evidence": "Where competitor is from refers to region_name;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.sport_name FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id INNER JOIN competitor_event AS T3 ON T2.id = T3.event_id INNER JOIN games_competitor AS T4 ON T3.competitor_id = T4.id INNER JOIN person AS T5 ON T4.person_id = T5.id WHERE T5.full_name = 'Chin Eei Hui'",
+    "question_id": null,
+    "question": "What is the name of all the sports Chin Eei Hui has competed in?",
+    "difficulty": "",
+    "evidence": "name of the sport refers to sport_name;"
+  },
+  {
+    "sql": "SELECT T1.full_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id ORDER BY T2.age DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the oldest person who participated in the Olympic Games?",
+    "difficulty": "",
+    "evidence": "the oldest person refers to person_id where MAX(age); name refers to full_name;"
+  },
+  {
+    "sql": "SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.gender = 'F' GROUP BY T1.games_name ORDER BY COUNT(T2.person_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which Olympic Games have the largest number of women participation?",
+    "difficulty": "",
+    "evidence": "the largest number of women participation refers to MAX(COUNT(gender = 'F')); In which Olympic Games refer to games_year;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Belgium' AND T3.gender = 'M'",
+    "question_id": null,
+    "question": "How many males from Belgium have participated in an Olympic Games?",
+    "difficulty": "",
+    "evidence": "males refer to gender = 'M'; Belgium refers to region_name = 'Belgium';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.person_id) FROM games_competitor AS T1 INNER JOIN games_city AS T2 ON T1.games_id = T2.games_id INNER JOIN city AS T3 ON T2.city_id = T3.id WHERE T3.city_name = 'Sapporo'",
+    "question_id": null,
+    "question": "How many persons participated in the Sapporo Olympics?",
+    "difficulty": "",
+    "evidence": "the Sapporo Olympics refer to games_id where city_name = 'Sapporo';"
+  },
+  {
+    "sql": "SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'Morten Aleksander Djupvik'",
+    "question_id": null,
+    "question": "In which Olympic Games has Morten Aleksander Djupvik participated?",
+    "difficulty": "",
+    "evidence": "In which Olympic Games refer to games_year;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.competitor_id) FROM competitor_event AS T1 INNER JOIN event AS T2 ON T1.event_id = T2.id INNER JOIN sport AS T3 ON T2.sport_id = T3.id WHERE T2.event_name = 'Sailing Mixed 12 metres'",
+    "question_id": null,
+    "question": "How many persons in total have participated in 12 meter Mixed Sailing competitions?",
+    "difficulty": "",
+    "evidence": "12 meter Mixed Sailing competitions refer to event_name = 'Sailing Mixed 12 metres';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.event_name) FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T1.sport_name = 'Modern Pentathlon'",
+    "question_id": null,
+    "question": "How many different events are there of Modern Pentathlon?",
+    "difficulty": "",
+    "evidence": "Modern Pentathlon refers to sport_name = 'Modern Pentathlon';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.gender = 'F' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.id) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN competitor_event AS T3 ON T2.id = T3.competitor_id INNER JOIN event AS T4 ON T3.event_id = T4.id WHERE T4.event_name = 'Equestrianism Mixed Three-Day Event, Individual'",
+    "question_id": null,
+    "question": "Calculate the percentage of women who have participated in Equestrianism Mixed Three-Day Event, Individual.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(person_id where gender = 'F), COUNT(person_id)) as percentage where event_name = 'Equestrianism Mixed Three-Day Event, Individual';"
+  },
+  {
+    "sql": "SELECT AVG(T2.age) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '1992 Summer'",
+    "question_id": null,
+    "question": "Calculate the average age of the persons who participated in the 1992 Summer Games.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(age), COUNT(person_id)) where games_name = '1992 Summer';"
+  },
+  {
+    "sql": "SELECT games_year FROM games WHERE season != 'Winter' GROUP BY games_year HAVING COUNT(season) = 1",
+    "question_id": null,
+    "question": "List out years that only have summer games.",
+    "difficulty": "",
+    "evidence": "years refer to games_year; only have summer games refer to games_year where COUNT(games_name) = 1 and season = 'Summer';"
+  },
+  {
+    "sql": "SELECT COUNT(games_year) FROM games WHERE games_year BETWEEN '1990' AND '1999'",
+    "question_id": null,
+    "question": "How many Olympics games were held during the 90s?",
+    "difficulty": "",
+    "evidence": "games refer to id; during the 90s refers to games_year BETWEEN 1990 AND 1999;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '2014 Winter'",
+    "question_id": null,
+    "question": "How many athletes participated in the 2014 Winter Olympics?",
+    "difficulty": "",
+    "evidence": "athletes refer to person_id; 2014 Winter Olympics refer to games_name = '2014 Winter';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.person_id) FROM competitor_event AS T1 INNER JOIN games_competitor AS T2 ON T1.competitor_id = T2.id INNER JOIN person_region AS T3 ON T2.person_id = T3.person_id WHERE T3.region_id = 151 AND T1.medal_id != 4",
+    "question_id": null,
+    "question": "How many athletes from region 151 have won a medal?",
+    "difficulty": "",
+    "evidence": "athletes refer to person_id; region 151 refers to region_id = 151; won a medal refers to medal_id <> 4;"
+  },
+  {
+    "sql": "SELECT COUNT(T3.id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id INNER JOIN person_region AS T4 ON T3.id = T4.person_id INNER JOIN noc_region AS T5 ON T4.region_id = T5.id WHERE T1.games_name = '2016 Summer' AND T5.region_name = 'China'",
+    "question_id": null,
+    "question": "How many athlete from China participate in the 2016 Summer Olympics?",
+    "difficulty": "",
+    "evidence": "athletes from China refer to person_id where region_name = 'China'; the 2016 Summer Olympics refer to games_name = '2016 Summer';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.competitor_id) FROM event AS T1 INNER JOIN competitor_event AS T2 ON T1.id = T2.event_id WHERE T1.event_name LIKE 'Ice Hockey Men%s Ice Hockey' AND T2.medal_id = 1",
+    "question_id": null,
+    "question": "How many gold medals were given to the winners in the Ice Hockey Men's Ice Hockey event?",
+    "difficulty": "",
+    "evidence": "gold medals given to the winners refer to competitor_id where medal_name = 'Gold'; Ice Hockey Men's Ice Hockey refers to event_name = 'Ice Hockey Men''s Ice Hockey';"
+  },
+  {
+    "sql": "SELECT T5.region_name FROM medal AS T1 INNER JOIN competitor_event AS T2 ON T1.id = T2.medal_id INNER JOIN games_competitor AS T3 ON T2.competitor_id = T3.id INNER JOIN person_region AS T4 ON T3.person_id = T4.person_id INNER JOIN noc_region AS T5 ON T4.region_id = T5.id WHERE T1.id != 4 GROUP BY T5.region_name ORDER BY COUNT(T2.competitor_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which region has the highest medal number?",
+    "difficulty": "",
+    "evidence": "region refers to region_name; the highest medal number refers to MAX(COUNT(medal_id <> 4));"
+  },
+  {
+    "sql": "SELECT DISTINCT T5.full_name FROM event AS T1 INNER JOIN competitor_event AS T2 ON T1.id = T2.event_id INNER JOIN games_competitor AS T3 ON T2.competitor_id = T3.id INNER JOIN sport AS T4 ON T1.sport_id = T4.id INNER JOIN person AS T5 ON T3.person_id = T5.id WHERE T4.sport_name = 'Cycling' AND T2.medal_id = 1",
+    "question_id": null,
+    "question": "List out all the gold medalist winners in cycling sport.",
+    "difficulty": "",
+    "evidence": "gold medalist winners refer to full_name where medal_name = 'Gold'; cycling sport refers to sport_name = 'Cycling';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.medal_name FROM medal AS T1 INNER JOIN competitor_event AS T2 ON T1.id = T2.medal_id INNER JOIN games_competitor AS T3 ON T2.competitor_id = T3.id INNER JOIN person AS T4 ON T3.person_id = T4.id WHERE T4.full_name = 'Lee Chong Wei' AND T2.medal_id <> 4",
+    "question_id": null,
+    "question": "List out all the medals won by Lee Chong Wei.",
+    "difficulty": "",
+    "evidence": "medals refer to medal_id where medal_id <> 4;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T3.gender = 'F' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '2002 Winter' AND T2.age < 20",
+    "question_id": null,
+    "question": "What is the percentage of female athletes below 20s who participated in the 2002 Winter Olympic?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(person_id where gender = 'F' and age < 20), COUNT(person_id)) as percentage where games_name = '2002 Winter';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T3.gender = 'M' THEN 1 ELSE NULL END) AS REAL) / COUNT(CASE WHEN T3.gender = 'F' THEN 1 ELSE NULL END) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '2012 Summer'",
+    "question_id": null,
+    "question": "What is the ratio male to female athletes in the 2012 Summer Olympic?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(gender = 'M'), COUNT(gender = 'F')) where games_name = '2012 Summer';"
+  },
+  {
+    "sql": "SELECT ( SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.season = 'Summer' GROUP BY T1.games_year ORDER BY COUNT(T2.person_id) DESC LIMIT 1 ) AS HIGHEST , ( SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.season = 'Summer' GROUP BY T1.games_year ORDER BY COUNT(T2.person_id) LIMIT 1 ) AS LOWEST",
+    "question_id": null,
+    "question": "Which summer Olympic have the highest and lowest number of participants?",
+    "difficulty": "",
+    "evidence": "the highest number of participants refers to MAX(COUNT(person_id)); the lowest number of participants refers to MIN(COUNT(person_id)); Which summer Olympic refers to games_name where season = 'Summer';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.person_id) FROM medal AS T1 INNER JOIN competitor_event AS T2 ON T1.id = T2.medal_id INNER JOIN games_competitor AS T3 ON T2.competitor_id = T3.id INNER JOIN person_region AS T4 ON T3.person_id = T4.person_id INNER JOIN noc_region AS T5 ON T4.region_id = T5.id WHERE T5.region_name = 'Malaysia' AND T1.id != 4",
+    "question_id": null,
+    "question": "How many athletes from Malaysia have won a medal?",
+    "difficulty": "",
+    "evidence": "Malaysia refers to region_name = 'Malaysia'; athletes won a medal refer to competitor_id where medal_id <> 4;"
+  },
+  {
+    "sql": "SELECT COUNT(T5.id) FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id INNER JOIN competitor_event AS T3 ON T2.id = T3.event_id INNER JOIN games_competitor AS T4 ON T3.competitor_id = T4.id INNER JOIN person AS T5 ON T4.person_id = T5.id INNER JOIN games AS T6 ON T4.games_id = T6.id WHERE T1.sport_name = 'Canoeing' AND T6.games_name = '2008 Summer' AND T5.weight * 10000.0 / (T5.height * T5.height) BETWEEN 25.0 AND 30",
+    "question_id": null,
+    "question": "How many athletes playing in Canoeing fall into overweight BMI category in the 2008 Summer games?",
+    "difficulty": "",
+    "evidence": "fall into overweight BMI category refers to DIVIDE(weight), MULTIPLY(height, height) < 30; Canoeing refers to a sport name; the 2008 Summer games refer to games_name = '2008 Summer';"
+  },
+  {
+    "sql": "SELECT AVG(T5.height) FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id INNER JOIN competitor_event AS T3 ON T2.id = T3.event_id INNER JOIN games_competitor AS T4 ON T3.competitor_id = T4.id INNER JOIN person AS T5 ON T4.person_id = T5.id WHERE T1.sport_name = 'Basketball' AND T5.gender = 'M'",
+    "question_id": null,
+    "question": "What is the average height of male athletes playing basketball sport?",
+    "difficulty": "",
+    "evidence": "AVG(height) where sport_name = 'Basketball' and event_name = 'Basketball Men''s';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Philippines' AND T3.gender = 'F'",
+    "question_id": null,
+    "question": "How many female athletes are from the Philippines?",
+    "difficulty": "",
+    "evidence": "female athletes refer to id where gender = 'F'; from the Philippines region_name = 'Philippines';"
+  },
+  {
+    "sql": "SELECT T1.region_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'Yao Ming'",
+    "question_id": null,
+    "question": "Which region is Yao Ming from?",
+    "difficulty": "",
+    "evidence": "region refers to region_name;"
+  },
+  {
+    "sql": "SELECT T2.age FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id WHERE T1.full_name = 'Michael Fred Phelps, II' ORDER BY T2.age LIMIT 1",
+    "question_id": null,
+    "question": "At what age did Michael Fred Phelps, II join the Olympics?",
+    "difficulty": "",
+    "evidence": "At what age join the Olympics refers to MIN(age);"
+  },
+  {
+    "sql": "SELECT COUNT(person_id) FROM person_region WHERE region_id = ( SELECT T1.region_id FROM person_region AS T1 INNER JOIN person AS T2 ON T1.person_id = T2.id WHERE T2.full_name = 'Clara Hughes' )",
+    "question_id": null,
+    "question": "How many athletes are there in the region where Clara Hughes is from?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN competitor_event AS T3 ON T2.id = T3.competitor_id INNER JOIN event AS T4 ON T3.event_id = T4.id WHERE T1.full_name = 'Ian James Thorpe' AND T4.event_name LIKE 'Swimming Men%s 200 metres Freestyle'",
+    "question_id": null,
+    "question": "How many Men's 200 Metres Freestyle events did Ian James Thorpe compete in?",
+    "difficulty": "",
+    "evidence": "Men's 200 Metres Freestyle events refer to event_name = 'Swimming Men''s 200 metres Freestyle'; events compete in refers to event_id;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM event AS T1 INNER JOIN competitor_event AS T2 ON T1.id = T2.event_id INNER JOIN games_competitor AS T3 ON T2.competitor_id = T3.id INNER JOIN person AS T4 ON T3.person_id = T4.id WHERE T4.full_name = 'Larysa Semenivna Latynina (Diriy-)' AND T1.event_name LIKE 'Gymnastics Women%s Individual All-Around' AND T2.medal_id = 1",
+    "question_id": null,
+    "question": "How many times was Larysa Semenivna Latynina (Diriy-) declared as champion in Gymnastics Women's Individual All-Around?",
+    "difficulty": "",
+    "evidence": "Gymnastics Women's Individual All-Around refers to event_name = 'Gymnastics Women''s Individual All-Around'; declared as champion refers to medal_name = 'Gold' or medal_id = 1;"
+  },
+  {
+    "sql": "SELECT T4.city_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN games_city AS T3 ON T2.games_id = T3.games_id INNER JOIN city AS T4 ON T3.city_id = T4.id WHERE T1.full_name = 'Carl Lewis Borack'",
+    "question_id": null,
+    "question": "What are the names of the cities where Carl Lewis Borack competed?",
+    "difficulty": "",
+    "evidence": "name of the cities refers to city_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.games_id) FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id WHERE T2.city_name = 'London'",
+    "question_id": null,
+    "question": "How many Olympic games were held in London?",
+    "difficulty": "",
+    "evidence": "London refers to city_name = 'London';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T3.games_name = '1992 Summer'",
+    "question_id": null,
+    "question": "Which city was the 1992 Summer Olympic held?",
+    "difficulty": "",
+    "evidence": "city refers to city_name; 1992 Summer Olympic refers to games_name = '1992 Summer';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '2016 Summer' AND T2.age > 59",
+    "question_id": null,
+    "question": "How many athletes over the age of 59 competed in the 2016 Summer Olympics?",
+    "difficulty": "",
+    "evidence": "over the age of 59 refers to age > 59; the 2016 Summer Olympics refer to games_name = '2016 Summer';"
+  },
+  {
+    "sql": "SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN games_city AS T3 ON T2.games_id = T3.games_id INNER JOIN city AS T4 ON T3.city_id = T4.id WHERE T4.city_name = 'Los Angeles' GROUP BY T1.id ORDER BY COUNT(T2.person_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the Olympic games held in Los Angeles, what is the name of the Olympic game that has the most number of competitors?",
+    "difficulty": "",
+    "evidence": "Los Angeles refers to city_name = 'Lost Angeles'; the Olympic game refers to games_name; the most number of competitors refers to MAX(COUNT(games_name));"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM competitor_event AS T1 INNER JOIN games_competitor AS T2 ON T1.competitor_id = T2.id INNER JOIN event AS T3 ON T1.event_id = T3.id WHERE T3.event_name LIKE 'Gymnastics Men%s Parallel Bars, Teams' AND T2.age = 10",
+    "question_id": null,
+    "question": "How many 10-year old athletes participated in the Gymnastics Men's Parallel Bars, Teams event?",
+    "difficulty": "",
+    "evidence": "10-year old athletes refer to competitor_id where age = 10; Gymnastics Men's Parallel Bars, Teams refer to event_name = 'Gymnastics Men''s Parallel Bars, Teams';"
+  },
+  {
+    "sql": "SELECT AVG(T2.age) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person_region AS T3 ON T2.person_id = T3.person_id INNER JOIN noc_region AS T4 ON T3.region_id = T4.id WHERE T1.games_name = '2016 Summer' AND T4.region_name = 'USA'",
+    "question_id": null,
+    "question": "What is the average age of the athletes from the United States of America who competed in the 2016 Summer Olympics?",
+    "difficulty": "",
+    "evidence": "AVG(age) where games_name = '2016 Summer' and region_name = 'USA';"
+  },
+  {
+    "sql": "SELECT region_name FROM noc_region WHERE noc = 'COL'",
+    "question_id": null,
+    "question": "Which region does the NOC code \"COL\" stand for?",
+    "difficulty": "",
+    "evidence": "region refers to region_name; NOC code \"COL\" refers to noc = 'COL';"
+  },
+  {
+    "sql": "SELECT sport_name FROM sport WHERE id = 19",
+    "question_id": null,
+    "question": "State the name of sport id 19.",
+    "difficulty": "",
+    "evidence": "name of sport refers to sport_name"
+  },
+  {
+    "sql": "SELECT id FROM event WHERE event_name = 'Shooting Mixed Skeet'",
+    "question_id": null,
+    "question": "Give the id of the event \"Shooting Mixed Skeet\".",
+    "difficulty": "",
+    "evidence": "\"Shooting Mixed Skeet\" refers to event_name = 'Shooting Mixed Skeet';"
+  },
+  {
+    "sql": "SELECT id FROM sport WHERE sport_name = 'Hockey'",
+    "question_id": null,
+    "question": "Provide hockey's sport id.",
+    "difficulty": "",
+    "evidence": "hockey's sport refers to sport_name = 'hockey';"
+  },
+  {
+    "sql": "SELECT weight FROM person WHERE full_name = 'Dagfinn Sverre Aarskog'",
+    "question_id": null,
+    "question": "Tell the weight of Dagfinn Sverre Aarskog.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT id FROM city WHERE city_name = 'Rio de Janeiro'",
+    "question_id": null,
+    "question": "What is the id of Rio de Janeiro?",
+    "difficulty": "",
+    "evidence": "Rio de Janeiro refers to city_name = 'Rio de Janeiro';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.competitor_id) FROM competitor_event AS T1 INNER JOIN event AS T2 ON T1.event_id = T2.id INNER JOIN medal AS T3 ON T1.medal_id = T3.id WHERE T2.event_name LIKE 'Rowing Women%s Coxed Eights' AND T3.medal_name = 'Gold'",
+    "question_id": null,
+    "question": "How many people have won the gold medal of the event \"Rowing Women's Coxed Eights\"?",
+    "difficulty": "",
+    "evidence": "won the gold medal refers to medal_name = 'Gold'; event \"Rowing Women's Coxed Eights\" refers to event_name = 'Rowing Women''s Coxed Eights';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.event_name) FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T1.sport_name = 'Cycling'",
+    "question_id": null,
+    "question": "How many kinds of events belong to the sport of cycling?",
+    "difficulty": "",
+    "evidence": "kinds of events refer to event_name; sport of cycling refers to sport_name = 'Cycling';"
+  },
+  {
+    "sql": "SELECT T1.region_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'Vijay Singh Chauhan'",
+    "question_id": null,
+    "question": "What is Vijay Singh Chauhan's region name?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.games_year FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'Roma'",
+    "question_id": null,
+    "question": "When did Roma host the Olympic Games?",
+    "difficulty": "",
+    "evidence": "Roma refers to city_name = 'Roma'; When host refers to games_year;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '1984 Summer' AND T2.age = 20",
+    "question_id": null,
+    "question": "How many 20 years old athletes were there in the 1984 Summer Olympic Games?",
+    "difficulty": "",
+    "evidence": "20 years old athletes refer to person_id where age = 20; 1984 Summer Olympic Games refer to games_name = '1984 Summer';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.games_id) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id WHERE T1.full_name = 'Prithipal Singh'",
+    "question_id": null,
+    "question": "How many games has Prithipal Singh participated in?",
+    "difficulty": "",
+    "evidence": "games refer to games_id;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '1984 Summer' AND T2.age > 50",
+    "question_id": null,
+    "question": "State the number of athletes in the 1984 Summer Olympic Games who were more than 50 years old.",
+    "difficulty": "",
+    "evidence": "the 1984 Summer Olympic Games refer to games_name = '1984 Summer'; athletes more than 50 years old refer to person_id where age > 50;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.event_name) FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T1.sport_name = 'Athletics'",
+    "question_id": null,
+    "question": "How many kinds of events does athletics have?",
+    "difficulty": "",
+    "evidence": "kinds of events refer to event_name; athletics refer to sport_name = 'Athletics';"
+  },
+  {
+    "sql": "SELECT T3.full_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Russia' ORDER BY T3.weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the heaviest athlete from Russia?",
+    "difficulty": "",
+    "evidence": "the heaviest athlete refers to full_name where MAX(weight); from Russia refers to region_name = 'Russia';"
+  },
+  {
+    "sql": "SELECT T3.height FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Portugal' ORDER BY T3.height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the height of the tallest athlete from Portugal.",
+    "difficulty": "",
+    "evidence": "the tallest athlete refers to id where MAX(height); from Portugal refers to region_name = 'Portugal';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T3.games_name = '1968 Winter'",
+    "question_id": null,
+    "question": "Tell the host city of the 1968 Winter Olympic Games.",
+    "difficulty": "",
+    "evidence": "host city refers to city_name; the 1968 Winter Olympic Games refer to games_name = '1968 Winter';"
+  },
+  {
+    "sql": "SELECT T2.region_name FROM person_region AS T1 INNER JOIN noc_region AS T2 ON T1.region_id = T2.id GROUP BY T2.region_name ORDER BY COUNT(T1.person_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which region has the most athletes?",
+    "difficulty": "",
+    "evidence": "region refers to region_name; the most athletes refer to MAX(COUNT(region_name));"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T3.height > 175 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.person_id) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Vanuatu'",
+    "question_id": null,
+    "question": "What is the percentage of athletes from Vanuatu who are taller than 175?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(id where height > 175), COUNT(id)) as percentage where region_name = 'Vanuatu';"
+  },
+  {
+    "sql": "SELECT AVG(T3.weight) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Tonga' AND T3.gender = 'M'",
+    "question_id": null,
+    "question": "Calculate the average weight of male athletes from Tonga.",
+    "difficulty": "",
+    "evidence": "AVG(weight) where region_name = 'Tonga' and gender = 'M';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T3.games_name = '1920 Summer'",
+    "question_id": null,
+    "question": "Where was the 1920 Summer held?",
+    "difficulty": "",
+    "evidence": "where it was held refers to city_name; the 1920 Summer refers to games_name = '1920 Summer';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.id) FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'London' AND T3.games_year BETWEEN 1900 AND 1992",
+    "question_id": null,
+    "question": "From 1900 to 1992, how many games did London host?",
+    "difficulty": "",
+    "evidence": "From 1900 to 1992 refers to games_year BETWEEN 1900 AND 1992; London refers to city_name = 'London'; games refer to games_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T3.id) FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'Paris' AND T3.season = 'Summer'",
+    "question_id": null,
+    "question": "How many Summer games are there that were held in Paris?",
+    "difficulty": "",
+    "evidence": "Summer games refer to games_id where season = 'Summer'; Paris refers to city_name = 'Paris';"
+  },
+  {
+    "sql": "SELECT T3.games_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'Los Angeles'",
+    "question_id": null,
+    "question": "Please list all game names that were held in Los Angeles.",
+    "difficulty": "",
+    "evidence": "Los Angeles refers to city_name = 'Los Angeles';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id GROUP BY T2.city_name ORDER BY COUNT(T2.city_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which city hosted the most games?",
+    "difficulty": "",
+    "evidence": "Which city refers to city_name; the most games refer to MAX(COUNT(city_name));"
+  },
+  {
+    "sql": "SELECT T3.games_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'Beijing' AND T3.games_year = 2008",
+    "question_id": null,
+    "question": "What is the game name that was held in Beijing in 2008?",
+    "difficulty": "",
+    "evidence": "Beijing refers to city_name = 'Beijing'; in 2008 refers to games_year = '2008';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.age > 30 THEN 1 END) AS REAL) * 100 / COUNT(T2.person_id) FROM competitor_event AS T1 INNER JOIN games_competitor AS T2 ON T1.competitor_id = T2.id WHERE T1.medal_id = 1",
+    "question_id": null,
+    "question": "What is the percentage of champions at the age of over 30?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(competitor_id where age > 30), COUNT(competitor_id))as percentage where medal_id = 1;"
+  },
+  {
+    "sql": "SELECT T2.age FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '2012 Summer' AND T3.full_name = 'A Lamusi'",
+    "question_id": null,
+    "question": "At which age did A Lamusi participate in 2012 Summer?",
+    "difficulty": "",
+    "evidence": "2012 Summer refers to games_name = '2012 Summer';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '2000 Summer' AND T2.age = 31",
+    "question_id": null,
+    "question": "How many competitors were there who participated in 2000 Summer with age 31?",
+    "difficulty": "",
+    "evidence": "in 2000 Summer refers to games_name = '2000 Summer'; age = 31"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '1948 Summer' AND T3.gender = 'M'",
+    "question_id": null,
+    "question": "How many male competitors were there who participated in 1948 Summer?",
+    "difficulty": "",
+    "evidence": "male competitors refers to id where gender = 'M'; in 1948 Summer refers to games_name = '1948 Summer';"
+  },
+  {
+    "sql": "SELECT T3.full_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '1936 Summer'",
+    "question_id": null,
+    "question": "Please list all competitors' names who participated in 1936 Summer.",
+    "difficulty": "",
+    "evidence": "competitors' names refer to full_name; in 1936 Summer refers to games_name = '1936 Summer';"
+  },
+  {
+    "sql": "SELECT T3.full_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '2014 Winter' ORDER BY T2.age LIMIT 1",
+    "question_id": null,
+    "question": "Who is the youngest competitor that participated in 2014 Winter?",
+    "difficulty": "",
+    "evidence": "the youngest competitor refers to full_name where MIN(age); in 2014 Winter refers to games_name = '2014 Winter';"
+  },
+  {
+    "sql": "SELECT AVG(T2.age) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '1988 Winter'",
+    "question_id": null,
+    "question": "What is the average age of competitors who participated in 1988 Winter?",
+    "difficulty": "",
+    "evidence": "AVG(age) where games_name = '1988 Winter';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T3.gender = 'F' AND T3.height > 170 THEN 1 END) AS REAL) * 100 / COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_year = 1988",
+    "question_id": null,
+    "question": "What is the percentage of female competitors whose heights are over 170 that participated in the game in 1988?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(person_id where gender = 'F' and height > 170), COUNT(person_id)) as percentage where games_year = 1988;"
+  },
+  {
+    "sql": "SELECT T1.sport_name FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T2.event_name LIKE 'Cross Country Skiing Men%s 10/15 kilometres Pursuit'",
+    "question_id": null,
+    "question": "What is the sport name of \"Cross Country Skiing Men's 10/15 kilometres Pursuit\" event?",
+    "difficulty": "",
+    "evidence": "\"Cross Country Skiing Men's 10/15 kilometres Pursuit\" refers to event_name = 'Cross Country Skiing Men''s 10/15 kilometres Pursuit';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.age > 24 AND T1.season = 'Winter' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.games_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id",
+    "question_id": null,
+    "question": "What is the percentage of people whose age greater than 24 and participate in winter season?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(season = 'Winter' and age > 24), COUNT(person_id)) as percentage;"
+  },
+  {
+    "sql": "SELECT T1.region_id FROM person_region AS T1 INNER JOIN person AS T2 ON T1.person_id = T2.id WHERE T2.full_name = 'Christine Jacoba Aaftink'",
+    "question_id": null,
+    "question": "What is the region id of Christine Jacoba Aaftink?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.height FROM person_region AS T1 INNER JOIN person AS T2 ON T1.person_id = T2.id WHERE T1.region_id = 7",
+    "question_id": null,
+    "question": "Mention the height of people who belong to region id 7.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id WHERE T1.games_id = 3",
+    "question_id": null,
+    "question": "State the name of the city that held game id 3.",
+    "difficulty": "",
+    "evidence": "name of city refers to city_name"
+  },
+  {
+    "sql": "SELECT T1.games_id FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id WHERE T2.city_name = 'London'",
+    "question_id": null,
+    "question": "What are the id of the games held in London?",
+    "difficulty": "",
+    "evidence": "London refers to city_name = 'London';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.season = 'Summer' AND T2.age < 30",
+    "question_id": null,
+    "question": "How many people who are below 30 and participated in the summer season?",
+    "difficulty": "",
+    "evidence": "people who are below 30 refer to person_id where age < 30; the summer season refers to season = 'Summer';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T2.games_id = 13",
+    "question_id": null,
+    "question": "List out the name of the game that the people participated in games id 13.",
+    "difficulty": "",
+    "evidence": "name of games refers to games_name;"
+  },
+  {
+    "sql": "SELECT AVG(T2.age) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.season = 'Winter'",
+    "question_id": null,
+    "question": "What is the average age of the people who participated in the winter season?",
+    "difficulty": "",
+    "evidence": "AVG(age) where season = 'Winter';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.age < 35 THEN 1 END) AS REAL) * 100 / COUNT(T2.games_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.season = 'Summer'",
+    "question_id": null,
+    "question": "What is the percentage of the people who are under 35 and participated in the summer season?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(age < 35) / COUNT(person_id)) as percentage where season = 'Summer';"
+  },
+  {
+    "sql": "SELECT T2.event_name FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T1.sport_name = 'Basketball'",
+    "question_id": null,
+    "question": "State the event name of Basketball.",
+    "difficulty": "",
+    "evidence": "basketball refers to sport_name = 'Basketball';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.medal_name FROM medal AS T1 INNER JOIN competitor_event AS T2 ON T1.id = T2.medal_id WHERE T2.competitor_id = 9",
+    "question_id": null,
+    "question": "What is the name of medal that competitor id 9 obtained?",
+    "difficulty": "",
+    "evidence": "name of medal refers to medal_name;"
+  },
+  {
+    "sql": "SELECT T2.event_id FROM medal AS T1 INNER JOIN competitor_event AS T2 ON T1.id = T2.medal_id WHERE T1.medal_name = 'Gold'",
+    "question_id": null,
+    "question": "List out the id of event that achieve the gold medal.",
+    "difficulty": "",
+    "evidence": "the gold medal refers to medal_name = 'Gold';"
+  },
+  {
+    "sql": "SELECT full_name FROM person ORDER BY weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the heaviest athlete?",
+    "difficulty": "",
+    "evidence": "Who refers to full_name; the heaviest refers to MAX(weight);"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T3.games_year = 1992",
+    "question_id": null,
+    "question": "Which city were the Olympic games held in 1992?",
+    "difficulty": "",
+    "evidence": "city refers to city_name; in 1992 refers to games_year = 1992;"
+  },
+  {
+    "sql": "SELECT T2.region_name FROM person_region AS T1 INNER JOIN noc_region AS T2 ON T1.region_id = T2.id GROUP BY T2.region_name ORDER BY COUNT(T1.person_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which region is the majority of the athletes from?",
+    "difficulty": "",
+    "evidence": "region refers to region_name; the majority of the athletes from refer to MAX(COUNT(region_name));"
+  },
+  {
+    "sql": "SELECT T1.full_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id ORDER BY T2.age DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the oldest competitor?",
+    "difficulty": "",
+    "evidence": "name refers to full_name; the oldest refers to MAX(age);"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.sport_name FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id INNER JOIN competitor_event AS T3 ON T2.id = T3.event_id INNER JOIN games_competitor AS T4 ON T3.competitor_id = T4.id INNER JOIN person AS T5 ON T4.person_id = T5.id WHERE T5.full_name = 'John Aalberg'",
+    "question_id": null,
+    "question": "Which sport did John Aalberg participate in?",
+    "difficulty": "",
+    "evidence": "sport refers to sport_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Belgium' AND T3.gender = 'M'",
+    "question_id": null,
+    "question": "How many Belgian men have competed in an Olympic Games?",
+    "difficulty": "",
+    "evidence": "Belgian men refer to gender = 'M' where region_name = 'Belgium';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.person_id) FROM games_competitor AS T1 INNER JOIN games_city AS T2 ON T1.games_id = T2.games_id INNER JOIN city AS T3 ON T2.city_id = T3.id WHERE T3.city_name = 'Barcelona'",
+    "question_id": null,
+    "question": "How many athletes took part in the Olympic games held in Barcelona?",
+    "difficulty": "",
+    "evidence": "Barcelona refers to city_name = 'Barcelona';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.event_name) FROM sport AS T1 INNER JOIN event AS T2 ON T1.id = T2.sport_id WHERE T1.sport_name = 'Football'",
+    "question_id": null,
+    "question": "How many different football events are there?",
+    "difficulty": "",
+    "evidence": "events refer to event_name; football refers to sport_name = 'Football';"
+  },
+  {
+    "sql": "SELECT T4.city_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN games_city AS T3 ON T2.games_id = T3.games_id INNER JOIN city AS T4 ON T3.city_id = T4.id WHERE T1.full_name = 'John Aalberg'",
+    "question_id": null,
+    "question": "What were the cities in which John Aalberg competed?",
+    "difficulty": "",
+    "evidence": "cities refer to city_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.games_id) FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id WHERE T2.city_name = 'Barcelona'",
+    "question_id": null,
+    "question": "In Barcelona, how many Olympic games were held?",
+    "difficulty": "",
+    "evidence": "Barcelona refers to city_name = 'Barcelona';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '1992 Winter' AND T2.age > 30",
+    "question_id": null,
+    "question": "How many competitors over the age of 30 participated in the 1992 Winter Olympics?",
+    "difficulty": "",
+    "evidence": "competitors over the age of 30 refer to person_id where age > 30; the 1992 Winter Olympics refers to games_name = '1992 Winter';"
+  },
+  {
+    "sql": "SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN games_city AS T3 ON T2.games_id = T3.games_id INNER JOIN city AS T4 ON T3.city_id = T4.id WHERE T4.city_name = 'Barcelona' GROUP BY T1.id ORDER BY COUNT(T2.person_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the Olympic game with the most competitors held in Barcelona?",
+    "difficulty": "",
+    "evidence": "Barcelona refers to city_name = 'Barcelona'; the most competitors refer to MAX(COUNT(games_name)); name of game refers to games_name;"
+  },
+  {
+    "sql": "SELECT T3.full_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Argentina'",
+    "question_id": null,
+    "question": "List the name of competitors from Argentina.",
+    "difficulty": "",
+    "evidence": "name refers to full_name; Argentina refers to region_name = 'Argentina';"
+  },
+  {
+    "sql": "SELECT AVG(T2.age) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person_region AS T3 ON T2.person_id = T3.person_id INNER JOIN noc_region AS T4 ON T3.region_id = T4.id WHERE T1.games_name = '2012 Summer' AND T4.region_name = 'Argentina'",
+    "question_id": null,
+    "question": "What is the average age of Argentina's athletes who participated in the Summer Olympics in 2012?",
+    "difficulty": "",
+    "evidence": "AVG(age) where games_name = '2012 Summer' and region_name = 'Argentina';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T4.medal_name = 'Bronze' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.person_id) FROM competitor_event AS T1 INNER JOIN games_competitor AS T2 ON T1.competitor_id = T2.id INNER JOIN event AS T3 ON T1.event_id = T3.id INNER JOIN medal AS T4 ON T1.medal_id = T4.id WHERE T3.event_name LIKE 'Basketball Men%s Basketball'",
+    "question_id": null,
+    "question": "Calculate the percentage of bronze medals won by men's basketball players.",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(competitor_id where medal_name = 'Bronze'), COUNT(competitor_id)) as percentage where event_name = 'Basketball Men''s Basketball';"
+  },
+  {
+    "sql": "SELECT T1.games_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'Georgios Abaris'",
+    "question_id": null,
+    "question": "List the name of the games that Georgios Abaris participated.",
+    "difficulty": "",
+    "evidence": "name of games refers to games_name;"
+  },
+  {
+    "sql": "SELECT T3.full_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Greece'",
+    "question_id": null,
+    "question": "Provide the name of competitors from Greece.",
+    "difficulty": "",
+    "evidence": "name refers to full_name; Greece refers to region_name = 'Greece';"
+  },
+  {
+    "sql": "SELECT AVG(T2.age) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '1924 Winter'",
+    "question_id": null,
+    "question": "Calculate the average age of the competitors who participated in the 1924 Winter.",
+    "difficulty": "",
+    "evidence": "AVG(age) where games_name = '1924 Winter';"
+  },
+  {
+    "sql": "SELECT T1.noc FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.weight = 77",
+    "question_id": null,
+    "question": "What is the NOC code of the region of the competitors weighted 77 kg?",
+    "difficulty": "",
+    "evidence": "NOC code refers to noc; competitors weighted 77 kg refer to person_id where weight = 77;"
+  },
+  {
+    "sql": "SELECT T3.games_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T2.city_name = 'Paris'",
+    "question_id": null,
+    "question": "List the names of the games held in Paris.",
+    "difficulty": "",
+    "evidence": "Paris refers to city_name = 'Paris'; names of games refers to games_name;"
+  },
+  {
+    "sql": "SELECT T3.full_name FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.games_name = '2000 Summer'",
+    "question_id": null,
+    "question": "Provide the competitors' names who joined the 2000 Summer.",
+    "difficulty": "",
+    "evidence": "the competitors' names refer to full_name; the 2000 Summer refers to games_name = '2000 Summer';"
+  },
+  {
+    "sql": "SELECT T4.city_name FROM games_competitor AS T1 INNER JOIN games AS T2 ON T1.games_id = T2.id INNER JOIN games_city AS T3 ON T1.games_id = T3.games_id INNER JOIN city AS T4 ON T3.city_id = T4.id ORDER BY T1.age DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which city was the game held where the oldest competitor participated?",
+    "difficulty": "",
+    "evidence": "in which city refers to city_name; the oldest refers to MAX(age);"
+  },
+  {
+    "sql": "SELECT T1.full_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id ORDER BY T2.age LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the youngest competitor?",
+    "difficulty": "",
+    "evidence": "name refers to full_name; the youngest refers to MIN(age);"
+  },
+  {
+    "sql": "SELECT T1.games_id FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id WHERE T2.city_name = 'Tokyo'",
+    "question_id": null,
+    "question": "List down the games ID of games held in Tokyo.",
+    "difficulty": "",
+    "evidence": "Tokyo refers to city_name = 'Tokyo';"
+  },
+  {
+    "sql": "SELECT T1.noc, T1.region_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id ORDER BY T3.weight DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the NOC code and region name of the heaviest competitor.",
+    "difficulty": "",
+    "evidence": "NOC code refers to noc; the heaviest refers to MAX(weight);"
+  },
+  {
+    "sql": "SELECT T1.games_year, T1.season FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.full_name = 'Sohail Abbas'",
+    "question_id": null,
+    "question": "In what year and season did Sohail Abbas compete?",
+    "difficulty": "",
+    "evidence": "year refers to games_year;"
+  },
+  {
+    "sql": "SELECT AVG(T1.weight) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN competitor_event AS T3 ON T2.id = T3.competitor_id INNER JOIN medal AS T4 ON T3.medal_id = T4.id WHERE T4.medal_name = 'Silver'",
+    "question_id": null,
+    "question": "What is the average weight of the competitors who won a silver medal?",
+    "difficulty": "",
+    "evidence": "AVG(weight) where medal_name = 'Silver';"
+  },
+  {
+    "sql": "SELECT T2.city_name FROM games_city AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.id INNER JOIN games AS T3 ON T1.games_id = T3.id WHERE T3.games_name = '2004 Summer'",
+    "question_id": null,
+    "question": "In which city the 2004 Summer was held?",
+    "difficulty": "",
+    "evidence": "in which city refers to city_name; the 2004 Summer refers to games_name = '2004 Summer';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.season FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.height = 180 AND T3.weight = 73",
+    "question_id": null,
+    "question": "What is the season of the game where a competitor who weighted 73 kg and 180 cm tall, participated?",
+    "difficulty": "",
+    "evidence": "competitor who weighted 73 kg and 180 cm tall refers to person_id where height = 180 and weight = 73;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.full_name FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id INNER JOIN competitor_event AS T3 ON T2.id = T3.competitor_id INNER JOIN medal AS T4 ON T3.medal_id = T4.id WHERE T4.medal_name = 'Gold'",
+    "question_id": null,
+    "question": "Provide the names of competitors who received a gold medal.",
+    "difficulty": "",
+    "evidence": "names of competitors refer to full_name; gold medal refers to medal_name = 'Gold';"
+  },
+  {
+    "sql": "SELECT AVG(T1.height) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id WHERE T2.age BETWEEN 22 AND 28",
+    "question_id": null,
+    "question": "Compute the average height of competitors whose age ranges from 22 to 28.",
+    "difficulty": "",
+    "evidence": "AVG(height) where age BETWEEN 22 AND 28;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.person_id) FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T1.region_name = 'Iran' AND T3.gender = 'F'",
+    "question_id": null,
+    "question": "How many female competitors were from Iran?",
+    "difficulty": "",
+    "evidence": "female competitors refer to person_id where gender = 'F'; from Iran refers to region_name = 'Iran';"
+  },
+  {
+    "sql": "SELECT T2.age FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id ORDER BY T1.height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the age of the tallest competitor.",
+    "difficulty": "",
+    "evidence": "the tallest refers to MAX(height);"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T1.weight > 70 THEN 1 ELSE NULL END) - COUNT(CASE WHEN T1.weight < 70 THEN 1 ELSE NULL END) FROM person AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.person_id WHERE T2.age < 24",
+    "question_id": null,
+    "question": "Among the competitors with age ranges 24 and below, calculate the difference between the number of competitors who weighed greater than 70 kg and competitors who weighted less than 70 kg.",
+    "difficulty": "",
+    "evidence": "SUBTRACT(COUNT(weight > 70), COUNT(weight < 70)) where age < 24;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.age = 28 THEN 1 END) AS REAL) * 100 / COUNT(T2.person_id) FROM games AS T1 INNER JOIN games_competitor AS T2 ON T1.id = T2.games_id WHERE T1.games_name = '2014 Winter'",
+    "question_id": null,
+    "question": "In the 2014 Winter game, what is the percentage of competitors who age 28 years old?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(age = 28), COUNT(id)) as percentage where games_name = '2014 Winter';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.region_name FROM noc_region AS T1 INNER JOIN person_region AS T2 ON T1.id = T2.region_id INNER JOIN person AS T3 ON T2.person_id = T3.id WHERE T3.gender = 'M' AND T3.height * 100 > ( SELECT AVG(height) FROM person WHERE gender = 'M' ) * 87",
+    "question_id": null,
+    "question": "Among the males, list the region name of people with height greater than 87% of the average height of all people listed.",
+    "difficulty": "",
+    "evidence": "males refer to gender = 'M'; height greater than 87% of the average height refers to height > MULTIPLY(AVG(height), 0.87);"
+  }
+]

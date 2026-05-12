@@ -1,0 +1,1006 @@
+{
+  "schools": {
+    "pk_columns": [
+      "CDSCode"
+    ],
+    "fragments": [
+      {
+        "suffix": "adm",
+        "non_pk_columns": [
+          "AdmEmail1",
+          "AdmEmail2",
+          "AdmEmail3",
+          "AdmFName1",
+          "AdmFName2",
+          "AdmFName3",
+          "AdmLName1",
+          "AdmLName2",
+          "AdmLName3"
+        ],
+        "local_table": "school_administration_contacts",
+        "local_name": "local_3",
+        "vertical_fragment_base": "schools_adm"
+      },
+      {
+        "suffix": "charter",
+        "non_pk_columns": [
+          "Charter",
+          "CharterNum",
+          "City",
+          "County",
+          "DOC",
+          "DOCType",
+          "District",
+          "EILCode",
+          "EILName",
+          "EdOpsCode",
+          "EdOpsName",
+          "Ext",
+          "FundingType",
+          "GSoffered",
+          "GSserved",
+          "Latitude",
+          "Longitude",
+          "Magnet",
+          "Phone",
+          "SOC",
+          "SOCType",
+          "School",
+          "State",
+          "StatusType",
+          "Virtual",
+          "Website",
+          "Zip"
+        ],
+        "local_table": "CharterSchoolDirectory",
+        "local_name": "local_1",
+        "vertical_fragment_base": "schools_charter"
+      },
+      {
+        "suffix": "closeddate",
+        "non_pk_columns": [
+          "ClosedDate",
+          "LastUpdate",
+          "OpenDate"
+        ],
+        "local_table": "SchoolsLastUpdateUpTo20091002",
+        "local_name": "local_1",
+        "vertical_fragment_base": "schools_closeddate",
+        "row_partition_names": [
+          "SchoolsLastUpdateUpTo20091002",
+          "SchoolsLastUpdateAfter20091002To20150618",
+          "SchoolsLastUpdateAfter20150618To20160303",
+          "SchoolsLastUpdateAfter20160303OrNull"
+        ],
+        "row_partition_predicate_column": "LastUpdate"
+      },
+      {
+        "suffix": "county",
+        "non_pk_columns": [
+          "County",
+          "DOC",
+          "DOCType",
+          "District",
+          "EILCode",
+          "EdOpsCode",
+          "MailState",
+          "NCESDist",
+          "NCESSchool",
+          "SOC",
+          "School",
+          "State"
+        ],
+        "local_table": "schoolAttributesCounty",
+        "local_name": "local_2",
+        "vertical_fragment_base": "schools_county"
+      },
+      {
+        "suffix": "city",
+        "non_pk_columns": [
+          "City",
+          "Ext",
+          "FundingType",
+          "Latitude",
+          "Longitude",
+          "Magnet",
+          "MailCity",
+          "MailState",
+          "MailStrAbr",
+          "MailStreet",
+          "MailZip",
+          "StatusType",
+          "Street",
+          "StreetAbr",
+          "Virtual",
+          "Website",
+          "Zip"
+        ],
+        "local_table": "schoolAddressCity",
+        "local_name": "local_2",
+        "vertical_fragment_base": "schools_city"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "schools",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 48,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.035763267440186444,
+        "3": 0.05806235281503863,
+        "4": 0.0714482284289214,
+        "5": 0.08346917429236379
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.08346917429236379,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "AdmEmail1",
+          "AdmEmail2",
+          "AdmEmail3",
+          "AdmFName1",
+          "AdmFName2",
+          "AdmFName3",
+          "AdmLName1",
+          "AdmLName2",
+          "AdmLName3"
+        ],
+        [
+          "Charter",
+          "CharterNum",
+          "City",
+          "County",
+          "DOCType",
+          "EILCode",
+          "EILName",
+          "EdOpsCode",
+          "EdOpsName",
+          "Ext",
+          "FundingType",
+          "GSoffered",
+          "GSserved",
+          "Latitude",
+          "Longitude",
+          "Magnet",
+          "Phone",
+          "SOC",
+          "SOCType",
+          "School",
+          "StatusType",
+          "Virtual"
+        ],
+        [
+          "ClosedDate",
+          "LastUpdate",
+          "OpenDate"
+        ],
+        [
+          "DOC",
+          "District",
+          "NCESDist",
+          "NCESSchool",
+          "State"
+        ],
+        [
+          "MailCity",
+          "MailState",
+          "MailStrAbr",
+          "MailStreet",
+          "MailZip",
+          "Street",
+          "StreetAbr",
+          "Website",
+          "Zip"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "Website",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "DOCType",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "State",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Zip",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "MailState",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "City",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "SOC",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "DOC",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "FundingType",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "Virtual",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "EdOpsCode",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "StatusType",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "School",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "District",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Latitude",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "Longitude",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "County",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "EILCode",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "Magnet",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "Ext",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "AdmEmail1",
+          "AdmEmail2",
+          "AdmEmail3",
+          "AdmFName1",
+          "AdmFName2",
+          "AdmFName3",
+          "AdmLName1",
+          "AdmLName2",
+          "AdmLName3"
+        ],
+        [
+          "Charter",
+          "CharterNum",
+          "City",
+          "County",
+          "DOC",
+          "DOCType",
+          "District",
+          "EILCode",
+          "EILName",
+          "EdOpsCode",
+          "EdOpsName",
+          "Ext",
+          "FundingType",
+          "GSoffered",
+          "GSserved",
+          "Latitude",
+          "Longitude",
+          "Magnet",
+          "Phone",
+          "SOC",
+          "SOCType",
+          "School",
+          "State",
+          "StatusType",
+          "Virtual",
+          "Website",
+          "Zip"
+        ],
+        [
+          "ClosedDate",
+          "LastUpdate",
+          "OpenDate"
+        ],
+        [
+          "County",
+          "DOC",
+          "DOCType",
+          "District",
+          "EILCode",
+          "EdOpsCode",
+          "MailState",
+          "NCESDist",
+          "NCESSchool",
+          "SOC",
+          "School",
+          "State"
+        ],
+        [
+          "City",
+          "Ext",
+          "FundingType",
+          "Latitude",
+          "Longitude",
+          "Magnet",
+          "MailCity",
+          "MailState",
+          "MailStrAbr",
+          "MailStreet",
+          "MailZip",
+          "StatusType",
+          "Street",
+          "StreetAbr",
+          "Virtual",
+          "Website",
+          "Zip"
+        ]
+      ],
+      "pk_columns": [
+        "CDSCode"
+      ],
+      "fragments": [
+        {
+          "suffix": "adm",
+          "non_pk_columns": [
+            "AdmEmail1",
+            "AdmEmail2",
+            "AdmEmail3",
+            "AdmFName1",
+            "AdmFName2",
+            "AdmFName3",
+            "AdmLName1",
+            "AdmLName2",
+            "AdmLName3"
+          ]
+        },
+        {
+          "suffix": "charter",
+          "non_pk_columns": [
+            "Charter",
+            "CharterNum",
+            "City",
+            "County",
+            "DOC",
+            "DOCType",
+            "District",
+            "EILCode",
+            "EILName",
+            "EdOpsCode",
+            "EdOpsName",
+            "Ext",
+            "FundingType",
+            "GSoffered",
+            "GSserved",
+            "Latitude",
+            "Longitude",
+            "Magnet",
+            "Phone",
+            "SOC",
+            "SOCType",
+            "School",
+            "State",
+            "StatusType",
+            "Virtual",
+            "Website",
+            "Zip"
+          ]
+        },
+        {
+          "suffix": "closeddate",
+          "non_pk_columns": [
+            "ClosedDate",
+            "LastUpdate",
+            "OpenDate"
+          ]
+        },
+        {
+          "suffix": "county",
+          "non_pk_columns": [
+            "County",
+            "DOC",
+            "DOCType",
+            "District",
+            "EILCode",
+            "EdOpsCode",
+            "MailState",
+            "NCESDist",
+            "NCESSchool",
+            "SOC",
+            "School",
+            "State"
+          ]
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Ext",
+            "FundingType",
+            "Latitude",
+            "Longitude",
+            "Magnet",
+            "MailCity",
+            "MailState",
+            "MailStrAbr",
+            "MailStreet",
+            "MailZip",
+            "StatusType",
+            "Street",
+            "StreetAbr",
+            "Virtual",
+            "Website",
+            "Zip"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "schools_charter",
+    "movable_candidates": [
+      "schools_adm",
+      "schools_city",
+      "schools_closeddate_q1",
+      "schools_county"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=27;fk_column_endpoints_on_fragment=2"
+  },
+  "frpm": {
+    "pk_columns": [
+      "CDSCode"
+    ],
+    "fragments": [
+      {
+        "suffix": "2013_14_calpads_fall_1_c",
+        "non_pk_columns": [
+          "2013-14 CALPADS Fall 1 Certification Status",
+          "Academic Year",
+          "County Code",
+          "County Name",
+          "District Code",
+          "District Name",
+          "District Type",
+          "Educational Option Type",
+          "Enrollment (K-12)",
+          "IRC",
+          "NSLP Provision Status",
+          "School Code",
+          "School Name",
+          "School Type"
+        ],
+        "local_table": "frpmCalpadsFallCert2013to2014",
+        "local_name": "local_2",
+        "vertical_fragment_base": "frpm_2013_14_calpads_fall_1_c"
+      },
+      {
+        "suffix": "2013_14_calpads_fall_1_c_2",
+        "non_pk_columns": [
+          "2013-14 CALPADS Fall 1 Certification Status",
+          "Academic Year",
+          "Charter Funding Type",
+          "Charter School (Y/N)",
+          "Charter School Number",
+          "County Code",
+          "County Name",
+          "IRC",
+          "NSLP Provision Status",
+          "School Code",
+          "School Name"
+        ],
+        "local_table": "CalpadsFall2013To2014Certification",
+        "local_name": "local_1",
+        "vertical_fragment_base": "frpm_2013_14_calpads_fall_1_c_2"
+      },
+      {
+        "suffix": "enrollment_ages_5_17",
+        "non_pk_columns": [
+          "Enrollment (Ages 5-17)",
+          "FRPM Count (Ages 5-17)",
+          "Free Meal Count (Ages 5-17)",
+          "Percent (%) Eligible FRPM (Ages 5-17)",
+          "Percent (%) Eligible Free (Ages 5-17)"
+        ],
+        "local_table": "EnrollmentAges5To17",
+        "local_name": "local_1",
+        "vertical_fragment_base": "frpm_enrollment_ages_5_17"
+      },
+      {
+        "suffix": "enrollment_k_12",
+        "non_pk_columns": [
+          "Enrollment (K-12)",
+          "FRPM Count (K-12)",
+          "Free Meal Count (K-12)",
+          "Percent (%) Eligible FRPM (K-12)",
+          "Percent (%) Eligible Free (K-12)"
+        ],
+        "local_table": "EnrollmentK12UpTo303",
+        "local_name": "local_1",
+        "vertical_fragment_base": "frpm_enrollment_k_12",
+        "row_partition_names": [
+          "EnrollmentK12UpTo303",
+          "EnrollmentK12Over303UpTo528",
+          "EnrollmentK12Over528UpTo758",
+          "EnrollmentK12Over758OrNull"
+        ],
+        "row_partition_predicate_column": "Enrollment (K-12)"
+      },
+      {
+        "suffix": "district_type",
+        "non_pk_columns": [
+          "District Type",
+          "Educational Option Type",
+          "High Grade",
+          "Low Grade",
+          "School Type"
+        ],
+        "local_table": "frpmDistrictClassification",
+        "local_name": "local_2",
+        "vertical_fragment_base": "frpm_district_type"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "frpm",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 28,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.09079400485580762,
+        "3": 0.08818670921203473,
+        "4": 0.08162400171639246,
+        "5": 0.11140260148344248
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.11140260148344248,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "2013-14 CALPADS Fall 1 Certification Status",
+          "Academic Year",
+          "County Code",
+          "County Name",
+          "District Code",
+          "District Name",
+          "District Type",
+          "Educational Option Type",
+          "IRC",
+          "NSLP Provision Status",
+          "School Code",
+          "School Name"
+        ],
+        [
+          "Charter Funding Type",
+          "Charter School (Y/N)",
+          "Charter School Number"
+        ],
+        [
+          "Enrollment (Ages 5-17)",
+          "FRPM Count (Ages 5-17)",
+          "Free Meal Count (Ages 5-17)",
+          "Percent (%) Eligible FRPM (Ages 5-17)",
+          "Percent (%) Eligible Free (Ages 5-17)"
+        ],
+        [
+          "Enrollment (K-12)",
+          "FRPM Count (K-12)",
+          "Free Meal Count (K-12)",
+          "Percent (%) Eligible FRPM (K-12)",
+          "Percent (%) Eligible Free (K-12)"
+        ],
+        [
+          "High Grade",
+          "Low Grade",
+          "School Type"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "School Type",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "IRC",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Educational Option Type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "2013-14 CALPADS Fall 1 Certification Status",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Enrollment (K-12)",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Academic Year",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "NSLP Provision Status",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "School Name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "District Type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "School Code",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "County Code",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "County Name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "2013-14 CALPADS Fall 1 Certification Status",
+          "Academic Year",
+          "County Code",
+          "County Name",
+          "District Code",
+          "District Name",
+          "District Type",
+          "Educational Option Type",
+          "Enrollment (K-12)",
+          "IRC",
+          "NSLP Provision Status",
+          "School Code",
+          "School Name",
+          "School Type"
+        ],
+        [
+          "2013-14 CALPADS Fall 1 Certification Status",
+          "Academic Year",
+          "Charter Funding Type",
+          "Charter School (Y/N)",
+          "Charter School Number",
+          "County Code",
+          "County Name",
+          "IRC",
+          "NSLP Provision Status",
+          "School Code",
+          "School Name"
+        ],
+        [
+          "Enrollment (Ages 5-17)",
+          "FRPM Count (Ages 5-17)",
+          "Free Meal Count (Ages 5-17)",
+          "Percent (%) Eligible FRPM (Ages 5-17)",
+          "Percent (%) Eligible Free (Ages 5-17)"
+        ],
+        [
+          "Enrollment (K-12)",
+          "FRPM Count (K-12)",
+          "Free Meal Count (K-12)",
+          "Percent (%) Eligible FRPM (K-12)",
+          "Percent (%) Eligible Free (K-12)"
+        ],
+        [
+          "District Type",
+          "Educational Option Type",
+          "High Grade",
+          "Low Grade",
+          "School Type"
+        ]
+      ],
+      "pk_columns": [
+        "CDSCode"
+      ],
+      "fragments": [
+        {
+          "suffix": "2013_14_calpads_fall_1_c",
+          "non_pk_columns": [
+            "2013-14 CALPADS Fall 1 Certification Status",
+            "Academic Year",
+            "County Code",
+            "County Name",
+            "District Code",
+            "District Name",
+            "District Type",
+            "Educational Option Type",
+            "Enrollment (K-12)",
+            "IRC",
+            "NSLP Provision Status",
+            "School Code",
+            "School Name",
+            "School Type"
+          ]
+        },
+        {
+          "suffix": "2013_14_calpads_fall_1_c_2",
+          "non_pk_columns": [
+            "2013-14 CALPADS Fall 1 Certification Status",
+            "Academic Year",
+            "Charter Funding Type",
+            "Charter School (Y/N)",
+            "Charter School Number",
+            "County Code",
+            "County Name",
+            "IRC",
+            "NSLP Provision Status",
+            "School Code",
+            "School Name"
+          ]
+        },
+        {
+          "suffix": "enrollment_ages_5_17",
+          "non_pk_columns": [
+            "Enrollment (Ages 5-17)",
+            "FRPM Count (Ages 5-17)",
+            "Free Meal Count (Ages 5-17)",
+            "Percent (%) Eligible FRPM (Ages 5-17)",
+            "Percent (%) Eligible Free (Ages 5-17)"
+          ]
+        },
+        {
+          "suffix": "enrollment_k_12",
+          "non_pk_columns": [
+            "Enrollment (K-12)",
+            "FRPM Count (K-12)",
+            "Free Meal Count (K-12)",
+            "Percent (%) Eligible FRPM (K-12)",
+            "Percent (%) Eligible Free (K-12)"
+          ]
+        },
+        {
+          "suffix": "district_type",
+          "non_pk_columns": [
+            "District Type",
+            "Educational Option Type",
+            "High Grade",
+            "Low Grade",
+            "School Type"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "frpm_2013_14_calpads_fall_1_c",
+    "movable_candidates": [
+      "frpm_2013_14_calpads_fall_1_c_2",
+      "frpm_district_type",
+      "frpm_enrollment_ages_5_17",
+      "frpm_enrollment_k_12_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=14;fk_column_endpoints_on_fragment=1"
+  },
+  "satscores": {
+    "pk_columns": [
+      "cds"
+    ],
+    "fragments": [
+      {
+        "suffix": "avg_scr",
+        "non_pk_columns": [
+          "AvgScrMath",
+          "AvgScrRead",
+          "AvgScrWrite"
+        ],
+        "local_table": "SatAverageScores",
+        "local_name": "local_1",
+        "vertical_fragment_base": "satscores_avg_scr"
+      },
+      {
+        "suffix": "numge1500",
+        "non_pk_columns": [
+          "NumGE1500",
+          "NumTstTakr",
+          "cname",
+          "enroll12",
+          "rtype"
+        ],
+        "local_table": "sat_scores_over_1500_by_school",
+        "local_name": "local_3",
+        "vertical_fragment_base": "satscores_numge1500"
+      },
+      {
+        "suffix": "numge1500_2",
+        "non_pk_columns": [
+          "NumGE1500",
+          "cname",
+          "dname",
+          "enroll12",
+          "rtype",
+          "sname"
+        ],
+        "local_table": "sat_scores_over_1500_district_view",
+        "local_name": "local_3",
+        "vertical_fragment_base": "satscores_numge1500_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "satscores",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 10,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.08175938222553769,
+        "3": 0.10163764644931109
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.10163764644931109,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "AvgScrMath",
+          "AvgScrRead",
+          "AvgScrWrite"
+        ],
+        [
+          "NumGE1500",
+          "NumTstTakr",
+          "enroll12"
+        ],
+        [
+          "cname",
+          "dname",
+          "rtype",
+          "sname"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "rtype",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "cname",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "enroll12",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "NumGE1500",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "AvgScrMath",
+          "AvgScrRead",
+          "AvgScrWrite"
+        ],
+        [
+          "NumGE1500",
+          "NumTstTakr",
+          "cname",
+          "enroll12",
+          "rtype"
+        ],
+        [
+          "NumGE1500",
+          "cname",
+          "dname",
+          "enroll12",
+          "rtype",
+          "sname"
+        ]
+      ],
+      "pk_columns": [
+        "cds"
+      ],
+      "fragments": [
+        {
+          "suffix": "avg_scr",
+          "non_pk_columns": [
+            "AvgScrMath",
+            "AvgScrRead",
+            "AvgScrWrite"
+          ]
+        },
+        {
+          "suffix": "numge1500",
+          "non_pk_columns": [
+            "NumGE1500",
+            "NumTstTakr",
+            "cname",
+            "enroll12",
+            "rtype"
+          ]
+        },
+        {
+          "suffix": "numge1500_2",
+          "non_pk_columns": [
+            "NumGE1500",
+            "cname",
+            "dname",
+            "enroll12",
+            "rtype",
+            "sname"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "satscores_numge1500_2",
+    "movable_candidates": [
+      "satscores_avg_scr",
+      "satscores_numge1500"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+  }
+}

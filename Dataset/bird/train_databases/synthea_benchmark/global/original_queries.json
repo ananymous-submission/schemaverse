@@ -1,0 +1,1297 @@
+[
+  {
+    "sql": "SELECT T2.value, T2.units FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.date = '2008-03-11' AND T2.description = 'Body Height'",
+    "question_id": null,
+    "question": "According to the observation on 2008/3/11, what was the height of Elly Koss?",
+    "difficulty": "",
+    "evidence": "2008/3/11 refers to date = '2008-03-11'; height refers to DESCRIPTION = 'Body Height' from observations;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN strftime('%Y', T2.date) = '2009' THEN T2.VALUE END) - SUM(CASE WHEN strftime('%Y', T2.date) = '2008' THEN T2.VALUE END) AS increase , T2.units FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.description = 'Body Height'",
+    "question_id": null,
+    "question": "By how much did Elly Koss's weight increase from the observation in 2008 to the observation in 2009?",
+    "difficulty": "",
+    "evidence": "SUBTRACT((DATE like '2009%'), (DATE like '2008%')) where DESCRIPTION = 'Body Weight';"
+  },
+  {
+    "sql": "SELECT T2.value, T2.units FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.description = 'Systolic Blood Pressure' ORDER BY T2.VALUE DESC LIMIT 1",
+    "question_id": null,
+    "question": "During all the observations of Elly Koss, what was the highest Systolic Blood Pressure observed?",
+    "difficulty": "",
+    "evidence": "the highest Systolic Blood Pressure refers to MAX(DESCRIPTION = 'Systolic Blood Pressure') from observations;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.description) FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.description = 'Systolic Blood Pressure'",
+    "question_id": null,
+    "question": "For how many times had Elly Koss have her Systolic Blood Pressure observed?",
+    "difficulty": "",
+    "evidence": "Systolic Blood Pressure refers to DESCRIPTION = 'Systolic Blood Pressure';"
+  },
+  {
+    "sql": "SELECT T1.first, T1.last FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T2.VALUE = ( SELECT MAX(VALUE) FROM observations WHERE description = 'Systolic Blood Pressure' ) LIMIT 1",
+    "question_id": null,
+    "question": "The highest Systolic Blood Pressure was observed in which patient? Please give his or her full name.",
+    "difficulty": "",
+    "evidence": "the highest Systolic Blood Pressure refers to MAX(DESCRIPTION = 'Systolic Blood Pressure') from observations; full name refers to first, last;"
+  },
+  {
+    "sql": "SELECT strftime('%J', T2.STOP) - strftime('%J', T2.START) AS days FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.description LIKE 'Acetaminophen%'",
+    "question_id": null,
+    "question": "For how long was Elly Koss required to take Acetaminophen?",
+    "difficulty": "",
+    "evidence": "SUM(MULTIPLY(365, SUBTRACT(strftime('%Y', STOP), strftime('%Y', START))), MULTIPLY(30, SUBTRACT(strftime('%m', STOP), strftime('%m', START))), SUBTRACT(strftime('%d', STOP), strftime('%d', START))) where DESCRIPTION like 'Acetaminophen%';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.description FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss'",
+    "question_id": null,
+    "question": "Please list all the medication that are prescribed to Elly Koss.",
+    "difficulty": "",
+    "evidence": "medication that are prescribed refers to DESCRIPTION from medications;"
+  },
+  {
+    "sql": "SELECT T2.REASONDESCRIPTION FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.description LIKE 'Acetaminophen%'",
+    "question_id": null,
+    "question": "Why did Elly Koss need to take Acetaminophen?",
+    "difficulty": "",
+    "evidence": "why need to take Acetaminophen refers to REASONDESCRIPTION\u00a0 where DESCRIPTION like 'Acetaminophen%' from medications;"
+  },
+  {
+    "sql": "SELECT T2.description FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.reasondescription = 'Streptococcal sore throat (disorder)'",
+    "question_id": null,
+    "question": "What medication did Elly Koss take when she had Streptococcal sore throat?",
+    "difficulty": "",
+    "evidence": "medication refers to DESCRIPTION from medications; Streptococcal sore throat refers to REASONDESCRIPTION like 'Streptococcal sore throat%';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.description LIKE 'Acetaminophen%'",
+    "question_id": null,
+    "question": "Please give the full names of all the patients who had been prescribed with Acetaminophen.",
+    "difficulty": "",
+    "evidence": "full name refers to first, last; prescribed with Acetaminophen refer to DESCRIPTION like 'Acetaminophen%' from medications;"
+  },
+  {
+    "sql": "SELECT T2.description FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.START = '2009-01-08'",
+    "question_id": null,
+    "question": "What was the condition of Elly Koss on 2009/1/8?",
+    "difficulty": "",
+    "evidence": "condition on 2009/1/8 refers to DESCRIPTION from conditions where START = '2009-01-08';"
+  },
+  {
+    "sql": "SELECT strftime('%J', T2.STOP) - strftime('%J', T2.START) AS days FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.description = 'Cystitis'",
+    "question_id": null,
+    "question": "For how long did Elly Koss's cystitis last?",
+    "difficulty": "",
+    "evidence": "SUM(MULTIPLY(365, SUBTRACT(strftime('%Y', STOP), strftime('%Y', START))), MULTIPLY(30, SUBTRACT(strftime('%m', STOP), strftime('%m', START))), SUBTRACT(strftime('%d', STOP), strftime('%d', START))) where DESCRIPTION = 'Cystitis';"
+  },
+  {
+    "sql": "SELECT AVG(T2.VALUE), T2.units FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.description = 'Body Weight'",
+    "question_id": null,
+    "question": "According to all the observations of Elly Koss, what was her average weight?",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUM(VALUE), COUNT(VALUE)) WHERE DESCRIPTION = 'Body Weight';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.marital = 'M' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T2.description = 'Cystitis'",
+    "question_id": null,
+    "question": "Among all the patients who once had cystitis, what was the percentage of them being married?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(marital = 'M'), COUNT(patient)) as percentage where DESCRIPTION = 'Cystitis';\n"
+  },
+  {
+    "sql": "SELECT T2.description, T2.VALUE, T2.units FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Mr.' AND T1.first = 'Vincent' AND T1.last = 'Wyman' AND T2.date = '2010-08-02' AND T2.description = 'Body Height'",
+    "question_id": null,
+    "question": "Give the body height status of Mr. Vincent Wyman on 2010/8/2.",
+    "difficulty": "",
+    "evidence": "body height status refers to DESCRIPTION = 'Body Height' from observations;\u00a0on 2010/8/2 refers to DATE = '2010-08-02';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.PATIENT) FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Mrs.' AND T1.first = 'Norman' AND T1.last = 'Berge'",
+    "question_id": null,
+    "question": "How many care plans has Mrs. Norman Berge taken?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.reasondescription FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Mrs.' AND T1.first = 'Annabelle' AND T1.last = 'Pouros' AND T2.start = '1970-12-19' AND T2.description = 'Leucovorin 100 MG Injection'",
+    "question_id": null,
+    "question": "Why did Mrs. Annabelle Pouros take leucovorin 100 mg injection on 1970/12/19? State the reason.",
+    "difficulty": "",
+    "evidence": "reason why take leucovorin 100 mg injection refers to REASONDESCRIPTION where DESCRIPTION = 'Leucovorin 100 MG Injection'; on 1970/12/19 refers to START = '1970-12-19';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.\"PREVALENCE PERCENTAGE\" FROM all_prevalences AS T1 INNER JOIN conditions AS T2 ON lower(T1.ITEM) = lower(T2.DESCRIPTION) WHERE T2.code = '64859006'",
+    "question_id": null,
+    "question": "What is the prevalence percentage of condition no. 64859006?",
+    "difficulty": "",
+    "evidence": "condition no. 64859006 refers to conditions where CODE = '64859006';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.\"PREVALENCE RATE\" FROM all_prevalences AS T1 INNER JOIN conditions AS T2 ON lower(T1.ITEM) = lower(T2.DESCRIPTION) WHERE T2.code = '368581000119106'",
+    "question_id": null,
+    "question": "State the prevalence rate of condition no. 368581000119106.",
+    "difficulty": "",
+    "evidence": "condition no. 368581000119106 refers to conditions where CODE = '368581000119106';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.description FROM patients AS T1 INNER JOIN procedures AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Ms.' AND T1.first = 'Jacquelyn' AND T1.last = 'Shanahan' AND T2.DATE = '2009-08-09'",
+    "question_id": null,
+    "question": "Give the procedure description of Ms. Jacquelyn Shanahan on 2009/8/9.",
+    "difficulty": "",
+    "evidence": "on 2009/8/9 refers to DATE = '2009-08-09';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.BILLABLEPERIOD) FROM patients AS T1 INNER JOIN claims AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Ms.' AND T1.first = 'Abbie' AND T1.last = 'Cole' AND T2.BILLABLEPERIOD BETWEEN '2010-12-31' AND '2012-01-01'",
+    "question_id": null,
+    "question": "Give the number of claims did Ms. Abbie Cole have in the year of 2011.",
+    "difficulty": "",
+    "evidence": "in the year of 2011 refers to BILLABLEPERIOD between '2010-12-31' and '2012-01-01';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.code) FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Mrs.' AND T1.first = 'Saundra' AND T1.last = 'Monahan'",
+    "question_id": null,
+    "question": "How many allergies does Mrs. Saundra Monahan have?",
+    "difficulty": "",
+    "evidence": "allergies refer to PATIENT from allergies;"
+  },
+  {
+    "sql": "SELECT T1.first, T1.last FROM patients AS T1 INNER JOIN claims AS T2 ON T1.patient = T2.PATIENT WHERE T2.billableperiod = '1947-09-11'",
+    "question_id": null,
+    "question": "Provide the name of the patient who had a claim on 1947/9/11.",
+    "difficulty": "",
+    "evidence": "name of the patient implies full name and refers to first, last; on 1947/9/11 refers to BILLABLEPERIOD = '1947-09-11';"
+  },
+  {
+    "sql": "SELECT T2.description FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Mr.' AND T1.first = 'Hubert' AND T1.last = 'Baumbach' AND T2.date = '2008-10-25'",
+    "question_id": null,
+    "question": "Describe the encounter of Mr. Hubert Baumbach on 2008/10/25.",
+    "difficulty": "",
+    "evidence": "encounter refers to DESCRIPTION from encounters; on 2008/10/25 refers to DATE = '2008-10-25';"
+  },
+  {
+    "sql": "SELECT T2.description FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Keven' AND T1.last = 'Kuhn' AND T2.start = '2016-09-24' AND T2.stop = '2016-10-10'",
+    "question_id": null,
+    "question": "What kind of condition did Keven Kuhn have from 2016/9/24 to 2016/10/10? Describe the condition.",
+    "difficulty": "",
+    "evidence": "kind of condition refers to DESCRIPTION from conditions;\u00a0from 2016/9/24 to 2016/10/10 refers to START = '2016-09-24' and STOP = '2016-10-10';"
+  },
+  {
+    "sql": "SELECT T2.date FROM patients AS T1 INNER JOIN procedures AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Mrs.' AND T1.first = 'Ira' AND T1.last = 'Deckow' AND T2.description = 'Standard pregnancy test'",
+    "question_id": null,
+    "question": "When did Mrs. Ira Deckow have the standard pregnancy test?",
+    "difficulty": "",
+    "evidence": "standard pregnancy test refers to DESCRIPTION = 'Standard pregnancy test' from procedures;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(strftime('%J', T2.STOP) - strftime('%J', T2.START)) AS REAL) / COUNT(T1.patient) FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Mr.' AND T1.first = 'Wesley' AND T1.last = 'Lemke'",
+    "question_id": null,
+    "question": "Calculate the average period of Mr. Wesley Lemke's care plans.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUBTRACT(stop time - start time), COUNT(ID)));"
+  },
+  {
+    "sql": "SELECT CAST(SUM(strftime('%J', T2.STOP) - strftime('%J', T2.START)) AS REAL) / COUNT(T2.PATIENT) FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Ms.' AND T1.first = 'Angelena' AND T1.last = 'Kertzmann' AND T2.description = 'Normal pregnancy'",
+    "question_id": null,
+    "question": "State the average period of Ms. Angelena Kertzmann's several normal pregnancies.",
+    "difficulty": "",
+    "evidence": "DIVIDE(SUBTRACT(stop time - start time), COUNT(DESCRIPTION = 'Normal pregnancy')));"
+  },
+  {
+    "sql": "SELECT PATIENT FROM allergies WHERE STOP IS NOT NULL GROUP BY PATIENT ORDER BY CASE WHEN SUBSTR(STOP, -2, 1) != '9' THEN SUBSTR(STOP, LENGTH(STOP) - 1) + 2000 END - CASE WHEN SUBSTR(START, -2, 1) = '9' THEN SUBSTR(START, LENGTH(START) - 1) + 1900 ELSE SUBSTR(START, LENGTH(START) - 1) + 2000 END LIMIT 1",
+    "question_id": null,
+    "question": "What is the id of the patient who has the longest allergy period?",
+    "difficulty": "",
+    "evidence": "id of the patient refers to PATIENT from allergies where STOP is not null; the longest allergy period refers to MAX(SUBTRACT((SUBSTR(STOP, - 2, 1)! = '9' then substr(STOP, length(STOP) - 1) + 2000 end), (SUBSTR(START, - 2, 1) = '9' then substr(START, length(START) - 1) + 1900 else substr(START, length(START) - 1) + 2000 end)));\n"
+  },
+  {
+    "sql": "SELECT COUNT(PATIENT) FROM conditions WHERE DESCRIPTION = 'Diabetes' AND strftime('%Y', START) = '1988'",
+    "question_id": null,
+    "question": "How many patients have diabetes that started in 1988?",
+    "difficulty": "",
+    "evidence": "diabetes that started in 1988 refers to DESCRIPTION = 'Diabetes' from conditions and START like '1988%';"
+  },
+  {
+    "sql": "SELECT COUNT(PATIENT) FROM allergies WHERE DESCRIPTION = 'Allergy to eggs'",
+    "question_id": null,
+    "question": "How many patients are allergic to eggs?",
+    "difficulty": "",
+    "evidence": "allergic to eggs refer to DESCRIPTION = 'Allergy to eggs' from allergies;"
+  },
+  {
+    "sql": "SELECT PATIENT FROM conditions WHERE START = ( SELECT MAX(START) FROM conditions WHERE DESCRIPTION = 'Hypertension' )",
+    "question_id": null,
+    "question": "What is the id of the patient whose hypertension started most recently?",
+    "difficulty": "",
+    "evidence": "id of the patient refers to PATIENT from conditions;\u00a0 hypertension refers to DESCRIPTION = 'Hypertension'; most recently refers to MAX(START);"
+  },
+  {
+    "sql": "SELECT DESCRIPTION FROM allergies GROUP BY DESCRIPTION ORDER BY COUNT(DESCRIPTION) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most common allergy among patients?",
+    "difficulty": "",
+    "evidence": "the most common allergy refers to MAX(COUNT(DESCRIPTION)) from allergies;"
+  },
+  {
+    "sql": "SELECT PATIENT FROM observations WHERE DESCRIPTION = 'Body Height' AND UNITS = 'cm' ORDER BY VALUE DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is/are the ids of the tallest patient/s?",
+    "difficulty": "",
+    "evidence": "id of the tallest patient/s refers to PATIENT from observations where MAX(DESCRIPTION = 'Body Height');"
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.gender = 'F' AND T1.ethnicity = 'american' GROUP BY T2.DESCRIPTION ORDER BY COUNT(T2.DESCRIPTION) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most common condition among the female Americans?",
+    "difficulty": "",
+    "evidence": "the most common condition refers to MAX(COUNT(DESCRIPTION)); among the female Americans refer to PATIENT where gender = 'F' and ethnicity = 'american';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Ibuprofen 200 MG Oral Tablet' AND T1.ethnicity = 'dominican' AND strftime('%Y', T2.START) = '2016' AND strftime('%m', T2.STOP) - strftime('%m', T2.START) = 1",
+    "question_id": null,
+    "question": "Among the patients that started taking Ibuprofen 200mg Oral Tablet in 2016, how many Dominican patients stopped taking the medicine after exactly one month?",
+    "difficulty": "",
+    "evidence": "Ibuprofen 200mg Oral Tablet refers to DESCRIPTION = 'Ibuprofen 200 MG Oral Tablet' from medications; started in 2016 refers to START like '2016%'; Dominican patients refer to ethnicity = 'dominican'; stopped taking the medicine after exactly one month refers to SUBTRACT(strftime('%m', STOP), strftime('%m', START)) = 1;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE DESCRIPTION = 'Pneumonia' AND strftime('%Y', T1.birthdate) LIKE '192%'",
+    "question_id": null,
+    "question": "How many of the patients born in 1920s had pneumonia?",
+    "difficulty": "",
+    "evidence": "patients born in 1920s refer to patient where birthdate like '192%'; pneumonia refers to DESCRIPTION = 'Pneumonia' from conditions;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last, T1.suffix FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Yaz 28 Day Pack' AND strftime('%Y', T2.START) = '2011'",
+    "question_id": null,
+    "question": "What are the full names of the patients who started taking Yaz 28 Day Pack in 2011?",
+    "difficulty": "",
+    "evidence": "full name refers to first, last; Yaz 28 Day Pack refers to DESCRIPTION = 'Yaz 28 Day Pack' from medications; started taking in 2011 refers to START like '2011%';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T1.race = 'black' AND T2.DESCRIPTION = 'DTaP' AND strftime('%Y', T2.DATE) = '2013'",
+    "question_id": null,
+    "question": "How many Black patients were immunized with DTaP in 2013?",
+    "difficulty": "",
+    "evidence": "Black patients refer to patient where race = 'black'; immunized with DTaP refers to DESCRIPTION = 'DTaP' from immunizations; in 2013 refers to DATE like '2013%';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.patient) FROM all_prevalences AS T1 INNER JOIN conditions AS T2 ON lower(T1.ITEM) = lower(T2.DESCRIPTION) INNER JOIN immunizations AS T3 ON T2.PATIENT = T3.PATIENT GROUP BY T2.PATIENT ORDER BY T2.START DESC, T1.\"PREVALENCE RATE\" DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many immunizations did the patient with the most prevalent condition that started recently get?",
+    "difficulty": "",
+    "evidence": "patient with the most prevalent condition refers to patient where MAX(PREVALENCE RATE); started recently refers to MAX(START);"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM all_prevalences AS T1 INNER JOIN conditions AS T2 ON lower(T1.ITEM) = lower(T2.DESCRIPTION) ORDER BY T1.\"PREVALENCE RATE\" DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many patients have the most prevalent conditions?",
+    "difficulty": "",
+    "evidence": "the most prevalent conditions refer to MAX(PREVALENCE RATE);"
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION FROM immunizations AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.DESCRIPTION = 'Influenza  seasonal  injectable  preservative free' GROUP BY T2.DESCRIPTION ORDER BY COUNT(T2.DESCRIPTION) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most common condition among the patients who received influenza seasonal injectable preservative free immunization?",
+    "difficulty": "",
+    "evidence": "the most common condition refers to MAX(DESCRIPTION) from conditions; patients who received influenza seasonal injectable preservative free immunization refer to PATIENT where DESCRIPTION = 'Influenza seasonal injectable preservative free' from immunizations;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.PATIENT FROM conditions AS T1 INNER JOIN all_prevalences AS T2 ON lower(T2.ITEM) = lower(T1.DESCRIPTION) WHERE T2.\"PREVALENCE PERCENTAGE\" = CAST(18.8 AS float)",
+    "question_id": null,
+    "question": "List the ids of all the patients with condition that has a prevalence percentage of 18.8%.",
+    "difficulty": "",
+    "evidence": "ids of the patients refer to PATIENT from conditions; condition that has a prevalence percentage of 18.8% refers to PREVALENCE PERCENTAGE = 18.8;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.DESCRIPTION) FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Tyree' AND T1.last = 'Eichmann'",
+    "question_id": null,
+    "question": "How many conditions did Tyree Eichmann have?",
+    "difficulty": "",
+    "evidence": "conditions refer to DESCRIPTION from conditions;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM immunizations AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.DESCRIPTION = 'meningococcal MCV4P' AND T2.DESCRIPTION = 'Viral sinusitis (disorder)'",
+    "question_id": null,
+    "question": "Among the patients who were immunized with meningococcal MCV4P, how many have viral sinusitis disorder after getting the immunization?",
+    "difficulty": "",
+    "evidence": "immunized with meningococcal MCV4P refers to DESCRIPTION = 'meningococcal MCV4P' from immunizations; viral sinusitis disorder refers to DESCRIPTION = 'Viral sinusitis (disorder)' from conditions;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.gender = 'F' AND T1.DESCRIPTION = 'Prediabetes'",
+    "question_id": null,
+    "question": "Among the patients with prediabetes, how many are female?",
+    "difficulty": "",
+    "evidence": "patients with prediabetes refer to PATIENT from conditions where DESCRIPTION = 'Prediabetes'; female refers to gender = 'F';"
+  },
+  {
+    "sql": "SELECT T1.first, T1.last FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Body Mass Index' AND T2.UNITS = 'kg/m2' ORDER BY T2.VALUE LIMIT 1",
+    "question_id": null,
+    "question": "Indicate the patient's full name with the lowest body mass index in kg/m2.",
+    "difficulty": "",
+    "evidence": "full name refers to first, last; the lowest body mass index in kg/m2 refers to DESCRIPTION = Body Mass Index from observations where MIN(VALUE) and UNITS = 'kg/m2';"
+  },
+  {
+    "sql": "SELECT strftime('%Y', T2.deathdate) - strftime('%Y', T2.birthdate) AS age FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.first = 'Giovanni' AND T2.last = 'Russel' AND T1.DESCRIPTION = 'Hypertension'",
+    "question_id": null,
+    "question": "What is the age of the patient with hypertension named Giovanni Russel?",
+    "difficulty": "",
+    "evidence": "age refers to SUBTRACT(strftime('%Y', deathdate), strftime('%Y', birthdate)); hypertension refers to conditions where DESCRIPTION = 'Hypertension';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM medications AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'oxaliplatin 5 MG/ML [Eloxatin]' AND T2.race = 'asian' AND T2.gender = 'F'",
+    "question_id": null,
+    "question": "How many Asian female patients take oxaliplatin 5 MG/ML [Eloxatin]?",
+    "difficulty": "",
+    "evidence": "female refers to gender = 'F'; oxaliplatin 5 MG/ML [Eloxatin] refers to medications where DESCRIPTION = 'oxaliplatin 5 MG/ML [Eloxatin]';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.description = 'Stroke' AND T2.deathdate IS NULL",
+    "question_id": null,
+    "question": "Count all of the living patients that had a stroke.",
+    "difficulty": "",
+    "evidence": "if deathdate is null, it means this patient is still alive or living; stroke refers to conditions where DESCRIPTION = 'Stroke';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.patient) FROM allergies AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Allergy to peanuts' AND T2.race = 'asian'",
+    "question_id": null,
+    "question": "What is the total number of Asian patients who are allergic to peanuts?",
+    "difficulty": "",
+    "evidence": "Asian refers to race like 'asian%'; allergic to peanuts refers to allergies where DESCRIPTION = 'Allergy to peanuts'; \n"
+  },
+  {
+    "sql": "SELECT AVG(T1.VALUE) FROM observations AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient INNER JOIN conditions AS T3 ON T2.patient = T3.PATIENT WHERE T3.DESCRIPTION = 'Hypertension' AND T1.DESCRIPTION = 'Diastolic Blood Pressure'",
+    "question_id": null,
+    "question": "Among the patients with hypertension, what is the average of their diastolic blood pressure?",
+    "difficulty": "",
+    "evidence": "hypertension refers to conditions where DESCRIPTION = 'Hypertension'; average diastolic blood pressure refers to AVG(VALUE) where DESCRIPTION = 'Diastolic Blood Pressure' from observations;"
+  },
+  {
+    "sql": "SELECT T1.DESCRIPTION FROM medications AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.ssn = '999-94-3751'",
+    "question_id": null,
+    "question": "What is the medicine prescribed for the patient with social security number 999-94-3751?",
+    "difficulty": "",
+    "evidence": "medicine prescribed refers to DESCRIPTION from medications; social security number 999-94-3751 refers to ssn = '999-94-3751';"
+  },
+  {
+    "sql": "SELECT T2.ssn FROM allergies AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Allergy to grass pollen' AND T2.ethnicity = 'irish' AND T2.gender = 'F'",
+    "question_id": null,
+    "question": "Give the social security number of the female Irish patient allergic to grass pollen.",
+    "difficulty": "",
+    "evidence": "social security number refers to ssn; female refers to gender = 'F'; Irish refers to ethnicity = 'irish'; allergic to grass pollen refers to allergies where DESCRIPTION = 'Allergy to grass pollen';"
+  },
+  {
+    "sql": "SELECT T2.first, T2.last FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.CODE = 315043002",
+    "question_id": null,
+    "question": "Who is the patient involved in the care plan with code 311791003?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.DESCRIPTION FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.deathdate IS NOT NULL ORDER BY strftime('%Y', T2.deathdate) - strftime('%Y', T2.birthdate) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the patients that died, what is the condition of the oldest patient?",
+    "difficulty": "",
+    "evidence": "if deathdate is not null, it means this patient died; condition refers to DESCRIPTION from conditions; the oldest patient refers to MAX(SUBTRACT(strftime('%Y', deathdate), strftime('%Y', birthdate)));"
+  },
+  {
+    "sql": "SELECT T2.code FROM all_prevalences AS T1 INNER JOIN conditions AS T2 ON T1.ITEM = T2.DESCRIPTION ORDER BY T1.OCCURRENCES DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the code of the prevalent disease with the highest occurrences?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.DESCRIPTION, T2.VALUE, T2.UNITS FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Glucose' AND T1.address = '365 Della Crossroad Suite 202 Deerfield MA 01342 US'",
+    "question_id": null,
+    "question": "What is the glucose level of the patient that lives at 365 Della Crossroad Suite 202, Deerfield, MA 01342 US?",
+    "difficulty": "",
+    "evidence": "glucose level refers to VALUE, UNITS where DESCRIPTION = 'Glucose' from observations; lives at 365 Della Crossroad Suite 202, Deerfield, MA 01342 US refers to address = '365 Della Crossroad Suite 202 Deerfield MA 01342 US';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.ssn FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient INNER JOIN all_prevalences AS T3 ON lower(T1.DESCRIPTION) = lower(T3.ITEM) WHERE CAST(T3.\"PREVALENCE PERCENTAGE\" AS REAL) * 100 / ( SELECT AVG('PREVALENCE PERCENTAGE') FROM all_prevalences ) < 30 LIMIT 5",
+    "question_id": null,
+    "question": "Provide at least 5 social security numbers of patients with a prevalent disease with a prevalence percentage lower than 30% of the average prevalence percentage of conditions.",
+    "difficulty": "",
+    "evidence": "social security number refers to ssn; prevalence percentage lower than 30% of the average prevalence percentage of conditions refers to PREVALENCE PERCENTAGE < MULTIPLY(0.3, AVG(PREVALENCE PERCENTAGE));"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.gender = 'F' AND T2.race = 'asian' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.gender) FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Acute bronchitis (disorder)'",
+    "question_id": null,
+    "question": "Among the patients with acute bronchitis, what is the percentage of Asian women?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(PATIENT where gender = 'F' and race = 'asian'), COUNT(PATIENT)) as percentage where DESCRIPTION = 'Acute bronchitis (disorder)' ;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.ID) FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Major' AND T1.last = 'D''Amore'",
+    "question_id": null,
+    "question": "Provide the number of encounters for Major D'Amore.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION FROM patients AS T1 INNER JOIN procedures AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Emmy' AND T1.last = 'Waelchi'",
+    "question_id": null,
+    "question": "List the procedures received by Emmy Waelchi.",
+    "difficulty": "",
+    "evidence": "procedures refer to DESCRIPTION from procedures;"
+  },
+  {
+    "sql": "SELECT T1.first, T1.last FROM patients AS T1 INNER JOIN procedures AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Extraction of wisdom tooth'",
+    "question_id": null,
+    "question": "Provide the patients' full names who received the extraction of wisdom tooth.",
+    "difficulty": "",
+    "evidence": "patient's full name refers to first, last; extraction of wisdom tooth refers to DESCRIPTION = 'Extraction of wisdom tooth' from procedures;"
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION, T2.VALUE, T2.UNITS FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.DESCRIPTION = 'Body Weight'",
+    "question_id": null,
+    "question": "Provide the body weight of Elly Koss in every observation.",
+    "difficulty": "",
+    "evidence": "body weight VALUE and UNITS where DESCRIPTION = 'Body Weight' from observations;"
+  },
+  {
+    "sql": "SELECT T1.first, T1.last FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Allergy to soya'",
+    "question_id": null,
+    "question": "Name the patients who had an allergy to soy.",
+    "difficulty": "",
+    "evidence": "allergy to soy refers to allergies where DESCRIPTION = 'Allergy to soya';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.CODE) FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Keven' AND T1.last = 'Kuhn' AND T2.DESCRIPTION = 'DTaP'",
+    "question_id": null,
+    "question": "How many times did Keven Kuhn receive DTaP immunization?",
+    "difficulty": "",
+    "evidence": "DTaP immunization refers to immunizations where DESCRIPTION = 'DTaP';"
+  },
+  {
+    "sql": "SELECT T1.first, T1.last FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Clopidogrel 75 MG Oral Tablet' AND strftime('%Y', T2.STOP) - strftime('%Y', T2.START) > 10",
+    "question_id": null,
+    "question": "Who had to take Clopidogrel 75 MG Oral Tablet for over 10 years?",
+    "difficulty": "",
+    "evidence": "Who implies the full name of the patient which refers to first, last; Clopidogrel 75 MG Oral Tablet refers to medications where DESCRIPTION = 'Clopidogrel 75 MG Oral Tablet'; for over 10 years refers to SUBTRACT(strftime('%Y', STOP), strftime('%Y', START)) > 10;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.DESCRIPTION, T3.DESCRIPTION FROM procedures AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT INNER JOIN medications AS T3 ON T2.patient = T3.PATIENT WHERE T2.DESCRIPTION = 'Third degree burn'",
+    "question_id": null,
+    "question": "Which procedures and medications were received by the patient with the third-degree burn?",
+    "difficulty": "",
+    "evidence": "procedures refer to DESCRIPTION from procedures; medications refers to DESCRIPTION from medications; third-degree burn refers to conditions where DESCRIPTION = 'Third degree burn';"
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION FROM allergies AS T1 INNER JOIN medications AS T2 ON T1.PATIENT = T2.PATIENT WHERE T1.START = '6/6/16' AND T1.DESCRIPTION = 'Allergy to mould'",
+    "question_id": null,
+    "question": "Provide medications received by patients with an allergy to mould on 6th June 2016.",
+    "difficulty": "",
+    "evidence": "medications refers to DESCRIPTION from medications; allergy to mould refers to allergies where DESCRIPTION = 'Allergy to mould'; on 6th June 2016 refers to START = '6/6/16';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.DESCRIPTION FROM careplans AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Secondary malignant neoplasm of colon'",
+    "question_id": null,
+    "question": "Describe the care plans received by the patient with secondary malignant neoplasm of the colon.",
+    "difficulty": "",
+    "evidence": "care plans refer to DESCRIPTION from careplans; secondary malignant neoplasm of the colon refers to conditions where DESCRIPTION = 'Secondary malignant neoplasm of colon';"
+  },
+  {
+    "sql": "SELECT T2.\"PREVALENCE RATE\" FROM conditions AS T1 INNER JOIN all_prevalences AS T2 ON lower(T1.DESCRIPTION) = lower(T2.ITEM) WHERE T1.START = '2014-05-09'",
+    "question_id": null,
+    "question": "What is the prevalence rate of the patients' diseases started on 9th May 2014?",
+    "difficulty": "",
+    "evidence": "diseases started on 9th May 2014 refer to DESCRIPTION from conditions where START = '5/9/2014';"
+  },
+  {
+    "sql": "SELECT T2.first, T2.last , CASE WHEN T2.deathdate IS NULL THEN strftime('%Y', T1.DATE) - strftime('%Y', T2.birthdate) ELSE strftime('%Y', T2.deathdate) - strftime('%Y', T2.birthdate) END AS age FROM observations AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Systolic Blood Pressure' AND T1.VALUE = 200 AND T1.UNITS = 'mmHg' AND strftime('%Y', T1.DATE) = '2011'",
+    "question_id": null,
+    "question": "Among observations in 2011, provide the names and ages of patients whose Systolic Blood Pressures are 200mmHg.",
+    "difficulty": "",
+    "evidence": "name implies the patient's full name which refers to first, last; age refers to deathdate is null then SUBTRACT(strftime('%Y', DATE), strftime('%Y', birthdate)); Systolic Blood Pressures are 200mmHg refers to DESCRIPTION = 'Systolic Blood Pressure' and VALUE = 200 and UNITS = 'mmHg' from observations; in 2011 refers to DATE like '2011%';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.DESCRIPTION = 'Influenza seasonal injectable preservative free' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.patient), SUM(CASE WHEN T1.ethnicity = 'english' THEN 1 ELSE 0 END) FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE strftime('%Y', T2.DATE) = '2017'",
+    "question_id": null,
+    "question": "Among the immunizations in 2017, calculate the percentage of patients who received the Influenza seasonal injectable preservative free. Among them, how many patients are English?",
+    "difficulty": "",
+    "evidence": "DIVIDE(COUNT(PATIENT when DESCRIPTION = 'Influenza seasonal injectable preservative free'), COUNT(PATIENT)) as percentage where strftime('%Y', 2017); English refers ethnicity = 'english';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T2.REASONDESCRIPTION = 'Normal pregnancy'",
+    "question_id": null,
+    "question": "List down the first name of patients who encountered normal pregnancy.",
+    "difficulty": "",
+    "evidence": "encountered normal pregnancy refers to encounters where REASONDESCRIPTION = 'Normal pregnancy';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.birthdate FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Outpatient Encounter'",
+    "question_id": null,
+    "question": "What are the birth date of patients who took outpatient encounter care plan?",
+    "difficulty": "",
+    "evidence": "outpatient encounter care plan refers to careplans where DESCRIPTION = 'Outpatient Encounter';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Cystitis'",
+    "question_id": null,
+    "question": "List down the first name of patients who have cystitis condition.",
+    "difficulty": "",
+    "evidence": "cystitis refers to conditions where DESCRIPTION = 'Cystitis';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Stroke' AND T1.marital = 'M'",
+    "question_id": null,
+    "question": "How many stroke patients have married?",
+    "difficulty": "",
+    "evidence": "stroke refers to conditions where DESCRIPTION = 'Stroke'; married refers to the marital status of the patient in which marital = 'M';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.address FROM patients AS T1 INNER JOIN claims AS T2 ON T1.patient = T2.PATIENT WHERE T2.BILLABLEPERIOD LIKE '2010%'",
+    "question_id": null,
+    "question": "List down the address of patients who have billable period in 2010.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.last FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Allergy to dairy product'",
+    "question_id": null,
+    "question": "List down the last name of patients who are allergic to dairy products.",
+    "difficulty": "",
+    "evidence": "allergic to dairy products refers to allergies where DESCRIPTION = 'Allergy to dairy product';"
+  },
+  {
+    "sql": "SELECT T2.START FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Adolfo' AND T1.last = 'Schmitt' AND T2.STOP IS NOT NULL",
+    "question_id": null,
+    "question": "When the allergy starts for Angelo Buckridge.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'House dust mite allergy' AND T1.gender = 'M'",
+    "question_id": null,
+    "question": "How many of the male patients are allergic to house dust mites?",
+    "difficulty": "",
+    "evidence": "male patients refer to PATIENT where gender = 'M'; allergic to house dust mites refers to allergies where DESCRIPTION = 'House dust mite allergy';"
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T1.race = 'white' GROUP BY T2.DESCRIPTION ORDER BY COUNT(T2.DESCRIPTION) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What kind of allergy is most common among white people?",
+    "difficulty": "",
+    "evidence": "kind of allergy is most common refers to MAX(COUNT(DESCRIPTION)) from allergies; white refers to race = 'white';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Influenza  seasonal  injectable  preservative free'",
+    "question_id": null,
+    "question": "List down the first name of patients who received \"Influenza seasonal injectable preservative free\" immunization.",
+    "difficulty": "",
+    "evidence": "\"Influenza seasonal injectable preservative free\" immunization refers to immunizations where DESCRIPTION = 'Influenza seasonal injectable preservative free';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'HPV  quadrivalent' AND T1.gender = 'F'",
+    "question_id": null,
+    "question": "Calculate the number of female patients who accepted \"HPV quadrivalent\" immunization.",
+    "difficulty": "",
+    "evidence": "female refers to gender = 'F'; \"HPV quadrivalent\" immunization refers to immunizations where DESCRIPTION = 'HPV quadrivalent';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.DESCRIPTION FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T1.birthplace = 'Pittsfield MA US'",
+    "question_id": null,
+    "question": "List down the encounter descriptions of patients who were born in Pittsfield MA US.",
+    "difficulty": "",
+    "evidence": "born in Pittsfield MA US refers to birthplace = 'Pittsfield MA US';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.DESCRIPTION) FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T1.ethnicity = 'german'",
+    "question_id": null,
+    "question": "Calculate the total type of allergies for German people.",
+    "difficulty": "",
+    "evidence": "type of allergies refers to DESCRIPTION from allergies; German people refer to PATIENT where ethnicity = 'german';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.deathdate IS NULL THEN strftime('%Y', T2.STOP) - strftime('%Y', T1.birthdate) ELSE strftime('%Y', T1.deathdate) - strftime('%Y', T1.birthdate) END) AS REAL) / COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T2.REASONDESCRIPTION = 'Prediabetes'",
+    "question_id": null,
+    "question": "Calculate the average age of patients with prediabetes care plan.",
+    "difficulty": "",
+    "evidence": "SUBTRACT(SUM(deathdate), SUM(birthdate)), COUNT(patient) where REASONDESCRIPTION = 'Prediabetes' from careplans;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM medications AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.REASONDESCRIPTION = 'Coronary Heart Disease' AND T1.STOP IS NOT NULL AND T2.deathdate IS NULL",
+    "question_id": null,
+    "question": "How many of the patients who have stopped taking medication for 'coronary heart disease' are still alive?",
+    "difficulty": "",
+    "evidence": "patients who have stopped taking medication for 'coronary heart disease' refer to PATIENT where REASONDESCRIPTION = 'Coronary Heart Disease' and STOP is not null from medications; if deathdate is null, it means this patient is still alive;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN procedures AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Bone immobilization' AND T1.drivers IS NOT NULL",
+    "question_id": null,
+    "question": "How many of the patients who underwent a 'bone immobilization' procedure have a driver's license?",
+    "difficulty": "",
+    "evidence": "patients who underwent a 'bone immobilization' procedure refer to PATIENT from procedures where DESCRIPTION = 'Bone immobilization'; have a driver's license refers to drivers is not null;"
+  },
+  {
+    "sql": "SELECT T1.first, T1.last FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT GROUP BY T1.patient ORDER BY COUNT(DISTINCT T2.DESCRIPTION) > 3",
+    "question_id": null,
+    "question": "Indicate the full name of the patients who have 3 different allergies.",
+    "difficulty": "",
+    "evidence": "full name refers to first, last; have 3 different allergies refer to allergies where COUNT(DESCRIPTION) > 3;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM allergies AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient INNER JOIN immunizations AS T3 ON T2.patient = T3.PATIENT WHERE T1.DESCRIPTION = 'Allergy to eggs' AND T3.DESCRIPTION = 'Td (adult) preservative free'",
+    "question_id": null,
+    "question": "How many patients with 'allergy to eggs' have been immunized with 'Td (adult) preservative free'?",
+    "difficulty": "",
+    "evidence": "allergy to eggs' refers to allergies where DESCRIPTION = 'Allergy to eggs'; immunized with 'Td (adult) preservative free' refers to immunizations where DESCRIPTION = 'Td (adult) preservative free';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient INNER JOIN observations AS T3 ON T2.patient = T3.PATIENT WHERE T3.DESCRIPTION = 'Body Weight' AND T1.DESCRIPTION = 'Diabetes self management plan' AND T3.VALUE > 100 AND T3.UNITS = 'kg'",
+    "question_id": null,
+    "question": "How many patients with a body weight of more than 100 kg have a 'diabetes self-management plan' care plan?",
+    "difficulty": "",
+    "evidence": "body weight of more than 100 kg refers to observations.DESCRIPTION = 'Body Weight' AND observations.VALUE > 100 AND observations.UNITS = 'kg'; diabetes self-management plan refers to careplans.DESCRIPTION = 'Diabetes self management plan';"
+  },
+  {
+    "sql": "SELECT T1.gender FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Dander (animal) allergy' GROUP BY T1.gender ORDER BY COUNT(T1.gender) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What gender is more prone to 'dander (animal) allergy'?",
+    "difficulty": "",
+    "evidence": "gender who is more prone to dander (animal) allergy refers to MAX(COUNT(Gender WHERE allergies.DESCRIPTION = 'Dander (animal) allergy'));"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.BILLABLEPERIOD FROM patients AS T1 INNER JOIN claims AS T2 ON T1.patient = T2.PATIENT WHERE T1.last = 'Dickinson'",
+    "question_id": null,
+    "question": "On what dates did the billable period begin for patients with the last name Dickinson?",
+    "difficulty": "",
+    "evidence": "dates when the billable period begin refers to BILLABLEPERIOD;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Otitis media'",
+    "question_id": null,
+    "question": "List the full name of all patients with 'otitis media'.",
+    "difficulty": "",
+    "evidence": "full name = first, last; otitis media refers to conditions.DESCRIPTION = 'Otitis media';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.REASONDESCRIPTION = 'Myocardial Infarction' AND T1.ethnicity = 'irish'",
+    "question_id": null,
+    "question": "How many patients of Irish ethnicity take medication for 'myocardial infarction'?",
+    "difficulty": "",
+    "evidence": "take medication for myocardial infarction refers to medications.REASONDESCRIPTION = 'Myocardial Infarction';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.marital = 'M' AND T2.REASONDESCRIPTION = 'Concussion with loss of consciousness'",
+    "question_id": null,
+    "question": "How many patients with care plan for 'concussion with loss of consciousness' are married?",
+    "difficulty": "",
+    "evidence": "concussion with loss of consciousness refers to careplans.DESCRIPTION = 'Concussion with loss of consciousness'; married refers to marital = 'M';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM careplans AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'rotavirus  monovalent' AND T1.STOP = '2013-11-23'",
+    "question_id": null,
+    "question": "How many patients immunized against 'monovalent rotavirus' ceased their care plan on 11/23/2013?",
+    "difficulty": "",
+    "evidence": "immunized against monovalent rotavirus refers to immunizations.DESCRIPTION = 'rotavirus monovalent'; ceased their care plan on 11/23/2013 refers to careplans.STOP = '2013-11-23';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Nitroglycerin 0.4 MG/ACTUAT [Nitrolingual]' AND T1.gender = 'F'",
+    "question_id": null,
+    "question": "How many women need to take 'Nitroglycerin 0.4 MG/ACTUAT [Nitrolingual]'?",
+    "difficulty": "",
+    "evidence": "women refers to gender = 'F';\u00a0Nitroglycerin 0.4 MG/ACTUAT [Nitrolingual] refers to medications.DESCRIPTION = 'Nitroglycerin 0.4 MG/ACTUAT [Nitrolingual]'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.DESCRIPTION = 'Allergy to grass pollen' THEN 1 ELSE 0 END) AS REL) * 100 / COUNT(T1.patient) FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T1.birthplace = 'Pembroke MA US'",
+    "question_id": null,
+    "question": "What percentage of patients born in 'Pembroke MA US' have 'allergy to grass pollen'?",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(patient WHERE allergies.DESCRIPTION = 'Allergy to grass pollen'), COUNT(patient) WHERE birthplace = 'Pembroke MA US'), 100.0); born in Pembroke MA US refers to birthplace = 'Pembroke MA US'; allergy to grass pollen refers to allergies.DESCRIPTION = 'Allergy to grass';"
+  },
+  {
+    "sql": "SELECT SUM(T2.VALUE) / COUNT(T1.patient) FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.race = 'asian' AND T2.DESCRIPTION = 'Body Weight' AND T2.UNITS = 'kg'",
+    "question_id": null,
+    "question": "What is the average body weight of Asian patients?",
+    "difficulty": "",
+    "evidence": "average = AVG(observations.VALUE WHERE observations.DESCRIPTION = 'Body Weight' AND observations.UNITS = 'kg'); body weight refers to observations.DESCRIPTION = 'Body Weight'; Asian refers to race = 'asian';"
+  },
+  {
+    "sql": "SELECT T1.ssn FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Latex allergy'",
+    "question_id": null,
+    "question": "Write down the Social Security numbers of patients who have latex allergies.",
+    "difficulty": "",
+    "evidence": "Social Security numbers refers to ssn; latex allergies refers to allergies.DESCRIPTION = 'Latex allergy';"
+  },
+  {
+    "sql": "SELECT CASE WHEN SUBSTR(T1.STOP, -2, 1) != '9' THEN SUBSTR(T1.STOP, LENGTH(T1.STOP) - 1) + 2000 END - CASE WHEN SUBSTR(T1.START, -2, 1) = '9' THEN SUBSTR(T1.START, LENGTH(T1.START) - 1) + 1900 ELSE SUBSTR(T1.START, LENGTH(T1.START) - 1) + 2000 END AS years , T1.DESCRIPTION FROM allergies AS T1 INNER JOIN patients AS T2 ON T2.patient = T1.PATIENT WHERE T1.STOP IS NOT NULL AND T1.START IS NOT NULL AND T2.first = 'Isadora' AND T2.last = 'Moen'",
+    "question_id": null,
+    "question": "How long did Isadora Moen's allergy last? Tell me what kind of allergy she has.",
+    "difficulty": "",
+    "evidence": "how long the allergies last = SUBTRACT(allergies.STOP, allergies.START); kind of allergy refers to allergies.DESCRIPTION;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.PATIENT) FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND T2.START BETWEEN '2009-01-11' AND '2010-10-23'",
+    "question_id": null,
+    "question": "How many times was Elly Koss given a care plan between 1/11/2009 and 10/23/2010?",
+    "difficulty": "",
+    "evidence": "between 1/11/2009 and 10/23/2010 refers to careplans.START between '2009-11-1' and '2010-10-23';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.marital = 'M' AND strftime('%J', T2.STOP) - strftime('%J', T2.START) > 60",
+    "question_id": null,
+    "question": "In 2009, who among the married patients had undergone a care plan for more than 60 days?",
+    "difficulty": "",
+    "evidence": "in 2009 refers to year(careplans.START) = 2009; married patients refers to marital = 'M'; undergone a care plan for more than 60 days refers to SUBTRACT(careplans.STOP, careplans.START) > 60;"
+  },
+  {
+    "sql": "SELECT T2.DATE FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Influenza  seasonal  injectable  preservative free' AND T1.first = 'Elly' AND T1.last = 'Koss'",
+    "question_id": null,
+    "question": "Please provide the dates on which Elly Koss was immunized with the influenza seasonal injectable preservative-free vaccine.",
+    "difficulty": "",
+    "evidence": "date of immunization refers to immunizations.DATE; immunized with the influenza seasonal injectable preservative-free vaccine refers to immunizations.DESCRIPTION = 'Influenza seasonal injectable preservative free';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'meningococcal MCV4P' AND T2.DATE BETWEEN '2010-07-09' AND '2013-10-29' AND T1.race = 'black'",
+    "question_id": null,
+    "question": "From 7/9/2010 to 10/29/2013, how many black patients were immunized with the meningococcal MCV4P vaccine?",
+    "difficulty": "",
+    "evidence": "From 7/9/2010 to 10/29/2013 refers to DATE between '2010-07-09' and '2013-10-29'; black patients refers to race = 'black'; immunized with the meningococcal MCV4P vaccine refers to immunizations.DESCRIPTION = 'meningococcal MCV4P';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CODE, T2.DATE FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T1.prefix = 'Ms.' AND T1.first = 'Jacquelyn' AND T1.last = 'Shanahan' AND T2.DESCRIPTION = 'Influenza  seasonal  injectable  preservative free'",
+    "question_id": null,
+    "question": "Give me the immunization codes and dates on which Ms. Jacquelyn Shanahan was immunized with influenza seasonal injectable preservative-free vaccine.",
+    "difficulty": "",
+    "evidence": "immunization codes refers to immunizations.CODE; immunization dates refers to immunizations.DATE; immunized with influenza seasonal injectable preservative-free vaccine refers to immunizations.DESCRIPTION = 'Influenza seasonal injectable preservative free'; 4 consecutive years refers to 4 succeeding years;"
+  },
+  {
+    "sql": "SELECT strftime('%J', T2.STOP) - strftime('%J', T2.START) AS takenDays FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Berry' AND T1.last = 'Keebler' AND T2.REASONDESCRIPTION = 'Acute bronchitis (disorder)' AND T2.DESCRIPTION = 'Acetaminophen 160 MG'",
+    "question_id": null,
+    "question": "How long did Berry Keebler take the Acetaminophen 160 MG when he was admitted due to acute bronchitis?",
+    "difficulty": "",
+    "evidence": "how long = SUBTRACT(medications.STOP, medications.START); Acetaminophen 160 MG refers to medications.DESCRIPTION = 'Acetaminophen 160 MG'; acute bronchitis refers to medications.REASONDESCRIPTION = 'Acute bronchitis (disorder)';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.marital = 'S' AND T2.REASONDESCRIPTION = 'Cystitis' AND T2.DESCRIPTION = 'Nitrofurantoin 5 MG/ML [Furadantin]' AND strftime('%Y', T2.START) = '2010'",
+    "question_id": null,
+    "question": "In 2010, how many single patients took Nitrofurantoin 5 mg/ML [Furadantin] to cure cystitis?",
+    "difficulty": "",
+    "evidence": "in 2010 refers to substr(medications.START, 1, 4) = '2010' AND substr(medications.stop, 1, 4) = '2010'; Nitrofurantoin 5 mg/ML [Furadantin] refers to medications.DESCRIPTION = 'Nitrofurantoin 5 MG/ML [Furadantin]'; cystitis refers to medications.REASONDESCRIPTION = 'Cystitis';"
+  },
+  {
+    "sql": "SELECT T2.REASONDESCRIPTION FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T2.DATE = '2013-11-20' AND T1.first = 'Lavelle' AND T1.last = 'Vandervort'",
+    "question_id": null,
+    "question": "Tell me the reason for Lavelle Vandervort's encounter on 11/20/2013?",
+    "difficulty": "",
+    "evidence": "reason for encounter refers to encounters.REASONDESCRIPTION; on 11/20/2013 refers to encounters.DATE = '2013-11-20';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T1.ethnicity = 'german' AND T2.DATE BETWEEN '2011-01-09' AND '2012-08-29' AND T2.DESCRIPTION = 'Outpatient Encounter'",
+    "question_id": null,
+    "question": "From 1/9/2011 to 8/29/2012, how many German patients have their outpatient encounters?",
+    "difficulty": "",
+    "evidence": "From 1/9/2011 to 8/29/2012 refers to encounters.DATE between '2011-09-01' and '2012-08-29'; German patients refers to ethnicity = 'german'; outpatient encounters refers to encounters.DESCRIPTION = 'Outpatient Encounter';"
+  },
+  {
+    "sql": "SELECT T1.ssn, T1.address FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T2.DATE = '2008-06-13' AND T2.REASONDESCRIPTION = 'Viral sinusitis (disorder)' AND T2.DESCRIPTION = 'Encounter for symptom'",
+    "question_id": null,
+    "question": "What is the social security number and address of the patient who encountered viral sinusitis symptoms on 6/13/2008?",
+    "difficulty": "",
+    "evidence": "social security number refers to ssn; encountered viral sinusitis refers to encounters.REASONDESCRIPTION = 'Viral sinusitis (disorder)'; on 6/13/2008 refers to encounters.DATE = '2008-06-13';"
+  },
+  {
+    "sql": "SELECT T2.REASONDESCRIPTION, T2.DESCRIPTION , strftime('%J', T2.STOP) - strftime('%J', T2.START) AS days , CASE WHEN T1.deathdate IS NULL THEN 'alive' ELSE 'dead' END FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.ENCOUNTER = '23c293ec-dbae-4a22-896e-f12cf3c8bac3'",
+    "question_id": null,
+    "question": "Give me the reason, name of the drug, and duration of medication under encounter ID 23c293ec-dbae-4a22-896e-f12cf3c8bac3. Tell me if the patient is still alive.",
+    "difficulty": "",
+    "evidence": "reason refers to medications.REASONDESCRIPTION; name of the drug refers to medications.DESCRIPTION; duration of medication = SUBTRACT(julianday(medications.STOP, julianday(medications.START))); ecounter ID refers to encounters.ID; encounters.ID = '23c293ec-dbae-4a22-896e-f12cf3c8bac3'; if patients.deathdate is null then the patient is alive; if patients.deathdate is not null then the patient is not alive;"
+  },
+  {
+    "sql": "SELECT T1.first, T1.last FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Shellfish allergy' AND CAST((strftime('%J', T1.deathdate) - strftime('%J', T1.birthdate)) AS REAL) / 365 < 12",
+    "question_id": null,
+    "question": "How many patients with shellfish allergies died when they were under 12 years old? Please give their full names.",
+    "difficulty": "",
+    "evidence": "shellfish allergies refers to allergies.DESCRIPTION = 'Shellfish allergy'; died under 12 years old = DIVIDE(SUBTRACT(julianday(patients.deathdate), julianday(patients.birthdate)), 365) < 12; full names = first, last;"
+  },
+  {
+    "sql": "SELECT strftime('%J', T2.STOP) - strftime('%J', T2.START) AS days FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = ' Amoxicillin 250 MG / Clavulanate 125 MG [Augmentin]' AND T1.first = 'Major' AND T1.last = 'D''Amore'",
+    "question_id": null,
+    "question": "How long was Mr. Major D'Amore prescribed with Amoxicillin 250 MG / Clavulanate 125 MG [Augmentin]?",
+    "difficulty": "",
+    "evidence": "how long = SUBTRACT(julianday(medications.STOP, julianday(medications.START))); Amoxicillin 250 MG / Clavulanate 125 MG [Augmentin] refers to medications.DESCRIPTION = 'Amoxicillin 250 MG / Clavulanate 125 MG [Augmentin]';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.DESCRIPTION) FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Major' AND T1.last = 'D''Amore'",
+    "question_id": null,
+    "question": "How many types of medication have been prescribed to Mr. Major D'Amore since his visit to the hospital?",
+    "difficulty": "",
+    "evidence": "types of medications refers to medications.DESCRIPTION;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.DESCRIPTION, T2.VALUE, T2.UNITS FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Bella' AND T1.last = 'Rolfson'",
+    "question_id": null,
+    "question": "List out all the observation information collected for the patient named Bella Rolfson.",
+    "difficulty": "",
+    "evidence": "observation information refers to observations.DESCRIPTION AND observations.VALUE AND observations.UNITS;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Calcium' AND T2.VALUE < 8.6",
+    "question_id": null,
+    "question": "List out patient names with calcium deficiency.",
+    "difficulty": "",
+    "evidence": "patient names = first, last; calcium deficiency refers to observations.DESCRIPTION = 'Calcium' and observations.VALUE < 8.6;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.DESCRIPTION, T2.VALUE, T2.UNITS FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Body Mass Index' GROUP BY T2.VALUE ORDER BY COUNT(T2.VALUE) LIMIT 5",
+    "question_id": null,
+    "question": "List out 5 most common conditions for underweight patient.",
+    "difficulty": "",
+    "evidence": "most common condition refers to MAX(COUNT(conditions.DESCRIPTION)); underweight patient refers to MIN(observations.VALUE WHERE observations.DESCRIPTION = 'Body Mass Index');"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.PATIENT) FROM encounters AS T1 INNER JOIN immunizations AS T2 ON T1.PATIENT = T2.PATIENT WHERE T1.REASONDESCRIPTION = 'Normal pregnancy' AND T1.DATE = T2.DATE",
+    "question_id": null,
+    "question": "How many mothers have taken immunization during prenatal visit?",
+    "difficulty": "",
+    "evidence": "expecting mothers can be attributed to encounters.REASONDESCRIPTION = 'Normal pregnancy';"
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND T1.last = 'Koss' AND strftime('%Y', T2.START) = '2013'",
+    "question_id": null,
+    "question": "What care plans have been received by Mrs. Elly Koss during year 1970?",
+    "difficulty": "",
+    "evidence": "during year 1970 refers to substr(careplans.START, 1, 4) = '1970' and substr(careplans.STOP, 1, 4) = '1970';"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.DESCRIPTION, T4.DESCRIPTION, T5.DESCRIPTION, T1.first, T1.last FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT INNER JOIN careplans AS T3 ON T1.patient = T3.PATIENT INNER JOIN procedures AS T4 ON T1.patient = T4.PATIENT INNER JOIN medications AS T5 ON T1.patient = T5.PATIENT WHERE T2.ID = '6f2e3935-b203-493e-a9c0-f23e847b9798'",
+    "question_id": null,
+    "question": "What is the care plan, procedure, medication and the patient's full name for encounter 6f2e3935-b203-493e-a9c0-f23e847b9798?",
+    "difficulty": "",
+    "evidence": "car plan refers to careplans.DESCRIPTION; procedure refers to procedures.DESCRIPTION; medication refers to medications.DESCRIPTION; full name = first, last; encounter refers to encounters.ID; encounters.ID = '6f2e3935-b203-493e-a9c0-f23e847b9798';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT CASE WHEN T2.gender = 'M' THEN T2.patient END) AS Male , COUNT(DISTINCT CASE WHEN T2.gender = 'F' THEN T2.patient END) AS Female FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Hypertension'",
+    "question_id": null,
+    "question": "How many male patients are diagnosed with hypertension as compared to female patients?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; diagnosed with hypertension refers to conditions.DESCRIPTION = 'Hypertension'; female refers to gender = 'F'; number of male patients with hypertension = count(patient WHERE gender = 'M' AND conditions.DESCRIPTION = 'Hypertension'); number of female patients with hypertension = count(patient WHERE gender = 'F' AND conditions.DESCRIPTION = 'Hypertension');"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Normal pregnancy' AND T2.gender = 'F' AND T2.marital = 'S'",
+    "question_id": null,
+    "question": "How many unmarried women were checked for normal pregnancy?",
+    "difficulty": "",
+    "evidence": "unmarried refers to marital = 'S'; women refers to gender = 'F'; normal pregnancy refers to conditions.DESCRIPTION = 'normal pregnancy';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.DESCRIPTION, T3.DESCRIPTION FROM encounters AS T1 INNER JOIN procedures AS T2 ON T1.PATIENT = T2.PATIENT INNER JOIN medications AS T3 ON T1.PATIENT = T3.PATIENT WHERE T1.REASONDESCRIPTION = 'Drug overdose'",
+    "question_id": null,
+    "question": "List out the procedure and medicine prescribed for drug overdose patients.",
+    "difficulty": "",
+    "evidence": "procedure refers to procedures.DESCRIPTION; medicine prescribed refers to medications.DESCRIPTION; drug overdose refers to encounters.REASONDESCRIPTION = 'Drug overdose';"
+  },
+  {
+    "sql": "SELECT SUM(T1.VALUE) / COUNT(T1.PATIENT) FROM observations AS T1 INNER JOIN ( SELECT DISTINCT PATIENT FROM observations WHERE DESCRIPTION = 'Total Cholesterol' AND VALUE > 200 ) AS T2 ON T1.PATIENT = T2.PATIENT WHERE T1.DESCRIPTION = 'Body Mass Index'",
+    "question_id": null,
+    "question": "What is the average body mass index for patients with higher total cholesterol?",
+    "difficulty": "",
+    "evidence": "average body mass index = DIVIDE(SUM(observations.VALUE), COUNT(PATIENT) WHERE observations.DESCRIPTION = 'Body Mass Index'); body mass index refers to observations.DESCRIPTION = 'Body Mass Index'; higher total cholesterol refers to observations.DESCRIPTION = 'Total Cholesterol' and observations.VALUE > = 200;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN ROUND((strftime('%J', T2.DATE) - strftime('%J', T1.birthdate)) / 365) BETWEEN 20 AND 30 THEN T2.VALUE ELSE 0 END) / COUNT(CASE WHEN ROUND((strftime('%J', T2.DATE) - strftime('%J', T1.birthdate)) / 365) BETWEEN 20 AND 30 THEN T2.PATIENT END) - SUM(CASE WHEN ROUND((strftime('%J', T2.DATE) - strftime('%J', T1.birthdate)) / 365) BETWEEN 50 AND 60 THEN T2.VALUE ELSE 0 END) / COUNT(CASE WHEN ROUND((strftime('%J', T2.DATE) - strftime('%J', T1.birthdate)) / 365) BETWEEN 50 AND 60 THEN T2.PATIENT END) AS difference FROM patients AS T1 INNER JOIN observations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Glucose'",
+    "question_id": null,
+    "question": "What is the difference between average glucose reading for patients in the 20s and 50s?",
+    "difficulty": "",
+    "evidence": "sum(case when t2.DATE-t1.birthdate between 20 and 29 then t2.VALUE else 0 end)/count(case when t2.DATE-t1.birthdate between 20 and 29 then t2.PATIENT else null end)-sum(case when t2.DATE-t1.birthdate between 50 and 59 then t2.VALUE else 0 end)/count(case when t2.DATE-t1.birthdate between 50 and 59 then t2.PATIENT else null end)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T5.DESCRIPTION = T3.DESCRIPTION THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T3.patient) FROM ( SELECT T2.DESCRIPTION, T1.patient FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE ROUND((strftime('%J', T2.START) - strftime('%J', T1.birthdate)) / 365) > 60 GROUP BY T2.DESCRIPTION ORDER BY COUNT(T2.DESCRIPTION) DESC LIMIT 1 ) AS T3 INNER JOIN patients AS T4 ON T3.patient = T4.patient INNER JOIN conditions AS T5 ON T4.patient = T5.PATIENT WHERE ROUND((strftime('%J', T5.START) - strftime('%J', T4.birthdate)) / 365) > 60",
+    "question_id": null,
+    "question": "What is the percentage of the most common conditions for patients age 60 and above?",
+    "difficulty": "",
+    "evidence": "most common condition refers to MAX(COUNT(conditions.DESCRIPTION)); age 60 and above refers to SUBTRACT(conditions.START, birthdate) > 60; percentage = MULTIPLY(DIVIDE(SUM(patients.patient WHERE MAX(COUNT(conditions.DESCRIPTION)) AND SUBTRACT(conditions.START, birthdate) > 60))), COUNT(patients.patient WHERE MAX(COUNT(conditions.DESCRIPTION)), 10);"
+  },
+  {
+    "sql": "SELECT T2.REASONDESCRIPTION FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Walter' AND T1.last = 'Bahringer' AND T2.DATE LIKE '2009-07%'",
+    "question_id": null,
+    "question": "Name the reason Walter Bahringer visited medical professionals in July 2009.",
+    "difficulty": "",
+    "evidence": "reason for visiting medical professionals refers to encounters.REASONDESCRIPTION;\u00a0 in July 2009 refers to\u00a0 substr(encounters.DATE, 1, 7) = '2009-07' ;"
+  },
+  {
+    "sql": "SELECT T2.DATE - T1.birthdate AS age FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Stacy' AND T1.last = 'Morar' AND T2.DESCRIPTION = 'Emergency Room Admission' AND T2.REASONDESCRIPTION = 'Drug overdose' ORDER BY T2.DATE LIMIT 1",
+    "question_id": null,
+    "question": "How old was Mr. Stacy Morar at the time of his first emergency room admission due to a drug overdose?",
+    "difficulty": "",
+    "evidence": "how old = SUBTRACT(MIN(encounters.DATE), patients.birthdate); his first emergency room admission refers to MIN(encounters.DATE); drug overdose refers to encounters.REASONDESCRIPTION = 'Drug overdose' ;"
+  },
+  {
+    "sql": "SELECT DESCRIPTION FROM medications WHERE REASONDESCRIPTION = 'Child attention deficit disorder' GROUP BY DESCRIPTION ORDER BY COUNT(DESCRIPTION) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What drug is administered more often to treat child attention deficit disorder?",
+    "difficulty": "",
+    "evidence": "drug that was administered refers to medications.DESCRIPTION; child attention deficit disorder refers to medications.REASONDESCRIPTION = 'Child attention deficit disorder';"
+  },
+  {
+    "sql": "SELECT T2.first, T2.last FROM procedures AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Transplant of lung (procedure)'",
+    "question_id": null,
+    "question": "Please include the full name of the patient who received a lung transplant.",
+    "difficulty": "",
+    "evidence": "full name = first, last; lung transplant refers to procedures.DESCRIPTION = 'Transplant of lung (procedure)';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(PATIENT) AS REAL) / COUNT(DISTINCT strftime('%Y', DATE)) FROM procedures WHERE DESCRIPTION = 'Combined chemotherapy and radiation therapy (procedure)'",
+    "question_id": null,
+    "question": "How many patients on average receive combined chemotherapy and radiation therapy procedures each year?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE(COUNT(procedures.PATIENT), COUNT(substr(procedures.DATE, 1, 4))); combined chemotherapy and radiation therapy refers to procedures.DESCRIPTION = 'Combined chemotherapy and radiation therapy (procedure)';"
+  },
+  {
+    "sql": "SELECT strftime('%J', T2.STOP) - strftime('%J', T2.START) AS timeFrame , T2.DESCRIPTION FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Jacquelyn' AND T1.last = 'Shanahan' ORDER BY T2.START DESC LIMIT 1",
+    "question_id": null,
+    "question": "Indicate the time frame and details of the most recent care plan suggested to Jacquelyn Shanahan.",
+    "difficulty": "",
+    "evidence": "time frame = SUBTRACT(JULIANDAY(careplans.STOP), JULIANDAY(careplans.START)); details of care plan refers to careplans.DESCRIPTION; most recent care plan refers to MIN(careplans.STAR);"
+  },
+  {
+    "sql": "SELECT T2.START, T2.STOP, T2.DESCRIPTION FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Isadora' AND T1.last = 'Moen'",
+    "question_id": null,
+    "question": "Identify the allergy period for Isadora Moen and what triggered it.",
+    "difficulty": "",
+    "evidence": "allergy period = SUBTRACT(allergies.START, allergies.STOP); what triggered the allergy refers to allergies.DESCRIPTION;"
+  },
+  {
+    "sql": "SELECT T2.DATE - T1.birthdate AS age FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Laronda' AND T1.last = 'Bernier' ORDER BY T2.DATE DESC LIMIT 1",
+    "question_id": null,
+    "question": "How old was Mrs. Laronda Bernier at the time of her most recent medical encounter?",
+    "difficulty": "",
+    "evidence": "how old = SUBTRACT(MIN(encounters.DATE), patients.birthdate); most recent medical encounter refers to MIN(encounters.DATE);"
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Joye' AND T1.last = 'Homenick' AND strftime('%Y', T2.START) = '2017'",
+    "question_id": null,
+    "question": "What condition forced Mrs. Joye Homenick to seek medical attention in 2017?",
+    "difficulty": "",
+    "evidence": "condition refers to conditions.DESCRIPTION; in 2017 refers to substr(conditions.START, 1, 4) = '2017';"
+  },
+  {
+    "sql": "SELECT T2.DATE FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Influenza  seasonal  injectable  preservative free' AND T1.first = 'Joye' AND T1.last = 'Homenick' ORDER BY T2.DATE DESC LIMIT 1",
+    "question_id": null,
+    "question": "When did Mrs. Joye Homenick receive her most recent influenza seasonal vaccine?",
+    "difficulty": "",
+    "evidence": "when a patient received her most recent vaccine refers to MAX(immunications.DATE); influenza seasonal vaccine refers to immunizations.DESCRIPTION = 'Influenza seasonal injectable preservative free';"
+  },
+  {
+    "sql": "SELECT strftime('%J', T2.STOP) - strftime('%J', T2.START) AS days FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Elly' AND last = 'Koss' AND T2.DESCRIPTION = 'Acetaminophen 160 MG'",
+    "question_id": null,
+    "question": "How long did Elly Koss have to take Acetaminophen 160 MG?",
+    "difficulty": "",
+    "evidence": "how long = SUBTRACT(julianday(medications.stop), julianday(medications.START)); Acetaminophen 160 MG refers to medications.DESCRIPTION = 'Acetaminophen 160 MG';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.PATIENT), T2.DESCRIPTION FROM encounters AS T1 INNER JOIN careplans AS T2 ON T1.PATIENT = T2.PATIENT WHERE T2.REASONDESCRIPTION = 'Second degree burn'",
+    "question_id": null,
+    "question": "How many patients sought medical attention due to a second-degree burn? Describe the care plan recommended to them.",
+    "difficulty": "",
+    "evidence": "second-degree burn refers to encounters.REASONDESCRIPTION = 'Second degree burn'; ;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.gender = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.PATIENT) FROM encounters AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE strftime('%Y', T1.DATE) = '2010' AND T1.REASONDESCRIPTION = 'Contact dermatitis'",
+    "question_id": null,
+    "question": "Among all patients who sought medical attention in 2010 due to contact dermatitis, identify the percentage of females.",
+    "difficulty": "",
+    "evidence": "in 2010 refers to substr(encounters.DATE, 1, 4) = '2010'; contact dermatitis refers to encounters.REASONDESCRIPTION = 'Contact dermatitis'; percentage = MULTIPLY(DIVIDE(COUNT(encounters.PATIENT WHERE gender = 'F'), count(encounters.PATIENT) WHERE encounters.REASONDESCRIPTION = 'Contact dermatitis'), 1.0) females refers to gender = 'F';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.patient) , CAST(SUM(CASE WHEN T2.DESCRIPTION = 'Prenatal visit' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.patient) FROM patients AS T1 INNER JOIN encounters AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Lorri' AND T1.last = 'Simonis' AND strftime('%Y', T2.DATE) BETWEEN '2010' AND '2017'",
+    "question_id": null,
+    "question": "How many interactions did Lorri Simons have with medical professionals between 2010 and 2017? What percentage of encounters are attributed to prenatal visits?",
+    "difficulty": "",
+    "evidence": "between 2010 and 2017 refers to substr(encounters.DATE, 1, 4) between '2010' and '2017'; percentage = MULTIPLY(DIVIDE(COUNT(encounters.ID WHERE DESCRIPTION = 'Prenatal visit'), count(encounters.ID)), 1.0); prenatal visits refers to encounters.DESCRIPTION = 'Prenatal visit';"
+  },
+  {
+    "sql": "SELECT T1.DESCRIPTION FROM medications AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.first = 'Joye' AND T2.last = 'Homenick'",
+    "question_id": null,
+    "question": "State description of medication taken by Joe Homenick.",
+    "difficulty": "",
+    "evidence": "description of medication refers to medications.DESCRIPTION;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.START FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.maiden = 'Adams'",
+    "question_id": null,
+    "question": "What is the start date of the care plan of the patient whose maiden name is Adams?",
+    "difficulty": "",
+    "evidence": "start date of the care plan refers to careplans.START;"
+  },
+  {
+    "sql": "SELECT T2.first, T2.last FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.gender = 'M' ORDER BY T1.START LIMIT 1",
+    "question_id": null,
+    "question": "Among the male patients, who has the earliest starting date of the care plan?",
+    "difficulty": "",
+    "evidence": "male patients refers to gender = 'M'; earliest starting date of the care plan refers to MIN(careplans.START);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.race = 'hispanic' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.PATIENT) FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE strftime('%Y', T1.stop) = '2011'",
+    "question_id": null,
+    "question": "What is the percentage of Hispanic patients who stopped their care plan in 2011?",
+    "difficulty": "",
+    "evidence": "Hispanic patients refers to ethnicity = 'hispanic'; percentage = MULTIPLY(DIVIDE(COUNT(careplans.PATIENT WHERE ethnicity = 'hispanic'), COUNT(careplans.PATIENT)), 1.0); stopped their care plan in 2011 refers to substr(careplans.stop, 1, 4) = '2011';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.REASONDESCRIPTION FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.first = 'Angelo' AND T2.last = 'Buckridge'",
+    "question_id": null,
+    "question": "State the description of the reason why Angelo Buckridge needs the care plan.",
+    "difficulty": "",
+    "evidence": "description of the reason of the care plan refers to careplans.REASONDESCRIPTION;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.DESCRIPTION FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.ethnicity = 'american'",
+    "question_id": null,
+    "question": "Mention the description of the care plan of American patients.",
+    "difficulty": "",
+    "evidence": "American refers to ethnicity = 'american';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.ENCOUNTER FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.birthplace = 'Pembroke MA US'",
+    "question_id": null,
+    "question": "What are the medical encounter ids of patients who were born in Pembroke MA US?",
+    "difficulty": "",
+    "evidence": "medical encounter ids careplans.ID; born in Pembroke MA US refers to birthplace = 'Pembroke MA US';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.START FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.deathdate IS NULL",
+    "question_id": null,
+    "question": "List out the start date of the care plan of alive patients.",
+    "difficulty": "",
+    "evidence": "start of the care plan refers to careplans.START; alive patients refers to deathdate is null;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.PATIENT) FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.race = 'white' AND T1.REASONCODE = '10509002'",
+    "question_id": null,
+    "question": "How many white patients have the reason code of 10509002?",
+    "difficulty": "",
+    "evidence": "white refers to race = 'white'; reason code of 10509002 refers to careplans.REASONCODE = '10509002';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.first, T2.last FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Diabetic diet'",
+    "question_id": null,
+    "question": "List out full name of patients who have \"Diabetic diet\" in the description of the care plan.",
+    "difficulty": "",
+    "evidence": "full name = first, last; Diabetic diet refers to careplans.DESCRIPTION = 'Diabetic diet';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.STOP FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.deathdate IS NOT NULL AND T1.STOP IS NOT NULL",
+    "question_id": null,
+    "question": "List out the stop date of the care plan of dead patients.",
+    "difficulty": "",
+    "evidence": "stop date of the care plan refers to careplans.STOP; dead patients refers to deathdate is not null;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.ethnicity = 'italian' AND T1.CODE = '304510005'",
+    "question_id": null,
+    "question": "How many Italian patients have the care plan code of 304510005?",
+    "difficulty": "",
+    "evidence": "Italian patients refers to ethnicity = 'italian';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.gender = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.PATIENT) AS percentage FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE strftime('%Y', T1.START) = '2010'",
+    "question_id": null,
+    "question": "What is the percentage of female patients who started the care plan in 2010?",
+    "difficulty": "",
+    "evidence": "female patients refers to gender = 'F'; started the care plan in 2010 refers to substr(careplans.START, 1, 4) = '2010'; percentage = MULTIPLY(DIVIDE(COUNT(patients.patient WHERE patients.gender = 'F'), COUNT(patients.patient) WHERE substr(careplans.START, 1, 4) = '2010'), 100);"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.race = 'black' AND strftime('%Y', T1.STOP) = '2017'",
+    "question_id": null,
+    "question": "How many black patients stopped their care plan in 2017?",
+    "difficulty": "",
+    "evidence": "black refers to race = 'black'; stopped their care plan in 2017 refers to substr(careplans.STOP, 1, 4) = '2017';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN conditions AS T2 WHERE T2.DESCRIPTION = 'Prediabetes' AND T1.gender = 'M'",
+    "question_id": null,
+    "question": "How many male patients have prediabetes condition?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; prediabetes condition refers to conditions.DESCRIPTION = 'Prediabetes';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last FROM patients AS T1 INNER JOIN allergies AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Allergy to nut'",
+    "question_id": null,
+    "question": "List the full names of patients with nut allergy.",
+    "difficulty": "",
+    "evidence": "full names = first, last; nut allergy refers to allergies.DESCRIPTION = 'Allergy to nut';"
+  },
+  {
+    "sql": "SELECT T2.DESCRIPTION FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Wilmer' AND T1.last = 'Koepp'",
+    "question_id": null,
+    "question": "Describe the condition of patient Wilmer Koepp.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.gender = 'F' THEN 1 ELSE 0 END), SUM(CASE WHEN T1.gender = 'M' THEN 1 ELSE 0 END) FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Viral sinusitis (disorder)'",
+    "question_id": null,
+    "question": "Among the patients with viral sinusitis condition, which patient's gender is most affected? Provide the number for each respectively.",
+    "difficulty": "",
+    "evidence": "viral sinusitis condition refers to conditions.DESCRIPTION = 'Viral sinusitis (disorder)'; gender that is most affected refers to MAX(COUNT(gender WHERE conditions.DESCRIPTION = 'Viral sinusitis (disorder)'));"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Penicillin V Potassium 250 MG' AND strftime('%Y', T2.START) >= '1948'",
+    "question_id": null,
+    "question": "Provide the full names of patients who have been taking Penicillin V Potassium 250 MG since 1948.",
+    "difficulty": "",
+    "evidence": "full names = first, last; Penicillin V Potassium 250 MG refers to medications.DESCRIPTION = 'Penicillin V Potassium 250 MG'; since 1948 refers to substr(medications.START, 1, 4) > = '1948';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.patient WHERE strftime('%Y', T1.birthdate) = '1935' AND T1.race = 'white' AND T2.DESCRIPTION = 'Stroke'",
+    "question_id": null,
+    "question": "How many white patients whose birth year is 1935 have a stroke?",
+    "difficulty": "",
+    "evidence": "white refers to race = 'white'; birth year is 1935 refers to substr(birthdate, 1, 4) = '1935'; stroke refers to conditions.DESCRIPTION = 'Stroke';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.DESCRIPTION FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT INNER JOIN immunizations AS T3 ON T1.patient = T3.PATIENT WHERE T3.DESCRIPTION = 'IPV'",
+    "question_id": null,
+    "question": "Which conditions the patient has when receiving the IPV immunization?",
+    "difficulty": "",
+    "evidence": "IPV immunization refers to immunizations.DESCRIPTION = 'IPV';"
+  },
+  {
+    "sql": "SELECT T1.patient FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT INNER JOIN all_prevalences AS T3 ON T3.ITEM = T2.DESCRIPTION ORDER BY T3.OCCURRENCES DESC LIMIT 1",
+    "question_id": null,
+    "question": "List the patient ids whose disease has the most occurrences.",
+    "difficulty": "",
+    "evidence": "patient ids refers to patients.patient; disease with the most occurrence refers to MAX(all_prevalences.OCCURENCES);"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first, T1.last FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.patient WHERE T2.DESCRIPTION = 'Cystitis'",
+    "question_id": null,
+    "question": "List all the full names of patients with a condition described as cystitis.",
+    "difficulty": "",
+    "evidence": "full names = first, last; condition described as cystitis refers to conditions.DESCRIPTION = ''Cystitis';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.patient) FROM patients AS T1 INNER JOIN immunizations AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'HPV  quadrivalent' AND T1.gender = 'M'",
+    "question_id": null,
+    "question": "How many male patients have been described as immune to quadrivalent HPV?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; immune to quadrivalent HPV refers to immunizations.DESCRIPTION = 'HPV quadrivalent';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.start FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Walter' AND T1.last = 'Bahringer'",
+    "question_id": null,
+    "question": "Indicate the start date of patient Walter Bahringer's care plan.",
+    "difficulty": "",
+    "evidence": "start date of the care plan refers to careplans.START;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.DESCRIPTION FROM patients AS T1 INNER JOIN careplans AS T2 ON T1.patient = T2.PATIENT WHERE T1.first = 'Major' AND T1.last = 'D''Amore'",
+    "question_id": null,
+    "question": "Describe the care plans of patient Major D'Amore's plan of care.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.gender = 'M' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.patient) FROM patients AS T1 INNER JOIN conditions AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Viral sinusitis (disorder)'",
+    "question_id": null,
+    "question": "Calculate the percentage of male patients with viral sinusitis condition.",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(COUNT(patients.patient WHERE gender = 'M'), COUNT(patients.patient) WHERE conditions.DESCRIPTION = 'Viral sinusitis (disorder))), 100); male patients refers to gender = 'M'; viral sinusitis condition refers to conditions.DESCRIPTION = 'Viral sinusitis (disorder)';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.gender = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.patient) FROM patients AS T1 INNER JOIN medications AS T2 ON T1.patient = T2.PATIENT WHERE T2.DESCRIPTION = 'Penicillin V Potassium 250 MG'",
+    "question_id": null,
+    "question": "Among the patients who have been using Penicillin V Potassium 250 MG, what percentage of patients are female?",
+    "difficulty": "",
+    "evidence": "Penicillin V Potassium 250 MG refers to medications.DESCRIPTION = 'Penicillin V Potassium 250 MG'; percentage = MULTIPLY(DIVIDE(patients.patient WHERE gender = 'F'), COUNT(patients.patient) WHERE medications.DESCRIPTION = 'Penicillin V Potassium 250 MG'), 100) female refers to gender = 'F';"
+  },
+  {
+    "sql": "SELECT AVG(T1.VALUE) FROM observations AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.race = 'white' AND T1.DESCRIPTION = 'Body Height'",
+    "question_id": null,
+    "question": "Among the white patients, what is the average body height of the patients?",
+    "difficulty": "",
+    "evidence": "white refers to race = 'white'; average body height = AVG(observations.VALUE WHERE observations.DESCRIPTION = 'Body Height'); body height refers to observations.DESCRIPTION = 'Body Height';"
+  },
+  {
+    "sql": "SELECT T1.DESCRIPTION FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.address = '179 Sydni Roads Taunton MA 02780 US'",
+    "question_id": null,
+    "question": "Indicate the care plan needed for the patient living at 179 Sydni Roads, Taunton, MA 02780 US.",
+    "difficulty": "",
+    "evidence": "living at 179 Sydni Roads, Taunton, MA 02780 US refers to address = '179 Sydni Roads Taunton MA 02780 US';"
+  },
+  {
+    "sql": "SELECT T1.DESCRIPTION FROM allergies AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.first = 'Dirk' AND T2.last = 'Langosh' AND T2.ethnicity = 'dominican'",
+    "question_id": null,
+    "question": "Provide the allergen of the Dominican patient named Dirk Languish.",
+    "difficulty": "",
+    "evidence": "allergen refers to allergies.DESCRIPTION;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.patient) FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient INNER JOIN allergies AS T3 ON T2.patient = T3.PATIENT WHERE T1.DESCRIPTION = 'Asthma' AND T3.DESCRIPTION = 'Allergy to peanuts'",
+    "question_id": null,
+    "question": "How many patients who are allergic to peanuts have asthma?",
+    "difficulty": "",
+    "evidence": "allergic to peanuts refers to allergies.DESCRIPTION = 'Allergy to peanuts'; asthma refers to conditions.DESCRIPTION = 'Asthma';"
+  },
+  {
+    "sql": "SELECT T2.first, T2.last FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Drug overdose' AND ROUND((strftime('%J', T2.deathdate) - strftime('%J', T2.birthdate)) / 365) = 44",
+    "question_id": null,
+    "question": "Who is the 44-year-old patient diagnosed with drug overdose?",
+    "difficulty": "",
+    "evidence": "44-year-old = DIVIDE(SUBTRACT(julianday(conditions.START), julianday(patients.birthdate)), 365, 0) = 44;"
+  },
+  {
+    "sql": "SELECT T2.ssn FROM observations AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Systolic Blood Pressure' ORDER BY T1.VALUE DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the social security number of the patient with the highest systolic blood pressure.",
+    "difficulty": "",
+    "evidence": "social security number refers to ssn; highest systolic blood pressure refers to MAX(observations.VALUE WHERE observations.DESCRIPTION = 'Systolic Blood Pressure');"
+  },
+  {
+    "sql": "SELECT T4.DESCRIPTION FROM all_prevalences AS T1 INNER JOIN conditions AS T2 ON T2.DESCRIPTION = T1.ITEM INNER JOIN encounters AS T3 ON T2.ENCOUNTER = T3.ID INNER JOIN careplans AS T4 ON T4.ENCOUNTER = T3.ID ORDER BY T1.\"PREVALENCE PERCENTAGE\" DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the care plan description of the prevalent disease with the highest prevalence percentage?",
+    "difficulty": "",
+    "evidence": "highest prevalence percentage refers to MAX(PREVALENCE PERCENTAGE);"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.DESCRIPTION FROM careplans AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T2.ssn = '999-15-3685'",
+    "question_id": null,
+    "question": "What is the care plan for the patient with social security number 999-15-3685?",
+    "difficulty": "",
+    "evidence": "social security number refers to ssn; ssn = '999-15-3685';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.deathdate IS NULL THEN ROUND((strftime('%J', date('now')) - strftime('%J', T2.birthdate)) / 365) ELSE ROUND((strftime('%J', T2.deathdate) - strftime('%J', T2.birthdate)) / 365) END) / COUNT(T2.patient) FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Hypertension' AND T2.gender = 'M'",
+    "question_id": null,
+    "question": "Calculate the average age of the male patients that have hypertension.",
+    "difficulty": "",
+    "evidence": "average age = AVG(DIVIDE(SUBTRACT(deathdate is null WHERE (julianday(substr(datetime('now'), 1, 10)))), julianday(patients.birthdate)), 365); male refers to gender = 'M'; hypertension refers to conditions.DESCRIPTION = 'Hypertension'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.first, T2.last FROM medications AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.REASONDESCRIPTION = 'Streptococcal sore throat (disorder)' LIMIT 5",
+    "question_id": null,
+    "question": "List 5 patients' name that need medication due to streptococcal sore throat disorder.",
+    "difficulty": "",
+    "evidence": "patients name = first, last; streptococcal sore throat disorder refers to medications.REASONDESCRIPTION = 'Streptococcal sore throat (disorder)';"
+  },
+  {
+    "sql": "SELECT T2.first, T2.last FROM observations AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Body Weight' AND T1.UNITS = 'kg' AND T1.VALUE = 61.97",
+    "question_id": null,
+    "question": "Who is the patient with a body weight of 61.97 kg?",
+    "difficulty": "",
+    "evidence": "body weight of 61.97 kg refers to observations.DESCRIPTION = 'Body Weight' AND observations.VALUE = 61.97; observations.UNITS = 'kg'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.birthdate FROM medications AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Penicillin V Potassium 250 MG' AND T2.gender = 'M' LIMIT 5",
+    "question_id": null,
+    "question": "Among the male patients, list down 5 birth dates of patients taking the medication \"Penicillin V Potassium 250 MG\".",
+    "difficulty": "",
+    "evidence": "male patients refers to gender = 'M'; Penicillin V Potassium 250 MG refers to medications.DESCRIPTION = 'Penicillin V Potassium 250 MG';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.first, T2.last FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient INNER JOIN all_prevalences AS T3 ON T1.DESCRIPTION = T3.ITEM WHERE T2.ethnicity = 'irish' AND 100 * CAST(T3.OCCURRENCES AS REAL) / ( SELECT AVG(OCCURRENCES) FROM all_prevalences ) > 96",
+    "question_id": null,
+    "question": "List down the full name of Irish patients diagnosed with the prevalent diseases that have an occurrence greater than the 96% of the average occurrences of all conditions.",
+    "difficulty": "",
+    "evidence": "full name = first, last; Irish refers to ethnicity = 'irish'; prevalent diseases that have an occurrence greater than the 96% of the average occurrences of all conditions = OCCURRENCES > (AVG(MULTIPLY(all_prevalences.OCCURRENCES, 0.96)));"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.marital = 'M' THEN 1 ELSE 0 END) - SUM(CASE WHEN T2.marital = 'S' THEN 1 ELSE 0 END) FROM conditions AS T1 INNER JOIN patients AS T2 ON T1.PATIENT = T2.patient WHERE T1.DESCRIPTION = 'Diabetes'",
+    "question_id": null,
+    "question": "What is the difference between the number of married patients and the number of single patients with diabetes?",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT(patients.patient WHERE marital = 'M'), COUNT(patients.patient WHERE marital = 'S') WHERE conditions.DESCRIPTION = 'Diabetes'); married patients refers to marital = 'M'; single patients refers to marital = 'S'; diabetes refers to conditions.DESCRIPTION = 'Diabetes';"
+  }
+]

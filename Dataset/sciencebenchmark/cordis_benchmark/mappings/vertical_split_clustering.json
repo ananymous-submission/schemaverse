@@ -1,0 +1,829 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 19,
+    "eligible_candidate_count": 9,
+    "num_selected_for_vertical_split": 9,
+    "num_from_rate_alone": 15,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 3,
+    "selected_original_tables": [
+      "project_members",
+      "projects",
+      "institutions",
+      "countries",
+      "programmes",
+      "eu_territorial_units",
+      "erc_panels",
+      "subject_areas",
+      "topics"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/SchemaVerse/extra_hard/sciencebenchmark/_staging/cordis/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "countries",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "programmes",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "eu_territorial_units",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "erc_panels",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "subject_areas",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "topics",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "institutions": {
+      "pk_columns": [
+        "unics_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "acronym",
+          "non_pk_columns": [
+            "acronym",
+            "document_vectors",
+            "geocode_regions_3",
+            "grid_id",
+            "institutions_name",
+            "short_name"
+          ],
+          "local_table": "InstitutionAcronymRegistry",
+          "local_name": "local_1",
+          "vertical_fragment_base": "institutions_acronym"
+        },
+        {
+          "suffix": "acronym_2",
+          "non_pk_columns": [
+            "acronym",
+            "country_id",
+            "document_vectors",
+            "geocode_regions_3",
+            "grid_id"
+          ],
+          "local_table": "InstitutionAcronymExtended",
+          "local_name": "local_1",
+          "vertical_fragment_base": "institutions_acronym_2"
+        },
+        {
+          "suffix": "db_pedia_url",
+          "non_pk_columns": [
+            "db_pedia_url",
+            "website",
+            "wikidata_url"
+          ],
+          "local_table": "InstitutionExternalLinks",
+          "local_name": "local_1",
+          "vertical_fragment_base": "institutions_db_pedia_url"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "institutions",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.03830922273733863,
+          "3": 0.04883794673382325
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.04883794673382325,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "acronym",
+            "document_vectors",
+            "institutions_name",
+            "short_name"
+          ],
+          [
+            "country_id",
+            "geocode_regions_3",
+            "grid_id"
+          ],
+          [
+            "db_pedia_url",
+            "website",
+            "wikidata_url"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "acronym",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "document_vectors",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "geocode_regions_3",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "grid_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "acronym",
+            "document_vectors",
+            "geocode_regions_3",
+            "grid_id",
+            "institutions_name",
+            "short_name"
+          ],
+          [
+            "acronym",
+            "country_id",
+            "document_vectors",
+            "geocode_regions_3",
+            "grid_id"
+          ],
+          [
+            "db_pedia_url",
+            "website",
+            "wikidata_url"
+          ]
+        ],
+        "pk_columns": [
+          "unics_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "acronym",
+            "non_pk_columns": [
+              "acronym",
+              "document_vectors",
+              "geocode_regions_3",
+              "grid_id",
+              "institutions_name",
+              "short_name"
+            ]
+          },
+          {
+            "suffix": "acronym_2",
+            "non_pk_columns": [
+              "acronym",
+              "country_id",
+              "document_vectors",
+              "geocode_regions_3",
+              "grid_id"
+            ]
+          },
+          {
+            "suffix": "db_pedia_url",
+            "non_pk_columns": [
+              "db_pedia_url",
+              "website",
+              "wikidata_url"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "acronym",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "acronym",
+          "also_in_fragment_suffix": "acronym_2"
+        },
+        {
+          "column": "document_vectors",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "acronym",
+          "also_in_fragment_suffix": "acronym_2"
+        },
+        {
+          "column": "geocode_regions_3",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "acronym_2",
+          "also_in_fragment_suffix": "acronym"
+        },
+        {
+          "column": "grid_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "acronym_2",
+          "also_in_fragment_suffix": "acronym"
+        }
+      ]
+    },
+    "project_members": {
+      "pk_columns": [
+        "unics_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "activity_type",
+          "non_pk_columns": [
+            "activity_type",
+            "city",
+            "country",
+            "geocode_regions_3",
+            "latitude",
+            "longitude",
+            "postal_code",
+            "region_code",
+            "region_name",
+            "street"
+          ],
+          "local_table": "memberActivityMajorEuropeanCities",
+          "local_name": "local_4",
+          "vertical_fragment_base": "project_members_activity_type",
+          "row_partition_names": [
+            "memberActivityMajorEuropeanCities",
+            "memberActivityOtherCities"
+          ],
+          "row_partition_predicate_column": "city"
+        },
+        {
+          "suffix": "activity_type_2",
+          "non_pk_columns": [
+            "activity_type",
+            "city",
+            "country",
+            "department_name",
+            "ec_contribution",
+            "latitude",
+            "longitude",
+            "member_name",
+            "member_short_name",
+            "region_name",
+            "street"
+          ],
+          "local_table": "ProjectMemberActivityProfile",
+          "local_name": "local_1",
+          "vertical_fragment_base": "project_members_activity_type_2"
+        },
+        {
+          "suffix": "ec_contribution",
+          "non_pk_columns": [
+            "ec_contribution",
+            "member_role",
+            "project",
+            "rcn"
+          ],
+          "local_table": "memberEcContributionRecords",
+          "local_name": "local_4",
+          "vertical_fragment_base": "project_members_ec_contribution"
+        },
+        {
+          "suffix": "institution_id",
+          "non_pk_columns": [
+            "institution_id",
+            "pic_number",
+            "vat_number"
+          ],
+          "local_table": "memberInstitutionIdentifiers",
+          "local_name": "local_4",
+          "vertical_fragment_base": "project_members_institution_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "project_members",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 20,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.026878015996911468,
+          "3": 0.028616965774591968,
+          "4": 0.028382136016614358,
+          "5": 0.0358317817224982
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.0358317817224982,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "activity_type",
+            "country",
+            "geocode_regions_3",
+            "postal_code",
+            "region_code"
+          ],
+          [
+            "city",
+            "department_name",
+            "latitude",
+            "longitude",
+            "member_name",
+            "member_short_name",
+            "region_name",
+            "street"
+          ],
+          [
+            "ec_contribution",
+            "member_role",
+            "project",
+            "rcn"
+          ],
+          [
+            "institution_id",
+            "pic_number",
+            "vat_number"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "street",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "activity_type",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "country",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "ec_contribution",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "region_name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "longitude",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "latitude",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "activity_type",
+            "city",
+            "country",
+            "geocode_regions_3",
+            "latitude",
+            "longitude",
+            "postal_code",
+            "region_code",
+            "region_name",
+            "street"
+          ],
+          [
+            "activity_type",
+            "city",
+            "country",
+            "department_name",
+            "ec_contribution",
+            "latitude",
+            "longitude",
+            "member_name",
+            "member_short_name",
+            "region_name",
+            "street"
+          ],
+          [
+            "ec_contribution",
+            "member_role",
+            "project",
+            "rcn"
+          ],
+          [
+            "institution_id",
+            "pic_number",
+            "vat_number"
+          ]
+        ],
+        "pk_columns": [
+          "unics_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "activity_type",
+            "non_pk_columns": [
+              "activity_type",
+              "city",
+              "country",
+              "geocode_regions_3",
+              "latitude",
+              "longitude",
+              "postal_code",
+              "region_code",
+              "region_name",
+              "street"
+            ]
+          },
+          {
+            "suffix": "activity_type_2",
+            "non_pk_columns": [
+              "activity_type",
+              "city",
+              "country",
+              "department_name",
+              "ec_contribution",
+              "latitude",
+              "longitude",
+              "member_name",
+              "member_short_name",
+              "region_name",
+              "street"
+            ]
+          },
+          {
+            "suffix": "ec_contribution",
+            "non_pk_columns": [
+              "ec_contribution",
+              "member_role",
+              "project",
+              "rcn"
+            ]
+          },
+          {
+            "suffix": "institution_id",
+            "non_pk_columns": [
+              "institution_id",
+              "pic_number",
+              "vat_number"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "street",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "activity_type_2",
+          "also_in_fragment_suffix": "activity_type"
+        },
+        {
+          "column": "activity_type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "activity_type",
+          "also_in_fragment_suffix": "activity_type_2"
+        },
+        {
+          "column": "country",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "activity_type",
+          "also_in_fragment_suffix": "activity_type_2"
+        },
+        {
+          "column": "city",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "activity_type_2",
+          "also_in_fragment_suffix": "activity_type"
+        },
+        {
+          "column": "ec_contribution",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "ec_contribution",
+          "also_in_fragment_suffix": "activity_type_2"
+        },
+        {
+          "column": "region_name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "activity_type_2",
+          "also_in_fragment_suffix": "activity_type"
+        },
+        {
+          "column": "longitude",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "activity_type_2",
+          "also_in_fragment_suffix": "activity_type"
+        },
+        {
+          "column": "latitude",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "activity_type_2",
+          "also_in_fragment_suffix": "activity_type"
+        }
+      ]
+    },
+    "projects": {
+      "pk_columns": [
+        "unics_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "acronym",
+          "non_pk_columns": [
+            "acronym",
+            "cordis_ref",
+            "ec_call",
+            "ec_ref",
+            "framework_program",
+            "homepage",
+            "objective",
+            "principal_investigator",
+            "title",
+            "total_cost"
+          ],
+          "local_table": "ProjectAcronymRegistry",
+          "local_name": "local_1",
+          "vertical_fragment_base": "projects_acronym"
+        },
+        {
+          "suffix": "cordis_ref",
+          "non_pk_columns": [
+            "cordis_ref",
+            "ec_call",
+            "ec_fund_scheme",
+            "ec_max_contribution",
+            "ec_ref",
+            "framework_program",
+            "objective",
+            "principal_investigator",
+            "total_cost"
+          ],
+          "local_table": "proj_cordis_meta",
+          "local_name": "local_5",
+          "vertical_fragment_base": "projects_cordis_ref"
+        },
+        {
+          "suffix": "end_date",
+          "non_pk_columns": [
+            "end_date",
+            "end_year",
+            "start_date",
+            "start_year"
+          ],
+          "local_table": "projects_end_date_q1",
+          "local_name": "local_1",
+          "vertical_fragment_base": "projects_end_date",
+          "row_partition_names": [
+            "projects_end_date_q1",
+            "projects_end_date_q2",
+            "projects_end_date_q3",
+            "ProjectEndDatesHighQuartile"
+          ],
+          "row_partition_predicate_column": "end_date"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "projects",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 16,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.040895318577600176,
+          "3": 0.060575984107860956,
+          "4": 0.03163380903607457,
+          "5": 0.023323369850133904
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.060575984107860956,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "acronym",
+            "cordis_ref",
+            "homepage",
+            "objective",
+            "principal_investigator",
+            "title",
+            "total_cost"
+          ],
+          [
+            "ec_call",
+            "ec_fund_scheme",
+            "ec_max_contribution",
+            "ec_ref",
+            "framework_program"
+          ],
+          [
+            "end_date",
+            "end_year",
+            "start_date",
+            "start_year"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "cordis_ref",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "principal_investigator",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "total_cost",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "objective",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "framework_program",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "ec_call",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "ec_ref",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "acronym",
+            "cordis_ref",
+            "ec_call",
+            "ec_ref",
+            "framework_program",
+            "homepage",
+            "objective",
+            "principal_investigator",
+            "title",
+            "total_cost"
+          ],
+          [
+            "cordis_ref",
+            "ec_call",
+            "ec_fund_scheme",
+            "ec_max_contribution",
+            "ec_ref",
+            "framework_program",
+            "objective",
+            "principal_investigator",
+            "total_cost"
+          ],
+          [
+            "end_date",
+            "end_year",
+            "start_date",
+            "start_year"
+          ]
+        ],
+        "pk_columns": [
+          "unics_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "acronym",
+            "non_pk_columns": [
+              "acronym",
+              "cordis_ref",
+              "ec_call",
+              "ec_ref",
+              "framework_program",
+              "homepage",
+              "objective",
+              "principal_investigator",
+              "title",
+              "total_cost"
+            ]
+          },
+          {
+            "suffix": "cordis_ref",
+            "non_pk_columns": [
+              "cordis_ref",
+              "ec_call",
+              "ec_fund_scheme",
+              "ec_max_contribution",
+              "ec_ref",
+              "framework_program",
+              "objective",
+              "principal_investigator",
+              "total_cost"
+            ]
+          },
+          {
+            "suffix": "end_date",
+            "non_pk_columns": [
+              "end_date",
+              "end_year",
+              "start_date",
+              "start_year"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "cordis_ref",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "acronym",
+          "also_in_fragment_suffix": "cordis_ref"
+        },
+        {
+          "column": "principal_investigator",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "acronym",
+          "also_in_fragment_suffix": "cordis_ref"
+        },
+        {
+          "column": "total_cost",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "acronym",
+          "also_in_fragment_suffix": "cordis_ref"
+        },
+        {
+          "column": "objective",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "acronym",
+          "also_in_fragment_suffix": "cordis_ref"
+        },
+        {
+          "column": "framework_program",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cordis_ref",
+          "also_in_fragment_suffix": "acronym"
+        },
+        {
+          "column": "ec_call",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cordis_ref",
+          "also_in_fragment_suffix": "acronym"
+        },
+        {
+          "column": "ec_ref",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cordis_ref",
+          "also_in_fragment_suffix": "acronym"
+        }
+      ]
+    }
+  }
+}

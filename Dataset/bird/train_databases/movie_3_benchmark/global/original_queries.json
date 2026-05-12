@@ -1,0 +1,2277 @@
+[
+  {
+    "sql": "SELECT description FROM film WHERE title = 'ACADEMY DINOSAUR'",
+    "question_id": null,
+    "question": "What is the description of the film ACADEMY DINOSAUR?",
+    "difficulty": "",
+    "evidence": "\"ACADEMY DINOSAUR\" is the title of film"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE rental_duration > 6",
+    "question_id": null,
+    "question": "How many films have a rental duration of over 6 days?",
+    "difficulty": "",
+    "evidence": "rental duration of over 6 days refers to rental_duration > 6"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE release_year = 2006 AND rental_rate = 2.99",
+    "question_id": null,
+    "question": "Please list the titles of the films that are released in 2006 and have a rental rate of $2.99.",
+    "difficulty": "",
+    "evidence": "released in 2006 refers to release_year = 2006; rental rate of $2.99 refers to rental_rate = 2.99"
+  },
+  {
+    "sql": "SELECT title FROM film ORDER BY length DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which film has the longest duration of film screening? Please give its title.",
+    "difficulty": "",
+    "evidence": "longest duration of film refers to Max(length)"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE title IN ('ACE GOLDFINGER', 'ACADEMY DINOSAUR') ORDER BY replacement_cost DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which film has a higher replacement cost, ACE GOLDFINGER or ACADEMY DINOSAUR?",
+    "difficulty": "",
+    "evidence": "higher replacement cost refers to Max(replacement_cost); 'ACE GOLDFIINGER' and 'ACADEMY DINOSAUR' are both the title of film"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE rating = 'NC-17' AND release_year = 2006",
+    "question_id": null,
+    "question": "Among the films that are released in 2006, how many of them are rated Adults Only in the Motion Picture Association Film Rating?",
+    "difficulty": "",
+    "evidence": "released in 2006 refers to release_year = 2006; rated Adults Only refers to rating = 'NC-17'"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE rental_rate = 2.99 AND special_features = 'Deleted Scenes'",
+    "question_id": null,
+    "question": "How many films with the rental rate of $2.99 have the special feature of \"Deleted Scenes\"?",
+    "difficulty": "",
+    "evidence": "rental rate of $2.99 refers to rental_rate = 2.99; film refers to title"
+  },
+  {
+    "sql": "SELECT title FROM ( SELECT title, COUNT(special_features) AS num FROM film GROUP BY title ) AS T ORDER BY T.num > 2",
+    "question_id": null,
+    "question": "Please list the titles of all the films that have more than 2 special features.",
+    "difficulty": "",
+    "evidence": "more than 2 special features refers to Count(special_features) > 2"
+  },
+  {
+    "sql": "SELECT email FROM staff WHERE first_name = 'Jon' AND last_name = 'Stephens'",
+    "question_id": null,
+    "question": "What is the email address of the staff Jon Stephens?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM staff WHERE active = 1",
+    "question_id": null,
+    "question": "Please give the full names of all the active staff.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; active staff refers to active = 1"
+  },
+  {
+    "sql": "SELECT DISTINCT release_year FROM film WHERE replacement_cost = ( SELECT MAX(replacement_cost) FROM film )",
+    "question_id": null,
+    "question": "In which year was the film with the highest replacement cost released?",
+    "difficulty": "",
+    "evidence": "highest replacement_cost refers to Max (replacement_cost); year refers to release_year"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE replacement_cost = ( SELECT MAX(replacement_cost) FROM film ) LIMIT 3",
+    "question_id": null,
+    "question": "Please list the titles of the top 3 films with the highest replacement cost.",
+    "difficulty": "",
+    "evidence": "highest replacement_cost refers to Max (replacement_cost); film refers to title"
+  },
+  {
+    "sql": "SELECT T2.name FROM film AS T1 INNER JOIN language AS T2 ON T1.language_id = T2.language_id WHERE T1.title = 'ACADEMY DINOSAUR'",
+    "question_id": null,
+    "question": "What is the language of the film ACADEMY DINOSAUR?",
+    "difficulty": "",
+    "evidence": "\"ACADEMY DINOSAUR\" is the title of film; language refers to language.name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN language AS T2 ON T1.language_id = T2.language_id WHERE T2.name = 'English'",
+    "question_id": null,
+    "question": "How many films are in English?",
+    "difficulty": "",
+    "evidence": "\"English\" is the name of language"
+  },
+  {
+    "sql": "SELECT T2.title FROM film_actor AS T1 INNER JOIN film AS T2 ON T1.film_id = T2.film_id INNER JOIN actor AS T3 ON T1.actor_id = T3.actor_id WHERE T3.first_name = 'PENELOPE' AND T3.last_name = 'GUINESS'",
+    "question_id": null,
+    "question": "Please list the titles of all the films starring the actor PENELOPE GUINESS.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.actor_id) FROM film_actor AS T1 INNER JOIN film AS T2 ON T1.film_id = T2.film_id WHERE T2.title = 'ACADEMY DINOSAUR'",
+    "question_id": null,
+    "question": "How many actors have starred in the film ACADEMY DINOSAUR?",
+    "difficulty": "",
+    "evidence": "\"ACADEMY DINOSAUR\" is the title of film"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.title = 'ACADEMY DINOSAUR'",
+    "question_id": null,
+    "question": "Please list the full names of all the actors that have starred in the film ACADEMY DINOSAUR.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; \"ACADEMY DINOSAUR\" is the title of film"
+  },
+  {
+    "sql": "SELECT COUNT(T2.film_id) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.release_year = 2006 AND T1.first_name = 'PENELOPE' AND T1.last_name = 'GUINESS'",
+    "question_id": null,
+    "question": "Among the films starring PENELOPE GUINESS, how many of them are released in 2006?",
+    "difficulty": "",
+    "evidence": "release in 2006 refers to release_year = 2006;"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'PENELOPE' AND T1.last_name = 'GUINESS' ORDER BY T3.replacement_cost DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please give the title of the film starring PENELOPE GUINESS and has the highest replacement cost.",
+    "difficulty": "",
+    "evidence": "highest replacement cost refers to Max (replacement_cost)"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id ORDER BY T3.replacement_cost DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please list the full names of all the actors that have starred in the film with the highest replacement cost.",
+    "difficulty": "",
+    "evidence": "highest replacement cost refers to Max (replacement_cost); full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(T3.film_id) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id INNER JOIN language AS T4 ON T3.language_id = T4.language_id WHERE T4.name = 'English' AND T1.first_name = 'PENELOPE' AND T1.last_name = 'GUINESS'",
+    "question_id": null,
+    "question": "Among the films starring PENELOPE GUINESS, how many of them are in English?",
+    "difficulty": "",
+    "evidence": "\"English\" is the name of language"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'PENELOPE' AND T1.last_name = 'GUINESS' ORDER BY T3.length DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the title of the film with the longest duration time and stars PENELOPE GUINESS?",
+    "difficulty": "",
+    "evidence": "longest duration of film refers to Max(length)"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Horror'",
+    "question_id": null,
+    "question": "Please list the titles of all the films in the category of \"Horror\".",
+    "difficulty": "",
+    "evidence": "\"Horror\" is the name of category"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id WHERE T2.name = 'Horror'",
+    "question_id": null,
+    "question": "How many films are there under the category of \"Horror\"?",
+    "difficulty": "",
+    "evidence": "\"Horror\" is the name of category"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Horror' AND T1.rental_rate = 2.99",
+    "question_id": null,
+    "question": "Please list the titles of all the films under the category of \"Horror\" and has a rental rate of $2.99.",
+    "difficulty": "",
+    "evidence": "\"Horror\" is the name of category; rental rate of $2.99 refers to rental_rate = 2.99"
+  },
+  {
+    "sql": "SELECT COUNT(T2.rental_id) FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'RUTH' AND T1.last_name = 'MARTINEZ'",
+    "question_id": null,
+    "question": "For how many times has the customer RUTH MARTINEZ rented a film?",
+    "difficulty": "",
+    "evidence": "times of rented refers to Count(rental_id)"
+  },
+  {
+    "sql": "SELECT T4.title FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T1.first_name = 'RUTH' AND T1.last_name = 'MARTINEZ'",
+    "question_id": null,
+    "question": "Please list the titles of all the films that the customer RUTH MARTINEZ has rented.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T4.release_year = 2006 AND T1.first_name = 'RUTH' AND T1.last_name = 'MARTINEZ'",
+    "question_id": null,
+    "question": "Among the films that the customer RUTH MARTINEZ has rented, how many of them are released in 2006?",
+    "difficulty": "",
+    "evidence": "release in 2006 refers to release_year = 2006"
+  },
+  {
+    "sql": "SELECT T4.title FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T1.first_name = 'RUTH' AND T1.last_name = 'MARTINEZ' ORDER BY T4.replacement_cost DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the films that the customer RUTH MARTINEZ has rented, what is the title of the one with the highest replacement cost?",
+    "difficulty": "",
+    "evidence": "highest replacement cost refers to Max(replacement_cost)"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id ORDER BY T4.replacement_cost DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please list the full names of all the customers who have rented the film with the highest replacement cost.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; highest replacement cost refers to Max(replacement_cost)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'RUTH' AND T1.last_name = 'MARTINEZ' AND STRFTIME('%m',T2.return_date) = '8' AND STRFTIME('%Y', T2.return_date) = '2005'",
+    "question_id": null,
+    "question": "How many films rented to the customer RUTH MARTINEZ were returned in August, 2005?",
+    "difficulty": "",
+    "evidence": "returned in August, 2005 refers to year(return_date) = 2005 and month (return_date) = 8"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T1.first_name, T1.last_name, COUNT(T2.rental_id) AS num FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.first_name, T1.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please give the full name of the customer that have rented the most films.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; customer who rented the most film refers to Max(count(rental_id))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T1.active = 1 AND T4.title = 'ACADEMY DINOSAUR'",
+    "question_id": null,
+    "question": "Among the customers who have rented the film ACADEMY DINOSAUR, how many of them are active?",
+    "difficulty": "",
+    "evidence": "\"ACADEMY DINOSAUR\" is the title of film; customer refers to customer_id; active refers to active = 1"
+  },
+  {
+    "sql": "SELECT T.title FROM ( SELECT T1.title, COUNT(T3.rental_id) AS num FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id INNER JOIN rental AS T3 ON T2.inventory_id = T3.inventory_id GROUP BY T1.title ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which film is rented for the most times by the customers? Please give its title.",
+    "difficulty": "",
+    "evidence": "film refers to title; film rented the most times refers to title where Max(Count(rental_id))"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T1.first_name, T1.last_name, COUNT(T1.customer_id) AS num FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE (T1.first_name = 'RUTH' AND T1.last_name = 'MARTINEZ') OR (T1.first_name = 'LINDA' AND T1.last_name = 'WILLIAMS') GROUP BY T1.first_name, T1.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which customer has rented more movies, RUTH MARTINEZ or LINDA WILLIAMS?",
+    "difficulty": "",
+    "evidence": "rented more movie Max(Count(customer_id)); \"RUTH MARTINEZ\" and \"LINDA WILLIAMS\" are both full name of customer"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'PENELOPE' AND T1.last_name = 'GUINESS' ORDER BY T3.rental_rate / T3.rental_duration DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among all the films starring PENELOPE GUINESS, what is the title of the one with the highest rental price per day?",
+    "difficulty": "",
+    "evidence": "highest rental price per day refers to Max(Divide(rental_rate, rental_duration))"
+  },
+  {
+    "sql": "SELECT AVG(T3.replacement_cost) FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T2.name = 'Horror'",
+    "question_id": null,
+    "question": "What is the average replacement cost of the films under the category of \"Horror\"?",
+    "difficulty": "",
+    "evidence": "\"Horror\" is the name of category; average replacement cost = Divide (Sum(replacement_cost), Count(film_id where name = Horror))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T3.name = 'Music', 1, 0)) AS REAL) * 100 / COUNT(T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id INNER JOIN inventory AS T4 ON T1.film_id = T4.film_id INNER JOIN customer AS T5 ON T4.store_id = T5.store_id INNER JOIN rental AS T6 ON T4.inventory_id = T6.inventory_id WHERE T5.first_name = 'RUTH' AND T5.last_name = 'MARTINEZ'",
+    "question_id": null,
+    "question": "Among all films that the customer RUTH MARTINEZ has rented, what is the percentage of it being a Music film?",
+    "difficulty": "",
+    "evidence": "music film refers to name = 'Music'; percentage = Divide (Count(film_id where name = 'Music'), Count(film_id)) * 100"
+  },
+  {
+    "sql": "SELECT AVG(T3.length) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'PENELOPE' AND T1.last_name = 'GUINESS'",
+    "question_id": null,
+    "question": "What is the average duration time of the films starring PENELOPE GUINESS?",
+    "difficulty": "",
+    "evidence": "average duration time = AVG(length)"
+  },
+  {
+    "sql": "SELECT email FROM customer WHERE first_name = 'DIANE' AND last_name = 'COLLINS'",
+    "question_id": null,
+    "question": "What is Diane Collins' email address?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(customer_id) FROM customer WHERE active = 0",
+    "question_id": null,
+    "question": "Give the number of inactive customers.",
+    "difficulty": "",
+    "evidence": "inactive refers to active = 0"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM customer WHERE email = 'JEREMY.HURTADO@sakilacustomer.org'",
+    "question_id": null,
+    "question": "Who is the owner of email address \"JEREMY.HURTADO@sakilacustomer.org\"? Give the full name.",
+    "difficulty": "",
+    "evidence": "\"JEREMY.HURTADO@sakilacustomer.org\" is the email; owner refers to customer; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT postal_code FROM address WHERE address_id = 65",
+    "question_id": null,
+    "question": "Give the postal code for the address No.65.",
+    "difficulty": "",
+    "evidence": "address no. 65 refers to address_id = 65"
+  },
+  {
+    "sql": "SELECT COUNT(address_id) FROM address WHERE district = 'Nordrhein-Westfalen'",
+    "question_id": null,
+    "question": "State the number of addresses in the Nordrhein-Westfalen district.",
+    "difficulty": "",
+    "evidence": "number of address refers to address_id"
+  },
+  {
+    "sql": "SELECT phone FROM address WHERE address_id = '72'",
+    "question_id": null,
+    "question": "What is the phone number of address No.72?",
+    "difficulty": "",
+    "evidence": "address no. 72 refers to address_id = 72; phone number refers to phone"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE length = '178'",
+    "question_id": null,
+    "question": "State the number of films that are 178 minutes long.",
+    "difficulty": "",
+    "evidence": "178 min long refers to length = '178'"
+  },
+  {
+    "sql": "SELECT special_features FROM film WHERE title = 'UPRISING UPTOWN'",
+    "question_id": null,
+    "question": "Tell the special features of the film Uprising Uptown.",
+    "difficulty": "",
+    "evidence": "\"UPRISING UPTOWN\" is the title of film"
+  },
+  {
+    "sql": "SELECT description FROM film WHERE title = 'ARTIST COLDBLOODED'",
+    "question_id": null,
+    "question": "What is the description of the film Artist Coldblooded?",
+    "difficulty": "",
+    "evidence": "\"ARTIST COLDBLOODED\" is the title of film"
+  },
+  {
+    "sql": "SELECT T1.address, T1.address2, T1.district FROM address AS T1 INNER JOIN store AS T2 ON T1.address_id = T2.address_id WHERE T2.store_id = 2",
+    "question_id": null,
+    "question": "Give the detailed address for store No.2.",
+    "difficulty": "",
+    "evidence": "store no. 22 refers to store_id = 2; detailed address refers to address, address2, district"
+  },
+  {
+    "sql": "SELECT T1.country FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id WHERE T2.city = 'Clarksville'",
+    "question_id": null,
+    "question": "Which continent is the mother country of Clarksville city in?",
+    "difficulty": "",
+    "evidence": "\"Clarksville\" is the city;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.actor_id) FROM film_actor AS T1 INNER JOIN film AS T2 ON T1.film_id = T2.film_id WHERE T2.release_year = 2006 AND T2.rental_duration = 7 AND T2.rental_duration = 4.99 AND T2.length = 98",
+    "question_id": null,
+    "question": "How many actors played a role in the 2006 film whose rental duration is 7 days, rental rate is 4.99 and is 98 minutes duration?",
+    "difficulty": "",
+    "evidence": "in 2006 refers to release_year = 2006; 98 min duration refers to length = 98; number of actors refers to count(actor_id)"
+  },
+  {
+    "sql": "SELECT T3.rating FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'DAN' AND T1.last_name = 'HARRIS' AND T3.length = 77 AND T3.replacement_cost = '9.99'",
+    "question_id": null,
+    "question": "The actor Dan Harris played in a 77 minute film with replacement cost of 9.99, what was the rating for that film?",
+    "difficulty": "",
+    "evidence": "77 min film refers to length = 77"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id WHERE T2.first_name = 'DARYL' AND T2.last_name = 'WAHLBERG'",
+    "question_id": null,
+    "question": "How many films did actor Daryl Wahlberg appear in?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.return_date FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'SHERRI' AND T1.last_name = 'RHODES' AND T2.rental_date = '2005-07-28 12:27:27'",
+    "question_id": null,
+    "question": "Sherri Rhodes rented a film at 12:27:27 on 2005/7/28, when did she/he return that film?",
+    "difficulty": "",
+    "evidence": "rented at 12:27:27 on 2005/7/28 refers to rental_date = '2005-07-28 12:27:27'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM staff AS T1 INNER JOIN store AS T2 ON T1.store_id = T2.store_id WHERE T2.store_id = 1",
+    "question_id": null,
+    "question": "Give the name of the manager staff for store No.1.",
+    "difficulty": "",
+    "evidence": "store no. 1 refers to store_id = 1; name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T1.address, T1.address2, T1.district FROM address AS T1 INNER JOIN store AS T2 ON T1.address_id = T2.address_id WHERE T2.store_id = 1",
+    "question_id": null,
+    "question": "State the address location of store No.1.",
+    "difficulty": "",
+    "evidence": "store no. 1 refers to store_id = 1; address location refers to address, address2, district"
+  },
+  {
+    "sql": "SELECT T1.address, T1.address2 FROM address AS T1 INNER JOIN staff AS T2 ON T1.address_id = T2.address_id WHERE T2.first_name = 'Jon' AND T2.last_name = 'Stephens'",
+    "question_id": null,
+    "question": "Where does the staff Jon Stephens live?",
+    "difficulty": "",
+    "evidence": "location refers to address, address2, district"
+  },
+  {
+    "sql": "SELECT COUNT(T1.address_id) FROM address AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id WHERE T2.city = 'Woodridge'",
+    "question_id": null,
+    "question": "How many addresses are there in Woodridge city?",
+    "difficulty": "",
+    "evidence": "\"Woodridge\" is the city"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN language AS T2 ON T1.language_id = T2.language_id WHERE T2.name = 'English'",
+    "question_id": null,
+    "question": "How many films are in English?",
+    "difficulty": "",
+    "evidence": "\"English\" is the name of language"
+  },
+  {
+    "sql": "SELECT T1.address FROM address AS T1 INNER JOIN customer AS T2 ON T1.address_id = T2.address_id WHERE T2.first_name = 'HEATHER' AND T2.last_name = 'MORRIS'",
+    "question_id": null,
+    "question": "Give the address location of Heather Morris.",
+    "difficulty": "",
+    "evidence": "address location refers to address"
+  },
+  {
+    "sql": "SELECT T2.email FROM address AS T1 INNER JOIN staff AS T2 ON T1.address_id = T2.address_id WHERE T1.address = '1411 Lillydale Drive'",
+    "question_id": null,
+    "question": "Give the email address of the person who lives in \"1411 Lillydale Drive\".",
+    "difficulty": "",
+    "evidence": "\"1411 Lillydate Drive\" is the address"
+  },
+  {
+    "sql": "SELECT T1.amount FROM payment AS T1 INNER JOIN rental AS T2 ON T1.rental_id = T2.rental_id WHERE T2.rental_date = '2005-07-28 12:27:27' AND T2.customer_id = 297",
+    "question_id": null,
+    "question": "How much money did the customer No.297 pay for the rental which happened at 12:27:27 on 2005/7/28?",
+    "difficulty": "",
+    "evidence": "customer no. 297 refers to customer_id = 297; at 12:27:27 on 2005/7/28 refers to rental_date = '2005-07-28 12:27:27'; money pay for rent refers to amount"
+  },
+  {
+    "sql": "SELECT T3.name FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T1.title = 'WORKING MICROCOSMOS'",
+    "question_id": null,
+    "question": "Which category does the film Working Microcosmos belong to?",
+    "difficulty": "",
+    "evidence": "\"WORKING MICROCOSMOS\" is the title of film; category refers to name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id WHERE T2.name = 'Documentary'",
+    "question_id": null,
+    "question": "Give the number of documentary films.",
+    "difficulty": "",
+    "evidence": "\"Documentary\" is the name of category; number of film refers to Count(film_id)"
+  },
+  {
+    "sql": "SELECT T.name FROM ( SELECT T2.name, COUNT(T1.film_id) AS num FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id GROUP BY T2.name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the name of the category which has the most number of films.",
+    "difficulty": "",
+    "evidence": "category refers to name; most number of films refers to Max(Count(film_id))"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id WHERE T2.inventory_id = 3479",
+    "question_id": null,
+    "question": "Give the name of the film for inventory No.3479.",
+    "difficulty": "",
+    "evidence": "inventory no. 3479 refers to inventory_id = '3479'; name of film refers to title"
+  },
+  {
+    "sql": "SELECT CAST((SUM(IIF(T2.store_id = 2, T1.amount, 0)) - SUM(IIF(T2.store_id = 1, T1.amount, 0))) AS REAL) * 100 / SUM(IIF(T2.store_id = 1, T1.amount, 0)) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id INNER JOIN store AS T3 ON T2.store_id = T3.store_id",
+    "question_id": null,
+    "question": "What is the percentage more for the rental payment for store No.2 than store No.1?",
+    "difficulty": "",
+    "evidence": "store no. 1 refers to store_id = 1; store no.2 refers to store_id = 2; rental payment refers to amount; percent more = Divide (Subtract(amount where store_id = 2, amount where store_id = 1), amount where store_id = 1) *100"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T1.country = 'India', 1, 0)) AS REAL) / SUM(IIF(T1.country = 'Italy', 1, 0)) FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id",
+    "question_id": null,
+    "question": "How many times is the number of Indian cities than Italian cities?",
+    "difficulty": "",
+    "evidence": "indian refers to country = 'India'; Italian refers to country = 'Italy'; times = Divide(Count(city where country = 'India), Count(city where country = 'Italy'))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.first_name = 'GINA' AND T2.last_name = 'DEGENERES', 1, 0)) AS REAL) * 100 / SUM(IIF(T2.first_name = 'PENELOPE' AND T2.last_name = 'GUINESS', 1, 0)) FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id",
+    "question_id": null,
+    "question": "How many times is the number of films Gina DeGeneres acted in than Penelope Guinness?",
+    "difficulty": "",
+    "evidence": "\"Gina DeGeneres\" and \"Penelope Guinness\" are both full name of actor; times number of film = Divide (Count (film_id where first_name = 'GINA' and last_name = 'DEGENERES'), Count(film_id where first_name = 'PENELOPE' and last_name = 'GUINESS'))"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE rating = 'R' AND release_year = 2006",
+    "question_id": null,
+    "question": "In 2006, how many restricted films were released?",
+    "difficulty": "",
+    "evidence": "restricted refers to rating = 'R'; release refers to release_year; in 2006 refers to release_year = 2006; film refers to title"
+  },
+  {
+    "sql": "SELECT COUNT(actor_id) FROM film_actor WHERE film_id = 508",
+    "question_id": null,
+    "question": "How many actors starred in the film id 508?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT special_features FROM film WHERE title = 'SMOOCHY CONTROL'",
+    "question_id": null,
+    "question": "What are the special features for the film \"Smoochy Control\"?",
+    "difficulty": "",
+    "evidence": "\"SMOOCHY CONTROL\" is the title of film"
+  },
+  {
+    "sql": "SELECT COUNT(customer_id) FROM payment WHERE SUBSTR(payment_date, 1, 7) LIKE '2005-08'",
+    "question_id": null,
+    "question": "How many customers paid over the amount of 10 on August 2005?",
+    "difficulty": "",
+    "evidence": "over the amount of 10 refers to amount > 10; paid on August 2005 refers to payment_date like '2005_08%'; customer refers to customer_id"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE length > 180",
+    "question_id": null,
+    "question": "List the names of the films that are more than 180 minutes long.",
+    "difficulty": "",
+    "evidence": "more than 180 min long refers to length > 180; name of film refers to title"
+  },
+  {
+    "sql": "SELECT SUM(amount) FROM payment WHERE rental_id BETWEEN 1 AND 10",
+    "question_id": null,
+    "question": "How much is the total rental payment for the first 10 rentals?",
+    "difficulty": "",
+    "evidence": "first 10 rental refers to rental id between 1 and 10; total rental payment refers to sum(amount)"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM staff WHERE active = 1",
+    "question_id": null,
+    "question": "What are the full names of all the active employees?",
+    "difficulty": "",
+    "evidence": "active employee refers to active = 1; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT manager_staff_id FROM store WHERE store_id = 2",
+    "question_id": null,
+    "question": "Who is the staff manager in store id 2?",
+    "difficulty": "",
+    "evidence": "staff manager refers to manager_staff_id"
+  },
+  {
+    "sql": "SELECT COUNT(rental_id) FROM rental WHERE rental_date = '2005-05-27'",
+    "question_id": null,
+    "question": "How many rentals were returned on 5/27/2005?",
+    "difficulty": "",
+    "evidence": "return on 5/27/2005 refers to return_date = '2005-05-27'; rental refers to rental_id"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'Laura' AND T1.last_name = 'Brody'",
+    "question_id": null,
+    "question": "What are the names of the movies which Laura Brody starred in?",
+    "difficulty": "",
+    "evidence": "name of movie refers to title"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id WHERE T2.store_id = 2",
+    "question_id": null,
+    "question": "List the name of the films that can only be found in store id 2.",
+    "difficulty": "",
+    "evidence": "name of film refers to title"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM customer AS T1 INNER JOIN ( SELECT customer_id, COUNT(*) AS num_days FROM ( SELECT *, date(days, '-' || rn || ' day') AS results FROM ( SELECT customer_id, days, row_number() OVER (PARTITION BY customer_id ORDER BY days) AS rn FROM ( SELECT DISTINCT customer_id, date(rental_date) AS days FROM rental ) ) ) GROUP BY customer_id, results HAVING num_days = 7 ) AS T2 ON T1.customer_id = T2.customer_id",
+    "question_id": null,
+    "question": "What is the full name of the customer who rented movies for 7 consecutive days?",
+    "difficulty": "",
+    "evidence": "rented for 7 consecutive days refers to Subtract(return_date, rental_date) = 7; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id WHERE T2.name = 'Horror'",
+    "question_id": null,
+    "question": "How many films are categorized as horror?",
+    "difficulty": "",
+    "evidence": "\"Horror\" is the name of category"
+  },
+  {
+    "sql": "SELECT T.title FROM ( SELECT T1.title, COUNT(T3.rental_id) AS num FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id INNER JOIN rental AS T3 ON T2.inventory_id = T3.inventory_id GROUP BY T1.title ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the most rented movie?",
+    "difficulty": "",
+    "evidence": "most rented movie refers to title where Max(Count(rental_id))"
+  },
+  {
+    "sql": "SELECT T1.special_features FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'sci-fi' ORDER BY T1.special_features DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most common special features of science-fiction movies?",
+    "difficulty": "",
+    "evidence": "\"science fiction\" is the name of category; most common special features refers to Max(frequency(special_features))"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T2.first_name, T2.last_name, COUNT(T1.film_id) AS num FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id GROUP BY T2.first_name, T2.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the actor who starred in most movies?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; actor who starred in the most movies refers to actor_id where Max(Count(film_id))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T1.rental_duration = 7 AND T3.name = 'Comedy'",
+    "question_id": null,
+    "question": "Among the films with a rental duration of 7 days, how many are comedies?",
+    "difficulty": "",
+    "evidence": "rental duration of 7 refers to rental_duration = 7; comedies refers to name = 'Comedy'"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T3.first_name, T3.last_name, COUNT(T1.customer_id) AS num FROM customer AS T1 INNER JOIN store AS T2 ON T1.store_id = T2.store_id INNER JOIN staff AS T3 ON T2.store_id = T3.store_id WHERE T1.active = 0 GROUP BY T3.first_name, T3.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the staff manager of the store with the most non-active customers?",
+    "difficulty": "",
+    "evidence": "most non-active customer refers to Max(Count(active = 0))"
+  },
+  {
+    "sql": "SELECT T1.rental_rate FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Children' ORDER BY T1.rental_rate / T1.rental_duration DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the rental price per day of the most expensive children's film?",
+    "difficulty": "",
+    "evidence": "children's film refers to name = 'Children'; average price per day of most expensive film = Max(Divide(rental_rate, rental_duration))"
+  },
+  {
+    "sql": "SELECT T3.address, T3.address2, T3.district FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id INNER JOIN address AS T3 ON T2.city_id = T3.city_id INNER JOIN store AS T4 ON T3.address_id = T4.address_id WHERE T4.store_id = 1",
+    "question_id": null,
+    "question": "What is the complete address of store id 1?",
+    "difficulty": "",
+    "evidence": "complete address refers to address, address2, district"
+  },
+  {
+    "sql": "SELECT COUNT(T3.customer_id) FROM city AS T1 INNER JOIN address AS T2 ON T1.city_id = T2.city_id INNER JOIN customer AS T3 ON T2.address_id = T3.address_id WHERE T1.city = 'Lethbridge'",
+    "question_id": null,
+    "question": "How many customers are from the city of Lethbridge?",
+    "difficulty": "",
+    "evidence": "customer refers to customer_id"
+  },
+  {
+    "sql": "SELECT COUNT(T2.city) FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id WHERE T1.country = 'United States'",
+    "question_id": null,
+    "question": "How many cities are there in the United States?",
+    "difficulty": "",
+    "evidence": "\"United States\" is the country"
+  },
+  {
+    "sql": "SELECT T4.first_name, T4.last_name FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id INNER JOIN address AS T3 ON T2.city_id = T3.city_id INNER JOIN customer AS T4 ON T3.address_id = T4.address_id WHERE T1.country = 'India'",
+    "question_id": null,
+    "question": "List the names of the customers from India.",
+    "difficulty": "",
+    "evidence": "\"India\" is the country; name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T3.rental_rate < 1 AND T2.name = 'Classics'",
+    "question_id": null,
+    "question": "Among the classic movies, how many movies have a rental rate of less than 1?",
+    "difficulty": "",
+    "evidence": "classic movie refers to name = 'Classics'; rental rate of less than 1 refers to rental_rate < 1; movie refers to film_id"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T2.first_name, T2.last_name, COUNT(T1.rental_id) AS num FROM rental AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id GROUP BY T2.first_name, T2.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the customer who rented the highest number of movies of all time?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; customer who rented the most film refers to Max(count(rental_id))"
+  },
+  {
+    "sql": "SELECT COUNT(T3.rental_id) FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id INNER JOIN rental AS T3 ON T2.inventory_id = T3.inventory_id WHERE T1.title = 'Blanket Beverly'",
+    "question_id": null,
+    "question": "How many times was \"Blanket Beverly\" rented?",
+    "difficulty": "",
+    "evidence": "\"BLANKET BEVERLY\" is the title of film; rented times refers to count(rental_id)"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T1.first_name, T1.last_name, COUNT(T2.film_id) AS num FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.rating = 'R' GROUP BY T1.first_name, T1.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the actor who has the highest number of restricted films?",
+    "difficulty": "",
+    "evidence": "restricted refers to rating = 'R'; highest number of film refers to Max(Count(film_id)); full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name, num FROM ( SELECT T1.first_name, T1.last_name, COUNT(T2.film_id) AS num FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id GROUP BY T1.first_name, T1.last_name ) AS T ORDER BY T.num DESC LIMIT 5",
+    "question_id": null,
+    "question": "Who are the top 5 actors with the highest number of films? List their full names and calculate the average number of films for each of the actors.",
+    "difficulty": "",
+    "evidence": "actors with highest number of films refers to actor_id with Max(Count(film_id)); full name refers to first_name, last_name; average number of film = Divide (Count(film_id), 5)"
+  },
+  {
+    "sql": "SELECT actor_id FROM actor WHERE last_name = 'KILMER'",
+    "question_id": null,
+    "question": "List the actors' IDs who have \"KILMER\" as last name.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT title FROM film WHERE replacement_cost = ( SELECT MIN(replacement_cost) FROM film )",
+    "question_id": null,
+    "question": "List down the films titles with the lowest replacement cost under the general audiences rating.",
+    "difficulty": "",
+    "evidence": "lowest replacement cost refers to Min(replacement_cost); under general audience rating refers to rating = G"
+  },
+  {
+    "sql": "SELECT title, description, special_features FROM film WHERE length = ( SELECT MAX(length) FROM film ) LIMIT 5",
+    "question_id": null,
+    "question": "Among the films with the longest duration, list any five title with their descriptions and special features.",
+    "difficulty": "",
+    "evidence": "longest duration of film refers to Max(length)"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT rental_id) FROM rental WHERE date(rental_date) BETWEEN '2005-05-26' AND '2005-05-30'",
+    "question_id": null,
+    "question": "How many films rented on 26th May, 2005 were returned on 30th May, 2005?",
+    "difficulty": "",
+    "evidence": "rented on 26th May 2005 refers to rental_date = '2005-05-26'; return on 30th May, 2005 refers to return_date = '2005-05-30'; number of rented film refers to Count (rental_id)"
+  },
+  {
+    "sql": "SELECT AVG(amount) FROM payment GROUP BY customer_id",
+    "question_id": null,
+    "question": "Calculate the average payment amount per customer.",
+    "difficulty": "",
+    "evidence": "average payment refers to AVG(amount)"
+  },
+  {
+    "sql": "SELECT first_name, last_name, email FROM staff WHERE store_id = 2",
+    "question_id": null,
+    "question": "What is the name and email of the staff in store ID 2?",
+    "difficulty": "",
+    "evidence": "name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(active = 0, 1, 0)) AS REAL) * 100 / COUNT(customer_id) FROM customer",
+    "question_id": null,
+    "question": "How many percent of customers were inactive?",
+    "difficulty": "",
+    "evidence": "inactive refers to active = 0; percent = Divide (Count (customer_id where active = 0), Count(customer_id)) * 100"
+  },
+  {
+    "sql": "SELECT description, title FROM film_text WHERE film_id = 996",
+    "question_id": null,
+    "question": "What is the description and film title of ID 996?",
+    "difficulty": "",
+    "evidence": "ID 996 refers to film_id = 996"
+  },
+  {
+    "sql": "SELECT SUM(amount) FROM payment WHERE SUBSTR(payment_date, 1, 7) = '2005-08'",
+    "question_id": null,
+    "question": "Calculate customers' total payment amount in August, 2005.",
+    "difficulty": "",
+    "evidence": "in August 2005 refers to payment_date like '2005-08%'; total payment amount refers to Sum(amount)"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'Emily' AND T1.last_name = 'Dee'",
+    "question_id": null,
+    "question": "List down the film titles performed by Emily Dee.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM film_actor AS T1 INNER JOIN film AS T2 ON T1.film_id = T2.film_id INNER JOIN actor AS T3 ON T1.actor_id = T3.actor_id WHERE T2.title = 'CHOCOLATE DUCK'",
+    "question_id": null,
+    "question": "List down the actors' full names who performed in \"CHOCOLATE DUCK\" film.",
+    "difficulty": "",
+    "evidence": "\"CHOCOLATE DUCK\" is the title of film; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Horror' AND T1.rating = 'PG-13'",
+    "question_id": null,
+    "question": "How many films in the horror category were included in PG-13-rated?",
+    "difficulty": "",
+    "evidence": "\"Horror\" is the name of category; PG-13 rated refers to rating = 'PG-13'"
+  },
+  {
+    "sql": "SELECT T5.name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id INNER JOIN film_category AS T4 ON T2.film_id = T4.film_id INNER JOIN category AS T5 ON T4.category_id = T5.category_id WHERE T1.first_name = 'Judy' AND T1.last_name = 'Dean'",
+    "question_id": null,
+    "question": "Distinguish the films performed by Judy Dean according to category.",
+    "difficulty": "",
+    "evidence": "films performed refers to film"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Documentary' LIMIT 5",
+    "question_id": null,
+    "question": "Write down any five film names under the documentary category.",
+    "difficulty": "",
+    "evidence": "\"Documentary\" is the name of category; film name refers to title"
+  },
+  {
+    "sql": "SELECT T2.name, T1.replacement_cost / T1.rental_duration AS cost FROM film AS T1 INNER JOIN language AS T2 ON T1.language_id = T2.language_id WHERE T1.title = 'UNTOUCHABLES SUNRISE'",
+    "question_id": null,
+    "question": "Mention the language of Untouchables Sunrise film and calculate its rental cost per day.",
+    "difficulty": "",
+    "evidence": "\"UNTOUCHABLES SUNRISE\" is the title of film; language refers to name; rental cost per day = Divide (rental_cost, rental_duration)"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id INNER JOIN rental AS T3 ON T2.inventory_id = T3.inventory_id WHERE SUBSTR(T3.rental_date, 1, 10) = '2005-05-24'",
+    "question_id": null,
+    "question": "List the films' titles which were rented on 24th May,2005.",
+    "difficulty": "",
+    "evidence": "rented on 24th May 2005 refers to rental_date = '2005-05-24%'"
+  },
+  {
+    "sql": "SELECT T4.title FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T1.first_name = 'BRIAN' AND T1.last_name = 'WYMAN' AND STRFTIME('%Y', T2.rental_date) = '2005' AND STRFTIME('%m',T2.rental_date) = '7'",
+    "question_id": null,
+    "question": "List the films' titles which were rented by Brian Wyman in July, 2005.",
+    "difficulty": "",
+    "evidence": "rented in July 2005 refers to year (rental_date) = 2005 and month (rental_date) = 7"
+  },
+  {
+    "sql": "SELECT T4.inventory_id, T1.first_name, T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id INNER JOIN inventory AS T4 ON T2.film_id = T4.film_id WHERE T3.title = 'STREETCAR INTENTIONS'",
+    "question_id": null,
+    "question": "Write down the inventories' IDs and actors' names of \"STREETCAR INTENTIONS\".",
+    "difficulty": "",
+    "evidence": "\"STREETCAR INTENTIONS\" is the title of film; actor's names refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T3.title, T2.name FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id INNER JOIN inventory AS T4 ON T3.film_id = T4.film_id INNER JOIN customer AS T5 ON T4.store_id = T5.store_id INNER JOIN rental AS T6 ON T4.inventory_id = T6.inventory_id WHERE T5.first_name = 'Natalie' AND T5.last_name = 'Meyer' AND STRFTIME('%Y',T3.rental_rate) = '2006' AND STRFTIME('%m',T3.rental_rate) = '2'",
+    "question_id": null,
+    "question": "Among the films rented by Natalie Meyer, describe the titles and categories of the films which were rented in February 2006.",
+    "difficulty": "",
+    "evidence": "category refers to name; rented in February 2006 refers to year(rental_date) = 2006 and month (rental_rate) = 2"
+  },
+  {
+    "sql": "SELECT COUNT(T1.rental_id) FROM rental AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'Eleanor' AND T2.last_name = 'Hunt'",
+    "question_id": null,
+    "question": "How many rental IDs belong to Eleanor Hunt?",
+    "difficulty": "",
+    "evidence": "'Eleanor Hunt' is the full name of a customer; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T4.first_name, T4.last_name, T6.city FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id INNER JOIN rental AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN customer AS T4 ON T3.customer_id = T4.customer_id INNER JOIN address AS T5 ON T4.address_id = T5.address_id INNER JOIN city AS T6 ON T5.city_id = T6.city_id WHERE T1.title = 'DREAM PICKUP'",
+    "question_id": null,
+    "question": "Describe the full names and cities of the customers who rented \"DREAM PICKUP\".",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; 'DREAM PICKUP' is a title of film"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T1.country = 'India', 1, 0)) AS REAL) * 100 / COUNT(T4.customer_id) FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id INNER JOIN address AS T3 ON T2.city_id = T3.city_id INNER JOIN customer AS T4 ON T3.address_id = T4.address_id",
+    "question_id": null,
+    "question": "Calculate how many percent of customers were located in India.",
+    "difficulty": "",
+    "evidence": "'India' is a country; calculation = DIVIDE(SUM(country = 'India'), COUNT(customer_id)) * 100"
+  },
+  {
+    "sql": "SELECT CAST((SUM(IIF(T1.first_name = 'ANGELA' AND T1.last_name = 'WITHERSPOON', 1, 0)) - SUM(IIF(T1.first_name = 'MARY' AND T1.last_name = 'KEITEL', 1, 0))) AS REAL) * 100 / SUM(IIF(T1.first_name = 'MARY' AND T1.last_name = 'KEITEL', 1, 0)) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id",
+    "question_id": null,
+    "question": "How much percentage of the film did Mary Keitel perform more than Angela Witherspoon?",
+    "difficulty": "",
+    "evidence": "'Mary Keitel' AND 'Angela Witherspoon' are full name of actors; full name refers to FirstName, LastName; calculation = DIVIDE(SUBTRACT(SUM('Mary Keitel'), SUM('Angela Witherspoon')), SUM('Angela Witherspoon')) * 100"
+  },
+  {
+    "sql": "SELECT T1.email, T2.address, T3.city, T4.country FROM customer AS T1 INNER JOIN address AS T2 ON T1.address_id = T2.address_id INNER JOIN city AS T3 ON T2.city_id = T3.city_id INNER JOIN country AS T4 ON T3.country_id = T4.country_id WHERE T1.first_name = 'Lillie' AND T1.last_name = 'Kim'",
+    "question_id": null,
+    "question": "Provide the email, address, city, and country of the customer Lillie Kim.",
+    "difficulty": "",
+    "evidence": "'Lillie Kim' is the full name of a customer; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM staff AS T1 INNER JOIN address AS T2 ON T1.address_id = T2.address_id INNER JOIN customer AS T3 ON T2.address_id = T3.address_id WHERE T1.first_name = 'Mike' AND T1.last_name = 'Hillyer' LIMIT 5",
+    "question_id": null,
+    "question": "Provide any 5 customers' full names who have rented from Mike Hillyer.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; 'Mike Hillyer' is a full name of a staff;"
+  },
+  {
+    "sql": "SELECT SUM(T2.amount) FROM customer AS T1 INNER JOIN payment AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'Diane' AND T1.last_name = 'Collins'",
+    "question_id": null,
+    "question": "Calculate the total payment amount by Diane Collins.",
+    "difficulty": "",
+    "evidence": "'Diane Collins' is a full name of a customer; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.first_name, T2.last_name, T2.email FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id INNER JOIN address AS T3 ON T2.address_id = T3.address_id WHERE T1.amount > ( SELECT AVG(amount) FROM payment ) * 0.7",
+    "question_id": null,
+    "question": "Provide the full names and emails of customers whose payments were greater than 70% of the average.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; average payment refers to AVG(amount); payments were greater than 70% of the average refers to amount > (AVG(amount) MULTIPLY 0.7)"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE rental_rate = 0.99",
+    "question_id": null,
+    "question": "How many films have a rental rate of 0.99?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(customer_id) FROM customer WHERE last_name = 'Thomas' AND customer_id < 100",
+    "question_id": null,
+    "question": "Among the customers with customer ID of 100 and below, how many of them have Thomas as their last name?",
+    "difficulty": "",
+    "evidence": "customer ID of 100 and below refers to customer_id < 100"
+  },
+  {
+    "sql": "SELECT T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.description = 'A Thoughtful Drama of a Composer And a Feminist who must Meet a Secret Agent in The Canadian Rockies'",
+    "question_id": null,
+    "question": "List the actor's last name that starred the film with the description of \"A Thoughtful Drama of a Composer And a Feminist who must Meet a Secret Agent in The Canadian Rockies\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'Liza' AND T1.last_name = 'Bergman' ORDER BY replacement_cost DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the title of the film starred by Liza Bergman with the highest replacement cost.",
+    "difficulty": "",
+    "evidence": "Liza Bergman' is a full name; full name refers to first_name, last_name; highest replacement cost refers to MAX(replacement_cost)"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id WHERE T2.store_id = 2 ORDER BY rental_rate DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among films with store ID of 2, list the title of films with the highest rental rate.",
+    "difficulty": "",
+    "evidence": "highest rental rate refers to MAX(rental_rate)"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'Angelina' AND T1.last_name = 'Astaire' AND T3.replacement_cost = 27.99",
+    "question_id": null,
+    "question": "Among the films starred by Angelina Astaire, what is the title of the film with a replacement cost of 27.99?",
+    "difficulty": "",
+    "evidence": "Angelina Astaire' is a full name of an actor; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.inventory_id FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id WHERE T1.title = 'African Egg'",
+    "question_id": null,
+    "question": "List the inventory ID of the film titled \"African Egg\".",
+    "difficulty": "",
+    "evidence": "'African Egg' is a title of a film"
+  },
+  {
+    "sql": "SELECT COUNT(T1.actor_id) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.length = 113 AND T1.first_name = 'Kirk' AND T1.last_name = 'Jovovich'",
+    "question_id": null,
+    "question": "In films with a length duration of 113 minutes, how many of the films are starred by Kirk Jovovich?",
+    "difficulty": "",
+    "evidence": "length duration of 113 minutes refers to length = 113; 'Kirk Jovovich' is a full name of an actor; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id WHERE T2.inventory_id BETWEEN 20 AND 60 AND T1.rating = 'G'",
+    "question_id": null,
+    "question": "In the film with an inventory ID between 20 to 60, how many of the films have a G rating?",
+    "difficulty": "",
+    "evidence": "G rating refers to rating = 'G'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.actor_id) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.rental_rate = 4.99 AND T1.first_name = 'Bob' AND T1.last_name = 'Fawcett'",
+    "question_id": null,
+    "question": "Among films with a rental rate of 4.99, what is the total number of films starred by Bob Fawcett?",
+    "difficulty": "",
+    "evidence": "Bob Fawcett' is a full name of an actor; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T4.inventory_id FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id INNER JOIN inventory AS T4 ON T3.film_id = T4.film_id WHERE T3.length BETWEEN 110 AND 150 AND T1.first_name = 'Russell' AND T1.last_name = 'Close'",
+    "question_id": null,
+    "question": "What is the inventory ID of the films starred by Russell Close with a duration between 110 to 150 minutes?",
+    "difficulty": "",
+    "evidence": "'Russell Close' is a full name of an actor; full name refers to first_name, last_name; duration between 110 to 150 minutes refers to length BETWEEN 110 AND 150"
+  },
+  {
+    "sql": "SELECT T2.store_id, T2.inventory_id FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id ORDER BY T1.length DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the store and inventory ID of the film with the longest duration?",
+    "difficulty": "",
+    "evidence": "the longest duration refers to MAX(length)"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.length BETWEEN 110 AND 150 AND T1.first_name = 'Russell' AND T1.last_name = 'Close'",
+    "question_id": null,
+    "question": "List the titles of the films starred by Elvis Marx.",
+    "difficulty": "",
+    "evidence": "'Elvis Marx' is a full name of a film; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T4.inventory_id FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id INNER JOIN inventory AS T4 ON T3.film_id = T4.film_id WHERE T1.first_name = 'Lucille' AND T1.last_name = 'Dee' AND T3.rental_rate = 4.99",
+    "question_id": null,
+    "question": "In films with rental rate of 4.99, list down the inventory ID of the films starred by Lucille Dee.",
+    "difficulty": "",
+    "evidence": "'Lucille Dee' is a full name of an actor; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.store_id FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id WHERE T1.rental_rate > ( SELECT AVG(T1.rental_rate) * 0.6 FROM film AS T1 )",
+    "question_id": null,
+    "question": "List the store ID of the films with a rental rate greater than the 60% of average rental rate of all listed films.",
+    "difficulty": "",
+    "evidence": "average rental rate of all listed films refers to AVG(rental_rate); rental rate greater than the 60% of average rental rate refers to rental_rate > (AVG(rental_rate)) MULTIPLY 0.6"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T3.rating = 'G', 1, 0)) AS REAL) / COUNT(T3.film_id) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'Elvis' AND T1.last_name = 'Marx'",
+    "question_id": null,
+    "question": "Among the films starred by Nick Wahlberg, what is the percentage of the films with G rating?",
+    "difficulty": "",
+    "evidence": "'Nick Wahlberg' is a full name of an actor; full name refers to first_name, last_name; G rating refers to rating = 'G'; calculation = DIVIDE(SUM(rating = 'G'), SUM(rating)) * 100"
+  },
+  {
+    "sql": "SELECT address FROM address WHERE district = 'Texas' AND city_id = ( SELECT MIN(city_id) FROM address WHERE district = 'Texas' )",
+    "question_id": null,
+    "question": "List the address in Texas in the ascending order of city id.",
+    "difficulty": "",
+    "evidence": "'Texas' is a district"
+  },
+  {
+    "sql": "SELECT first_name, last_name, email FROM customer WHERE STRFTIME('%Y',create_date) = '2006' AND active = 0",
+    "question_id": null,
+    "question": "Find the full name and email address of inactive customers whose record was created in 2006.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; record created in 2006 refers to create_date = 2006; inactive customers refers to active = 0"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(rating = 'PG-13', 1, 0)) AS REAL) * 100 / COUNT(film_id) FROM film",
+    "question_id": null,
+    "question": "What percentage of the movies are PG-13?",
+    "difficulty": "",
+    "evidence": "PG-13 is a rating; calculation = DIVIDE(SUM(rating = PG-13), SUM(rating)) * 100"
+  },
+  {
+    "sql": "SELECT title FROM film ORDER BY rental_rate / rental_duration DESC LIMIT 10",
+    "question_id": null,
+    "question": "Please list the top ten movies with the most price per day in descending order of price per day.",
+    "difficulty": "",
+    "evidence": "movies with the most price per day refers to MAX(rental_rate)"
+  },
+  {
+    "sql": "SELECT AVG(amount) FROM payment WHERE customer_id = 15",
+    "question_id": null,
+    "question": "Calculate the average rent amount paid by the customer with customer id 15.",
+    "difficulty": "",
+    "evidence": "average rent amount refers to AVG(amount)"
+  },
+  {
+    "sql": "SELECT COUNT(customer_id) FROM rental WHERE return_date - rental_date > ( SELECT AVG(return_date - rental_date) FROM rental )",
+    "question_id": null,
+    "question": "How many customers rented for an above-average period?",
+    "difficulty": "",
+    "evidence": "rented period refers to SUBTRACT(return_date, rental_date); calculation = rented period > (AVG(rented period))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.name = 'horror', 1, 0)) AS REAL) * 100 / COUNT(T2.category_id) FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id",
+    "question_id": null,
+    "question": "Among the movies, what percentage are horror?",
+    "difficulty": "",
+    "evidence": "horror is a name of film category; calculation = DIVIDE(COUNT('horror'), COUNT(category_id)) * 100"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T2.first_name, T2.last_name, COUNT(T1.film_id) AS num FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id GROUP BY T2.first_name, T2.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the full name of the actor who acted in the most number of movies?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; acted in the most number of movies refers to MAX(COUNT(film_id))"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T1.first_name, T1.last_name, COUNT(T2.film_id) AS num FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film_category AS T3 ON T2.film_id = T3.film_id WHERE T3.category_id = 7 GROUP BY T1.first_name, T1.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the full name of the actor who acted the most in drama movies?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; drama is a category of a film; acted the most in a movies refers to MAX(COUNT(film_id))"
+  },
+  {
+    "sql": "SELECT AVG(IIF(T4.country = 'Australia', 1, 0)) - AVG(IIF(T4.country = 'Canada', 1, 0)) AS diff FROM customer AS T1 INNER JOIN address AS T2 ON T1.address_id = T2.address_id INNER JOIN city AS T3 ON T2.city_id = T3.city_id INNER JOIN country AS T4 ON T3.country_id = T4.country_id",
+    "question_id": null,
+    "question": "What is the difference in the average number of films rented each day in Australia and Canada?",
+    "difficulty": "",
+    "evidence": "'Australia' AND 'Canada' are country; average number of films refers to AVG('Australia') AND AVG('Canada'); calculation = SUBTRACT(AVG('Australia'), AVG('Canada'))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T4.name = 'Action', 1, 0)) AS REAL) * 100 / COUNT(T1.actor_id) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film_category AS T3 ON T2.film_id = T3.film_id INNER JOIN category AS T4 ON T3.category_id = T4.category_id WHERE T1.first_name = 'Reese' AND T1.last_name = 'Kilmer'",
+    "question_id": null,
+    "question": "Of the movies in which Reese Kilmer acted, what percentage are action movies?",
+    "difficulty": "",
+    "evidence": "'Reese Kilmer' is a full name of an actor; 'action' is the name of the category; calculation = DIVIDE(COUNT('action'), COUNT(category_id)) * 100"
+  },
+  {
+    "sql": "SELECT SUM(T1.amount) FROM payment AS T1 INNER JOIN rental AS T2 ON T1.rental_id = T2.rental_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T4.title = 'CLOCKWORK PARADICE'",
+    "question_id": null,
+    "question": "Give the total amount of rent for the movie Clockwork Paradice.",
+    "difficulty": "",
+    "evidence": "'Clockwork Paradice' is a title of a film"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T1.first_name, T1.last_name, COUNT(T1.customer_id) AS num FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id INNER JOIN film_category AS T5 ON T4.film_id = T5.film_id GROUP BY T1.first_name, T1.last_name ) AS T WHERE T.num > 5",
+    "question_id": null,
+    "question": "Find and list the full name of customers who rented more than five types of movies.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; types of movies means category of movies; \nrented more than five types of movies refers to COUNT(film_category) > 5"
+  },
+  {
+    "sql": "SELECT AVG(T1.actor_id) FROM film_actor AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id INNER JOIN actor AS T4 ON T4.actor_id = T1.actor_id WHERE T3.name = 'comedy'",
+    "question_id": null,
+    "question": "What is the average number of actors acted in comedy movies?",
+    "difficulty": "",
+    "evidence": "comedy is the name of a category; average number of actors refers to AVG(actor_id)"
+  },
+  {
+    "sql": "SELECT T.title FROM ( SELECT T4.title, COUNT(T4.title) AS num FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id INNER JOIN film_category AS T5 ON T4.film_id = T5.film_id INNER JOIN category AS T6 ON T5.category_id = T6.category_id WHERE T6.name = 'Children' GROUP BY T4.title ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "In children's movies, which was rented the most?",
+    "difficulty": "",
+    "evidence": "children is the name of the category; rented the most refers to MAX(COUNT(title))"
+  },
+  {
+    "sql": "SELECT CAST(( SELECT COUNT(T1.customer_id) FROM customer AS T1 INNER JOIN payment AS T2 ON T1.customer_id = T2.customer_id WHERE T2.amount > ( SELECT AVG(amount) FROM payment ) ) AS REAL) * 100 / ( SELECT COUNT(customer_id) FROM customer )",
+    "question_id": null,
+    "question": "Calculate the percentage of customers who paid more than the average rent amount in store 1.",
+    "difficulty": "",
+    "evidence": "store 1 refers to store_id = 1; average rent amount refers to AVG(amount); calculation = DIVIDE(amount > AVG(amount), COUNT(customer_id)) * 100"
+  },
+  {
+    "sql": "SELECT DISTINCT IIF(SUM(IIF(T5.name = 'Family', 1, 0)) - SUM(IIF(T5.name = 'Sci-Fi', 1, 0)) > 0, T1.first_name, 0) FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film_category AS T4 ON T4.film_id = T3.film_id INNER JOIN category AS T5 ON T4.category_id = T5.category_id GROUP BY T1.customer_id",
+    "question_id": null,
+    "question": "Find and list the full name of customers who rented more family movies than Sci-Fi movies.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; 'family' AND 'Sci-Fi' are names of the category; customers who rented more family movies than Sci-Fi movies refers to count(name = 'Family') > count(name = 'Sci-Fi')"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE rating = 'NC-17'",
+    "question_id": null,
+    "question": "Indicate the title of all the films rated as 'Adults Only'.",
+    "difficulty": "",
+    "evidence": "'Adults Only' refers to rating = 'NC-17'"
+  },
+  {
+    "sql": "SELECT COUNT(actor_id) FROM actor WHERE last_name = 'Kilmer'",
+    "question_id": null,
+    "question": "How many actors with the surname Kilmer are there?",
+    "difficulty": "",
+    "evidence": "surname means last_name;"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE length > 100",
+    "question_id": null,
+    "question": "How many movies have a length longer than 100?",
+    "difficulty": "",
+    "evidence": "length longer than 100 refers to length > 100"
+  },
+  {
+    "sql": "SELECT SUM(amount) FROM payment WHERE payment_date LIKE '2005-08%'",
+    "question_id": null,
+    "question": "How many payments were made throughout the month of August 2005?",
+    "difficulty": "",
+    "evidence": "payments made refers to amount; throughout the month of August 2005 refers to payment_date like '2005-08%'"
+  },
+  {
+    "sql": "SELECT T1.country FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id INNER JOIN address AS T3 ON T2.city_id = T3.city_id WHERE T3.address = '1386 Nakhon Sawan Boulevard'",
+    "question_id": null,
+    "question": "To which country does the address '1386 Nakhon Sawan Boulevard' belong?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T.language_id FROM ( SELECT T1.language_id, COUNT(T1.language_id) AS num FROM film AS T1 INNER JOIN language AS T2 ON T1.language_id = T2.language_id WHERE STRFTIME('%Y',T1.release_year) = '2006' GROUP BY T1.language_id ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What language was the most used in movies released in 2006?",
+    "difficulty": "",
+    "evidence": "released in 2006 refers to release_year = 2006; the most used language refers to MAX(COUNT(language_id))"
+  },
+  {
+    "sql": "SELECT T2.title FROM film_category AS T1 INNER JOIN film AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T1.category_id = T3.category_id WHERE T3.name = 'Classics'",
+    "question_id": null,
+    "question": "Indicate the title of all the films that are in the Classics category.",
+    "difficulty": "",
+    "evidence": "'classics' is the name of category"
+  },
+  {
+    "sql": "SELECT COUNT(T1.rental_id) FROM rental AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'ELLA' AND T2.last_name = 'ELLA' AND date(T1.rental_date) BETWEEN '2005-06-01' AND '2005-06-30'",
+    "question_id": null,
+    "question": "How many rentals did Ella Oliver hire in June 2016?",
+    "difficulty": "",
+    "evidence": "'Ella Oliver' is a full name of a customer; full name refers to first_name, last_name; rental hired in June 2016 refers to rental_date BETWEEN '2005-06-01' AND '2005-06-30'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM rental AS T1 INNER JOIN staff AS T2 ON T1.staff_id = T2.staff_id WHERE T2.first_name = 'Jon' AND T2.last_name = 'Stephens'",
+    "question_id": null,
+    "question": "How many different clients have rented materials from Jon Stephens?",
+    "difficulty": "",
+    "evidence": "'Jon Stephens' is a full name of a customer; full name refers to first_name, last_name;"
+  },
+  {
+    "sql": "SELECT SUM(T2.amount) FROM rental AS T1 INNER JOIN payment AS T2 ON T1.rental_id = T2.rental_id WHERE date(T1.rental_date) = '2005-07-29%'",
+    "question_id": null,
+    "question": "What is the total amount paid for rentals made on July 29, 2005?",
+    "difficulty": "",
+    "evidence": "July 29, 2005 refers to rental_date like '2005-07-29'"
+  },
+  {
+    "sql": "SELECT T1.first_name FROM customer AS T1 INNER JOIN address AS T2 ON T1.address_id = T2.address_id WHERE SUBSTR(T2.postal_code, 1, 2) = '76'",
+    "question_id": null,
+    "question": "What is the first name of the customers whose address is in the postal code that begins with 76?",
+    "difficulty": "",
+    "evidence": "postal code that begins with 76 refers to postal_code like '76%'"
+  },
+  {
+    "sql": "SELECT T1.rental_date FROM rental AS T1 INNER JOIN inventory AS T2 ON T1.inventory_id = T2.inventory_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.title = 'BLOOD ARGONAUTS'",
+    "question_id": null,
+    "question": "On what date was the rented material for the movie BLOOD ARGONAUTS returned?",
+    "difficulty": "",
+    "evidence": "'BLOOD ARGONAUTS' is a title of a film; date a movie was returned refers to return_date"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'Cuba' AND T1.last_name = 'Allen'",
+    "question_id": null,
+    "question": "What is the title of the films in which Cuba Allen acted?",
+    "difficulty": "",
+    "evidence": "'Cuba Allen' is a full name of an actor; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.actor_id) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id INNER JOIN film_category AS T4 ON T3.film_id = T4.film_id INNER JOIN category AS T5 ON T4.category_id = T5.category_id WHERE T5.name = 'Music'",
+    "question_id": null,
+    "question": "How many actors acted in movies in the Music category?",
+    "difficulty": "",
+    "evidence": "Music' is a name of a category"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T4.first_name, T4.last_name, COUNT(T2.actor_id) AS num FROM film_category AS T1 INNER JOIN film_actor AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T1.category_id = T3.category_id INNER JOIN actor AS T4 ON T2.actor_id = T4.actor_id WHERE T3.name = 'Comedy' GROUP BY T4.first_name, T4.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the actor who has acted the most times in comedy films?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; 'comedy' is a name of a category;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM customer AS T1 INNER JOIN store AS T2 ON T1.store_id = T2.store_id INNER JOIN staff AS T3 ON T2.manager_staff_id = T3.staff_id WHERE T3.first_name != 'Mike'",
+    "question_id": null,
+    "question": "How many customers did not rent material at Mike's store?",
+    "difficulty": "",
+    "evidence": "not at Mike's store refers to staff.first_name ! = 'Mike'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.rating = 'PG-13' ORDER BY T3.replacement_cost DESC LIMIT 1",
+    "question_id": null,
+    "question": "Indicate the name of the actors of the films rated as 'Parents Strongly Precautioned' with the highest replacement cost.",
+    "difficulty": "",
+    "evidence": "name refers to first_name, last_name; Parents Strongly Precautioned' refers to rating = 'PG-13'; \nhighest replacement cost refers to MAX(replacement_cost)"
+  },
+  {
+    "sql": "SELECT T.first_name FROM ( SELECT T2.first_name, COUNT(T1.rental_date) AS num FROM rental AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id GROUP BY T2.first_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the client who has the largest quantity of rented material without returning it?",
+    "difficulty": "",
+    "evidence": "name refers to first_name, last_name; without returning a rented material refers to return_date is null"
+  },
+  {
+    "sql": "SELECT COUNT(T3.customer_id) FROM city AS T1 INNER JOIN address AS T2 ON T1.city_id = T2.city_id INNER JOIN customer AS T3 ON T2.address_id = T3.address_id WHERE T1.city = 'Miyakonojo'",
+    "question_id": null,
+    "question": "How many customers live in the city of Miyakonojo?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.customer_id) FROM rental AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.active = 0",
+    "question_id": null,
+    "question": "How many non-active clients have not returned the rented material?",
+    "difficulty": "",
+    "evidence": "non-active clients refers to active = 0; not returning a rented material refers to rental_date is null"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id ORDER BY T1.length LIMIT 1",
+    "question_id": null,
+    "question": "What is the title of the animated films that have the shortest length?",
+    "difficulty": "",
+    "evidence": "animated film means animation; animation is a name of a category"
+  },
+  {
+    "sql": "SELECT T5.country FROM customer AS T1 INNER JOIN store AS T2 ON T1.store_id = T2.store_id INNER JOIN address AS T3 ON T2.address_id = T3.address_id INNER JOIN city AS T4 ON T3.city_id = T4.city_id INNER JOIN country AS T5 ON T4.country_id = T5.country_id WHERE T1.first_name = 'HECTOR' AND T1.last_name = 'POINDEXTER'",
+    "question_id": null,
+    "question": "In which country is the store where Hector Poinexter rents equipment located?",
+    "difficulty": "",
+    "evidence": "'Hector Poinexter' is a full name of a customer; full name refers to first_name, last_name;"
+  },
+  {
+    "sql": "SELECT AVG(T5.amount) FROM category AS T1 INNER JOIN film_category AS T2 ON T1.category_id = T2.category_id INNER JOIN inventory AS T3 ON T2.film_id = T3.film_id INNER JOIN rental AS T4 ON T3.inventory_id = T4.inventory_id INNER JOIN payment AS T5 ON T4.rental_id = T5.rental_id WHERE T1.name = 'Horror'",
+    "question_id": null,
+    "question": "What is the average rental payment in Horror movies?",
+    "difficulty": "",
+    "evidence": "'Horror' is a name of a category; average rental payment refers to AVG(amount)"
+  },
+  {
+    "sql": "SELECT AVG(T2.amount) FROM customer AS T1 INNER JOIN payment AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'CHRISTY' AND T1.Last_name = 'VARGAS'",
+    "question_id": null,
+    "question": "What is the average amount of rent that Christy Vargas paid?",
+    "difficulty": "",
+    "evidence": "'Christy Vargas' is a full name of a customer; full name refers to first_name, last_name; average amount of rent refers to AVG(amount)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.length < 100 AND T3.name = 'Drama', 1, 0)) AS REAL) * 100 / COUNT(T1.film_id) FROM film_category AS T1 INNER JOIN film AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T1.category_id = T3.category_id",
+    "question_id": null,
+    "question": "What percentage of films with a length of less than 100 belong to the Drama category?",
+    "difficulty": "",
+    "evidence": "Drama' is a name of a category; calculation = DIVIDE(SUM(length < 100 AND name = 'Drama'), COUNT(film_id)) * 100"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM actor WHERE first_name = 'Johnny'",
+    "question_id": null,
+    "question": "What are the actors that have the same forename as Johnny? Please include in your answer the full names of these actors.",
+    "difficulty": "",
+    "evidence": "forename means first_name; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT address_id FROM address WHERE district = 'Gansu'",
+    "question_id": null,
+    "question": "What are the address numbers that are located in Gansu district?",
+    "difficulty": "",
+    "evidence": "address numbers refers to address_id;"
+  },
+  {
+    "sql": "SELECT DISTINCT name, category_id, last_update FROM category LIMIT 3",
+    "question_id": null,
+    "question": "Please list three types of film along with their IDs and the latest update.",
+    "difficulty": "",
+    "evidence": "types of film refers to the name of a category; IDs refers to category_id; latest update refers to last_update."
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM customer WHERE active = 0 LIMIT 3",
+    "question_id": null,
+    "question": "Please list the full names of any three inactive customers.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; inactive customers refers to active = 0"
+  },
+  {
+    "sql": "SELECT rental_rate / rental_duration AS result FROM film WHERE title = 'AIRPLANE SIERRA'",
+    "question_id": null,
+    "question": "What is the rental price per day for Airplane Sierra?",
+    "difficulty": "",
+    "evidence": "rental price per day refers to DIVIDE(rental_price, rental_duration); 'Airplane Sierra' is a title of a film"
+  },
+  {
+    "sql": "SELECT T1.address, T1.address2, T1.district FROM address AS T1 INNER JOIN store AS T2 ON T1.address_id = T2.address_id WHERE T2.store_id = 2",
+    "question_id": null,
+    "question": "Where is store number 2 located?",
+    "difficulty": "",
+    "evidence": "store number 2 refers to store_id = 2; where is a store located refers to address, address2, district"
+  },
+  {
+    "sql": "SELECT T1.city FROM city AS T1 INNER JOIN address AS T2 ON T2.city_id = T1.city_id WHERE T2.address = '1623 Kingstown Drive'",
+    "question_id": null,
+    "question": "Which city does the address 1623 Kingstown Drive belong to?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.city FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id WHERE T1.country = 'Algeria'",
+    "question_id": null,
+    "question": "Please name three cities that belong to Algeria.",
+    "difficulty": "",
+    "evidence": "Algeria is a country"
+  },
+  {
+    "sql": "SELECT T3.name FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T1.title = 'AGENT TRUMAN'",
+    "question_id": null,
+    "question": "What is the category of the film Agent Truman?",
+    "difficulty": "",
+    "evidence": "'Agent Truman' is a title of a film; category refers to name"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Action' LIMIT 3",
+    "question_id": null,
+    "question": "Please list the titles of any three action films.",
+    "difficulty": "",
+    "evidence": "action is a name of category"
+  },
+  {
+    "sql": "SELECT SUM(IIF(T2.name = 'Children', 1, 0)) - SUM(IIF(T2.name = 'Action', 1, 0)) AS diff FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id",
+    "question_id": null,
+    "question": "What is the difference between the number of children's films and action films?",
+    "difficulty": "",
+    "evidence": "'children' AND 'action' are names of a category; Calculation = SUBTRACT(AVG('children'), AVG('action'))"
+  },
+  {
+    "sql": "SELECT T2.district FROM customer AS T1 INNER JOIN address AS T2 ON T1.address_id = T2.address_id WHERE T1.first_name = 'Maria' AND T1.last_name = 'Miller'",
+    "question_id": null,
+    "question": "Which district does Maria Miller live in?",
+    "difficulty": "",
+    "evidence": "'Maria Miller' is a name of a customer; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM customer AS T1 INNER JOIN address AS T2 ON T1.address_id = T2.address_id WHERE T2.address = '1795 Santiago de Compostela Way' AND T1.active = 1",
+    "question_id": null,
+    "question": "Who is the customer that is active and lives at 1795 Santiago de Compostela Way, Texas?",
+    "difficulty": "",
+    "evidence": "active refers to active = 1; '1795 Santiago de Compostela Way' is an address; Texas is a district; who refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN language AS T2 ON T1.language_id = T2.language_id WHERE T2.name = 'English' AND T1.length > 50 AND T1.replacement_cost < 10.99",
+    "question_id": null,
+    "question": "How many English films have a duration of over 50 minutes and the cost of replacement are under 10.99?",
+    "difficulty": "",
+    "evidence": "English is a name of a language; duration of over 50 minutes refers to length > 50; cost of replacement are under 10.99 refers to replacement_cost < 10.99"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.title = 'ACADEMY DINOSAUR'",
+    "question_id": null,
+    "question": "Who are the actors that act in the ACADEMY DINOSAUR film?",
+    "difficulty": "",
+    "evidence": "Who are the actors refers to full name; full name refers to first_name, last_name; 'ACADEMY DINOSAUR' is a title of a film"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'Penelope' AND T1.last_name = 'Guiness' LIMIT 2",
+    "question_id": null,
+    "question": "Please list any two films that Penelope Guiness acted in.",
+    "difficulty": "",
+    "evidence": "film refers to title of the film; 'Penelope Guiness' is a full name of an actor; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.name = 'Documentary', 1, 0)) AS REAL) * 100 / COUNT(T1.film_id) FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id",
+    "question_id": null,
+    "question": "What is the percentage of documentary films?",
+    "difficulty": "",
+    "evidence": "documentary' is a name of a category; calculation = DIVIDE(SUM(name = 'Documentary'), COUNT(film_id)) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN language AS T2 ON T1.language_id = T2.language_id WHERE T2.name = 'English' AND T1.rating = 'NC-17'",
+    "question_id": null,
+    "question": "How many films in English are for adults only?",
+    "difficulty": "",
+    "evidence": "English is a name of a language; for adults only refers to rating = 'NC-17'"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE length = ( SELECT MAX(length) FROM film )",
+    "question_id": null,
+    "question": "Which film has the longest duration?",
+    "difficulty": "",
+    "evidence": "film refers to the title; the longest duration refers to MAX(length)"
+  },
+  {
+    "sql": "SELECT COUNT(actor_id) FROM actor WHERE first_name = 'Dan'",
+    "question_id": null,
+    "question": "How many of the actors are named \"Dan\"?",
+    "difficulty": "",
+    "evidence": "'Dan' is a first_name of an actor"
+  },
+  {
+    "sql": "SELECT first_name FROM customer GROUP BY first_name ORDER BY COUNT(first_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most common first name among the customers?",
+    "difficulty": "",
+    "evidence": "the most common first name refers to MAX(COUNT(first_name))"
+  },
+  {
+    "sql": "SELECT rating FROM film WHERE special_features LIKE '%Behind the Scenes%'",
+    "question_id": null,
+    "question": "What are the ratings of the film featuring behind the scenes?",
+    "difficulty": "",
+    "evidence": "film featuring behind the scenes refers to special_features = 'Behind the Scenes'"
+  },
+  {
+    "sql": "SELECT COUNT(rental_id) FROM rental GROUP BY customer_id ORDER BY COUNT(rental_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the largest number of films rented per customer?",
+    "difficulty": "",
+    "evidence": "the largest number of films refers to MAX(rental_id)"
+  },
+  {
+    "sql": "SELECT title FROM film_text WHERE description LIKE '%Lacklusture%'",
+    "question_id": null,
+    "question": "List all the films with the word \"Lacklusture\" in their description.",
+    "difficulty": "",
+    "evidence": "films refers to title"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'FRANCIS' AND T1.last_name = 'SIKES'",
+    "question_id": null,
+    "question": "How many films did a customer named Francis Sikes rent?",
+    "difficulty": "",
+    "evidence": "'Francis Sikes' is a full name of a customer; full name refers to first_name, last_name;"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T3.first_name, T3.last_name, COUNT(T1.film_id) AS num FROM inventory AS T1 INNER JOIN store AS T2 ON T1.store_id = T2.store_id INNER JOIN staff AS T3 ON T2.manager_staff_id = T3.staff_id GROUP BY T3.first_name, T3.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the manager of the store with the largest collection of films?",
+    "difficulty": "",
+    "evidence": "Who refers to first_name, last_name; the largest collection of films refers to MAX(film_id)"
+  },
+  {
+    "sql": "SELECT T2.address FROM customer AS T1 INNER JOIN address AS T2 ON T1.address_id = T2.address_id WHERE T1.active = 0",
+    "question_id": null,
+    "question": "What are the addresses of the inactive customers?",
+    "difficulty": "",
+    "evidence": "inactive customers refers to active = 0;"
+  },
+  {
+    "sql": "SELECT T.name FROM ( SELECT T2.name, COUNT(T2.name) AS num FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id GROUP BY T2.name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which category is the most common?",
+    "difficulty": "",
+    "evidence": "most common category refers to MAX(COUNT(category.name))"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.title = 'JASON TRAP'",
+    "question_id": null,
+    "question": "Provide the cast for the film \"Jason trap\".",
+    "difficulty": "",
+    "evidence": "'Jason trap' is a title of a film; cast means actor; actor refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T1.first_name, T1.last_name, SUM(T2.amount) AS num FROM customer AS T1 INNER JOIN payment AS T2 ON T1.customer_id = T2.customer_id GROUP BY T1.first_name, T1.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the customer with the largest payment for rental films?",
+    "difficulty": "",
+    "evidence": "Who refers to first_name, last_name; the largest payment for rental refers to MAX(SUM(amount))"
+  },
+  {
+    "sql": "SELECT T.title FROM ( SELECT T3.title, COUNT(T2.inventory_id) AS num FROM rental AS T1 INNER JOIN inventory AS T2 ON T1.inventory_id = T2.inventory_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id GROUP BY T3.title ) AS T ORDER BY T.num DESC LIMIT 5",
+    "question_id": null,
+    "question": "List the top 5 most-rented films.",
+    "difficulty": "",
+    "evidence": "film refers to title; most rented refers to MAX(inventory_id)"
+  },
+  {
+    "sql": "SELECT T1.country FROM country AS T1 INNER JOIN city AS T2 ON T1.country_id = T2.country_id WHERE T2.city = 'Sasebo'",
+    "question_id": null,
+    "question": "Which country does Sasebo belong to?",
+    "difficulty": "",
+    "evidence": "'Sasebo' is a city"
+  },
+  {
+    "sql": "SELECT T2.address FROM store AS T1 INNER JOIN address AS T2 ON T1.address_id = T2.address_id",
+    "question_id": null,
+    "question": "What are the addresses for the stores?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.title AS per FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T2.name = 'Animation'",
+    "question_id": null,
+    "question": "List all the animation titles.",
+    "difficulty": "",
+    "evidence": "'animation' is a name of a category"
+  },
+  {
+    "sql": "SELECT T.city FROM ( SELECT T1.city, COUNT(T3.customer_id) AS num FROM city AS T1 INNER JOIN address AS T2 ON T2.city_id = T1.city_id INNER JOIN customer AS T3 ON T2.address_id = T3.address_id GROUP BY T1.city ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the city with the most customers?",
+    "difficulty": "",
+    "evidence": "the most customers refers to MAX(COUNT(customer_id))"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T2.first_name, T2.last_name, SUM(T1.film_id) AS num FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id GROUP BY T2.first_name, T2.last_name ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which actor acted in the most films?",
+    "difficulty": "",
+    "evidence": "actor refers to first_name, last_name; the most film refers to MAX(SUM(film_id))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.name = 'Horror', 1, 0)) AS REAL) * 100 / COUNT(T1.film_id) FROM film_category AS T1 INNER JOIN category AS T2 ON T1.category_id = T2.category_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id",
+    "question_id": null,
+    "question": "What percentage of films are horror films?",
+    "difficulty": "",
+    "evidence": "horror' is a name of a category; calculation = DIVIDE(SUM(name = 'Horror'), COUNT(film_id)) * 100"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM actor WHERE actor_id = 5",
+    "question_id": null,
+    "question": "Please indicate the full name of actor id 5.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film_category WHERE category_id = 11",
+    "question_id": null,
+    "question": "How many id movies have category id 11?",
+    "difficulty": "",
+    "evidence": "id movies refers to film_id"
+  },
+  {
+    "sql": "SELECT T3.`name` FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T3.category_id = T2.category_id WHERE T1.title = 'BABY HALL'",
+    "question_id": null,
+    "question": "Which category does BABY HALL film belong to?",
+    "difficulty": "",
+    "evidence": "category refers to name; BABY HALL film refers to title = 'BABY HALL'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T3.film_id = T2.film_id ORDER BY T3.rental_rate DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the full name of the actor with the highest rental rate.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; the highest rental rate refers to max(rental_rate)"
+  },
+  {
+    "sql": "SELECT T3.description FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T3.film_id = T2.film_id WHERE T1.first_name = 'JOHNNY' AND T1.last_name = 'DAVIS'",
+    "question_id": null,
+    "question": "Please give the description of the movie starring JENNIFER DAVIS.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T1.amount > 10",
+    "question_id": null,
+    "question": "List the full names of customers who have paid more than 10$.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; more than 10$ refers to amount > 10"
+  },
+  {
+    "sql": "SELECT T1.address FROM address AS T1 INNER JOIN customer AS T2 ON T1.address_id = T2.address_id WHERE T2.first_name = 'SUSAN' AND T1.postal_code = 77948",
+    "question_id": null,
+    "question": "Please provide the address of the customer whose first name is SUSAN with the postal code 77948.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.city_id) FROM city AS T1 INNER JOIN address AS T2 ON T1.city_id = T2.city_id INNER JOIN customer AS T3 ON T2.address_id = T3.address_id WHERE T1.city = 'Abu Dhabi'",
+    "question_id": null,
+    "question": "How many customers have an address in Abu Dhabi city? List those customer names.",
+    "difficulty": "",
+    "evidence": "name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM address AS T1 INNER JOIN customer AS T2 ON T1.address_id = T2.address_id WHERE T1.address = '692 Joliet Street'",
+    "question_id": null,
+    "question": "Please provide the full name of the customer at 692 Joliet Street.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; 692 Joliet Street refers to address = '692 Joliet Street'"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T3.category_id = T2.category_id WHERE T3.`name` = 'action' AND T1.length > 120",
+    "question_id": null,
+    "question": "List movie titles with duration over 120 minutes that are in the action category.",
+    "difficulty": "",
+    "evidence": "duration over 120 minutes refers to length > 120; action category refers to category.name = 'action'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T3.film_id = T2.film_id WHERE T3.title = 'ANONYMOUS HUMAN'",
+    "question_id": null,
+    "question": "Which actor acted in ANONYMOUS HUMAN?",
+    "difficulty": "",
+    "evidence": "actor refers to first_name, last_name; ANONYMOUS HUMAN refers to title = 'ANONYMOUS HUMAN'"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.`name` = 'Horror' ORDER BY T1.rental_rate LIMIT 1",
+    "question_id": null,
+    "question": "Which movie title has the lowest movie rental in the horror category?",
+    "difficulty": "",
+    "evidence": "the lowest movie rental refers to min(rental_rate); the horror category refers to category.name = 'Horror'"
+  },
+  {
+    "sql": "SELECT T1.description FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.`name` = 'Travel'",
+    "question_id": null,
+    "question": "List the descriptions of movies under the category Travel.",
+    "difficulty": "",
+    "evidence": "the category Travel refers to category.name = 'Travel'"
+  },
+  {
+    "sql": "SELECT SUM(T1.amount) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id INNER JOIN address AS T3 ON T3.address_id = T2.address_id WHERE T3.district = 'Nagasaki'",
+    "question_id": null,
+    "question": "Calculate the total payment amount of customers in Nagasaki district.",
+    "difficulty": "",
+    "evidence": "the total payment amount refers to sum(amount)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.first_name = 'MARGARET' AND T2.last_name = 'MOORE', T1.amount, 0)) AS REAL) * 100 / SUM(T1.amount) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id",
+    "question_id": null,
+    "question": "Calculate the percentage of total payment of MARGARET MOORE customers.",
+    "difficulty": "",
+    "evidence": "percentage = divide(sum(amount where first_name = 'MARGARET' and last_name = 'MOORE'), sum(amount)) * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T3.`name` = 'Horror', 1, 0)) * 100 / COUNT(T1.film_id) AS REAL) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T3.category_id = T2.category_id WHERE T1.length > 120",
+    "question_id": null,
+    "question": "Calculate the percentage of movie titles with a screen length of more than 120 minutes that have a category of horror movies.",
+    "difficulty": "",
+    "evidence": "screen length of more than 120 minutes refers to length > 120; category of horror refers to category.name = 'Horror'; percentage = divide(count(title where length > 120 and category.name = 'Horror'), count(title)) * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE release_year = 2006",
+    "question_id": null,
+    "question": "How many film titles were released in 2006?",
+    "difficulty": "",
+    "evidence": "released in 2006 refers to release_year = 2006"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE film_id BETWEEN 1 AND 10",
+    "question_id": null,
+    "question": "List down film titles from id 1 to 10.",
+    "difficulty": "",
+    "evidence": "id 1 to 10 refers to film_id BETWEEN 1 and 10"
+  },
+  {
+    "sql": "SELECT film_id FROM film WHERE rental_duration = ( SELECT MAX(rental_duration) FROM film )",
+    "question_id": null,
+    "question": "List down all of the film IDs with highest rental duration.",
+    "difficulty": "",
+    "evidence": "highest rental duration refers to max(rental_duration)"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE rental_rate = ( SELECT MAX(rental_rate) FROM film )",
+    "question_id": null,
+    "question": "Which film titles have the most expensive rental rate?",
+    "difficulty": "",
+    "evidence": "the most expensive rental rate refers to max(rental_rate)"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE rating = 'G'",
+    "question_id": null,
+    "question": "List down all of the film titles that are rated for general audiences.",
+    "difficulty": "",
+    "evidence": "rated for general audiences means rating = 'G'"
+  },
+  {
+    "sql": "SELECT T2.`name` FROM film AS T1 INNER JOIN `language` AS T2 ON T1.language_id = T2.language_id WHERE T1.title = 'CHILL LUCK'",
+    "question_id": null,
+    "question": "What is the language for film titled \"CHILL LUCK\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.last_update FROM film AS T1 INNER JOIN `language` AS T2 ON T1.language_id = T2.language_id WHERE T2.`name` = 'English' AND T1.release_year = 2006",
+    "question_id": null,
+    "question": "What are the last updated date for English film titles that were released in 2006?",
+    "difficulty": "",
+    "evidence": "the last updated date refers to last_update; English is name of language; released in 2006 refers to release_year = 2006\n\n"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN `language` AS T2 ON T1.language_id = T2.language_id WHERE T2.`name` = 'Italian' AND T1.special_features = 'deleted scenes'",
+    "question_id": null,
+    "question": "How many Italian film titles were special featured with deleted scenes?",
+    "difficulty": "",
+    "evidence": "Italian is name of language; special featured with deleted scenes refers to special_features = 'deleted scenes'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.title) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'animation' AND T1.rating = 'NC-17'",
+    "question_id": null,
+    "question": "How many animation film titles are rated for adults only?",
+    "difficulty": "",
+    "evidence": "animation film refers to category.name = 'animation'; for adults only means rating = 'NC-17'"
+  },
+  {
+    "sql": "SELECT T1.description FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'action'",
+    "question_id": null,
+    "question": "List down all ratings of action film titles.",
+    "difficulty": "",
+    "evidence": "for General Audiences means rating = 'G'; Parental Guidance Suggested means rating = 'PG'; Parents Strongly Cautioned means rating = 'PG-13'; Restricted means rating = 'R'; Adults Only means rating = 'NC-17'; action film refers to category.name = 'action'"
+  },
+  {
+    "sql": "SELECT T1.film_id FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T3.category_id = T2.category_id WHERE T3.name = 'comedy'",
+    "question_id": null,
+    "question": "List down all film IDs of comedy film titles.",
+    "difficulty": "",
+    "evidence": "comedy is name of category"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T3.category_id = T2.category_id WHERE T3.name = 'documentary' ORDER BY T1.length DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the documentary film titles with longest length.",
+    "difficulty": "",
+    "evidence": "documentary film refers to name = 'documentary'; longest length refers to max(length)"
+  },
+  {
+    "sql": "SELECT T3.name FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T3.category_id = T2.category_id WHERE T1.title = 'BLADE POLISH'",
+    "question_id": null,
+    "question": "What is the category of film titled \"BLADE POLISH\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.rental_id FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'MARY' AND T1.last_name = 'SMITH'",
+    "question_id": null,
+    "question": "What is Mary Smith's rental ID?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first_name, T1.last_name FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T2.staff_id = 1",
+    "question_id": null,
+    "question": "List down all of the customers' first name who were attended by staff with ID 1.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.email FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T2.staff_id = 2",
+    "question_id": null,
+    "question": "List down email address of customers who were attended by staff with ID 2.",
+    "difficulty": "",
+    "evidence": "email address refers to email"
+  },
+  {
+    "sql": "SELECT T2.actor_id FROM film AS T1 INNER JOIN film_actor AS T2 ON T1.film_id = T2.film_id WHERE T1.title = 'BOUND CHEAPER'",
+    "question_id": null,
+    "question": "List down the actor IDs of film titled \"BOUND CHEAPER\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.inventory_id FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'KAREN' AND T1.last_name = 'JACKSON'",
+    "question_id": null,
+    "question": "What is the inventory ID of Karen Jackson?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_actor AS T2 ON T1.film_id = T2.film_id INNER JOIN actor AS T3 ON T2.actor_id = T3.actor_id WHERE T3.first_name = 'JANE' AND T3.last_name = 'JACKMAN'",
+    "question_id": null,
+    "question": "List down all film titles starred by Jane Jackman.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM film AS T1 INNER JOIN film_actor AS T2 ON T1.film_id = T2.film_id INNER JOIN actor AS T3 ON T2.actor_id = T3.actor_id WHERE T1.title = 'BIRD INDEPENDENCE'",
+    "question_id": null,
+    "question": "Who are the actors of film titled \"BIRD INDEPENDENCE\"?",
+    "difficulty": "",
+    "evidence": "actor refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT SUM(T1.rental_rate) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.`name` = 'Animation'",
+    "question_id": null,
+    "question": "Calculate the total rental rate for animation film titles.",
+    "difficulty": "",
+    "evidence": "animation film refers to category.name = 'Animation'; total rental rate = sum(rental_rate)"
+  },
+  {
+    "sql": "SELECT AVG(T1.rental_rate) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T3.category_id = T2.category_id WHERE T3.`name` = 'Sci-Fi'",
+    "question_id": null,
+    "question": "What is the average rental rate of sci-fi film titles?",
+    "difficulty": "",
+    "evidence": "sci-fi film refers to category.name = 'Sci-Fi'; average rental rate = avg(rental_rate)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T3.name = 'Horror', 1, 0)) AS REAL) * 100 / COUNT(T1.film_id) FROM film_category AS T1 INNER JOIN film AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T1.category_id = T3.category_id INNER JOIN language AS T4 ON T2.language_id = T4.language_id WHERE T4.name = 'English'",
+    "question_id": null,
+    "question": "What is the percentage of horror film titles in English film titles?",
+    "difficulty": "",
+    "evidence": "horror film refers to category.name = 'Horror'; English film refers to language.name = 'English'; percentage = divide(count(film_id where category.name = 'Horror'), count(film_id)) where language.name = 'English' * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE rating = 'NC-17' AND rental_duration < 4",
+    "question_id": null,
+    "question": "Among the adult films, how many of them have a rental duration of fewer than 4 days?",
+    "difficulty": "",
+    "evidence": "adult film refers to rating = 'NC-17'; rental duration of fewer than 4 days refers to rental_duration < 4"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE replacement_cost = 29.99 AND rating = 'R' AND length = 71",
+    "question_id": null,
+    "question": "What is the title of the restricted film, whose length is 71 minutes and whose replacement cost is $29.99?",
+    "difficulty": "",
+    "evidence": "restricted means rating = 'R'; length is 71 minutes refers to length = 71; replacement cost is $29.99 refers to replacement_cost = 29.99"
+  },
+  {
+    "sql": "SELECT T2.email FROM rental AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T1.rental_date BETWEEN '2005-5-25 07:37:47' AND '2005-5-26 10:06:49' AND T2.active = 1",
+    "question_id": null,
+    "question": "Write down the email addresses of active customers who rented between 5/25/2005 at 7:37:47 PM and 5/26/2005 at 10:06:49 AM.",
+    "difficulty": "",
+    "evidence": "email address refers to email; active refers to active = 1; between 5/25/2005 at 7:37:47 PM and 5/26/2005 at 10:06:49 AM refers to rental_date between '2005-5-25 07:37:47' and '2005-5-26 10:06:49'"
+  },
+  {
+    "sql": "SELECT SUM(T3.amount) FROM rental AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id INNER JOIN payment AS T3 ON T1.rental_id = T3.rental_id WHERE T2.first_name = 'SARAH' AND T2.last_name = 'LEWIS'",
+    "question_id": null,
+    "question": "Compute the total payment made by Sarah Lewis for film rentals so far.",
+    "difficulty": "",
+    "evidence": "total payment = sum(amount)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T1.payment_date BETWEEN '2005-05-30 03:43:54' AND '2005-07-31 10:08:29'",
+    "question_id": null,
+    "question": "From 5/30/2005 at 3:43:54 AM to 7/31/2005 at 10:08:29 PM, how many times did Susan Wilson pay for film rentals?",
+    "difficulty": "",
+    "evidence": "from 5/30/2005 at 3:43:54 AM to 7/31/2005 at 10:08:29 PM refers to payment_date between '2005-05-30 03:43:54' and '2005-07-31 10:08:29'"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T3.title = 'ALABAMA DEVIL'",
+    "question_id": null,
+    "question": "Tally the full names of actors in the film \"Alabama Devil.\"",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; \"Alabama Devil\" refers to title = 'ALABAMA DEVIL'"
+  },
+  {
+    "sql": "SELECT T3.title FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T2.first_name = 'SANDRA' AND T2.last_name = 'KILMER'",
+    "question_id": null,
+    "question": "Tell me the title of the film in which Sandra Kilmer is one of the actors.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Documentary' AND T1.rating = 'PG-13'",
+    "question_id": null,
+    "question": "How many documentary films are rated PG-13?",
+    "difficulty": "",
+    "evidence": "documentary film refers to category.name = 'documentary'; rated PG-13 refers to rating = 'PG-13'"
+  },
+  {
+    "sql": "SELECT T1.title, T3.name, T1.special_features FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T1.rental_duration * T1.rental_rate > 30",
+    "question_id": null,
+    "question": "Give me the title and category name of films whose price per day is more than $30. Please include their special features.",
+    "difficulty": "",
+    "evidence": "category name refers to category.name; price per day is more than $30 refers to multiply(rental_duration, rental_rate) > 30"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T3.title = 'AFRICAN EGG'",
+    "question_id": null,
+    "question": "Name the cast members of the movie 'African Egg'.",
+    "difficulty": "",
+    "evidence": "cast member name refers to first_name, last_name; 'African Egg' refers to title = 'AFRICAN EGG'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.rental_id) FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'Maria' AND T1.last_name = 'Miller'",
+    "question_id": null,
+    "question": "Identify the number of movies rented by Maria Miller.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T4.title FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T1.first_name = 'DOROTHY' AND T1.last_name = 'TAYLOR' ORDER BY T2.rental_date DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the most recent movie rented by Dorothy Taylor.",
+    "difficulty": "",
+    "evidence": "movie name refers to title; the most recent refers to max(rental_date)"
+  },
+  {
+    "sql": "SELECT COUNT(T2.film_id) FROM category AS T1 INNER JOIN film_category AS T2 ON T1.category_id = T2.category_id WHERE T1.name = 'Action'",
+    "question_id": null,
+    "question": "Determine the number of action movies available for rent.",
+    "difficulty": "",
+    "evidence": "action movie refers to category.name = 'Action'"
+  },
+  {
+    "sql": "SELECT T2.store_id, T1.address, T4.rental_rate FROM address AS T1 INNER JOIN store AS T2 ON T1.address_id = T2.address_id INNER JOIN inventory AS T3 ON T2.store_id = T3.store_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T4.title = 'WYOMING STORM'",
+    "question_id": null,
+    "question": "Where can you rent the movie 'Wyoming Storm'? Identify the address of the rental store and the rental rate.",
+    "difficulty": "",
+    "evidence": "'Wyoming Storm' refers to title = 'WYOMING STORM'"
+  },
+  {
+    "sql": "SELECT T2.rental_date - T2.return_date FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id INNER JOIN inventory AS T3 ON T2.inventory_id = T3.inventory_id INNER JOIN film AS T4 ON T3.film_id = T4.film_id WHERE T1.first_name = 'AUSTIN' AND T4.title = 'DESTINY SATURDAY'",
+    "question_id": null,
+    "question": "How long did Austin Cintron take to return the movie 'Destiny Saturday'?",
+    "difficulty": "",
+    "evidence": "'Destiny Saturday' refers to title = 'DESTINY SATURDAY'; length = subtract(return_date, rental_date)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id AND T2.first_name = 'NICK' AND T2.last_name = 'STALLONE'",
+    "question_id": null,
+    "question": "Identify the number of movies that starred Nick Stallone.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT title FROM film WHERE length = ( SELECT MIN(length) FROM film ) ORDER BY rental_duration * rental_rate DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the movie with the highest rental revenue among the shortest films.",
+    "difficulty": "",
+    "evidence": "movie name refers to title; the highest rental revenue refers to max(multiply(rental_duration, rental_rate)); the shortest film refers to min(length)"
+  },
+  {
+    "sql": "SELECT SUM(T1.amount) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'STEPHANIE' AND T2.last_name = 'MITCHELL' AND SUBSTR(T1.payment_date, 1, 7) = '2005-06'",
+    "question_id": null,
+    "question": "Calculate the total amount paid by Stephanie Mitchell for film rentals in June 2005.",
+    "difficulty": "",
+    "evidence": "the total amount = sum(amount); in June 2005 refers to payment_date like '2005-06%'"
+  },
+  {
+    "sql": "SELECT AVG(replacement_cost) FROM film WHERE rental_rate = 4.99",
+    "question_id": null,
+    "question": "What is the average replacement cost for the movies with a rental rate of 4.99?",
+    "difficulty": "",
+    "evidence": "a rental rate of 4.99 refers to rental_rate = 4.99; average replacement cost = avg(replacement_cost)"
+  },
+  {
+    "sql": "SELECT AVG(rental_rate) FROM film WHERE rating = 'PG-13'",
+    "question_id": null,
+    "question": "What is the average rental rate for PG-13 rated movies?",
+    "difficulty": "",
+    "evidence": "PG-13 rated movie refers to rating = 'PG-13'; average rental rate = avg(rental_rate)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN active = 0 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(customer_id) FROM customer WHERE store_id = 1",
+    "question_id": null,
+    "question": "Indicate the percentage of inactive customers at store no.1.",
+    "difficulty": "",
+    "evidence": "inactive refers to active = 0; store no.1 refers to store_id = 1; percentage = divide(count(customer_id where active = 0), count(customer_id)) * 100% where store_id = 1"
+  },
+  {
+    "sql": "SELECT rental_duration FROM film WHERE title = 'DIRTY ACE'",
+    "question_id": null,
+    "question": "For how long can you rent the movie 'Dirty Ace'?",
+    "difficulty": "",
+    "evidence": "length refers to rental_duration; 'Dirty Ace' refers to title = 'DIRTY ACE'"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM customer WHERE email = 'SHEILA.WELLS@sakilacustomer.org'",
+    "question_id": null,
+    "question": "Identify the full name of the customer, who has the following email address: SHEILA.WELLS@sakilacustomer.org.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE length = ( SELECT MAX(length) FROM film )",
+    "question_id": null,
+    "question": "Provide the list of the longest movies. Arrange these titles in alphabetical order.",
+    "difficulty": "",
+    "evidence": "the longest refers to max(length)"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT category_id) FROM category",
+    "question_id": null,
+    "question": "How many film categories are there?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.rental_id) , CAST(SUM(IIF(STRFTIME('%m',T2.rental_date) = '7', 1, 0)) AS REAL) * 100 / COUNT(T2.rental_id) FROM customer AS T1 INNER JOIN rental AS T2 ON T1.customer_id = T2.customer_id WHERE T1.first_name = 'Maria' AND T1.last_name = 'Miller' AND STRFTIME('%Y',T2.rental_date) = '2005'",
+    "question_id": null,
+    "question": "How many titles did Mary Smith rent in 2005? Determine the percentage of titles rented in June 2005.",
+    "difficulty": "",
+    "evidence": "in June 2005 refers to month(rental_date) = 6 and year(rental_date) = 2005; percentage = divide(count(inventory_id where month(rental_date) = 6 and year(rental_date) = 2005), count(inventory_id)) * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(customer_id) FROM customer WHERE active = 1",
+    "question_id": null,
+    "question": "How many customers are still active?",
+    "difficulty": "",
+    "evidence": "active refers to active = 1"
+  },
+  {
+    "sql": "SELECT title FROM film WHERE rating = 'PG-13'",
+    "question_id": null,
+    "question": "List all the films that are rated as PG-13.",
+    "difficulty": "",
+    "evidence": "film refers to title; rated as PG-13 refers to rating = 'PG-13'"
+  },
+  {
+    "sql": "SELECT T.title FROM ( SELECT T1.title, COUNT(T3.customer_id) AS num FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id INNER JOIN rental AS T3 ON T2.inventory_id = T3.inventory_id WHERE T1.rental_duration > 5 GROUP BY T1.title ) AS T WHERE T.num > 10",
+    "question_id": null,
+    "question": "List at least 10 films that the customers can rent for more than 5 days.",
+    "difficulty": "",
+    "evidence": "film refers to title; rent for more than 5 days refers to rental_duration > 5"
+  },
+  {
+    "sql": "SELECT T1.city FROM city AS T1 INNER JOIN country AS T2 ON T2.country_id = T1.country_id WHERE country = 'United Arab Emirates'",
+    "question_id": null,
+    "question": "List all the cities that belong to United Arab Emirates.",
+    "difficulty": "",
+    "evidence": "United Arab Emirates refers to country = 'United Arab Emirates'"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T1.amount > 10",
+    "question_id": null,
+    "question": "List at least 5 customers who paid greater than $10. Provide the full name of the customers.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; greater than $10 refers to amount > 10"
+  },
+  {
+    "sql": "SELECT T3.title FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T2.first_name = 'BURT' AND T2.last_name = 'DUKAKIS'",
+    "question_id": null,
+    "question": "What films did Burt Dukakis got star in?",
+    "difficulty": "",
+    "evidence": "film refers to title"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T3.title = 'ENDING CROWDS'",
+    "question_id": null,
+    "question": "Provide the full name of all the actors of the film \"Ending Crowds\".",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; film \"Ending Crowds\" refers to title = 'ENDING CROWDS'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.title = 'BOUND CHEAPER'",
+    "question_id": null,
+    "question": "Who are the actors starred in the film \"Bound Cheaper\"?",
+    "difficulty": "",
+    "evidence": "actor refers to first_name, last_name; film \"Bound Cheaper\" refers to title = 'BOUND CHEAPER'"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'KARL' AND T1.last_name = 'BERRY' AND T3.rating = 'PG'",
+    "question_id": null,
+    "question": "List all the films that Karl Berr starred in and rated as PG.",
+    "difficulty": "",
+    "evidence": "film refers to title; rated as PG refers to rating = 'PG'"
+  },
+  {
+    "sql": "SELECT T1.city FROM city AS T1 INNER JOIN country AS T2 ON T2.country_id = T1.country_id WHERE country = 'Philippines'",
+    "question_id": null,
+    "question": "List at least 3 cities under the country of Philippines.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T.title FROM ( SELECT T3.title, COUNT(T1.customer_id) AS num FROM rental AS T1 INNER JOIN inventory AS T2 ON T1.inventory_id = T2.inventory_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id GROUP BY T3.title ) AS T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What are the films that are least rented by the customers?",
+    "difficulty": "",
+    "evidence": "film refers to title; least rented refers to count(min(customer_id))"
+  },
+  {
+    "sql": "SELECT T1.film_id FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id WHERE T2.first_name = 'LUCILLE' AND T2.last_name = 'TRACY'",
+    "question_id": null,
+    "question": "List all the description of the films starring Lucille Tracy?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.name FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T1.title = 'BEACH HEARTBREAKERS'",
+    "question_id": null,
+    "question": "Which category is the film \"Beach Heartbreakers\" falls into?",
+    "difficulty": "",
+    "evidence": "category refers to name; film \"Beach Heartbreakers\" refers to title = 'BEACH HEARTBREAKERS'"
+  },
+  {
+    "sql": "SELECT T1.title FROM film AS T1 INNER JOIN film_category AS T2 ON T1.film_id = T2.film_id INNER JOIN category AS T3 ON T2.category_id = T3.category_id WHERE T3.name = 'Horror'",
+    "question_id": null,
+    "question": "List at least 10 films that falls into the Horror category.",
+    "difficulty": "",
+    "evidence": "film refers to title; Horror category refers to category.name = 'Horror'"
+  },
+  {
+    "sql": "SELECT T1.last_name FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T3.rating = 'NC-17'",
+    "question_id": null,
+    "question": "Who among the actors starred in a NC-17 rated film? Provide only the last name of the actors.",
+    "difficulty": "",
+    "evidence": "NC-17 rated refers to rating = 'NC-17'"
+  },
+  {
+    "sql": "SELECT AVG(T3.rental_rate) FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'LUCILLE' AND T1.last_name = 'TRACY'",
+    "question_id": null,
+    "question": "Calculate the average rate of renting the film that Lucille Tracy got starred.",
+    "difficulty": "",
+    "evidence": "average rate = divide(sum(rental_rate), count(film_id))"
+  },
+  {
+    "sql": "SELECT COUNT(film_id) FROM film WHERE length BETWEEN 100 AND 110",
+    "question_id": null,
+    "question": "How many films have a duration between 100 to 110 minutes?",
+    "difficulty": "",
+    "evidence": "duration between 100 to 110 minutes refers to length between 100 and 110"
+  },
+  {
+    "sql": "SELECT actor_id FROM actor WHERE last_name = 'Dee'",
+    "question_id": null,
+    "question": "List down the actor ID of actors with Dee as their last name.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(customer_id) FROM customer WHERE first_name = 'Nina' AND active = 1",
+    "question_id": null,
+    "question": "Among the active customers, how many of them have Nina as their first name?",
+    "difficulty": "",
+    "evidence": "active refers to active = 1"
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id WHERE T2.store_id = 2 AND T1.rating = 'R'",
+    "question_id": null,
+    "question": "In store ID 2, how many of the films are R rating?\n",
+    "difficulty": "",
+    "evidence": "R rating refers to rating = 'R'"
+  },
+  {
+    "sql": "SELECT T4.store_id FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id INNER JOIN inventory AS T4 ON T3.film_id = T4.film_id WHERE T3.length < 100 AND T1.first_name = 'Reese' AND T1.last_name = 'West'",
+    "question_id": null,
+    "question": "List the store ID of the films starred by Reese West with a duration of 100 minutes and below?",
+    "difficulty": "",
+    "evidence": "a duration of 100 minutes and below refers to length < 100"
+  },
+  {
+    "sql": "SELECT T3.title FROM actor AS T1 INNER JOIN film_actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T2.film_id = T3.film_id WHERE T1.first_name = 'Nick' AND T1.last_name = 'Wahlberg' ORDER BY T3.rental_rate DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the duration of the film starred by Nick Wahlberg with the highest rental rate.",
+    "difficulty": "",
+    "evidence": "duration refers to length; the highest rental rate refers to max(rental_rate)"
+  },
+  {
+    "sql": "SELECT T3.title FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T2.first_name = 'Russell' AND T2.last_name = 'Close'",
+    "question_id": null,
+    "question": "What are the titles of the films starred by Russell Close?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.store_id FROM film AS T1 INNER JOIN inventory AS T2 ON T1.film_id = T2.film_id WHERE T1.title = 'Amadeus Holy'",
+    "question_id": null,
+    "question": "List the store ID of the film titled \"Amadeus Holy\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.film_id) FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id WHERE T3.rental_rate = 2.99 AND T2.first_name = 'Nina' AND T2.last_name = 'Soto'",
+    "question_id": null,
+    "question": "In films with a rental rate of 2.99, how many of the films are starred by Nina Soto?",
+    "difficulty": "",
+    "evidence": "a rental rate of 2.99 refers to rental_rate = 2.99"
+  },
+  {
+    "sql": "SELECT SUM(IIF(T4.film_id = 1, 1, 0)) - SUM(IIF(T4.film_id = 2, 1, 0)) AS diff FROM film_actor AS T1 INNER JOIN actor AS T2 ON T1.actor_id = T2.actor_id INNER JOIN film AS T3 ON T1.film_id = T3.film_id INNER JOIN inventory AS T4 ON T3.film_id = T4.film_id WHERE T2.first_name = 'Reese' AND T2.last_name = 'West'",
+    "question_id": null,
+    "question": "Among the films starred by Reese West, what is the difference between the films that have store ID of 1 and store ID of 2?",
+    "difficulty": "",
+    "evidence": "result = subtract(count(film_id where store_id = 1), count(film_id where store_id = 2))"
+  },
+  {
+    "sql": "SELECT postal_code FROM address WHERE address = '692 Joliet Street'",
+    "question_id": null,
+    "question": "What is the postal code of the address 692 Joliet Street?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(customer_id) FROM customer WHERE active = 1",
+    "question_id": null,
+    "question": "How many customers are active?",
+    "difficulty": "",
+    "evidence": "active refers to active = 1"
+  },
+  {
+    "sql": "SELECT COUNT(customer_id) FROM customer WHERE active = 1 AND store_id = 1",
+    "question_id": null,
+    "question": "Among all the customers of store no.1, how many of them are active?",
+    "difficulty": "",
+    "evidence": "active refers to active = 1"
+  },
+  {
+    "sql": "SELECT T1.address FROM address AS T1 INNER JOIN customer AS T2 ON T1.address_id = T2.address_id WHERE T2.first_name = 'MARY' AND T2.last_name = 'SMITH'",
+    "question_id": null,
+    "question": "What is the address of Mary Smith?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.customer_id) FROM address AS T1 INNER JOIN customer AS T2 ON T1.address_id = T2.address_id INNER JOIN city AS T3 ON T1.city_id = T3.city_id WHERE T2.active = 1 AND T3.city = 'Arlington'",
+    "question_id": null,
+    "question": "Among all the active customers, how many of them live in Arlington?",
+    "difficulty": "",
+    "evidence": "active refers to active = 1; Arlington refers to city = 'Arlington'"
+  },
+  {
+    "sql": "SELECT T4.first_name, T4.last_name FROM address AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN country AS T3 ON T2.country_id = T3.country_id INNER JOIN customer AS T4 ON T1.address_id = T4.address_id WHERE T3.country = 'Italy'",
+    "question_id": null,
+    "question": "Please list the full names of all the customers who live in Italy.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; Italy refers to country = 'Italy'"
+  },
+  {
+    "sql": "SELECT T3.country FROM address AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN country AS T3 ON T2.country_id = T3.country_id INNER JOIN customer AS T4 ON T1.address_id = T4.address_id WHERE T4.first_name = 'MARY' AND T4.last_name = 'SMITH'",
+    "question_id": null,
+    "question": "Which country does Mary Smith live in?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.amount FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'MARY' AND T2.last_name = 'SMITH' ORDER BY T1.amount DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the biggest amount of payment for a rental made by Mary Smith?",
+    "difficulty": "",
+    "evidence": "the biggest amount refers to max(amount)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'MARY' AND T2.last_name = 'SMITH'",
+    "question_id": null,
+    "question": "How many times has Mary Smith rented a film?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(T1.amount) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'MARY' AND T2.last_name = 'SMITH'",
+    "question_id": null,
+    "question": "What is the total amount of money Mary Smith has spent on film rentals?",
+    "difficulty": "",
+    "evidence": "the total amount = sum(amount)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.customer_id) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'MARY' AND T2.last_name = 'SMITH' AND STRFTIME('%Y',T1.payment_date) = '2005' AND STRFTIME('%Y', T1.payment_date) = '6'",
+    "question_id": null,
+    "question": "Among the times Mary Smith had rented a movie, how many of them happened in June, 2005?",
+    "difficulty": "",
+    "evidence": "in June 2005 refers to year(payment_date) = 2005 and month(payment_date) = 6"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id ORDER BY T1.amount DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please give the full name of the customer who had made the biggest amount of payment in one single film rental.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; the biggest amount refers to max(amount)"
+  },
+  {
+    "sql": "SELECT SUM(T5.amount) FROM address AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN country AS T3 ON T2.country_id = T3.country_id INNER JOIN customer AS T4 ON T1.address_id = T4.address_id INNER JOIN payment AS T5 ON T4.customer_id = T5.customer_id WHERE T3.country = 'Italy'",
+    "question_id": null,
+    "question": "How much in total had the customers in Italy spent on film rentals?",
+    "difficulty": "",
+    "evidence": "total = sum(amount); Italy refers to country = 'Italy'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.amount) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'MARY' AND T2.last_name = 'SMITH' AND T1.amount > 4.99",
+    "question_id": null,
+    "question": "Among the payments made by Mary Smith, how many of them are over 4.99?",
+    "difficulty": "",
+    "evidence": "over 4.99 refers to amount > 4.99"
+  },
+  {
+    "sql": "SELECT AVG(T5.amount) FROM address AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN country AS T3 ON T2.country_id = T3.country_id INNER JOIN customer AS T4 ON T1.address_id = T4.address_id INNER JOIN payment AS T5 ON T4.customer_id = T5.customer_id WHERE T3.country = 'Italy'",
+    "question_id": null,
+    "question": "What is the average amount of money spent by a customer in Italy on a single film rental?",
+    "difficulty": "",
+    "evidence": "Italy refers to country = 'Italy'; average amount = divide(sum(amount), count(customer_id)) where country = 'Italy'"
+  }
+]

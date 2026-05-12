@@ -1,0 +1,534 @@
+[
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T1.state = T2.state WHERE T2.year = 2007 AND T2.race = 'Ai' GROUP BY T1.chronname ORDER BY COUNT(T1.chronname) DESC LIMIT 1",
+    "question_id": null,
+    "question": "List the all the institutes from the state with the most number of American Indian in 2007.",
+    "difficulty": "",
+    "evidence": "institutes refers to chronname; American Indian refers to race = 'Ai'; most number of American Indian refers to MAX(COUNT(race = 'Ai')); in 2007 refers to year = '2007';"
+  },
+  {
+    "sql": "SELECT T1.chronname, T1.site FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T1.state = T2.state WHERE T2.year = 2011 AND T2.grad_cohort = 209",
+    "question_id": null,
+    "question": "State the name and website of the institutes from the state with 209 graduate cohort in 2011.",
+    "difficulty": "",
+    "evidence": "name of the institutes refers to chronname; website refers to site; graduate cohort refers to grad_cohort; in 2011 refers to year = '2011';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.grad_cohort) FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T1.state = T2.state WHERE T2.year BETWEEN 2011 AND 2013 AND T1.chronname = 'Gateway Community College' AND T2.gender = 'F'",
+    "question_id": null,
+    "question": "What is the number of female graduates between 2011 to 2013 from the state where 'Gateway Community College' is located?",
+    "difficulty": "",
+    "evidence": "female refers to gender = 'F'; graduates refers to grad_cohort; between 2011 to 2013 refers to year BETWEEN 2011 AND 2013; Gateway Community College refers to chronname = 'Gateway Community College';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.grad_cohort) FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T1.state = T2.state WHERE T2.year = 2012 AND T2.gender = 'M' ORDER BY T1.aid_value DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the total male graduates in 2012 in the state whereby the institute with the highest average amount of student aid going to undergraduate recipients is located?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; graduates refers to grad_cohort; in 2012 refers to year = 2012; highest average amount of student aid going to undergraduate recipients refers to MAX(aid_value);"
+  },
+  {
+    "sql": "SELECT AVG(T1.med_sat_value) FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T1.state = T2.state WHERE T2.year = 2013 AND T2.gender = 'M' GROUP BY T2.grad_cohort ORDER BY COUNT(T2.grad_cohort) DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the average median SAT value for institutes in the state with the most male graduate cohort in 2013.",
+    "difficulty": "",
+    "evidence": "median SAT value refers to med_sat_value; average = AVG(med_sat_value); male refers to gender = 'M'; graduate cohort refers to grad_cohort; most male graduate cohort refers to MAX(COUNT(grad_cohort WHERE gender = 'M')); in 2013 refers to year = 2013;"
+  },
+  {
+    "sql": "SELECT T1.state, T1.chronname FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T1.state = T2.state WHERE T2.year = 2012 AND T1.control = 'Private for-profit' GROUP BY T2.grad_cohort ORDER BY COUNT(T2.grad_cohort) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the state with the most number of graduate cohort in 2012 from private institute for profit? List all such institutes in the mentioned state.",
+    "difficulty": "",
+    "evidence": "most number of graduate cohort refers to MAX(SUM(grad_cohort)); in 2012 refers to year = 2012; private institute for profit refers to control = 'Private for-profit'; institutes refers to chronname;"
+  },
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T1.state = T2.state WHERE T2.year = 2013 AND T1.control = 'Public' ORDER BY T2.grad_cohort LIMIT 1",
+    "question_id": null,
+    "question": "List all the public institutes from the state with the least number of graduate cohort in 2013.",
+    "difficulty": "",
+    "evidence": "public refers to control = 'Public'; institutes refers to chronname; least number of graduate cohort refers to MIN(grad_cohort); in 2013 refers to year = 2013;"
+  },
+  {
+    "sql": "SELECT T1.chronname, T2.grad_cohort FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T2.year = 2013 AND T2.gender = 'B' AND T2.race = 'X' AND T2.grad_cohort < 200",
+    "question_id": null,
+    "question": "Provide the institute name with less than 200 graduate cohort of all races and genders in 2013. Also, please state the total number of full-time equivalent undergraduates for the institute.",
+    "difficulty": "",
+    "evidence": "institute name refers to chronname; less than 200 graduate cohort refers to grad_cohort < 200; all races refers to race = 'X'; all genders refers to gender = 'B'; in 2013 refers to year = 2013; total number of full-time equivalent undergraduates refers to fte_value;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T2.year = 2013 AND T2.gender = 'F' AND T2.race = 'X' AND T1.chronname = 'Oakwood University'",
+    "question_id": null,
+    "question": "What is the number of female graduate for all students cohort from Oakwood University in 2013?",
+    "difficulty": "",
+    "evidence": "female refers to gender = 'F'; graduates refers to grad_cohort; Oakwood University refers to chronname = 'Oakwood University'; in 2013 refers to year = 2013; all sutdents refer to rae = 'X';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T2.gender = 'F' AND T2.race = 'A' AND T1.chronname = 'University of Alaska at Anchorage' AND T2.cohort = '4y other'",
+    "question_id": null,
+    "question": "In 2012, how many Asian female graduates were seeking another type of degree or certificate at the 4-year institution at University of Alaska at Anchorage?",
+    "difficulty": "",
+    "evidence": "In 2012 refers to year = 2012; Asian refers to race = 'A'; female refers to gender = 'F'; graduates refers to grad_cohort; seeking another type of degree or certificate at a 4-year institution refers to cohort = '4y other'; University of Alaska at Anchorage refers to chronname = 'University of Alaska at Anchorage';"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.year = 2011 THEN T2.grad_cohort ELSE 0 END), SUM(CASE WHEN T2.year = 2012 THEN T2.grad_cohort ELSE 0 END), SUM(CASE WHEN T2.year = 2013 THEN T2.grad_cohort ELSE 0 END) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T2.gender = 'B' AND T2.race = 'X' AND T1.chronname = 'Auburn University'",
+    "question_id": null,
+    "question": "Compare the graduate cohort for Auburn University from 2011 to 2013?",
+    "difficulty": "",
+    "evidence": "graduate cohort for Auburn University refers to grad_cohort is not null WHERE chronname = 'Auburn University', gender = 'B', race = 'X' and cohort = '4y other', '4y bach'; from 2011 to 2013 refers to year in (2011, 2012, 2013);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.race = 'B' THEN 1 ELSE 0 END) AS REAL) * 100 / SUM(T2.grad_cohort) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T2.race = 'B' AND T1.control = 'Private for-profit'",
+    "question_id": null,
+    "question": "Calculate the percentage of Black students in all private for profit institutions.",
+    "difficulty": "",
+    "evidence": "Black students refers to race = 'B'; private for profit refers to control = 'Private for-profit'; percentage = MULTIPLY(DIVIDE(SUM(race = 'B'), SUM(grad_cohort)), 100.0);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.race = 'A' THEN 1 ELSE 0 END) AS REAL) * 100 / SUM(T2.grad_cohort) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T2.year = 2013 AND T1.state = 'Alabama'",
+    "question_id": null,
+    "question": "Calculate the percentage of Asian students among students of other races who graduated from institution in Alabama in year 2013 within 100 percent of normal / expected time.",
+    "difficulty": "",
+    "evidence": "Asian refers to race = 'A'; Alabama refers to state = 'Alabama'; graduated within 100 percent of normal/expected time refers to grad_100; percentage = MULTIPLY(DIVIDE(SUM(race = 'A'), SUM(grad_cohort)), 100);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Gender = 'M' THEN T2.grad_cohort ELSE 0 END) AS REAL) / SUM(CASE WHEN T2.Gender = 'F' THEN T2.grad_cohort ELSE 0 END) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T1.chronname = 'Harvard University' AND T2.year = 2013 AND T2.race = 'A'",
+    "question_id": null,
+    "question": "What is the ratio of Asian male graduates to Asian female graduates from Harvard University in 2013?",
+    "difficulty": "",
+    "evidence": "ratio = MULTIPLY(DIVIDE(SUM(grad_cohort WHERE Gender = 'M'), SUM( grad_cohort WHERE Gender = 'F')), 1.0); Asian refers to race = 'A'; female refers to gender = 'F'; graduates refers to grad_cohort; male refers to gender = 'M'; Harvard University refers to chronname = 'Harvard University'; in 2013 refers to year = 2013;"
+  },
+  {
+    "sql": "SELECT chronname FROM institution_details WHERE chronname IN ('Amridge University', 'Auburn University') ORDER BY grad_100_value LIMIT 1",
+    "question_id": null,
+    "question": "From which institute is harder to graduate for a bachelor, Amridge University or Auburn University?",
+    "difficulty": "",
+    "evidence": "institute refers to chronname; harder to graduate for a bachelor refers to MIN(grad_100_value); Amridge University refers to chronname = 'Amridge University'; Auburn University refers to chronname = 'Auburn University';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM institution_details WHERE control = 'Private not-for-profit'",
+    "question_id": null,
+    "question": "How many institutes are private and not-for profit?",
+    "difficulty": "",
+    "evidence": "private and not for profit refers to control = 'Private not-for-profit';"
+  },
+  {
+    "sql": "SELECT SUM(T2.grad_cohort) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T1.chronname = 'Amridge University' AND T2.gender = 'M' AND T2.race = 'H'",
+    "question_id": null,
+    "question": "In total, how many Hispanic male students graduated from Amridge University?",
+    "difficulty": "",
+    "evidence": "Hispanic refers to race = 'H'; male refers to gender = 'M'; Amridge University refers to chronname = 'Amridge University';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.unitid) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T1.chronname = 'Lincoln College' AND T2.year = 2011 AND T2.cohort = '4y bach'",
+    "question_id": null,
+    "question": "How many students that graduated from Lincoln College in 2011 belong to the cohort type of Bachelor's/equivalent seeking cohort at 4-year institutions?",
+    "difficulty": "",
+    "evidence": "Lincoln College refers to chronname = 'Lincoln College'; in 2011 refers to year = 2011; Bachelor's/equivalent seeking cohort at 4-year institutions refers to cohort = '4y bach';"
+  },
+  {
+    "sql": "SELECT SUM(T2.grad_100) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T1.chronname = 'Central Alabama Community College' AND T2.year = 2011 AND T2.gender = 'M' AND T2.race = 'H'",
+    "question_id": null,
+    "question": "What's the number of male Hispanic students who graduated from Central Alabama Community College in 2011 within 100 percent of normal/expected time?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; Hispanic students refers to race = 'H'; Central Alabama Community College refers to chronname = 'Central Alabama Community College'; in 2011 refers to year = 2011; number of students who graduated within 100 percent of normal/expected time refers to grad_100;"
+  },
+  {
+    "sql": "SELECT T2.grad_cohort FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T1.unitid = T2.unitid WHERE T1.chronname = 'Central Alabama Community College' AND T2.year = 2011",
+    "question_id": null,
+    "question": "How many students graduated from Central Alabama Community College in 2011 in total?",
+    "difficulty": "",
+    "evidence": "Central Alabama Community College refers to chronname = 'Central Alabama Community College'; in 2011 refers to year = 2011;"
+  },
+  {
+    "sql": "SELECT IIF(SUM(CASE WHEN T2.gender = 'F' THEN T2.grad_150 ELSE 0 END) > SUM(CASE WHEN T2.gender = 'M' THEN T2.grad_150 ELSE 0 END), 'female White students', 'male White students') FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname = 'Central Alabama Community College' AND T2.year = 2011 AND T2.race = 'W'",
+    "question_id": null,
+    "question": "Which cohort had the higher percentage of students who graduated from Central Alabama Community College in 2011 within 150 percent of normal/expected time, female White students or male White students?",
+    "difficulty": "",
+    "evidence": "amount of percentage = SUM(grad_150 WHERE gender = 'F') as female; percentage = SUM(grad_150 WHERE gender = 'M') as male; Central Alabama Community College refers to chronname = 'Central Alabama Community College'; in 2011 refers to year = 2011; graduated within 150 percent of normal/expected time refers to grad_150; female refers to gender = 'F'; White refers to race = 'w'; male refers to gender = 'M';"
+  },
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.year = 2011 AND T2.gender = 'M' AND T2.race = 'W' AND T2.grad_150 = ( SELECT MAX(T2.grad_150) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.year = 2011 AND T2.gender = 'M' AND T2.race = 'W' )",
+    "question_id": null,
+    "question": "Which institute has the highest percentage of male White students graduating in 2011 within 150 percent of normal/expected time?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; white refers to race = 'w'; in 2011 refers to year = 2011; graduating within 150 percent of normal/expected time refers to grad_150;"
+  },
+  {
+    "sql": "SELECT T FROM ( SELECT DISTINCT CASE WHEN T2.grad_150 > 20 THEN T1.chronname ELSE NULL END AS T FROM institution_details T1 INNER JOIN institution_grads T2 ON T2.unitid = T1.unitid WHERE T2.year = 2011 AND T2.gender = 'M' AND T2.race = 'W' ) WHERE T IS NOT NULL",
+    "question_id": null,
+    "question": "Please list the names of the institutes with the percentage of male White students graduating in 2011 within 150 percent of normal/expected time over 20.",
+    "difficulty": "",
+    "evidence": "names of the institutes refers to chronname; male refers to gender = 'M'; white refers to race = 'w'; in 2011 refers to year = 2011; percentage of students graduating within 150 percent of normal/expected time over 20 refers to grad_150>20;"
+  },
+  {
+    "sql": "SELECT SUM(T2.grad_cohort) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE  T2.cohort = '2y all' AND T2.year = 2011 AND T1.state = 'Alabama'",
+    "question_id": null,
+    "question": "How many students for both genders graduated from a 2-year institute in Alabama in 2011?",
+    "difficulty": "",
+    "evidence": "2-year institute refers to cohort = '2y all'; Alabama refers to state = 'Alabama'; in 2011 refers to year = 2011; T2.gender = 'B' means both genders;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.year = 2012 THEN T2.grad_cohort ELSE 0 END) - SUM(CASE WHEN T2.year = 2011 THEN T2.grad_cohort ELSE 0 END) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname = 'Central Alabama Community College'",
+    "question_id": null,
+    "question": "How many more students in total graduated from Central Alabama Community College in 2012 than in 2011?",
+    "difficulty": "",
+    "evidence": "how many more = SUBTRACT(SUM(grad_cohort WHERE year = 2012)), (sum(grad_cohort WHERE year = 2011)); Central Alabama Community College refers to chronname = 'Central Alabama Community College'; in 2012 refers to year = 2012; in 2011 refers to year = 2011;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.chronname) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.state = 'Alabama' AND T1.med_sat_percentile = '100' AND T2.year = 2011 AND T2.grad_cohort > 500",
+    "question_id": null,
+    "question": "Among the institutes in the state of Alabama whose percent rank for median SAT value within sector is 77, how many of them have over 500 graduates in total in 2011?",
+    "difficulty": "",
+    "evidence": "percent rank for median SAT value within sector refers to med_sat_percentile; over 500 graduates refers to grad_cohort > 500; in 2011 refers to year = 2011;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.chronname) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.state = 'Alabama' AND T1.control = 'Public' AND T2.year = 2011 AND T2.grad_100 > 30",
+    "question_id": null,
+    "question": "Among the public institutes in the state of Alabama, how many of them have over 30 students who graduated within 100 percent of normal/expected time in 2011?",
+    "difficulty": "",
+    "evidence": "public refers to control = 'Public'; over 30 students who graduated within 100 percent of normal/expected time refers to grad_100 > 30; in 2011 refers to year = 2011;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.state = 'Alabama' AND T2.year = 2011 AND T2.race = 'X' AND T2.grad_cohort > 500",
+    "question_id": null,
+    "question": "Please list the names of the institutes in the state of Alabama whose all graduates in total exceeded 500 in 2011?",
+    "difficulty": "",
+    "evidence": "names of the institutes refers to chronname; graduates refers to grad_cohort; grad_cohort > 500; in 2011 refers to year = 2011; all students refer to race = 'X'."
+  },
+  {
+    "sql": "SELECT AVG(T2.grad_cohort) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname = 'Central Alabama Community College' AND T2.year IN (2011, 2012, 2013) AND T2.gender = 'B' AND T2.race = 'X'",
+    "question_id": null,
+    "question": "What's the average number of graduates for Central Alabama Community College in the 3 consecutive years from 2011 to 2013?",
+    "difficulty": "",
+    "evidence": "graduates refers to grad_cohort; Central Alabama Community College refers to chronname = 'Central Alabama Community College'; average number of graduates for 3 consecutive years = DIVIDE(SUM(SUM(grad_cohort WHERE year = 2011), SUM(grad_cohort WHERE year = 2012), SUM(grad_cohort WHERE year = 2013)), 3);"
+  },
+  {
+    "sql": "SELECT AVG(T2.grad_100_rate) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname = 'Central Alabama Community College'",
+    "question_id": null,
+    "question": "What is the average percentage of students graduating within 100 percent of normal/expected time for Central Alabama Community College?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE(SUM(grad_100_rate), (SUM(grad_100), SUM(grad_150))); percentage of students graduating within 100 percent of normal/expected time refers to grade_100_rate; Central Alabama Community College refers to chronname = 'Central Alabama Community College';"
+  },
+  {
+    "sql": "SELECT T FROM ( SELECT DISTINCT CASE WHEN chronname = 'Swarthmore College' THEN site ELSE NULL END AS T FROM institution_details ) WHERE T IS NOT NULL",
+    "question_id": null,
+    "question": "Give the web site address for \"Swarthmore College\".",
+    "difficulty": "",
+    "evidence": "website address refers to site; Swarthmore College refers to chronname = 'Swarthmore College';"
+  },
+  {
+    "sql": "SELECT T FROM ( SELECT DISTINCT CASE WHEN chronname = 'Mercer University' THEN state ELSE NULL END AS T FROM institution_details ) WHERE T IS NOT NULL",
+    "question_id": null,
+    "question": "Which state is \"Mercer University\" located in?",
+    "difficulty": "",
+    "evidence": "Mercer University refers to chronname = 'Mercer University';"
+  },
+  {
+    "sql": "SELECT T FROM ( SELECT DISTINCT CASE WHEN chronname = 'Rensselaer Polytechnic Institute' THEN city ELSE NULL END AS T FROM institution_details ) WHERE T IS NOT NULL",
+    "question_id": null,
+    "question": "Which city is \"Rensselaer Polytechnic Institute\" located in?",
+    "difficulty": "",
+    "evidence": "Rensselaer Polytechnic Institute refers to chronname = 'Rensselaer Polytechnic Institute';"
+  },
+  {
+    "sql": "SELECT T FROM ( SELECT DISTINCT CASE WHEN state = 'Delaware' THEN state_abbr ELSE NULL END AS T FROM state_sector_grads ) WHERE T IS NOT NULL",
+    "question_id": null,
+    "question": "Tell the abbreviation for \"Delaware\" state.",
+    "difficulty": "",
+    "evidence": "abbreviation for state refers to state_abbr;"
+  },
+  {
+    "sql": "SELECT COUNT(stateid) FROM state_sector_details WHERE state = 'California' AND level = '2-year' AND control = 'Public'",
+    "question_id": null,
+    "question": "How many 2-year public schools are there in \"California\"?",
+    "difficulty": "",
+    "evidence": "2-year refers to level = '2-year'; public refers to control = 'public'; California refers to state = 'California';"
+  },
+  {
+    "sql": "SELECT T FROM ( SELECT DISTINCT CASE WHEN state = 'Idaho' THEN state_post ELSE NULL END AS T FROM state_sector_details ) WHERE T IS NOT NULL",
+    "question_id": null,
+    "question": "Give the post name of \"Idaho\" state.",
+    "difficulty": "",
+    "evidence": "post name refers to state_post;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.chronname FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.state = T1.state WHERE T2.state_abbr = 'NJ' AND T1.level = '4-year' AND T1.student_count = ( SELECT MAX(T1.student_count) FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.state = T1.state WHERE T2.state_abbr = 'NJ' AND T1.level = '4-year' )",
+    "question_id": null,
+    "question": "Tell the name of school in \"NJ\" that could get the bachelor's degree with highest students number.",
+    "difficulty": "",
+    "evidence": "name of school refers to chronname; NJ refers to state_abbr = 'NJ'; bachelor's degree refers to level = '4-year'; highest students number refers to MAX(student_count);"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.site FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.state = T1.state WHERE T2.state_abbr = 'PA' AND T1.lat_y = ( SELECT MAX(T1.lat_y) FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.state = T1.state WHERE T2.state_abbr = 'PA' )",
+    "question_id": null,
+    "question": "Give the web site address for the school in \"PA\" state with the highest latitude.",
+    "difficulty": "",
+    "evidence": "web site address refers to site; PA refers to state_abbr = 'PA'; highest latitude refers to MAX(lat_y);"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.chronname) FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.state = T1.state WHERE T2.state_abbr = 'UT' AND T1.level = '4-year' AND T1.control = 'Public' AND T1.awards_per_value > T1.awards_per_state_value",
+    "question_id": null,
+    "question": "Tell the number of 4-year public schools in UT whose graduation rate exceeds the average for the state.",
+    "difficulty": "",
+    "evidence": "4-year refers to level = '4-year'; public refers to control = 'Public'; UT refers to state_abbr = 'UT'; graduation rate exceeds the average for the state refers to awards_per_value > awards_per_state_value;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.chronname) FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.state = T1.state WHERE T2.state_abbr = 'CT' AND T2.level = '2-year' AND T1.control = 'Private not-for-profit' AND T1.awards_per_value < T1.awards_per_natl_value",
+    "question_id": null,
+    "question": "How many 2-year private nonprofit schools in \"CT\" whose graduation rate falls below the average for the state?",
+    "difficulty": "",
+    "evidence": "2-year refers to level = '2-year'; private nonprofit refers to control = 'Private not-for-profit'; CT refers to state_abbr = 'CT'; graduation rate falls below the average for the state refers to awards_per_value < awards_per_natl_value;"
+  },
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.state = T1.state WHERE T2.state_abbr = 'ID' AND T1.level = '4-year' AND T1.control = 'Public' GROUP BY T1.chronname ORDER BY SUM(T1.grad_100_value) ASC LIMIT 1",
+    "question_id": null,
+    "question": "Give the name of the 4-year public school in \"ID\" with the lowest graduation 100 value.",
+    "difficulty": "",
+    "evidence": "name of the school refers to chronname; 4-year refers to level = '4-year'; public refers to control = 'Public'; ID refers to state_abbr = 'ID'; lowest graduation 100 value refers to MIN(grad_100_value);"
+  },
+  {
+    "sql": "SELECT T1.chronname, T1.unitid FROM institution_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.state = T1.state WHERE T2.state_abbr = 'KY' AND T1.level = '4-year' AND T1.control = 'Private for-profit' GROUP BY T1.chronname ORDER BY SUM(T1.grad_150_value) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which 4-year private for-profit school in \"KY\" has the highest graudation 150 value? Give the ID for the school.",
+    "difficulty": "",
+    "evidence": "4-year refers to level = '4-year'; private for profit refers to control = 'Private for-profit'; KY refers to state_abbr = 'KY'; highest graduation 150 value refers to MAX(grad_150_value); ID of the school refers to unitid;"
+  },
+  {
+    "sql": "SELECT SUM(T2.grad_100) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname = 'Pennsylvania State University-Altoona' AND T2.gender = 'F' AND T2.race = 'H'",
+    "question_id": null,
+    "question": "What was the number of female Hispanic students who graduated within 100 percent of expected time for \"Pennsylvania State University-Altoona\"?",
+    "difficulty": "",
+    "evidence": "female refers to gender = 'F'; Hispanic refers to race = 'H'; graduated within 100 percent of expected time refers to grad_100; Pennsylvania State University-Altoona refers to chronname = 'Pennsylvania State University-Altoona';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.cohort_size = ( SELECT MAX(T1.cohort_size) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid )",
+    "question_id": null,
+    "question": "Give the cohort name for the school with biggest cohort size.",
+    "difficulty": "",
+    "evidence": "biggest cohort size refers to MAX(cohort_size); cohort = '4y bach' means bachelor's or equivalent-seeking cohort at 4-year institutions; cohort = '4y other' means students seeking another type of degree or certificate at a 4-year institution; cohort = '2y all' means degree-seeking students at 2-year institutions;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.chronname) FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON T2.state = T1.state WHERE T2.level = '4-year' AND T2.control = 'Private not-for-profit' AND T1.chronname = 'Brevard Community College'",
+    "question_id": null,
+    "question": "Tell the number of 4-year private not-for-profit schools in the home state of \"Brevard Community College\".",
+    "difficulty": "",
+    "evidence": "4-year refers to level = '4-year'; private not-for-profit refers to control = 'Private not-for-profit'; Brevard Community College refers to chronname = 'Brevard Community College';"
+  },
+  {
+    "sql": "SELECT SUM(T2.grad_cohort) FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T1.state = 'Alabama' AND T2.year = 2011 AND T1.level = '2-year' AND T1.control = 'Public' AND T2.race = 'X'",
+    "question_id": null,
+    "question": "Give the total number of all graduated students from a 2-year public schools in Alabama in 2011.",
+    "difficulty": "",
+    "evidence": "number of graduated students refers to grad_cohort; 2-year refers to level = '2-year'; public refers to control = 'Public'; Alabama refers to state = 'Alabama'; in 2011 refers to year = '2011'; reace = 'X' means all students."
+  },
+  {
+    "sql": "SELECT COUNT(T2.grad_cohort) FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T2.level = '2-year' AND T2.control = 'Public' AND T2.gender = 'B' AND T2.race = 'A' AND T2.cohort = '2y all' AND T1.schools_count = 113",
+    "question_id": null,
+    "question": "For the state which has the 113 2-year public schools, tell the number of graduated Asian students who seeks another type of degree or certificate at a 2-year institution in 2013.",
+    "difficulty": "",
+    "evidence": "schools_count = 113; 2-year refers to level = '2-year'; public refers to control = 'public'; Asian refers to race = 'A'; seeks another type of degree or certificate at a 2-year institution refers to cohort = '2y all'; in 2013 refers to year = 2013;"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(DISTINCT CASE WHEN T1.state = ( SELECT T1.state FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON T2.state = T1.state WHERE T1.chronname = 'Madison Area Technical College' ) AND T1.level = '4-year' AND T1.control = 'Public' THEN T1.chronname ELSE NULL END) AS REAL) * 100 / COUNT(DISTINCT CASE WHEN T2.state = 'Alabama' THEN T1.chronname ELSE NULL END) FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON T2.state = T1.state",
+    "question_id": null,
+    "question": "What is the percentage of the number of 4-year public schools from Madison Area Technical College's home state in the Alabama?",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(chronname = 'Madison Area Technical College'), SUM(state = 'Alabama')), 100); 4-year refers to level = '4-year'; public refers to control = 'Public'; Madison Area Technical College refers to chronname = 'Madison Area Technical College'; home state in the United States refers to state;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.state, T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.race = 'B' AND T2.year BETWEEN 2010 AND 2012",
+    "question_id": null,
+    "question": "Give the state and name of institutions in year of data release from 2010 to 2012 with black students.",
+    "difficulty": "",
+    "evidence": "name of institutions refers to chronname; year of data release refers to year; from '2010' to '2012' refers to year BETWEEN 2010 AND 2012; Black refers to race = 'B';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.state FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T2.year = 2011 AND T1.awards_per_natl_value <= 20",
+    "question_id": null,
+    "question": "List down the states in 2011 with a national sector average of 20 and below.",
+    "difficulty": "",
+    "evidence": "in 2011 refers to year = '2011'; national sector average of 20 and below refers to awards_per_natl_value < 20;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.control, T1.level FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.race = 'X' AND T1.student_count = ( SELECT MAX(T1.student_count) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.race = 'X' )",
+    "question_id": null,
+    "question": "Among the race of all students, what is the control of institution and level of institution with highest number of students?",
+    "difficulty": "",
+    "evidence": "highest number of students refers to student_count; all students refer to race = 'X'."
+  },
+  {
+    "sql": "SELECT DISTINCT T2.race FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T1.schools_count <= 20 AND T1.control = 'Public'",
+    "question_id": null,
+    "question": "Among the states with a public school count of 20 and below, list their race.",
+    "difficulty": "",
+    "evidence": "public refers to control = 'Public'; school_count < 20;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.basic, T2.race FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.year = 2012 AND T2.gender = 'M' AND t2.race = 'X'",
+    "question_id": null,
+    "question": "List the basic of the institution in 2012 with race of all male students.",
+    "difficulty": "",
+    "evidence": "in 2012 refers to year = '2012'; male refers to gender = 'M'; all students refer to race = 'X'."
+  },
+  {
+    "sql": "SELECT COUNT(T2.race) FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T1.schools_count = 1 AND T2.year BETWEEN 2011 AND 2013 AND T2.race = 'W' AND T1.state = 'Alaska'",
+    "question_id": null,
+    "question": "In Alaska with school count of 1 from year 2011 to 2013, how many of the students are white?",
+    "difficulty": "",
+    "evidence": "Alaska refers to state = 'Alaska'; from year 2011 to 2013 refers to year BETWEEN '2011' AND '2013'; white refers to race = 'W';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.grad_cohort BETWEEN 1 AND 3 AND T2.race = 'Ai'",
+    "question_id": null,
+    "question": "What is the institution's name of american students within the number of degree-seeking students in the cohort that ranges from 1 to 3?",
+    "difficulty": "",
+    "evidence": "institution's name refers to chronname; american refers to race = 'Ai'; number of degree-seeking students in the cohort refers to grad_cohort; grad_cohort < = 3;"
+  },
+  {
+    "sql": "SELECT SUM(T2.grad_cohort) FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T2.state LIKE 'A%' AND T1.awards_per_natl_value = 16.5 AND T2.year = 2012",
+    "question_id": null,
+    "question": "Among the states that start with letter A and attained a national sector average of 16.5, give the number of degree-seeking students in the cohort of those students in 2012 .",
+    "difficulty": "",
+    "evidence": "state that starts with letter A refers to state LIKE 'A%'; national sector average of 16.5 refers to awards_per_natl_value = 16.5; number of degree-seeking students in the cohort refers to grad_cohort; in 2012 refers to year = '2012';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.site FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.student_count BETWEEN 500 AND 1000 AND T2.year = ( SELECT MAX(T2.year) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid )",
+    "question_id": null,
+    "question": "List the site of institution within the student count of 500 to 1000 that has the recent year of data release.",
+    "difficulty": "",
+    "evidence": "recent year of data release refers to newest year;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.state FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T2.gender = 'M' AND T2.race = 'B' AND T1.control = 'Private for-profit' AND T2.year = 2011",
+    "question_id": null,
+    "question": "What is the state name of male graduate in 2011 from a private for profit institution with black students?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; in 2011 refers to year = '2011'; private for profit refers to control = 'Private for-profit'; black refers to race = 'B';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.site, T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.year = 2011 AND T2.race = 'B' AND T2.grad_cohort BETWEEN 20 AND 30",
+    "question_id": null,
+    "question": "Among the black students in 2011, list the institution site and name of those who has 20 t0 30 degree-seeking students in the cohort.",
+    "difficulty": "",
+    "evidence": "black refers to race = 'B'; in 2011 refers to year = '2011'; institution name refers to chronname; 20 to 30 degree-seeking students in the cohort refers to grad_cohort BWEEN 20 AND 30;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.race) FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T2.gender = 'F' AND schools_count BETWEEN 10 AND 20 AND T2.year = 2012",
+    "question_id": null,
+    "question": "In female students in year 2012, how many of them from a state with number of schools ranges from 10 to 20?",
+    "difficulty": "",
+    "evidence": "female refers to gender = 'F'; number of schools refers to schools_count; schools_count BETWEEN 10 AND 20;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.race FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.student_count > ( SELECT AVG(T1.student_count) * 0.9 FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.state = 'Alabama' ) AND T1.state = 'Alabama'",
+    "question_id": null,
+    "question": "List the race of institutions in Alabama with number of students greater than the 90% of average number of students of all institutions?",
+    "difficulty": "",
+    "evidence": "Alabama refers to state = 'Alabama'; number of students greater than the 90% of average = MULTIPLY(AVG(student_count), 90%) < student_count;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.level = '2-year' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.level) FROM state_sector_details AS T1 INNER JOIN state_sector_grads AS T2 ON T2.stateid = T1.stateid WHERE T2.state = 'Hawaii' AND T2.year = 2010",
+    "question_id": null,
+    "question": "In year 2010 at schools located in Hawaii, what is the percentage of schools offers an associate's degree?",
+    "difficulty": "",
+    "evidence": "Hawaii refers to state = 'Hawaii'; associate's degree refers to level = '2-year'; percentage = MULTIPLY(DIVIDE(SUM(level = '2-year' ), count(level)), 1.0);"
+  },
+  {
+    "sql": "SELECT chronname FROM institution_details WHERE state = 'Connecticut' AND retain_percentile = ( SELECT MAX(retain_percentile) FROM institution_details WHERE state = 'Connecticut' )",
+    "question_id": null,
+    "question": "In the state of Connecticut, what is the name of the instution with the highest percent rank for freshman retention percentage within the sector?",
+    "difficulty": "",
+    "evidence": "name of the institution refers to chronname;\u00a0 highest percent rank for freshman retention percentage within the sector refers to MAX(retain_percentile);"
+  },
+  {
+    "sql": "SELECT T1.site FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.race = 'W' AND T2.cohort = '2y all' AND T2.year = 2008 ORDER BY T2.grad_cohort DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the website address of the institution with the highest number of White degree-seeking students at 2-year institutions in 2008?",
+    "difficulty": "",
+    "evidence": "website address refers to site; White refers to race = 'W'; degree-seeking students at 2-year institutions refers to cohort = '2y all'; in 2008 refers to year = '2008';"
+  },
+  {
+    "sql": "SELECT T2.year FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname = 'Harvard University' GROUP BY T2.year ORDER BY SUM(T2.grad_cohort) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In Harvard University, which year recorded the highest number of first-time, full-time, degree-seeking students in the cohort being tracked, minus any exclusions?",
+    "difficulty": "",
+    "evidence": "Harvard University refers to chronname = 'Harvard University'; highest number of first-time, full-time, degree-seeking students in the cohort being tracked, minus any exclusions refers to MAX(grad_cohort);"
+  },
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON T2.state = T1.state INNER JOIN institution_grads AS T3 ON T3.unitid = T1.unitid WHERE T1.student_count = ( SELECT MIN(T1.student_count) FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON T2.state = T1.state INNER JOIN institution_grads AS T3 ON T3.unitid = T1.unitid WHERE T3.year = 2010 ) AND T3.year = 2010 GROUP BY T1.state ORDER BY SUM(T2.state_appr_value) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the state with the highest state appropriations to higher education in fiscal year 2011 per resident, which institution has the lowest number of undergraduates in 2010?",
+    "difficulty": "",
+    "evidence": "highest state appropriations to higher education in fiscal year 2011 per resident refers to MAX(state_appr_value); lowest number of undergraduates refers to MIN(student_count); in 2010 refers to year = 2010;"
+  },
+  {
+    "sql": "SELECT AVG(T2.grad_cohort) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname = 'Yale University' AND T2.year BETWEEN 2002 AND 2005 AND T2.race = 'B' AND T2.cohort = '4y bach'",
+    "question_id": null,
+    "question": "In Yale University, what is the average number of Black students per year who were bachelor's/equivalent-seeking cohort at 4-year institutions between 2002 to 2005?",
+    "difficulty": "",
+    "evidence": "Yale University refers to chronname = 'Yale University'; average = DIVIDE(COUNT(race = 'B' WHERE cohort = '4y bach AND year BETWEEN 2002 AND 2005), 3); Black refers to race = 'B'; bachelor's/equivalent-seeking cohort at 4-year institutions refers to cohort = '4y bach'; between 2002 to 2005 refers to year BETWEEN '2002' AND '2005';"
+  },
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname IN ( 'Brown University', 'Columbia University', 'Cornell University', 'Dartmouth College', 'Harvard University', 'Princeton University', 'University of Pennsylvania', 'Yale University' ) AND T2.race = 'H' GROUP BY T1.chronname ORDER BY SUM(T2.grad_cohort) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the Ivy League Schools, which school have the highest number of Hispanic graduates of all time?",
+    "difficulty": "",
+    "evidence": "Ivy League Schools refers to chronname = 'Brown University' or chronname = 'Columbia University' or chronname = 'Cornell University' or chronname = 'Dartmouth College' or chronname = 'Harvard University' or chronname = 'Princeton University' or chronname = 'University of Pennsylvania' or chronname = 'Yale University'; highest number of hispanic graduates refers to MAX(grad_cohort WHERE race = 'H');"
+  },
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 WHERE T2.level = '4-year' AND T2.control = 'Public' AND T2.state = 'Florida'",
+    "question_id": null,
+    "question": "How many 4-year public institutions are there in the state of Florida? Give all of their names.",
+    "difficulty": "",
+    "evidence": "4-year refers to level = '4-year'; public refers to control = 'Public'; names refers to chronname;"
+  },
+  {
+    "sql": "SELECT T1.state FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON T2.state = T1.state WHERE T1.chronname IN ( 'Brown University', 'Columbia University', 'Cornell University', 'Dartmouth College', 'Harvard University', 'Princeton University', 'University of Pennsylvania', 'Yale University' ) GROUP BY T1.state ORDER BY SUM(T2.state_appr_value) ASC LIMIT 1",
+    "question_id": null,
+    "question": "Between the Ivy League Schools, which school's state have the lowest sate appropriations to higher education in fiscal year 2011 per resident?",
+    "difficulty": "",
+    "evidence": "Ivy League Schools refers to chronname = 'Brown University' or chronname = 'Columbia University' or chronname = 'Cornell University' or chronname = 'Dartmouth College' or chronname = 'Harvard University' or chronname = 'Princeton University' or chronname = 'University of Pennsylvania' or chronname = 'Yale University'; lowest state appropriations to higher education in fiscal year 2011 per resident refers to MIN(state_appr_value);"
+  },
+  {
+    "sql": "SELECT COUNT(t1.unitid), t1.chronname FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON t1.state = t2.state WHERE t1.ft_pct > 90 ORDER BY t2.schools_count DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the state with the highest number of schools, how many institutions have a percentage of no less than 90 of undergraduates who attend full-time? List all of the institutions' names.",
+    "difficulty": "",
+    "evidence": "highest number of schools refers to MAX(schools_count); percentage of no less than 90 of undergraduates who attend full-time refers to ft_pct > 90; institutions' names refers to chronname;"
+  },
+  {
+    "sql": "SELECT AVG(t1.med_sat_value) FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON t1.state = t2.state ORDER BY t2.state_appr_value LIMIT 1",
+    "question_id": null,
+    "question": "What is the average SAT value for incoming students in all of the schools located in the state with the lowest state appropriations to higher education in fiscal year 2011 per resident?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE(SUM(med_sat_value), SUM(chronname)); SAT value for incoming students refers to med_sat_value; lowest state appropriations to higher education in fiscal year 2011 per resident refers to MIN(state_appr_value);"
+  },
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T2.gender = 'F' AND T2.cohort = '4y other' ORDER BY T2.grad_cohort DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the school with the highest number of first-time, full-time, degree-seeking female students in the cohort being tracked, minus any exclusions who were seeking another type of degree or certificate at a 4-year institution?",
+    "difficulty": "",
+    "evidence": "name of the school refers to chronname; highest number of first-time, full-time, degree-seeking female students in the cohort being tracked, minus any exclusions refers to MAX(grad_cohort WHERE gender = 'F'); seeking another type of degree or certificate at a 4-year institution refers to cohort = '4y other';"
+  },
+  {
+    "sql": "SELECT T1.chronname FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname IN ( 'Brown University', 'Columbia University', 'Cornell University', 'Dartmouth College', 'Harvard University', 'Princeton University', 'University of Pennsylvania', 'Yale University' ) AND T2.year = 2013 AND T2.race = 'B' AND T2.cohort = '4y bach' ORDER BY T2.grad_cohort DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the Ivy League Schools in 2013, which schools have the highest number of Black students who graduated within 150 percent of normal/expected time who were seeking a bachelor's/equivalent cohort at 4-year institutions?",
+    "difficulty": "",
+    "evidence": "Ivy League Schools refers to chronname = 'Brown University' or chronname = 'Columbia University' or chronname = 'Cornell University' or chronname = 'Dartmouth College' or chronname = 'Harvard University' or chronname = 'Princeton University' or chronname = 'University of Pennsylvania' or chronname = 'Yale University'; in 2013 refers to year = '2013'; highest number of Black students who graduated within 150 percent of normal/expected time refers to MAX(grad_150 WHERE race = 'B'); seeking a bachelor's/equivalent cohort at 4-year institutions refers to cohort = '4y bach';"
+  },
+  {
+    "sql": "SELECT AVG(T2.grad_150) FROM institution_details AS T1 INNER JOIN institution_grads AS T2 ON T2.unitid = T1.unitid WHERE T1.chronname = 'United Education Institute-Huntington Park Campus' AND T2.year BETWEEN 2011 AND 2013 AND T2.gender = 'M' AND T2.race = 'H'",
+    "question_id": null,
+    "question": "Between 2011 to 2013, what is the average number of male Hispanic degree-seeking students at 2-year institutions who graduated within 150 percent of normal/expected time in United Education Institute-Huntington Park Campus?",
+    "difficulty": "",
+    "evidence": "between 2011 to 2013 refers to year BETWEEN '2011' AND '2013'; male refers to gender = 'M'; Hispanic refers to race = 'H'; number of degree-seeking students at 2-year institutions who graduated within 150 percent of normal/expected time refers to grad_150; United Education Institute-Huntington Park Campus refers to chronname = 'United Education Institute-Huntington Park Campus';"
+  },
+  {
+    "sql": "SELECT T1.chronname, T2.state_appr_value FROM institution_details AS T1 INNER JOIN state_sector_details AS T2 ON T2.state = T1.state ORDER BY T1.awards_per_value - T2.awards_per_natl_value DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the school with the highest difference in the average completion rate for the national in which it belongs? Indicate the state appropriations to higher education in fiscal year 2011 per resident to which the school belongs.",
+    "difficulty": "",
+    "evidence": "name of the school refers to chronname; highest difference in the average completion rate for the national in which it belongs = MAX(SUBTRACT(awards_per_value, awards_per_natl_value)); state appropriations to higher education in fiscal year 2011 per resident to which the school belongs refers to state_appr_value;"
+  }
+]

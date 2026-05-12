@@ -1,0 +1,561 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "StaffMember": {
+          "source_table": "employee",
+          "column_map": {
+            "SocialSecurityNumber": "ssn",
+            "FamilyName": "lastname",
+            "GivenName": "firstname",
+            "EmploymentStartDate": "hiredate",
+            "AnnualSalary": "salary",
+            "GenderIdentity": "gender",
+            "PerformanceRating": "performance",
+            "RoleIdentifier": "positionID",
+            "WorksiteIdentifier": "locationID"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "site": {
+          "source_table": "location",
+          "column_map": {
+            "siteId": "locationID",
+            "cityName": "locationcity",
+            "streetAddress": "address",
+            "stateCode": "state",
+            "postalCode": "zipcode",
+            "officePhoneNumber": "officephone"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "job_role": {
+          "source_table": "position",
+          "column_map": {
+            "job_role_id": "positionID",
+            "job_title": "positiontitle",
+            "required_education": "educationrequired",
+            "minimum_salary": "minsalary",
+            "maximum_salary": "maxsalary"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "employee": "StaffMember"
+      },
+      "column_renames": {
+        "employee": {
+          "ssn": "SocialSecurityNumber",
+          "lastname": "FamilyName",
+          "firstname": "GivenName",
+          "hiredate": "EmploymentStartDate",
+          "salary": "AnnualSalary",
+          "gender": "GenderIdentity",
+          "performance": "PerformanceRating",
+          "positionID": "RoleIdentifier",
+          "locationID": "WorksiteIdentifier"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "location": "site"
+      },
+      "column_renames": {
+        "location": {
+          "locationID": "siteId",
+          "locationcity": "cityName",
+          "address": "streetAddress",
+          "state": "stateCode",
+          "zipcode": "postalCode",
+          "officephone": "officePhoneNumber"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_3": {
+      "table_renames": {
+        "position": "job_role"
+      },
+      "column_renames": {
+        "position": {
+          "positionID": "job_role_id",
+          "positiontitle": "job_title",
+          "educationrequired": "required_education",
+          "minsalary": "minimum_salary",
+          "maxsalary": "maximum_salary"
+        }
+      },
+      "naming_case_style": "snake_case"
+    }
+  },
+  "vertical_split_map": {},
+  "split_map": {},
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 3,
+    "eligible_candidate_count": 3,
+    "num_selected_for_vertical_split": 2,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "employee",
+      "location"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/human_resources/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "employee",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "location",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {},
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "employee",
+          "from_column": "positionID",
+          "to_table": "position",
+          "to_column": "positionID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "employee",
+            "column_map": {
+              "ssn": "ssn",
+              "lastname": "lastname",
+              "firstname": "firstname",
+              "hiredate": "hiredate",
+              "salary": "salary",
+              "gender": "gender",
+              "performance": "performance",
+              "positionID": "positionID",
+              "locationID": "locationID"
+            },
+            "orig_to_local": {
+              "ssn": "ssn",
+              "lastname": "lastname",
+              "firstname": "firstname",
+              "hiredate": "hiredate",
+              "salary": "salary",
+              "gender": "gender",
+              "performance": "performance",
+              "positionID": "positionID",
+              "locationID": "locationID"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "position",
+            "column_map": {
+              "positionID": "positionID",
+              "positiontitle": "positiontitle",
+              "educationrequired": "educationrequired",
+              "minsalary": "minsalary",
+              "maxsalary": "maxsalary"
+            },
+            "orig_to_local": {
+              "positionID": "positionID",
+              "positiontitle": "positiontitle",
+              "educationrequired": "educationrequired",
+              "minsalary": "minsalary",
+              "maxsalary": "maxsalary"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "StaffMember",
+            "to_local_table": "job_role",
+            "from_local_column": "RoleIdentifier",
+            "to_local_column": "job_role_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "employee",
+          "from_column": "locationID",
+          "to_table": "location",
+          "to_column": "locationID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "employee",
+            "column_map": {
+              "ssn": "ssn",
+              "lastname": "lastname",
+              "firstname": "firstname",
+              "hiredate": "hiredate",
+              "salary": "salary",
+              "gender": "gender",
+              "performance": "performance",
+              "positionID": "positionID",
+              "locationID": "locationID"
+            },
+            "orig_to_local": {
+              "ssn": "ssn",
+              "lastname": "lastname",
+              "firstname": "firstname",
+              "hiredate": "hiredate",
+              "salary": "salary",
+              "gender": "gender",
+              "performance": "performance",
+              "positionID": "positionID",
+              "locationID": "locationID"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "location",
+            "column_map": {
+              "locationID": "locationID",
+              "locationcity": "locationcity",
+              "address": "address",
+              "state": "state",
+              "zipcode": "zipcode",
+              "officephone": "officephone"
+            },
+            "orig_to_local": {
+              "locationID": "locationID",
+              "locationcity": "locationcity",
+              "address": "address",
+              "state": "state",
+              "zipcode": "zipcode",
+              "officephone": "officephone"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "StaffMember",
+            "to_local_table": "site",
+            "from_local_column": "WorksiteIdentifier",
+            "to_local_column": "siteId"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "employee|location": 23,
+      "employee|position": 29,
+      "location|position": 9
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "employee": "local_1",
+      "location": "local_2",
+      "position": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "location": {
+        "columns": [
+          {
+            "name": "locationID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "locationcity",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "zipcode",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "officephone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "locationID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 8
+      },
+      "position": {
+        "columns": [
+          {
+            "name": "positionID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "positiontitle",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "educationrequired",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "minsalary",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "maxsalary",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "positionID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 4
+      },
+      "employee": {
+        "columns": [
+          {
+            "name": "ssn",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "lastname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "firstname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "hiredate",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "salary",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "gender",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "performance",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "positionID",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "locationID",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ssn"
+        ],
+        "pk_origin": "declared",
+        "row_count": 25
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "employee",
+        "from_column": "positionID",
+        "to_table": "position",
+        "to_column": "positionID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "employee",
+        "from_column": "locationID",
+        "to_table": "location",
+        "to_column": "locationID",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 3,
+      "num_fk_edges": 2,
+      "hub_tables": [
+        "employee",
+        "location",
+        "position"
+      ],
+      "connected_components": 1
+    }
+  }
+}

@@ -1,0 +1,1841 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 9,
+    "eligible_candidate_count": 9,
+    "num_selected_for_vertical_split": 7,
+    "num_from_rate_alone": 7,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 5,
+    "selected_original_tables": [
+      "players_teams",
+      "players",
+      "player_allstar",
+      "teams",
+      "draft",
+      "series_post",
+      "awards_coaches"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/professional_basketball/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "series_post",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "awards_coaches",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "teams": {
+      "pk_columns": [
+        "year",
+        "tmID"
+      ],
+      "fragments": [
+        {
+          "suffix": "arena",
+          "non_pk_columns": [
+            "arena",
+            "confID",
+            "confRank",
+            "divID",
+            "franchID",
+            "games",
+            "lgID",
+            "name",
+            "o_ftm",
+            "playoff",
+            "rank"
+          ],
+          "local_table": "team_seas_arena",
+          "local_name": "local_1",
+          "vertical_fragment_base": "teams_arena"
+        },
+        {
+          "suffix": "arena_2",
+          "non_pk_columns": [
+            "arena",
+            "awayLost",
+            "awayWon",
+            "franchID",
+            "games",
+            "homeLost",
+            "homeWon",
+            "lgID",
+            "lost",
+            "name",
+            "playoff",
+            "rank",
+            "won"
+          ],
+          "local_table": "team_seas_split",
+          "local_name": "local_1",
+          "vertical_fragment_base": "teams_arena_2"
+        },
+        {
+          "suffix": "d_pts",
+          "non_pk_columns": [
+            "d_pts",
+            "o_fgm",
+            "o_ftm",
+            "o_pts"
+          ],
+          "local_table": "team_seas_defpts",
+          "local_name": "local_1",
+          "vertical_fragment_base": "teams_d_pts"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "teams",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 20,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.06941569653915994,
+          "3": 0.07939480519894035,
+          "4": 0.05952171723650399,
+          "5": 0.0757859865681256
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.07939480519894035,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "arena",
+            "confID",
+            "confRank",
+            "divID",
+            "franchID",
+            "lgID",
+            "name",
+            "playoff",
+            "rank"
+          ],
+          [
+            "awayLost",
+            "awayWon",
+            "games",
+            "homeLost",
+            "homeWon",
+            "lost",
+            "won"
+          ],
+          [
+            "d_pts",
+            "o_fgm",
+            "o_ftm",
+            "o_pts"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "arena",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "games",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "playoff",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "franchID",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "lgID",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "o_ftm",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "rank",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "arena",
+            "confID",
+            "confRank",
+            "divID",
+            "franchID",
+            "games",
+            "lgID",
+            "name",
+            "o_ftm",
+            "playoff",
+            "rank"
+          ],
+          [
+            "arena",
+            "awayLost",
+            "awayWon",
+            "franchID",
+            "games",
+            "homeLost",
+            "homeWon",
+            "lgID",
+            "lost",
+            "name",
+            "playoff",
+            "rank",
+            "won"
+          ],
+          [
+            "d_pts",
+            "o_fgm",
+            "o_ftm",
+            "o_pts"
+          ]
+        ],
+        "pk_columns": [
+          "year",
+          "tmID"
+        ],
+        "fragments": [
+          {
+            "suffix": "arena",
+            "non_pk_columns": [
+              "arena",
+              "confID",
+              "confRank",
+              "divID",
+              "franchID",
+              "games",
+              "lgID",
+              "name",
+              "o_ftm",
+              "playoff",
+              "rank"
+            ]
+          },
+          {
+            "suffix": "arena_2",
+            "non_pk_columns": [
+              "arena",
+              "awayLost",
+              "awayWon",
+              "franchID",
+              "games",
+              "homeLost",
+              "homeWon",
+              "lgID",
+              "lost",
+              "name",
+              "playoff",
+              "rank",
+              "won"
+            ]
+          },
+          {
+            "suffix": "d_pts",
+            "non_pk_columns": [
+              "d_pts",
+              "o_fgm",
+              "o_ftm",
+              "o_pts"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "arena",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "arena",
+          "also_in_fragment_suffix": "arena_2"
+        },
+        {
+          "column": "games",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "arena_2",
+          "also_in_fragment_suffix": "arena"
+        },
+        {
+          "column": "playoff",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "arena",
+          "also_in_fragment_suffix": "arena_2"
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "arena",
+          "also_in_fragment_suffix": "arena_2"
+        },
+        {
+          "column": "franchID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "arena",
+          "also_in_fragment_suffix": "arena_2"
+        },
+        {
+          "column": "lgID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "arena",
+          "also_in_fragment_suffix": "arena_2"
+        },
+        {
+          "column": "o_ftm",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "d_pts",
+          "also_in_fragment_suffix": "arena"
+        },
+        {
+          "column": "rank",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "arena",
+          "also_in_fragment_suffix": "arena_2"
+        }
+      ]
+    },
+    "draft": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "draftfrom",
+          "non_pk_columns": [
+            "draftFrom",
+            "firstName",
+            "lastName",
+            "playerID",
+            "suffixName"
+          ],
+          "local_table": "draft_source_entries",
+          "local_name": "local_2",
+          "vertical_fragment_base": "draft_draftfrom"
+        },
+        {
+          "suffix": "draft",
+          "non_pk_columns": [
+            "draftOverall",
+            "draftRound",
+            "draftSelection",
+            "draftYear"
+          ],
+          "local_table": "draft_pick_elite",
+          "local_name": "local_1",
+          "vertical_fragment_base": "draft_draft",
+          "row_partition_names": [
+            "draft_pick_elite",
+            "draft_pick_midrange_low",
+            "draft_pick_midrange_high",
+            "draft_pick_late"
+          ],
+          "row_partition_predicate_column": "draftOverall"
+        },
+        {
+          "suffix": "draftfrom_2",
+          "non_pk_columns": [
+            "draftFrom",
+            "draftOverall",
+            "draftYear",
+            "lgID",
+            "playerID",
+            "suffixName",
+            "tmID"
+          ],
+          "local_table": "draft_selection_records",
+          "local_name": "local_2",
+          "vertical_fragment_base": "draft_draftfrom_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "draft",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.03554751518181259,
+          "3": 0.040412362257198915
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.040412362257198915,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "draftFrom",
+            "firstName",
+            "lastName",
+            "suffixName"
+          ],
+          [
+            "draftOverall",
+            "draftRound",
+            "draftSelection",
+            "draftYear"
+          ],
+          [
+            "lgID",
+            "playerID",
+            "tmID"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "draftFrom",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "draftOverall",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "suffixName",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "draftYear",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "playerID",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "draftFrom",
+            "firstName",
+            "lastName",
+            "playerID",
+            "suffixName"
+          ],
+          [
+            "draftOverall",
+            "draftRound",
+            "draftSelection",
+            "draftYear"
+          ],
+          [
+            "draftFrom",
+            "draftOverall",
+            "draftYear",
+            "lgID",
+            "playerID",
+            "suffixName",
+            "tmID"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "draftfrom",
+            "non_pk_columns": [
+              "draftFrom",
+              "firstName",
+              "lastName",
+              "playerID",
+              "suffixName"
+            ]
+          },
+          {
+            "suffix": "draft",
+            "non_pk_columns": [
+              "draftOverall",
+              "draftRound",
+              "draftSelection",
+              "draftYear"
+            ]
+          },
+          {
+            "suffix": "draftfrom_2",
+            "non_pk_columns": [
+              "draftFrom",
+              "draftOverall",
+              "draftYear",
+              "lgID",
+              "playerID",
+              "suffixName",
+              "tmID"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "draftFrom",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "draftfrom",
+          "also_in_fragment_suffix": "draftfrom_2"
+        },
+        {
+          "column": "draftOverall",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "draft",
+          "also_in_fragment_suffix": "draftfrom_2"
+        },
+        {
+          "column": "suffixName",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "draftfrom",
+          "also_in_fragment_suffix": "draftfrom_2"
+        },
+        {
+          "column": "draftYear",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "draft",
+          "also_in_fragment_suffix": "draftfrom_2"
+        },
+        {
+          "column": "playerID",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "draftfrom_2",
+          "also_in_fragment_suffix": "draftfrom"
+        }
+      ]
+    },
+    "players_teams": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "gp",
+          "non_pk_columns": [
+            "GP",
+            "GS",
+            "PF",
+            "PostAssists",
+            "PostBlocks",
+            "PostGP",
+            "PostGS",
+            "PostMinutes",
+            "PostPF",
+            "PostPoints",
+            "PostSteals",
+            "PostTurnovers",
+            "assists",
+            "blocks",
+            "minutes",
+            "note",
+            "points",
+            "steals",
+            "stint",
+            "turnovers",
+            "year"
+          ],
+          "local_table": "player_team_season_stats",
+          "local_name": "local_2",
+          "vertical_fragment_base": "players_teams_gp"
+        },
+        {
+          "suffix": "postrebounds",
+          "non_pk_columns": [
+            "PostRebounds",
+            "PostdRebounds",
+            "PostoRebounds",
+            "dRebounds",
+            "oRebounds",
+            "rebounds"
+          ],
+          "local_table": "players_teams_postrebounds_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "players_teams_postrebounds",
+          "row_partition_names": [
+            "players_teams_postrebounds_q1",
+            "players_teams_postrebounds_q2",
+            "player_team_post_rebounds_top"
+          ],
+          "row_partition_predicate_column": "PostRebounds"
+        },
+        {
+          "suffix": "postfgattempted",
+          "non_pk_columns": [
+            "PostfgAttempted",
+            "PostthreeAttempted",
+            "PostthreeMade",
+            "fgAttempted",
+            "fgMade",
+            "threeAttempted",
+            "threeMade"
+          ],
+          "local_table": "PlayerTeamFieldGoalAttemptBreakdownPost",
+          "local_name": "local_3",
+          "vertical_fragment_base": "players_teams_postfgattempted"
+        },
+        {
+          "suffix": "pf",
+          "non_pk_columns": [
+            "PF",
+            "PostAssists",
+            "PostBlocks",
+            "PostPF",
+            "PostfgMade",
+            "PostftAttempted",
+            "PostftMade",
+            "assists",
+            "fgAttempted",
+            "fgMade",
+            "ftAttempted",
+            "ftMade",
+            "points"
+          ],
+          "local_table": "player_post_box",
+          "local_name": "local_1",
+          "vertical_fragment_base": "players_teams_pf"
+        },
+        {
+          "suffix": "gp_2",
+          "non_pk_columns": [
+            "GP",
+            "GS",
+            "blocks",
+            "lgID",
+            "minutes",
+            "note",
+            "playerID",
+            "steals",
+            "stint",
+            "tmID",
+            "turnovers",
+            "year"
+          ],
+          "local_table": "PlayerTeamGamesSummary",
+          "local_name": "local_3",
+          "vertical_fragment_base": "players_teams_gp_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "players_teams",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 42,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.06141003246384619,
+          "3": 0.09185824425764995,
+          "4": 0.08724645020321853,
+          "5": 0.10320698595627752
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.10320698595627752,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "GP",
+            "GS",
+            "PF",
+            "PostAssists",
+            "PostBlocks",
+            "PostGP",
+            "PostGS",
+            "PostMinutes",
+            "PostPF",
+            "PostPoints",
+            "PostSteals",
+            "PostTurnovers",
+            "blocks",
+            "minutes",
+            "points",
+            "steals",
+            "turnovers"
+          ],
+          [
+            "PostRebounds",
+            "PostdRebounds",
+            "PostoRebounds",
+            "dRebounds",
+            "oRebounds",
+            "rebounds"
+          ],
+          [
+            "PostfgAttempted",
+            "PostthreeAttempted",
+            "PostthreeMade",
+            "fgAttempted",
+            "threeAttempted",
+            "threeMade"
+          ],
+          [
+            "PostfgMade",
+            "PostftAttempted",
+            "PostftMade",
+            "assists",
+            "fgMade",
+            "ftAttempted",
+            "ftMade"
+          ],
+          [
+            "lgID",
+            "note",
+            "playerID",
+            "stint",
+            "tmID",
+            "year"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "assists",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "PostAssists",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "year",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "minutes",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "turnovers",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "fgAttempted",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "stint",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "blocks",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "GS",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "points",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "PF",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "note",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "steals",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "PostBlocks",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "GP",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "fgMade",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "PostPF",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "GP",
+            "GS",
+            "PF",
+            "PostAssists",
+            "PostBlocks",
+            "PostGP",
+            "PostGS",
+            "PostMinutes",
+            "PostPF",
+            "PostPoints",
+            "PostSteals",
+            "PostTurnovers",
+            "assists",
+            "blocks",
+            "minutes",
+            "note",
+            "points",
+            "steals",
+            "stint",
+            "turnovers",
+            "year"
+          ],
+          [
+            "PostRebounds",
+            "PostdRebounds",
+            "PostoRebounds",
+            "dRebounds",
+            "oRebounds",
+            "rebounds"
+          ],
+          [
+            "PostfgAttempted",
+            "PostthreeAttempted",
+            "PostthreeMade",
+            "fgAttempted",
+            "fgMade",
+            "threeAttempted",
+            "threeMade"
+          ],
+          [
+            "PF",
+            "PostAssists",
+            "PostBlocks",
+            "PostPF",
+            "PostfgMade",
+            "PostftAttempted",
+            "PostftMade",
+            "assists",
+            "fgAttempted",
+            "fgMade",
+            "ftAttempted",
+            "ftMade",
+            "points"
+          ],
+          [
+            "GP",
+            "GS",
+            "blocks",
+            "lgID",
+            "minutes",
+            "note",
+            "playerID",
+            "steals",
+            "stint",
+            "tmID",
+            "turnovers",
+            "year"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "gp",
+            "non_pk_columns": [
+              "GP",
+              "GS",
+              "PF",
+              "PostAssists",
+              "PostBlocks",
+              "PostGP",
+              "PostGS",
+              "PostMinutes",
+              "PostPF",
+              "PostPoints",
+              "PostSteals",
+              "PostTurnovers",
+              "assists",
+              "blocks",
+              "minutes",
+              "note",
+              "points",
+              "steals",
+              "stint",
+              "turnovers",
+              "year"
+            ]
+          },
+          {
+            "suffix": "postrebounds",
+            "non_pk_columns": [
+              "PostRebounds",
+              "PostdRebounds",
+              "PostoRebounds",
+              "dRebounds",
+              "oRebounds",
+              "rebounds"
+            ]
+          },
+          {
+            "suffix": "postfgattempted",
+            "non_pk_columns": [
+              "PostfgAttempted",
+              "PostthreeAttempted",
+              "PostthreeMade",
+              "fgAttempted",
+              "fgMade",
+              "threeAttempted",
+              "threeMade"
+            ]
+          },
+          {
+            "suffix": "pf",
+            "non_pk_columns": [
+              "PF",
+              "PostAssists",
+              "PostBlocks",
+              "PostPF",
+              "PostfgMade",
+              "PostftAttempted",
+              "PostftMade",
+              "assists",
+              "fgAttempted",
+              "fgMade",
+              "ftAttempted",
+              "ftMade",
+              "points"
+            ]
+          },
+          {
+            "suffix": "gp_2",
+            "non_pk_columns": [
+              "GP",
+              "GS",
+              "blocks",
+              "lgID",
+              "minutes",
+              "note",
+              "playerID",
+              "steals",
+              "stint",
+              "tmID",
+              "turnovers",
+              "year"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "assists",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "pf",
+          "also_in_fragment_suffix": "gp"
+        },
+        {
+          "column": "PostAssists",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "pf"
+        },
+        {
+          "column": "year",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "gp_2",
+          "also_in_fragment_suffix": "gp"
+        },
+        {
+          "column": "minutes",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "turnovers",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "fgAttempted",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "postfgattempted",
+          "also_in_fragment_suffix": "pf"
+        },
+        {
+          "column": "stint",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "gp_2",
+          "also_in_fragment_suffix": "gp"
+        },
+        {
+          "column": "blocks",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "GS",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "points",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "pf"
+        },
+        {
+          "column": "PF",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "pf"
+        },
+        {
+          "column": "note",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "gp_2",
+          "also_in_fragment_suffix": "gp"
+        },
+        {
+          "column": "steals",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "PostBlocks",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "pf"
+        },
+        {
+          "column": "GP",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "fgMade",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "pf",
+          "also_in_fragment_suffix": "postfgattempted"
+        },
+        {
+          "column": "PostPF",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "pf"
+        }
+      ]
+    },
+    "player_allstar": {
+      "pk_columns": [
+        "playerID",
+        "season_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "assists",
+          "non_pk_columns": [
+            "assists",
+            "blocks",
+            "conference",
+            "games_played",
+            "minutes",
+            "personal_fouls",
+            "points",
+            "turnovers"
+          ],
+          "local_table": "AllStarAssistSummary",
+          "local_name": "local_3",
+          "vertical_fragment_base": "player_allstar_assists"
+        },
+        {
+          "suffix": "assists_2",
+          "non_pk_columns": [
+            "assists",
+            "blocks",
+            "conference",
+            "ft_attempted",
+            "games_played",
+            "minutes",
+            "personal_fouls",
+            "points",
+            "steals",
+            "turnovers"
+          ],
+          "local_table": "AllStarAssistDetailWithFreeThrows",
+          "local_name": "local_3",
+          "vertical_fragment_base": "player_allstar_assists_2"
+        },
+        {
+          "suffix": "d_rebounds",
+          "non_pk_columns": [
+            "d_rebounds",
+            "o_rebounds",
+            "rebounds"
+          ],
+          "local_table": "AllStarDefensiveReboundSummary",
+          "local_name": "local_3",
+          "vertical_fragment_base": "player_allstar_d_rebounds"
+        },
+        {
+          "suffix": "fg_attempted",
+          "non_pk_columns": [
+            "fg_attempted",
+            "fg_made",
+            "ft_attempted",
+            "ft_made",
+            "three_attempted",
+            "three_made"
+          ],
+          "local_table": "AllStarFieldGoalAttemptsAtMostSix",
+          "local_name": "local_3",
+          "vertical_fragment_base": "player_allstar_fg_attempted",
+          "row_partition_names": [
+            "AllStarFieldGoalAttemptsAtMostSix",
+            "AllStarFieldGoalAttemptsOverSixUpToNine",
+            "AllStarFieldGoalAttemptsOverNineUpToTwelve",
+            "AllStarFieldGoalAttemptsOverTwelveOrNull"
+          ],
+          "row_partition_predicate_column": "fg_attempted"
+        },
+        {
+          "suffix": "first_name",
+          "non_pk_columns": [
+            "first_name",
+            "last_name",
+            "league_id"
+          ],
+          "local_table": "AllStarPlayerNames",
+          "local_name": "local_3",
+          "vertical_fragment_base": "player_allstar_first_name"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "player_allstar",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 21,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.05816880923654925,
+          "3": 0.09289662651614632,
+          "4": 0.09541555336757325,
+          "5": 0.11120426055087282
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.11120426055087282,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "assists",
+            "conference",
+            "games_played",
+            "minutes"
+          ],
+          [
+            "blocks",
+            "personal_fouls",
+            "points",
+            "steals",
+            "turnovers"
+          ],
+          [
+            "d_rebounds",
+            "o_rebounds",
+            "rebounds"
+          ],
+          [
+            "fg_attempted",
+            "fg_made",
+            "ft_attempted",
+            "ft_made",
+            "three_attempted",
+            "three_made"
+          ],
+          [
+            "first_name",
+            "last_name",
+            "league_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "points",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "assists",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "personal_fouls",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "minutes",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "ft_attempted",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "blocks",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "turnovers",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "conference",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "games_played",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "assists",
+            "blocks",
+            "conference",
+            "games_played",
+            "minutes",
+            "personal_fouls",
+            "points",
+            "turnovers"
+          ],
+          [
+            "assists",
+            "blocks",
+            "conference",
+            "ft_attempted",
+            "games_played",
+            "minutes",
+            "personal_fouls",
+            "points",
+            "steals",
+            "turnovers"
+          ],
+          [
+            "d_rebounds",
+            "o_rebounds",
+            "rebounds"
+          ],
+          [
+            "fg_attempted",
+            "fg_made",
+            "ft_attempted",
+            "ft_made",
+            "three_attempted",
+            "three_made"
+          ],
+          [
+            "first_name",
+            "last_name",
+            "league_id"
+          ]
+        ],
+        "pk_columns": [
+          "playerID",
+          "season_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "assists",
+            "non_pk_columns": [
+              "assists",
+              "blocks",
+              "conference",
+              "games_played",
+              "minutes",
+              "personal_fouls",
+              "points",
+              "turnovers"
+            ]
+          },
+          {
+            "suffix": "assists_2",
+            "non_pk_columns": [
+              "assists",
+              "blocks",
+              "conference",
+              "ft_attempted",
+              "games_played",
+              "minutes",
+              "personal_fouls",
+              "points",
+              "steals",
+              "turnovers"
+            ]
+          },
+          {
+            "suffix": "d_rebounds",
+            "non_pk_columns": [
+              "d_rebounds",
+              "o_rebounds",
+              "rebounds"
+            ]
+          },
+          {
+            "suffix": "fg_attempted",
+            "non_pk_columns": [
+              "fg_attempted",
+              "fg_made",
+              "ft_attempted",
+              "ft_made",
+              "three_attempted",
+              "three_made"
+            ]
+          },
+          {
+            "suffix": "first_name",
+            "non_pk_columns": [
+              "first_name",
+              "last_name",
+              "league_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "points",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "assists_2",
+          "also_in_fragment_suffix": "assists"
+        },
+        {
+          "column": "assists",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "assists",
+          "also_in_fragment_suffix": "assists_2"
+        },
+        {
+          "column": "personal_fouls",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "assists_2",
+          "also_in_fragment_suffix": "assists"
+        },
+        {
+          "column": "minutes",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "assists",
+          "also_in_fragment_suffix": "assists_2"
+        },
+        {
+          "column": "ft_attempted",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "fg_attempted",
+          "also_in_fragment_suffix": "assists_2"
+        },
+        {
+          "column": "blocks",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "assists_2",
+          "also_in_fragment_suffix": "assists"
+        },
+        {
+          "column": "turnovers",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "assists_2",
+          "also_in_fragment_suffix": "assists"
+        },
+        {
+          "column": "conference",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "assists",
+          "also_in_fragment_suffix": "assists_2"
+        },
+        {
+          "column": "games_played",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "assists",
+          "also_in_fragment_suffix": "assists_2"
+        }
+      ]
+    },
+    "players": {
+      "pk_columns": [
+        "playerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "birthcity",
+          "non_pk_columns": [
+            "birthCity",
+            "birthCountry",
+            "birthDate",
+            "birthState",
+            "deathDate"
+          ],
+          "local_table": "PlayerBirthDetails",
+          "local_name": "local_3",
+          "vertical_fragment_base": "players_birthcity"
+        },
+        {
+          "suffix": "college",
+          "non_pk_columns": [
+            "college",
+            "collegeOther",
+            "deathDate",
+            "lastName",
+            "middleName",
+            "nameNick",
+            "nameSuffix",
+            "pos",
+            "race"
+          ],
+          "local_table": "PlayerCollegeDetails",
+          "local_name": "local_3",
+          "vertical_fragment_base": "players_college"
+        },
+        {
+          "suffix": "collegeother",
+          "non_pk_columns": [
+            "collegeOther",
+            "firstName",
+            "fullGivenName",
+            "height",
+            "lastName",
+            "middleName",
+            "nameGiven",
+            "nameNick",
+            "nameSuffix",
+            "pos",
+            "race",
+            "useFirst",
+            "weight"
+          ],
+          "local_table": "PlayerAlternateCollegeDetails",
+          "local_name": "local_3",
+          "vertical_fragment_base": "players_collegeother"
+        },
+        {
+          "suffix": "firstseason",
+          "non_pk_columns": [
+            "firstseason",
+            "height",
+            "lastseason",
+            "weight"
+          ],
+          "local_table": "PlayerFirstSeasonHeightAtMost74",
+          "local_name": "local_3",
+          "vertical_fragment_base": "players_firstseason",
+          "row_partition_names": [
+            "PlayerFirstSeasonHeightAtMost74",
+            "PlayerFirstSeasonHeightOver74UpTo77",
+            "PlayerFirstSeasonHeightOver77UpTo80",
+            "PlayerFirstSeasonHeightOver80OrNull"
+          ],
+          "row_partition_predicate_column": "height"
+        },
+        {
+          "suffix": "highschool",
+          "non_pk_columns": [
+            "highSchool",
+            "hsCity",
+            "hsCountry",
+            "hsState"
+          ],
+          "local_table": "PlayerHighSchoolDetails",
+          "local_name": "local_3",
+          "vertical_fragment_base": "players_highschool"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "players",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 25,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.05188164148364219,
+          "3": 0.07303053684653202,
+          "4": 0.082412897424378,
+          "5": 0.09800376955448842
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.09800376955448842,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "birthCity",
+            "birthCountry",
+            "birthDate",
+            "birthState",
+            "deathDate"
+          ],
+          [
+            "college",
+            "collegeOther",
+            "nameNick",
+            "pos"
+          ],
+          [
+            "firstName",
+            "fullGivenName",
+            "lastName",
+            "middleName",
+            "nameGiven",
+            "nameSuffix",
+            "race",
+            "useFirst"
+          ],
+          [
+            "firstseason",
+            "height",
+            "lastseason",
+            "weight"
+          ],
+          [
+            "highSchool",
+            "hsCity",
+            "hsCountry",
+            "hsState"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "race",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "nameSuffix",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "middleName",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "deathDate",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "nameNick",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "weight",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "height",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "pos",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "lastName",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "collegeOther",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "birthCity",
+            "birthCountry",
+            "birthDate",
+            "birthState",
+            "deathDate"
+          ],
+          [
+            "college",
+            "collegeOther",
+            "deathDate",
+            "lastName",
+            "middleName",
+            "nameNick",
+            "nameSuffix",
+            "pos",
+            "race"
+          ],
+          [
+            "collegeOther",
+            "firstName",
+            "fullGivenName",
+            "height",
+            "lastName",
+            "middleName",
+            "nameGiven",
+            "nameNick",
+            "nameSuffix",
+            "pos",
+            "race",
+            "useFirst",
+            "weight"
+          ],
+          [
+            "firstseason",
+            "height",
+            "lastseason",
+            "weight"
+          ],
+          [
+            "highSchool",
+            "hsCity",
+            "hsCountry",
+            "hsState"
+          ]
+        ],
+        "pk_columns": [
+          "playerID"
+        ],
+        "fragments": [
+          {
+            "suffix": "birthcity",
+            "non_pk_columns": [
+              "birthCity",
+              "birthCountry",
+              "birthDate",
+              "birthState",
+              "deathDate"
+            ]
+          },
+          {
+            "suffix": "college",
+            "non_pk_columns": [
+              "college",
+              "collegeOther",
+              "deathDate",
+              "lastName",
+              "middleName",
+              "nameNick",
+              "nameSuffix",
+              "pos",
+              "race"
+            ]
+          },
+          {
+            "suffix": "collegeother",
+            "non_pk_columns": [
+              "collegeOther",
+              "firstName",
+              "fullGivenName",
+              "height",
+              "lastName",
+              "middleName",
+              "nameGiven",
+              "nameNick",
+              "nameSuffix",
+              "pos",
+              "race",
+              "useFirst",
+              "weight"
+            ]
+          },
+          {
+            "suffix": "firstseason",
+            "non_pk_columns": [
+              "firstseason",
+              "height",
+              "lastseason",
+              "weight"
+            ]
+          },
+          {
+            "suffix": "highschool",
+            "non_pk_columns": [
+              "highSchool",
+              "hsCity",
+              "hsCountry",
+              "hsState"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "race",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "collegeother",
+          "also_in_fragment_suffix": "college"
+        },
+        {
+          "column": "nameSuffix",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "collegeother",
+          "also_in_fragment_suffix": "college"
+        },
+        {
+          "column": "middleName",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "collegeother",
+          "also_in_fragment_suffix": "college"
+        },
+        {
+          "column": "deathDate",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "birthcity",
+          "also_in_fragment_suffix": "college"
+        },
+        {
+          "column": "nameNick",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "college",
+          "also_in_fragment_suffix": "collegeother"
+        },
+        {
+          "column": "weight",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "firstseason",
+          "also_in_fragment_suffix": "collegeother"
+        },
+        {
+          "column": "height",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "firstseason",
+          "also_in_fragment_suffix": "collegeother"
+        },
+        {
+          "column": "pos",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "college",
+          "also_in_fragment_suffix": "collegeother"
+        },
+        {
+          "column": "lastName",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "collegeother",
+          "also_in_fragment_suffix": "college"
+        },
+        {
+          "column": "collegeOther",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "college",
+          "also_in_fragment_suffix": "collegeother"
+        }
+      ]
+    }
+  }
+}

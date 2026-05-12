@@ -1,0 +1,573 @@
+{
+  "endpoint": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "enabled",
+        "non_pk_columns": [
+          "enabled",
+          "extra",
+          "interface",
+          "region_id",
+          "url"
+        ],
+        "local_table": "EndpointEnabledUrlShineTrack2",
+        "local_name": "local_1",
+        "vertical_fragment_base": "endpoint_enabled",
+        "row_partition_names": [
+          "EndpointEnabledUrlShineTrack2",
+          "EndpointEnabledUrlsCosmoCredo",
+          "EndpointEnabledUrlsForgeHelio",
+          "EndpointEnabledUrlsCubicGamut",
+          "EndpointEnabledUrlsQubitSpire",
+          "EndpointEnabledOtherUrls"
+        ],
+        "row_partition_predicate_column": "url"
+      },
+      {
+        "suffix": "enabled_2",
+        "non_pk_columns": [
+          "enabled",
+          "legacy_endpoint_id",
+          "region_id",
+          "service_id",
+          "url"
+        ],
+        "local_table": "EndpointEnabledLegacyReference",
+        "local_name": "local_1",
+        "vertical_fragment_base": "endpoint_enabled_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "endpoint",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 7,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.04195452011305804
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.04195452011305804,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "enabled",
+          "extra",
+          "interface"
+        ],
+        [
+          "legacy_endpoint_id",
+          "region_id",
+          "service_id",
+          "url"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "url",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "region_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "enabled",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "enabled",
+          "extra",
+          "interface",
+          "region_id",
+          "url"
+        ],
+        [
+          "enabled",
+          "legacy_endpoint_id",
+          "region_id",
+          "service_id",
+          "url"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "enabled",
+          "non_pk_columns": [
+            "enabled",
+            "extra",
+            "interface",
+            "region_id",
+            "url"
+          ]
+        },
+        {
+          "suffix": "enabled_2",
+          "non_pk_columns": [
+            "enabled",
+            "legacy_endpoint_id",
+            "region_id",
+            "service_id",
+            "url"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "endpoint_enabled_2",
+    "movable_candidates": [
+      "endpoint_enabled_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=2"
+  },
+  "request_token": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "authorizing_user_id",
+        "non_pk_columns": [
+          "authorizing_user_id",
+          "consumer_id",
+          "requested_project_id",
+          "role_ids"
+        ],
+        "local_table": "RequestTokenWithAuthorizingUser",
+        "local_name": "local_1",
+        "vertical_fragment_base": "request_token_authorizing_user_id"
+      },
+      {
+        "suffix": "authorizing_user_id_2",
+        "non_pk_columns": [
+          "authorizing_user_id",
+          "consumer_id",
+          "expires_at",
+          "request_secret",
+          "role_ids",
+          "verifier"
+        ],
+        "local_table": "RequestTokenWithExpiryAndVerifier",
+        "local_name": "local_1",
+        "vertical_fragment_base": "request_token_authorizing_user_id_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "request_token",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 7,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1389401365,
+      "scores_by_k": {
+        "2": 0.03387772344943842
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.03387772344943842,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "authorizing_user_id",
+          "consumer_id",
+          "requested_project_id",
+          "role_ids"
+        ],
+        [
+          "expires_at",
+          "request_secret",
+          "verifier"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "role_ids",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "authorizing_user_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "consumer_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "authorizing_user_id",
+          "consumer_id",
+          "requested_project_id",
+          "role_ids"
+        ],
+        [
+          "authorizing_user_id",
+          "consumer_id",
+          "expires_at",
+          "request_secret",
+          "role_ids",
+          "verifier"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "authorizing_user_id",
+          "non_pk_columns": [
+            "authorizing_user_id",
+            "consumer_id",
+            "requested_project_id",
+            "role_ids"
+          ]
+        },
+        {
+          "suffix": "authorizing_user_id_2",
+          "non_pk_columns": [
+            "authorizing_user_id",
+            "consumer_id",
+            "expires_at",
+            "request_secret",
+            "role_ids",
+            "verifier"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "request_token_authorizing_user_id_2",
+    "movable_candidates": [
+      "request_token_authorizing_user_id"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+  },
+  "revocation_event": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "access_token_id",
+        "non_pk_columns": [
+          "access_token_id",
+          "audit_chain_id",
+          "audit_id",
+          "consumer_id",
+          "domain_id",
+          "issued_before",
+          "project_id",
+          "role_id",
+          "trust_id",
+          "user_id"
+        ],
+        "local_table": "accessTokenRevocationEvent",
+        "local_name": "local_4",
+        "vertical_fragment_base": "revocation_event_access_token_id"
+      },
+      {
+        "suffix": "access_token_id_2",
+        "non_pk_columns": [
+          "access_token_id",
+          "audit_chain_id",
+          "audit_id",
+          "expires_at",
+          "issued_before",
+          "revoked_at",
+          "role_id"
+        ],
+        "local_table": "accessTokenRevocationTiming",
+        "local_name": "local_4",
+        "vertical_fragment_base": "revocation_event_access_token_id_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "revocation_event",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 12,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.047852428781829014,
+        "3": 0.047852428781829014
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.047852428781829014,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "access_token_id",
+          "audit_chain_id",
+          "audit_id",
+          "consumer_id",
+          "domain_id",
+          "project_id",
+          "role_id",
+          "trust_id",
+          "user_id"
+        ],
+        [
+          "expires_at",
+          "issued_before",
+          "revoked_at"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "audit_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "audit_chain_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "role_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "access_token_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "issued_before",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "access_token_id",
+          "audit_chain_id",
+          "audit_id",
+          "consumer_id",
+          "domain_id",
+          "issued_before",
+          "project_id",
+          "role_id",
+          "trust_id",
+          "user_id"
+        ],
+        [
+          "access_token_id",
+          "audit_chain_id",
+          "audit_id",
+          "expires_at",
+          "issued_before",
+          "revoked_at",
+          "role_id"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "access_token_id",
+          "non_pk_columns": [
+            "access_token_id",
+            "audit_chain_id",
+            "audit_id",
+            "consumer_id",
+            "domain_id",
+            "issued_before",
+            "project_id",
+            "role_id",
+            "trust_id",
+            "user_id"
+          ]
+        },
+        {
+          "suffix": "access_token_id_2",
+          "non_pk_columns": [
+            "access_token_id",
+            "audit_chain_id",
+            "audit_id",
+            "expires_at",
+            "issued_before",
+            "revoked_at",
+            "role_id"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "revocation_event_access_token_id",
+    "movable_candidates": [
+      "revocation_event_access_token_id_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=0"
+  },
+  "trust": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "deleted_at",
+        "non_pk_columns": [
+          "deleted_at",
+          "expires_at",
+          "extra",
+          "impersonation",
+          "project_id",
+          "remaining_uses"
+        ],
+        "local_table": "trust_del_heat_role",
+        "local_name": "local_8",
+        "vertical_fragment_base": "trust_deleted_at",
+        "row_partition_names": [
+          "trust_del_heat_role",
+          "trust_del_redeleg_zero"
+        ],
+        "row_partition_predicate_column": "extra"
+      },
+      {
+        "suffix": "extra",
+        "non_pk_columns": [
+          "extra",
+          "impersonation",
+          "project_id",
+          "remaining_uses",
+          "trustee_user_id",
+          "trustor_user_id"
+        ],
+        "local_table": "trust_meta",
+        "local_name": "local_8",
+        "vertical_fragment_base": "trust_extra"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "trust",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.09911326556281162
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.09911326556281162,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "deleted_at",
+          "expires_at",
+          "extra",
+          "impersonation",
+          "remaining_uses"
+        ],
+        [
+          "project_id",
+          "trustee_user_id",
+          "trustor_user_id"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "impersonation",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "extra",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "remaining_uses",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "project_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "deleted_at",
+          "expires_at",
+          "extra",
+          "impersonation",
+          "project_id",
+          "remaining_uses"
+        ],
+        [
+          "extra",
+          "impersonation",
+          "project_id",
+          "remaining_uses",
+          "trustee_user_id",
+          "trustor_user_id"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "deleted_at",
+          "non_pk_columns": [
+            "deleted_at",
+            "expires_at",
+            "extra",
+            "impersonation",
+            "project_id",
+            "remaining_uses"
+          ]
+        },
+        {
+          "suffix": "extra",
+          "non_pk_columns": [
+            "extra",
+            "impersonation",
+            "project_id",
+            "remaining_uses",
+            "trustee_user_id",
+            "trustor_user_id"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "trust_extra",
+    "movable_candidates": [
+      "trust_deleted_at_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=0"
+  }
+}

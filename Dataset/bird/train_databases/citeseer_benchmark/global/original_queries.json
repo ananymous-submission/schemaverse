@@ -1,0 +1,135 @@
+[
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN class_label = 'Agents' THEN paper_id ELSE NULL END) AS REAL) * 100 / COUNT(paper_id) FROM paper",
+    "question_id": null,
+    "question": "Among all the citation, what is the percentage of paper ID under the Agents classification?",
+    "difficulty": "",
+    "evidence": "classification refers to class_label; class_label = 'Agents'; percentage = (divide(count(paper_id where class_label = 'Agents')), (count(paper_id)))*100;"
+  },
+  {
+    "sql": "SELECT word_cited_id, COUNT(paper_id) FROM content GROUP BY word_cited_id ORDER BY COUNT(word_cited_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most cited word? How many papers was that word cited in?",
+    "difficulty": "",
+    "evidence": "most cited word refers to max(count(word_cited_id);"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.word_cited_id) FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T1.class_label = 'AI'",
+    "question_id": null,
+    "question": "What is the total number of word cited under that class labelled 'AI'?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.class_label, T2.word_cited_id FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T1.paper_id = 315017",
+    "question_id": null,
+    "question": "For all words cited in paper ID 315017, state the other paper ID and class label which also cited those words.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.word_cited_id FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T1.class_label = 'DB' GROUP BY T2.word_cited_id ORDER BY COUNT(T2.word_cited_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among all the DB class type citation, which word is the most frequently cited?",
+    "difficulty": "",
+    "evidence": "class type refers to class_label; class_label = 'DB'; word that is most frequently cited refers to max(count(word_cited_id);"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(DISTINCT CASE WHEN T1.class_label = 'Agents' THEN T2.word_cited_id ELSE NULL END) AS REAL) * 100 / COUNT(DISTINCT T2.word_cited_id) FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id",
+    "question_id": null,
+    "question": "Calculate the percentage of words used in Agents class label.",
+    "difficulty": "",
+    "evidence": "percentage = (divide(count(word_cited_id where class_label = 'Agents')), (count(word_cited_id)))*100;"
+  },
+  {
+    "sql": "SELECT T1.paper_id, T1.class_label FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id GROUP BY T1.paper_id, T1.class_label ORDER BY COUNT(T2.word_cited_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which paper ID cited the most word? In which class label does it belongs to?",
+    "difficulty": "",
+    "evidence": "most cited word refers to max(word_cited_id);"
+  },
+  {
+    "sql": "SELECT T1.paper_id, T1.class_label FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T2.word_cited_id = 'word1002'",
+    "question_id": null,
+    "question": "List all the paper ID and its class type that cited the word 'word1002'.",
+    "difficulty": "",
+    "evidence": "class type refers to class_label;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.word_cited_id FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T1.class_label = 'AI'",
+    "question_id": null,
+    "question": "List all words cited in the AI class label.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.class_label, COUNT(T2.word_cited_id) FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T1.paper_id = 'chakrabarti01integrating' GROUP BY T1.class_label",
+    "question_id": null,
+    "question": "What is the class label of paper ID 'chakrabarti01integrating'. How many words were cited by this paper ID?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.paper_id, T1.class_label FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id GROUP BY T2.paper_id, T1.class_label HAVING COUNT(T2.word_cited_id) > 20",
+    "question_id": null,
+    "question": "List all paper ID and its class type with more than 20 cited words.",
+    "difficulty": "",
+    "evidence": "class type refers to class_label; count(word_cited_id)>20"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.word_cited_id FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T1.class_label = 'AI' OR T1.class_label = 'IR'",
+    "question_id": null,
+    "question": "List the words that are cited in both AI and IR class label.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT cited_paper_id, COUNT(cited_paper_id), ( SELECT cited_paper_id FROM cites GROUP BY cited_paper_id ORDER BY COUNT(cited_paper_id) ASC LIMIT 1 ), ( SELECT COUNT(cited_paper_id) FROM cites GROUP BY cited_paper_id ORDER BY COUNT(cited_paper_id) ASC LIMIT 1 ) FROM cites GROUP BY cited_paper_id ORDER BY COUNT(cited_paper_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the paper which is cited most times and the paper which is cited least times? Also, find the number of times each one is cited.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN class_label = 'ML' THEN paper_id ELSE NULL END) AS REAL) / COUNT(paper_id) FROM paper",
+    "question_id": null,
+    "question": "On average, how many papers are under the ML class?",
+    "difficulty": "",
+    "evidence": "class refers to class_label; average = divide(count(paper_id where class_label = 'M')), (count(paper_id)));"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.word_cited_id FROM cites AS T1 INNER JOIN content AS T2 ON T1.cited_paper_id = T2.paper_id WHERE T1.citing_paper_id = 'sima01computational'",
+    "question_id": null,
+    "question": "Find the words cited in papers that are cited by sima01computational?",
+    "difficulty": "",
+    "evidence": "paper cited by refers to citing_paper_id; citing_paper_id = 'sima01computational';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.paper_id) FROM cites AS T1 INNER JOIN content AS T2 ON T1.cited_paper_id = T2.paper_id WHERE T1.citing_paper_id = 'schmidt99advanced' AND T2.word_cited_id = 'word3555'",
+    "question_id": null,
+    "question": "How many papers were cited by schmidt99advanced cited word3555?",
+    "difficulty": "",
+    "evidence": "paper cited by refers to citing_paper_id; citing_paper_id = 'schmidt99advanced';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.class_label FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T2.word_cited_id = 'word1163'",
+    "question_id": null,
+    "question": "Under what classification do the papers that cited word1163 belong?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.paper_id FROM paper AS T1 INNER JOIN content AS T2 ON T1.paper_id = T2.paper_id WHERE T1.class_label = 'DB' GROUP BY T1.paper_id ORDER BY COUNT(T2.word_cited_id) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the papers under DB classification, which paper has the highest number of words cited?",
+    "difficulty": "",
+    "evidence": "classification refers to class_label; class_label = 'DB';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.paper_id) FROM paper AS T1 INNER JOIN cites AS T2 ON T1.paper_id = T2.citing_paper_id WHERE T1.class_label = 'ML' AND T2.cited_paper_id = 'butz01algorithmic'",
+    "question_id": null,
+    "question": "In the papers classified as ML, how many cited butz01algorithmic?",
+    "difficulty": "",
+    "evidence": "classification refers to class_label; paper cited by refers to citing_paper_id; citing_paper_id = 'butz01algorithmic';"
+  }
+]

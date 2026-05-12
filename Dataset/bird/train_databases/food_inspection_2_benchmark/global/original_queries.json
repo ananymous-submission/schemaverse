@@ -1,0 +1,975 @@
+[
+  {
+    "sql": "SELECT first_name, last_name FROM employee WHERE title = 'Sanitarian' AND supervisor = ( SELECT employee_id FROM employee WHERE first_name = 'Darlisha' AND last_name = 'Jacobs' )",
+    "question_id": null,
+    "question": "Please list the full names of all the sanitarians under the supervision of Darlisha Jacobs.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first_name, T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE strftime('%Y-%m', T2.inspection_date) = '2010-05' AND T1.title = 'Sanitarian'",
+    "question_id": null,
+    "question": "Please list the full names of the sanitarians who did at least one inspection in May, 2010.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; in May 2010 refers to inspection_date like '2010-05%'; sanitarian refers to title = 'Sanitarian'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.inspection_id) FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE strftime('%Y', T2.inspection_date) = '2010' AND T1.first_name = 'Joshua' AND T1.last_name = 'Rosa'",
+    "question_id": null,
+    "question": "How many inspections were sanitarian Joshua Rosa responsible for in 2010?",
+    "difficulty": "",
+    "evidence": "in 2010 refers to inspection_date like '2010%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.dba_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN establishment AS T3 ON T2.license_no = T3.license_no WHERE T1.first_name = 'Joshua' AND T1.last_name = 'Rosa'",
+    "question_id": null,
+    "question": "Please list the assumed name of all the facilities inspected by Joshua Rosa.",
+    "difficulty": "",
+    "evidence": "assumed name refers to dba_name"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.license_no) FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y', T1.inspection_date) = '2010' AND T2.facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "Among the facilities that have undergone at least one inspection in 2010, how many of them are restaurants or cafeterias?",
+    "difficulty": "",
+    "evidence": "in 2010 refers to inspection_date like '2010%'; restaurant or cafeteria refers to facility_type = 'Restaurant'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.latitude, T2.longitude FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no WHERE T1.inspection_date = '2010-05-11'",
+    "question_id": null,
+    "question": "Please list the location coordinates of all the facilities that had an inspection on 2010/5/11.",
+    "difficulty": "",
+    "evidence": "location coordinates refers to latitude, longitude; on 2010/5/11 refers to inspection_date = '2010-05-11'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.license_no) FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y', T1.inspection_date) = '2010' AND T2.ward = 42",
+    "question_id": null,
+    "question": "Among the facilities that have undergone at least one inspection in 2010, how many of them are in ward no.42?",
+    "difficulty": "",
+    "evidence": "in 2010 refers to inspection_date like '2010%'; in ward no.42 refers to ward = 42"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first_name, T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN establishment AS T3 ON T2.license_no = T3.license_no WHERE T3.dba_name = 'Burbank' AND T1.title = 'Sanitarian'",
+    "question_id": null,
+    "question": "Please list the full names of all the sanitarians who have inspected the facility Burbank.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; the facility Burbank refers to dba_name = 'Burbank'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.dba_name FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no WHERE T1.results = 'Fail' AND strftime('%Y', T1.inspection_date) = '2010'",
+    "question_id": null,
+    "question": "Please list the assumed name of all the facilities that failed an inspection in 2010.",
+    "difficulty": "",
+    "evidence": "assumed name refers to dba_name; failed an inspection refers to results = 'Fail'; in 2010 refers to inspection_date like '2010%'"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN establishment AS T3 ON T2.license_no = T3.license_no WHERE T2.inspection_date = '2010-05-11' AND T3.dba_name = 'AMUNDSEN HIGH SCHOOL' AND T1.title = 'Sanitarian'",
+    "question_id": null,
+    "question": "What is the full name of the sanitarian who inspected Amundsen High School on 2010/5/11?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name;\u00a0 Amundsen High School refers to dba_name = 'AMUNDSEN HIGH SCHOOL'; on 2010/5/11 refers to inspection_date = '2010-05-11'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.inspection_id) FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.results = 'Pass' AND T1.first_name = 'Joshua' AND T1.last_name = 'Rosa'",
+    "question_id": null,
+    "question": "Among the inspections done by sanitarian Joshua Rosa, how many of them have the result of \"pass\"?",
+    "difficulty": "",
+    "evidence": "have the result of \"pass\" refers to results = 'Pass'"
+  },
+  {
+    "sql": "SELECT T1.followup_to FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no WHERE T2.dba_name = 'Azha Restaurant Inc.' AND T1.results = 'Pass' AND T1.inspection_date = '2010-01-21'",
+    "question_id": null,
+    "question": "After Azha Restaurant Inc. passed the inspection on 2010/1/21, when was the follow-up inspection done?",
+    "difficulty": "",
+    "evidence": "Azha Restaurant Inc. refers to dba_name = 'Azha Restaurant Inc.'; on 2010/1/21 refers to inspection_date = '2010-01-21'; follow-up inspection date refers to followup_to"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.license_no) FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y', T1.inspection_date) = '2010' AND T2.risk_level = 3",
+    "question_id": null,
+    "question": "Among the facilities that had undergone at least one inspection in 2010, how many of them have the most serious food safety issues?",
+    "difficulty": "",
+    "evidence": "in 2010 refers to inspection_date like '2010%'; the most serious food safety issues refers to risk_level = 3"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.inspection_date LIKE '2010%' THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN T1.salary > 70000 THEN 1 ELSE 0 END) FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id",
+    "question_id": null,
+    "question": "What is the average number of inspections carried out in the year 2010 by a sanitarian whose salary is over 70000?",
+    "difficulty": "",
+    "evidence": "in the year 2010 refers to inspection_date like '2010%'; salary is over 70000 refers to salary > 70000; average number = divide(sum(inspection where inspection_date like '2010%'), sum(employee_id where salary > 70000))"
+  },
+  {
+    "sql": "SELECT point_level FROM inspection_point WHERE Description = 'Refrigeration and metal stem thermometers provided and conspicuous '",
+    "question_id": null,
+    "question": "What is the point level of \"Refrigeration and metal stem thermometers provided and conspicuous\"?",
+    "difficulty": "",
+    "evidence": "\"Refrigeration and metal stem thermometers provided and conspicuous\" refers to Description = 'Refrigeration and metal stem thermometers provided and conspicuous '"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM inspection AS T1 INNER JOIN employee AS T2 ON T1.employee_id = T2.employee_id WHERE T1.inspection_id = 48224",
+    "question_id": null,
+    "question": "Which employee was responsible for inspection no.48224? Give the full name.",
+    "difficulty": "",
+    "evidence": "inspection no.48224 refers to inspection_id = '48224'; full name refers to first_name, last_name;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.inspection_id) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.facility_type = 'Restaurant' AND T1.dba_name = 'All Style Buffet'",
+    "question_id": null,
+    "question": "How many inspections did All Style Buffet Restaurant have?",
+    "difficulty": "",
+    "evidence": "All Style Buffet refers to dba_name = 'All Style Buffet'; Restaurant refers to facility_type = 'Restaurant'"
+  },
+  {
+    "sql": "SELECT MIN(T2.inspection_date) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.aka_name = 'WING HUNG CHOP SUEY RESTAURANT'",
+    "question_id": null,
+    "question": "When did Wing Hung Chop Suey Restaurant have its first inspection?",
+    "difficulty": "",
+    "evidence": "Wing Hung Chop Suey Restaurant refers to aka_name = 'WING HUNG CHOP SUEY RESTAURANT'; first inspection refers to min(inspection_date)"
+  },
+  {
+    "sql": "SELECT COUNT(T2.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T2.inspection_date = '2015-05-08' AND T1.facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "How many restaurants were inspected on 2015/5/8?",
+    "difficulty": "",
+    "evidence": "restaurant refers to facility_type = 'Restaurant'; on 2015/5/8 refers to inspection_date = '2015-05-08'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.point_id) FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T2.inspection_id = '1454071' AND T1.category = 'Food Maintenance'",
+    "question_id": null,
+    "question": "How many \"food maintenance\" related violations did inspection no.1454071 have?",
+    "difficulty": "",
+    "evidence": "\"food maintenance\" related refers to category = 'Food Maintenance'; inspection no.1454071 refers to inspection_id = '1454071'"
+  },
+  {
+    "sql": "SELECT COUNT(T3.point_id) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T2.inspection_date = '2015-05-08' AND T1.dba_name = 'ROYAL THAI CUISINE'",
+    "question_id": null,
+    "question": "State the number of violations did Royal Thai Cuisine has during the 2015/5/8 inspection.",
+    "difficulty": "",
+    "evidence": "Royal Thai Cuisine refers to dba_name = 'ROYAL THAI CUISINE'; 2015/5/8 refers to inspection_date = '2015-05-08'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.inspection_id) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.address = '3635 W DIVERSEY AVE ' AND T1.facility_type = 'Grocery Store'",
+    "question_id": null,
+    "question": "For the grocery store located at \"3635 W DIVERSEY AVE\", how many inspections did it have?",
+    "difficulty": "",
+    "evidence": "grocery store refers to facility_type = 'Grocery Store'; \"3635 W DIVERSEY AVE\" refers to address = '3635 W DIVERSEY AVE'"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T2.employee_id, T2.first_name, T2.last_name, COUNT(T1.inspection_id) FROM inspection AS T1 INNER JOIN employee AS T2 ON T1.employee_id = T2.employee_id GROUP BY T2.employee_id, T2.first_name, T2.last_name ORDER BY COUNT(T1.inspection_id) DESC LIMIT 1 ) AS T",
+    "question_id": null,
+    "question": "Who is responsible for most of the inspections? Give the full name.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; most of the inspections refers to max(count(employee_id))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.inspection_id) FROM inspection AS T1 INNER JOIN employee AS T2 ON T1.employee_id = T2.employee_id WHERE T2.first_name = 'Lisa' AND T2.last_name = 'Tillman' AND T1.results = 'Out of Business'",
+    "question_id": null,
+    "question": "How many inspections done by Lisa Tillman ended up with the result of \"Out of Business\"?",
+    "difficulty": "",
+    "evidence": "the result of \"Out of Business\" refers to results = 'Out of Business'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.inspection_id) FROM inspection AS T1 INNER JOIN employee AS T2 ON T1.employee_id = T2.employee_id WHERE T2.address = '5000 N Wolcott Ave' AND T2.title = 'Sanitarian' AND strftime('%Y-%m', T1.inspection_date) = '2011-05'",
+    "question_id": null,
+    "question": "For the sanitarian who lives on 5000 N Wolcott Ave, how many establishments did he/she inspect in the May of 2011?",
+    "difficulty": "",
+    "evidence": "sanitarian refers to title = 'Sanitarian'; 5000 N Wolcott Ave refers to address = '5000 N Wolcott Ave'; in May 2011 refers to inspection_date between '2011-04-30' and '2011-06-01'"
+  },
+  {
+    "sql": "SELECT T2.phone FROM inspection AS T1 INNER JOIN employee AS T2 ON T1.employee_id = T2.employee_id WHERE T1.inspection_id = 634597 AND T2.title = 'Sanitarian'",
+    "question_id": null,
+    "question": "Show the phone number of the sanitarian who was responsible for inspection no.634597.",
+    "difficulty": "",
+    "evidence": "phone number refers to phone; sanitarian refers to title = 'Sanitarian'; inspection no.634597 refers to inspection_id = '634597'"
+  },
+  {
+    "sql": "SELECT T1.salary FROM employee AS T1 INNER JOIN ( SELECT T.employee_id, COUNT(T.inspection_id) FROM inspection AS T GROUP BY T.employee_id ORDER BY COUNT(T.inspection_id) DESC LIMIT 1 ) AS T2 ON T1.employee_id = T2.employee_id",
+    "question_id": null,
+    "question": "State the salary of the employee who did the most inspections.",
+    "difficulty": "",
+    "evidence": "the most inspections refers to max(count(employee_id))"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.inspection_id) AS REAL) / COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.risk_level = 3 AND T1.facility_type = 'TAVERN'",
+    "question_id": null,
+    "question": "What is the average number of inspections did risk level 3 taverns have?",
+    "difficulty": "",
+    "evidence": "risk level 3 refers to risk_level = '3'; tavern refers to facility_type = 'TAVERN'; average number = divide(count(inspection_id), sum(license_no)) where risk_level = '3' and facility_type = 'TAVERN'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.results = 'Pass' THEN T2.inspection_id ELSE NULL END) AS REAL) * 100 / COUNT(T2.inspection_id) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.dba_name = 'POCKETS' AND T1.facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "State the inspection pass rate of Pockets Restaurant.",
+    "difficulty": "",
+    "evidence": "Pockets refers to dba_name = 'POCKETS'; Restaurant refers to facility_type = 'Restaurant'; pass refers to results = 'Pass'; the inspection pass rate = divide(sum(inspection_id where results = 'Pass'), count(license_no)) where dba_name = 'POCKETS' and facility_type = 'Restaurant'"
+  },
+  {
+    "sql": "SELECT COUNT(employee_id) FROM employee WHERE zip = '60617'",
+    "question_id": null,
+    "question": "How many sanitarian employees in Chicago are from the zip code 60617?",
+    "difficulty": "",
+    "evidence": "sanitarian refers to title = 'Sanitarian'; in Chicago refers to city = 'Chicago'; zip code 60617 refers to zip = 60617"
+  },
+  {
+    "sql": "SELECT DISTINCT dba_name FROM establishment WHERE address = '2903 W IRVING PARK RD '",
+    "question_id": null,
+    "question": "What is the assumed name of the business located at 2903 W Irving Park Rd?",
+    "difficulty": "",
+    "evidence": "assumed name refers to dba_name; 2903 W Irving Park Rd refers to address = '2903 W IRVING PARK RD '"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM employee ORDER BY salary ASC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the employee with the lowest salary?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; the lowest salary refers to min(salary)"
+  },
+  {
+    "sql": "SELECT COUNT(license_no) FROM establishment WHERE risk_level = 2 AND dba_name = 'HOMEMADE PIZZA'",
+    "question_id": null,
+    "question": "How many establishments that are doing business as Homemade Pizza have a risk level of 2?",
+    "difficulty": "",
+    "evidence": "Homemade Pizza refers to dba_name = 'HOMEMADE PIZZA'; a risk level of 2 refers to risk_level = 2"
+  },
+  {
+    "sql": "SELECT COUNT(inspection_id) FROM violation WHERE point_id = 3 AND fine = 500",
+    "question_id": null,
+    "question": "How many inspections with critical food safety problems are under inspection point id 3?",
+    "difficulty": "",
+    "evidence": "critical food safety problems refers to fine = 500; point_id = 3"
+  },
+  {
+    "sql": "SELECT COUNT(T1.employee_id) FROM employee AS T1 WHERE T1.supervisor = ( SELECT employee_id FROM employee WHERE first_name = 'Gregory' AND last_name = 'Cardenas' )",
+    "question_id": null,
+    "question": "How many employees are under Gregory Cardenas?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT MIN(T2.inspection_date) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.dba_name = 'RENALDI''S PIZZA'",
+    "question_id": null,
+    "question": "When did Renaldi's Pizza had its first inspection?",
+    "difficulty": "",
+    "evidence": "Renaldi's Pizza refers to dba_name = 'RENALDI''S PIZZA'; first inspection refers to min(inspection_date)"
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name FROM ( SELECT T1.employee_id, COUNT(T1.inspection_id) FROM inspection AS T1 WHERE strftime('%Y-%m', T1.inspection_date) = '2016-03' GROUP BY T1.employee_id ORDER BY COUNT(T1.inspection_id) DESC LIMIT 1 ) AS T2 INNER JOIN employee AS T3 ON T2.employee_id = T3.employee_id",
+    "question_id": null,
+    "question": "What is the full name of the employee who was responsible for the most inspection in March 2016?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; the most inspection refers to max(count(employee_id)); in March 2016 refers to inspection_date like '2016-03%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.dba_name FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y-%m', T1.inspection_date) = '2012-05' AND T1.results = 'Pass w/ Conditions'",
+    "question_id": null,
+    "question": "What are the names of the businesses that passed with conditions in May 2012?",
+    "difficulty": "",
+    "evidence": "name of business refers to dba_name; passed with conditions refers to results = 'Pass w/ Conditions'; in May 2012 refers to inspection_date like '2012-05%'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.license_no) FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T1.first_name = 'David' AND T1.last_name = 'Hodges' AND T1.employee_id = 153225 AND T2.inspection_type = 'Short Form Complaint' AND T2.results = 'Pass'",
+    "question_id": null,
+    "question": "Out of all the short form complaint inspections done by David Hodges, how many businesses passed?",
+    "difficulty": "",
+    "evidence": "short form complaint inspection refers to inspection_type = 'Short Form Complaint'; pass refers to results = 'Pass'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T2.inspection_date BETWEEN '2010-01-01' AND '2015-12-31' AND T1.ward = 42 AND T1.license_no IN ( SELECT license_no FROM ( SELECT license_no FROM inspection WHERE results = 'Fail' GROUP BY license_no HAVING COUNT(results) >= 5 ) )",
+    "question_id": null,
+    "question": "How many businesses from ward 42 have at least 5 failed inspection results between 1/1/2010 to 12/31/2015?",
+    "difficulty": "",
+    "evidence": "ward 42 refers to ward = 42; at least 5 failed inspection results refers to count(results = 'Fail') > = 5; between 1/1/2010 to 12/31/2015 refers to inspection_date between '2010-01-01' and '2015-12-31'"
+  },
+  {
+    "sql": "SELECT T1.salary FROM employee AS T1 INNER JOIN ( SELECT employee_id, COUNT(inspection_id) FROM inspection GROUP BY employee_id ORDER BY COUNT(inspection_id) DESC LIMIT 1 ) AS T2 ON T1.employee_id = T2.employee_id",
+    "question_id": null,
+    "question": "How much is the salary of the employee who has the highest number of inspections done of all time?",
+    "difficulty": "",
+    "evidence": "the highest number of inspections done refers to max(count(employee_id))"
+  },
+  {
+    "sql": "SELECT T.dba_name FROM ( SELECT T1.dba_name, SUM(T3.fine) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE strftime('%Y', T2.inspection_date) = '2014' GROUP BY T1.dba_name ORDER BY SUM(T3.fine) DESC LIMIT 1 ) AS T",
+    "question_id": null,
+    "question": "What is the assumed name of the business that has the highest total fine in 2014?",
+    "difficulty": "",
+    "evidence": "assumed name of business refers to dba_name; the highest total fine refers to max(sum(fine)); in 2014 refers to inspection_date like '2014%'"
+  },
+  {
+    "sql": "SELECT T1.latitude, T1.longitude FROM establishment AS T1 INNER JOIN ( SELECT license_no FROM inspection WHERE results = 'Fail' GROUP BY license_no ORDER BY COUNT(results) DESC LIMIT 1 ) AS T2 ON T1.license_no = T2.license_no",
+    "question_id": null,
+    "question": "What is the precise location of the establishment with the highest number of failed inspections?",
+    "difficulty": "",
+    "evidence": "precise location refers to latitude, longitude; the highest number of failed inspections refers to max(count(results where results = 'Fail'))"
+  },
+  {
+    "sql": "SELECT T3.inspector_comment FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T2.inspection_date = '2010-01-25' AND T1.dba_name = 'TAQUERIA LA FIESTA'",
+    "question_id": null,
+    "question": "What are the comments of the inspector during the inspection of Taqueria La Fiesta on 1/25/2010?",
+    "difficulty": "",
+    "evidence": "comment of the inspector refers to inspector_comment; Taqueria La Fiesta refers to dba_name = 'TAQUERIA LA FIESTA'; on 1/25/2010 refers to inspection_date = '2010-01-25'"
+  },
+  {
+    "sql": "SELECT SUM(T3.fine) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE strftime('%Y-%m', T2.inspection_date) = '2014-02' AND T1.dba_name = 'RON OF JAPAN INC'",
+    "question_id": null,
+    "question": "How much is the total fine given to Ron of Japan Inc in its inspection done on February 2014?",
+    "difficulty": "",
+    "evidence": "total fine = sum(fine); Ron of Japan Inc refers to dba_name = 'RON OF JAPAN INC'; on February 2014 refers to inspection_date like '2014-02%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.first_name, T3.last_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN employee AS T3 ON T2.employee_id = T3.employee_id WHERE T1.dba_name = 'TAQUERIA LA PAZ'",
+    "question_id": null,
+    "question": "List the full names of the employees who were responsible for inspecting Taqueria La Paz.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; Taqueria La Paz refers to dba_name = 'TAQUERIA LA PAZ'"
+  },
+  {
+    "sql": "SELECT T.first_name, T.last_name FROM ( SELECT T1.first_name, T1.last_name, SUM(T3.fine) FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id GROUP BY T1.first_name, T1.last_name ORDER BY SUM(T3.fine) DESC LIMIT 1 ) t",
+    "question_id": null,
+    "question": "What is the full name of the employee who gave the highest amount of fine of all time?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; the highest amount of fine refers to max(sum(fine))"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(DISTINCT T2.inspection_id) AS REAL) / 5, T1.first_name, T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T1.title = 'Sanitarian' ORDER BY T1.salary DESC LIMIT 5",
+    "question_id": null,
+    "question": "What is the average number of inspections done by the top 5 employees with the highest salary? List the names of the said employees.",
+    "difficulty": "",
+    "evidence": "the highest salary refers to max(salary); sanitarian refers to title = 'Sanitarian'; name refers to first_name, last_name; average number = divide(sum(inspection_id), 5)"
+  },
+  {
+    "sql": "SELECT T2.dba_name , CAST(SUM(CASE WHEN T1.results = 'Pass' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.inspection_id) AS percentagePassed , CAST(SUM(CASE WHEN T1.results = 'Fail' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.inspection_id) FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no GROUP BY T2.dba_name ORDER BY COUNT(T1.license_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which business had the highest number of inspections done? Calculate the percentage of passed and failed inspections of the said business.",
+    "difficulty": "",
+    "evidence": "business name refers to dba_name; the highest number of inspections done max(count(inspection_id)); percentage of passed inspections = divide(sum(inspection_id where results = 'Pass'), total(inspection_id)) * 100%; percentage of failed inspections = divide(sum(inspection_id where results = 'Fail'), total(inspection_id)) * 100%"
+  },
+  {
+    "sql": "SELECT last_name FROM employee WHERE address = '7211 S Hermitage Ave' AND city = 'Chicago' AND state = 'IL'",
+    "question_id": null,
+    "question": "What is the employee's last name at 7211 S Hermitage Ave, Chicago, IL?",
+    "difficulty": "",
+    "evidence": "7211 S Hermitage Ave refers to address = '7211 S Hermitage Ave'; Chicago refers to city = 'Chicago'; IL refers to state = 'IL'"
+  },
+  {
+    "sql": "SELECT T1.dba_name, T3.first_name, T3.last_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN employee AS T3 ON T2.employee_id = T3.employee_id WHERE T2.inspection_date = '2010-05-05' AND T2.inspection_id = 44256",
+    "question_id": null,
+    "question": "What is the establishment's name and employee involved in the inspection ID 44256 on May 5, 2010?",
+    "difficulty": "",
+    "evidence": "establishment's name refers to dba_name; employee name refers to first_name, last_name; inspection ID 44256 refers to inspection_id = 44256; on May 5, 2010 refers to inspection_date = '2010-05-05'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.address FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y-%m', T2.inspection_date) = '2010-03' AND T2.results = 'Pass' AND T1.facility_type = 'School'",
+    "question_id": null,
+    "question": "Give the address of the schools that passed the inspection in March 2010.",
+    "difficulty": "",
+    "evidence": "school refers to facility_type = 'School'; pass refers to results = 'Pass'; in March 2010 refers to inspection_date like '2010-03%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first_name, T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_date = '2010-03-09' AND T2.inspection_type = 'Canvass'",
+    "question_id": null,
+    "question": "What is the employee's full name involved in the canvass inspection type on March 09, 2010?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; canvass inspection type refers to inspection_type = 'Canvass'; on March 09, 2010 refers to inspection_date = '2010-03-09'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.inspection_id FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.dba_name = 'PIZZA RUSTICA, INC'",
+    "question_id": null,
+    "question": "Provide the inspection ID of the establishment named \"PIZZA RUSTICA, INC.\"",
+    "difficulty": "",
+    "evidence": "\"PIZZA RUSTICA, INC.\" refers to dba_name = 'PIZZA RUSTICA, INC'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.risk_level = 3 AND T2.results = 'Pass' AND T1.facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "How many restaurants with the highest risk level still passed the inspection?",
+    "difficulty": "",
+    "evidence": "restaurant refers to facility_type = 'Restaurant'; the highest risk level refers to max(risk_level); pass the inspection refers to results = 'Pass'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first_name, T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id INNER JOIN inspection_point AS T4 ON T3.point_id = T4.point_id WHERE T4.category = 'Display of Inspection Report Summary'",
+    "question_id": null,
+    "question": "List the names of employees involved in an inspection with the Display of Inspection Report Summary category.",
+    "difficulty": "",
+    "evidence": "name refers to first_name, last_name; Display of Inspection Report Summary category refers to category = 'Display of Inspection Report Summary'"
+  },
+  {
+    "sql": "SELECT T1.title FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_id = 60332",
+    "question_id": null,
+    "question": "What is the title of the employee involved in inspection ID 60332?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.risk_level = '1' AND T2.inspection_type = 'Complaint' AND T1.facility_type = 'Restaurant' AND T2.results = 'Fail'",
+    "question_id": null,
+    "question": "How many of the restaurants with the lowest risk level failed the complaint inspection type?",
+    "difficulty": "",
+    "evidence": "restaurant refers to facility_type = 'Restaurant'; the lowest risk level refers to min(risk_level); failed refers to results = 'Fail'; the complaint inspection type refers to inspection_type = 'Complaint'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.fine, T1.state, T1.city, T1.address FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T2.inspection_id = 48216",
+    "question_id": null,
+    "question": "Provide the fine paid and the complete address of the establishment with inspection ID 48216.",
+    "difficulty": "",
+    "evidence": "complete address refers to state, city, address"
+  },
+  {
+    "sql": "SELECT T2.inspection_id FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T2.fine = 500 AND T1.point_level = 'Critical' AND T2.inspector_comment = 'CDI ON 5-17-10'",
+    "question_id": null,
+    "question": "What is the inspection ID of the inspection with critical point level, $500 fine, and inspector comment \"CDI ON 5-17-10\"?",
+    "difficulty": "",
+    "evidence": "critical point level refers to point_level = 'Critical'; $500 fine refers to fine = 500; inspector comment \"CDI ON 5-17-10\" refers to inspector_comment = 'CDI ON 5-17-10'"
+  },
+  {
+    "sql": "SELECT T1.Description, T2.inspector_comment FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T2.inspection_id = 44247",
+    "question_id": null,
+    "question": "What are the inspection description and inspector's comments in the inspection ID 164795?",
+    "difficulty": "",
+    "evidence": "inspection description refers to Description; inspector's comment refers to inspector_comment"
+  },
+  {
+    "sql": "SELECT T2.inspector_comment, T1.code FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T2.inspection_id = 54216 AND T2.point_id = 34",
+    "question_id": null,
+    "question": "What are the inspector's comments and clean operating requirement code for inspection ID 54216 and point ID 34?",
+    "difficulty": "",
+    "evidence": "inspector's comment refers to inspector_comment; clean operating requirement code refers to code"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.risk_level = 3 THEN T1.license_no END) AS REAL) * 100 / COUNT(T1.risk_level) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T2.results = 'Fail'",
+    "question_id": null,
+    "question": "Among the establishments that failed in the inspection, what is the percentage of establishments with the highest risk level?",
+    "difficulty": "",
+    "evidence": "failed in inspection refers to results = 'Fail'; the highest risk level refers to max(risk_level); percentage = divide(count(license_no where risk_level = max(risk_level)), count(license_no)) * 100% where results = 'Fail'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.fine = 100 THEN 1 ELSE 0 END) - SUM(CASE WHEN T3.fine = 500 THEN 1 ELSE 0 END) FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T1.salary BETWEEN 75000 AND 80000",
+    "question_id": null,
+    "question": "Among the employees that receive a salary between $75000 to $85000, what is the difference between the number of employees which undergone an inspection that fined 100 and 500?",
+    "difficulty": "",
+    "evidence": "salary between $75000 and $85000 refers to 75000 < = salary < = 80000; difference = subtract(count(inspection_id where fine = 100), count(inspection_id where fine = 500)) where 75000 < = salary < = 80000"
+  },
+  {
+    "sql": "SELECT COUNT(inspection_id) FROM inspection WHERE strftime('%Y-%m', inspection_date) = '2011-01'",
+    "question_id": null,
+    "question": "How many inspections were done in January 2011?",
+    "difficulty": "",
+    "evidence": "in January 2011 refers to inspection_date like '2011-01%'"
+  },
+  {
+    "sql": "SELECT COUNT(inspection_id) FROM inspection WHERE strftime('%Y', inspection_date) = '2014' AND results = 'Fail'",
+    "question_id": null,
+    "question": "How many inspections failed in 2014?",
+    "difficulty": "",
+    "evidence": "failed refers to results = 'Fail'; in 2014 refers to inspection_date like '2014%'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN fine = 100 THEN inspection_id END) AS REAL) * 100 / COUNT(inspection_id) FROM violation",
+    "question_id": null,
+    "question": "Calculate the percentage of inspections with the fine for a minor food safety problem.",
+    "difficulty": "",
+    "evidence": "fine for a minor food safety problem refers to fine = 100; percentage = divide(count(inspection_id where fine = 100), sum(inspection_id)) * 100%"
+  },
+  {
+    "sql": "SELECT T2.point_id, T2.fine FROM inspection AS T1 INNER JOIN violation AS T2 ON T1.inspection_id = T2.inspection_id WHERE T1.inspection_date = '2010-08-07'",
+    "question_id": null,
+    "question": "List the point IDs and fines of the inspections done on 7th August 2010.",
+    "difficulty": "",
+    "evidence": "on 7th August 2010 refers to inspection_date = '2010-08-07'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.inspection_id) FROM violation AS T1 INNER JOIN inspection_point AS T2 ON T1.point_id = T2.point_id WHERE T2.category = 'Personnel'",
+    "question_id": null,
+    "question": "How many inspections were done under the personnel category?",
+    "difficulty": "",
+    "evidence": "under the personnel category refers to category = 'Personnel'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.dba_name, T2.results FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.city = 'BURNHAM'",
+    "question_id": null,
+    "question": "Provide the names and inspection results of the facilities located in Burnham.",
+    "difficulty": "",
+    "evidence": "names refers to dba_name; inspection result refers to results; in Burnham refers to city = 'BURNHAM'"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T2.category = 'Toxic Items' THEN T1.inspection_id END) AS Tox_nums , COUNT(CASE WHEN T2.category = 'No Smoking Regulations' THEN T1.inspection_id END) AS NosmoNums FROM violation AS T1 INNER JOIN inspection_point AS T2 ON T1.point_id = T2.point_id",
+    "question_id": null,
+    "question": "Compare the number of inspections under toxic items and no-smoking regulations.",
+    "difficulty": "",
+    "evidence": "under toxic items refers to category = 'Toxic Items'; no-smoking regulations refers to category = 'No Smoking Regulations'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.dba_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN employee AS T3 ON T2.employee_id = T3.employee_id WHERE T2.inspection_date = '2012-11-20' AND T3.first_name = 'Sarah' AND T3.last_name = 'Lindsey'",
+    "question_id": null,
+    "question": "Which facilities were inspected by Sarah Lindsey on 20th November 2012?",
+    "difficulty": "",
+    "evidence": "facility name refers to dba_name; on 20th November 2012 refers to inspection_date = '2012-11-20'"
+  },
+  {
+    "sql": "SELECT DISTINCT T4.category, T3.fine FROM inspection AS T1 INNER JOIN employee AS T2 ON T1.employee_id = T2.employee_id INNER JOIN violation AS T3 ON T1.inspection_id = T3.inspection_id INNER JOIN inspection_point AS T4 ON T3.point_id = T4.point_id WHERE T2.first_name = 'Lisa' AND T2.last_name = 'Tillman' AND strftime('%Y-%m', T1.inspection_date) = '2014-01'",
+    "question_id": null,
+    "question": "Provide the categories and fines for the inspections done by Lisa Tillman in January 2014.",
+    "difficulty": "",
+    "evidence": "in January 2014 refers to inspection_date like '2014-01%'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.inspection_id) FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T1.category = 'Display of Inspection Report Summary'",
+    "question_id": null,
+    "question": "How many inspections were done under the display of inspection report summary category?",
+    "difficulty": "",
+    "evidence": "under the display of inspection report summary category refers to category = 'Display of Inspection Report Summary'"
+  },
+  {
+    "sql": "SELECT T2.inspection_type, T2.results FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.facility_type = 'RIVERWALK CAFE'",
+    "question_id": null,
+    "question": "List the types and results of the inspections done on Riverwalk caf\u00e9.",
+    "difficulty": "",
+    "evidence": "type refers to inspection_type; Riverwalk caf\u00e9 refers to facility_type = 'RIVERWALK CAFE'"
+  },
+  {
+    "sql": "SELECT T3.first_name, T3.last_name, T2.results FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN employee AS T3 ON T2.employee_id = T3.employee_id WHERE T1.dba_name = 'JEAN SAMOCKI'",
+    "question_id": null,
+    "question": "Who inspected Jean Samocki and what was the result?",
+    "difficulty": "",
+    "evidence": "employee's name refers to first_name, last_name; Jean Samocki refers to dba_name = 'JEAN SAMOCKI'"
+  },
+  {
+    "sql": "SELECT SUM(T3.fine) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T1.dba_name = 'HACIENDA LOS TORRES' AND T1.ward = 36 AND T2.results = 'Fail'",
+    "question_id": null,
+    "question": "How much did Hacienda Los Torres from ward 36 fine for failing an inspection?",
+    "difficulty": "",
+    "evidence": "Hacienda Los Torres refers to dba_name = 'HACIENDA LOS TORRES'; ward 36 refers to ward = 36; failing an inspection refers to results = 'Fail';"
+  },
+  {
+    "sql": "SELECT SUM(T2.fine) FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T1.category = 'Food Equipment and Utensil'",
+    "question_id": null,
+    "question": "Calculate the total amount of fine under the food equipment and utensil category.",
+    "difficulty": "",
+    "evidence": "under the food equipment and utensil category refers to category = 'Food Equipment and Utensil'"
+  },
+  {
+    "sql": "SELECT T2.dba_name, T2.longitude, T2.latitude FROM inspection AS T1 INNER JOIN establishment AS T2 ON T1.license_no = T2.license_no WHERE T1.inspection_date = '2013-07-29' AND T1.results = 'Fail'",
+    "question_id": null,
+    "question": "Provide the names and locations of the facilities that failed inspections on 29th July 2013.",
+    "difficulty": "",
+    "evidence": "name refers to dba_name; location refers to latitude, longitude; failed inspections refers to results = 'Fail'; on 29th July 2013 refers to inspection_date = '2013-07-29'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.results LIKE '%Pass%' THEN T2.inspection_id END) AS REAL) * 100 / COUNT(T2.inspection_id), COUNT(DISTINCT T2.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.city = 'CHICAGO'",
+    "question_id": null,
+    "question": "Calculate the percentage of inspections with verified quality. Among them, how many businesses were from Chicago?",
+    "difficulty": "",
+    "evidence": "verified quality refers to results like 'Pass%'; from Chicago refers to city = 'CHICAGO'; percentage = divide(count(inspection_id where results like 'Pass%'), sum(inspection_id)) * 100%"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.first_name = 'Jessica' AND T1.last_name = 'Anthony' THEN T2.inspection_id ELSE 0 END) AS REAL) / 8 FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE strftime('%Y', T2.inspection_date) BETWEEN '2010' AND '2017'",
+    "question_id": null,
+    "question": "Calculate the average inspections per year done by Jessica Anthony from 2010 to 2017.",
+    "difficulty": "",
+    "evidence": "from 2010 to 2017 refers to inspection_date > '2010-01-01' AND T2.inspection_id < '2017-12-31'; average inspections per year = divide(count(inspection_id where inspection_date > '2010-01-01' AND T2.inspection_id < '2017-12-31'), 8)"
+  },
+  {
+    "sql": "SELECT T1.first_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_id = 48225",
+    "question_id": null,
+    "question": "Provide the first name of employee who did inspection ID 48225?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.address FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_id = 52238",
+    "question_id": null,
+    "question": "Tell the address of employee who did inspection ID 52238?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_id = 52238",
+    "question_id": null,
+    "question": "Write down the last name of employee who did inspection ID 52238?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.results FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T1.first_name = 'Thomas' AND T1.last_name = 'Langley'",
+    "question_id": null,
+    "question": "What is the inspection result for inspection done by Thomas Langley?",
+    "difficulty": "",
+    "evidence": "inspection result refers to results"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.address FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_date = '2010-11-05'",
+    "question_id": null,
+    "question": "List down the address of employees who did inspection dated 11/5/2010.",
+    "difficulty": "",
+    "evidence": "dated 11/5/2010 refers to inspection_date = '2010-11-05'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.phone FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_type = 'Canvass'",
+    "question_id": null,
+    "question": "List down the phone numbers of employees who did Canvass inspection.",
+    "difficulty": "",
+    "evidence": "phone number refers to phone; Canvass inspection refers to inspection_type = 'Canvass'"
+  },
+  {
+    "sql": "SELECT T1.title FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_id = 52269",
+    "question_id": null,
+    "question": "What is the job title of employee who did inspection ID 52269?",
+    "difficulty": "",
+    "evidence": "job title refers to title"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.results FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.dba_name = 'XANDO COFFEE & BAR / COSI SANDWICH BAR'",
+    "question_id": null,
+    "question": "What are the inspection results for Xando Coffee & Bar / Cosi Sandwich Bar?",
+    "difficulty": "",
+    "evidence": "Xando Coffee & Bar / Cosi Sandwich Bar refers to dba_name = 'XANDO COFFEE & BAR / COSI SANDWICH BAR'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.inspection_type FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.dba_name = 'JOHN SCHALLER'",
+    "question_id": null,
+    "question": "What type of inspection was done at John Schaller?",
+    "difficulty": "",
+    "evidence": "type of inspection refers to inspection_type; John Schaller refers to dba_name = 'JOHN SCHALLER'"
+  },
+  {
+    "sql": "SELECT T1.dba_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T2.inspection_type = 'License'",
+    "question_id": null,
+    "question": "List down the dba name of restaurants that were inspected due to license.",
+    "difficulty": "",
+    "evidence": "inspected due to license refers to inspection_type = 'License'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.inspection_id) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y', T2.inspection_date) = '2010' AND T1.risk_level = 3",
+    "question_id": null,
+    "question": "How many inspections done in 2010 had serious food safety issue?",
+    "difficulty": "",
+    "evidence": "in 2010 refers to inspection_date like '2010%'; had serious food safety issue refers to risk_level = 3"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.dba_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T2.results LIKE '%Pass%'",
+    "question_id": null,
+    "question": "State the name of dbas with verified quality.",
+    "difficulty": "",
+    "evidence": "name of dba refers to dba_name; with verified quality refers to results = 'Pass' or results = 'Pass w/Conditions'"
+  },
+  {
+    "sql": "SELECT SUM(T2.salary) FROM inspection AS T1 INNER JOIN employee AS T2 ON T1.employee_id = T2.employee_id WHERE T1.inspection_id BETWEEN 52270 AND 52272",
+    "question_id": null,
+    "question": "Calculate the total salary for employees who did inspection from ID 52270 to 52272.",
+    "difficulty": "",
+    "evidence": "inspection from ID 52270 to 52272 refers to inspection_id between 52270 and 52272"
+  },
+  {
+    "sql": "SELECT AVG(T2.salary) FROM inspection AS T1 INNER JOIN employee AS T2 ON T1.employee_id = T2.employee_id WHERE T1.inspection_type = 'License Re-Inspection'",
+    "question_id": null,
+    "question": "Calculate the average salary for employees who did inspection on License Re-Inspection.",
+    "difficulty": "",
+    "evidence": "inspection on License Re-Inspection refers to inspection_type = 'License Re-Inspection'; average salary = avg(salary)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.results, T1.zip FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.license_no = 1222441",
+    "question_id": null,
+    "question": "Did license number 1222441 pass the inspection and what is the zip code number of it?",
+    "difficulty": "",
+    "evidence": "license number 1222441 refers to license_no = 1222441; result of the inspection refers to results; zip code number refers to zip"
+  },
+  {
+    "sql": "SELECT MIN(T2.inspection_date) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.dba_name = 'JOHN SCHALLER' AND strftime('%Y', T2.inspection_date) = '2010'",
+    "question_id": null,
+    "question": "When did restaurant John Schaller has its first inspection in 2010?",
+    "difficulty": "",
+    "evidence": "John Schaller refers to dba_name = 'JOHN SCHALLER'; first inspection refers to min(inspection_date); in 2010 refers to inspection_date like '2010%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.first_name, T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.license_no = 1334073",
+    "question_id": null,
+    "question": "What is the full name of the employee that inspected establishments with license 1334073?",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; with license 1334073 refers to license_no = 1334073"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.dba_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN establishment AS T3 ON T2.license_no = T3.license_no WHERE T1.first_name = 'Joshua' AND T1.last_name = 'Rosa'",
+    "question_id": null,
+    "question": "Which establishments did Joshua Rosa inspect?",
+    "difficulty": "",
+    "evidence": "establishment name refers to dba_name"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.employee_id) FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.results = 'Fail' AND T1.salary > 70000",
+    "question_id": null,
+    "question": "How many employees have salary greater than 70000 but fail the inspection?",
+    "difficulty": "",
+    "evidence": "salary greater than 70000 refers to salary > 70000; fail the inspection refers to results = 'Fail'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.dba_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y', T2.inspection_date) = '2010' AND T2.results = 'Pass' AND T1.facility_type = 'Liquor'",
+    "question_id": null,
+    "question": "Name the food businesses that passed the inspection in 2010.",
+    "difficulty": "",
+    "evidence": "business name refers to dba_name; food business refers to restaurant; pass the inspection refers to results = 'Pass'; in 2010 refers to inspection_date like '2010%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.dba_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN establishment AS T3 ON T2.license_no = T3.license_no WHERE T1.first_name = 'Joshua' AND T1.last_name = 'Rosa'",
+    "question_id": null,
+    "question": "What is the name of the establishment that Joshua Rosa inspected?",
+    "difficulty": "",
+    "evidence": "name of the establishment refers to dba_name"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y-%m', T2.inspection_date) = '2010-07' AND T2.results = 'Fail' AND T1.facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "How many taverns failed in July 2010?",
+    "difficulty": "",
+    "evidence": "tavern refers to facility_type = 'Tavern'; failed refers to results = 'Fail'; in July 2010 refers to inspection_date like '2010-07%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.risk_level FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN establishment AS T3 ON T2.license_no = T3.license_no WHERE T1.first_name = 'Bob' AND T1.last_name = 'Benson'",
+    "question_id": null,
+    "question": "What is the risk level of the establishment that Bob Benson inspected?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T3.dba_name, T2.results FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN establishment AS T3 ON T2.license_no = T3.license_no WHERE T1.first_name = 'Bob' AND T1.last_name = 'Benson' AND strftime('%Y', T2.inspection_date) = '2010'",
+    "question_id": null,
+    "question": "Which establishments did Bob Benson inspect in 2010 and what was the results?",
+    "difficulty": "",
+    "evidence": "establishment name refers to dba_name; in 2010 refers to inspection_date like '2010%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.title FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.license_no = 1576687",
+    "question_id": null,
+    "question": "What is the title of the employee that inspected the establishment with license number 1576687?",
+    "difficulty": "",
+    "evidence": "license number 1576687 refers to license_no = 1576687"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.point_id) FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T1.point_level = 'Serious ' AND T2.fine = 0",
+    "question_id": null,
+    "question": "How many inspection points with serious point level that have no fine?",
+    "difficulty": "",
+    "evidence": "serious point level refers to point_level = 'Serious '; have no fine refers to fine = 0"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T3.fine = 250 THEN T1.license_no END) AS REAL) * 100 / COUNT(T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T1.facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "What is the percentage of restaurants that paid a fine of 250 among all establishments?",
+    "difficulty": "",
+    "evidence": "a fine of 250 refers to fine = 250; percentage = divide(sum(license_no where fine = 250), count(license_no)) * 100%"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.risk_level = 1 THEN T1.license_no END) AS REAL) * 100 / COUNT(T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T2.results = 'Pass'",
+    "question_id": null,
+    "question": "What is the percentage of establishments with a risk level of 1 among all of the establishments that passed the inspection?",
+    "difficulty": "",
+    "evidence": "a risk level of 1 refers to risk_level = 1; pass the inspection refers to results = 'Pass'; percentage = divide(sum(license_no where risk_level = 1), count(license_no)) * 100% where results = 'Pass'"
+  },
+  {
+    "sql": "SELECT address, city, state FROM employee WHERE first_name = 'Standard' AND last_name = 'Murray'",
+    "question_id": null,
+    "question": "Where does the employee named \"Standard Murray\" live?",
+    "difficulty": "",
+    "evidence": "address refers to address, city, state"
+  },
+  {
+    "sql": "SELECT facility_type FROM establishment WHERE dba_name = 'Kinetic Playground'",
+    "question_id": null,
+    "question": "What is the facility type of the establishment named \"Kinetic Playground\"?",
+    "difficulty": "",
+    "evidence": "the establishment named \"Kinetic Playground\" refers to dba_name = 'Kinetic Playground'"
+  },
+  {
+    "sql": "SELECT salary FROM employee WHERE first_name = 'Jessica' AND last_name = 'Anthony'",
+    "question_id": null,
+    "question": "How much salary does Jessica Anthony receive?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT dba_name FROM establishment WHERE latitude = 41.9532864854 AND longitude = -87.7673790701422 AND facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "What is the restaurant's name at \"41.9532864854\" latitude and \"-87.7673790701422\" longitude?",
+    "difficulty": "",
+    "evidence": "restaurant refers to facility_type = 'Restaurant'; name refers to dba_name; \"41.9532864854\" latitude and \"-87.7673790701422\" longitude refers to latitude = 41.9532864854 and longitude = -87.7673790701422"
+  },
+  {
+    "sql": "SELECT COUNT(employee_id) FROM employee WHERE title = 'Supervisor'",
+    "question_id": null,
+    "question": "Among the list of employees, what is the total number of supervisors?",
+    "difficulty": "",
+    "evidence": "supervisor refers to title = 'Supervisor'"
+  },
+  {
+    "sql": "SELECT address FROM establishment WHERE city = 'CHICAGO' AND dba_name = 'OLD TIMERS REST & LOUNGE' AND facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "Where in Chicago does the restaurant named \"Old Timers Rest & Lounge\" located?",
+    "difficulty": "",
+    "evidence": "in Chicago refers to city = 'CHICAGO'; restaurant refers to facility_type = 'Restaurant'; \"Old Timers Rest & Lounge\" refers to dba_name = 'OLD TIMERS REST & LOUNGE'; location refers to address"
+  },
+  {
+    "sql": "SELECT COUNT(employee_id) FROM employee WHERE state = 'IL' AND city = 'Hoffman Estates'",
+    "question_id": null,
+    "question": "How many employees are living in Hoffman Estates, IL?",
+    "difficulty": "",
+    "evidence": "in Hoffman Estates refers to city = 'Hoffman Estates'; IL refers to state = 'IL'"
+  },
+  {
+    "sql": "SELECT COUNT(license_no) FROM establishment WHERE risk_level = 3",
+    "question_id": null,
+    "question": "What is the total number of establishments with the highest risk level?",
+    "difficulty": "",
+    "evidence": "total number of establishments with the highest risk level = count(max(risk_level))"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM employee WHERE salary = 82700",
+    "question_id": null,
+    "question": "Who is the employee that receives 82700 as their salary?",
+    "difficulty": "",
+    "evidence": "employee name refers to first_name, last_name; receives 82700 as salary refers to salary = 82700"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.last_name FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_id = 52256",
+    "question_id": null,
+    "question": "Provide the last name of the employee involved in the inspection ID 52256.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.dba_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T1.facility_type = 'Tavern' AND T3.fine = 100",
+    "question_id": null,
+    "question": "Please list the names of taverns that paid a $100 fine upon inspection.",
+    "difficulty": "",
+    "evidence": "name refers to dba_name; tavern refers to facility_type = 'Tavern'; a $100 fine refers to fine = 100"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.point_level FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T2.fine = 0",
+    "question_id": null,
+    "question": "List point level of inspections with no fine.",
+    "difficulty": "",
+    "evidence": "no fine refers to fine = 0"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.facility_type, T1.license_no FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.risk_level = 1 AND T2.results = 'Fail'",
+    "question_id": null,
+    "question": "Provide the facility type and license number of establishments with the lowest risk level but failed the inspection.",
+    "difficulty": "",
+    "evidence": "license number refers to license_no; the lowest risk level refers to min(risk_level); failed the inspection refers to results = 'Fail'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.results FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.inspection_date = '2010-02-24' AND T1.first_name = 'Arnold' AND T1.last_name = 'Holder'",
+    "question_id": null,
+    "question": "What is the result of the February 24, 2010 inspection involving the employee named \"Arnold Holder\"?",
+    "difficulty": "",
+    "evidence": "February 24, 2010 refers to inspection_date = '2010-02-24'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE strftime('%Y-%m', T2.inspection_date) = '2010-04' AND T1.facility_type = 'Restaurant' AND T2.results = 'Fail'",
+    "question_id": null,
+    "question": "How many restaurants failed the inspection in April 2010?",
+    "difficulty": "",
+    "evidence": "restaurant refers to facility_type = 'Restaurant'; failed the inspection refers to results = 'Fail'; in April 2010 refers to inspection_date like '2010-04%'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.inspection_id FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T1.first_name = 'Rosemary' AND T1.last_name = 'Kennedy'",
+    "question_id": null,
+    "question": "List all inspection IDs where the employee named \"Rosemary Kennedy\" was involved.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.inspection_type FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T1.first_name = 'Lisa' AND T1.last_name = 'Tillman' AND T2.inspection_date = '2010-07-07'",
+    "question_id": null,
+    "question": "What type of inspection was done on July 07, 2010, involving the employee named \"Lisa Tillman\"?",
+    "difficulty": "",
+    "evidence": "type of inspection refers to inspection_type; on July 07, 2010 refers to inspection_date = '2010-07-07'"
+  },
+  {
+    "sql": "SELECT T2.inspection_id FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T2.inspector_comment = 'MUST CLEAN AND BETTER ORGANIZE HALLWAY AREA' AND T1.code = '7-38-030, 015, 010 (A), 005 (A)'",
+    "question_id": null,
+    "question": "Provide the inspection ID of the inspection with the comment \"MUST CLEAN AND BETTER ORGANIZE HALLWAY AREA\" and sanitary operating requirement code of 7-38-030, 015, 010 (A), 005 (A).",
+    "difficulty": "",
+    "evidence": "comment \"MUST CLEAN AND BETTER ORGANIZE HALLWAY AREA\" refers to inspector_comment = 'MUST CLEAN AND BETTER ORGANIZE HALLWAY AREA'; sanitary operating requirement code of 7-38-030, 015, 010 (A), 005 (A) refers to code = '7-38-030, 015, 010 (A), 005 (A)'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.dba_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T1.risk_level = 3 AND T2.results = 'Fail'",
+    "question_id": null,
+    "question": "List down the names of the establishments with the highest risk level and failed the inspection.",
+    "difficulty": "",
+    "evidence": "name of establishment refers to dba_name; the highest risk level refers to max(risk_level); failed the inspection refers to results = 'Fail'"
+  },
+  {
+    "sql": "SELECT T2.inspection_id FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN employee AS T3 ON T2.employee_id = T3.employee_id WHERE T3.first_name = 'David' AND T3.last_name = 'Hodges' AND T1.dba_name = 'KAMAYAN EXPRESS'",
+    "question_id": null,
+    "question": "What is the inspection ID where the employee named \"David Hodges\" is currently employed in the \"Kamayan Express\" establishment?",
+    "difficulty": "",
+    "evidence": "the \"Kamayan Express\" establishment refers to dba_name = 'KAMAYAN EXPRESS'"
+  },
+  {
+    "sql": "SELECT T1.salary, T3.salary FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id INNER JOIN employee AS T3 WHERE T2.inspection_id = 58424 ORDER BY T1.salary, T3.salary DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the salary range of the employee involved in the inspection ID 58424.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.inspection_id FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T1.category = 'Personnel' AND T2.inspector_comment = 'A certified food service manager must be present in all establishments at which potentially hazardous food is prepared or served.FOUND NO CITY OF CHICAGO SANITATION CERTIFICATE POSTED OR VALID DOCUMENTATION DURING THIS INSPECTION.'",
+    "question_id": null,
+    "question": "List down the inspection ID with the inspector's comment \"A certified food service manager must be present in all establishments at which potentially hazardous food is prepared or served. NO CERTIFIED FOOD MANAGER ON DUTY AT THIS TIME FOODS ARE COOKED AND SERVED SERIOUS CITATION ISSUED\" and inspection category of Personnel.",
+    "difficulty": "",
+    "evidence": "inspector's comment \"A certified food service manager must be present in all establishments at which potentially hazardous food is prepared or served. NO CERTIFIED FOOD MANAGER ON DUTY AT THIS TIME FOODS ARE COOKED AND SERVED SERIOUS CITATION ISSUED\" refers to inspector_comment = 'A certified food service manager must be present in all establishments at which potentially hazardous food is prepared or served.FOUND NO CITY OF CHICAGO SANITATION CERTIFICATE POSTED OR VALID DOCUMENTATION DURING THIS INSPECTION.'; inspection category of Personnel refers to category = 'Personnel'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.license_no) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T1.facility_type = 'Grocery Store' AND T3.fine = 250",
+    "question_id": null,
+    "question": "How many grocery stores paid $250 fine upon their inspection?",
+    "difficulty": "",
+    "evidence": "grocery store refers to facility_type = 'Grocery Store'; $250 fine refers to fine = 250"
+  },
+  {
+    "sql": "SELECT DISTINCT T4.category FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id INNER JOIN inspection_point AS T4 ON T3.point_id = T4.point_id WHERE T1.dba_name = 'J & J FOOD'",
+    "question_id": null,
+    "question": "What is the category of the inspection of the establishment named \"J & J FOOD\"?",
+    "difficulty": "",
+    "evidence": "the establishment named \"J & J FOOD\" refers to dba_name = 'J & J FOOD'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.dba_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE strftime('%Y-%m', T2.inspection_date) = '2010-01' AND T2.results = 'Fail' AND T1.facility_type = 'TAVERN'",
+    "question_id": null,
+    "question": "Name the taverns that failed the inspection in January 2010.",
+    "difficulty": "",
+    "evidence": "tavern refers to facility_type = 'Tavern'; failed the inspection refers to results = 'Fail'; in January 2010 refers to inspection_date like '2010-01%'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.inspection_id) FROM inspection_point AS T1 INNER JOIN violation AS T2 ON T1.point_id = T2.point_id WHERE T1.point_level = 'Serious ' AND T2.fine = 0",
+    "question_id": null,
+    "question": "How many of the inspections with serious point levels have no fines?",
+    "difficulty": "",
+    "evidence": "serious point level refers to point_level = 'Serious'; no fines refers to fine = 0"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.dba_name FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id INNER JOIN inspection_point AS T4 ON T3.point_id = T4.point_id WHERE T4.category = 'No Smoking Regulations'",
+    "question_id": null,
+    "question": "What is the establishment's name with an inspection category of No Smoking Regulations?",
+    "difficulty": "",
+    "evidence": "establishment's name refers to dba_name; an inspection category of No Smoking Regulations refers to category = 'No Smoking Regulations'"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T2.results = 'Pass' THEN T1.license_no END) - COUNT(CASE WHEN T2.results = 'Fail' THEN T1.license_no END) AS diff FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no WHERE T2.inspection_type = 'Canvass' AND T1.facility_type = 'Restaurant'",
+    "question_id": null,
+    "question": "What is the difference in the number of restaurants that passed and failed the canvass inspection type?",
+    "difficulty": "",
+    "evidence": "canvass inspection type refers to inspection_type = 'Canvass'; restaurant refers to facility_type = 'Restaurant'; difference = subtract(count(inspection_id where results = 'Pass'), count(inspection_id where results = 'Fail'))"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.employee_id FROM employee AS T1 INNER JOIN inspection AS T2 ON T1.employee_id = T2.employee_id WHERE T2.results = 'Fail' AND strftime('%Y-%m', T2.inspection_date) = '2010-02' AND T1.salary > 0.7 * ( SELECT AVG(salary) FROM employee )",
+    "question_id": null,
+    "question": "Among the establishments that failed the inspection in February 2010, list the names of the employees with a salary greater than 70% of the average salary of all employees.",
+    "difficulty": "",
+    "evidence": "failed the inspection refers to results = 'Fail'; in January 2010 refers to inspection_date like '2010-01%'; name of employee refers to first_name, last_name; a salary greater than 70% of the average salary refers to salary > multiply(avg(salary), 0.7)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.facility_type = 'Restaurant' THEN T1.license_no END) AS REAL) * 100 / COUNT(T1.facility_type) FROM establishment AS T1 INNER JOIN inspection AS T2 ON T1.license_no = T2.license_no INNER JOIN violation AS T3 ON T2.inspection_id = T3.inspection_id WHERE T3.fine = 500",
+    "question_id": null,
+    "question": "Among the establishments that paid a 500 fine, what is the percentage of restaurants?",
+    "difficulty": "",
+    "evidence": "a 500 fine refers to fine = 500; restaurant refers to facility_type = 'Restaurant'; percentage = divide(count(license_no where facility_type = 'Restaurant'), count(license_no)) * 100% where fine = 500"
+  }
+]

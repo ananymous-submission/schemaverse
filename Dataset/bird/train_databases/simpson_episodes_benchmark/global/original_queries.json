@@ -1,0 +1,1472 @@
+[
+  {
+    "sql": "SELECT name FROM Person WHERE birthdate IS NOT NULL ORDER BY birthdate ASC LIMIT 1;",
+    "question_id": null,
+    "question": "Which crew member of the simpson 20s is the oldest?",
+    "difficulty": "",
+    "evidence": "oldest refers to Min(birthdate)"
+  },
+  {
+    "sql": "SELECT nickname FROM Person WHERE name = 'Dan Castellaneta';",
+    "question_id": null,
+    "question": "What's the nickname for Dan Castellaneta?",
+    "difficulty": "",
+    "evidence": "\"Dan Castellaneta\" is the name of Person"
+  },
+  {
+    "sql": "SELECT COUNT(name) FROM Person WHERE birth_region = 'New York' AND SUBSTR(birthdate, 1, 4) > '1970';",
+    "question_id": null,
+    "question": "Among the crew members of the simpson 20s born in the New York city, how many of them were born after the year 1970?",
+    "difficulty": "",
+    "evidence": "born in New York city refers to birth_region = 'New York'; born after year 1970 refers to ('%Y', birthdate) > 1970"
+  },
+  {
+    "sql": "SELECT T1.birth_country FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.award = 'Outstanding Voice-Over Performance' AND T2.year = 2009 AND T2.result = 'Winner';",
+    "question_id": null,
+    "question": "In which country was the winner of the Outstanding Voice-Over Performance award of 2009 born?",
+    "difficulty": "",
+    "evidence": "\"Outstanding Voice-Over Performance\" is the award; 2009 refers to year = 2009; 'Winner' is the result; country refers to birth_country"
+  },
+  {
+    "sql": "SELECT T2.award FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T1.nickname = 'Doofus' AND T2.result = 'Winner';",
+    "question_id": null,
+    "question": "Please list the names of all the awards won by the crew member whose nickname is Doofus.",
+    "difficulty": "",
+    "evidence": "award won refers to result = 'Winner'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T1.birth_country = 'USA' AND T2.result = 'Nominee' AND T2.award = 'Outstanding Animated Program (For Programming Less Than One Hour)' AND T2.year = 2009;",
+    "question_id": null,
+    "question": "How many crew members who were born in the USA were nominated for the Outstanding Animated Program (For Programming Less Than One Hour) award in 2009?",
+    "difficulty": "",
+    "evidence": "born in USA refers to birth_country = 'USA'; were nominated refers to result = 'Nominee'; 'Outstanding Animated Program (For Programming Less Than One Hour)' is the award; in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.character FROM Character_Award AS T1 INNER JOIN Award AS T2 ON T1.award_id = T2.award_id WHERE T2.award = 'Outstanding Voice-Over Performance' AND T2.year = 2009 AND T2.result = 'Winner';",
+    "question_id": null,
+    "question": "Which character won the Outstanding Voice-Over Performance award in 2009?",
+    "difficulty": "",
+    "evidence": "won refers to result = 'Winner'"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'Lost Verizon';",
+    "question_id": null,
+    "question": "Please list all the keywords of the episode Lost Verizon.",
+    "difficulty": "",
+    "evidence": "\"Lost Verizon\" is the title of episode"
+  },
+  {
+    "sql": "SELECT COUNT(T2.keyword) FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.air_date = '2008-10-19';",
+    "question_id": null,
+    "question": "How many keywords does the episode that was aired on 2008/10/19 have?",
+    "difficulty": "",
+    "evidence": "aired on 2008/10/19 refers to air_date = '2008-10-19'"
+  },
+  {
+    "sql": "SELECT T2.rating FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.award = 'Outstanding Voice-Over Performance' AND SUBSTR(T1.year, 1, 4) = '2009' AND T1.person = 'Dan Castellaneta';",
+    "question_id": null,
+    "question": "What's the rating of the episode in which Dan Castellaneta won the Outstanding Voice-Over Performance award in 2009?",
+    "difficulty": "",
+    "evidence": "\"Dan Castellaneta\" is the person;\u00a0 2009 is year;\u00a0 won refers result = 'Winner'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'Lost Verizon' AND T2.stars = 7;",
+    "question_id": null,
+    "question": "How many 7-star votes in star score did the episode Lost Verizon have?",
+    "difficulty": "",
+    "evidence": "7-stars vote refers to stars = 7; 'Lost Verizon' is the title of episode"
+  },
+  {
+    "sql": "SELECT T2.stars FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'Lost Verizon' ORDER BY T2.votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "How many stars did most of the voters give in star score for the episode Lost Verizon?",
+    "difficulty": "",
+    "evidence": "\"Lost Verizon\" is the title of episode; most voters refers to Max(votes)"
+  },
+  {
+    "sql": "SELECT T1.title FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.votes > 200 AND T2.stars = 10;",
+    "question_id": null,
+    "question": "Please list the titles of the episodes that have over 200 voters voting a 10 in star score.",
+    "difficulty": "",
+    "evidence": "over 200 votes refers to votes > 200; 10 in star score refers to stars = 10"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE SUBSTR(T1.air_date, 1, 4) = '2009' AND T2.stars = 10 AND T2.percent > 15;",
+    "question_id": null,
+    "question": "How many episodes aired in the year 2009 have over 15% of voters giving 10 stars in star score?",
+    "difficulty": "",
+    "evidence": "aired in the year 2009 refers to air_date like '2009%'; 10 stars in star score refers to stars = 10; over 15% of voters refers to Votes.percent > 15"
+  },
+  {
+    "sql": "SELECT T1.title FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 7 ORDER BY T2.votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "What's the title of the episode that got the most 7-star votes in star score?",
+    "difficulty": "",
+    "evidence": "7-stars vote refers to stars = 7;\u00a0 most refers to Max(votes)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.votes * T2.stars) AS REAL) / SUM(T2.votes) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'Lost Verizon';",
+    "question_id": null,
+    "question": "How many stars on average does the episode Lost Verizon have?",
+    "difficulty": "",
+    "evidence": "\"Lost Verizon\" is the title of episode; stars on average = Divide( Sum (Multiply (votes, stars)), Sum(votes))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.award_category = 'Primetime Emmy' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T2.rating > 7 AND T1.result = 'Nominee';",
+    "question_id": null,
+    "question": "What is the percentage of Primetime Emmy nominated episodes with a rating over 7 to all the episodes that have a rating over 7?",
+    "difficulty": "",
+    "evidence": "\"Primetime Emmy' is the award_category;\u00a0 rating over 7 refers to rating > 7; nominated refers to result = 'Nominee'; percentage = Divide(Count(episode_id(award_category = 'Primetime Emmy')), Count (episode_id)) * 100"
+  },
+  {
+    "sql": "SELECT T1.title FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.person = 'Pamela Hayden' AND T2.role = 'Ruthie';",
+    "question_id": null,
+    "question": "Name the title of the episode where Pamela Hayden voiced the character 'Ruthie.'",
+    "difficulty": "",
+    "evidence": "\"Pamela Hayden\" is the person; voice the character 'Ruthie' refers to role = 'Ruthie'"
+  },
+  {
+    "sql": "SELECT T2.role, T1.episode, T1.number_in_series FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.person = 'Matt Groening' AND T1.title = 'In the Name of the Grandfather';",
+    "question_id": null,
+    "question": "List down all the roles of Matt Groening on the episode titled 'In the Name of the Grandfather' along with the episode number and series number.",
+    "difficulty": "",
+    "evidence": "\"Matt Groening\" is the person; 'In the Name of the Grandfather' is the title of episode; episode number refers to episode; series number refers to number_in_series"
+  },
+  {
+    "sql": "SELECT T1.title, T1.summary FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T2.keyword = 'eviction';",
+    "question_id": null,
+    "question": "Write down the title and summary of the episode with the keyword 'eviction.'",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT AVG(T2.stars) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'Wedding for Disaster';",
+    "question_id": null,
+    "question": "What is the average number of stars received by the episode titled 'Wedding for Disaster.'",
+    "difficulty": "",
+    "evidence": "\"Wedding for Disaster\" is the title of episode; average number of stars = Divide(Sum(stars), Count(stars))"
+  },
+  {
+    "sql": "SELECT T1.title, T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.air_date = '2009-03-22';",
+    "question_id": null,
+    "question": "Write the title and all the keywords of the episode that was aired on 3/22/2009.",
+    "difficulty": "",
+    "evidence": "aired on 3/22/2009 refers to air_date = '2009-03-22'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.birth_name FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T2.role = 'Helen Lovejoy';",
+    "question_id": null,
+    "question": "What is the birth name of the person who voiced 'Helen Lovejoy?'",
+    "difficulty": "",
+    "evidence": "voiced refers to role; role = 'Helen Lovejoy\""
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.credited = 'false' THEN 1 END) AS REAL) * 100 / SUM(CASE WHEN T2.credited = 'true' THEN 1 END), T3.title, T2.person FROM Award AS T1 INNER JOIN Credit AS T2 ON T2.episode_id = T1.episode_id INNER JOIN Episode AS T3 ON T1.episode_id = T3.episode_id WHERE SUBSTR(T1.year, 1, 4) = '2017' AND T1.award_category = 'Jupiter Award' AND T1.award = 'Best International TV Series' AND T1.result = 'Winner';",
+    "question_id": null,
+    "question": "What is the percentage ratio between uncredited and credited roles on the episode that won the 2017 Jupiter Award for Best International TV Series? Please include the title of the episode and the names of the persons who were uncredited alongside their role in that episode.",
+    "difficulty": "",
+    "evidence": "uncredited refers to credited = ''; credited refers to credited = 'true'; won refers to result = 'Winner'; 2017 is the year; 'Jupiter Award' is the award_category; 'Best International TV Series' is the award; percentage ratio = Divide (SUM(credited = ''), SUM(credited = 'true')) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(episode_id) FROM Episode WHERE votes > 1000;",
+    "question_id": null,
+    "question": "How many episodes have more than 1000 votes?",
+    "difficulty": "",
+    "evidence": "more than 1000 votes refers to votes > 1000"
+  },
+  {
+    "sql": "SELECT COUNT(name) FROM Person WHERE birth_place = 'New York City' AND birth_country = 'USA';",
+    "question_id": null,
+    "question": "How many persons were born in New York, USA?",
+    "difficulty": "",
+    "evidence": "\"New York\" is the birth_place; 'USA' is the birth_region"
+  },
+  {
+    "sql": "SELECT award_id, award_category FROM Award WHERE person = 'Marc Wilmore';",
+    "question_id": null,
+    "question": "List the name of all awards along with the award category, nominated by Marc Wilmore.",
+    "difficulty": "",
+    "evidence": "\"Marc Wilmore\" is the name of person"
+  },
+  {
+    "sql": "SELECT COUNT(name) FROM Person WHERE nickname IS NOT NULL;",
+    "question_id": null,
+    "question": "How many crew have their own nickname? List their full name along with the nickname.",
+    "difficulty": "",
+    "evidence": "crew refers to Person; full name refers to name; have nickname refers to nickname IS NOT NULL"
+  },
+  {
+    "sql": "SELECT AVG(height_meters) FROM Person;",
+    "question_id": null,
+    "question": "Find the average height for each person.",
+    "difficulty": "",
+    "evidence": "average high = Divide(Sum(height_meters), Count(name))"
+  },
+  {
+    "sql": "SELECT MAX(votes) - MIN(votes) FROM Vote;",
+    "question_id": null,
+    "question": "Calculate the difference between the highest votes for episode and the lowest votes for episode.",
+    "difficulty": "",
+    "evidence": "highest vote refers to Max(votes); lowest vote refers to Min(votes); difference = Subtract(Max(votes), Min(votes))"
+  },
+  {
+    "sql": "SELECT T2.character FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T1.year = 2009 AND T1.award = 'Outstanding Voice-Over Performance';",
+    "question_id": null,
+    "question": "List the name character awarded for the Outstanding Voice-Over Performance award in 2009.",
+    "difficulty": "",
+    "evidence": "in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.year = 2009 AND T2.award = 'Comedy Series' AND T1.birth_region = 'California';",
+    "question_id": null,
+    "question": "Among the person nominated for the Comedy Series Award in 2009, how many of them were born in California?",
+    "difficulty": "",
+    "evidence": "nominated refers to result = 'Nominee'; born in California refers to birth_place = 'California'; in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT T2.title FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE SUBSTR(T1.year, 1, 4) = '2017' AND T1.award = 'Best International TV Series' AND T1.result = 'Winner';",
+    "question_id": null,
+    "question": "What is the title of episode that won the Best International TV Series Award in 2017?",
+    "difficulty": "",
+    "evidence": "won refers to result = 'Winner'; in 2017 refers to year = 2017"
+  },
+  {
+    "sql": "SELECT T2.person FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'How the Test Was Won' AND T2.credited = 'false';",
+    "question_id": null,
+    "question": "List the name of persons who were not included in the credit for the 'How the Test Was Won' episode.",
+    "difficulty": "",
+    "evidence": "\"How the Test Was Won\" is the title of episode; not included in the credit refers to credited = ' '; name of person refers to person"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.title FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T2.keyword IN ('riot', 'cake');",
+    "question_id": null,
+    "question": "What is the title of episode that has a keyword of 'riot' and 'cake'?",
+    "difficulty": "",
+    "evidence": "\"riot\" and \"cake\" are both keyword"
+  },
+  {
+    "sql": "SELECT T1.title FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 10 ORDER BY T1.votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Which episode has the most vote for 10 stars rating?",
+    "difficulty": "",
+    "evidence": "10 stars rating refers to stars = 10; most vote refers to Max(votes)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.person FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE SUBSTR(T1.air_date, 6, 2) BETWEEN '10' AND '11';",
+    "question_id": null,
+    "question": "Name all the person who involved in the making of simpson 20s episode that aired between October to November.",
+    "difficulty": "",
+    "evidence": "aired between October to November refers to strftime('%m', air_date) between '10' and '11';"
+  },
+  {
+    "sql": "SELECT T2.person FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'Treehouse of Horror XIX' AND T2.role = 'director';",
+    "question_id": null,
+    "question": "State the name of director for the 'Treehouse of Horror XIX' episode.",
+    "difficulty": "",
+    "evidence": "\"Treehouse of Horror XIX\" is the title of episode; 'director' is the role of person; name refers to person"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.role) FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T1.episode = 5;",
+    "question_id": null,
+    "question": "Based on the credits, state how many roles were played in the 5th episode of simpson 20.",
+    "difficulty": "",
+    "evidence": "5th episode refers to episode = 5"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'Take My Life, Please';",
+    "question_id": null,
+    "question": "List all the keyword for 'Take My Life, Please' episode.",
+    "difficulty": "",
+    "evidence": "\"Take My Life,Please\" is the title of episode"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.award = 'Outstanding Voice-Over Performance' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.episode_id) FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T2.votes > 950 AND T1.year = 2009;",
+    "question_id": null,
+    "question": "Among the episode that get more than 950 votes, how many of the episodes were nominated for the 'Outstanding Voice-Over Performance Award in 2009'? Find the percentage of the episodes.",
+    "difficulty": "",
+    "evidence": "more than 950 votes refers to votes > 950; in 2009 refers to year = 2009; number of episode = Count(episode_id); nominated refers to result = 'Nominee'; percentage = Divide(Count(award = 'Outstanding Voice-Over Performance'), Count(episode_id)) * 100"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.title = 'No Loan Again, Naturally' THEN T1.votes ELSE 0 END) AS REAL) / SUM(CASE WHEN T1.title = 'Coming to Homerica' THEN T1.votes ELSE 0 END) AS ratio FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 5;",
+    "question_id": null,
+    "question": "What is the ratio between the 5 stars votes for 'No Loan Again, Naturally' episode and 'Coming to Homerica' episode?",
+    "difficulty": "",
+    "evidence": "5 stars votes refers to stars = 5 ; 'No Loan Again, Naturally' and 'Coming to Homerica' are both the title of episode;\u00a0 ratio = Divide (votes where title = 'No Loan Again, Naturally', votes where title = 'Coming to Homerica')"
+  },
+  {
+    "sql": "SELECT COUNT(award_id) FROM Award WHERE person = 'Ian Maxtone-Graham' AND organization = 'Writers Guild of America, USA' AND result = 'Nominee';",
+    "question_id": null,
+    "question": "How many times was Ian Maxtone-Graham nominated for an award in Writers Guild of America, USA?",
+    "difficulty": "",
+    "evidence": "\"Ian Maxtone-Graham\" is the person; nominated refers to result = 'Nominee'; 'Writers Guild of America, USA' is the organization"
+  },
+  {
+    "sql": "SELECT person FROM Award WHERE result = 'Nominee' GROUP BY person ORDER BY COUNT(person) DESC LIMIT 1;",
+    "question_id": null,
+    "question": "What is the name of the person that has the highest number of nominated award but didn't win?",
+    "difficulty": "",
+    "evidence": "nominated refers to result = 'Nominee'; highest number of nominated award refers to Max(Count(person))"
+  },
+  {
+    "sql": "SELECT title FROM Episode ORDER BY rating LIMIT 1;",
+    "question_id": null,
+    "question": "What is the title of the episode that received the lowest rating?",
+    "difficulty": "",
+    "evidence": "lowest rating refers to Min(rating)"
+  },
+  {
+    "sql": "SELECT year FROM Award WHERE result = 'Winner' AND award = 'Favorite Animated Comedy' ORDER BY year DESC LIMIT 1;",
+    "question_id": null,
+    "question": "What year did the Simpsons receive its first ever award for Favorite Animated Comedy in People's Choice Award?",
+    "difficulty": "",
+    "evidence": "\"Favorite Animated Comedy\" is the award; 'People's Choice Award' is the award_category; received award refers to result = 'Winner'; first ever award refers to Min(year)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Credit WHERE person = 'Dell Hake' AND credited = 'false';",
+    "question_id": null,
+    "question": "How many episodes was Dell Hake not included in the credit list?",
+    "difficulty": "",
+    "evidence": "\"Dell Hake\" is the person; not included in the credit list refers to credited = ''"
+  },
+  {
+    "sql": "SELECT T2.year - CAST(SUBSTR(T1.birthdate, 1, 4) AS int) AS age FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.award = 'Outstanding Voice-Over Performance' AND T2.organization = 'Primetime Emmy Awards' AND T2.result = 'Winner';",
+    "question_id": null,
+    "question": "How old was the awardee when he/she won the first-ever award for Outstanding Voice-Over Performance in Primetime Emmy Awards?",
+    "difficulty": "",
+    "evidence": "\"Outstanding Voice-Over Performance\" is the award; 'Primetime Emmy Awards' is the organization; awardee refers to result = 'Winner'; first ever award refers to Min(year); age at the time of awarded refers to Subtract(year, SUBSTR(birthdate, 0, 5))"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.character FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T1.person = 'Dan Castellaneta' AND T1.award = 'Outstanding Voice-Over Performance' AND T1.organization = 'Primetime Emmy Awards' AND T1.year = 2009;",
+    "question_id": null,
+    "question": "What character did Dan Castellaneta play that won him an award for Outstanding Voice-Over Performance in 2009 in the Primetime Emmy Awards?",
+    "difficulty": "",
+    "evidence": "\"Dan Castellaneta\" is the person; won refers to result = 'Winner'; 'Outstanding Voice-Over Performance' is the award; 'Primetime Emmy Awards' is the organization; in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT COUNT(T1.episode_id) FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE SUBSTR(T1.year, 1, 4) = '2009' AND T2.air_date LIKE '2009-04%';",
+    "question_id": null,
+    "question": "Among the episodes aired on April of 2009, how many episodes won an award?",
+    "difficulty": "",
+    "evidence": "aired on refers to air_date, April refers to SUBSTR(air_date, 6, 2) = '04'; 2009 refers to SUBSTR (air_date, 0, 5) = '2009'"
+  },
+  {
+    "sql": "SELECT T1.birth_place FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.award = 'Best Voice-Over Performance' AND T2.organization = 'Online Film & Television Association' AND T2.year = 2009;",
+    "question_id": null,
+    "question": "What is the birth place of the cast or crew member who won the Best Voice-Over Performance in Online Film & Television Association in 2009?",
+    "difficulty": "",
+    "evidence": "won refers to result = 'Winner'; 'Best Voice-Over Performance' is the award; ' Online Film & Television Association' is the organization; in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT SUM(T1.votes) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 10 ORDER BY T1.rating DESC LIMIT 4;",
+    "question_id": null,
+    "question": "How many 10 star votes did the top 4 episodes with the highest rating received?",
+    "difficulty": "",
+    "evidence": "10 stars votes refers to stars = 10; highest rating refers to Max(rating); number of votes refers to SUM(votes)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'No Loan Again, Naturally' AND T2.votes < 50;",
+    "question_id": null,
+    "question": "In \"No Loan Again, Naturally\", how many stars received votes of no more than 50?",
+    "difficulty": "",
+    "evidence": "\"No Loan Again, Naturally\" is the title of episode; votes of no more than 50 refers to votes < 50; number of stars refers to SUM(stars)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T1.birth_country = 'USA' AND T2.result = 'Winner';",
+    "question_id": null,
+    "question": "How many award winners are from the USA?",
+    "difficulty": "",
+    "evidence": "award winner refers to result = 'Winner'; 'USA' is the birth_country"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T1.nickname = 'Doofus' AND T2.credited = 'true' AND T2.episode_id = 'S20-E11';",
+    "question_id": null,
+    "question": "In Season 20 Episode 11, how many times was Doofus included in the credit list?",
+    "difficulty": "",
+    "evidence": "in Season 20 Episode 11 refers to episode_id = 'S20-E11'; 'Doofus' is the nickname of person; include in credit list refers to credited = 'true'"
+  },
+  {
+    "sql": "SELECT T2.award, T1.name FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.result = 'Winner' ORDER BY T2.year LIMIT 1;",
+    "question_id": null,
+    "question": "What was the first award won by the cast or crew member of the show? Give the name of the person who won the said award.",
+    "difficulty": "",
+    "evidence": "won refers to result = 'Winner'; first award refers to Min(year)"
+  },
+  {
+    "sql": "SELECT T2.percent FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'Sex, Pies and Idiot Scrapes' AND T2.stars = 9;",
+    "question_id": null,
+    "question": "In \"Sex, Pies and Idiot Scrapes\", how many percentage of votes did the 9 star score has?",
+    "difficulty": "",
+    "evidence": "\"Sex, Pies and Idiot Scrapes\" is the title of episode; 9 star score refers to stars = 9; percentage refers to percent"
+  },
+  {
+    "sql": "SELECT award, person FROM Award WHERE result = 'Winner' AND SUBSTR(year, 1, 4) = '2009';",
+    "question_id": null,
+    "question": "List the award name and persons who won the award in 2009.",
+    "difficulty": "",
+    "evidence": "won the award refers to result = 'Winner'; in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT name, birthdate FROM Person WHERE birth_place = 'Los Angeles' AND height_meters >= 1.8;",
+    "question_id": null,
+    "question": "Among the casts who were born in Los Angeles, describe the name and birth date of who have 1.8 m and above in height.",
+    "difficulty": "",
+    "evidence": "\"Los Angeles\" is the birth_place; 1.8 m and above in height refers to height_meters > = 1.8"
+  },
+  {
+    "sql": "SELECT episode, title, rating FROM Episode WHERE SUBSTR(air_date, 1, 7) LIKE '2008-10%';",
+    "question_id": null,
+    "question": "Provide the episode number, title and rating of which were aired in October, 2008.",
+    "difficulty": "",
+    "evidence": "episode number refers to episode; aired in refers to air_date; October refers to Substr(air_date, 6, 2) = '10': 2008 refers to Substr(air_date, 0, 5) = '2008'"
+  },
+  {
+    "sql": "SELECT T1.award_id, T1.award, T1.person FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T2.character = 'Homer Simpson' AND T1.result = 'Winner';",
+    "question_id": null,
+    "question": "Write down the award ID, award name and winner for character named \"Homer simpson 20\".",
+    "difficulty": "",
+    "evidence": "\"Homer simpson 20\" is the character; \"Winner\" is the result; award name refers to award"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.award, T1.result, T2.category, T2.credited FROM Award AS T1 INNER JOIN Credit AS T2 ON T2.episode_id = T1.episode_id WHERE T2.person = 'Billy Kimball';",
+    "question_id": null,
+    "question": "List down the award name, result, credit category and credited status of the \"Billy Kimball\".",
+    "difficulty": "",
+    "evidence": "\"Billy Kimball\" is the person; award name refers to award; credited category refers to category; credited status refers to credited; credited = 'true' means the person is included in the credit list and vice versa"
+  },
+  {
+    "sql": "SELECT T1.person, T1.award, T1.organization, T1.result, T2.credited FROM Award AS T1 INNER JOIN Credit AS T2 ON T2.episode_id = T1.episode_id WHERE T2.episode_id = 'S20-E13' AND T2.role = 'assistant director';",
+    "question_id": null,
+    "question": "Name the person, award, organization, result and credited status of the assistant director in S20-E13.",
+    "difficulty": "",
+    "evidence": "\"assistant director\" is the role of person; 'S20-E13' is the episode_id; credited status refers to credited; credited = 'true' means the person is included in the credit list and vice versa"
+  },
+  {
+    "sql": "SELECT T1.birth_country, T1.height_meters, T1.name FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T2.category = 'Cast' AND T2.credited = 'false';",
+    "question_id": null,
+    "question": "Describe the birth country, height and person name who were not included in credit list with category of casting.",
+    "difficulty": "",
+    "evidence": "height refers to height_meters; not in credit list refers to credited = ''; category of casting refers to category = 'Casting Department'"
+  },
+  {
+    "sql": "SELECT T3.person, T1.keyword, T1.episode_id FROM Keyword AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id INNER JOIN Award AS T3 ON T2.episode_id = T3.episode_id WHERE T2.title = 'The Good, the Sad and the Drugly' AND T3.result = 'Nominee';",
+    "question_id": null,
+    "question": "List the nominee, keywords and episode ID of the title \"The Good, the Sad and the Drugly\".",
+    "difficulty": "",
+    "evidence": "nominee refers to result = 'Nominee'"
+  },
+  {
+    "sql": "SELECT T2.votes, T2.percent FROM Keyword AS T1 INNER JOIN Vote AS T2 ON T1.episode_id = T2.episode_id WHERE T1.keyword = 'arab stereotype' AND T2.stars = 10;",
+    "question_id": null,
+    "question": "What is the voting numbers and percentage of the best rating scale of the episode which had keyword of \"arab stereotype\"?",
+    "difficulty": "",
+    "evidence": "best rating scale refers to stars = 10"
+  },
+  {
+    "sql": "SELECT T1.award, T2.air_date, T2.rating FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.organization = 'Jupiter Award' AND T1.result = 'Winner';",
+    "question_id": null,
+    "question": "For the episode who won the award held by Jupiter Award, describe award name, aired date and rating of that episode.",
+    "difficulty": "",
+    "evidence": "held by Jupiter Award refers to organization = 'Jupiter Award'; won the award refers to result = 'Winner'"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.episode_id, T2.title, T1.keyword FROM Keyword AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id INNER JOIN Vote AS T3 ON T2.episode_id = T3.episode_id WHERE T3.stars = 1 ORDER BY T3.votes DESC LIMIT 3;",
+    "question_id": null,
+    "question": "Mention the episode ID, title and any three keywords of the episode which get the most number of votes in star classification of worst.",
+    "difficulty": "",
+    "evidence": "star classification of worst refers to stars = 1; most number of votes refers to MAX(votes)"
+  },
+  {
+    "sql": "SELECT T2.title, T2.episode_image, T1.award, T1.person FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T2.rating BETWEEN 7 AND 10 AND SUBSTR(T2.air_date, 1, 4) = '2008' AND T1.result = 'Nominee';",
+    "question_id": null,
+    "question": "Among the episodes with excellent rating which were aired in 2008, describe the title, episode's image, award name and person who were nominated.",
+    "difficulty": "",
+    "evidence": "excellent rating refers to 7 < = rating < = 10; aired in 2008 refers to SUBSTRACT(air_date, 0, 5) = '2008'; who were nominated refers to result = 'Nominee'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.award, T1.person, T2.character FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T2.award_id = 326;",
+    "question_id": null,
+    "question": "Describe the award title, person and character name of the award ID 326.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.name, T1.birth_place, T2.role, 2022 - CAST(SUBSTR(T1.birthdate, 1, 4) AS int) AS age FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T1.birthdate IS NOT NULL ORDER BY T1.birthdate LIMIT 1;",
+    "question_id": null,
+    "question": "Describe name, birth country, role in episode and age in 2022 of the oldest crew member..",
+    "difficulty": "",
+    "evidence": "age in 2022 refers to SUBTRACT(2022, substr(birthdate, 0, 5)); oldest refers to MIN(birthdate)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.credited, T2.category, T2.role, T1.birth_place FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T1.birth_country = 'North Korea';",
+    "question_id": null,
+    "question": "Provide the number of credits, category, role and birthplace of the crew member who was born in North Korea.",
+    "difficulty": "",
+    "evidence": "number of credits refers to credited; born in North Korea refers to birth_country = 'North Korea'"
+  },
+  {
+    "sql": "SELECT T3.rate, T4.person, T4.award, T5.title, T4.role FROM ( SELECT CAST(SUM(CASE WHEN T1.result = 'Winner' THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN T1.result IN ('Winner', 'Nominee') THEN 1 ELSE 0 END) AS rate , T1.person, T1.award, T2.title, T1.role FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE SUBSTR(T1.year, 1, 4) = '2010' ) AS T3 INNER JOIN Award AS T4 INNER JOIN Episode AS T5 ON T4.episode_id = T5.episode_id WHERE T4.year = 2010 AND T4.result = 'Winner';",
+    "question_id": null,
+    "question": "Find the winning rate of award in 2010. Describe the winner name, award name, episode title and role of the winner in that episode.",
+    "difficulty": "",
+    "evidence": "in 2010 refers to year = 2010; winning rate refers to DIVIDE(COUNT(result = 'winner'), COUNT(*));"
+  },
+  {
+    "sql": "SELECT T1.title FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id ORDER BY T2.stars DESC, T2.votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Name the title of the episode that received the highest star score and the highest number of votes.",
+    "difficulty": "",
+    "evidence": "received the highest star score refers to MAX(stars); the highest number of votes refers to MAX(votes)"
+  },
+  {
+    "sql": "SELECT COUNT(award_id) FROM Award WHERE result = 'Winner';",
+    "question_id": null,
+    "question": "What is the total number of awards won by The simpson 20s: Season 20?",
+    "difficulty": "",
+    "evidence": "total number of awards refers to COUNT(award); awards won refers to result = 'Winner';"
+  },
+  {
+    "sql": "SELECT T2.title FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.organization = 'Primetime Emmy Awards' AND T1.award = 'Outstanding Animated Program (For Programming Less Than One Hour)' AND T1.result = 'Nominee' GROUP BY T1.episode_id HAVING COUNT(T1.episode_id) = 21;",
+    "question_id": null,
+    "question": "Name the title of the episode that was nominated for Emmy's Outstanding Animated Program 21 times.",
+    "difficulty": "",
+    "evidence": "nominated for refers to result = 'Nominee'; Outstanding Animated Program refers to award = 'Outstanding Animated Program (For Programming Less Than One Hour)'; Emmy's refers to organization = 'Primetime Emmy Awards'; 21 times refers to COUNT(episode_id) = 21;"
+  },
+  {
+    "sql": "SELECT AVG(T2.stars), T1.summary FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.episode_id = 'S20-E12';",
+    "question_id": null,
+    "question": "What is the average number of stars assigned to The simpson 20s: S20-E12? What is the said episode all about?",
+    "difficulty": "",
+    "evidence": "average number of stars refers to AVG(stars); simpson 20s: S20-E12 refers to episode_id = 'S20-E12'; episode all about refers to summary"
+  },
+  {
+    "sql": "SELECT T1.person FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T2.character = 'Homer simpson 20' AND T1.organization = 'Primetime Emmy Awards' AND T1.award = 'Outstanding Voice-Over Performance' AND T1.result = 'Winner';",
+    "question_id": null,
+    "question": "Name the performer who won Emmy Award for Outstanding Voice-Over Performance by playing Homer simpson 20.",
+    "difficulty": "",
+    "evidence": "Outstanding Voice-Over Performance refers to award = 'Outstanding Voice-Over Performance'; who won refers to result = 'Winner'; Emmy refers to organization = 'Primetime Emmy Awards'; playing Homer simpson 20 refers to character = 'Homer simpson 20'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.birth_name, T2.role FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T1.name = 'Al Jean';",
+    "question_id": null,
+    "question": "What is the birth name of Al Jean and his role in creating The simpson 20s: Season 20?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(award_id) FROM Award WHERE person = 'Billy Kimball' AND SUBSTR(year, 1, 4) = '2010' AND result = 'Nominee';",
+    "question_id": null,
+    "question": "How many nominations have Billy Kimball received in 2010 for The simpson 20s: Season 20?",
+    "difficulty": "",
+    "evidence": "in 2010 refers to year = 2010; nominations refers to result = 'Nominee'"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'Take My Life, Please';",
+    "question_id": null,
+    "question": "List all keywords associated with the episode 'Take My Life, Please'.",
+    "difficulty": "",
+    "evidence": "episode 'Take My Life, Please' refers to title = \u00a0 'Take My Life, Please'"
+  },
+  {
+    "sql": "SELECT award, award_category FROM Award WHERE result = 'Winner' ORDER BY year DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Indicate the name and category of the most recent award received by the show.",
+    "difficulty": "",
+    "evidence": "most recent refers to MAX(year); received refers to result = 'Winner'; name of award refers to award; category refers to award_category"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN result = 'Winner' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(award) AS rate FROM Award;",
+    "question_id": null,
+    "question": "What is The simpson 20s: Season 20 average awards winning rate?",
+    "difficulty": "",
+    "evidence": "average awards winning rate refers to DIVIDE(SUM(result = 'winner'), COUNT(award));"
+  },
+  {
+    "sql": "SELECT COUNT(episode_id) FROM Episode WHERE air_date LIKE '2008-10%' OR air_date LIKE '2008-11%';",
+    "question_id": null,
+    "question": "How many episodes were aired between October and November 2008?",
+    "difficulty": "",
+    "evidence": "between October and November 2008 refers to air_date BETWEEN '2008-10-01' and '2008-11-30'"
+  },
+  {
+    "sql": "SELECT episode_id FROM Episode WHERE air_date LIKE '2009%' ORDER BY rating LIMIT 1;",
+    "question_id": null,
+    "question": "Among episodes aired in 2009, which episode has received the worst response based on the rating.",
+    "difficulty": "",
+    "evidence": "aired in 2009 refers to year(air_date) = 2009; received the worst response based on the rating refers to MIN(rating)"
+  },
+  {
+    "sql": "SELECT DISTINCT category, role FROM Credit WHERE person = 'Bonita Pietila';",
+    "question_id": null,
+    "question": "List the categories for which Bonita Pietila was given credit and her role in creating the episodes.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT name FROM Person WHERE birthdate = '1957-10-29' AND birth_place = 'Chicago' AND birth_region = 'Illinois';",
+    "question_id": null,
+    "question": "Who from The simpson 20s: Season 20 cast and crew was born in October 29, 1957 in Chicago, Illinois?",
+    "difficulty": "",
+    "evidence": "born in October 29, 1957 refers to birthdate = '1957-10-29'; in Chicago refers to birth_place = 'Chicago'; Illinois refers to birth_region = 'Illinois'"
+  },
+  {
+    "sql": "SELECT DISTINCT person FROM Credit WHERE role = 'producer';",
+    "question_id": null,
+    "question": "Who produced The simpson 20s: Season 20?",
+    "difficulty": "",
+    "evidence": "produced refers to role = 'producer'"
+  },
+  {
+    "sql": "SELECT T1.year - T2.birthdate AS ageIn2009, T2.name FROM Award AS T1 INNER JOIN Person AS T2 ON T1.person = T2.name WHERE T1.role = 'composer' AND T1.organization = 'Primetime Emmy Awards' AND T1.award = 'Outstanding Music Composition for a Series (Original Dramatic Score)' AND T1.result = 'Nominee' AND T1.year = 2009;",
+    "question_id": null,
+    "question": "How old was composer of the show when he was nominated for Emmy's Outstanding Music Composition for a Series in 2009. Indicate his full name as well.",
+    "difficulty": "",
+    "evidence": "in 2009 refers to year = 2009; old refers to SUBTRACT(2009, birthdate); composer of the show refers to role = 'composer'; Emmy's refers to organization = 'Primetime Emmy Awards'; nominated refers to result = 'Nominee'; Outstanding Music Composition refers to award = 'Outstanding Music Composition for a Series (Original Dramatic Score)'"
+  },
+  {
+    "sql": "SELECT T2.title FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id GROUP BY T1.episode_id ORDER BY COUNT(*) DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Which episode of The simpson 20s: Season 20 has received the most nominations? Indicate the title.",
+    "difficulty": "",
+    "evidence": "received the most nomination refers to MAX(COUNT(episode_id))"
+  },
+  {
+    "sql": "SELECT birth_place FROM Person WHERE name = 'Dan Castellaneta';",
+    "question_id": null,
+    "question": "Please indicate the birthplace of the crew which name is Dan Castellaneta.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(name) FROM Person WHERE birth_country = 'USA';",
+    "question_id": null,
+    "question": "How many crews were born in the USA?",
+    "difficulty": "",
+    "evidence": "born in the USA refers to birth_country = 'USA'"
+  },
+  {
+    "sql": "SELECT name FROM Person WHERE SUBSTR(birthdate, 1, 4) < '1970';",
+    "question_id": null,
+    "question": "Please list the name of crew that were born before 1970.",
+    "difficulty": "",
+    "evidence": "born before 1970 refers to birthdate < '1970-01-01'"
+  },
+  {
+    "sql": "SELECT name FROM Person WHERE SUBSTR(birthdate, 1, 4) = '1958' AND birth_place = 'California' AND birth_country = 'USA';",
+    "question_id": null,
+    "question": "Name of the crew that were born in California, USA between 1958 and 1969.",
+    "difficulty": "",
+    "evidence": "born in California refers to birth_place = 'California'; USA refers to birth_country = 'USA'; between 1958 and 1969 refers to birthdate BETWEEN '1958-01-01' and '1958-12-31'"
+  },
+  {
+    "sql": "SELECT episode_id FROM Vote WHERE stars = 5 AND votes > 100;",
+    "question_id": null,
+    "question": "Which episode ids are rated 5 stars and have more than 100 votes?",
+    "difficulty": "",
+    "evidence": "more than 100 votes refers to votes > 100"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'Double, Double, Boy in Trouble';",
+    "question_id": null,
+    "question": "Please indicate the keywords of the title \"Double, Double, Boy in Trouble\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.episode FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.episode BETWEEN 10 AND 20 AND T2.votes > 200;",
+    "question_id": null,
+    "question": "Among episodes from 10 to 20, which episode has more than 200 votes?",
+    "difficulty": "",
+    "evidence": "episodes from 10 to 20 refers to episode BETWEEN 10 and 20; more than 200 votes refers to COUNT(votes) > 200"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Award AS T1 INNER JOIN Keyword AS T2 ON T2.episode_id = T1.episode_id WHERE T1.award_category = 'Primetime Emmy';",
+    "question_id": null,
+    "question": "Please indicate the keywords of the episode that won the Primetime Emmy Award category.",
+    "difficulty": "",
+    "evidence": "Primetime Emmy Award refers to award_category = 'Primetime Emmy'"
+  },
+  {
+    "sql": "SELECT T1.person FROM Award AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.award_category = 'Primetime Emmy' ORDER BY T2.votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Who is the recipient of the Primetime Emmy Award with the most votes?",
+    "difficulty": "",
+    "evidence": "Primetime Emmy Award refers to award_category = 'Primetime Emmy'; the most votes refers to MAX(votes)"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.episode_id FROM Award AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.award = 'Outstanding Animated Program (For Programming Less Than One Hour)' AND T2.stars = 10;",
+    "question_id": null,
+    "question": "Which episode id did award Outstanding Animated Program (For Programming Less Than One Hour) with an episode star score of 10?",
+    "difficulty": "",
+    "evidence": "star score of 10 refers to stars = 10"
+  },
+  {
+    "sql": "SELECT T1.person FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.role = 'director' AND T1.award = 'Outstanding Animated Program (For Programming Less Than One Hour)' AND T2.title = 'No Loan Again, Naturally';",
+    "question_id": null,
+    "question": "Please give the name of the director who achieved the Outstanding Animated Program (For Programming Less Than One Hour) award whose episode title is \"No Loan Again, Naturally\".",
+    "difficulty": "",
+    "evidence": "the director refers to role = 'director'"
+  },
+  {
+    "sql": "SELECT T1.person FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE SUBSTR(T1.year, 1, 4) = '2009' AND T1.role = 'writer' AND T2.votes > 5;",
+    "question_id": null,
+    "question": "Please indicate which writer has an episode star score greater than 5 in 2009.",
+    "difficulty": "",
+    "evidence": "writer refers to role = 'writer'; star score greater than 5 refers to stars > 5; in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.award_category = 'WGA Award (TV)' AND T1.birth_country = 'USA' AND T2.year BETWEEN 2009 AND 2010;",
+    "question_id": null,
+    "question": "How many WGA Award (TV) award recipients were born in the USA from 2009 to 2010?",
+    "difficulty": "",
+    "evidence": "WGA Award (TV) award refers to award_category = 'WGA Award (TV)'; born in the USA refers to birth_country = 'USA'; from 2009 to 2010 refers to birthdate BETWEEN '2019-01-01' and '2019-12-31'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.episode_id FROM Award AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.role = 'composer' AND T1.award = 'Outstanding Music Composition for a Series (Original Dramatic Score)' AND T2.votes > 200;",
+    "question_id": null,
+    "question": "Which episode did the composer win for Outstanding Music Composition for a Series (Original Dramatic Score) with more than 200 votes?",
+    "difficulty": "",
+    "evidence": "more than 200 votes refer to votes > 200; composer refers to role = 'composer'; Outstanding Music Composition for a Series (Original Dramatic Score) refers to award = 'Outstanding Music Composition for a Series (Original Dramatic Score)'"
+  },
+  {
+    "sql": "SELECT T2.episode_id FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE SUBSTR(T1.year, 1, 4) = '2009' AND T1.person = 'Al Jean' AND T1.award_category = 'Primetime Emmy';",
+    "question_id": null,
+    "question": "The person named Al Jean achieved the Primetime Emmy Award category in 2009, which episode did AI Jean achieve?",
+    "difficulty": "",
+    "evidence": "in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.episode = 1 THEN T2.votes ELSE 0 END) - SUM(CASE WHEN T1.episode = 5 THEN T2.votes ELSE 0 END) AS diff FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id;",
+    "question_id": null,
+    "question": "How much more votes for episode 1 than for episode 5?",
+    "difficulty": "",
+    "evidence": "more votes refers to SUBTRACT(SUM(votes when episode = 1), SUM(votes when episode = 5))"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.award FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T1.year = 2009 AND T2.character = 'Homer Simpson';",
+    "question_id": null,
+    "question": "What award did the character Homer simpson 20 achieve in 2009?",
+    "difficulty": "",
+    "evidence": "in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.votes < 100 THEN 1 ELSE 0 END) AS num , CAST(SUM(CASE WHEN T2.votes < 100 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Award AS T1 INNER JOIN Vote AS T2 ON T1.episode_id = T2.episode_id INNER JOIN Episode AS T3 ON T1.episode_id = T3.episode_id WHERE T1.award = 'Outstanding Animated Program (For Programming Less Than One Hour)';",
+    "question_id": null,
+    "question": "How many episodes have won the award for Outstanding Animated Program (Programming Under One Hour) with less than 100 votes? Calculate the percentage of episodes with less than 100 votes out of total episodes.",
+    "difficulty": "",
+    "evidence": "less than 100 votes refers to votes < 100; percentage refers to DIVIDE(COUNT(episode_id when votes < 100), COUNT(episode_id)) * 100%"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.birth_country = 'USA' THEN 1 ELSE 0 END) AS num , CAST(SUM(CASE WHEN T1.birth_country = 'USA' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.award_category = 'Primetime Emmy' AND T2.person = 'Dan Castellaneta';",
+    "question_id": null,
+    "question": "How many recipients of the Primetime Emmy Award category that were born in the USA? Find the percentage of Americans in the total number of the country.",
+    "difficulty": "",
+    "evidence": "born in the USA refers to birth_country = 'USA'; recipients refers to person = 'recipients'; percentage refers to DIVIDE(COUNT(birth_country = 'USA'), count(award_id))"
+  },
+  {
+    "sql": "SELECT person FROM Award WHERE result = 'Nominee' AND award = 'Outstanding Voice-Over Performance' AND episode_id LIKE 'S20%' LIMIT 2;",
+    "question_id": null,
+    "question": "Please list two people who are the nominees for the \"Outstanding Voice-Over Performance\" award for season 20.",
+    "difficulty": "",
+    "evidence": "season 20 refers to episode_id LIKE 'S20%'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Award WHERE role = 'executive producer' AND result = 'Nominee' AND award = 'Outstanding Animated Program (For Programming Less Than One Hour)';",
+    "question_id": null,
+    "question": "How many executive producers are the nominees for the award of \"Outstanding Animated Program (For Programming Less Than One Hour)\"?",
+    "difficulty": "",
+    "evidence": "the nominees refers to result = 'Nominee'; executive producers refers to role = 'executive producer'"
+  },
+  {
+    "sql": "SELECT name FROM Person WHERE SUBSTR(birthdate, 1, 4) = '1962' AND birth_region = 'California';",
+    "question_id": null,
+    "question": "In the crew, who was born in 1962 in California?",
+    "difficulty": "",
+    "evidence": "born in 1962 refers to year(birthdate) = 1962; in California refers to birth_region = 'California'"
+  },
+  {
+    "sql": "SELECT COUNT(name) FROM Person WHERE height_meters > 1.70 AND birth_country = 'Canada';",
+    "question_id": null,
+    "question": "How many of the crew members who are taller than 1.70m were born in Canada?",
+    "difficulty": "",
+    "evidence": "taller than 1.70m refers to height_meters > 1.70; born in Canada refers to birth_country = 'Canada'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Award WHERE award = 'Animation' AND result = 'Nominee';",
+    "question_id": null,
+    "question": "How many people were considered as prospective recipients of the \"Animation\" award?",
+    "difficulty": "",
+    "evidence": "prospective recipients refers to result = 'Nominee'"
+  },
+  {
+    "sql": "SELECT title FROM Episode WHERE rating BETWEEN 7 AND 10 LIMIT 3;",
+    "question_id": null,
+    "question": "Please list any three episodes that have an excellent rating.",
+    "difficulty": "",
+    "evidence": "an excellent rating refers to 7 < rating < = 10"
+  },
+  {
+    "sql": "SELECT episode_id FROM Episode ORDER BY votes DESC LIMIT 5;",
+    "question_id": null,
+    "question": "What are the top five most popular episodes?",
+    "difficulty": "",
+    "evidence": "most popular episodes refers to MAX(votes)"
+  },
+  {
+    "sql": "SELECT T1.title FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = ( SELECT MIN(stars) FROM Vote ) ORDER BY T2.votes DESC LIMIT 3;",
+    "question_id": null,
+    "question": "Please list the three episodes with the highest number of votes for the worst star rating.",
+    "difficulty": "",
+    "evidence": "highest number of votes refers to MAX(COUNT(votes)); worst star rating refers to stars = 1"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.character FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T1.award LIKE '%Voice-Over%' AND T1.person = 'Dan Castellaneta';",
+    "question_id": null,
+    "question": "What was the character that Dan Castellaneta did the voice over for and was awarded?",
+    "difficulty": "",
+    "evidence": "voice over for and was awarded refers to award like '%Voice-Over%';"
+  },
+  {
+    "sql": "SELECT T1.episode_id FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE SUBSTR(T1.air_date, 1, 4) = '2008' ORDER BY T2.votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Please list all of the episodes that aired in 2008 that have the highest number of votes for the maximum star rating.",
+    "difficulty": "",
+    "evidence": "aired in 2008 refers to air_date like '2008%'; highest number of votes refers to MAX(votes); maximum star rating refers to stars = 10"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'Take My Life, Please';",
+    "question_id": null,
+    "question": "What are the keywords of the episode \"Take My Life, Please\"?",
+    "difficulty": "",
+    "evidence": "episode \"Take My Life, Please\" refers to title = 'Take My Life, Please'"
+  },
+  {
+    "sql": "SELECT T1.title FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T2.keyword = '1930s to 2020s' LIMIT 2;",
+    "question_id": null,
+    "question": "Please provide any two episodes' names that have the same keyword of \"1930s to 2020s\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.title FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE SUBSTR(T1.year, 1, 4) = '2010' AND T1.person = 'Joel H. Cohen';",
+    "question_id": null,
+    "question": "In 2010, which episode did Joel H. Cohen win an award for?",
+    "difficulty": "",
+    "evidence": "In 2010 refers to year = 2010"
+  },
+  {
+    "sql": "SELECT SUM(T2.votes) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'Lisa the Drama Queen' AND T2.stars = 5;",
+    "question_id": null,
+    "question": "How many votes of 5-star did the episode \"Lisa the Drama Queen\" receive?",
+    "difficulty": "",
+    "evidence": "episode \"Lisa the Drama Queen\" refers to title = 'Lisa the Drama Queen';"
+  },
+  {
+    "sql": "SELECT T2.votes FROM Keyword AS T1 INNER JOIN Vote AS T2 ON T1.episode_id = T2.episode_id WHERE T2.stars = 10 AND T1.keyword = 'reference to the fantastic four';",
+    "question_id": null,
+    "question": "What is the number of votes for 10-star for the episode that has the keyword \"reference to the fantastic four\"?",
+    "difficulty": "",
+    "evidence": "10-star refers to stars = 10"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.stars = 10 THEN T2.votes ELSE 0 END) - SUM(CASE WHEN T2.stars = 1 THEN T2.votes ELSE 0 END) AS Difference FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'The Burns and the Bees';",
+    "question_id": null,
+    "question": "What is the difference between the number of votes for 1-star vs. 10-star for the episode \"The Burns and the Bees\"?",
+    "difficulty": "",
+    "evidence": "1-star refers to stars = 1; 10-star refers to stars = 10; episode \"The Burns and the Bees\" refers to title = 'The Burns and the Bees'; difference refers to SUBTRACT(votes when stars = 1, votes when stars = 10)"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id ORDER BY T1.votes LIMIT 1;",
+    "question_id": null,
+    "question": "What are the keywords of the least popular episode?",
+    "difficulty": "",
+    "evidence": "least popular episode refers to MIN(votes)"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.episode_id FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 2 AND T2.votes > 20 AND T1.rating > 5.0 AND T1.rating <= 7.0;",
+    "question_id": null,
+    "question": "What are the episodes that have the average rating with more than 20 of 2-star votes?",
+    "difficulty": "",
+    "evidence": "2-star refers to stars = 2; average rating refers to 5 < rating < = 7; more than 20 of 2-star votes refers to votes > 20"
+  },
+  {
+    "sql": "SELECT episode FROM Episode WHERE votes = ( SELECT MAX(votes) FROM Episode );",
+    "question_id": null,
+    "question": "Which episode has the largest number of votes?",
+    "difficulty": "",
+    "evidence": "largest number of votes refers to MAX(votes)"
+  },
+  {
+    "sql": "SELECT name FROM Person ORDER BY birthdate ASC LIMIT 1;",
+    "question_id": null,
+    "question": "Who is the oldest among all the casts and crews?",
+    "difficulty": "",
+    "evidence": "oldest refers to MIN(birthdate)"
+  },
+  {
+    "sql": "SELECT episode_id FROM Credit WHERE person = 'Oscar Cervantes' AND credited = 'true';",
+    "question_id": null,
+    "question": "What are the episodes Oscar Cervantes is credited with?",
+    "difficulty": "",
+    "evidence": "is credited refers to credited = 'true';"
+  },
+  {
+    "sql": "SELECT T2.role FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T1.birth_country != 'USA';",
+    "question_id": null,
+    "question": "What are the roles of the cast and crew from countries other than the USA?",
+    "difficulty": "",
+    "evidence": "from countries other than the USA refers to birth_country ! = 'USA'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 1 ORDER BY T1.rating LIMIT 1;",
+    "question_id": null,
+    "question": "How many 1 star ratings are there in the worst rated episode of the season?",
+    "difficulty": "",
+    "evidence": "worst rated episode refers to MIN(rating)"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.character FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T1.award = 'Outstanding Voice-Over Performance' AND T1.result = 'Winner';",
+    "question_id": null,
+    "question": "Which character did the \"Outstanding Voice-Over Performance\" winner voice?",
+    "difficulty": "",
+    "evidence": "the \"Outstanding Voice-Over Performance\" refers to award = 'Outstanding Voice-Over Performance'; winner refers to result = 'Winner';"
+  },
+  {
+    "sql": "SELECT T1.summary FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.person = 'Emily Blunt';",
+    "question_id": null,
+    "question": "What is the summary of the episode in which Emily Blunt is featured in?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.role FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T1.nickname = 'The Tiny Canadian';",
+    "question_id": null,
+    "question": "Who did \"The Tiny Canadian\" play as in the show?",
+    "difficulty": "",
+    "evidence": "\"The Tiny Canadian\" refers to nickname = 'The Tiny Canadian'; play as in the show refers to role\n"
+  },
+  {
+    "sql": "SELECT T1.episode_id FROM Award AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 5 ORDER BY T2.percent DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Among the episodes with an award nominee or winner, which has the highest percent of 5 star votes?",
+    "difficulty": "",
+    "evidence": "highest percent of 5 star votes refers to max(percent) where star = 5"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.person FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'In the Name of the Grandfather' AND T2.category = 'Cast' AND T2.credited = 'true';",
+    "question_id": null,
+    "question": "What is the credited cast for the episode \"In the Name of the Grandfather\"?",
+    "difficulty": "",
+    "evidence": "credited cast refers to category = 'Cast' and\u00a0 credited = 'true'; episode \"In the Name of the Grandfather\" refers to title = 'In the Name of the Grandfather'"
+  },
+  {
+    "sql": "SELECT T1.birthdate FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.result = 'Winner';",
+    "question_id": null,
+    "question": "List all of the award winners' birth dates.",
+    "difficulty": "",
+    "evidence": "award winner refers to result = 'Winner'"
+  },
+  {
+    "sql": "SELECT T1.person FROM Credit AS T1 INNER JOIN Vote AS T2 ON T1.episode_id = T2.episode_id WHERE T1.role = 'Writer' AND T2.stars = 10 GROUP BY T1.person ORDER BY COUNT(*) DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Who is the writer for the episode with the most 10 star votes?",
+    "difficulty": "",
+    "evidence": "writer refers to role = 'Writer'; most 10 star votes refers to max(votes) where stars = 10"
+  },
+  {
+    "sql": "SELECT T1.award FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.result = 'Winner' AND T2.air_date = '2008-11-30';",
+    "question_id": null,
+    "question": "What award did the episode that aired on 11/30/2008 win?",
+    "difficulty": "",
+    "evidence": "aired on 11/30/2008 refers to air_date = '11/30/2008'; win refers to result = 'Winner'"
+  },
+  {
+    "sql": "SELECT DISTINCT person, name, birthdate, birth_name, birth_place , birth_region, birth_country, height_meters, nickname FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T2.category = 'Music Department';",
+    "question_id": null,
+    "question": "List all of the information about the music department's casts and crews.",
+    "difficulty": "",
+    "evidence": "information about the music department refers to category = 'Music Department'"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.number_in_series = 426;",
+    "question_id": null,
+    "question": "What are the keywords for episode 426 of the series?",
+    "difficulty": "",
+    "evidence": "episode 426 refers to number_in_series = 426"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.episode_id FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 7 AND T2.votes > 0.7 * ( SELECT CAST(COUNT(votes) AS REAL) / COUNT(CASE WHEN stars = 7 THEN 1 ELSE 0 END) FROM Vote );",
+    "question_id": null,
+    "question": "What are the titles of the episodes that have received more 7-star votes than the season average?",
+    "difficulty": "",
+    "evidence": "episodes that have received more 7-star votes than the season average refers to votes > DIVIDE(SUM(votes), COUNT(stars = 7))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.result = 'Nominee' THEN T2.votes ELSE 0 END) AS REAL) * 100 / SUM(T2.votes) FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id;",
+    "question_id": null,
+    "question": "What percentage of votes are from the nominated episodes?",
+    "difficulty": "",
+    "evidence": "nominated episodes refers to result = 'Nominee'; percentage of votes = DIVIDE(SUM(result = 'Nominee), SUM(Votes)) as percentage"
+  },
+  {
+    "sql": "SELECT name FROM Person WHERE nickname IS NOT NULL;",
+    "question_id": null,
+    "question": "List down person's name who has nickname.",
+    "difficulty": "",
+    "evidence": "has nickname refers to nickname is NOT NULL"
+  },
+  {
+    "sql": "SELECT birth_country FROM Person ORDER BY height_meters DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Which country has the tallest person in the crew?",
+    "difficulty": "",
+    "evidence": "country refers to birth_country; tallest person refers to max(height_meters)"
+  },
+  {
+    "sql": "SELECT AVG(height_meters) FROM Person WHERE birth_country = 'USA';",
+    "question_id": null,
+    "question": "What is the average height of people from USA?",
+    "difficulty": "",
+    "evidence": "people from USA refers to birth_country = 'USA'; average height = AVG(height_meters)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN birth_region = 'California' AND SUBSTR(birthdate, 1, 4) > '1970' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(birthdate) FROM Person;",
+    "question_id": null,
+    "question": "Calculate the percentage of people who were born after 1970 and from California.",
+    "difficulty": "",
+    "evidence": "born after 1970 refers to birthdate > 1970; from California refers to birth_region = 'California'; percentage = divide(count(birthdate > 1970 and birth_region = 'California'), total(birthdate)) * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(name) FROM Person WHERE birth_region != 'Connecticut' AND birth_country != 'USA';",
+    "question_id": null,
+    "question": "How many people were not born in Connecticut, USA?",
+    "difficulty": "",
+    "evidence": "not born in Connecticut, USA refers to birth_region ! = 'Connecticut' and birth_country ! = 'USA'"
+  },
+  {
+    "sql": "SELECT title FROM Episode WHERE episode_id IN ('S20-E1', 'S20-E2', 'S20-E3');",
+    "question_id": null,
+    "question": "List down the title of episode S20-E1, S20-E2 & S20-E3.",
+    "difficulty": "",
+    "evidence": "episode S20-E1, S20-E2 & S20-E3 refers to episode_id = 'S20-E1' and episode_id = 'S20-E2' and episode_id = 'S20-E3'"
+  },
+  {
+    "sql": "SELECT episode_image FROM Episode WHERE episode = 5;",
+    "question_id": null,
+    "question": "Write down the website address which stores the episode image of episode 5.",
+    "difficulty": "",
+    "evidence": "website address refers to episode_image"
+  },
+  {
+    "sql": "SELECT votes FROM Episode WHERE rating > 7;",
+    "question_id": null,
+    "question": "State the number of votes for episode with rating of 7 and above.",
+    "difficulty": "",
+    "evidence": "rating of 7 and above refers to rating > 7.0"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.category = 'Casting Department';",
+    "question_id": null,
+    "question": "How many title's crew members are working from Casting Department?",
+    "difficulty": "",
+    "evidence": "working from Casting Department refers to category = 'Casting Department'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T2.role = 'additional timer' AND T1.birth_country = 'USA';",
+    "question_id": null,
+    "question": "How many additional timers were born in USA?",
+    "difficulty": "",
+    "evidence": "additional timers refers to role = 'additional timer'; born in USA refers to birth_country = 'USA'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE STRFTIME(T1.birthdate) > '1970' AND T2.role = 'animation executive producer';",
+    "question_id": null,
+    "question": "How many people who were born after 1970 are animation executive producer?",
+    "difficulty": "",
+    "evidence": "born after 1980 refers to birthdate > 1970; assistant to the producers refers to role = 'animation executive producer'"
+  },
+  {
+    "sql": "SELECT T1.summary FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.credited = 'false';",
+    "question_id": null,
+    "question": "Write down the summary of episode whereby it has crew members that are not included in the credit list.",
+    "difficulty": "",
+    "evidence": "are not included in the credit list refers to credited = ''"
+  },
+  {
+    "sql": "SELECT T1.rating FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.person = 'Jason Bikowski';",
+    "question_id": null,
+    "question": "List down the rating of episodes that were produced by Jason Bikowski.",
+    "difficulty": "",
+    "evidence": "produced by Jason Bikowski refers to person = 'Jason Bikowski'"
+  },
+  {
+    "sql": "SELECT AVG(T1.height_meters) FROM Person AS T1 INNER JOIN Credit AS T2 ON T1.name = T2.person WHERE T2.category = 'Animation Department';",
+    "question_id": null,
+    "question": "What is the average heights of crew members from Animation Department?",
+    "difficulty": "",
+    "evidence": "from Animation Department refers to category = 'Animation Department';\u00a0AVG(height_meters) where category = 'Animation Department'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.character FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T1.award_category = 'Primetime Emmy' AND T1.year = 2009 AND T1.result = 'Winner';",
+    "question_id": null,
+    "question": "What is the character that won the award in Primetime Emmy 2009?",
+    "difficulty": "",
+    "evidence": "won the award in Primetime Emmy 2009 refers to award_category = 'Primetime Emmy' and year = 2009"
+  },
+  {
+    "sql": "SELECT T2.character FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T1.award_category = 'Primetime Emmy' AND T1.year BETWEEN 2009 AND 2010 AND T1.result != 'Winner';",
+    "question_id": null,
+    "question": "What are the characters that were nominated for Primetime Emmy Award from 2009 to 2010 but did not win?",
+    "difficulty": "",
+    "evidence": "nominated for Primetime Emmy Award but did not win refers to award_category = 'Primetime Emmy' and result = 'Nominee';\u00a0 from 2009 to 2010 refers to year > = '2009' and\u00a0 year < = '2010'"
+  },
+  {
+    "sql": "SELECT SUM(T1.votes) FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.person = 'Adam Kuhlman';",
+    "question_id": null,
+    "question": "Calculate the total votes of episodes that Adam Kuhlman had involved.",
+    "difficulty": "",
+    "evidence": "Adam Kuhlman had involved refers to person = 'Adam Kuhlman'"
+  },
+  {
+    "sql": "SELECT T1.keyword, T2.person FROM Keyword AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T1.episode_id = 'S20-E1';",
+    "question_id": null,
+    "question": "List down the keyword and crew member's name for episode id S20-E1.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.keyword FROM Keyword AS T1 INNER JOIN Vote AS T2 ON T1.episode_id = T2.episode_id WHERE T2.stars = 10 AND T2.percent > 29;",
+    "question_id": null,
+    "question": "What is the keyword for episodes with stars score of 10 at 30% and above?",
+    "difficulty": "",
+    "evidence": "stars score of 10 at 30% and above refers to stars = 10 and percent > 29"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.stars = 5 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'Sex, Pies and Idiot Scrapes';",
+    "question_id": null,
+    "question": "What is the percentage of star score 5 that was collected by title \"Sex, Pies and Idiot Scrapes\"?",
+    "difficulty": "",
+    "evidence": "percentage = DIVIDE(SUM(stars = 5), COUNT(stars)) as percentage"
+  },
+  {
+    "sql": "SELECT CASE WHEN T2.Keyword = 'limbo dancing' THEN 'Yes' ELSE 'No' END AS result FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'Dangerous Curves';",
+    "question_id": null,
+    "question": "Please check is \"limbo dancing\" the keyword for title \"Dangerous Curves\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.title FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.award = 'Best International TV Series' AND SUBSTR(T1.year, 1, 4) = '2017';",
+    "question_id": null,
+    "question": "Which title is the winner of Best International TV Series in 2017?",
+    "difficulty": "",
+    "evidence": "winner refers to result = 'Winner'; Best International TV Series in 2017 refers to award = 'Best International TV Series' and year = '2017'\n\n"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Award AS T1 INNER JOIN Keyword AS T2 ON T2.episode_id = T1.episode_id WHERE T1.award_category = 'WGA Award (TV)';",
+    "question_id": null,
+    "question": "Write down all the keywords for winner of \"WGA Award (TV)\" award.",
+    "difficulty": "",
+    "evidence": "winner of \"WGA Award (TV)\" award refers to award_category = 'WGA Award (TV)' and result = 'Winner'"
+  },
+  {
+    "sql": "SELECT T1.birth_place FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.award = 'Outstanding Animated Program (For Programming Less Than One Hour)' AND T2.role = 'co-executive producer';",
+    "question_id": null,
+    "question": "State the birth place of co-executive producer for nominee of \"Outstanding Animated Program (For Programming Less Than One Hour)\" award.",
+    "difficulty": "",
+    "evidence": "co-executive producer refers to role = 'co-executive producer'; nominee of \"Outstanding Animated Program (For Programming Less Than One Hour)\" award refers to award = 'Outstanding Animated Program (For Programming Less Than One Hour)' and result = 'Nominee'"
+  },
+  {
+    "sql": "SELECT T2.stars, SUM(T2.stars) FROM Award AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.award_category = 'Blimp Award' AND T2.stars BETWEEN 1 AND 5 GROUP BY T2.stars;",
+    "question_id": null,
+    "question": "Sum up the votes from star 1 to 5 for all of the contestants in Blimp Award.",
+    "difficulty": "",
+    "evidence": "contestants refers to result = 'Winner' and result = 'Nominee'; in Blimp Award refers to award = 'Blimp Award'; star 1 to 5 refers to 1 < stars < 5"
+  },
+  {
+    "sql": "SELECT SUM(T2.rating) FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.award_category IN ('Jupiter Award ', 'WGA Award (TV)');",
+    "question_id": null,
+    "question": "Calculate the total rating of winners in OFTA Television Award and WGA Award (TV).",
+    "difficulty": "",
+    "evidence": "winners refers to result = 'Winner'; in OFTA Television Award and WGA Award (TV) refers to award = 'OFTA Television Award' and award = 'WGA Award (TV)'"
+  },
+  {
+    "sql": "SELECT SUM(T2.percent) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'No Loan Again, Naturally' AND T1.rating = 6.8 AND T2.stars BETWEEN 5 AND 10;",
+    "question_id": null,
+    "question": "Out of the rating of 6.8 scored by title \"No Loan Again, Naturally\", how many percent of it consists of scores 5 to 10?",
+    "difficulty": "",
+    "evidence": "scores 5 to 10 refers to TOTAL(percent) where 1 < = stars < 5"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT episode_id) FROM Vote WHERE stars > 8;",
+    "question_id": null,
+    "question": "How many episodes have the star score greater than 8?",
+    "difficulty": "",
+    "evidence": "star score greater than 8 refers to stars > 8"
+  },
+  {
+    "sql": "SELECT episode_id FROM Vote ORDER BY votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Which episode has the highest number of vote of the star score?",
+    "difficulty": "",
+    "evidence": "highest number of vote of the star score refers to max(votes)"
+  },
+  {
+    "sql": "SELECT COUNT(episode_id) FROM Keyword WHERE keyword = '2d animation';",
+    "question_id": null,
+    "question": "How many episodes have the keyword \"2d animation\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT organization FROM Award WHERE award_id = 328;",
+    "question_id": null,
+    "question": "Name the organization which hold the award id 328.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(award_id) FROM Award WHERE SUBSTR(year, 1, 4) = '2009';",
+    "question_id": null,
+    "question": "How many awards had been held in 2009?",
+    "difficulty": "",
+    "evidence": "had been held in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT COUNT(award_id) FROM Award WHERE award_category = 'Primetime Emmy';",
+    "question_id": null,
+    "question": "How many awards classified as \"Primetime Emmy\" category?",
+    "difficulty": "",
+    "evidence": "category refers to award_category"
+  },
+  {
+    "sql": "SELECT T1.birth_name FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.role = 'co-executive producer' AND T1.height_meters > 1.60;",
+    "question_id": null,
+    "question": "List out the birth name of crews who are co-executive producer and higher than 1.60 meters.",
+    "difficulty": "",
+    "evidence": "co-executive producer refers to role = 'co-executive producer'; higher than 1.60 meters refers to height_meters > 1.60"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.birth_country = 'USA' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.result = 'Nominee';",
+    "question_id": null,
+    "question": "Calculate the percentage of the nominees who were born in USA.",
+    "difficulty": "",
+    "evidence": "nominees refers to result = 'Nominee'; born in USA refers to birth_country = 'USA'; percentage = divide(sum(result = 'Nominee' and birth_country = 'USA'), count(Person.name)) * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.height_meters > 1.75 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.result = 'Winner';",
+    "question_id": null,
+    "question": "Calculate the percentage of the winners who are higher than 1.75 meters.",
+    "difficulty": "",
+    "evidence": "winners refers to result = 'Winner'; higher than 1.75 meters refers to height_meters > 1.75; percentage = divide(sum(result = 'Winner' and height_meters > 1.75), count(result = 'Winner' )) * 100%\n"
+  },
+  {
+    "sql": "SELECT T1.title FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars = 2;",
+    "question_id": null,
+    "question": "List out the title of episodes which have star score of 2.",
+    "difficulty": "",
+    "evidence": "star score of 2 refers to stars = 2"
+  },
+  {
+    "sql": "SELECT T2.stars FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.title = 'How the Test Was Won';",
+    "question_id": null,
+    "question": "List out the star scores of episode which has title of \"How the Test Was Won\".",
+    "difficulty": "",
+    "evidence": "star scores refers to stars"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.episode_id) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE strftime('%Y', T1.air_date) = '2008' AND T2.stars > 5;",
+    "question_id": null,
+    "question": "Among the episodes which have star score greater than 5, how many episodes have air date in 2008?",
+    "difficulty": "",
+    "evidence": "star score greater than 5 refers to stars > 5; have air date in 2008 refers to air_date LIKE '2008%'"
+  },
+  {
+    "sql": "SELECT T2.character FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T1.year = 2009;",
+    "question_id": null,
+    "question": "List out the names of the awarded character in the awards held in 2009.",
+    "difficulty": "",
+    "evidence": "in 2009 refers to year = 2009; name of awarded character refers to character\n\n"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.year FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T2.character = 'Mr. Burns';",
+    "question_id": null,
+    "question": "Which are the years that character Mr. Burns won an award?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.award_category FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T2.character = 'Lenny';",
+    "question_id": null,
+    "question": "What is the awarded category that the awarded character Lenny won?",
+    "difficulty": "",
+    "evidence": "\n\nawarded category refers to award_category"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.person FROM Award AS T1 INNER JOIN Character_Award AS T2 ON T1.award_id = T2.award_id WHERE T2.character = 'Smithers';",
+    "question_id": null,
+    "question": "What is the name of actor who took the role Smithers?",
+    "difficulty": "",
+    "evidence": "name refers to person; the role Smithers refers to character = 'Smithers'"
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'Dangerous Curves';",
+    "question_id": null,
+    "question": "What are the keywords of the episode which has title as Dangerous Curves?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.keyword FROM Episode AS T1 INNER JOIN Keyword AS T2 ON T1.episode_id = T2.episode_id WHERE SUBSTR(T1.air_date, 1, 4) = '2008';",
+    "question_id": null,
+    "question": "What are the keywords of the episodes which have the air date in 2008?",
+    "difficulty": "",
+    "evidence": "have air date in 2008 refers to air_date LIKE '2008%'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.episode_id) FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE strftime('%Y', T1.air_date) = '2009' AND T2.stars < 8;",
+    "question_id": null,
+    "question": "Among the episodes which have star score less than 8, how many episodes were aired in 2009?",
+    "difficulty": "",
+    "evidence": "star score less than 8 refers to stars < 8; aired in 2009 refers to air_date LIKE '2009%'"
+  },
+  {
+    "sql": "SELECT T1.birth_name FROM Person AS T1 INNER JOIN Award AS T2 ON T1.name = T2.person WHERE T2.role = 'director' AND T1.birth_country = 'South Korea';",
+    "question_id": null,
+    "question": "State the birth name of crews who are director and have birth country in South Korea.",
+    "difficulty": "",
+    "evidence": "director refers to role = 'director'"
+  },
+  {
+    "sql": "SELECT COUNT(award_id) FROM Award WHERE SUBSTR(year, 1, 4) = '2009' AND result = 'Winner';",
+    "question_id": null,
+    "question": "How many awards did simpson 20 won in 2009?",
+    "difficulty": "",
+    "evidence": "won refers to result = 'Winner'; in 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT COUNT(episode_id) FROM Episode WHERE rating < 7;",
+    "question_id": null,
+    "question": "What is the total number of episode with a rating below 7?",
+    "difficulty": "",
+    "evidence": "rating below 7 refers to rating < 7"
+  },
+  {
+    "sql": "SELECT name FROM Person WHERE birth_region = 'California' AND birth_country = 'USA';",
+    "question_id": null,
+    "question": "List down the names of person born in California, USA.",
+    "difficulty": "",
+    "evidence": "California refers to birth_region = 'California'; USA refers to birth_country = 'USA'"
+  },
+  {
+    "sql": "SELECT COUNT(credited) FROM Credit WHERE episode_id IN ( 'S20-E5',  'S20-E6',  'S20-E7',  'S20-E8',  'S20-E9',  'S20-E10' ) AND credited = 'true' AND role = 'casting';",
+    "question_id": null,
+    "question": "In between the episode 5 and10 of season 2, how many of them are credited for casting?",
+    "difficulty": "",
+    "evidence": "between the episode 5 and 10 of season 20 refers to episode_id IN('S20-E5', 'S20-E6', 'S20-E7', 'S20-E8', 'S20-E9', 'S20-E10'); credited refers to credited = 'true'; for casting refers to role = 'casting'"
+  },
+  {
+    "sql": "SELECT episode_id FROM Vote WHERE stars = 2 AND votes = 9;",
+    "question_id": null,
+    "question": "What is the episode ID that received 2 stars and 9 votes?",
+    "difficulty": "",
+    "evidence": "2 stars refers to stars = 2; 9 votes refers to votes = 9"
+  },
+  {
+    "sql": "SELECT T2.title FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.organization = 'Primetime Emmy Awards' AND T1.year = 2009 AND T1.result = 'Winner';",
+    "question_id": null,
+    "question": "Give the title of the episode won in Primetime Emmy Awards 2009.",
+    "difficulty": "",
+    "evidence": "won refers to result = 'Winner'; in Primetime Emmy Awards refers to organization = 'Primetime Emmy Awards'; 2009 refers to year = 2009"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.episode_id FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE SUBSTR(T1.air_date, 1, 4) = '2008' AND T2.stars < 5;",
+    "question_id": null,
+    "question": "List down the episode ID of episodes aired in 2008 with 5 stars and below.",
+    "difficulty": "",
+    "evidence": "aired in 2008 refers to air_date LIKE '2008%'; 5 stars and below refers to stars < 5"
+  },
+  {
+    "sql": "SELECT T2.category FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.person = 'Carlton Batten' AND T2.credited = 'true' ORDER BY T1.votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "Among the episode with highest votes, what is the category credited to Carlton Batten?",
+    "difficulty": "",
+    "evidence": "highest votes refers to max(votes); to Carlton Batten refers to person = 'Carlton Batten'"
+  },
+  {
+    "sql": "SELECT T2.percent FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE SUBSTR(T1.air_date, 1, 4) = '2008' AND T1.votes BETWEEN 950 AND 960;",
+    "question_id": null,
+    "question": "Among the episodes aired in 2008 with votes ranges from 920 to 950, list their percent.",
+    "difficulty": "",
+    "evidence": "aired in 2008 refers to air_date LIKE '2008%'; votes ranges from 920 to 950 refers to votes BETWEEN 920 AND 950"
+  },
+  {
+    "sql": "SELECT T1.episode_id, T1.title FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.credited = 'true' AND T2.person = 'Bonita Pietila' AND T2.role = 'casting';",
+    "question_id": null,
+    "question": "List the episode ID and title of episode where casting was credited to Bonita Pietila.",
+    "difficulty": "",
+    "evidence": "was credited refers to credited = 'true'; to Bonita Pietila refers to person = 'Bonita Pietila'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Award AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T1.organization = 'Annie Awards' AND T1.result = 'Nominee' AND T2.percent > 6;",
+    "question_id": null,
+    "question": "In episode nominated in Annie Awards, how many of the episodes have a percent greater than 6?",
+    "difficulty": "",
+    "evidence": "nominated refers to result = 'Nominee'; Annie Awards refers to organization = 'Annie Awards'; percent greater than 6 refers to percent > 6"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.title FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T2.votes > 1000 AND T1.award_category = 'WGA Award (TV)' AND T1.result = 'Nominee';",
+    "question_id": null,
+    "question": "What is the title of episode nominated for WGA Award (TV) with votes greater than 1000?",
+    "difficulty": "",
+    "evidence": "nominated refers to result = 'Nominee'; WGA Award (TV) refers to award_category = 'WGA Award (TV)'; votes greater than 1000 refers to votes > 1000"
+  },
+  {
+    "sql": "SELECT T2.person FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T1.title = 'How the Test Was Won' AND T2.role = 'additional timer' AND T2.credited = 'true' AND T2.category = 'Animation Department';",
+    "question_id": null,
+    "question": "Among the people in Animation Department, who are credited for additional time in the episode titled by \"How the Test Was Won\"?",
+    "difficulty": "",
+    "evidence": "Animation Department refers to category = 'Animation Department'; credited refers to credited = 'true'; for additional timer refers to role = 'additional timer'"
+  },
+  {
+    "sql": "SELECT T2.stars FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE SUBSTR(T1.air_date, 1, 7) = '2008-11';",
+    "question_id": null,
+    "question": "List the stars of episodes aired in November 2008.",
+    "difficulty": "",
+    "evidence": "in November 2008 refers to air_date LIKE '2008-11%'"
+  },
+  {
+    "sql": "SELECT T3.title FROM Award AS T1 INNER JOIN Vote AS T2 ON T1.episode_id = T2.episode_id INNER JOIN Episode AS T3 ON T1.episode_id = T3.episode_id WHERE T3.air_date = '2009-04-19' AND T1.award_category = 'Prism Award' AND T2.stars = 5 AND T1.result = 'Nominee';",
+    "question_id": null,
+    "question": "What is the title of episode with 5 stars and nominated for Prism Award which is aired on April 19, 2009?",
+    "difficulty": "",
+    "evidence": "5 stars refers to stars = 5; nominated refers to result = 'Nominee'; Prism Award refers to award_category = 'Prism Award'; on April 19 2009 refers to air_date = '2009-04-19'"
+  },
+  {
+    "sql": "SELECT T1.award_category FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T1.result = 'Nominee' ORDER BY T2.votes DESC LIMIT 1;",
+    "question_id": null,
+    "question": "In episode with the highest votes, list the category of awards it is nominated for.",
+    "difficulty": "",
+    "evidence": "highest votes refers to max(votes); nominated refers to result = 'Nominee'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Episode AS T1 INNER JOIN Credit AS T2 ON T1.episode_id = T2.episode_id WHERE T2.credited = 'true' AND T2.person = 'Sam Im' AND SUBSTR(T1.air_date, 1, 4) = '2009' AND T2.role = 'additional timer';",
+    "question_id": null,
+    "question": "In episodes aired in 2009, how many of them are credited to Sam Im for additional timer?",
+    "difficulty": "",
+    "evidence": "in 2009 refers to air_date LIKE '2009%'; credited refers to credited = 'true'; Sam Im refers to person = 'Sam Im'; for additional timer refers to role = 'additional timer'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.title FROM Episode AS T1 INNER JOIN Vote AS T2 ON T2.episode_id = T1.episode_id WHERE T2.stars > 0.7 * ( SELECT AVG(stars) FROM Vote );",
+    "question_id": null,
+    "question": "List the title of the episode with stars greater than the 70% of average stars of all episodes.",
+    "difficulty": "",
+    "evidence": "stars greater than the 70% of average stars refers to stars > multiply(avg(stars), 0.7)"
+  },
+  {
+    "sql": "SELECT CAST((SUM(CASE WHEN T1.result = 'Nominee' THEN 1 ELSE 0 END) - SUM(CASE WHEN T1.result = 'Winner' THEN 1 ELSE 0 END)) AS REAL) * 100 / COUNT(T1.result) FROM Award AS T1 INNER JOIN Episode AS T2 ON T1.episode_id = T2.episode_id WHERE T2.title = 'Gone Maggie Gone' AND T1.year = 2009;",
+    "question_id": null,
+    "question": "In year 2009, what is the percentage of the episode titled by \"Gone Maggie Gone\" being nominated?",
+    "difficulty": "",
+    "evidence": "being nominated refers to result = 'Nominee'; percentage = divide(count(result = 'Nominee'), count(result)) * 100%"
+  }
+]

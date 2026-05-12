@@ -1,0 +1,373 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 9,
+    "eligible_candidate_count": 3,
+    "num_selected_for_vertical_split": 3,
+    "num_from_rate_alone": 7,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "Cards",
+      "Matches",
+      "Tables"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/WWE/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "Tables",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "Cards": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "event_date",
+          "non_pk_columns": [
+            "event_date",
+            "info_html",
+            "match_html",
+            "table_id",
+            "url"
+          ],
+          "local_table": "cardEventDateSnapshot",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Cards_event_date"
+        },
+        {
+          "suffix": "event_date_2",
+          "non_pk_columns": [
+            "event_date",
+            "event_id",
+            "location_id",
+            "match_html",
+            "promotion_id",
+            "table_id",
+            "url"
+          ],
+          "local_table": "cardEventDateEventsUpTo551",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Cards_event_date_2",
+          "row_partition_names": [
+            "cardEventDateEventsUpTo551",
+            "cardEventDateEvents552To3229",
+            "cardEventDateEvents3230To8878",
+            "cardEventDateEventsAbove8878OrNull"
+          ],
+          "row_partition_predicate_column": "event_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Cards",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.05015271327716569
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.05015271327716569,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "event_date",
+            "info_html",
+            "match_html",
+            "url"
+          ],
+          [
+            "event_id",
+            "location_id",
+            "promotion_id",
+            "table_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "url",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "table_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "event_date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "match_html",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "event_date",
+            "info_html",
+            "match_html",
+            "table_id",
+            "url"
+          ],
+          [
+            "event_date",
+            "event_id",
+            "location_id",
+            "match_html",
+            "promotion_id",
+            "table_id",
+            "url"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "event_date",
+            "non_pk_columns": [
+              "event_date",
+              "info_html",
+              "match_html",
+              "table_id",
+              "url"
+            ]
+          },
+          {
+            "suffix": "event_date_2",
+            "non_pk_columns": [
+              "event_date",
+              "event_id",
+              "location_id",
+              "match_html",
+              "promotion_id",
+              "table_id",
+              "url"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "url",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "event_date",
+          "also_in_fragment_suffix": "event_date_2"
+        },
+        {
+          "column": "table_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "event_date_2",
+          "also_in_fragment_suffix": "event_date"
+        },
+        {
+          "column": "event_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "event_date",
+          "also_in_fragment_suffix": "event_date_2"
+        },
+        {
+          "column": "match_html",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "event_date",
+          "also_in_fragment_suffix": "event_date_2"
+        }
+      ]
+    },
+    "Matches": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "card_id",
+          "non_pk_columns": [
+            "card_id",
+            "duration",
+            "match_type_id",
+            "title_change",
+            "title_id",
+            "win_type"
+          ],
+          "local_table": "MatchesCardIdUpTo3060",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Matches_card_id",
+          "row_partition_names": [
+            "MatchesCardIdUpTo3060",
+            "MatchesCardId3061To6368",
+            "MatchesCardId6369To9983",
+            "MatchesCardIdGreaterThan9983OrNull"
+          ],
+          "row_partition_predicate_column": "card_id"
+        },
+        {
+          "suffix": "card_id_2",
+          "non_pk_columns": [
+            "card_id",
+            "loser_id",
+            "match_type_id",
+            "title_change",
+            "title_id",
+            "winner_id"
+          ],
+          "local_table": "MatchResultsByCard",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Matches_card_id_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Matches",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03614494931185945
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.03614494931185945,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "card_id",
+            "duration",
+            "match_type_id",
+            "title_change",
+            "win_type"
+          ],
+          [
+            "loser_id",
+            "title_id",
+            "winner_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "title_change",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "title_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "card_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "match_type_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "card_id",
+            "duration",
+            "match_type_id",
+            "title_change",
+            "title_id",
+            "win_type"
+          ],
+          [
+            "card_id",
+            "loser_id",
+            "match_type_id",
+            "title_change",
+            "title_id",
+            "winner_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "card_id",
+            "non_pk_columns": [
+              "card_id",
+              "duration",
+              "match_type_id",
+              "title_change",
+              "title_id",
+              "win_type"
+            ]
+          },
+          {
+            "suffix": "card_id_2",
+            "non_pk_columns": [
+              "card_id",
+              "loser_id",
+              "match_type_id",
+              "title_change",
+              "title_id",
+              "winner_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "title_change",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "card_id",
+          "also_in_fragment_suffix": "card_id_2"
+        },
+        {
+          "column": "title_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "card_id_2",
+          "also_in_fragment_suffix": "card_id"
+        },
+        {
+          "column": "card_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "card_id",
+          "also_in_fragment_suffix": "card_id_2"
+        },
+        {
+          "column": "match_type_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "card_id",
+          "also_in_fragment_suffix": "card_id_2"
+        }
+      ]
+    }
+  }
+}

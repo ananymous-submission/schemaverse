@@ -1,0 +1,345 @@
+[
+  {
+    "sql": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "question_id": 0,
+    "question": "What is photometrically observed star",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "question_id": 1,
+    "question": "Find all photometrically observable star that have spectral observations. Retrieve the object id, right ascension, and declination. ",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "question_id": 2,
+    "question": "What is photometrically observed Galaxy",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where  pt.name = 'GALAXY'",
+    "question_id": 3,
+    "question": "Find all photometrically observable Galaxy that have spectral observations. Retrieve the object id, right ascension, and declination. ",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec from photoobj as p JOIN photo_type as pt on p.type = pt.value where p.ra > 185 and p.ra < 186 and p.dec > 15 and p.dec < 16 and pt.name = 'GALAXY'",
+    "question_id": 4,
+    "question": "Find the object ids, right ascensions and declinations of photometrically observable galaxy whose right ascension is greater than 185, right ascension is less than 186, declination is greater than 15, declination is less than 16.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec from photoobj as p JOIN photo_type as pt on p.type = pt.value where p.ra > 185 and p.ra < 186 and p.dec > 15 and p.dec < 16 and pt.name = 'STAR'",
+    "question_id": 5,
+    "question": "Find the object ids, right ascensions and declinations of photometrically observable star whose right ascension is greater than 185, right ascension is less than 186, declination is greater than 15, declination is less than 16.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec, s.z from Photoobj as p join specobj as s on s.bestobjid = p.objid where s.ra > 185 and s.ra < 186 AND s.dec > 15 and s.dec < 16 and s.class = 'STAR'",
+    "question_id": 6,
+    "question": "Find all spectroscopic observed star,  whose right ascension is greater than 185 and less than 186, declination is greater than 15 and less than 16. Retrieve their object id, right ascension, declination, and photometric object type",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objID, p.ra, p.dec, s.z from Photoobj as p join specobj as s on s.bestobjid = p.objid where s.ra > 185 and s.ra < 186 AND s.dec > 15 and s.dec < 16 and s.class = 'GALAXY'",
+    "question_id": 7,
+    "question": "Find properties of all spectroscopic observed galaxy,  whose right ascension is greater than 185 and less than 186, declination is greater than 15 and less than 16.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid from photoobj as p JOIN photo_type as pt on p.type = pt.value where pt.name = 'STAR' and p.u - p.g < 0.4  and p.g - p.r < 0.7 and p.r - p.i > 0.4 and p.i - p.z > 0.4",
+    "question_id": 8,
+    "question": "Find all photometrically observable star with a difference of magnitude u and magnitude g is less than 0.4,  the difference between magnitude g and magnitude r is less than 0.7, the difference between magnitude r and magnitude i is greater than 0.4 and the difference between magnitude i and magnitude z is greater than 0.4",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and (p.u - p.g) < 0.4 and (p.g - p.r) < 0.7 and  (p.r - p.i) > 0.4 and (p.i - p.z) > 0.4 and p.objid in (select n.objid from neighbors as n join photo_type as pt on n.neighbortype = pt.value where n.distance < 0.05 and pt.name = 'STAR')",
+    "question_id": 9,
+    "question": "Find all star in photometrically observable binary star system, of which the neighbor's distance less than 0.05,  the difference of magnitude u and magnitude g is lower than 0.4, the difference of magnitude g and magnitude r is lower than 0.7, the difference of magnitude r and magnitude i is higher than 0.4 and the difference of magnitude i and magnitude z is higher than 0.4",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select count(*) from photoobj as p join photo_type as pt on p.type = pt.value where p.r < 17 and p.extinction_r > 0.2 and pt.name = 'GALAXY'",
+    "question_id": 10,
+    "question": "Find the number of photometrically observed GALAXY whose magnitude r is less than 17, extinction r is greater than 0.2.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.g from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY' and p.g <= 22 and p.u - p.g >= -0.27 and p.u - p.g < 0.71 and p.g - p.r  >= -0.24 and p.g - p.r < 0.35 and p.r - p.i >= -0.27 and p.r - p.i < 0.57 and p.i - p.z  >= -0.35 and p.i - p.z < 0.7 order by p.g desc",
+    "question_id": 11,
+    "question": "Find all photometric observable GALAXY whose magnitude g is brighter than 22, the difference of magnitude u and magnitude g is between -0.27 and 0.71, the difference of magnitude g and magnitude r is between -0.24 and 0.35, the difference of magnitude r and magnitude i is between -0.27 and 0.57 and the difference of magnitude i and magnitude z is between -0.35 and 0.7. Retrieve the object id and magnitude g with descent order by magnitude g. ",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT p.objid, p.ra, p.dec from photoobj AS p JOIN photo_type AS pt ON p.type = pt.value where pt.name = 'STAR' and i < 19 and i > 0 and g - r > 2.26 and i - z < 0.25 and u - g > 2.0  or  u > 22.3",
+    "question_id": 12,
+    "question": "Find object id, right ascension, declination of photometrically observed star whose magnitude i is brighter than 19 and fainter than 0, the difference of magnitude g and magnitude r is higher than 2.26, the difference of magnitude i and magnitude z is lower than 0.25, and either the difference of magnitude u and magnitude g is greater than 2.0 or magnitude u is fainter than 22.3",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select objid, ra, dec from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY' and p.ra between 140.9 and 141.1 and p.g < 18.0 and p.u - p.g > 2.2",
+    "question_id": 13,
+    "question": "What are the photometrically observable Galaxy whose right ascension is between 140.9 and 141.1, magnitude g is brighter than 18.0 and the difference of magitude u and magnitude g is greater than 2.2. Retrieve the objecti id, right ascension and declination of these objects.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.g between 17 and 18 and s.z < 0.05",
+    "question_id": 14,
+    "question": "Find the object id, right ascension and declination of spectroscopic Galaxy, which have value of magnitude g between 17 and 18 and redshift less than 0.05. ",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and p.u - p.g < 0.5",
+    "question_id": 15,
+    "question": "Search for photometrically observed Star with the difference of magnitude u and magnitude g is less than 0.5. Retrieve each object id, right ascension and declination.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.u, p.g, p.r, p.i, p.z from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR' and  p.u - p.g < 0.5",
+    "question_id": 16,
+    "question": "Search for photometrically observed Star that has a difference of magnitude u and magnitude g less than 0.5. Retrieve all magnitude values (u, g, r, i and z) of these objects.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.u, p.g, p.r, p.i, p.z from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.g between 17 and 18 and s.z < 0.05",
+    "question_id": 17,
+    "question": "Find all magnitude values (u, g, r, i and z) from spectroscopically observable GALAXY whose value of magnitude g between 17 and 18,  and redshift less than 0.05. ",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, n.neighborobjid, n.distance, n.type from neighbors as n join  photoobj as p on n.objid = p.objid",
+    "question_id": 18,
+    "question": "Find the photometric objects with object ids, nearst neighbor ids, distance of center-neighbors, center types.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select distinct p.type from photoobj as p where p.ra > 100 and p.dec < 100",
+    "question_id": 19,
+    "question": "Find the different object type classifications of photometric objects whose right ascension is greater than 100 and declination is less than 100.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select count(*) from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "question_id": 20,
+    "question": "Find the number of photometrically observed STAR",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select distinct pt.name from photo_type as pt join photoobj as p on p.type = pt.value",
+    "question_id": 21,
+    "question": "Find all photometrically observed object types. Return only unique records.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select * from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "question_id": 22,
+    "question": "Find everything about photometrically observable Galaxy.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec, pt.name from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'STAR'",
+    "question_id": 23,
+    "question": "Find the object ids, right ascensions, declinations and observed types of photometrically observed Star.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, s.specobjid from photoobj as p join specobj as s on s.bestobjid = p.objid where s.class = 'GALAXY' and p.u - p.r > 2.22 and p.g - p.i > 1",
+    "question_id": 24,
+    "question": "Find the photometric objects with object ids, spectroscopic object id whose spectroscopic class is 'GALAXY', with the difference of magnitude u and magnitude r greater trhan 2.22 and the difference of magnitude g and magnitude i greater than 1.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.objid, T1.mjd FROM specobj AS T1 JOIN photoobj as T2 ON T1.bestobjid = T2.objid WHERE T1.class = 'STAR' and T1.subclass like '%K%'",
+    "question_id": 25,
+    "question": "Show me the photometric object id and modified julien date for all 'K' type Star",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.z, T1.ra, T1.dec FROM specobj AS T1 JOIN photoobj AS T2 ON T1.bestobjid = T2.objid JOIN photo_type AS T3 ON T2.type = T3.value WHERE T1.subclass = 'STARFORMING' AND T3.name = 'GALAXY'",
+    "question_id": 26,
+    "question": "Find redshift, right ascension and declination of all photometrically observed Starforming Galaxy",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT min( T1.extinction_r), T1.run FROM photoobj AS T1 JOIN photo_type AS T2 ON T1.type = T2.value WHERE T2.name = 'GALAXY' GROUP BY T1.run",
+    "question_id": 27,
+    "question": "What are the mininum of the extinction r grouped by run number of photometric Galaxy?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.b, T1.l FROM photoobj AS T1 JOIN specobj AS T2 ON T1.objid = T2.bestobjid where T2.class = 'QSO'",
+    "question_id": 28,
+    "question": "What are the galactic coordinates of all Quasi stellar object (QSO)",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count( T1.objid ) FROM neighbors AS T1 JOIN photoobj AS T2 ON T1.objid = T2.objid JOIN photo_type AS T3 ON T2.type = T3.value WHERE T3.name = 'STAR' and T1.neighbortype = T2.type and T1.distance < 0.05 and T2.u - T2.g < 0.4 and T2.g - T2.r < 0.7 and T2.r - T2.i > 0.4 and T2.i - T2.z > 0.4",
+    "question_id": 29,
+    "question": "How many photometrically observable Binary Star system we can find, in which it has a distance from cetner to nearest neighbor of under 0.05, a difference of magnitude u and g below 0.4, a difference of magnitude g and r below 0.7, a difference of magnitude r and i above 0.4, and a difference of magnitude i and z above 0.4.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(p.objid) FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'STAR' AND (p.u - p.g) < 0.4 AND (p.g - p.r) < 0.7 AND  (p.r - p.i) > 0.4 AND (p.i - p.z) > 0.4 AND p.objid in (SELECT n.objid FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value WHERE n.distance < 0.05 AND pt.name = 'STAR')",
+    "question_id": 30,
+    "question": "Count all star in photometrically observable Binary Star system, of which the neighbor's distance less than 0.05, the difference of magnitude u and magnitude g is lower than 0.4, the difference of magnitude g and magnitude r is lower than 0.7, the difference of magnitude r and magnitude i is higher than 0.4 and the difference of magnitude i and magnitude z is higher than 0.4",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select s.specobjid from specobj as s JOIN photoobj as p ON s.bestobjid = p.objid JOIN photo_type as pt ON p.type = pt.value WHERE s.class = 'STAR' and pt.name = 'STAR' and s.subclass = 'Carbon'",
+    "question_id": 31,
+    "question": "Find all star observed both photometrically and spectroscopically whose subclass is 'Carbon'",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select COUNT(*) from photoobj as p join photo_type as pt on p.type = pt.value where pt.name = 'GALAXY'",
+    "question_id": 32,
+    "question": "Find the number of photometrically observed Galaxy",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select s.specobjid, s.class, s.subclass from specobj as s join photoobj as p on s.bestobjid = p.objid join photo_type as pt on p.type = pt.value where s.subclass like '%AGN%' and s.class = 'GALAXY' and pt.name = 'GALAXY'",
+    "question_id": 33,
+    "question": "Find the object ids, classes and subclasses of spectroscopically and photometrically observable Galaxy with AGN.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT min(n.distance) FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value JOIN photoobj AS p ON p.objid = n.objid WHERE pt.name = 'STAR' and p.objid in (SELECT p.objid FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'STAR')",
+    "question_id": 34,
+    "question": "Show me the least distance of the nearst photometrically observable Star",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT max(n.distance) FROM neighbors AS n JOIN photo_type AS pt ON n.neighbortype = pt.value JOIN photoobj AS p ON p.objid = n.objid WHERE pt.name = 'GALAXY' and p.objid in (SELECT p.objid FROM photoobj AS p JOIN photo_type AS pt ON p.type = pt.value WHERE pt.name = 'GALAXY')",
+    "question_id": 35,
+    "question": "Show me the longest distance of the photometrically observable GALAXY neighbors",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT p.b, p.l, n.distance from photoobj as p join neighbors n on p.objid = n.objid where n.distance = (select min(n.distance) from neighbors as n)",
+    "question_id": 36,
+    "question": "What are the galactic coordinates of the center object with the least distance to its nearest neighbor. Please retrieve the distance also.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT p.b, p.l, n.distance from photoobj as p join neighbors as n on p.objid = n.objid order by n.distance asc limit 1",
+    "question_id": 37,
+    "question": "What are the galactic coordinates of the center object with the least distance to its nearest neighbor. Please retrieve the distance also.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT s.z from specobj as s join photoobj as p on s.bestobjid = p.objid join neighbors as n on p.objid = n.objid where n.distance = (select min(n.distance) from neighbors as n)",
+    "question_id": 38,
+    "question": "Show me the redshift of the center object with the least distance to its nearest neighbor",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT s.z from specobj as s join photoobj as p on s.bestobjid = p.objid join neighbors as n on p.objid = n.objid order by n.distance asc limit 1",
+    "question_id": 39,
+    "question": "Show me the redshift of the center object with the least distance to its nearest neighbor",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select distinct p.run from photoobj as p",
+    "question_id": 40,
+    "question": "List all unique run numbers",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select count(distinct p.run) from photoobj as p",
+    "question_id": 41,
+    "question": "How many different run number are there",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select pt.name, count(*) from photoobj as p join photo_type as pt on pt.value = p.type group by pt.name",
+    "question_id": 42,
+    "question": "Find the number of photometric objects grouped by their photometrically observed type name.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.ra, p.dec, p.type from spplines as sp join specobj as s on sp.specobjid = s.specobjid join photoobj as p on p.objid = s.bestobjid",
+    "question_id": 43,
+    "question": "Find right ascension, declination and photometric type class of equivalent width estimates of galactic-stars from these spectroscopic objects.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, pt.name from photoobj as p join photo_type as pt on p.type = pt.value where p.ra > 100 and p.dec < 100",
+    "question_id": 44,
+    "question": "Find the object id and photometric observation type of photometric objects whose right ascension is greater than 100 and declination is less than 100.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.objid, p.ra, p.dec from photoobj as p join specobj as s on s.bestobjid = p.objid join galspecline as g on s.specobjid = g.specobjid",
+    "question_id": 45,
+    "question": "Find the photometric object id, right ascension and declination of corresponding spectroscopic objects, from which it has emission line estimates of galaxies.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select sp.specobjid from spplines as sp join specobj as s on sp.specobjid = s.specobjid",
+    "question_id": 46,
+    "question": "Find spectroscopic objects of equivalent width estimates of galactic-stars from these spectroscopic objects.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select count(sp.specobjid) from spplines as sp join specobj as s on sp.specobjid = s.specobjid",
+    "question_id": 47,
+    "question": "How many spectroscopic objects of equivalent width estimates of galactic-stars from these spectroscopic objects are there?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select * from specobj as s join galspecline as g on s.specobjid = g.specobjid",
+    "question_id": 48,
+    "question": "Find everything about spectroscopic objects and everything about emission line estimates of galaxies from these spectroscopic objects.",
+    "difficulty": "",
+    "evidence": ""
+  }
+]

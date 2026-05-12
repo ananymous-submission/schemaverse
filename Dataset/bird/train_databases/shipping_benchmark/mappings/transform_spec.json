@@ -1,0 +1,2030 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "california_city_registry": {
+          "source_table": "city",
+          "column_map": {
+            "city_key": "city_id",
+            "city_label": "city_name",
+            "state_name": "state",
+            "population_count": "population",
+            "surface_area": "area"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"state\" = 'California' OR (rowid IN (100,133,138,143,152,159,163,165,166,192,209,219,224,235,246,261,264,270,274,275,277,288,292,299,300,305,308,311,312,319,320,325,332,338,339,352,363,367,377,380,387,400,402,404,409,447,454,455,459,470,479,481,484,486,490,491,498,500,501,502,509,523,526,530,532,536,539,544,545,552,555,557,561,567,569,572,574,575,584,586,587,595,597,599,606,608,615,619,621,628,634,643,646,647,648,649,651,657,668,672,673,685,689,698)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "city_part2",
+          "row_partition_peers": [
+            "city_part2",
+            "city_part3",
+            "other_states_city_registry"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "other_states_city_registry": {
+          "source_table": "city",
+          "column_map": {
+            "city_key": "city_id",
+            "city_label": "city_name",
+            "state_name": "state",
+            "population_count": "population",
+            "surface_area": "area"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"state\" IS NULL OR \"state\" NOT IN ('California', 'Texas', 'Florida', 'Illinois', 'Michigan', 'Massachusetts', 'Ohio', 'North Carolina', 'Minnesota')) OR (rowid IN (106,111,158,164,172,178,181,189,190,228,250,271,272,273,298,315,326,336,341,346,355,358,399,405,411,419,422,426,427,430,435,436,444,457,458,464,478,482,494,510,531,550,573,602,624,678)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "california_city_registry",
+          "row_partition_peers": [
+            "california_city_registry",
+            "city_part2",
+            "city_part3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "manufacturer_customer_addresses": {
+          "source_table": "customer",
+          "column_map": {
+            "customer_key": "cust_id",
+            "street_address": "address",
+            "annual_revenue_amount": "annual_revenue",
+            "city_name": "city",
+            "customer_name": "cust_name",
+            "customer_category": "cust_type",
+            "phone_number": "phone"
+          },
+          "projected_columns": [
+            "cust_id",
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          "row_predicate": "(\"cust_type\" = 'manufacturer' OR (rowid IN (615,618,1669,2421,2496,2799,3660,4353,4869)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customer_address_records"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customer_address_records",
+          "is_row_partition": true,
+          "row_partition_partner": "customer_address_part2",
+          "row_partition_peers": [
+            "customer_address_part2",
+            "customer_address_part3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "customer_address_records": {
+          "source_table": "customer",
+          "column_map": {
+            "customer_key": "cust_id",
+            "street_address": "address",
+            "annual_revenue_amount": "annual_revenue",
+            "city_name": "city",
+            "phone_number": "phone",
+            "state_name": "state",
+            "postal_code_value": "zip"
+          },
+          "projected_columns": [
+            "cust_id",
+            "address",
+            "annual_revenue",
+            "city",
+            "phone",
+            "state",
+            "zip"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customer_address"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customer_address",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "address_2"
+        }
+      },
+      "table_rename_map": {
+        "city": "city_part1",
+        "customer": "customer_address_part1"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "drv_profile": {
+          "source_table": "driver",
+          "column_map": {
+            "drv_uid": "driver_id",
+            "fname": "first_name",
+            "lname": "last_name",
+            "addr_line": "address",
+            "drv_city": "city",
+            "st_code": "state",
+            "zip_cd": "zip_code",
+            "phone_no": "phone"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "ship_manifest": {
+          "source_table": "shipment",
+          "column_map": {
+            "shp_uid": "ship_id",
+            "cust_uid": "cust_id",
+            "shp_wt": "weight",
+            "trk_uid": "truck_id",
+            "drv_uid": "driver_id",
+            "cty_uid": "city_id",
+            "shp_dt": "ship_date"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "city_tx_fl": {
+          "source_table": "city",
+          "column_map": {
+            "cty_uid": "city_id",
+            "cty_name": "city_name",
+            "st_code": "state",
+            "pop_count": "population",
+            "area_sq_mi": "area"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"state\" = 'Texas' OR \"state\" = 'Florida') OR (rowid IN (110,117,118,125,129,131,136,146,147,148,151,156,157,160,167,170,183,195,204,205,211,215,216,221,227,248,249,253,260,263,265,267,282,290,301,302,318,323,324,330,350,361,376,388,390,394,434,441,461,466,513,517,525,541,551,604,632,667)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "city_il_mi_ma_oh_nc_mn",
+          "row_partition_peers": [
+            "city_il_mi_ma_oh_nc_mn",
+            "city_part4",
+            "city_part1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "city_il_mi_ma_oh_nc_mn": {
+          "source_table": "city",
+          "column_map": {
+            "cty_uid": "city_id",
+            "cty_name": "city_name",
+            "st_code": "state",
+            "pop_count": "population",
+            "area_sq_mi": "area"
+          },
+          "projected_columns": null,
+          "row_predicate": "(((\"state\" = 'Illinois' OR \"state\" = 'Michigan') OR ((\"state\" = 'Massachusetts' OR \"state\" = 'Ohio') OR (\"state\" = 'North Carolina' OR \"state\" = 'Minnesota'))) OR (rowid IN (123,144,176,194,243,303,316,351,373,385,386,414,416,425,440,446,469,476,507,519,556,559,576,579,580,589,598,611,616,617,641,645,680,693)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "city_part4",
+          "row_partition_peers": [
+            "city_part4",
+            "city_part1",
+            "city_tx_fl"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "cust_addr_retail": {
+          "source_table": "customer",
+          "column_map": {
+            "cust_uid": "cust_id",
+            "addr_line": "address",
+            "rev_annual": "annual_revenue",
+            "cty_name": "city",
+            "cust_nm": "cust_name",
+            "cust_cat": "cust_type",
+            "phone_no": "phone"
+          },
+          "projected_columns": [
+            "cust_id",
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          "row_predicate": "(\"cust_type\" = 'retailer' OR (rowid IN (193,721,770,931,954,1381,1591,1849,1908,2306,2348,2624,3203,4145,4154,4347)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customer_address_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customer_address_2",
+          "is_row_partition": true,
+          "row_partition_partner": "cust_addr_wholesale",
+          "row_partition_peers": [
+            "cust_addr_wholesale",
+            "customer_address_part1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        },
+        "cust_addr_wholesale": {
+          "source_table": "customer",
+          "column_map": {
+            "cust_uid": "cust_id",
+            "addr_line": "address",
+            "rev_annual": "annual_revenue",
+            "cty_name": "city",
+            "cust_nm": "cust_name",
+            "cust_cat": "cust_type",
+            "phone_no": "phone"
+          },
+          "projected_columns": [
+            "cust_id",
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          "row_predicate": "((\"cust_type\" = 'wholesaler' OR \"cust_type\" IS NULL) OR (rowid IN (738,896,1265,1290,1724,2215,2281,2420,2483,2617,2634,3354,3375,3430,3722,4368)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customer_address_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customer_address_2",
+          "is_row_partition": true,
+          "row_partition_partner": "customer_address_part1",
+          "row_partition_peers": [
+            "customer_address_part1",
+            "cust_addr_retail"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "address"
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "cargoVehicle": {
+          "source_table": "truck",
+          "column_map": {
+            "vehicleId": "truck_id",
+            "manufacturer": "make",
+            "modelYear": "model_year"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "city_part1": "california_city_registry",
+        "city_part4": "other_states_city_registry",
+        "customer_address_part1": "manufacturer_customer_addresses",
+        "customer_address_2": "customer_address_records"
+      },
+      "column_renames": {
+        "city_part1": {
+          "city_id": "city_key",
+          "city_name": "city_label",
+          "state": "state_name",
+          "population": "population_count",
+          "area": "surface_area"
+        },
+        "city_part4": {
+          "city_id": "city_key",
+          "city_name": "city_label",
+          "state": "state_name",
+          "population": "population_count",
+          "area": "surface_area"
+        },
+        "customer_address_part1": {
+          "cust_id": "customer_key",
+          "address": "street_address",
+          "annual_revenue": "annual_revenue_amount",
+          "city": "city_name",
+          "cust_name": "customer_name",
+          "cust_type": "customer_category",
+          "phone": "phone_number"
+        },
+        "customer_address_2": {
+          "cust_id": "customer_key",
+          "address": "street_address",
+          "annual_revenue": "annual_revenue_amount",
+          "city": "city_name",
+          "phone": "phone_number",
+          "state": "state_name",
+          "zip": "postal_code_value"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_2": {
+      "table_renames": {
+        "driver": "drv_profile",
+        "shipment": "ship_manifest",
+        "city_part2": "city_tx_fl",
+        "city_part3": "city_il_mi_ma_oh_nc_mn",
+        "customer_address_part2": "cust_addr_retail",
+        "customer_address_part3": "cust_addr_wholesale"
+      },
+      "column_renames": {
+        "driver": {
+          "driver_id": "drv_uid",
+          "first_name": "fname",
+          "last_name": "lname",
+          "address": "addr_line",
+          "city": "drv_city",
+          "state": "st_code",
+          "zip_code": "zip_cd",
+          "phone": "phone_no"
+        },
+        "shipment": {
+          "ship_id": "shp_uid",
+          "cust_id": "cust_uid",
+          "weight": "shp_wt",
+          "truck_id": "trk_uid",
+          "driver_id": "drv_uid",
+          "city_id": "cty_uid",
+          "ship_date": "shp_dt"
+        },
+        "city_part2": {
+          "city_id": "cty_uid",
+          "city_name": "cty_name",
+          "state": "st_code",
+          "population": "pop_count",
+          "area": "area_sq_mi"
+        },
+        "city_part3": {
+          "city_id": "cty_uid",
+          "city_name": "cty_name",
+          "state": "st_code",
+          "population": "pop_count",
+          "area": "area_sq_mi"
+        },
+        "customer_address_part2": {
+          "cust_id": "cust_uid",
+          "address": "addr_line",
+          "annual_revenue": "rev_annual",
+          "city": "cty_name",
+          "cust_name": "cust_nm",
+          "cust_type": "cust_cat",
+          "phone": "phone_no"
+        },
+        "customer_address_part3": {
+          "cust_id": "cust_uid",
+          "address": "addr_line",
+          "annual_revenue": "rev_annual",
+          "city": "cty_name",
+          "cust_name": "cust_nm",
+          "cust_type": "cust_cat",
+          "phone": "phone_no"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_3": {
+      "table_renames": {
+        "truck": "cargoVehicle"
+      },
+      "column_renames": {
+        "truck": {
+          "truck_id": "vehicleId",
+          "make": "manufacturer",
+          "model_year": "modelYear"
+        }
+      },
+      "naming_case_style": "camelCase"
+    }
+  },
+  "vertical_split_map": {
+    "customer": {
+      "pk_columns": [
+        "cust_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          "local_table": "customer_address_part1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "customer_address",
+          "row_partition_names": [
+            "customer_address_part1",
+            "cust_addr_retail",
+            "cust_addr_wholesale"
+          ],
+          "row_partition_predicate_column": "cust_type"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "annual_revenue",
+            "city",
+            "phone",
+            "state",
+            "zip"
+          ],
+          "local_table": "customer_address_records",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customer_address_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customer",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.01827779684819713
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.01827779684819713,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type"
+          ],
+          [
+            "phone",
+            "state",
+            "zip"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "annual_revenue",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "phone",
+            "state",
+            "zip"
+          ]
+        ],
+        "pk_columns": [
+          "cust_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "annual_revenue",
+              "city",
+              "cust_name",
+              "cust_type",
+              "phone"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "annual_revenue",
+              "city",
+              "phone",
+              "state",
+              "zip"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "customer_address_part1",
+      "movable_candidates": [
+        "customer_address_2"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "split_map": {
+    "customer": {
+      "pk_columns": [
+        "cust_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          "local_table": "customer_address_part1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "customer_address",
+          "row_partition_names": [
+            "customer_address_part1",
+            "cust_addr_retail",
+            "cust_addr_wholesale"
+          ],
+          "row_partition_predicate_column": "cust_type"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "annual_revenue",
+            "city",
+            "phone",
+            "state",
+            "zip"
+          ],
+          "local_table": "customer_address_records",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customer_address_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customer",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.01827779684819713
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.01827779684819713,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type"
+          ],
+          [
+            "phone",
+            "state",
+            "zip"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "annual_revenue",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "cust_name",
+            "cust_type",
+            "phone"
+          ],
+          [
+            "address",
+            "annual_revenue",
+            "city",
+            "phone",
+            "state",
+            "zip"
+          ]
+        ],
+        "pk_columns": [
+          "cust_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "annual_revenue",
+              "city",
+              "cust_name",
+              "cust_type",
+              "phone"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "annual_revenue",
+              "city",
+              "phone",
+              "state",
+              "zip"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "customer_address_part1",
+      "movable_candidates": [
+        "customer_address_2"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 5,
+    "eligible_candidate_count": 5,
+    "num_selected_for_vertical_split": 4,
+    "num_from_rate_alone": 4,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "customer",
+      "driver",
+      "shipment",
+      "city"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/shipping/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "driver",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "shipment",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "city",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "city": {
+      "source_table": "city",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "california_city_registry",
+        "city_tx_fl",
+        "city_il_mi_ma_oh_nc_mn",
+        "other_states_city_registry"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_2",
+        "local_2",
+        "local_1"
+      ],
+      "predicate_column": "state",
+      "partition_values": [
+        {
+          "value": "California",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Texas",
+              "includes_null": false
+            },
+            {
+              "value": "Florida",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "merged_buckets": [
+                {
+                  "value": "Illinois",
+                  "includes_null": false
+                },
+                {
+                  "value": "Michigan",
+                  "includes_null": false
+                }
+              ]
+            },
+            {
+              "merged_buckets": [
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "Massachusetts",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "Ohio",
+                      "includes_null": false
+                    }
+                  ]
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "North Carolina",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "Minnesota",
+                      "includes_null": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "California",
+            "Texas",
+            "Florida",
+            "Illinois",
+            "Michigan",
+            "Massachusetts",
+            "Ohio",
+            "North Carolina",
+            "Minnesota"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"state\" = 'California' OR (rowid IN (100,133,138,143,152,159,163,165,166,192,209,219,224,235,246,261,264,270,274,275,277,288,292,299,300,305,308,311,312,319,320,325,332,338,339,352,363,367,377,380,387,400,402,404,409,447,454,455,459,470,479,481,484,486,490,491,498,500,501,502,509,523,526,530,532,536,539,544,545,552,555,557,561,567,569,572,574,575,584,586,587,595,597,599,606,608,615,619,621,628,634,643,646,647,648,649,651,657,668,672,673,685,689,698)))",
+        "((\"state\" = 'Texas' OR \"state\" = 'Florida') OR (rowid IN (110,117,118,125,129,131,136,146,147,148,151,156,157,160,167,170,183,195,204,205,211,215,216,221,227,248,249,253,260,263,265,267,282,290,301,302,318,323,324,330,350,361,376,388,390,394,434,441,461,466,513,517,525,541,551,604,632,667)))",
+        "(((\"state\" = 'Illinois' OR \"state\" = 'Michigan') OR ((\"state\" = 'Massachusetts' OR \"state\" = 'Ohio') OR (\"state\" = 'North Carolina' OR \"state\" = 'Minnesota'))) OR (rowid IN (123,144,176,194,243,303,316,351,373,385,386,414,416,425,440,446,469,476,507,519,556,559,576,579,580,589,598,611,616,617,641,645,680,693)))",
+        "((\"state\" IS NULL OR \"state\" NOT IN ('California', 'Texas', 'Florida', 'Illinois', 'Michigan', 'Massachusetts', 'Ohio', 'North Carolina', 'Minnesota')) OR (rowid IN (106,111,158,164,172,178,181,189,190,228,250,271,272,273,298,315,326,336,341,346,355,358,399,405,411,419,422,426,427,430,435,436,444,457,458,464,478,482,494,510,531,550,573,602,624,678)))"
+      ],
+      "base_predicate_sqls": [
+        "\"state\" = 'California'",
+        "(\"state\" = 'Texas' OR \"state\" = 'Florida')",
+        "((\"state\" = 'Illinois' OR \"state\" = 'Michigan') OR ((\"state\" = 'Massachusetts' OR \"state\" = 'Ohio') OR (\"state\" = 'North Carolina' OR \"state\" = 'Minnesota')))",
+        "(\"state\" IS NULL OR \"state\" NOT IN ('California', 'Texas', 'Florida', 'Illinois', 'Michigan', 'Massachusetts', 'Ohio', 'North Carolina', 'Minnesota'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where state = California",
+        "rows where state = Texas + rows where state = Florida",
+        "rows where state = Illinois + rows where state = Michigan + rows where state = Massachusetts + rows where state = Ohio + rows where state = North Carolina + rows where state = Minnesota",
+        "rows where state is NULL or not in {'California', 'Texas', 'Florida', 'Illinois', 'Michigan', 'Massachusetts', 'Ohio', 'North Carolina', 'Minnesota'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "california_city_registry",
+      "movable_fragments": [
+        "city_tx_fl",
+        "city_il_mi_ma_oh_nc_mn",
+        "other_states_city_registry"
+      ],
+      "movable_fragment": "city_tx_fl",
+      "default_movable_fragment": "city_tx_fl",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "state",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "state"
+        ],
+        "ranked_columns": [
+          {
+            "column": "state",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "pandas_g3",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"state\" = 'California' OR (rowid IN (100,133,138,143,152,159,163,165,166,192,209,219,224,235,246,261,264,270,274,275,277,288,292,299,300,305,308,311,312,319,320,325,332,338,339,352,363,367,377,380,387,400,402,404,409,447,454,455,459,470,479,481,484,486,490,491,498,500,501,502,509,523,526,530,532,536,539,544,545,552,555,557,561,567,569,572,574,575,584,586,587,595,597,599,606,608,615,619,621,628,634,643,646,647,648,649,651,657,668,672,673,685,689,698)))",
+      "predicate_sql_fragment_B": "((\"state\" = 'Texas' OR \"state\" = 'Florida') OR (rowid IN (110,117,118,125,129,131,136,146,147,148,151,156,157,160,167,170,183,195,204,205,211,215,216,221,227,248,249,253,260,263,265,267,282,290,301,302,318,323,324,330,350,361,376,388,390,394,434,441,461,466,513,517,525,541,551,604,632,667)))",
+      "fragment_role_A": "rows where state = California",
+      "fragment_role_B": "rows where state = Texas + rows where state = Florida"
+    },
+    "customer||vfrag=address": {
+      "source_table": "customer",
+      "vertical_fragment_suffix": "address",
+      "num_partitions": 3,
+      "partition_names": [
+        "manufacturer_customer_addresses",
+        "cust_addr_retail",
+        "cust_addr_wholesale"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_2",
+        "local_2"
+      ],
+      "predicate_column": "cust_type",
+      "partition_values": [
+        {
+          "value": "manufacturer",
+          "includes_null": false
+        },
+        {
+          "value": "retailer",
+          "includes_null": false
+        },
+        {
+          "value": "wholesaler",
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "(\"cust_type\" = 'manufacturer' OR (rowid IN (615,618,1669,2421,2496,2799,3660,4353,4869)))",
+        "(\"cust_type\" = 'retailer' OR (rowid IN (193,721,770,931,954,1381,1591,1849,1908,2306,2348,2624,3203,4145,4154,4347)))",
+        "((\"cust_type\" = 'wholesaler' OR \"cust_type\" IS NULL) OR (rowid IN (738,896,1265,1290,1724,2215,2281,2420,2483,2617,2634,3354,3375,3430,3722,4368)))"
+      ],
+      "base_predicate_sqls": [
+        "\"cust_type\" = 'manufacturer'",
+        "\"cust_type\" = 'retailer'",
+        "(\"cust_type\" = 'wholesaler' OR \"cust_type\" IS NULL)"
+      ],
+      "predicate_kind": "afd_categorical_fway",
+      "fragment_roles": [
+        "rows where cust_type = manufacturer",
+        "rows where cust_type = retailer",
+        "rows where cust_type = wholesaler or is NULL"
+      ],
+      "home_fragment": "manufacturer_customer_addresses",
+      "movable_fragments": [
+        "cust_addr_retail",
+        "cust_addr_wholesale"
+      ],
+      "movable_fragment": "cust_addr_retail",
+      "default_movable_fragment": "cust_addr_retail",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "cust_type",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "cust_type"
+        ],
+        "ranked_columns": [
+          {
+            "column": "cust_type",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "pandas_g3",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"cust_type\" = 'manufacturer' OR (rowid IN (615,618,1669,2421,2496,2799,3660,4353,4869)))",
+      "predicate_sql_fragment_B": "(\"cust_type\" = 'retailer' OR (rowid IN (193,721,770,931,954,1381,1591,1849,1908,2306,2348,2624,3203,4145,4154,4347)))",
+      "fragment_role_A": "rows where cust_type = manufacturer",
+      "fragment_role_B": "rows where cust_type = retailer"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "shipment",
+          "from_column": "truck_id",
+          "to_table": "truck",
+          "to_column": "truck_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "shipment",
+            "column_map": {
+              "ship_id": "ship_id",
+              "cust_id": "cust_id",
+              "weight": "weight",
+              "truck_id": "truck_id",
+              "driver_id": "driver_id",
+              "city_id": "city_id",
+              "ship_date": "ship_date"
+            },
+            "orig_to_local": {
+              "ship_id": "ship_id",
+              "cust_id": "cust_id",
+              "weight": "weight",
+              "truck_id": "truck_id",
+              "driver_id": "driver_id",
+              "city_id": "city_id",
+              "ship_date": "ship_date"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "truck",
+            "column_map": {
+              "truck_id": "truck_id",
+              "make": "make",
+              "model_year": "model_year"
+            },
+            "orig_to_local": {
+              "truck_id": "truck_id",
+              "make": "make",
+              "model_year": "model_year"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "cargoVehicle",
+            "from_local_column": "trk_uid",
+            "to_local_column": "vehicleId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "shipment",
+          "from_column": "driver_id",
+          "to_table": "driver",
+          "to_column": "driver_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "shipment",
+            "column_map": {
+              "ship_id": "ship_id",
+              "cust_id": "cust_id",
+              "weight": "weight",
+              "truck_id": "truck_id",
+              "driver_id": "driver_id",
+              "city_id": "city_id",
+              "ship_date": "ship_date"
+            },
+            "orig_to_local": {
+              "ship_id": "ship_id",
+              "cust_id": "cust_id",
+              "weight": "weight",
+              "truck_id": "truck_id",
+              "driver_id": "driver_id",
+              "city_id": "city_id",
+              "ship_date": "ship_date"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "driver",
+            "column_map": {
+              "driver_id": "driver_id",
+              "first_name": "first_name",
+              "last_name": "last_name",
+              "address": "address",
+              "city": "city",
+              "state": "state",
+              "zip_code": "zip_code",
+              "phone": "phone"
+            },
+            "orig_to_local": {
+              "driver_id": "driver_id",
+              "first_name": "first_name",
+              "last_name": "last_name",
+              "address": "address",
+              "city": "city",
+              "state": "state",
+              "zip_code": "zip_code",
+              "phone": "phone"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "drv_profile",
+            "from_local_column": "drv_uid",
+            "to_local_column": "drv_uid"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "shipment",
+          "from_column": "city_id",
+          "to_table": "city",
+          "to_column": "city_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "shipment",
+            "column_map": {
+              "ship_id": "ship_id",
+              "cust_id": "cust_id",
+              "weight": "weight",
+              "truck_id": "truck_id",
+              "driver_id": "driver_id",
+              "city_id": "city_id",
+              "ship_date": "ship_date"
+            },
+            "orig_to_local": {
+              "ship_id": "ship_id",
+              "cust_id": "cust_id",
+              "weight": "weight",
+              "truck_id": "truck_id",
+              "driver_id": "driver_id",
+              "city_id": "city_id",
+              "ship_date": "ship_date"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "city_part1",
+            "column_map": {
+              "city_id": "city_id",
+              "city_name": "city_name",
+              "state": "state",
+              "population": "population",
+              "area": "area"
+            },
+            "orig_to_local": {
+              "city_id": "city_id",
+              "city_name": "city_name",
+              "state": "state",
+              "population": "population",
+              "area": "area"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "city_part4",
+            "column_map": {
+              "city_id": "city_id",
+              "city_name": "city_name",
+              "state": "state",
+              "population": "population",
+              "area": "area"
+            },
+            "orig_to_local": {
+              "city_id": "city_id",
+              "city_name": "city_name",
+              "state": "state",
+              "population": "population",
+              "area": "area"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "city_part2",
+            "column_map": {
+              "city_id": "city_id",
+              "city_name": "city_name",
+              "state": "state",
+              "population": "population",
+              "area": "area"
+            },
+            "orig_to_local": {
+              "city_id": "city_id",
+              "city_name": "city_name",
+              "state": "state",
+              "population": "population",
+              "area": "area"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "city_part3",
+            "column_map": {
+              "city_id": "city_id",
+              "city_name": "city_name",
+              "state": "state",
+              "population": "population",
+              "area": "area"
+            },
+            "orig_to_local": {
+              "city_id": "city_id",
+              "city_name": "city_name",
+              "state": "state",
+              "population": "population",
+              "area": "area"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "city_tx_fl",
+            "from_local_column": "cty_uid",
+            "to_local_column": "cty_uid"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "city_il_mi_ma_oh_nc_mn",
+            "from_local_column": "cty_uid",
+            "to_local_column": "cty_uid"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "california_city_registry",
+            "from_local_column": "cty_uid",
+            "to_local_column": "city_key"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "other_states_city_registry",
+            "from_local_column": "cty_uid",
+            "to_local_column": "city_key"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "shipment",
+          "from_column": "cust_id",
+          "to_table": "customer",
+          "to_column": "cust_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "shipment",
+            "column_map": {
+              "ship_id": "ship_id",
+              "cust_id": "cust_id",
+              "weight": "weight",
+              "truck_id": "truck_id",
+              "driver_id": "driver_id",
+              "city_id": "city_id",
+              "ship_date": "ship_date"
+            },
+            "orig_to_local": {
+              "ship_id": "ship_id",
+              "cust_id": "cust_id",
+              "weight": "weight",
+              "truck_id": "truck_id",
+              "driver_id": "driver_id",
+              "city_id": "city_id",
+              "ship_date": "ship_date"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "customer_address_part1",
+            "column_map": {
+              "cust_id": "cust_id",
+              "address": "address",
+              "annual_revenue": "annual_revenue",
+              "city": "city",
+              "cust_name": "cust_name",
+              "cust_type": "cust_type",
+              "phone": "phone"
+            },
+            "orig_to_local": {
+              "cust_id": "cust_id",
+              "address": "address",
+              "annual_revenue": "annual_revenue",
+              "city": "city",
+              "cust_name": "cust_name",
+              "cust_type": "cust_type",
+              "phone": "phone"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "customer_address_2",
+            "column_map": {
+              "cust_id": "cust_id",
+              "address": "address",
+              "annual_revenue": "annual_revenue",
+              "city": "city",
+              "phone": "phone",
+              "state": "state",
+              "zip": "zip"
+            },
+            "orig_to_local": {
+              "cust_id": "cust_id",
+              "address": "address",
+              "annual_revenue": "annual_revenue",
+              "city": "city",
+              "phone": "phone",
+              "state": "state",
+              "zip": "zip"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "customer_address_part2",
+            "column_map": {
+              "cust_id": "cust_id",
+              "address": "address",
+              "annual_revenue": "annual_revenue",
+              "city": "city",
+              "cust_name": "cust_name",
+              "cust_type": "cust_type",
+              "phone": "phone"
+            },
+            "orig_to_local": {
+              "cust_id": "cust_id",
+              "address": "address",
+              "annual_revenue": "annual_revenue",
+              "city": "city",
+              "cust_name": "cust_name",
+              "cust_type": "cust_type",
+              "phone": "phone"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "customer_address_part3",
+            "column_map": {
+              "cust_id": "cust_id",
+              "address": "address",
+              "annual_revenue": "annual_revenue",
+              "city": "city",
+              "cust_name": "cust_name",
+              "cust_type": "cust_type",
+              "phone": "phone"
+            },
+            "orig_to_local": {
+              "cust_id": "cust_id",
+              "address": "address",
+              "annual_revenue": "annual_revenue",
+              "city": "city",
+              "cust_name": "cust_name",
+              "cust_type": "cust_type",
+              "phone": "phone"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "cust_addr_retail",
+            "from_local_column": "cust_uid",
+            "to_local_column": "cust_uid"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "cust_addr_wholesale",
+            "from_local_column": "cust_uid",
+            "to_local_column": "cust_uid"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "manufacturer_customer_addresses",
+            "from_local_column": "cust_uid",
+            "to_local_column": "customer_key"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "ship_manifest",
+            "to_local_table": "customer_address_records",
+            "from_local_column": "cust_uid",
+            "to_local_column": "customer_key"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "city_part2",
+      "source_table": "city",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 31,
+        "cross_local_query_count": 31,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "city_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "city_part3",
+      "source_table": "city",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 31,
+        "cross_local_query_count": 31,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "city_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "customer_address_part2",
+      "source_table": "customer",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 26,
+        "cross_local_query_count": 26,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "customer_address_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "customer_address_part3",
+      "source_table": "customer",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 26,
+        "cross_local_query_count": 26,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "customer_address_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "city_part1|driver": 7,
+      "city_part1|shipment": 31,
+      "city_part2|driver": 7,
+      "city_part2|shipment": 31,
+      "city_part3|driver": 7,
+      "city_part3|shipment": 31,
+      "city_part4|driver": 7,
+      "city_part4|shipment": 31,
+      "customer_address_2|driver": 1,
+      "customer_address_2|shipment": 13,
+      "customer_address_part1|driver": 4,
+      "customer_address_part1|shipment": 26,
+      "customer_address_part1|truck": 1,
+      "customer_address_part2|driver": 4,
+      "customer_address_part2|shipment": 26,
+      "customer_address_part2|truck": 1,
+      "customer_address_part3|driver": 4,
+      "customer_address_part3|shipment": 26,
+      "customer_address_part3|truck": 1,
+      "driver|truck": 3,
+      "shipment|truck": 18
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "city_part1": "local_1",
+      "city_part2": "local_1",
+      "city_part3": "local_1",
+      "city_part4": "local_1",
+      "customer_address_2": "local_1",
+      "customer_address_part1": "local_1",
+      "customer_address_part2": "local_1",
+      "customer_address_part3": "local_1",
+      "driver": "local_2",
+      "shipment": "local_2",
+      "truck": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "customer": {
+        "R": 2,
+        "F": 4,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "city": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      },
+      "customer": {
+        "R": 1,
+        "F": 3,
+        "home_fragments": 3,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "city": "city_part1",
+      "customer": "customer_address_part1"
+    },
+    "intents": [
+      {
+        "source_table": "customer",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "customer_address_part2",
+        "anchor_fragment": "customer_address_part1",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 26,
+        "cross_local_query_count": 26,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "customer",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "customer_address_part3",
+        "anchor_fragment": "customer_address_part1",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 26,
+        "cross_local_query_count": 26,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "city",
+        "kind": "row_partition",
+        "movable_fragment": "city_part2",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 31,
+        "cross_local_query_count": 31,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "city_part1"
+      },
+      {
+        "source_table": "city",
+        "kind": "row_partition",
+        "movable_fragment": "city_part3",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 31,
+        "cross_local_query_count": 31,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "city_part1"
+      },
+      {
+        "source_table": "customer",
+        "kind": "row_partition",
+        "movable_fragment": "customer_address_part2",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 26,
+        "cross_local_query_count": 26,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "customer_address_part1"
+      }
+    ],
+    "moved_fragments": [
+      "city_part2",
+      "city_part3",
+      "customer_address_part2",
+      "customer_address_part3"
+    ],
+    "pinned_fragments": [
+      "city_part1",
+      "shipment"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "customer",
+        "kind": "row_partition",
+        "movable_fragment": "customer_address_part2",
+        "partner_fragment": "shipment",
+        "partner_logical_table": "shipment",
+        "partner_weight": 26,
+        "cross_local_query_count": 26,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "customer_address_part1",
+        "reason": "movable_already_moved"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "city": {
+        "columns": [
+          {
+            "name": "city_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "population",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "area",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "city_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 601
+      },
+      "customer": {
+        "columns": [
+          {
+            "name": "cust_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "cust_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "annual_revenue",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "cust_type",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "zip",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "cust_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 100
+      },
+      "driver": {
+        "columns": [
+          {
+            "name": "driver_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "first_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "last_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "zip_code",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "driver_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 11
+      },
+      "truck": {
+        "columns": [
+          {
+            "name": "truck_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "make",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "model_year",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "truck_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 12
+      },
+      "shipment": {
+        "columns": [
+          {
+            "name": "ship_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "cust_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "weight",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "truck_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "driver_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "ship_date",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ship_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 960
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "shipment",
+        "from_column": "truck_id",
+        "to_table": "truck",
+        "to_column": "truck_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "shipment",
+        "from_column": "driver_id",
+        "to_table": "driver",
+        "to_column": "driver_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "shipment",
+        "from_column": "city_id",
+        "to_table": "city",
+        "to_column": "city_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "shipment",
+        "from_column": "cust_id",
+        "to_table": "customer",
+        "to_column": "cust_id",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 5,
+      "num_fk_edges": 4,
+      "hub_tables": [
+        "shipment",
+        "city",
+        "customer",
+        "driver",
+        "truck"
+      ],
+      "connected_components": 1
+    }
+  }
+}

@@ -1,0 +1,4249 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 25,
+    "eligible_candidate_count": 25,
+    "num_selected_for_vertical_split": 20,
+    "num_from_rate_alone": 20,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 8,
+    "selected_original_tables": [
+      "volumes",
+      "backups",
+      "services",
+      "snapshots",
+      "consistencygroups",
+      "volume_attachment",
+      "reservations",
+      "cgsnapshots",
+      "encryption",
+      "quota_usages",
+      "transfers",
+      "quotas",
+      "volume_glance_metadata",
+      "volume_types",
+      "iscsi_targets",
+      "quality_of_service_specs",
+      "quota_classes",
+      "snapshot_metadata",
+      "volume_admin_metadata",
+      "volume_metadata"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/SchemaVerse/extra_hard/beaver/_staging/csail_stata_cinder/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "per_table": {
+    "backups": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "availability_zone",
+          "non_pk_columns": [
+            "availability_zone",
+            "container",
+            "data_timestamp",
+            "deleted",
+            "display_description",
+            "display_name",
+            "fail_reason",
+            "host",
+            "parent_id",
+            "project_id",
+            "service",
+            "service_metadata",
+            "status",
+            "user_id"
+          ],
+          "local_table": "bkp_az",
+          "local_name": "local_1",
+          "vertical_fragment_base": "backups_availability_zone"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "data_timestamp",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ],
+          "local_table": "bkp_ts",
+          "local_name": "local_1",
+          "vertical_fragment_base": "backups_created_at"
+        },
+        {
+          "suffix": "num_dependent_backups",
+          "non_pk_columns": [
+            "num_dependent_backups",
+            "object_count",
+            "size"
+          ],
+          "local_table": "bkp_dep_stats",
+          "local_name": "local_1",
+          "vertical_fragment_base": "backups_num_dependent_backups"
+        },
+        {
+          "suffix": "availability_zone_2",
+          "non_pk_columns": [
+            "availability_zone",
+            "display_description",
+            "fail_reason",
+            "parent_id",
+            "project_id",
+            "restore_volume_id",
+            "service_metadata",
+            "snapshot_id",
+            "status",
+            "temp_snapshot_id",
+            "temp_volume_id",
+            "user_id",
+            "volume_id"
+          ],
+          "local_table": "bkp_az_vol",
+          "local_name": "local_1",
+          "vertical_fragment_base": "backups_availability_zone_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "backups",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 25,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.04311669903293795,
+          "3": 0.057053024399588086,
+          "4": 0.062402822036836926,
+          "5": 0.07459200049480362
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.07459200049480362,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "availability_zone",
+            "container",
+            "display_description",
+            "display_name",
+            "fail_reason",
+            "host",
+            "service",
+            "service_metadata",
+            "status"
+          ],
+          [
+            "created_at",
+            "data_timestamp",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "num_dependent_backups",
+            "object_count",
+            "size"
+          ],
+          [
+            "parent_id",
+            "project_id",
+            "restore_volume_id",
+            "snapshot_id",
+            "temp_snapshot_id",
+            "temp_volume_id",
+            "user_id",
+            "volume_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "data_timestamp",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "status",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "availability_zone",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "parent_id",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "fail_reason",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "display_description",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "user_id",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "project_id",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "service_metadata",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "availability_zone",
+            "container",
+            "data_timestamp",
+            "deleted",
+            "display_description",
+            "display_name",
+            "fail_reason",
+            "host",
+            "parent_id",
+            "project_id",
+            "service",
+            "service_metadata",
+            "status",
+            "user_id"
+          ],
+          [
+            "created_at",
+            "data_timestamp",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "num_dependent_backups",
+            "object_count",
+            "size"
+          ],
+          [
+            "availability_zone",
+            "display_description",
+            "fail_reason",
+            "parent_id",
+            "project_id",
+            "restore_volume_id",
+            "service_metadata",
+            "snapshot_id",
+            "status",
+            "temp_snapshot_id",
+            "temp_volume_id",
+            "user_id",
+            "volume_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "availability_zone",
+            "non_pk_columns": [
+              "availability_zone",
+              "container",
+              "data_timestamp",
+              "deleted",
+              "display_description",
+              "display_name",
+              "fail_reason",
+              "host",
+              "parent_id",
+              "project_id",
+              "service",
+              "service_metadata",
+              "status",
+              "user_id"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "data_timestamp",
+              "deleted",
+              "deleted_at",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "num_dependent_backups",
+            "non_pk_columns": [
+              "num_dependent_backups",
+              "object_count",
+              "size"
+            ]
+          },
+          {
+            "suffix": "availability_zone_2",
+            "non_pk_columns": [
+              "availability_zone",
+              "display_description",
+              "fail_reason",
+              "parent_id",
+              "project_id",
+              "restore_volume_id",
+              "service_metadata",
+              "snapshot_id",
+              "status",
+              "temp_snapshot_id",
+              "temp_volume_id",
+              "user_id",
+              "volume_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "data_timestamp",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "availability_zone"
+        },
+        {
+          "column": "status",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "availability_zone",
+          "also_in_fragment_suffix": "availability_zone_2"
+        },
+        {
+          "column": "availability_zone",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "availability_zone",
+          "also_in_fragment_suffix": "availability_zone_2"
+        },
+        {
+          "column": "parent_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "availability_zone_2",
+          "also_in_fragment_suffix": "availability_zone"
+        },
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "availability_zone"
+        },
+        {
+          "column": "fail_reason",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "availability_zone",
+          "also_in_fragment_suffix": "availability_zone_2"
+        },
+        {
+          "column": "display_description",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "availability_zone",
+          "also_in_fragment_suffix": "availability_zone_2"
+        },
+        {
+          "column": "user_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "availability_zone_2",
+          "also_in_fragment_suffix": "availability_zone"
+        },
+        {
+          "column": "project_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "availability_zone_2",
+          "also_in_fragment_suffix": "availability_zone"
+        },
+        {
+          "column": "service_metadata",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "availability_zone",
+          "also_in_fragment_suffix": "availability_zone_2"
+        }
+      ]
+    },
+    "cgsnapshots": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "consistencygroup_id",
+          "non_pk_columns": [
+            "consistencygroup_id",
+            "project_id",
+            "user_id"
+          ],
+          "local_table": "consistency_group_snapshot_link",
+          "local_name": "local_2",
+          "vertical_fragment_base": "cgsnapshots_consistencygroup_id"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "description",
+            "name",
+            "status",
+            "updated_at"
+          ],
+          "local_table": "snapshot_timestamps_log",
+          "local_name": "local_2",
+          "vertical_fragment_base": "cgsnapshots_created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "description",
+            "name",
+            "status"
+          ],
+          "local_table": "snapshot_deletion_record",
+          "local_name": "local_2",
+          "vertical_fragment_base": "cgsnapshots_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "cgsnapshots",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1185099586,
+        "scores_by_k": {
+          "2": 0.08186219401496381,
+          "3": 0.09642362220208177
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.09642362220208177,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "consistencygroup_id",
+            "project_id",
+            "user_id"
+          ],
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "description",
+            "name",
+            "status"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "name",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "description",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "status",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "consistencygroup_id",
+            "project_id",
+            "user_id"
+          ],
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "description",
+            "name",
+            "status",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "description",
+            "name",
+            "status"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "consistencygroup_id",
+            "non_pk_columns": [
+              "consistencygroup_id",
+              "project_id",
+              "user_id"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "description",
+              "name",
+              "status",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "description",
+              "name",
+              "status"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "deleted"
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "description",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "status",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "consistencygroups": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "availability_zone",
+          "non_pk_columns": [
+            "availability_zone",
+            "host",
+            "name"
+          ],
+          "local_table": "consistency_group_location",
+          "local_name": "local_2",
+          "vertical_fragment_base": "consistencygroups_availability_zone"
+        },
+        {
+          "suffix": "availability_zone_2",
+          "non_pk_columns": [
+            "availability_zone",
+            "cgsnapshot_id",
+            "deleted",
+            "description",
+            "project_id",
+            "source_cgid",
+            "user_id",
+            "volume_type_id"
+          ],
+          "local_table": "consistency_group_zone_snapshot_ref",
+          "local_name": "local_2",
+          "vertical_fragment_base": "consistencygroups_availability_zone_2"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          "local_table": "consistency_group_created_timestamps",
+          "local_name": "local_2",
+          "vertical_fragment_base": "consistencygroups_created_at"
+        },
+        {
+          "suffix": "cgsnapshot_id",
+          "non_pk_columns": [
+            "cgsnapshot_id",
+            "deleted",
+            "description",
+            "source_cgid",
+            "status",
+            "volume_type_id"
+          ],
+          "local_table": "consistency_group_snapshot_index",
+          "local_name": "local_2",
+          "vertical_fragment_base": "consistencygroups_cgsnapshot_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "consistencygroups",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 14,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.04250833924129565,
+          "3": 0.06142570140452314,
+          "4": 0.06565301879721011
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.06565301879721011,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "availability_zone",
+            "host",
+            "name"
+          ],
+          [
+            "cgsnapshot_id",
+            "project_id",
+            "source_cgid",
+            "user_id",
+            "volume_type_id"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "description",
+            "status"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "volume_type_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "description",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "availability_zone",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "cgsnapshot_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "source_cgid",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "deleted",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "availability_zone",
+            "host",
+            "name"
+          ],
+          [
+            "availability_zone",
+            "cgsnapshot_id",
+            "deleted",
+            "description",
+            "project_id",
+            "source_cgid",
+            "user_id",
+            "volume_type_id"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "cgsnapshot_id",
+            "deleted",
+            "description",
+            "source_cgid",
+            "status",
+            "volume_type_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "availability_zone",
+            "non_pk_columns": [
+              "availability_zone",
+              "host",
+              "name"
+            ]
+          },
+          {
+            "suffix": "availability_zone_2",
+            "non_pk_columns": [
+              "availability_zone",
+              "cgsnapshot_id",
+              "deleted",
+              "description",
+              "project_id",
+              "source_cgid",
+              "user_id",
+              "volume_type_id"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted_at",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "cgsnapshot_id",
+            "non_pk_columns": [
+              "cgsnapshot_id",
+              "deleted",
+              "description",
+              "source_cgid",
+              "status",
+              "volume_type_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "volume_type_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "availability_zone_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        },
+        {
+          "column": "description",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "cgsnapshot_id",
+          "also_in_fragment_suffix": "availability_zone_2"
+        },
+        {
+          "column": "availability_zone",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "availability_zone",
+          "also_in_fragment_suffix": "availability_zone_2"
+        },
+        {
+          "column": "cgsnapshot_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "availability_zone_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        },
+        {
+          "column": "source_cgid",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "availability_zone_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        },
+        {
+          "column": "deleted",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "cgsnapshot_id",
+          "also_in_fragment_suffix": "availability_zone_2"
+        }
+      ]
+    },
+    "iscsi_targets": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "target_num",
+            "updated_at",
+            "volume_id"
+          ],
+          "local_table": "iscsi_targets_low_target_quartile",
+          "local_name": "local_2",
+          "vertical_fragment_base": "iscsi_targets_created_at",
+          "row_partition_names": [
+            "iscsi_targets_low_target_quartile",
+            "iscsi_targets_targetnum_26_50",
+            "iscsi_targets_targetnum_51_75",
+            "iscsi_targets_above_75_or_null"
+          ],
+          "row_partition_predicate_column": "target_num"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "host",
+            "target_num",
+            "volume_id"
+          ],
+          "local_table": "iscsi_targets_deleted_info",
+          "local_name": "local_2",
+          "vertical_fragment_base": "iscsi_targets_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "iscsi_targets",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1718327528,
+        "scores_by_k": {
+          "2": 0.06371886014695342
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.06371886014695342,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "host",
+            "target_num",
+            "volume_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "target_num",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "volume_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "target_num",
+            "updated_at",
+            "volume_id"
+          ],
+          [
+            "deleted",
+            "host",
+            "target_num",
+            "volume_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "target_num",
+              "updated_at",
+              "volume_id"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "host",
+              "target_num",
+              "volume_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "target_num",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "volume_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "snapshot_metadata": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "snapshot_id",
+            "updated_at",
+            "value"
+          ],
+          "local_table": "snapshot_metadata_created_log",
+          "local_name": "local_2",
+          "vertical_fragment_base": "snapshot_metadata_created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "key",
+            "snapshot_id",
+            "value"
+          ],
+          "local_table": "snapshot_metadata_deleted_entries",
+          "local_name": "local_2",
+          "vertical_fragment_base": "snapshot_metadata_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "snapshot_metadata",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 592653922,
+        "scores_by_k": {
+          "2": 0.0857454179841758
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0857454179841758,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "key",
+            "snapshot_id",
+            "value"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "snapshot_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "value",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "snapshot_id",
+            "updated_at",
+            "value"
+          ],
+          [
+            "deleted",
+            "key",
+            "snapshot_id",
+            "value"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "snapshot_id",
+              "updated_at",
+              "value"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "key",
+              "snapshot_id",
+              "value"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "snapshot_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "value",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "snapshots": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "cgsnapshot_id",
+          "non_pk_columns": [
+            "cgsnapshot_id",
+            "display_description",
+            "display_name",
+            "encryption_key_id",
+            "progress",
+            "project_id",
+            "provider_auth",
+            "provider_id",
+            "provider_location",
+            "status",
+            "user_id"
+          ],
+          "local_table": "snapshot_consistency_reference",
+          "local_name": "local_2",
+          "vertical_fragment_base": "snapshots_cgsnapshot_id"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "scheduled_at",
+            "updated_at"
+          ],
+          "local_table": "snapshots_created_log",
+          "local_name": "local_2",
+          "vertical_fragment_base": "snapshots_created_at"
+        },
+        {
+          "suffix": "cgsnapshot_id_2",
+          "non_pk_columns": [
+            "cgsnapshot_id",
+            "deleted",
+            "display_description",
+            "display_name",
+            "progress",
+            "provider_auth",
+            "provider_location",
+            "status"
+          ],
+          "local_table": "snapshots_consistency_deleted_rows",
+          "local_name": "local_2",
+          "vertical_fragment_base": "snapshots_cgsnapshot_id_2",
+          "row_partition_names": [
+            "snapshots_consistency_deleted_rows",
+            "snapshots_consistency_varied_status_rows"
+          ],
+          "row_partition_predicate_column": "status"
+        },
+        {
+          "suffix": "volume",
+          "non_pk_columns": [
+            "volume_id",
+            "volume_size",
+            "volume_type_id"
+          ],
+          "local_table": "snapshot_volume_info",
+          "local_name": "local_2",
+          "vertical_fragment_base": "snapshots_volume"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "snapshots",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 19,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.05016547789866419,
+          "3": 0.06853027001463655,
+          "4": 0.06529528942137781,
+          "5": 0.06959094441011145
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.06959094441011145,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "cgsnapshot_id",
+            "encryption_key_id",
+            "project_id",
+            "provider_id",
+            "user_id"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "scheduled_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "display_description",
+            "display_name",
+            "progress",
+            "provider_auth",
+            "provider_location",
+            "status"
+          ],
+          [
+            "volume_id",
+            "volume_size",
+            "volume_type_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "provider_location",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "provider_auth",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "status",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "display_description",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "display_name",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "deleted",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "cgsnapshot_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "progress",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "cgsnapshot_id",
+            "display_description",
+            "display_name",
+            "encryption_key_id",
+            "progress",
+            "project_id",
+            "provider_auth",
+            "provider_id",
+            "provider_location",
+            "status",
+            "user_id"
+          ],
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "scheduled_at",
+            "updated_at"
+          ],
+          [
+            "cgsnapshot_id",
+            "deleted",
+            "display_description",
+            "display_name",
+            "progress",
+            "provider_auth",
+            "provider_location",
+            "status"
+          ],
+          [
+            "volume_id",
+            "volume_size",
+            "volume_type_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "cgsnapshot_id",
+            "non_pk_columns": [
+              "cgsnapshot_id",
+              "display_description",
+              "display_name",
+              "encryption_key_id",
+              "progress",
+              "project_id",
+              "provider_auth",
+              "provider_id",
+              "provider_location",
+              "status",
+              "user_id"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "scheduled_at",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "cgsnapshot_id_2",
+            "non_pk_columns": [
+              "cgsnapshot_id",
+              "deleted",
+              "display_description",
+              "display_name",
+              "progress",
+              "provider_auth",
+              "provider_location",
+              "status"
+            ]
+          },
+          {
+            "suffix": "volume",
+            "non_pk_columns": [
+              "volume_id",
+              "volume_size",
+              "volume_type_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "provider_location",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cgsnapshot_id_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        },
+        {
+          "column": "provider_auth",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cgsnapshot_id_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        },
+        {
+          "column": "status",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cgsnapshot_id_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        },
+        {
+          "column": "display_description",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cgsnapshot_id_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        },
+        {
+          "column": "display_name",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cgsnapshot_id_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        },
+        {
+          "column": "deleted",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "cgsnapshot_id_2",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "cgsnapshot_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "cgsnapshot_id",
+          "also_in_fragment_suffix": "cgsnapshot_id_2"
+        },
+        {
+          "column": "progress",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "cgsnapshot_id_2",
+          "also_in_fragment_suffix": "cgsnapshot_id"
+        }
+      ]
+    },
+    "transfers": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "display_name",
+            "expires_at",
+            "updated_at",
+            "volume_id"
+          ],
+          "local_table": "transfer_creation_log",
+          "local_name": "local_2",
+          "vertical_fragment_base": "transfers_created_at"
+        },
+        {
+          "suffix": "crypt_hash",
+          "non_pk_columns": [
+            "crypt_hash",
+            "deleted",
+            "display_name",
+            "expires_at",
+            "salt",
+            "volume_id"
+          ],
+          "local_table": "transfer_encryption_hashes",
+          "local_name": "local_2",
+          "vertical_fragment_base": "transfers_crypt_hash"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "transfers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 194975212,
+        "scores_by_k": {
+          "2": 0.06682039755230906,
+          "3": 0.06626468327130114
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.06682039755230906,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "expires_at",
+            "updated_at"
+          ],
+          [
+            "crypt_hash",
+            "display_name",
+            "salt",
+            "volume_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "display_name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "volume_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "expires_at",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "display_name",
+            "expires_at",
+            "updated_at",
+            "volume_id"
+          ],
+          [
+            "crypt_hash",
+            "deleted",
+            "display_name",
+            "expires_at",
+            "salt",
+            "volume_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "display_name",
+              "expires_at",
+              "updated_at",
+              "volume_id"
+            ]
+          },
+          {
+            "suffix": "crypt_hash",
+            "non_pk_columns": [
+              "crypt_hash",
+              "deleted",
+              "display_name",
+              "expires_at",
+              "salt",
+              "volume_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "crypt_hash"
+        },
+        {
+          "column": "display_name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "crypt_hash",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "volume_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "crypt_hash",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "expires_at",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "crypt_hash"
+        }
+      ]
+    },
+    "volume_admin_metadata": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "updated_at",
+            "value",
+            "volume_id"
+          ],
+          "local_table": "volume_admin_metadata_rw_values",
+          "local_name": "local_2",
+          "vertical_fragment_base": "volume_admin_metadata_created_at",
+          "row_partition_names": [
+            "volume_admin_metadata_rw_values",
+            "volume_admin_metadata_mixed_values"
+          ],
+          "row_partition_predicate_column": "value"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "key",
+            "value",
+            "volume_id"
+          ],
+          "local_table": "volume_admin_metadata_deleted_entries",
+          "local_name": "local_2",
+          "vertical_fragment_base": "volume_admin_metadata_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "volume_admin_metadata",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 411098754,
+        "scores_by_k": {
+          "2": 0.10250771397455712
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.10250771397455712,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "key",
+            "value",
+            "volume_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "volume_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "value",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "updated_at",
+            "value",
+            "volume_id"
+          ],
+          [
+            "deleted",
+            "key",
+            "value",
+            "volume_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "updated_at",
+              "value",
+              "volume_id"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "key",
+              "value",
+              "volume_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "volume_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "value",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "volume_glance_metadata": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "key",
+            "snapshot_id",
+            "updated_at",
+            "value"
+          ],
+          "local_table": "volume_glance_meta_created_on_or_before_2016_04_26_22_34_47",
+          "local_name": "local_2",
+          "vertical_fragment_base": "volume_glance_metadata_created_at",
+          "row_partition_names": [
+            "volume_glance_meta_created_on_or_before_2016_04_26_22_34_47",
+            "volume_glance_meta_created_between_2016_04_26_and_2018_06_24",
+            "volume_glance_meta_created_between_2018_06_24_and_2020_10_21",
+            "volume_glance_meta_created_after_2020_10_21_or_null"
+          ],
+          "row_partition_predicate_column": "created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "key",
+            "snapshot_id",
+            "value",
+            "volume_id"
+          ],
+          "local_table": "volume_glance_meta_deleted_entries",
+          "local_name": "local_2",
+          "vertical_fragment_base": "volume_glance_metadata_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "volume_glance_metadata",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1228171947,
+        "scores_by_k": {
+          "2": 0.11838266630051265
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.11838266630051265,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "key",
+            "snapshot_id",
+            "value",
+            "volume_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "value",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "key",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "snapshot_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "key",
+            "snapshot_id",
+            "updated_at",
+            "value"
+          ],
+          [
+            "deleted",
+            "key",
+            "snapshot_id",
+            "value",
+            "volume_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "key",
+              "snapshot_id",
+              "updated_at",
+              "value"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "key",
+              "snapshot_id",
+              "value",
+              "volume_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "deleted"
+        },
+        {
+          "column": "value",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "key",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "snapshot_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "volume_metadata": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "key",
+            "updated_at",
+            "volume_id"
+          ],
+          "local_table": "volume_metadata_created_log",
+          "local_name": "local_2",
+          "vertical_fragment_base": "volume_metadata_created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "key",
+            "value",
+            "volume_id"
+          ],
+          "local_table": "volume_metadata_deleted_value_flare2_55",
+          "local_name": "local_2",
+          "vertical_fragment_base": "volume_metadata_deleted",
+          "row_partition_names": [
+            "volume_metadata_deleted_value_flare2_55",
+            "volume_metadata_deleted_specific_values",
+            "volume_metadata_deleted_other_values"
+          ],
+          "row_partition_predicate_column": "value"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "volume_metadata",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1817826589,
+        "scores_by_k": {
+          "2": 0.09295926602885704
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.09295926602885704,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "key",
+            "value",
+            "volume_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "volume_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "key",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "key",
+            "updated_at",
+            "volume_id"
+          ],
+          [
+            "deleted",
+            "key",
+            "value",
+            "volume_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "key",
+              "updated_at",
+              "volume_id"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "key",
+              "value",
+              "volume_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "volume_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "key",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "volumes": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "name_id",
+          "non_pk_columns": [
+            "_name_id",
+            "availability_zone",
+            "consistencygroup_id",
+            "display_description",
+            "display_name",
+            "ec2_id",
+            "encryption_key_id",
+            "host",
+            "provider_auth",
+            "provider_geometry",
+            "provider_id",
+            "provider_location",
+            "replication_driver_data",
+            "replication_extended_status",
+            "size",
+            "snapshot_id",
+            "volume_type_id"
+          ],
+          "local_table": "volume_records_by_name_key",
+          "local_name": "local_2",
+          "vertical_fragment_base": "volumes_name_id"
+        },
+        {
+          "suffix": "attach_status",
+          "non_pk_columns": [
+            "attach_status",
+            "availability_zone",
+            "migration_status",
+            "previous_status",
+            "replication_driver_data",
+            "replication_extended_status",
+            "replication_status",
+            "status"
+          ],
+          "local_table": "volume_attach_status_detached",
+          "local_name": "local_8",
+          "vertical_fragment_base": "volumes_attach_status",
+          "row_partition_names": [
+            "volume_attach_status_detached",
+            "volume_attach_status_attached_or_null"
+          ],
+          "row_partition_predicate_column": "attach_status"
+        },
+        {
+          "suffix": "bootable",
+          "non_pk_columns": [
+            "bootable",
+            "deleted",
+            "display_description",
+            "display_name",
+            "host",
+            "multiattach"
+          ],
+          "local_table": "volume_boot_attributes",
+          "local_name": "local_8",
+          "vertical_fragment_base": "volumes_bootable"
+        },
+        {
+          "suffix": "name_id_2",
+          "non_pk_columns": [
+            "_name_id",
+            "consistencygroup_id",
+            "ec2_id",
+            "encryption_key_id",
+            "project_id",
+            "provider_id",
+            "size",
+            "snapshot_id",
+            "source_volid",
+            "user_id",
+            "volume_type_id"
+          ],
+          "local_table": "volume_records_extended",
+          "local_name": "local_2",
+          "vertical_fragment_base": "volumes_name_id_2"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted_at",
+            "launched_at",
+            "scheduled_at",
+            "terminated_at",
+            "updated_at"
+          ],
+          "local_table": "volume_event_timestamps",
+          "local_name": "local_8",
+          "vertical_fragment_base": "volumes_created_at"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "volumes",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 34,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.06788064096333203,
+          "3": 0.0833057989754404,
+          "4": 0.08684400412620549,
+          "5": 0.08774740537184998
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.08774740537184998,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "_name_id",
+            "display_description",
+            "host",
+            "provider_auth",
+            "provider_geometry",
+            "provider_id",
+            "provider_location",
+            "replication_driver_data",
+            "size"
+          ],
+          [
+            "attach_status",
+            "availability_zone",
+            "migration_status",
+            "previous_status",
+            "replication_extended_status",
+            "replication_status",
+            "status"
+          ],
+          [
+            "bootable",
+            "deleted",
+            "display_name",
+            "multiattach"
+          ],
+          [
+            "consistencygroup_id",
+            "ec2_id",
+            "encryption_key_id",
+            "project_id",
+            "snapshot_id",
+            "source_volid",
+            "user_id",
+            "volume_type_id"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "launched_at",
+            "scheduled_at",
+            "terminated_at",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "availability_zone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "display_name",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "provider_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "display_description",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "replication_driver_data",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "host",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "size",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "_name_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "ec2_id",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "replication_extended_status",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "encryption_key_id",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "snapshot_id",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "volume_type_id",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "consistencygroup_id",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "_name_id",
+            "availability_zone",
+            "consistencygroup_id",
+            "display_description",
+            "display_name",
+            "ec2_id",
+            "encryption_key_id",
+            "host",
+            "provider_auth",
+            "provider_geometry",
+            "provider_id",
+            "provider_location",
+            "replication_driver_data",
+            "replication_extended_status",
+            "size",
+            "snapshot_id",
+            "volume_type_id"
+          ],
+          [
+            "attach_status",
+            "availability_zone",
+            "migration_status",
+            "previous_status",
+            "replication_driver_data",
+            "replication_extended_status",
+            "replication_status",
+            "status"
+          ],
+          [
+            "bootable",
+            "deleted",
+            "display_description",
+            "display_name",
+            "host",
+            "multiattach"
+          ],
+          [
+            "_name_id",
+            "consistencygroup_id",
+            "ec2_id",
+            "encryption_key_id",
+            "project_id",
+            "provider_id",
+            "size",
+            "snapshot_id",
+            "source_volid",
+            "user_id",
+            "volume_type_id"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "launched_at",
+            "scheduled_at",
+            "terminated_at",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "name_id",
+            "non_pk_columns": [
+              "_name_id",
+              "availability_zone",
+              "consistencygroup_id",
+              "display_description",
+              "display_name",
+              "ec2_id",
+              "encryption_key_id",
+              "host",
+              "provider_auth",
+              "provider_geometry",
+              "provider_id",
+              "provider_location",
+              "replication_driver_data",
+              "replication_extended_status",
+              "size",
+              "snapshot_id",
+              "volume_type_id"
+            ]
+          },
+          {
+            "suffix": "attach_status",
+            "non_pk_columns": [
+              "attach_status",
+              "availability_zone",
+              "migration_status",
+              "previous_status",
+              "replication_driver_data",
+              "replication_extended_status",
+              "replication_status",
+              "status"
+            ]
+          },
+          {
+            "suffix": "bootable",
+            "non_pk_columns": [
+              "bootable",
+              "deleted",
+              "display_description",
+              "display_name",
+              "host",
+              "multiattach"
+            ]
+          },
+          {
+            "suffix": "name_id_2",
+            "non_pk_columns": [
+              "_name_id",
+              "consistencygroup_id",
+              "ec2_id",
+              "encryption_key_id",
+              "project_id",
+              "provider_id",
+              "size",
+              "snapshot_id",
+              "source_volid",
+              "user_id",
+              "volume_type_id"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted_at",
+              "launched_at",
+              "scheduled_at",
+              "terminated_at",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "availability_zone",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "attach_status",
+          "also_in_fragment_suffix": "name_id"
+        },
+        {
+          "column": "display_name",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "bootable",
+          "also_in_fragment_suffix": "name_id"
+        },
+        {
+          "column": "provider_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "name_id",
+          "also_in_fragment_suffix": "name_id_2"
+        },
+        {
+          "column": "display_description",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "name_id",
+          "also_in_fragment_suffix": "bootable"
+        },
+        {
+          "column": "replication_driver_data",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "name_id",
+          "also_in_fragment_suffix": "attach_status"
+        },
+        {
+          "column": "host",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "name_id",
+          "also_in_fragment_suffix": "bootable"
+        },
+        {
+          "column": "size",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "name_id",
+          "also_in_fragment_suffix": "name_id_2"
+        },
+        {
+          "column": "_name_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "name_id",
+          "also_in_fragment_suffix": "name_id_2"
+        },
+        {
+          "column": "ec2_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "name_id_2",
+          "also_in_fragment_suffix": "name_id"
+        },
+        {
+          "column": "replication_extended_status",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "attach_status",
+          "also_in_fragment_suffix": "name_id"
+        },
+        {
+          "column": "encryption_key_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "name_id_2",
+          "also_in_fragment_suffix": "name_id"
+        },
+        {
+          "column": "snapshot_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "name_id_2",
+          "also_in_fragment_suffix": "name_id"
+        },
+        {
+          "column": "volume_type_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "name_id_2",
+          "also_in_fragment_suffix": "name_id"
+        },
+        {
+          "column": "consistencygroup_id",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "name_id_2",
+          "also_in_fragment_suffix": "name_id"
+        }
+      ]
+    },
+    "quality_of_service_specs": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "key",
+            "specs_id",
+            "updated_at"
+          ],
+          "local_table": "qualityOfServiceSpecsSnapshot",
+          "local_name": "local_4",
+          "vertical_fragment_base": "quality_of_service_specs_created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "key",
+            "specs_id",
+            "value"
+          ],
+          "local_table": "qos_specs_deletion_archive",
+          "local_name": "local_8",
+          "vertical_fragment_base": "quality_of_service_specs_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "quality_of_service_specs",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 130852918,
+        "scores_by_k": {
+          "2": 0.08162255090156852
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.08162255090156852,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "key",
+            "specs_id",
+            "value"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "specs_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "key",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "key",
+            "specs_id",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "key",
+            "specs_id",
+            "value"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "key",
+              "specs_id",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "key",
+              "specs_id",
+              "value"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "deleted"
+        },
+        {
+          "column": "specs_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "key",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "reservations": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "allocated_id",
+          "non_pk_columns": [
+            "allocated_id",
+            "deleted",
+            "delta",
+            "project_id",
+            "resource",
+            "usage_id",
+            "uuid"
+          ],
+          "local_table": "reservationsAllocatedDeltaAtMostMinusOne",
+          "local_name": "local_4",
+          "vertical_fragment_base": "reservations_allocated_id",
+          "row_partition_names": [
+            "reservationsAllocatedDeltaAtMostMinusOne",
+            "reservationsAllocatedDeltaBetweenMinusOneAndOneInclusive",
+            "reservationsAllocatedDeltaGreaterThanOneOrNull"
+          ],
+          "row_partition_predicate_column": "delta"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "delta",
+            "expire",
+            "project_id",
+            "resource",
+            "updated_at",
+            "uuid"
+          ],
+          "local_table": "reservationsByCreatedAt",
+          "local_name": "local_4",
+          "vertical_fragment_base": "reservations_created_at"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "reservations",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 192446679,
+        "scores_by_k": {
+          "2": 0.06245608495030335,
+          "3": 0.06439744743835765
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.06439744743835765,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "allocated_id",
+            "deleted",
+            "delta",
+            "project_id",
+            "resource",
+            "usage_id",
+            "uuid"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "expire",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "delta",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "resource",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "uuid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "project_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "allocated_id",
+            "deleted",
+            "delta",
+            "project_id",
+            "resource",
+            "usage_id",
+            "uuid"
+          ],
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "delta",
+            "expire",
+            "project_id",
+            "resource",
+            "updated_at",
+            "uuid"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "allocated_id",
+            "non_pk_columns": [
+              "allocated_id",
+              "deleted",
+              "delta",
+              "project_id",
+              "resource",
+              "usage_id",
+              "uuid"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "delta",
+              "expire",
+              "project_id",
+              "resource",
+              "updated_at",
+              "uuid"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated_id",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "delta",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated_id",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "resource",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated_id",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "uuid",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated_id",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "project_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated_id",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "quota_classes": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "class_name",
+          "non_pk_columns": [
+            "class_name",
+            "deleted",
+            "hard_limit",
+            "resource"
+          ],
+          "local_table": "quota_cls_meta",
+          "local_name": "local_5",
+          "vertical_fragment_base": "quota_classes_class_name"
+        },
+        {
+          "suffix": "class_name_2",
+          "non_pk_columns": [
+            "class_name",
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "hard_limit",
+            "updated_at"
+          ],
+          "local_table": "quota_cls_audit",
+          "local_name": "local_5",
+          "vertical_fragment_base": "quota_classes_class_name_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "quota_classes",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1068354894,
+        "scores_by_k": {
+          "2": 0.06581942177375694
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.06581942177375694,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "class_name",
+            "deleted",
+            "hard_limit",
+            "resource"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "class_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "hard_limit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "class_name",
+            "deleted",
+            "hard_limit",
+            "resource"
+          ],
+          [
+            "class_name",
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "hard_limit",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "class_name",
+            "non_pk_columns": [
+              "class_name",
+              "deleted",
+              "hard_limit",
+              "resource"
+            ]
+          },
+          {
+            "suffix": "class_name_2",
+            "non_pk_columns": [
+              "class_name",
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "hard_limit",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "class_name",
+          "also_in_fragment_suffix": "class_name_2"
+        },
+        {
+          "column": "class_name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "class_name",
+          "also_in_fragment_suffix": "class_name_2"
+        },
+        {
+          "column": "hard_limit",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "class_name",
+          "also_in_fragment_suffix": "class_name_2"
+        }
+      ]
+    },
+    "volume_attachment": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "attach_mode",
+          "non_pk_columns": [
+            "attach_mode",
+            "attach_status",
+            "attached_host",
+            "deleted",
+            "instance_uuid",
+            "mountpoint",
+            "volume_id"
+          ],
+          "local_table": "volume_attachment_attach_mode_part1",
+          "local_name": "local_5",
+          "vertical_fragment_base": "volume_attachment_attach_mode",
+          "row_partition_names": [
+            "volume_attachment_attach_mode_part1",
+            "volume_attachment_attach_mode_part2",
+            "volume_attachment_attach_mode_part3",
+            "volume_attachment_attach_mode_part4",
+            "vol_attach_inst_other"
+          ],
+          "row_partition_predicate_column": "instance_uuid"
+        },
+        {
+          "suffix": "attach_mode_2",
+          "non_pk_columns": [
+            "attach_mode",
+            "attach_status",
+            "attach_time",
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "detach_time",
+            "instance_uuid",
+            "updated_at",
+            "volume_id"
+          ],
+          "local_table": "vol_attach_state",
+          "local_name": "local_5",
+          "vertical_fragment_base": "volume_attachment_attach_mode_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "volume_attachment",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 213348186,
+        "scores_by_k": {
+          "2": 0.06635524963936738,
+          "3": 0.06635524963936738,
+          "4": 0.06810001693916799
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.06810001693916799,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "attach_mode",
+            "attach_status",
+            "attached_host",
+            "deleted",
+            "instance_uuid",
+            "mountpoint",
+            "volume_id"
+          ],
+          [
+            "attach_time",
+            "created_at",
+            "deleted_at",
+            "detach_time",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "attach_mode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "attach_status",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "instance_uuid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "volume_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "attach_mode",
+            "attach_status",
+            "attached_host",
+            "deleted",
+            "instance_uuid",
+            "mountpoint",
+            "volume_id"
+          ],
+          [
+            "attach_mode",
+            "attach_status",
+            "attach_time",
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "detach_time",
+            "instance_uuid",
+            "updated_at",
+            "volume_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "attach_mode",
+            "non_pk_columns": [
+              "attach_mode",
+              "attach_status",
+              "attached_host",
+              "deleted",
+              "instance_uuid",
+              "mountpoint",
+              "volume_id"
+            ]
+          },
+          {
+            "suffix": "attach_mode_2",
+            "non_pk_columns": [
+              "attach_mode",
+              "attach_status",
+              "attach_time",
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "detach_time",
+              "instance_uuid",
+              "updated_at",
+              "volume_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "attach_mode",
+          "also_in_fragment_suffix": "attach_mode_2"
+        },
+        {
+          "column": "attach_mode",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "attach_mode",
+          "also_in_fragment_suffix": "attach_mode_2"
+        },
+        {
+          "column": "attach_status",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "attach_mode",
+          "also_in_fragment_suffix": "attach_mode_2"
+        },
+        {
+          "column": "instance_uuid",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "attach_mode",
+          "also_in_fragment_suffix": "attach_mode_2"
+        },
+        {
+          "column": "volume_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "attach_mode",
+          "also_in_fragment_suffix": "attach_mode_2"
+        }
+      ]
+    },
+    "quota_usages": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "resource",
+            "until_refresh",
+            "updated_at"
+          ],
+          "local_table": "quota_usages_created_at_q1",
+          "local_name": "local_6",
+          "vertical_fragment_base": "quota_usages_created_at",
+          "row_partition_names": [
+            "quota_usages_created_at_q1",
+            "quota_usages_created_at_q2",
+            "quota_usages_created_at_q3",
+            "QuotaUsageCreatedAfter2019Oct29OrNull"
+          ],
+          "row_partition_predicate_column": "created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "in_use",
+            "project_id",
+            "reserved",
+            "resource",
+            "until_refresh",
+            "updated_at"
+          ],
+          "local_table": "DeletedQuotaUsageSnapshot",
+          "local_name": "local_6",
+          "vertical_fragment_base": "quota_usages_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "quota_usages",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1953441236,
+        "scores_by_k": {
+          "2": 0.053249238392114276,
+          "3": 0.053249238392114276
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.053249238392114276,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "in_use",
+            "project_id",
+            "reserved",
+            "resource",
+            "until_refresh"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "until_refresh",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "resource",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "updated_at",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "resource",
+            "until_refresh",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "in_use",
+            "project_id",
+            "reserved",
+            "resource",
+            "until_refresh",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "resource",
+              "until_refresh",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "in_use",
+              "project_id",
+              "reserved",
+              "resource",
+              "until_refresh",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "deleted"
+        },
+        {
+          "column": "until_refresh",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "resource",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "updated_at",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "deleted"
+        }
+      ]
+    },
+    "quotas": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "allocated",
+          "non_pk_columns": [
+            "allocated",
+            "deleted",
+            "hard_limit",
+            "project_id",
+            "resource"
+          ],
+          "local_table": "quotaAllocations",
+          "local_name": "local_4",
+          "vertical_fragment_base": "quotas_allocated"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "hard_limit",
+            "project_id",
+            "resource",
+            "updated_at"
+          ],
+          "local_table": "QuotaCreatedOnOrBefore2015Oct26",
+          "local_name": "local_6",
+          "vertical_fragment_base": "quotas_created_at",
+          "row_partition_names": [
+            "QuotaCreatedOnOrBefore2015Oct26",
+            "quotas_created_at_q2",
+            "quotas_created_at_q3",
+            "QuotaCreatedAfter2020Apr30OrNull"
+          ],
+          "row_partition_predicate_column": "created_at"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "quotas",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 941324542,
+        "scores_by_k": {
+          "2": 0.07551408505243173
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.07551408505243173,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "allocated",
+            "deleted",
+            "hard_limit",
+            "project_id",
+            "resource"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "project_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "resource",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "hard_limit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "allocated",
+            "deleted",
+            "hard_limit",
+            "project_id",
+            "resource"
+          ],
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "hard_limit",
+            "project_id",
+            "resource",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "allocated",
+            "non_pk_columns": [
+              "allocated",
+              "deleted",
+              "hard_limit",
+              "project_id",
+              "resource"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "hard_limit",
+              "project_id",
+              "resource",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "project_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "resource",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "hard_limit",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "allocated",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "services": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "active_backend_id",
+          "non_pk_columns": [
+            "active_backend_id",
+            "availability_zone",
+            "binary",
+            "disabled_reason",
+            "host",
+            "replication_status",
+            "report_count",
+            "topic"
+          ],
+          "local_table": "ServiceBackendStatus",
+          "local_name": "local_7",
+          "vertical_fragment_base": "services_active_backend_id"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted_at",
+            "modified_at",
+            "updated_at"
+          ],
+          "local_table": "ServiceLifecycleTimestamps",
+          "local_name": "local_7",
+          "vertical_fragment_base": "services_created_at"
+        },
+        {
+          "suffix": "active_backend_id_2",
+          "non_pk_columns": [
+            "active_backend_id",
+            "availability_zone",
+            "binary",
+            "deleted",
+            "disabled",
+            "disabled_reason",
+            "frozen",
+            "host",
+            "replication_status",
+            "report_count",
+            "topic"
+          ],
+          "local_table": "ServiceBackendDetails",
+          "local_name": "local_7",
+          "vertical_fragment_base": "services_active_backend_id_2"
+        },
+        {
+          "suffix": "object_available_version",
+          "non_pk_columns": [
+            "object_available_version",
+            "object_current_version",
+            "rpc_available_version",
+            "rpc_current_version"
+          ],
+          "local_table": "ServiceVersionCompatibility",
+          "local_name": "local_7",
+          "vertical_fragment_base": "services_object_available_version"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "services",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 19,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.06921876784538344,
+          "3": 0.09245793943190252,
+          "4": 0.10000400435788903,
+          "5": 0.11813658694812419
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.11813658694812419,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "active_backend_id",
+            "availability_zone",
+            "binary",
+            "disabled_reason",
+            "host",
+            "replication_status",
+            "report_count",
+            "topic"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "modified_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "disabled",
+            "frozen"
+          ],
+          [
+            "object_available_version",
+            "object_current_version",
+            "rpc_available_version",
+            "rpc_current_version"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "disabled_reason",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "active_backend_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "report_count",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "replication_status",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "availability_zone",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "topic",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "host",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "binary",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "active_backend_id",
+            "availability_zone",
+            "binary",
+            "disabled_reason",
+            "host",
+            "replication_status",
+            "report_count",
+            "topic"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "modified_at",
+            "updated_at"
+          ],
+          [
+            "active_backend_id",
+            "availability_zone",
+            "binary",
+            "deleted",
+            "disabled",
+            "disabled_reason",
+            "frozen",
+            "host",
+            "replication_status",
+            "report_count",
+            "topic"
+          ],
+          [
+            "object_available_version",
+            "object_current_version",
+            "rpc_available_version",
+            "rpc_current_version"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "active_backend_id",
+            "non_pk_columns": [
+              "active_backend_id",
+              "availability_zone",
+              "binary",
+              "disabled_reason",
+              "host",
+              "replication_status",
+              "report_count",
+              "topic"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted_at",
+              "modified_at",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "active_backend_id_2",
+            "non_pk_columns": [
+              "active_backend_id",
+              "availability_zone",
+              "binary",
+              "deleted",
+              "disabled",
+              "disabled_reason",
+              "frozen",
+              "host",
+              "replication_status",
+              "report_count",
+              "topic"
+            ]
+          },
+          {
+            "suffix": "object_available_version",
+            "non_pk_columns": [
+              "object_available_version",
+              "object_current_version",
+              "rpc_available_version",
+              "rpc_current_version"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "disabled_reason",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "active_backend_id",
+          "also_in_fragment_suffix": "active_backend_id_2"
+        },
+        {
+          "column": "active_backend_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "active_backend_id",
+          "also_in_fragment_suffix": "active_backend_id_2"
+        },
+        {
+          "column": "report_count",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "active_backend_id",
+          "also_in_fragment_suffix": "active_backend_id_2"
+        },
+        {
+          "column": "replication_status",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "active_backend_id",
+          "also_in_fragment_suffix": "active_backend_id_2"
+        },
+        {
+          "column": "availability_zone",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "active_backend_id",
+          "also_in_fragment_suffix": "active_backend_id_2"
+        },
+        {
+          "column": "topic",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "active_backend_id",
+          "also_in_fragment_suffix": "active_backend_id_2"
+        },
+        {
+          "column": "host",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "active_backend_id",
+          "also_in_fragment_suffix": "active_backend_id_2"
+        },
+        {
+          "column": "binary",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "active_backend_id",
+          "also_in_fragment_suffix": "active_backend_id_2"
+        }
+      ]
+    },
+    "encryption": {
+      "pk_columns": [
+        "encryption_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "cipher",
+          "non_pk_columns": [
+            "cipher",
+            "control_location",
+            "deleted",
+            "key_size",
+            "provider",
+            "volume_type_id"
+          ],
+          "local_table": "encryption_cipher_map",
+          "local_name": "local_8",
+          "vertical_fragment_base": "encryption_cipher"
+        },
+        {
+          "suffix": "control_location",
+          "non_pk_columns": [
+            "control_location",
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "key_size",
+            "provider",
+            "updated_at"
+          ],
+          "local_table": "encryption_control_registry",
+          "local_name": "local_8",
+          "vertical_fragment_base": "encryption_control_location"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "encryption",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 662927108,
+        "scores_by_k": {
+          "2": 0.04426931617056941,
+          "3": 0.053819516769165965
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.053819516769165965,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "cipher",
+            "control_location",
+            "key_size",
+            "provider",
+            "volume_type_id"
+          ],
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "control_location",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "key_size",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "provider",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "cipher",
+            "control_location",
+            "deleted",
+            "key_size",
+            "provider",
+            "volume_type_id"
+          ],
+          [
+            "control_location",
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "key_size",
+            "provider",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "encryption_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "cipher",
+            "non_pk_columns": [
+              "cipher",
+              "control_location",
+              "deleted",
+              "key_size",
+              "provider",
+              "volume_type_id"
+            ]
+          },
+          {
+            "suffix": "control_location",
+            "non_pk_columns": [
+              "control_location",
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "key_size",
+              "provider",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "control_location",
+          "also_in_fragment_suffix": "cipher"
+        },
+        {
+          "column": "control_location",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "cipher",
+          "also_in_fragment_suffix": "control_location"
+        },
+        {
+          "column": "key_size",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "cipher",
+          "also_in_fragment_suffix": "control_location"
+        },
+        {
+          "column": "provider",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "cipher",
+          "also_in_fragment_suffix": "control_location"
+        }
+      ]
+    },
+    "volume_types": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "description",
+            "is_public",
+            "name",
+            "updated_at"
+          ],
+          "local_table": "volume_type_records_with_creation",
+          "local_name": "local_8",
+          "vertical_fragment_base": "volume_types_created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "description",
+            "is_public",
+            "name",
+            "qos_specs_id"
+          ],
+          "local_table": "vol_type_del",
+          "local_name": "local_5",
+          "vertical_fragment_base": "volume_types_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "volume_types",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1594242464,
+        "scores_by_k": {
+          "2": 0.041335837939030694
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.041335837939030694,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "description",
+            "is_public",
+            "name",
+            "qos_specs_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "is_public",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "description",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "description",
+            "is_public",
+            "name",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "description",
+            "is_public",
+            "name",
+            "qos_specs_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "description",
+              "is_public",
+              "name",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "description",
+              "is_public",
+              "name",
+              "qos_specs_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "deleted"
+        },
+        {
+          "column": "is_public",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "description",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    }
+  }
+}

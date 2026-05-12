@@ -1,0 +1,1420 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "advisory_assignments": {
+          "source_table": "advisedBy",
+          "column_map": {
+            "advisee_person_id": "p_id",
+            "assignment_id": "p_id_dummy"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "people_year_zero": {
+          "source_table": "person",
+          "column_map": {
+            "person_id": "p_id",
+            "is_professor": "professor",
+            "is_student": "student",
+            "position_title": "hasPosition",
+            "program_phase": "inPhase",
+            "years_in_program": "yearsInProgram"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"yearsInProgram\" = '0' OR (rowid IN (14,19,42,94,130,172,186,193,212,222,249,265,300,343,381,398)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "person_part2",
+          "row_partition_peers": [
+            "person_part2",
+            "person_part3",
+            "people_years_one_seven_twelve_or_other"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "people_years_one_seven_twelve_or_other": {
+          "source_table": "person",
+          "column_map": {
+            "person_id": "p_id",
+            "is_professor": "professor",
+            "is_student": "student",
+            "position_title": "hasPosition",
+            "program_phase": "inPhase",
+            "years_in_program": "yearsInProgram"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"yearsInProgram\" = 'Year_1' OR (\"yearsInProgram\" = 'Year_7' OR (\"yearsInProgram\" = 'Year_12' OR (\"yearsInProgram\" IS NULL OR \"yearsInProgram\" NOT IN ('0', 'Year_5', 'Year_4', 'Year_3', 'Year_1', 'Year_2', 'Year_6', 'Year_7', 'Year_12'))))) OR (rowid IN (15,113,116,139,183,226,239,280,303,309,311,312,348,353,368,376,382,384,435)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "people_year_zero",
+          "row_partition_peers": [
+            "people_year_zero",
+            "person_part2",
+            "person_part3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "person": "person_part1"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "CourseLevelFiveHundred": {
+          "source_table": "course",
+          "column_map": {
+            "CourseIdentifier": "course_id",
+            "AcademicLevel": "courseLevel"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"courseLevel\" = 'Level_500' OR (rowid IN (5,11,20,24,27,30,44,45,49,52,53,68,75,80,93,125,143,146,157,159)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "CourseLevelThreeOrFourHundred",
+          "row_partition_peers": [
+            "CourseLevelThreeOrFourHundred"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "CourseLevelThreeOrFourHundred": {
+          "source_table": "course",
+          "column_map": {
+            "CourseIdentifier": "course_id",
+            "AcademicLevel": "courseLevel"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"courseLevel\" = 'Level_400' OR (\"courseLevel\" = 'Level_300' OR \"courseLevel\" IS NULL)) OR (rowid IN (1,3,9,14,16,40,46,50,61,64,65,66,67,71,74,84,85,86,88,91,98,101,108,117,119,120,121,123,129,134,155,166,172)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "CourseLevelFiveHundred",
+          "row_partition_peers": [
+            "CourseLevelFiveHundred"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "course": "course_part1"
+      }
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "courseTeachingAssignments": {
+          "source_table": "taughtBy",
+          "column_map": {
+            "courseId": "course_id",
+            "personId": "p_id"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "peopleYearTwoFiveSix": {
+          "source_table": "person",
+          "column_map": {
+            "personId": "p_id",
+            "isProfessor": "professor",
+            "isStudent": "student",
+            "positionTitle": "hasPosition",
+            "programPhase": "inPhase",
+            "programYear": "yearsInProgram"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"yearsInProgram\" = 'Year_5' OR (\"yearsInProgram\" = 'Year_2' OR \"yearsInProgram\" = 'Year_6')) OR (rowid IN (3,7,23,36,39,52,61,71,76,77,84,98,101,102,103,111,119,124,131,144,150,166,167,168,171,181,188,190,198,211,213,230,232,240,248,267,271,279,290,292,293,297,306,319,321,322,325,335,340,342,347,351,358,407,415,428)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "peopleYearThreeFour",
+          "row_partition_peers": [
+            "peopleYearThreeFour",
+            "person_part4",
+            "person_part1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "peopleYearThreeFour": {
+          "source_table": "person",
+          "column_map": {
+            "personId": "p_id",
+            "isProfessor": "professor",
+            "isStudent": "student",
+            "positionTitle": "hasPosition",
+            "programPhase": "inPhase",
+            "programYear": "yearsInProgram"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"yearsInProgram\" = 'Year_4' OR \"yearsInProgram\" = 'Year_3') OR (rowid IN (62,75,80,81,83,126,149,155,175,176,242,263,266,272,361,380,383,390,402,406,408,429)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "person_part4",
+          "row_partition_peers": [
+            "person_part4",
+            "person_part1",
+            "peopleYearTwoFiveSix"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "advisedBy": "advisory_assignments",
+        "person_part1": "people_year_zero",
+        "person_part4": "people_years_one_seven_twelve_or_other"
+      },
+      "column_renames": {
+        "advisedBy": {
+          "p_id": "advisee_person_id",
+          "p_id_dummy": "assignment_id"
+        },
+        "person_part1": {
+          "p_id": "person_id",
+          "professor": "is_professor",
+          "student": "is_student",
+          "hasPosition": "position_title",
+          "inPhase": "program_phase",
+          "yearsInProgram": "years_in_program"
+        },
+        "person_part4": {
+          "p_id": "person_id",
+          "professor": "is_professor",
+          "student": "is_student",
+          "hasPosition": "position_title",
+          "inPhase": "program_phase",
+          "yearsInProgram": "years_in_program"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_2": {
+      "table_renames": {
+        "course_part1": "CourseLevelFiveHundred",
+        "course_part2": "CourseLevelThreeOrFourHundred"
+      },
+      "column_renames": {
+        "course_part1": {
+          "course_id": "CourseIdentifier",
+          "courseLevel": "AcademicLevel"
+        },
+        "course_part2": {
+          "course_id": "CourseIdentifier",
+          "courseLevel": "AcademicLevel"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_3": {
+      "table_renames": {
+        "taughtBy": "courseTeachingAssignments",
+        "person_part2": "peopleYearTwoFiveSix",
+        "person_part3": "peopleYearThreeFour"
+      },
+      "column_renames": {
+        "taughtBy": {
+          "course_id": "courseId",
+          "p_id": "personId"
+        },
+        "person_part2": {
+          "p_id": "personId",
+          "professor": "isProfessor",
+          "student": "isStudent",
+          "hasPosition": "positionTitle",
+          "inPhase": "programPhase",
+          "yearsInProgram": "programYear"
+        },
+        "person_part3": {
+          "p_id": "personId",
+          "professor": "isProfessor",
+          "student": "isStudent",
+          "hasPosition": "positionTitle",
+          "inPhase": "programPhase",
+          "yearsInProgram": "programYear"
+        }
+      },
+      "naming_case_style": "camelCase"
+    }
+  },
+  "vertical_split_map": {},
+  "split_map": {},
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 4,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 3,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "person"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/computer_student/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "person",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "person": {
+      "source_table": "person",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "people_year_zero",
+        "peopleYearTwoFiveSix",
+        "peopleYearThreeFour",
+        "people_years_one_seven_twelve_or_other"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_3",
+        "local_3",
+        "local_1"
+      ],
+      "predicate_column": "yearsInProgram",
+      "partition_values": [
+        {
+          "value": "0",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Year_5",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "Year_2",
+                  "includes_null": false
+                },
+                {
+                  "value": "Year_6",
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Year_4",
+              "includes_null": false
+            },
+            {
+              "value": "Year_3",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Year_1",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "Year_7",
+                  "includes_null": false
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "Year_12",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "__OTHER__",
+                      "includes_null": true,
+                      "excluded_values": [
+                        "0",
+                        "Year_5",
+                        "Year_4",
+                        "Year_3",
+                        "Year_1",
+                        "Year_2",
+                        "Year_6",
+                        "Year_7",
+                        "Year_12"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"yearsInProgram\" = '0' OR (rowid IN (14,19,42,94,130,172,186,193,212,222,249,265,300,343,381,398)))",
+        "((\"yearsInProgram\" = 'Year_5' OR (\"yearsInProgram\" = 'Year_2' OR \"yearsInProgram\" = 'Year_6')) OR (rowid IN (3,7,23,36,39,52,61,71,76,77,84,98,101,102,103,111,119,124,131,144,150,166,167,168,171,181,188,190,198,211,213,230,232,240,248,267,271,279,290,292,293,297,306,319,321,322,325,335,340,342,347,351,358,407,415,428)))",
+        "((\"yearsInProgram\" = 'Year_4' OR \"yearsInProgram\" = 'Year_3') OR (rowid IN (62,75,80,81,83,126,149,155,175,176,242,263,266,272,361,380,383,390,402,406,408,429)))",
+        "((\"yearsInProgram\" = 'Year_1' OR (\"yearsInProgram\" = 'Year_7' OR (\"yearsInProgram\" = 'Year_12' OR (\"yearsInProgram\" IS NULL OR \"yearsInProgram\" NOT IN ('0', 'Year_5', 'Year_4', 'Year_3', 'Year_1', 'Year_2', 'Year_6', 'Year_7', 'Year_12'))))) OR (rowid IN (15,113,116,139,183,226,239,280,303,309,311,312,348,353,368,376,382,384,435)))"
+      ],
+      "base_predicate_sqls": [
+        "\"yearsInProgram\" = '0'",
+        "(\"yearsInProgram\" = 'Year_5' OR (\"yearsInProgram\" = 'Year_2' OR \"yearsInProgram\" = 'Year_6'))",
+        "(\"yearsInProgram\" = 'Year_4' OR \"yearsInProgram\" = 'Year_3')",
+        "(\"yearsInProgram\" = 'Year_1' OR (\"yearsInProgram\" = 'Year_7' OR (\"yearsInProgram\" = 'Year_12' OR (\"yearsInProgram\" IS NULL OR \"yearsInProgram\" NOT IN ('0', 'Year_5', 'Year_4', 'Year_3', 'Year_1', 'Year_2', 'Year_6', 'Year_7', 'Year_12')))))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where yearsInProgram = 0",
+        "rows where yearsInProgram = Year_5 + rows where yearsInProgram = Year_2 + rows where yearsInProgram = Year_6",
+        "rows where yearsInProgram = Year_4 + rows where yearsInProgram = Year_3",
+        "rows where yearsInProgram = Year_1 + rows where yearsInProgram = Year_7 + rows where yearsInProgram = Year_12 + rows where yearsInProgram is NULL or not in {'0', 'Year_5', 'Year_4', 'Year_3', 'Year_1', 'Year_2', 'Year_6', 'Year_7', 'Year_12'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "people_year_zero",
+      "movable_fragments": [
+        "peopleYearTwoFiveSix",
+        "peopleYearThreeFour",
+        "people_years_one_seven_twelve_or_other"
+      ],
+      "movable_fragment": "peopleYearTwoFiveSix",
+      "default_movable_fragment": "peopleYearTwoFiveSix",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "yearsInProgram",
+        "mean_strong": 1.0,
+        "coverage": 0.25,
+        "score": 0.25,
+        "strong_dependencies": [
+          {
+            "lhs": "yearsInProgram",
+            "rhs": "inPhase",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "hasPosition",
+          "inPhase",
+          "professor",
+          "student",
+          "yearsInProgram"
+        ],
+        "ranked_columns": [
+          {
+            "column": "yearsInProgram",
+            "score": 0.25,
+            "mean_strong": 1.0,
+            "coverage": 0.25
+          },
+          {
+            "column": "inPhase",
+            "score": 0.25,
+            "mean_strong": 1.0,
+            "coverage": 0.25
+          },
+          {
+            "column": "hasPosition",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "professor",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "student",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 278
+      },
+      "predicate_sql_fragment_A": "(\"yearsInProgram\" = '0' OR (rowid IN (14,19,42,94,130,172,186,193,212,222,249,265,300,343,381,398)))",
+      "predicate_sql_fragment_B": "((\"yearsInProgram\" = 'Year_5' OR (\"yearsInProgram\" = 'Year_2' OR \"yearsInProgram\" = 'Year_6')) OR (rowid IN (3,7,23,36,39,52,61,71,76,77,84,98,101,102,103,111,119,124,131,144,150,166,167,168,171,181,188,190,198,211,213,230,232,240,248,267,271,279,290,292,293,297,306,319,321,322,325,335,340,342,347,351,358,407,415,428)))",
+      "fragment_role_A": "rows where yearsInProgram = 0",
+      "fragment_role_B": "rows where yearsInProgram = Year_5 + rows where yearsInProgram = Year_2 + rows where yearsInProgram = Year_6"
+    },
+    "course": {
+      "source_table": "course",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 2,
+      "partition_names": [
+        "CourseLevelFiveHundred",
+        "CourseLevelThreeOrFourHundred"
+      ],
+      "partition_locals": [
+        "local_2",
+        "local_2"
+      ],
+      "predicate_column": "courseLevel",
+      "partition_values": [
+        {
+          "value": "Level_500",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Level_400",
+              "includes_null": false
+            },
+            {
+              "value": "Level_300",
+              "includes_null": true
+            }
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"courseLevel\" = 'Level_500' OR (rowid IN (5,11,20,24,27,30,44,45,49,52,53,68,75,80,93,125,143,146,157,159)))",
+        "((\"courseLevel\" = 'Level_400' OR (\"courseLevel\" = 'Level_300' OR \"courseLevel\" IS NULL)) OR (rowid IN (1,3,9,14,16,40,46,50,61,64,65,66,67,71,74,84,85,86,88,91,98,101,108,117,119,120,121,123,129,134,155,166,172)))"
+      ],
+      "base_predicate_sqls": [
+        "\"courseLevel\" = 'Level_500'",
+        "(\"courseLevel\" = 'Level_400' OR (\"courseLevel\" = 'Level_300' OR \"courseLevel\" IS NULL))"
+      ],
+      "predicate_kind": "afd_categorical_fway",
+      "fragment_roles": [
+        "rows where courseLevel = Level_500",
+        "rows where courseLevel = Level_400 + rows where courseLevel = Level_300 or is NULL"
+      ],
+      "home_fragment": "CourseLevelFiveHundred",
+      "movable_fragments": [
+        "CourseLevelThreeOrFourHundred"
+      ],
+      "movable_fragment": "CourseLevelThreeOrFourHundred",
+      "default_movable_fragment": "CourseLevelThreeOrFourHundred",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "courseLevel",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "courseLevel"
+        ],
+        "ranked_columns": [
+          {
+            "column": "courseLevel",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"courseLevel\" = 'Level_500' OR (rowid IN (5,11,20,24,27,30,44,45,49,52,53,68,75,80,93,125,143,146,157,159)))",
+      "predicate_sql_fragment_B": "((\"courseLevel\" = 'Level_400' OR (\"courseLevel\" = 'Level_300' OR \"courseLevel\" IS NULL)) OR (rowid IN (1,3,9,14,16,40,46,50,61,64,65,66,67,71,74,84,85,86,88,91,98,101,108,117,119,120,121,123,129,134,155,166,172)))",
+      "fragment_role_A": "rows where courseLevel = Level_500",
+      "fragment_role_B": "rows where courseLevel = Level_400 + rows where courseLevel = Level_300 or is NULL"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "advisedBy",
+          "from_column": "p_id",
+          "to_table": "person",
+          "to_column": "p_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "advisedBy",
+            "column_map": {
+              "p_id": "p_id",
+              "p_id_dummy": "p_id_dummy"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "p_id_dummy": "p_id_dummy"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "person_part1",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "person_part4",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "person_part2",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "person_part3",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "advisory_assignments",
+            "to_local_table": "people_years_one_seven_twelve_or_other",
+            "from_local_column": "advisee_person_id",
+            "to_local_column": "person_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "advisory_assignments",
+            "to_local_table": "people_year_zero",
+            "from_local_column": "advisee_person_id",
+            "to_local_column": "person_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "advisory_assignments",
+            "to_local_table": "peopleYearTwoFiveSix",
+            "from_local_column": "advisee_person_id",
+            "to_local_column": "personId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "advisory_assignments",
+            "to_local_table": "peopleYearThreeFour",
+            "from_local_column": "advisee_person_id",
+            "to_local_column": "personId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "advisedBy",
+          "from_column": "p_id_dummy",
+          "to_table": "person",
+          "to_column": "p_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "advisedBy",
+            "column_map": {
+              "p_id": "p_id",
+              "p_id_dummy": "p_id_dummy"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "p_id_dummy": "p_id_dummy"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "person_part1",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "person_part4",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "person_part2",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "person_part3",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "advisory_assignments",
+            "to_local_table": "people_year_zero",
+            "from_local_column": "assignment_id",
+            "to_local_column": "person_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "advisory_assignments",
+            "to_local_table": "people_years_one_seven_twelve_or_other",
+            "from_local_column": "assignment_id",
+            "to_local_column": "person_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "advisory_assignments",
+            "to_local_table": "peopleYearTwoFiveSix",
+            "from_local_column": "assignment_id",
+            "to_local_column": "personId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "advisory_assignments",
+            "to_local_table": "peopleYearThreeFour",
+            "from_local_column": "assignment_id",
+            "to_local_column": "personId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "taughtBy",
+          "from_column": "course_id",
+          "to_table": "course",
+          "to_column": "course_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "taughtBy",
+            "column_map": {
+              "course_id": "course_id",
+              "p_id": "p_id"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "p_id": "p_id"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "course_part1",
+            "column_map": {
+              "course_id": "course_id",
+              "courseLevel": "courseLevel"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "courseLevel": "courseLevel"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "course_part2",
+            "column_map": {
+              "course_id": "course_id",
+              "courseLevel": "courseLevel"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "courseLevel": "courseLevel"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "courseTeachingAssignments",
+            "to_local_table": "CourseLevelFiveHundred",
+            "from_local_column": "courseId",
+            "to_local_column": "CourseIdentifier"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "courseTeachingAssignments",
+            "to_local_table": "CourseLevelThreeOrFourHundred",
+            "from_local_column": "courseId",
+            "to_local_column": "CourseIdentifier"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "taughtBy",
+          "from_column": "p_id",
+          "to_table": "person",
+          "to_column": "p_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "taughtBy",
+            "column_map": {
+              "course_id": "course_id",
+              "p_id": "p_id"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "p_id": "p_id"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "person_part1",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "person_part4",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "person_part2",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "person_part3",
+            "column_map": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            },
+            "orig_to_local": {
+              "p_id": "p_id",
+              "professor": "professor",
+              "student": "student",
+              "hasPosition": "hasPosition",
+              "inPhase": "inPhase",
+              "yearsInProgram": "yearsInProgram"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "courseTeachingAssignments",
+            "to_local_table": "peopleYearTwoFiveSix",
+            "from_local_column": "personId",
+            "to_local_column": "personId"
+          },
+          {
+            "local": "local_3",
+            "from_local_table": "courseTeachingAssignments",
+            "to_local_table": "peopleYearThreeFour",
+            "from_local_column": "personId",
+            "to_local_column": "personId"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "courseTeachingAssignments",
+            "to_local_table": "people_year_zero",
+            "from_local_column": "personId",
+            "to_local_column": "person_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "courseTeachingAssignments",
+            "to_local_table": "people_years_one_seven_twelve_or_other",
+            "from_local_column": "personId",
+            "to_local_column": "person_id"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "person_part2",
+      "source_table": "person",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "taughtBy",
+        "partner_logical_table": "taughtBy",
+        "partner_weight": 21,
+        "cross_local_query_count": 21,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "person_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "person_part3",
+      "source_table": "person",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "taughtBy",
+        "partner_logical_table": "taughtBy",
+        "partner_weight": 21,
+        "cross_local_query_count": 21,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "person_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "advisedBy|course_part1": 3,
+      "advisedBy|course_part2": 3,
+      "advisedBy|taughtBy": 4,
+      "course_part1|person_part1": 11,
+      "course_part1|person_part2": 11,
+      "course_part1|person_part3": 11,
+      "course_part1|person_part4": 11,
+      "course_part1|taughtBy": 29,
+      "course_part2|person_part1": 11,
+      "course_part2|person_part2": 11,
+      "course_part2|person_part3": 11,
+      "course_part2|person_part4": 11,
+      "course_part2|taughtBy": 29,
+      "person_part1|taughtBy": 21,
+      "person_part2|taughtBy": 21,
+      "person_part3|taughtBy": 21,
+      "person_part4|taughtBy": 21
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "advisedBy": "local_1",
+      "course_part1": "local_2",
+      "course_part2": "local_2",
+      "person_part1": "local_1",
+      "person_part2": "local_1",
+      "person_part3": "local_1",
+      "person_part4": "local_1",
+      "taughtBy": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {
+      "course": {
+        "R": 1,
+        "F": 2,
+        "home_fragments": 2,
+        "rho": 0.8
+      },
+      "person": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "course": "course_part1",
+      "person": "person_part1"
+    },
+    "intents": [
+      {
+        "source_table": "course",
+        "kind": "row_partition",
+        "movable_fragment": "course_part2",
+        "partner_fragment": "taughtBy",
+        "partner_logical_table": "taughtBy",
+        "partner_weight": 29,
+        "cross_local_query_count": 29,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2,
+        "anchor_fragment": "course_part1"
+      },
+      {
+        "source_table": "person",
+        "kind": "row_partition",
+        "movable_fragment": "person_part2",
+        "partner_fragment": "taughtBy",
+        "partner_logical_table": "taughtBy",
+        "partner_weight": 21,
+        "cross_local_query_count": 21,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "person_part1"
+      },
+      {
+        "source_table": "person",
+        "kind": "row_partition",
+        "movable_fragment": "person_part3",
+        "partner_fragment": "taughtBy",
+        "partner_logical_table": "taughtBy",
+        "partner_weight": 21,
+        "cross_local_query_count": 21,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "person_part1"
+      }
+    ],
+    "moved_fragments": [
+      "person_part2",
+      "person_part3"
+    ],
+    "pinned_fragments": [
+      "person_part1",
+      "taughtBy"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "course",
+        "kind": "row_partition",
+        "movable_fragment": "course_part2",
+        "partner_fragment": "taughtBy",
+        "partner_logical_table": "taughtBy",
+        "partner_weight": 29,
+        "cross_local_query_count": 29,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2,
+        "anchor_fragment": "course_part1",
+        "reason": "would_create_singleton_local"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "course": {
+        "columns": [
+          {
+            "name": "course_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "courseLevel",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "course_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 132
+      },
+      "person": {
+        "columns": [
+          {
+            "name": "p_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "professor",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "student",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "hasPosition",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "inPhase",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "yearsInProgram",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "p_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 278
+      },
+      "advisedBy": {
+        "columns": [
+          {
+            "name": "p_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "p_id_dummy",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "p_id",
+          "p_id_dummy"
+        ],
+        "pk_origin": "declared",
+        "row_count": 113
+      },
+      "taughtBy": {
+        "columns": [
+          {
+            "name": "course_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "p_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "course_id",
+          "p_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 189
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "advisedBy",
+        "from_column": "p_id",
+        "to_table": "person",
+        "to_column": "p_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "advisedBy",
+        "from_column": "p_id_dummy",
+        "to_table": "person",
+        "to_column": "p_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "taughtBy",
+        "from_column": "course_id",
+        "to_table": "course",
+        "to_column": "course_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "taughtBy",
+        "from_column": "p_id",
+        "to_table": "person",
+        "to_column": "p_id",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 4,
+      "num_fk_edges": 4,
+      "hub_tables": [
+        "person",
+        "taughtBy",
+        "course",
+        "advisedBy"
+      ],
+      "connected_components": 1
+    }
+  }
+}

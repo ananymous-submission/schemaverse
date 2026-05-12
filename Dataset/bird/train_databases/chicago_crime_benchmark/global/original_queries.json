@@ -1,0 +1,1318 @@
+[
+  {
+    "sql": "SELECT COUNT(*) FROM Community_Area WHERE side = 'Central'",
+    "question_id": null,
+    "question": "How many community areas are there in Central Chicago?",
+    "difficulty": "",
+    "evidence": "Central Chicago refers to side = 'Central'"
+  },
+  {
+    "sql": "SELECT side FROM Community_Area WHERE community_area_name = 'Lincoln Square'",
+    "question_id": null,
+    "question": "Which district is the community area Lincoln Square grouped into?",
+    "difficulty": "",
+    "evidence": "district refers to side; community area Lincoln Square refers to community_area_name = 'Lincoln Square'"
+  },
+  {
+    "sql": "SELECT side FROM Community_Area GROUP BY side ORDER BY COUNT(side) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which district in Chicago has the most community areas?",
+    "difficulty": "",
+    "evidence": "district refers to side; the most community areas refers to max(count(side))"
+  },
+  {
+    "sql": "SELECT community_area_name FROM Community_Area ORDER BY population ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which community area has the least population?",
+    "difficulty": "",
+    "evidence": "community area refers to community_area_name; the least population refers to min(population)"
+  },
+  {
+    "sql": "SELECT commander FROM District WHERE district_name = 'Central'",
+    "question_id": null,
+    "question": "Who is the person responsible for the crime cases in Central Chicago?",
+    "difficulty": "",
+    "evidence": "the person responsible for the crime cases refers to commander; Central Chicago refers to district_name = 'Central'"
+  },
+  {
+    "sql": "SELECT email FROM District WHERE district_name = 'Central'",
+    "question_id": null,
+    "question": "What is the email address to contact the administrator of Central Chicago?",
+    "difficulty": "",
+    "evidence": "email address refers to email; Central Chicago refers to district_name = 'Central'"
+  },
+  {
+    "sql": "SELECT T2.community_area_name FROM Neighborhood AS T1 INNER JOIN Community_Area AS T2 ON T1.community_area_no = T2.community_area_no WHERE T1.neighborhood_name = 'Albany Park'",
+    "question_id": null,
+    "question": "To which community area does the neighborhood Albany Park belong?",
+    "difficulty": "",
+    "evidence": "community area refers to community_area_name; the neighborhood Albany Park refers to neighborhood_name = 'Albany Park'"
+  },
+  {
+    "sql": "SELECT COUNT(T3.community_area_no) FROM ( SELECT T1.community_area_no FROM Community_Area AS T1 INNER JOIN Neighborhood AS T2 ON T1.community_area_no = T2.community_area_no WHERE community_area_name = 'Lincoln Square' GROUP BY T1.community_area_no ) T3",
+    "question_id": null,
+    "question": "How many neighborhoods are there in the community area of Lincoln Square?",
+    "difficulty": "",
+    "evidence": "the community area of Lincoln Square refers to community_area_name = 'Lincoln Square'"
+  },
+  {
+    "sql": "SELECT T1.neighborhood_name FROM Neighborhood AS T1 INNER JOIN Community_Area AS T2 ON T2.community_area_no = T2.community_area_no ORDER BY T2.population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please list the names of all the neighborhoods in the community area with the most population.",
+    "difficulty": "",
+    "evidence": "name of neighborhood refers to neighborhood_name; the most population refers to max(population)"
+  },
+  {
+    "sql": "SELECT T2.neighborhood_name FROM Community_Area AS T1 INNER JOIN Neighborhood AS T2 ON T1.community_area_no = T2.community_area_no WHERE T1.side = 'Central'",
+    "question_id": null,
+    "question": "Please list the names of all the neighborhoods in Central Chicago.",
+    "difficulty": "",
+    "evidence": "name of neighborhood refers to neighborhood_name; Central Chicago refers to side = 'Central'"
+  },
+  {
+    "sql": "SELECT T2.latitude, T2.longitude FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T1.district_name = 'Central'",
+    "question_id": null,
+    "question": "Please list the precise location coordinates of all the crimes in Central Chicago.",
+    "difficulty": "",
+    "evidence": "location coordinates refers to latitude, longitude; Central Chicago refers to district_name = 'Central'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no WHERE T2.district_name = 'Central'",
+    "question_id": null,
+    "question": "How many crimes had happened in Central Chicago?",
+    "difficulty": "",
+    "evidence": "Central Chicago refers to district_name = 'Central'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no WHERE T2.district_name = 'Central' AND T1.domestic = 'TRUE'",
+    "question_id": null,
+    "question": "Among all the crimes that had happened in Central Chicago, how many of them were cases of domestic violence?",
+    "difficulty": "",
+    "evidence": "Central Chicago refers to district_name = 'Central'; case of domestic violence refers to domestic = 'TRUE'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no WHERE T2.district_name = 'Central' AND T1.arrest = 'FALSE'",
+    "question_id": null,
+    "question": "Please list the case numbers of all the crimes with no arrest made in Central Chicago.",
+    "difficulty": "",
+    "evidence": "no arrest made refers to arrest = 'FALSE'; Central Chicago refers to district_name = 'Central'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.report_no) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no GROUP BY T1.community_area_name ORDER BY T1.population DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many crimes had happened in the community area with the most population?",
+    "difficulty": "",
+    "evidence": "the most population refers to max(population)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.community_area_name = 'Woodlawn' THEN 1 ELSE 0 END) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no WHERE T2.date LIKE '%1/2018%'",
+    "question_id": null,
+    "question": "Among the crimes in Woodlawn, how many of them happened in January, 2018?",
+    "difficulty": "",
+    "evidence": "Woodlawn refers to community_area_name = 'Woodlawn'; in January 2018 refers to date like '%1/2018%'"
+  },
+  {
+    "sql": "SELECT T1.community_area_name FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no WHERE T1.community_area_name IN ('Woodlawn', 'Lincoln Square') AND T2.date LIKE '%1/2018%' GROUP BY T1.community_area_name ORDER BY COUNT(T1.community_area_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "More crimes happened in which community area in January, 2018, Woodlawn or Lincoln Square?",
+    "difficulty": "",
+    "evidence": "in January 2018 refers to date like '%1/2018%'; Woodlawn or Lincoln Square refers to community_area_name in ('Woodlawn', 'Lincoln Square'); number of crime refers to COUNT(report_no); the higher the report_no, the more crimes happened in the community;"
+  },
+  {
+    "sql": "SELECT T1.fax FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T2.date LIKE '%1/2018%' GROUP BY T2.district_no ORDER BY COUNT(case_number) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the fax number for the district with the most number of crimes in January, 2018?",
+    "difficulty": "",
+    "evidence": "fax number refers to fax; the most number of crimes refers to max(count(case_number)); in January 2018 refers to date like '%1/2018%'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.report_no) AS REAL) / COUNT(T2.community_area_no) FROM Crime AS T1 INNER JOIN Community_Area AS T2 ON T1.community_area_no = T2.community_area_no WHERE T2.side = 'Central'",
+    "question_id": null,
+    "question": "What is the average number of crimes in a neighborhood in Central Chicago?",
+    "difficulty": "",
+    "evidence": "Central Chicago refers to side = 'Central'; average number = divide(count(report_no), count(community_area_no))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.district_name = 'Central' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.case_number) FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no",
+    "question_id": null,
+    "question": "Among the crimes in all the districts in Chicago, what is the percentage of them happening in the Central district?",
+    "difficulty": "",
+    "evidence": "the Central district refers to district_name = 'Central'; percentage = divide(count(case_number where district_name = 'Central'), count(case_number)) * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Community_Area WHERE side = 'Far North '",
+    "question_id": null,
+    "question": "How many community areas are in the Far North side?",
+    "difficulty": "",
+    "evidence": "the Far North side refers to side = 'Far North'"
+  },
+  {
+    "sql": "SELECT commander FROM District WHERE district_name = 'Morgan Park'",
+    "question_id": null,
+    "question": "Who is the commander of Morgan Park district?",
+    "difficulty": "",
+    "evidence": "Morgan Park district refers to district_name = 'Morgan Park'"
+  },
+  {
+    "sql": "SELECT T1.district_name FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T2.case_number = 'JB100065'",
+    "question_id": null,
+    "question": "Where did case No. JB100065 happen? Give the name of the district.",
+    "difficulty": "",
+    "evidence": "case No. JB100065 refers to case_number = 'JB100065'; name of the district refers to district_name"
+  },
+  {
+    "sql": "SELECT T2.district_name FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no WHERE T1.longitude = '-87.63470194' AND T1.latitude = '41.66236555'",
+    "question_id": null,
+    "question": "Where is the coordinate (41.66236555, -87.63470194) located? Give the name of the district.",
+    "difficulty": "",
+    "evidence": "coordinate (41.66236555, -87.63470194) refers to latitude = '41.66236555' AND longitude = '-87.63470194'; name of the district refers to district_name"
+  },
+  {
+    "sql": "SELECT T1.commander FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T2.case_number = 'JB524952'",
+    "question_id": null,
+    "question": "Give the name of the person who was responsible for case No.JB524952.",
+    "difficulty": "",
+    "evidence": "name of the person refers to commander; case No.JB524952 refers to case_number = 'JB524952'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.secondary_description = 'SIMPLE' THEN 1 ELSE 0 END) FROM Crime AS T1 INNER JOIN IUCR AS T2 ON T1.iucr_no = T2.iucr_no WHERE T1.date LIKE '%9/8/2018%' AND T2.primary_description = 'ASSAULT'",
+    "question_id": null,
+    "question": "How many simple assaults happened on 2018/9/8?",
+    "difficulty": "",
+    "evidence": "simple assault refers to primary_description = 'ASSAULT'AND secondary_description = 'SIMPLE'; on 2018/9/8 refers to date like '%9/8/2018%'"
+  },
+  {
+    "sql": "SELECT T2.district_no FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T1.iucr_no = T2.iucr_no WHERE T1.secondary_description = 'FIRST DEGREE MURDER' GROUP BY T2.district_no ORDER BY COUNT(*) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which district had the most number of first degree murders? Give the district number.",
+    "difficulty": "",
+    "evidence": "the most number refers to max(count(case_number)); first degree murder refers to secondary_description = 'FIRST DEGREE MURDER'; district number refers to district_no"
+  },
+  {
+    "sql": "SELECT T2.iucr_no FROM Crime AS T1 INNER JOIN IUCR AS T2 ON T1.iucr_no = T2.iucr_no WHERE T1.case_number = 'JB296775'",
+    "question_id": null,
+    "question": "How severe was case JB296775? Give the index code for severity.",
+    "difficulty": "",
+    "evidence": "index code refers to iucr_no; case JB296775 refers to case_number = 'JB296775'"
+  },
+  {
+    "sql": "SELECT T3.community_area_name FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T1.iucr_no = T2.iucr_no INNER JOIN Community_Area AS T3 ON T2.community_area_no = T3.community_area_no WHERE T1.primary_description = 'THEFT' AND T1.secondary_description = 'POCKET-PICKING' GROUP BY T2.community_area_no ORDER BY T2.case_number DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the name of the community area which had the most pocket-picking thefts.",
+    "difficulty": "",
+    "evidence": "name of the community area refers to community_area_name; the most refers to max(case_number); pocket-picking theft refers to primary_description = 'THEFT' AND secondary_description = 'POCKET-PICKING'"
+  },
+  {
+    "sql": "SELECT T1.alderman_first_name, T1.alderman_last_name FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T2.case_number = 'JB103470'",
+    "question_id": null,
+    "question": "Who was the alderman of the legislative district where case No. JB103470 took place? Give the full name.",
+    "difficulty": "",
+    "evidence": "case No. JB103470 refers to case_number = 'JB103470'; full name refers to alderman_first_name, alderman_last_name"
+  },
+  {
+    "sql": "SELECT T1.neighborhood_name FROM Neighborhood AS T1 INNER JOIN Community_Area AS T2 ON T1.community_area_no = T2.community_area_no WHERE T2.community_area_name = 'West Englewood'",
+    "question_id": null,
+    "question": "Give the neighborhood name of West Englewood community.",
+    "difficulty": "",
+    "evidence": "West Englewood community refers to community_area_name = 'West Englewood'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.community_area_name = 'Roseland' THEN 1 ELSE 0 END) FROM Community_Area AS T1 INNER JOIN Neighborhood AS T2 ON T1.community_area_no = T2.community_area_no",
+    "question_id": null,
+    "question": "How many different neighborhoods are there in Roseland community?",
+    "difficulty": "",
+    "evidence": "Roseland community refers to community_area_name = 'Roseland'"
+  },
+  {
+    "sql": "SELECT description FROM Crime AS T1 INNER JOIN FBI_Code AS T2 ON T1.fbi_code_no = T2.fbi_code_no WHERE T1.case_number = 'JB134191'",
+    "question_id": null,
+    "question": "Give the FBI code description of case No.JB134191.",
+    "difficulty": "",
+    "evidence": "case No.JB134191 refers to case_number = 'JB134191'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.community_area_name = 'North Lawndale' THEN 1 ELSE 0 END) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no WHERE T2.arrest = 'TRUE'",
+    "question_id": null,
+    "question": "Tell the number of cases with arrests in North Lawndale community.",
+    "difficulty": "",
+    "evidence": "number of cases refers to count(case_number); arrest refers to arrest = 'TRUE'; North Lawndale community refers to community_area_name = 'North Lawndale'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.secondary_description = '$500 AND UNDER' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.case_number) FROM Crime AS T1 INNER JOIN IUCR AS T2 ON T1.iucr_no = T2.iucr_no INNER JOIN Community_Area AS T3 ON T1.community_area_no = T3.community_area_no WHERE T2.primary_description = 'THEFT' AND T3.community_area_name = 'West Englewood'",
+    "question_id": null,
+    "question": "What is the percentage of under $500 thefts among all cases that happened in West Englewood?",
+    "difficulty": "",
+    "evidence": "under $500 refers to secondary_description = '$500 AND UNDER'; theft refers to primary_description = 'THEFT'; West Englewood refers to community_area_name = 'West Englewood'; percentage = divide(count(case_number where secondary_description = '$500 AND UNDER'), count(case_number)) where primary_description = 'THEFT' and community_area_name = 'West Englewood' * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T3.title = 'Larceny' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.case_number) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no INNER JOIN FBI_Code AS T3 ON T2.fbi_code_no = T3.fbi_code_no WHERE T1.community_area_name = 'Edgewater'",
+    "question_id": null,
+    "question": "What is the percentage of larceny cases among all cases that happened in Edgewater community?",
+    "difficulty": "",
+    "evidence": "larceny case refers to title = 'Larceny'; Edgewater community refers to community_area_name = 'Edgewater'; percentage = divide(count(case_number where title = 'Larceny'), count(case_number)) where community_area_name = 'Edgewater' * 100%"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN date LIKE '5/%/2018%' THEN 1 ELSE 0 END) FROM Crime WHERE block = '018XX S KOMENSKY AVE'",
+    "question_id": null,
+    "question": "How many crimes were committed at 018XX S KOMENSKY AVEin May 2018?",
+    "difficulty": "",
+    "evidence": " in May 2018 refers to date LIKE '5/%/2018%'"
+  },
+  {
+    "sql": "SELECT community_area_name FROM Community_Area ORDER BY population DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the community with the highest population?",
+    "difficulty": "",
+    "evidence": "name of the community refers to community_area_name; the highest population refers to max(population)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN location_description = 'ABANDONED BUILDING' THEN 1 ELSE 0 END) FROM Crime WHERE date LIKE '%2018%' AND domestic = 'TRUE'",
+    "question_id": null,
+    "question": "How many incidents of domestic violence occurred in an abandoned building in 2018?",
+    "difficulty": "",
+    "evidence": "domestic violence refers to domestic = 'TRUE'; in an abandoned building refers to location_description = 'ABANDONED BUILDING'; in 2018 refers to date LIKE '%2018%'"
+  },
+  {
+    "sql": "SELECT SUM(population) FROM Community_Area GROUP BY side ORDER BY SUM(population) LIMIT 1",
+    "question_id": null,
+    "question": "What is the population of the district with the least population?",
+    "difficulty": "",
+    "evidence": "the least population refers = min(sum(population))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN arrest = 'TRUE' THEN 1 ELSE 0 END) FROM Crime WHERE date LIKE '%2018%' AND location_description = 'ANIMAL HOSPITAL' AND fbi_code_no = '08B'",
+    "question_id": null,
+    "question": "How many arrests were made in 2018 in an animal hospital under FBI code 08B?",
+    "difficulty": "",
+    "evidence": "arrest refers to arrest = 'TRUE'; in 2018 refers to date LIKE '%2018%'; in an animal hospital refers to location_description = 'ANIMAL HOSPITAL'; FBI code 08B refers to fbi_code_no = '08B'"
+  },
+  {
+    "sql": "SELECT description FROM FBI_Code WHERE crime_against = 'Society'",
+    "question_id": null,
+    "question": "Give the detailed description of all the crimes against society.",
+    "difficulty": "",
+    "evidence": "crime against society refers to crime_against = 'Society'"
+  },
+  {
+    "sql": "SELECT T1.commander FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no INNER JOIN FBI_Code AS T3 ON T2.fbi_code_no = T3.fbi_code_no WHERE T3.title = 'Disorderly Conduct' AND T2.fbi_code_no = 24 GROUP BY T2.fbi_code_no ORDER BY COUNT(T1.district_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the commanding officer in the district with the highest number of disorderly conduct?",
+    "difficulty": "",
+    "evidence": "commanding officer refers to commander; the highest number refers to max(count(district_no)); disorderly conduct refers to title = 'Disorderly Conduct'"
+  },
+  {
+    "sql": "SELECT T2.title FROM Crime AS T1 INNER JOIN FBI_Code AS T2 ON T1.fbi_code_no = T2.fbi_code_no ORDER BY T2.fbi_code_no DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which crime was committed the most by criminals?",
+    "difficulty": "",
+    "evidence": "crime refers to title; committed the most refers to max(fbi_code_no)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.title = 'Criminal Sexual Abuse' THEN 1 ELSE 0 END) FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no INNER JOIN FBI_Code AS T3 ON T2.fbi_code_no = T3.fbi_code_no WHERE T1.district_name = 'Albany Park' AND T2.arrest = 'TRUE' AND T2.location_description = 'APARTMENT'",
+    "question_id": null,
+    "question": "In Albany Park, how many arrests were made in an apartment due to criminal sexual abuse?",
+    "difficulty": "",
+    "evidence": "Albany Park refers to district_name = 'Albany Park'; in an apartment refers to location_description = 'APARTMENT'; criminal sexual abuse refers to title = 'Criminal Sexual Abuse'"
+  },
+  {
+    "sql": "SELECT T2.latitude, T2.longitude FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no INNER JOIN FBI_Code AS T3 ON T2.fbi_code_no = T3.fbi_code_no WHERE T1.community_area_name = 'Rogers Park' AND T3.title = 'Robbery' AND T3.fbi_code_no = 3",
+    "question_id": null,
+    "question": "What is the precise location or coordinate where most of the robberies in Rogers Park occurred?",
+    "difficulty": "",
+    "evidence": "precise location or coordinate refers to latitude, longitude; most refers to fbi_code_no = 3; robbery refers to title = 'Robbery'; Rogers Park refers to community_area_name = 'Rogers Park'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.arrest = 'TRUE' THEN 1 ELSE 0 END) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no INNER JOIN IUCR AS T3 ON T2.iucr_no = T3.iucr_no WHERE T1.community_area_name = 'West Garfield Park' AND T3.secondary_description = 'SOLICIT ON PUBLIC WAY' AND T3.primary_description = 'PROSTITUTION'",
+    "question_id": null,
+    "question": "How many solicit on public way prostitution crimes were arrested in West Garfield Park?",
+    "difficulty": "",
+    "evidence": "solicit on public way prostitution crime refers to secondary_description = 'SOLICIT ON PUBLIC WAY' AND primary_description = 'PROSTITUTION'; arrested refers to arrest = 'TRUE'; West Garfield Park refers to community_area_name = 'West Garfield Park'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.report_no) FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T2.domestic = 'TRUE' AND T2.location_description = 'BAR OR TAVERN' ORDER BY T1.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the most populated ward, how many incidents of domestic violence were reported in a bar or tavern?",
+    "difficulty": "",
+    "evidence": "the most populated refers to max(population); domestic violence refers to domestic = 'TRUE'; in a bar or tavern refers to location_description = 'BAR OR TAVERN'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.community_area_name = 'Near North Side' THEN 1 ELSE 0 END) FROM Community_Area AS T1 INNER JOIN Neighborhood AS T2 ON T1.community_area_no = T2.community_area_no",
+    "question_id": null,
+    "question": "How many neighborhoods are there in Near North Side?",
+    "difficulty": "",
+    "evidence": "Near North Side refers to community_area_name = 'Near North Side'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.arrest = 'TRUE' THEN 1 ELSE 0 END) FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T1.alderman_first_name = 'Walter' AND T1.alderman_last_name = 'Burnett' AND alderman_name_suffix = 'Jr.' AND T2.domestic = 'TRUE'",
+    "question_id": null,
+    "question": "Out of all the incidents of domestic violence reported at the ward represented by alderman Walter Burnett Jr., how many were arrested?",
+    "difficulty": "",
+    "evidence": "domestic violence refers to domestic = 'TRUE'; arrested refers to arrest = 'TRUE'"
+  },
+  {
+    "sql": "SELECT T3.title FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no INNER JOIN FBI_Code AS T3 ON T2.fbi_code_no = T3.fbi_code_no GROUP BY T3.title ORDER BY T1.population ASC, T3.fbi_code_no DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the short description of the crime committed the most by criminals in the least populated community?",
+    "difficulty": "",
+    "evidence": "short description refers to title; committed the most refers to max(fbi_code_no); the least populated community refers to min(population)"
+  },
+  {
+    "sql": "SELECT T1.ward_office_address FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T2.block = '010XX W LAKE ST' GROUP BY T1.ward_office_address",
+    "question_id": null,
+    "question": "What is the legislative district's office address where 010XX W LAKE ST is located?",
+    "difficulty": "",
+    "evidence": "the legislative district's office address refers to ward_office_address; 010XX W LAKE ST refers to block = '010XX W LAKE ST'"
+  },
+  {
+    "sql": "SELECT T3.community_area_name FROM Crime AS T1 INNER JOIN IUCR AS T2 ON T1.iucr_no = T2.iucr_no INNER JOIN Community_Area AS T3 ON T1.community_area_no = T3.community_area_no WHERE T2.primary_description = 'PROSTITUTION' GROUP BY T1.iucr_no ORDER BY T1.case_number DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the community that has the highest number of crimes related to prostitution?",
+    "difficulty": "",
+    "evidence": "name of the community refers to community_area_name; the highest number of crimes refers to max(case_number); prostitution refers to primary_description = 'PROSTITUTION'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.alderman_last_name = 'Burke' THEN 1 ELSE 0 END) FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no INNER JOIN FBI_Code AS T3 ON T2.fbi_code_no = T3.fbi_code_no WHERE T3.title = 'Vandalism' AND T2.arrest = 'TRUE' AND T1.alderman_first_name = 'Edward'",
+    "question_id": null,
+    "question": "How many vandalisms were arrested in the ward represented by Edward Burke?",
+    "difficulty": "",
+    "evidence": "vandalism refers to title = 'Vandalism'; arrested refers to arrest = 'TRUE'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Crime WHERE date LIKE '5/%/2018%' AND domestic = 'TRUE'",
+    "question_id": null,
+    "question": "How many domestic violence cases were reported in May 2018?",
+    "difficulty": "",
+    "evidence": "domestic violence refers to domestic = 'TRUE'; in May 2018 refers to date LIKE '5/%/2018%'"
+  },
+  {
+    "sql": "SELECT index_code FROM IUCR WHERE primary_description = 'HOMICIDE'",
+    "question_id": null,
+    "question": "List the IUCR numbers and index status of homicide incidents.",
+    "difficulty": "",
+    "evidence": "index status refers to index_code; homicide incident refers to primary_description = 'HOMICIDE'"
+  },
+  {
+    "sql": "SELECT commander, email FROM District WHERE district_name = 'Chicago Lawn'",
+    "question_id": null,
+    "question": "Provide the responsible person and his/her email address of Chicago Lawn.",
+    "difficulty": "",
+    "evidence": "responsible person refers to commander; email address refers to email; Chicago Lawn refers to district_name = 'Chicago Lawn'"
+  },
+  {
+    "sql": "SELECT alderman_name_suffix, alderman_first_name, alderman_last_name FROM Ward ORDER BY population DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the alderman's full name of the most crowded ward?",
+    "difficulty": "",
+    "evidence": "alderman's full name refers to alderman_name_suffix, alderman_first_name, alderman_last_name; the most crowded refers to max(population)"
+  },
+  {
+    "sql": "SELECT community_area_name FROM Community_Area WHERE side = 'Northwest'",
+    "question_id": null,
+    "question": "List the community area names in the Northwest.",
+    "difficulty": "",
+    "evidence": "the Northwest refers to side = 'Northwest'"
+  },
+  {
+    "sql": "SELECT title, description FROM FBI_Code WHERE crime_against = 'Persons'",
+    "question_id": null,
+    "question": "List down the titles and descriptions of the crimes cases against persons.",
+    "difficulty": "",
+    "evidence": "crime case against persons refers to crime_against = 'Persons'"
+  },
+  {
+    "sql": "SELECT T1.secondary_description, T2.latitude, T2.longitude FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T1.iucr_no = T2.iucr_no WHERE T2.iucr_no = 142",
+    "question_id": null,
+    "question": "Describe the specific description and case locations under IUCR 142.",
+    "difficulty": "",
+    "evidence": "specific description refers to secondary_description; location refers to latitude, longitude; IUCR 142 refers to iucr_no = 142"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.alderman_last_name = 'Reilly' THEN 1 ELSE 0 END) FROM Crime AS T1 INNER JOIN Ward AS T2 ON T1.ward_no = T2.ward_no WHERE T2.alderman_name_suffix IS NULL AND T2.alderman_first_name = 'Brendan' AND date LIKE '10/7/2018%'",
+    "question_id": null,
+    "question": "How many crimes were handled by Brendan Reilly on 7th October 2018?",
+    "difficulty": "",
+    "evidence": "7th October 2018 refers to date like '10/7/2018%'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.arrest = 'TRUE' THEN 1 ELSE 0 END) FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no WHERE T2.district_name = 'Englewood' AND T1.location_description = 'RESTAURANT'",
+    "question_id": null,
+    "question": "How many cases have been arrested among the crimes that happened in the restaurant of Englewood?",
+    "difficulty": "",
+    "evidence": "arrested refers to arrest = 'TRUE'; restaurant refers to location_description = 'RESTAURANT'; Englewood refers to district_name = 'Englewood'"
+  },
+  {
+    "sql": "SELECT T2.case_number, T3.alderman_first_name, T3.alderman_last_name, T1.district_name FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no INNER JOIN Ward AS T3 ON T2.ward_no = T3.ward_no WHERE T2.block = '0000X N FRANCISCO AVE' GROUP BY T2.case_number, T3.alderman_first_name, T3.alderman_last_name, T1.district_name",
+    "question_id": null,
+    "question": "Provide case numbers, aldermen's full names, and district names of the crimes that happened in 0000X N FRANCISCO AVE.",
+    "difficulty": "",
+    "evidence": "aldermen's full name refers to alderman_name_suffix, alderman_first_name, alderman_last_name; 0000X N FRANCISCO AVE refers to block = '0000X N FRANCISCO AVE'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.title = 'Misc Non-Index Offense' THEN 1 ELSE 0 END) FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T2.fbi_code_no = T1.fbi_code_no",
+    "question_id": null,
+    "question": "How many crimes were Misc Non-Index Offense?",
+    "difficulty": "",
+    "evidence": "Misc Non-Index Offense refers to title = 'Misc Non-Index Offense'"
+  },
+  {
+    "sql": "SELECT T2.neighborhood_name FROM Community_Area AS T1 INNER JOIN Neighborhood AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.community_area_name = 'Douglas'",
+    "question_id": null,
+    "question": "List down the neighborhood areas of Douglas.",
+    "difficulty": "",
+    "evidence": "neighborhood area refers to neighborhood_name; Douglas refers to community_area_name = 'Douglas'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.report_no) AS REAL) / 12 FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no GROUP BY T1.community_area_no HAVING COUNT(T1.population) ORDER BY COUNT(T1.population) LIMIT 1",
+    "question_id": null,
+    "question": "Calculate the average crime rate per month in the highest populous area.",
+    "difficulty": "",
+    "evidence": "the highest populous refers to max(population); average crime rate per month = divide(count(report_no where population = max(population)), 12)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T3.title = 'Larceny' THEN T2.report_no END) AS REAL) * 100 / COUNT(T2.report_no) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no INNER JOIN FBI_Code AS T3 ON T3.fbi_code_no = T2.fbi_code_no WHERE T1.side = 'Central'",
+    "question_id": null,
+    "question": "Among the crimes in the Central, calculate the percentage of larceny incidents.",
+    "difficulty": "",
+    "evidence": "Central refers to side = 'Central'; larceny refers to title = 'Larceny'; percentage = divide(count(report_no where title = 'Larceny'), count(report_no)) where side = 'Central' * 100%"
+  },
+  {
+    "sql": "SELECT T2.location_description, T1.alderman_first_name, T1.alderman_last_name, T1.alderman_name_suffix FROM Ward AS T1 INNER JOIN Crime AS T2 ON T2.ward_no = T1.ward_no INNER JOIN IUCR AS T3 ON T3.iucr_no = T2.iucr_no WHERE T3.primary_description = 'ARSON' AND T3.secondary_description = 'BY EXPLOSIVE'",
+    "question_id": null,
+    "question": "List the location descriptions and aldermen's full names of the arson by explosive.",
+    "difficulty": "",
+    "evidence": "aldermen's full name refers to alderman_name_suffix, alderman_first_name, alderman_last_name; arson by explosive refers to primary_description = 'ARSON' AND secondary_description = 'BY EXPLOSIVE'"
+  },
+  {
+    "sql": "SELECT T2.date, T2.latitude, T2.longitude FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no WHERE T1.primary_description = 'DECEPTIVE PRACTICE' AND T1.secondary_description = 'UNLAWFUL USE OF RECORDED SOUND'",
+    "question_id": null,
+    "question": "Provide the occurrence date and location of the deceptive practice due to the unlawful use of recorded sound.",
+    "difficulty": "",
+    "evidence": "location refers to latitude, longitude; deceptive practice refers to primary_description = 'DECEPTIVE PRACTICE'; unlawful use of recorded sound refers to secondary_description = 'UNLAWFUL USE OF RECORDED SOUND'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.report_no) FROM District AS T1 INNER JOIN Crime AS T2 ON T2.district_no = T1.district_no INNER JOIN FBI_Code AS T3 ON T3.fbi_code_no = T2.fbi_code_no WHERE T3.title = 'Criminal Sexual Assault' AND T1.commander = 'Adnardo Gutierrez' AND T2.location_description = 'RESIDENCE'",
+    "question_id": null,
+    "question": "Among the criminal sexual assaults in the district of Adnardo Gutierrez, how many cases happened in the residence?",
+    "difficulty": "",
+    "evidence": "criminal sexual assault refers to title = 'Criminal Sexual Assault'; Adnardo Gutierrez refers to commander = 'Adnardo Gutierrez'; in the residence refers to location_description = 'RESIDENCE'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.arrest = 'TRUE' THEN T2.report_no END) AS REAL) * 100 / COUNT(T2.report_no) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.community_area_name = 'West Pullman' AND T2.domestic = 'TRUE'",
+    "question_id": null,
+    "question": "How many percent of domestic violence cases were arrested in West Pullman?",
+    "difficulty": "",
+    "evidence": "domestic violence refers to domestic = 'TRUE'; arrested refers to arrest = 'TRUE'; West Pullman refers to community_area_name = 'West Pullman'; percent = divide(count(report_no where arrest = 'TRUE'), count(report_no)) where domestic = 'TRUE' and community_area_name = 'West Pullman' * 100%"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.domestic = 'TRUE' THEN T1.report_no END) AS REAL) * 100 / COUNT(T1.report_no), COUNT(CASE WHEN T1.domestic = 'TRUE' AND T1.location_description = 'BANK' THEN T1.report_no END) AS \"number\" FROM Crime AS T1 INNER JOIN Ward AS T2 ON T2.ward_no = T1.ward_no WHERE T2.alderman_first_name = 'Christopher' AND T2.alderman_last_name = 'Taliaferro'",
+    "question_id": null,
+    "question": "Calculate the percentage of the domestic violence cases handled by Christopher Taliaferro. Among them, list report numbers of cases that happened in the bank.",
+    "difficulty": "",
+    "evidence": "domestic violence refers to domestic = 'TRUE'; report number refers to report_no; in the bank refers to location_description = 'BANK'; percentage = divide(count(report_no where domestic = 'TRUE'), count(report_no)) * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Ward WHERE alderman_first_name = 'James'",
+    "question_id": null,
+    "question": "How many aldermen have \"James\" as their first name?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Crime WHERE date LIKE '1/1/2018%'",
+    "question_id": null,
+    "question": "How many crimes are commited on January 1, 2018?",
+    "difficulty": "",
+    "evidence": "on January 1 2018 refers to date LIKE '1/1/2018%'"
+  },
+  {
+    "sql": "SELECT AVG(population) FROM Community_Area WHERE side = 'West '",
+    "question_id": null,
+    "question": "Calculate the average population of community areas in the West side.",
+    "difficulty": "",
+    "evidence": "the West side refers to side = 'West'; average population = avg(population) where side = 'West'"
+  },
+  {
+    "sql": "SELECT T2.report_no FROM Ward AS T1 INNER JOIN Crime AS T2 ON T2.ward_no = T1.ward_no INNER JOIN Community_Area AS T3 ON T3.community_area_no = T2.community_area_no WHERE T1.alderman_first_name = 'Edward' AND T1.alderman_last_name = 'Burke' ORDER BY T2.beat DESC, T3.population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the cases reported in the ward with Edward Burke as the alderman and happened in the community area with the highest population, provide the report number of the crime with the highest beat.",
+    "difficulty": "",
+    "evidence": "the highest population refers to max(population); report number refers to report_no; the highest beat refers to max(beat)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.location_description = 'STREET' THEN 1 ELSE 0 END) FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T2.fbi_code_no = T1.fbi_code_no WHERE T1.title = 'Homicide 1st & 2nd Degree'",
+    "question_id": null,
+    "question": "How many of the crimes that happened in the street have FBI title \"Homicide 1st & 2nd Degree\"?",
+    "difficulty": "",
+    "evidence": "in the street refers to location_description = 'STREET'"
+  },
+  {
+    "sql": "SELECT T2.alderman_first_name, T2.alderman_last_name FROM Crime AS T1 INNER JOIN Ward AS T2 ON T2.ward_no = T1.ward_no WHERE T1.report_no = 23769",
+    "question_id": null,
+    "question": "Who is the alderman in the ward associated with the crime with report number 23769?",
+    "difficulty": "",
+    "evidence": "alderman refers to alderman_suffix, alderman_first_name, alderman_last_name; report number 23769 refers to report_no = 23769"
+  },
+  {
+    "sql": "SELECT T2.case_number FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.community_area_name = 'Lincoln Square' AND T2.domestic = 'TRUE'",
+    "question_id": null,
+    "question": "List the case numbers of domestic violence crimes reported in Lincoln Square.",
+    "difficulty": "",
+    "evidence": "domestic violence refers to domestic = 'TRUE'; Lincoln Square refers to community_area_name = 'Lincoln Square'"
+  },
+  {
+    "sql": "SELECT T1.case_number FROM Crime AS T1 INNER JOIN Ward AS T2 ON T2.ward_no = T1.ward_no WHERE T1.location_description = 'APARTMENT' AND T2.ward_office_address = '1958 N. Milwaukee Ave.'",
+    "question_id": null,
+    "question": "Among the crimes reported to the ward located at 1958 N. Milwaukee Ave., list down the report number of the crimes happened inside the apartment.",
+    "difficulty": "",
+    "evidence": "1958 N. Milwaukee Ave. refers to ward_office_address = '1958 N. Milwaukee Ave.'; report number refers to case_number; inside the apartment refers to location_description = 'APARTMENT'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.beat < 1000 THEN 1 ELSE 0 END) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.community_area_name = 'Bridgeport'",
+    "question_id": null,
+    "question": "What is the total number of crimes that happened in Bridgeport with beat less than 1000?",
+    "difficulty": "",
+    "evidence": "Bridgeport refers to community_area_name = 'Bridgeport'; with beat less than 1000 refers to beat < 1000; total number = count(beat) where community_area_name = 'Bridgeport' and beat < 1000"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.population > 60000 THEN 1 ELSE 0 END) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.side = 'Far North '",
+    "question_id": null,
+    "question": "List the report number of crimes reported in a community area in the far north side with a population greater than 60,000.",
+    "difficulty": "",
+    "evidence": "report number refers to report_no; the far north side refers to side = 'Far North'; population greater than 60,000 refers to population > '60000'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.crime_against = 'Property' THEN 1 ELSE 0 END) FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T2.fbi_code_no = T1.fbi_code_no INNER JOIN Community_Area AS T3 ON T3.community_area_no = T2.community_area_no WHERE T3.community_area_name = 'Riverdale'",
+    "question_id": null,
+    "question": "List the report number of crimes against property happened in Riverdale.",
+    "difficulty": "",
+    "evidence": "crime against property refers to crime_against = 'Property'; Riverdale refers to community_area_name = 'Riverdale'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.domestic = 'TRUE' THEN 1 ELSE 0 END) FROM Ward AS T1 INNER JOIN Crime AS T2 ON T2.ward_no = T1.ward_no WHERE T1.ward_email = 'ward13@cityofchicago.org'",
+    "question_id": null,
+    "question": "How many domestic violence cases were brought in the ward that uses \"ward13@cityofchicago.org\"?",
+    "difficulty": "",
+    "evidence": "domestic violence refers to domestic = 'TRUE'; uses \"ward13@cityofchicago.org\" refers to ward_email = 'ward13@cityofchicago.org'"
+  },
+  {
+    "sql": "SELECT T1.address FROM District AS T1 INNER JOIN Crime AS T2 ON T2.district_no = T1.district_no WHERE T2.case_number = 'JB107731'",
+    "question_id": null,
+    "question": "What is the district address associated with the case JB107731?",
+    "difficulty": "",
+    "evidence": "case JB107731 refers to case_number = 'JB107731'"
+  },
+  {
+    "sql": "SELECT 1.0 * SUM(CASE WHEN T1.population > 50000 THEN T2.beat ELSE 0 END) AS sum FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.side = 'Central'",
+    "question_id": null,
+    "question": "Calculate the total beat of the crimes reported in a community area in the central side with population of 50,000 and above.",
+    "difficulty": "",
+    "evidence": "the central side refers to side = 'Central'; population of 50,000 and above refers to population > '50000'; total beat = sum(beat) where side = 'Central' and population > '50000'"
+  },
+  {
+    "sql": "SELECT T2.case_number FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T2.fbi_code_no = T1.fbi_code_no WHERE T2.date LIKE '6/%/2018%' AND T1.crime_against = 'Society'",
+    "question_id": null,
+    "question": "List the case number of crimes against society that happened in June 2018.",
+    "difficulty": "",
+    "evidence": "crime against society refers to crime_against = 'Society'; in June 2018 refers to date LIKE '6/%/2018%'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.domestic = 'TRUE' THEN T2.domestic END) AS REAL) * 100 / COUNT(T2.domestic) FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no GROUP BY T1.community_area_no HAVING COUNT(T1.population) ORDER BY COUNT(T1.population) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the crimes located in the community area with the highest population, what is the percentage of domestic violence?",
+    "difficulty": "",
+    "evidence": "the highest population refers to max(population); domestic violence refers to domestic = 'TRUE'; percentage = divide(count(domestic = 'TRUE'), count(domestic)) where population = max(population) * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(T1.report_no) FROM Crime AS T1 INNER JOIN Ward AS T2 ON T1.ward_no = T2.ward_no WHERE T2.Population < 52000 AND T1.beat > ( SELECT AVG(T1.beat) * 0.9 FROM Crime AS T1 INNER JOIN Ward AS T2 ON T1.ward_no = T2.ward_no WHERE T2.Population < 52000 )",
+    "question_id": null,
+    "question": "List the case number of the crimes in wards with population below 52000 that have beat greater than the 90% of the average beat of all crimes.",
+    "difficulty": "",
+    "evidence": "population below 52000 refers to population < 52000; beat greater than the 90% of the average beat refers to beat > multiply(avg(beat), 0.9) where population < 52000"
+  },
+  {
+    "sql": "SELECT community_area_name, side FROM Community_Area WHERE side = 'Far North ' AND population BETWEEN 50000 AND 70000",
+    "question_id": null,
+    "question": "Please list the area name of the communities in the Far north side, which has a population of more than 50000 but less than 70000.",
+    "difficulty": "",
+    "evidence": "area name refers to community_area_name; the Far north side refers to side = 'Far North'; a population of more than 50000 but less than 70000 refers to population BETWEEN '50000' AND '70000'"
+  },
+  {
+    "sql": "SELECT latitude, longitude FROM Crime WHERE location_description = 'ALLEY' AND arrest = 'TRUE' GROUP BY latitude, longitude",
+    "question_id": null,
+    "question": "Give the coordinate of the alleys where a crime was reported and an arrest was made.",
+    "difficulty": "",
+    "evidence": "coordinate refers to latitude, longitude; alley refers to location_description = 'ALLEY'; an arrest was made refers to arrest = 'TRUE'"
+  },
+  {
+    "sql": "SELECT commander, email, phone FROM District WHERE district_name = 'Ogden'",
+    "question_id": null,
+    "question": "Find the commander's name, email address, and phone number of the Ogden district.",
+    "difficulty": "",
+    "evidence": "commander's name refers to commander; email address refers to email; phone number refers to phone"
+  },
+  {
+    "sql": "SELECT fbi_code_no, description FROM FBI_Code WHERE title = 'Gambling'",
+    "question_id": null,
+    "question": "What is the FBI code and definition of Gambling?",
+    "difficulty": "",
+    "evidence": "FBI code refers to fbi_code_no; definition refers to description; Gambling refers to title = 'Gambling'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN index_code = 'I' THEN iucr_no ELSE NULL END) AS REAL) * 100 / COUNT(iucr_no) FROM IUCR",
+    "question_id": null,
+    "question": "Among the crimes, what percentage are severe?",
+    "difficulty": "",
+    "evidence": "severe refers to index_code = 'I'; percentage = divide(count(iucr_no where index_code = 'I'), count(iucr_no)) * 100%"
+  },
+  {
+    "sql": "SELECT T2.location_description FROM District AS T1 INNER JOIN Crime AS T2 ON T2.district_no = T1.district_no WHERE T1.district_name = 'Austin' GROUP BY T2.location_description ORDER BY COUNT(T2.case_number) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What kind of location in Austin reported the most number of crimes?",
+    "difficulty": "",
+    "evidence": "\"Austin\" is the district_name; the most number of crime refers to Max(Count(case_number)); kind of location refers to location_description"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.ward_no) AS REAL) / COUNT(DISTINCT T3.side) FROM Ward AS T1 INNER JOIN Crime AS T2 ON T2.ward_no = T1.ward_no INNER JOIN Community_Area AS T3 ON T3.community_area_no = T2.community_area_no",
+    "question_id": null,
+    "question": "On average, how many community areas are there in a side?",
+    "difficulty": "",
+    "evidence": "average = Divide(Count(ward_no), Count(side))"
+  },
+  {
+    "sql": "SELECT T1.community_area_no FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no WHERE T2.location_description = 'STREET' GROUP BY T1.community_area_no ORDER BY COUNT(T2.location_description) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which community area has the highest number of crimes reported on the street?",
+    "difficulty": "",
+    "evidence": "reported on the street refers to location_description = 'STREET'; community area with highest number of crime refers to Max(Count(location_description)); community area refers to community_area_no"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.report_no) AS REAL) / COUNT(DISTINCT T1.district_name) FROM District AS T1 INNER JOIN Crime AS T2 ON T2.district_no = T1.district_no INNER JOIN IUCR AS T3 ON T3.iucr_no = T2.iucr_no WHERE T3.secondary_description = 'RECKLESS HOMICIDE'",
+    "question_id": null,
+    "question": "What is the average number of reckless homicides that happened in a district?",
+    "difficulty": "",
+    "evidence": "\"RECKLESS HOMICIDE\" is the secondary_description; average = Divide (Count(report_no), Count(district_name))"
+  },
+  {
+    "sql": "SELECT T2.ward_office_address, T2.ward_office_phone FROM Crime AS T1 INNER JOIN Ward AS T2 ON T2.ward_no = T1.ward_no WHERE T1.arrest = 'FALSE' GROUP BY T2.ward_office_address, T2.ward_office_phone ORDER BY COUNT(T1.arrest) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Find the ward office's address and phone number of the ward where the most crimes without arrest occurred.",
+    "difficulty": "",
+    "evidence": "the most crime without arrest refers to Max(Count(arrest = 'FALSE')); phone number refers to ward_office_phone; address refers to ward_office_address"
+  },
+  {
+    "sql": "SELECT T1.case_number, T1.latitude, T1.longitude FROM Crime AS T1 INNER JOIN IUCR AS T2 ON T2.iucr_no = T1.iucr_no WHERE T2.secondary_description = 'CHILD ABDUCTION'",
+    "question_id": null,
+    "question": "Give the case number and coordinates of the places where child abduction is reported.",
+    "difficulty": "",
+    "evidence": "\"CHILD ABDUCTION\" is the secondary_description; coordinates refers to latitude, longitude"
+  },
+  {
+    "sql": "SELECT T3.secondary_description FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no INNER JOIN IUCR AS T3 ON T3.iucr_no = T2.iucr_no WHERE T1.side = 'Northwest ' GROUP BY T3.secondary_description ORDER BY COUNT(*) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most reported crime in the Northwest side?",
+    "difficulty": "",
+    "evidence": "most reported crime refers to max(Count(secondary_description))"
+  },
+  {
+    "sql": "SELECT T2.community_area_no FROM Crime AS T1 INNER JOIN Community_Area AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.domestic = 'TRUE' GROUP BY T2.community_area_no ORDER BY COUNT(T2.community_area_no) ASC LIMIT 1",
+    "question_id": null,
+    "question": "Find the community area where the least number of domestic crimes happened.",
+    "difficulty": "",
+    "evidence": "least number of domestic crime refers to Min(Count(domestic = \"TRUE\")); community area refers to community_area_no"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T1.secondary_description LIKE '%CANNABIS%' THEN T1.secondary_description END) AS REAL) * 100 / COUNT(T1.secondary_description) FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no INNER JOIN FBI_Code AS T3 ON T3.fbi_code_no = T2.fbi_code_no WHERE T3.title = 'Drug Abuse'",
+    "question_id": null,
+    "question": "In drug abuse crimes, what percentage is related to cannabis?",
+    "difficulty": "",
+    "evidence": "drug abuse crime refer to title = 'Drug Abuse'; percentage = Divide (Count (secondary_description LIKE '%CANNABIS%'), Count (secondary_description)) * 100"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.case_number) AS REAL) / 28 FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no WHERE T2.date LIKE '2/%/2018%' AND T1.index_code = 'N'",
+    "question_id": null,
+    "question": "What is the average number of less severe crimes reported a day in February of 2018?",
+    "difficulty": "",
+    "evidence": "day in February of 2018 refers to date LIKE '2/%/2018'; less severe crime refers to index_code = 'N'; average = Divide (Count(case_number), 28)"
+  },
+  {
+    "sql": "SELECT T2.community_area_name, T2.population FROM Crime AS T1 INNER JOIN Community_Area AS T2 ON T2.community_area_no = T1.community_area_no INNER JOIN IUCR AS T3 ON T3.iucr_no = T1.iucr_no WHERE T3.iucr_no = ( SELECT iucr_no FROM IUCR WHERE secondary_description = 'SOLICIT FOR PROSTITUTE' GROUP BY iucr_no HAVING COUNT(iucr_no) > ( SELECT SUM(CASE WHEN secondary_description = 'SOLICIT FOR PROSTITUTE' THEN 1.0 ELSE 0 END) / COUNT(iucr_no) AS average FROM IUCR ) )",
+    "question_id": null,
+    "question": "List the name and population of the communities where more than average solicit for prostitutes were reported.",
+    "difficulty": "",
+    "evidence": "\"SOLICIT FOR PROSTITUTE\" is the secondary_description; more than average refers to count(iucr_no) > Divide (Count(secondary_description = 'SOLICIT FOR PROSTITUTE'), Count(iucr_no)); name of community refers to community_area_name"
+  },
+  {
+    "sql": "SELECT COUNT(CASE WHEN T3.title = 'Disorderly Conduct' THEN T2.report_no END) * 100.0 / COUNT(T2.report_no) AS per FROM District AS T1 INNER JOIN Crime AS T2 ON T2.district_no = T1.district_no INNER JOIN FBI_Code AS T3 ON T3.fbi_code_no = T2.fbi_code_no WHERE T1.district_name = 'Harrison'",
+    "question_id": null,
+    "question": "Among the incidents reported in Harrison, what percentage are disorderly conduct?",
+    "difficulty": "",
+    "evidence": "\"Harrison\" is the district_name;\u00a0 'Disorderly Conduct' is the title; percentage = Divide (Count(title = 'Disorderly Conduct'), Count(report_no)) * 100; incident report refers to report_no"
+  },
+  {
+    "sql": "SELECT ROUND(CAST(COUNT(CASE WHEN T1.secondary_description = 'VEHICULAR HIJACKING' THEN T1.iucr_no END) AS REAL) / CAST(COUNT(DISTINCT CASE WHEN T1.secondary_description = 'VEHICULAR HIJACKING' THEN T3.district_name END) AS REAL) - CAST(COUNT(CASE WHEN T1.secondary_description = 'AGGRAVATED VEHICULAR HIJACKING' THEN T1.iucr_no END) AS REAL) / CAST(COUNT(DISTINCT CASE WHEN T1.secondary_description = 'AGGRAVATED VEHICULAR HIJACKING' THEN T3.district_name END) AS REAL), 4) AS \"difference\" FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no INNER JOIN District AS T3 ON T3.district_no = T2.district_no",
+    "question_id": null,
+    "question": "Calculate the difference in the average number of vehicular hijackings and aggravated vehicular hijackings in the districts.",
+    "difficulty": "",
+    "evidence": "\"VEHICULAR HIJACKING\" and \"AGGRAVATED VEHICULAR HIJACKING\" are both secondary_description; difference in average = Subtract (Divide(Count(secondary_description = 'VEHICULAR HIJACKING'), Count(district_name)), Divide(Count(secondary_description = \"AGGRAVATED VEHICULAR HIJACKING\"), Count(district_name)))"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM Crime WHERE longitude = '-87.72658001'",
+    "question_id": null,
+    "question": "How many crimes happened in longitude -8772658001?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT secondary_description FROM IUCR WHERE primary_description = 'NARCOTICS' GROUP BY secondary_description",
+    "question_id": null,
+    "question": "List all the crimes of the narcotic type that exist.",
+    "difficulty": "",
+    "evidence": "narcotic type refers to primary_description = 'NARCOTICS'; crime refers to secondary_description"
+  },
+  {
+    "sql": "SELECT alderman_first_name FROM Ward WHERE Population > 50000",
+    "question_id": null,
+    "question": "What is the first name of the aldermen of wards with more than 50,000 inhabitants?",
+    "difficulty": "",
+    "evidence": "more than 50000 inhabitants refers to Population > 50000; first name of alderman refers to alderman_first_name"
+  },
+  {
+    "sql": "SELECT T2.report_no FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T2.fbi_code_no = T1.fbi_code_no WHERE T1.title = 'Drug Abuse'",
+    "question_id": null,
+    "question": "List crimes that the FBI has classified as Drug Abuse by their report number.",
+    "difficulty": "",
+    "evidence": "\"Drug Abuse\" is the title of crime"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.district_name = 'Calumet' THEN 1 ELSE 0 END) FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no INNER JOIN District AS T3 ON T3.district_no = T2.district_no WHERE T1.primary_description = 'WEAPONS VIOLATION'",
+    "question_id": null,
+    "question": "How many weapons violation crimes have occurred in the Calumet district?",
+    "difficulty": "",
+    "evidence": "\"Calumet\" is the district_name; 'WEAPON VIOLATION' is the primary_description of crime"
+  },
+  {
+    "sql": "SELECT T2.latitude, T2.longitude FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.community_area_name = 'Belmont Cragin' GROUP BY T2.latitude, T2.longitude",
+    "question_id": null,
+    "question": "What is the exact location of the crimes that occurred in the Belmont Cragin community?",
+    "difficulty": "",
+    "evidence": "Belmont Cragin community refers to community_area_name = 'Belmont Cragin'; exact location refers to latitude, longitude"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T4.neighborhood_name = 'Hermosa' THEN 1 ELSE 0 END) FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no INNER JOIN Community_Area AS T3 ON T3.community_area_no = T2.community_area_no INNER JOIN Neighborhood AS T4 ON T4.community_area_no = T3.community_area_no",
+    "question_id": null,
+    "question": "How many different types of crimes, according to the primary description, have occurred in the Hermosa neighborhood?",
+    "difficulty": "",
+    "evidence": "\"Hermosa\" is the neighborhood_name"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.domestic = 'TRUE' THEN 1 ELSE 0 END) FROM District AS T1 INNER JOIN Crime AS T2 ON T2.district_no = T1.district_no WHERE T1.commander = 'Ronald A. Pontecore Jr.'",
+    "question_id": null,
+    "question": "How many domestic crime cases has Commander Ronald A. Pontecore Jr. been responsible for investigating?",
+    "difficulty": "",
+    "evidence": "domestic crime refers to domestic = 'TRUE'; person responsible for investigating refers to commander"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.crime_against = 'Society' THEN 1 ELSE 0 END) FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T2.fbi_code_no = T1.fbi_code_no INNER JOIN District AS T3 ON T3.district_no = T2.district_no WHERE T3.district_name = 'Wentworth'",
+    "question_id": null,
+    "question": "How many crimes against society happened in the Wentworth district according to the FBI?",
+    "difficulty": "",
+    "evidence": "\"Wentworth\" is the district_name; crime against society refers to crime_against = 'Society\""
+  },
+  {
+    "sql": "SELECT T3.phone FROM Ward AS T1 INNER JOIN Crime AS T2 ON T2.ward_no = T1.ward_no INNER JOIN District AS T3 ON T3.district_no = T2.district_no WHERE T1.alderman_first_name = 'Emma' AND T1.alderman_last_name = 'Mitts'",
+    "question_id": null,
+    "question": "What phone number does alderman Emma Mitts have to call if she wants to speak to the commander in charge of the investigation of the crimes that have occurred in her ward?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.community_area_name = 'Lake View' THEN 1 ELSE 0 END) FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T2.fbi_code_no = T1.fbi_code_no INNER JOIN Community_Area AS T3 ON T3.community_area_no = T2.community_area_no WHERE T1.description = 'The theft of a motor vehicle.'",
+    "question_id": null,
+    "question": "How many crimes described as 'The theft of a motor vehicle' by the FBI have taken place in the Lake View community?",
+    "difficulty": "",
+    "evidence": "lake view community refers to community_area_name = 'Lake View'; 'The theft of a motor vehicle' is the description"
+  },
+  {
+    "sql": "SELECT T3.district_name FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no INNER JOIN District AS T3 ON T3.district_no = T2.district_no WHERE T1.primary_description = 'INTIMIDATION' GROUP BY T3.district_name ORDER BY COUNT(T1.primary_description) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which district have there been more intimidation-type crimes?",
+    "difficulty": "",
+    "evidence": "more intimidation-type crime refers to Max(Count(primary_description = 'INTIMIDATION')); district refers to district_name"
+  },
+  {
+    "sql": "SELECT T2.domestic FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T2.community_area_no = T1.community_area_no WHERE T1.community_area_name = 'North Lawndale' AND T2.domestic = 'TRUE' GROUP BY T2.domestic ORDER BY COUNT(T2.domestic) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What types of domestic crimes have occurred the most in the North Lawndale community?",
+    "difficulty": "",
+    "evidence": "\"North Lawndale' is the community_area_name; occur the most domestic crime refers to Max(Count(domestic = 'TRUE'))"
+  },
+  {
+    "sql": "SELECT T3.ward_no FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no INNER JOIN Ward AS T3 ON T3.ward_no = T2.ward_no WHERE T1.primary_description = 'INTIMIDATION' AND T1.secondary_description = 'EXTORTION' AND T3.Population > 55000 GROUP BY T3.ward_no ORDER BY COUNT(T3.ward_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which ward of more than 55,000 inhabitants are there more crimes of intimidation with extortion?",
+    "difficulty": "",
+    "evidence": "more than 55000 inhabitants refers to Population > 55000; 'INTIMIDATION' is the primary_description; 'EXTORTION' refers to secondary_description; more crime refers to Count(ward_no)"
+  },
+  {
+    "sql": "SELECT T3.commander FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T2.iucr_no = T1.iucr_no INNER JOIN District AS T3 ON T3.district_no = T2.district_no WHERE T1.secondary_description = 'CRIMINAL SEXUAL ABUSE' GROUP BY T3.commander ORDER BY COUNT(T1.secondary_description) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which commander has had to deal with more cases of criminal sexual abuse?",
+    "difficulty": "",
+    "evidence": "more cases of criminal sexual abuse refers to Max(Count(secondary_description = 'CRIMINAL SEXUAL ABUSE'))"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.domestic = 'FALSE' THEN T2.case_number END) AS REAL) * 100 / COUNT(T2.case_number) FROM District AS T1 INNER JOIN Crime AS T2 ON T2.district_no = T1.district_no WHERE T1.district_name = 'Jefferson Park'",
+    "question_id": null,
+    "question": "What percentage of non-domestic crimes have occurred in the Jefferson Park district?",
+    "difficulty": "",
+    "evidence": "non domestic crime refers to domestic = 'FALSE'; 'Jefferson Park' is the district_name; percentage = Divide (Count (case_number where domestic = 'FALSE'), Count(case_number)) * 100"
+  },
+  {
+    "sql": "SELECT AVG(T2.Population) FROM Crime AS T1 INNER JOIN Ward AS T2 ON T2.ward_no = T1.ward_no WHERE T1.location_description = 'APARTMENT' AND T1.arrest = 'FALSE'",
+    "question_id": null,
+    "question": "What is the average population of the wards where apartment crimes have been reported without arrests?",
+    "difficulty": "",
+    "evidence": "apartment crime refers to location_description = 'APARTMENT';\u00a0 without arrest refers to arrest = 'FALSE'; average population = AVG(Population)"
+  },
+  {
+    "sql": "SELECT alderman_first_name, alderman_last_name FROM Ward ORDER BY Population DESC LIMIT 5",
+    "question_id": null,
+    "question": "What are the full names of the top 5 most crowded ward aldermen?",
+    "difficulty": "",
+    "evidence": "most crowded ward refers to Max(Population); full name of alderman refers to alderman_first_name, alderman_last_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) AS cnt FROM FBI_Code WHERE crime_against = 'Property'",
+    "question_id": null,
+    "question": "How many crime against property are there?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(*) AS cnt FROM District WHERE zip_code = 60608",
+    "question_id": null,
+    "question": "How many districts are there in the police district building with a zip code of 60608?",
+    "difficulty": "",
+    "evidence": "district refers to district_name"
+  },
+  {
+    "sql": "SELECT crime_against FROM FBI_Code WHERE title = 'Criminal Sexual Abuse'",
+    "question_id": null,
+    "question": "Who is the crime against criminal sexual abuse?",
+    "difficulty": "",
+    "evidence": "\"Criminal Sexual Abuse\" is the title of crime"
+  },
+  {
+    "sql": "SELECT T1.community_area_name FROM Community_Area AS T1 INNER JOIN Neighborhood AS T2 ON T1.community_area_no = T2.community_area_no ORDER BY T2.community_area_no DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which community has the highest number of neighborhoods?",
+    "difficulty": "",
+    "evidence": "community with highest number of neighborhoods refers to Max(Count(community_area_no)); community refers to community_area_name"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.longitude = '-87.54430496' THEN 1 ELSE 0 END) FROM Crime AS T1 INNER JOIN IUCR AS T2 ON T1.report_no = T2.iucr_no WHERE T2.index_code = 'I' AND T1.latitude = '41.64820251'",
+    "question_id": null,
+    "question": "How many severe crime incidents were reported at coordinate 41.64820151, -87.54430496?",
+    "difficulty": "",
+    "evidence": "coordinates refers to latitude, longitude; severe crime refers to index_code = 'I'"
+  },
+  {
+    "sql": "SELECT T2.commander FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no WHERE T1.arrest = 'FALSE' GROUP BY T2.commander ORDER BY COUNT(T1.report_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the commanding officer in the district with the highest number of reported crimes where no arrest has been made?",
+    "difficulty": "",
+    "evidence": "where no arrest refers to arrest = 'FALSE'; highest number of crime refers to Max(Count(report_no)); commanding officer refers to commander"
+  },
+  {
+    "sql": "SELECT T2.primary_description, T2.secondary_description FROM Crime AS T1 INNER JOIN IUCR AS T2 ON T1.iucr_no = T2.iucr_no WHERE T1.location_description = 'AIRCRAFT' GROUP BY T1.iucr_no ORDER BY COUNT(T1.iucr_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What are the general and specific descriptions of the most common crime incidents that happened in an aircraft?",
+    "difficulty": "",
+    "evidence": "in aircraft refers to location_description = 'AIRCRAFT'; general description refers to primary_description; specific description refers to secondary_description; most common crime incidents refers to Max(Count(iucr_no))"
+  },
+  {
+    "sql": "SELECT T1.district_name FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T1.district_name IN ('Deering', 'Near West') AND T2.location_description = 'LIBRARY' GROUP BY T1.district_name ORDER BY COUNT(T2.district_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Between Deering and Near West districts, which district reported the most number of crime incidents that happened in a library?",
+    "difficulty": "",
+    "evidence": "\"Deering\" and \"Near West\" are both district_name; 'LIBRARY' is the location_description; district with the most number of crime Max(Count(district_no))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.arrest = 'TRUE' THEN 1 ELSE 0 END) FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T1.iucr_no = T2.iucr_no WHERE T2.location_description = 'DAY CARE CENTER' AND T1.secondary_description = 'FORCIBLE ENTRY' AND T1.primary_description = 'BURGLARY'",
+    "question_id": null,
+    "question": "How many arrests have been made due to forcible entry burglary that took place in a day care center?",
+    "difficulty": "",
+    "evidence": "\"BURGLARY\" is the primary_description; 'FORCIBLE ENTRY' is the secondary_description; 'DAY CARE CENTER' is the location_description; arrests have been made refers to arrest = 'TRUE'"
+  },
+  {
+    "sql": "SELECT T2.district_name FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no WHERE T1.domestic = 'TRUE' GROUP BY T2.district_name ORDER BY COUNT(T1.district_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the district with the highest number of domestic violence cases?",
+    "difficulty": "",
+    "evidence": "domestic violence refers to domestic = 'TRUE'; highest number of case refers to Max(Count(district_no)); name of district refers to distric_name"
+  },
+  {
+    "sql": "SELECT T2.location_description FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no WHERE T1.population = ( SELECT MIN(population) FROM Community_Area ) AND T2.location_description IS NOT NULL GROUP BY T2.location_description",
+    "question_id": null,
+    "question": "In the least populated community, what is the most common location of all the reported crime incidents?",
+    "difficulty": "",
+    "evidence": "least populated refers to Min(Population); community refers to community_area_no; most common location refers to Max(Count(location_description))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.description LIKE '%The violation of laws%' THEN 1 ELSE 0 END) FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no WHERE T2.Arrest = 'FALSE'",
+    "question_id": null,
+    "question": "How many violation of laws are there where no arrest has been made?",
+    "difficulty": "",
+    "evidence": "\"The violation of laws \" is the description of incidents; no arrest has been made refers to arrest = 'FALSE'"
+  },
+  {
+    "sql": "SELECT T2.latitude, T2.longitude FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no INNER JOIN Community_Area AS T3 ON T2.community_area_no = T3.community_area_no WHERE T1.title = 'Simple Assault' AND T3.community_area_name = 'Chatham' AND T3.community_area_no = 44 ORDER BY T2.latitude DESC, T2.longitude DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the precise coordinate of the location where simple assault incidents happened the most in Chatham?",
+    "difficulty": "",
+    "evidence": "precise coordinates refers to latitude, longitude; 'Simple Assault' is the title of incident; 'Chatham' is the community_area_name; most incident happened refers to Max(Count(latitude, longitude))"
+  },
+  {
+    "sql": "SELECT T3.community_area_name FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no INNER JOIN Community_Area AS T3 ON T2.community_area_no = T3.community_area_no WHERE T3.side = 'South' AND T1.description = 'The unlawful taking, carrying, leading, or riding away of property FROM the possession or constructive possession of another person.' GROUP BY T3.community_area_name ORDER BY COUNT(T1.fbi_code_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the South side community, what is the name of the community with the most reported incidents of unlawful taking, carrying, leading, or riding away of property from the possession or constructive possession of another person?",
+    "difficulty": "",
+    "evidence": "\"unlawful taking, carrying, leading, or riding away of property from the possession or constructive possession of another person\" is the description; name of community refer to community_area_name; most reported incidents refers to Max(Count(fbi_code_no))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.community_area_name = 'Englewood' THEN 1 ELSE 0 END) FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no INNER JOIN Community_Area AS T3 ON T2.community_area_no = T3.community_area_no WHERE T1.crime_against = 'Society'",
+    "question_id": null,
+    "question": "How many crime against society were reported in Englewood?",
+    "difficulty": "",
+    "evidence": "\"Englewood\" is the community_area_name; 'Society' is the crime_against"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.fbi_code_no) AS REAL) / 4 FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no WHERE SUBSTR(T2.date, 1, 1) = '1' AND SUBSTR(T2.date, 5, 4) = '2018'",
+    "question_id": null,
+    "question": "What is the weekly average number of fraud incidents that were reported in January 2018? Provide the description of the location where the majority of fraud incidents occurred in the said month.",
+    "difficulty": "",
+    "evidence": "fraud incident refers to title = 'Fraud'; reported in January 2018 refers to Substr(date, 1, 1) = '1' AND Substr(date, 5, 4) = '2018'; description of location refers to location_description; weekly average refers to Divide (Count(report_no), 4); majority of incidents occurred refers to Max(Count(location_description))"
+  },
+  {
+    "sql": "SELECT community_area_name FROM Community_Area WHERE population > 50000 LIMIT 3",
+    "question_id": null,
+    "question": "Please list any three community areas with a population of more than 50,000.",
+    "difficulty": "",
+    "evidence": "population of more than 50000 refers to Population > 50000; community area refers to community_area_name"
+  },
+  {
+    "sql": "SELECT community_area_name FROM Community_Area WHERE side = 'Central'",
+    "question_id": null,
+    "question": "What are the communities that are grouped together on the central side?",
+    "difficulty": "",
+    "evidence": "central side refers to side = 'Central'; community refers to community_area_name"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN side = 'South ' THEN 1 ELSE 0 END) - SUM(CASE WHEN side = 'North' THEN 1 ELSE 0 END) AS DIFF FROM Community_Area WHERE population > 300000",
+    "question_id": null,
+    "question": "What is the difference between the number of communities that are located on the north and south sides with a population of more than 30,000?",
+    "difficulty": "",
+    "evidence": "population of more than 30000 refers to Population > 30000; 'North' and 'South' both are the side; different number of community refers to Subtract(Count(Community_area_no where side = 'South'), Count(Community_area_no where side = 'North'))"
+  },
+  {
+    "sql": "SELECT phone, fax, tty, twitter FROM District WHERE district_name = 'Near West'",
+    "question_id": null,
+    "question": "Please list all of the contact information for the police district Near West.",
+    "difficulty": "",
+    "evidence": "\"Near West\" is the district_name; all contact information refers to phone, fax, tty, twitter"
+  },
+  {
+    "sql": "SELECT commander FROM District WHERE district_name = 'Lincoln'",
+    "question_id": null,
+    "question": "Who is responsible for crime cases in district Lincoln?",
+    "difficulty": "",
+    "evidence": "\"Lincoln\" is the district_name; responsible for crime case refers to commander"
+  },
+  {
+    "sql": "SELECT primary_description, secondary_description FROM IUCR WHERE iucr_no = 275",
+    "question_id": null,
+    "question": "What is the general and specific description of incident 275?",
+    "difficulty": "",
+    "evidence": "incident 275 refers to iucr_no = 275; general description refers to primary_description; specific description refers to secondary_description"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN primary_description = 'CRIM SEXUAL ASSAULT' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM IUCR WHERE index_code = 'I'",
+    "question_id": null,
+    "question": "What is the percentage of severe cases that are related to sexual assault?",
+    "difficulty": "",
+    "evidence": "related to sexual assault refers to primary_description = 'CRIME SEXUAL ASSAULT'; severe case refers to index_code = 'I'; percentage = Divide (Count (iucr_no where primary_description = 'CRIME SEXUAL ASSAULT'), Count (iucr_no)) * 100"
+  },
+  {
+    "sql": "SELECT T2.neighborhood_name FROM Community_Area AS T1 INNER JOIN Neighborhood AS T2 ON T1.community_area_no = T2.community_area_no WHERE T1.community_area_name = 'North Center'",
+    "question_id": null,
+    "question": "What are the neighborhoods that are located in the North Center community area?",
+    "difficulty": "",
+    "evidence": "\"North Center\" is the community_area_name; neighborhoods refers to neighborhood_name"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.community_area_name = 'Forest Glen' THEN 1 ELSE 0 END) FROM Neighborhood AS T1 INNER JOIN Community_Area AS T2 ON T1.community_area_no = T2.community_area_no",
+    "question_id": null,
+    "question": "How many neighborhoods can be found in the Forest Glen community area?",
+    "difficulty": "",
+    "evidence": "\"Forest Glen\" is the community_area_name; neighborhoods refers to neighborhood_name"
+  },
+  {
+    "sql": "SELECT SUM(T2.population) AS sum FROM Neighborhood AS T1 INNER JOIN Community_Area AS T2 ON T1.community_area_no = T2.community_area_no WHERE T1.neighborhood_name = 'Avondale Gardens' OR T1.neighborhood_name = 'Irving Park' OR T1.neighborhood_name = 'Kilbourn Park' OR T1.neighborhood_name = 'Merchant Park' OR T1.neighborhood_name = 'Old Irving Park' OR T1.neighborhood_name = 'The Villa'",
+    "question_id": null,
+    "question": "What is the total population of the neighborhoods Avondale Gardens, Irving Park, Kilbourn Park, Merchant Park, Old Irving Park, and The Villa?",
+    "difficulty": "",
+    "evidence": "\"Avoladale Gardens\", \"Irving Park\", \"Kilbourn Park\", \"Merchant Park\", \"Old Irving Park\", \"The Villa\" are neighborhood_name; total population refers to Sum(Population)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.title = 'Weapons Violation' THEN 1 ELSE 0 END) FROM Crime AS T1 INNER JOIN FBI_Code AS T2 ON T1.fbi_code_no = T2.fbi_code_no",
+    "question_id": null,
+    "question": "How many crime cases have been classified as \"Weapons Violation\" by the FBI?",
+    "difficulty": "",
+    "evidence": "\"Weapons Violation\" is the title of crime; crime cases refers to report_no;"
+  },
+  {
+    "sql": "SELECT T2.case_number FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no WHERE T1.title = 'Criminal Sexual Assault' AND T2.arrest = 'TRUE' AND T1.crime_against = 'Persons' LIMIT 3",
+    "question_id": null,
+    "question": "Please list any three criminal sexual assault cases against persons where the criminals have been arrested.",
+    "difficulty": "",
+    "evidence": "\"Criminal Sexual Assault\" is the title of crime; against person refers to crime_against = 'Persons'; criminals have been arrested refers to arrest = 'TRUE'; cases refers to case_number"
+  },
+  {
+    "sql": "SELECT T1.case_number FROM Crime AS T1 INNER JOIN FBI_Code AS T2 ON T1.fbi_code_no = T2.fbi_code_no WHERE T2.title = 'Criminal Sexual Assault' AND T2.crime_against = 'Persons' AND T1.arrest = 'TRUE' LIMIT 3",
+    "question_id": null,
+    "question": "Please state the district name where incident number JB106545 took place.",
+    "difficulty": "",
+    "evidence": "incident number JB106545 refers to case_number = 'JB106545'"
+  },
+  {
+    "sql": "SELECT T1.primary_description FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T1.iucr_no = T2.iucr_no WHERE T2.case_number = 'JB106010'",
+    "question_id": null,
+    "question": "What is the general description for case number JB106010?",
+    "difficulty": "",
+    "evidence": "general description refers to primary_description"
+  },
+  {
+    "sql": "SELECT T3.community_area_name FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no INNER JOIN Community_Area AS T3 ON T2.community_area_no = T3.community_area_no WHERE T1.title = 'Criminal Sexual Assault' LIMIT 3",
+    "question_id": null,
+    "question": "Please name three communities that experience the fraud incident.",
+    "difficulty": "",
+    "evidence": "communities refers to community_area_name; 'Fraud Incident' is the title of crime"
+  },
+  {
+    "sql": "SELECT T1.fbi_code_no, T1.title FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no INNER JOIN Community_Area AS T3 ON T2.community_area_no = T3.community_area_no WHERE T3.community_area_name = 'Rogers Park' GROUP BY T1.fbi_code_no, T1.title",
+    "question_id": null,
+    "question": "What was the major type of crime that happened in the Rogers Park community area?",
+    "difficulty": "",
+    "evidence": "\"Rogers Park\" is the community_area_name; major type of crime refers to title"
+  },
+  {
+    "sql": "SELECT T1.district_no, T1.district_name FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T2.case_number = 'JB120039' GROUP BY T1.district_no, T1.district_name",
+    "question_id": null,
+    "question": "At which district did the multiple homicide case number JB120039 occurred?",
+    "difficulty": "",
+    "evidence": "multiple homicide refers to Count(case_number) > 1; district refers to district_name"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.title = 'Drug Abuse' AND T1.location_description = 'STREET' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.fbi_code_no) FROM Crime AS T1 INNER JOIN FBI_Code AS T2 ON T1.fbi_code_no = T2.fbi_code_no",
+    "question_id": null,
+    "question": "What is the percentage of crime cases that have been classified as \"drug abuse\" by the FBI and happened on the street?",
+    "difficulty": "",
+    "evidence": "\"Drug Abuse\" is the title of crime; happened on the street refers to location_description = 'STREET';\u00a0 percentage = Divide (Count(fbi_code_no where location_description = 'STREET'), Count(fbi_code_no)) * 100"
+  },
+  {
+    "sql": "SELECT ward_no FROM Ward ORDER BY Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the ward number with the highest population.",
+    "difficulty": "",
+    "evidence": "highest population refers to Max(Population); ward number refers to ward_no"
+  },
+  {
+    "sql": "SELECT beat, location_description FROM Crime WHERE case_number = 'JB112212'",
+    "question_id": null,
+    "question": "What is the beat and location description of the case JB112212?",
+    "difficulty": "",
+    "evidence": "case JB112212 refers to case_number = 'JB112212'"
+  },
+  {
+    "sql": "SELECT fbi_code_no FROM FBI_Code WHERE description = 'The killing of one human being by another.'",
+    "question_id": null,
+    "question": "Give the FBI code for the crime described by \"The killing of one human being by another.\"",
+    "difficulty": "",
+    "evidence": "\"The killing of one human being by another\" is the description; FBI code refers to fbi_code_no"
+  },
+  {
+    "sql": "SELECT T3.ward_office_address FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no INNER JOIN Ward AS T3 ON T2.ward_no = T3.ward_no WHERE T1.community_area_name = 'Montclare' GROUP BY T3.ward_office_address LIMIT 5",
+    "question_id": null,
+    "question": "Provide at least 5 ward office addresses associated with the crimes that happened in the community of Montclare.",
+    "difficulty": "",
+    "evidence": "\"Montclare\" is the community_area_name"
+  },
+  {
+    "sql": "SELECT T2.address, T2.commander FROM Crime AS T1 INNER JOIN District AS T2 ON T1.district_no = T2.district_no WHERE T1.location_description = 'YARD' AND T1.beat = 532",
+    "question_id": null,
+    "question": "List down the district's commander associated with the crime that happened at the yard and has a beat of 532.",
+    "difficulty": "",
+    "evidence": "beat of 532 refers to beat = 532; happened in the Yard refers to location_description = 'YARD'; district commander refers to commander"
+  },
+  {
+    "sql": "SELECT T2.neighborhood_name FROM Community_Area AS T1 INNER JOIN Neighborhood AS T2 ON T1.community_area_no = T2.community_area_no WHERE T1.community_area_name = 'Lake View'",
+    "question_id": null,
+    "question": "What is the neighborhood name in the community area of Lake View?",
+    "difficulty": "",
+    "evidence": "\"Lake View\" is the community_area_name"
+  },
+  {
+    "sql": "SELECT T3.neighborhood_name FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no INNER JOIN Neighborhood AS T3 ON T2.community_area_no = T3.community_area_no WHERE T2.report_no = 23778",
+    "question_id": null,
+    "question": "Name the neighborhood of the community area in crime with report number 23843?",
+    "difficulty": "",
+    "evidence": "neighborhood refers to neighborhood_name; '23778' is the report_no"
+  },
+  {
+    "sql": "SELECT T1.description FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no WHERE T2.report_no = 23843",
+    "question_id": null,
+    "question": "What is the FBI description of the crime for report number 23778?",
+    "difficulty": "",
+    "evidence": "\"23778\" is the report_no; FBI description refers to description"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.commander = 'Jill M. Stevens' THEN 1 ELSE 0 END) FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no",
+    "question_id": null,
+    "question": "List down the report number of crimes associated with the district commander named Jill M. Stevens.",
+    "difficulty": "",
+    "evidence": "report number refers report_no; 'Jill M. Stevens\" is the commander"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.location_description = 'HOUSE' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.location_description) AS persent FROM Community_Area AS T1 INNER JOIN Crime AS T2 ON T1.community_area_no = T2.community_area_no INNER JOIN Neighborhood AS T3 ON T2.community_area_no = T3.community_area_no WHERE T3.neighborhood_name = 'Avalon Park'",
+    "question_id": null,
+    "question": "Among the crimes happened in the neighborhood called \"Avalon Park\", what is the percentage of crimes that happened inside the house?",
+    "difficulty": "",
+    "evidence": "\"Avalon Park\" is the neghborhood_name; happened inside the house refers to location_description = 'HOUSE'; percentage = Divide (Count(location_description = 'HOUSE'), Count(location_description)) * 100"
+  },
+  {
+    "sql": "SELECT alderman_first_name, alderman_last_name, alderman_name_suffix FROM Ward WHERE ward_no = 21",
+    "question_id": null,
+    "question": "What is the full name of the alderman of ward no.21?",
+    "difficulty": "",
+    "evidence": "full name of alderman refers to alderman_first_name, alderman_last_name, alderman_name_suffix"
+  },
+  {
+    "sql": "SELECT ward_no FROM Ward ORDER BY Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the ward ID of the most crowded ward?",
+    "difficulty": "",
+    "evidence": "most crowded ward refers to Max(Population)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM IUCR WHERE primary_description = 'ASSAULT'",
+    "question_id": null,
+    "question": "How many incidents have the general description of \"ASSAULT\" in the IUCR classification?",
+    "difficulty": "",
+    "evidence": "general description refers to primary_description; 'ASSAULT' is the primary_description; incidents refers to iucr_no"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM IUCR WHERE index_code = 'I'",
+    "question_id": null,
+    "question": "How many incidents are considered \"severe\" in the IUCR classification?",
+    "difficulty": "",
+    "evidence": "severe refers to index_code = 'I'; incidents refers to iucr_no"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.alderman_last_name = 'Dowell' THEN 1 ELSE 0 END) FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T2.arrest = 'FALSE' AND T1.alderman_first_name = 'Pat'",
+    "question_id": null,
+    "question": "Among the crimes with no arrest made, how many of them happened in the ward represented by alderman Pat Dowell?",
+    "difficulty": "",
+    "evidence": "no arrest has been made refers to arrest = 'FALSE'"
+  },
+  {
+    "sql": "SELECT T1.ward_no, T1.alderman_first_name, T1.alderman_last_name, T1.alderman_name_suffix FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE SUBSTR(T2.date, 1, 1) = '1' AND SUBSTR(T2.date, 5, 4) = '2018' GROUP BY T1.ward_no ORDER BY COUNT(T1.ward_no) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which alderman represents the ward with the most number of crimes in January, 2018? Please give his or her full name.",
+    "difficulty": "",
+    "evidence": "in January 2018 refers to Substr(date, 1, 1) = '1' AND Substr(date, 5, 4) = '2018'; ward with the most number of crime refers to Max (Count(ward_no)); full name refers to alderman_first_name, alderman_last_name, alderman_name_suffix"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ward_no) AS num FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T2.domestic = 'TRUE' ORDER BY T1.Population = ( SELECT Population FROM Ward ORDER BY Population DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "Among the crimes in the ward with the most population, how many of them are cases of domestic violence?",
+    "difficulty": "",
+    "evidence": "most population refers to Max(Population); domestic violence refers to domestic = 'TRUE'"
+  },
+  {
+    "sql": "SELECT T2.latitude, T2.longitude FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T1.alderman_first_name = 'Pat' AND T1.alderman_last_name = 'Dowell' AND T2.latitude IS NOT NULL AND T2.longitude IS NOT NULL",
+    "question_id": null,
+    "question": "Please list the location coordinates of all the incidents that had happened in the ward represented by alderman Pat Dowell.",
+    "difficulty": "",
+    "evidence": "location coordinates refers to latitude, longitude"
+  },
+  {
+    "sql": "SELECT T1.alderman_first_name, T1.alderman_last_name, COUNT(T1.ward_no) AS num FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE (SUBSTR(T2.date, 1, 1) = '1' AND SUBSTR(T2.date, 5, 4) = '2018' AND T1.alderman_first_name = 'Pat' AND T1.alderman_last_name = 'Dowell') OR (T1.alderman_first_name = 'Sophia' AND T1.alderman_last_name = 'King') GROUP BY T1.ward_no",
+    "question_id": null,
+    "question": "The ward represented by which alderman had more incidents in January, 2018, Pat Dowell or Sophia King?",
+    "difficulty": "",
+    "evidence": "January, 2018 refers to Substr(date, 1, 1) = '1' AND Substr(date, 5, 4) = '2018'; had more incidents refers to Max(Count(ward_no))"
+  },
+  {
+    "sql": "SELECT T2.case_number FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T1.iucr_no = T2.iucr_no WHERE T1.primary_description = 'BATTERY'",
+    "question_id": null,
+    "question": "Please list the case numbers of all the incidents with the generic description of \"BATTERY\" in the IUCR classification.",
+    "difficulty": "",
+    "evidence": "general description refers to primary_description; 'BATTERY' is the primary_description"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.arrest = 'FALSE' THEN 1 ELSE 0 END) FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T1.iucr_no = T2.iucr_no WHERE T1.primary_description = 'BATTERY'",
+    "question_id": null,
+    "question": "Among the incidents with the generic description of \"BATTERY\" in the IUCR classification, how many of them do not have arrests made?",
+    "difficulty": "",
+    "evidence": "general description refers to primary_description; 'BATTERY' is the primary_description; do not have arrest made refers to arrest = 'FALSE'"
+  },
+  {
+    "sql": "SELECT T2.case_number FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no WHERE T1.title = 'Homicide 1st & 2nd Degree'",
+    "question_id": null,
+    "question": "Please list the case numbers of all the crimes whose short description of the kind of crime is \"Homicide 1st & 2nd Degree\" in the FBI classification.",
+    "difficulty": "",
+    "evidence": "\"Homicide 1st & 2nd Degree\" is the title"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN SUBSTR(T2.date, 5, 4) = '2018' THEN 1 ELSE 0 END) FROM FBI_Code AS T1 INNER JOIN Crime AS T2 ON T1.fbi_code_no = T2.fbi_code_no WHERE T1.crime_against = 'Property' AND SUBSTR(T2.date, 1, 1) = '1'",
+    "question_id": null,
+    "question": "Among the incidents in January, 2018, how many of them were stated \"against Property\" in the FBI classification?",
+    "difficulty": "",
+    "evidence": "in January 2018 refers to Substr(date, 1, 1) = '1' AND Substr(date, 5, 4) = '2018'; against property refers to crime_against = 'Property'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN SUBSTR(T2.date, 5, 4) = '2018' THEN 1 ELSE 0 END) FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T1.commander = 'Robert A. Rubio' AND SUBSTR(T2.date, 1, 1) = '1'",
+    "question_id": null,
+    "question": "District commander Robert A. Rubio was responsible for how many incidents in January, 2018?",
+    "difficulty": "",
+    "evidence": "in January 2018 refers to Substr(date, 1, 1) = '1' AND Substr(date, 5, 4) = '2018'"
+  },
+  {
+    "sql": "SELECT T1.commander FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T1.commander IN ('Robert A. Rubio', 'Glenn White') AND SUBSTR(T2.date, 1, 1) = '1' AND SUBSTR(T2.date, 5, 4) = '2018' GROUP BY T1.commander",
+    "question_id": null,
+    "question": "Which district commander was responsible for more incidents in January, 2018, Robert A. Rubio or Glenn White?",
+    "difficulty": "",
+    "evidence": "in January 2018 refers to Substr(date, 1, 1) = '1' AND Substr(date, 5, 4) = '2018'; 'Robert A. Rubio' and 'Glenn White' are both commander; responsible for more incident refers to Max(count(ward_no))"
+  },
+  {
+    "sql": "SELECT T2.block FROM District AS T1 INNER JOIN Crime AS T2 ON T1.district_no = T2.district_no WHERE T1.commander = 'Robert A. Rubio'",
+    "question_id": null,
+    "question": "Please list the blocks where all the incidents in the district commanded by Robert A. Rubio took place.",
+    "difficulty": "",
+    "evidence": "\"Robert A. Rubio\" is the commander"
+  },
+  {
+    "sql": "SELECT COUNT(T1.ward_no) / 12 AS average FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T2.date LIKE '%2018%' AND T1.Population = ( SELECT MAX(T1.Population) FROM Ward AS T1 INNER JOIN Crime AS T2 ON T1.ward_no = T2.ward_no WHERE T2.date LIKE '%2018%' )",
+    "question_id": null,
+    "question": "What is the average number of incidents per month in 2018 in the ward with the most population?",
+    "difficulty": "",
+    "evidence": "in 2018 refers to date like '%2018%'; ward with most population refers to Max(Population); average number of incident per month refers to Divide(Count(ward_no), 12)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.primary_description = 'BATTERY' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*)FROM IUCR AS T1 INNER JOIN Crime AS T2 ON T1.iucr_no = T2.iucr_no WHERE T2.arrest = 'FALSE'",
+    "question_id": null,
+    "question": "Among all the incidents with no arrest made, what is the percentage of them having a generic description of \"BATTERY\" in the IUCR classification?",
+    "difficulty": "",
+    "evidence": "incident with no arrest made refers to arrest = 'FALSE'; general description refers to primary_description; \"BATTERY\" is the primary_description; percentage = Divide (Count(iucr_no where primary_description = 'BATTERY'), Count(iucr_no)) * 100"
+  }
+]

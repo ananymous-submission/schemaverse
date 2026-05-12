@@ -1,0 +1,317 @@
+[
+  {
+    "sql": "SELECT groupName FROM torrents WHERE artist LIKE 'ron hunt & ronnie g & the sm crew' AND groupYear = 1979 AND releaseType LIKE 'single' AND totalSnatched = 239",
+    "question_id": null,
+    "question": "What is the release title of the single that was released by Ron Hunt in 1979 that was downloaded 239 times?",
+    "difficulty": "",
+    "evidence": "release title refers to groupName; Ron Hunt is an artist; groupYear = 1979; releaseType = 'single'; downloaded 239 times refer to totalSnatched = 239;"
+  },
+  {
+    "sql": "SELECT totalSnatched FROM torrents WHERE artist LIKE 'blowfly' AND groupYear = 1980",
+    "question_id": null,
+    "question": "How many times was the album released by blowfly in 1980 downloaded?",
+    "difficulty": "",
+    "evidence": "blowfly is an artist; groupYear = 1980; album refers to releaseType; downloaded refers to totalSnatched;"
+  },
+  {
+    "sql": "SELECT T2.tag FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.releaseType = 'album' ORDER BY T1.totalSnatched DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the tag of the album with the highest amount of downloads?",
+    "difficulty": "",
+    "evidence": "album refers to releaseType; the highest amount of downloads refers to MAX(totalSnatched);"
+  },
+  {
+    "sql": "SELECT T2.tag FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.releaseType = 'album' ORDER BY T1.totalSnatched DESC LIMIT 5",
+    "question_id": null,
+    "question": "What are the top 5 tags with the highest amount of downloads?",
+    "difficulty": "",
+    "evidence": "the highest amount of downloads refers to MAX(totalSnatched);"
+  },
+  {
+    "sql": "SELECT T1.groupName FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag LIKE 'funk' AND T1.releaseType = 'single' ORDER BY T1.groupYear LIMIT 1",
+    "question_id": null,
+    "question": "What is the release title of the single under the \"funk\" tag that was released the oldest?",
+    "difficulty": "",
+    "evidence": "release title of single refers to groupName where releaseType = 'single'; the oldest means coming before all others in time and refers to MIN(groupYear);"
+  },
+  {
+    "sql": "SELECT T1.groupName FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag LIKE 'alternative' AND T1.releaseType = 'ep'",
+    "question_id": null,
+    "question": "Name all the release titles of the \"ep's\" under the alternative tag.",
+    "difficulty": "",
+    "evidence": "release titles of the \"ep's\" refer to groupName where releaseType = 'ep';"
+  },
+  {
+    "sql": "SELECT T2.tag FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.releaseType = 'album' ORDER BY T1.totalSnatched LIMIT 5",
+    "question_id": null,
+    "question": "What are the tags of the top 5 least downloaded live albums?",
+    "difficulty": "",
+    "evidence": "least downloaded album refers to MIN(totalSnatched where releaseType = 'album');"
+  },
+  {
+    "sql": "SELECT T2.tag, T1.artist FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.releaseType = 'single' ORDER BY T1.totalSnatched DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the tag and the artist of the most downloaded single?",
+    "difficulty": "",
+    "evidence": "the most downloaded single refers to MAX(totalSnatched where releaseType = 'single');"
+  },
+  {
+    "sql": "SELECT COUNT(id) FROM tags WHERE tag LIKE '1980s'",
+    "question_id": null,
+    "question": "How many releases are tagged \"1980s\"?",
+    "difficulty": "",
+    "evidence": "tag = '1980s';"
+  },
+  {
+    "sql": "SELECT totalSnatched FROM torrents WHERE groupName LIKE 'city funk'",
+    "question_id": null,
+    "question": "How many times has the release \"city funk\" been downloaded?",
+    "difficulty": "",
+    "evidence": "groupName = 'city funk'; downloaded refers to totalSnatched;"
+  },
+  {
+    "sql": "SELECT groupName FROM torrents WHERE totalSnatched > 20000",
+    "question_id": null,
+    "question": "Please list the releases that have been downloaded for more than 20000 times.",
+    "difficulty": "",
+    "evidence": "releases refer to groupName; downloaded for more than 20000 times refers to totalSnatched > 20000;"
+  },
+  {
+    "sql": "SELECT T2.tag FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.groupName = 'sugarhill gang'",
+    "question_id": null,
+    "question": "What are the tags of the release \"sugarhill gang\"?",
+    "difficulty": "",
+    "evidence": "release \"sugarhill gang\" refers to groupName = 'sugarhill gang';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.tag) FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.groupName = 'city funk'",
+    "question_id": null,
+    "question": "How many tags does the release \"city funk\" have\uff1f",
+    "difficulty": "",
+    "evidence": "release \"city funk\" refers to groupName = 'city funk';"
+  },
+  {
+    "sql": "SELECT T1.groupName FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = '1980s'",
+    "question_id": null,
+    "question": "Please list the titles of all the releases with the tag \"1980s\".",
+    "difficulty": "",
+    "evidence": "titles refer to groupName;"
+  },
+  {
+    "sql": "SELECT T1.groupName FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = '1980s' ORDER BY T1.totalSnatched DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the releases with the tag \"1980s\", which one of them is the most downloaded? Please give its title.",
+    "difficulty": "",
+    "evidence": "title refers to groupName; the most downloaded refers to MAX(totalSnatched);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.groupName) FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'pop' AND T1.artist = 'michael jackson'",
+    "question_id": null,
+    "question": "How many releases by the artist michael jackson are tagged \"pop\"?",
+    "difficulty": "",
+    "evidence": "tag = 'pop';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.groupName) FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'pop' AND T1.releaseType = 'album' AND T1.groupYear = 2000",
+    "question_id": null,
+    "question": "Among the releases that were released in 2000, how many of them were released as an album and tagged \"pop\"?",
+    "difficulty": "",
+    "evidence": "groupYear = 2000; album refers to releaseType;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T1.totalSnatched) AS REAL) / COUNT(T2.tag) FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = '1980s'",
+    "question_id": null,
+    "question": "What are the average download times for the a release tagged \"1980s\"?",
+    "difficulty": "",
+    "evidence": "AVG(totalSnatched where tag = '1980s');"
+  },
+  {
+    "sql": "SELECT groupName FROM torrents ORDER BY totalSnatched DESC LIMIT 3",
+    "question_id": null,
+    "question": "Name the title of the top three releases with the highest number of downloads.",
+    "difficulty": "",
+    "evidence": "title refers to groupName; the highest number of downloads refers to MAX(totalSnatched);"
+  },
+  {
+    "sql": "SELECT artist, groupName FROM torrents WHERE groupYear = 2012 AND releaseType LIKE 'Single' ORDER BY totalSnatched DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the name of the artist who released his or her Single-Table in 2012 with the highest number of downloads. Name the Single-Table title as well.",
+    "difficulty": "",
+    "evidence": "title refers to groupName; the highest number of downloads refers to MAX(totalSnatched where groupYear = 2012 and releaseType = 'single');"
+  },
+  {
+    "sql": "SELECT COUNT(id), ( SELECT COUNT(id) FROM torrents WHERE groupYear BETWEEN 2010 AND 2015 AND artist LIKE '50 cent' AND releaseType LIKE 'album' ) FROM torrents WHERE groupYear BETWEEN 2010 AND 2015 AND artist LIKE '50 cent' AND releaseType LIKE 'Single'",
+    "question_id": null,
+    "question": "How many albums and Single-Tables were released by the artist named '50 cent' between 2010 and 2015?",
+    "difficulty": "",
+    "evidence": "albums refer to releaseType = 'album'; releaseType = 'single'; between 2010 and 2015 refers to groupYear between 2010 and 2015;"
+  },
+  {
+    "sql": "SELECT ( SELECT groupYear FROM torrents WHERE artist LIKE '2Pac' AND releaseType LIKE 'album' ORDER BY groupYear LIMIT 1, 1 ) - groupYear FROM torrents WHERE artist LIKE '2Pac' AND releaseType LIKE 'album' AND groupYear = 1991",
+    "question_id": null,
+    "question": "An American rapper '2Pac' released his first solo album in 1991, how many years have passed until his next album was released?",
+    "difficulty": "",
+    "evidence": "2Pac is an artist; album refers to releaseType; groupYear = 1991; SUBTRACT(groupYear = 1991, groupYear where releaseType = 'album' LIMIT 1 OFFSET 1);"
+  },
+  {
+    "sql": "SELECT AVG(totalSnatched) FROM torrents WHERE artist LIKE '2Pac' AND releaseType LIKE 'Single' AND groupYear BETWEEN 2001 AND 2013",
+    "question_id": null,
+    "question": "Find the average number of downloads for Single-Tables released by '2Pac' between 2001 and 2013.",
+    "difficulty": "",
+    "evidence": "2Pac is an artist; releaseType = 'single'; between 2001 and 2013 refers to groupYear between 2001 and 2013; average number of downloads = AVG(totalSnatched);"
+  },
+  {
+    "sql": "SELECT T1.groupName, T1.groupYear, T2.tag FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.releaseType = 'live album' ORDER BY T1.totalSnatched DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the title, release year and the tag associated with the live album that has the highest number of downloads?",
+    "difficulty": "",
+    "evidence": "release year refers to groupYear; title of live album refers to groupName where releaseType = 'live album'; the highest number of downloads refers to MAX(totalSnatched);"
+  },
+  {
+    "sql": "SELECT artist FROM torrents WHERE groupYear = 2016 AND releaseType LIKE 'bootleg' GROUP BY artist HAVING COUNT(releaseType) > 2",
+    "question_id": null,
+    "question": "Provide the name of artists who released at least two bootlegs in 2016.",
+    "difficulty": "",
+    "evidence": "at least two bootlegs refer to COUNT(releaseType = 'bootleg')\u2265 2; groupYear = 2016;"
+  },
+  {
+    "sql": "SELECT artist FROM torrents WHERE groupYear BETWEEN 1980 AND 1982 AND releaseType LIKE 'single'",
+    "question_id": null,
+    "question": "Which artist released singles between 1980 to 1982?",
+    "difficulty": "",
+    "evidence": "releaseType = 'single'; between 1980 to 1982 refers to groupYear between 1980 and 1982;"
+  },
+  {
+    "sql": "SELECT groupName FROM torrents WHERE totalSnatched >= 20 AND releaseType LIKE 'single' AND id BETWEEN 10 AND 20",
+    "question_id": null,
+    "question": "Indicates groups with id from 10 to 20 with singles downloaded at least 20.",
+    "difficulty": "",
+    "evidence": "releaseType = 'single'; downloaded at least 20 refers to totalSnatched \u2265 20; id from 10 to 20 refer to id between 10 and 20; groups refer to groupName;"
+  },
+  {
+    "sql": "SELECT T1.artist FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'disco' AND T1.groupYear BETWEEN 1980 AND 1982",
+    "question_id": null,
+    "question": "Among the artists from 1980 to 1982. Which artist was tagged as \"disco\"?",
+    "difficulty": "",
+    "evidence": "from 1980 to 1982 refers to groupYear between 1980 and 1982; tag = 'disco';"
+  },
+  {
+    "sql": "SELECT T1.artist FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'funk' AND T1.groupYear = 1980 AND T1.totalSnatched <= 100",
+    "question_id": null,
+    "question": "Provide the name of artists who had no more than 100 downloads and are tagged \"funk\" in 1980.",
+    "difficulty": "",
+    "evidence": "no more than 100 downloads refer to totalSnatched \u2264 100; groupYear = 1980; tag = 'funk';"
+  },
+  {
+    "sql": "SELECT T1.artist FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'soul' AND T1.releaseType = 'single' GROUP BY T1.artist ORDER BY COUNT(T1.releaseType) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which artist has released the most singles with the tag \"soul\"?",
+    "difficulty": "",
+    "evidence": "the most singles refer to MAX(COUNT(releaseType = 'single'));"
+  },
+  {
+    "sql": "SELECT T1.artist FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'funk' AND T1.groupYear = 1980 AND T1.id BETWEEN 10 AND 30",
+    "question_id": null,
+    "question": "Among the artists with the id from 10 to 30. Which artist released the product with the tag \"funk\" in 1980?",
+    "difficulty": "",
+    "evidence": "id from 10 to 30 refers to id between 10 and 30; groupYear = 1980;"
+  },
+  {
+    "sql": "SELECT T1.groupName FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'jazz' AND T1.groupYear >= 1982 ORDER BY T1.totalSnatched DESC LIMIT 1",
+    "question_id": null,
+    "question": "List the group name has the most downloaded that have released jazz genres from 1982 or later.",
+    "difficulty": "",
+    "evidence": "the most downloaded refers to MAX(totalSnatched); tag = 'jazz'; from 1982 or later refers to groupYear \u2265 1982;"
+  },
+  {
+    "sql": "SELECT T2.tag FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.id = 16",
+    "question_id": null,
+    "question": "Which artist has id \"16\"? Provide her or his tag genre.",
+    "difficulty": "",
+    "evidence": "FALSE;"
+  },
+  {
+    "sql": "SELECT T1.artist FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.id BETWEEN 10 AND 50 AND T2.tag LIKE 'new.york' ORDER BY T1.totalSnatched DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among id from 10 to 50. Which artist tagged as \"new.york\" has the most downloads?",
+    "difficulty": "",
+    "evidence": "Among id from 10 to 50 refers to id between 10 and 50; tag = 'new.york'; the most downloads refer to MAX(totalSnatched);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.artist) FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'dance' AND T1.groupYear BETWEEN 1980 AND 1985 AND T1.releaseType LIKE 'album' OR T1.releaseType LIKE 'mixtape'",
+    "question_id": null,
+    "question": "List the name of artists who have released albums and mixtape from 1980 to 1985 in \"dance\" genre.",
+    "difficulty": "",
+    "evidence": "albums and mixtape refer to releaseType; from 1980 to 1985 refers to groupYear between 1980 and 1985; tag = 'dance';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.tag) FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'soul' AND T1.groupYear BETWEEN 1979 AND 1981 AND T1.releaseType LIKE 'single'",
+    "question_id": null,
+    "question": "How many singles were released between 1979 and 1981 labeled as \"soul\"?",
+    "difficulty": "",
+    "evidence": "releaseType = 'single'; between 1979 and 1981 refers to groupYear between 1979 and 1981; tag = 'soul';"
+  },
+  {
+    "sql": "SELECT COUNT(releaseType) FROM torrents WHERE releaseType LIKE 'single' AND groupYear = 1979",
+    "question_id": null,
+    "question": "How many singles were released in 1979?",
+    "difficulty": "",
+    "evidence": "releaseType = 'single'; groupYear = 1979;"
+  },
+  {
+    "sql": "SELECT COUNT(releaseType) FROM torrents WHERE artist LIKE 'sugar daddy' AND releaseType LIKE 'Single' AND groupYear = 1980",
+    "question_id": null,
+    "question": "In 1980, how many singles were released by sugar daddy?",
+    "difficulty": "",
+    "evidence": "sugar daddy is an artist; releaseType = 'single'; groupYear = 1980;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id) FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T2.tag = 'christmas' AND T1.groupYear = 2004 AND T1.releaseType LIKE 'album'",
+    "question_id": null,
+    "question": "How many christmas albums were released in 2004?",
+    "difficulty": "",
+    "evidence": "album refers to releaseType; groupYear = 2004; tag = 'christmas';"
+  },
+  {
+    "sql": "SELECT T2.tag FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.groupYear BETWEEN 2000 AND 2010 AND T1.artist LIKE 'kurtis blow'",
+    "question_id": null,
+    "question": "Please list all tags of kurtis blow from 2000 to 2010.",
+    "difficulty": "",
+    "evidence": "kurtis blow is an artist; from 2000 to 2010 refers to groupYear between 2000 and 2010;"
+  },
+  {
+    "sql": "SELECT T1.groupName, T2.tag FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.groupYear = 1980 AND T1.artist LIKE 'millie jackson' AND T1.releaseType LIKE 'album'",
+    "question_id": null,
+    "question": "Which album title and tag that millie jackson released in 1980?",
+    "difficulty": "",
+    "evidence": "millie jackson is an artist; album title refers to groupName where releaseType = 'album'; groupYear = 1980;"
+  },
+  {
+    "sql": "SELECT T1.groupName FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.groupYear = 2005 AND T2.tag LIKE 'jazz'",
+    "question_id": null,
+    "question": "Please list all release titles whose tag is jazz in 2005.",
+    "difficulty": "",
+    "evidence": "release titles refer to groupName; groupYear = 2005;"
+  },
+  {
+    "sql": "SELECT T1.artist FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.groupYear BETWEEN 1980 AND 2000 AND T2.tag LIKE 'disco' GROUP BY T1.artist ORDER BY COUNT(T2.tag) DESC LIMIT 1",
+    "question_id": null,
+    "question": "From 1980 to 2000, which artist had the most disco releases?",
+    "difficulty": "",
+    "evidence": "From 1980 to 2000 refers to groupYear between 1980 and 2000; tag = 'disco'; the most releases refer to MAX(COUNT(id));"
+  },
+  {
+    "sql": "SELECT T1.artist FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.releaseType = 'single' AND T2.tag LIKE '1970s'",
+    "question_id": null,
+    "question": "Which artists have released singles with the tag 1970s?",
+    "difficulty": "",
+    "evidence": "releaseType = 'single';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.tag LIKE 'united.states' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.releaseType) FROM torrents AS T1 INNER JOIN tags AS T2 ON T1.id = T2.id WHERE T1.groupYear BETWEEN 1979 AND 1982 AND T1.releaseType LIKE 'album'",
+    "question_id": null,
+    "question": "From 1979 to 1982, what was the percentage of united.states albums out of total albums were released?",
+    "difficulty": "",
+    "evidence": "From 1979 to 1982 refers to groupYear between 1979 and 1982; United States refer to tag; albums refer to releaseType; DIVIDE(COUNT(releaseType = 'album' where tag = 'united.states' and groupYear between 1979 and 1982), COUNT(releaseType = 'album' where groupYear between 1979 and 1982)) as percentage;"
+  }
+]

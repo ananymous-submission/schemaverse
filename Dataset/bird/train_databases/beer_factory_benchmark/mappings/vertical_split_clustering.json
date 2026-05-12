@@ -1,0 +1,589 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 7,
+    "eligible_candidate_count": 7,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 2,
+    "selected_original_tables": [
+      "rootbeerbrand",
+      "customers",
+      "transaction",
+      "location",
+      "rootbeer",
+      "rootbeerreview"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/beer_factory/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "transaction",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "location",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "rootbeer",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "rootbeerreview",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "customers": {
+      "pk_columns": [
+        "CustomerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "First",
+            "FirstPurchaseDate",
+            "Gender",
+            "Last",
+            "PhoneNumber",
+            "StreetAddress",
+            "SubscribedToEmailList"
+          ],
+          "local_table": "CustomerDirectoryByCity",
+          "local_name": "local_3",
+          "vertical_fragment_base": "customers_city"
+        },
+        {
+          "suffix": "email",
+          "non_pk_columns": [
+            "Email",
+            "FirstPurchaseDate",
+            "Gender",
+            "PhoneNumber",
+            "State",
+            "StreetAddress",
+            "SubscribedToEmailList",
+            "ZipCode"
+          ],
+          "local_table": "customersZipAtMost94261",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_email",
+          "row_partition_names": [
+            "customersZipAtMost94261",
+            "customers_email_q2",
+            "customers_email_q3",
+            "customersZipAbove95819OrNull"
+          ],
+          "row_partition_predicate_column": "ZipCode"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "3": 0.02963509993449237
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02963509993449237,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "City",
+            "First",
+            "FirstPurchaseDate",
+            "Gender",
+            "Last"
+          ],
+          [
+            "Email",
+            "PhoneNumber",
+            "State",
+            "StreetAddress",
+            "SubscribedToEmailList",
+            "ZipCode"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Gender",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "FirstPurchaseDate",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SubscribedToEmailList",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "PhoneNumber",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "StreetAddress",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "City",
+            "First",
+            "FirstPurchaseDate",
+            "Gender",
+            "Last",
+            "PhoneNumber",
+            "StreetAddress",
+            "SubscribedToEmailList"
+          ],
+          [
+            "Email",
+            "FirstPurchaseDate",
+            "Gender",
+            "PhoneNumber",
+            "State",
+            "StreetAddress",
+            "SubscribedToEmailList",
+            "ZipCode"
+          ]
+        ],
+        "pk_columns": [
+          "CustomerID"
+        ],
+        "fragments": [
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "First",
+              "FirstPurchaseDate",
+              "Gender",
+              "Last",
+              "PhoneNumber",
+              "StreetAddress",
+              "SubscribedToEmailList"
+            ]
+          },
+          {
+            "suffix": "email",
+            "non_pk_columns": [
+              "Email",
+              "FirstPurchaseDate",
+              "Gender",
+              "PhoneNumber",
+              "State",
+              "StreetAddress",
+              "SubscribedToEmailList",
+              "ZipCode"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Gender",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "email"
+        },
+        {
+          "column": "FirstPurchaseDate",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "email"
+        },
+        {
+          "column": "SubscribedToEmailList",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "email",
+          "also_in_fragment_suffix": "city"
+        },
+        {
+          "column": "PhoneNumber",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "email",
+          "also_in_fragment_suffix": "city"
+        },
+        {
+          "column": "StreetAddress",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "email",
+          "also_in_fragment_suffix": "city"
+        }
+      ]
+    },
+    "rootbeerbrand": {
+      "pk_columns": [
+        "BrandID"
+      ],
+      "fragments": [
+        {
+          "suffix": "alcoholic",
+          "non_pk_columns": [
+            "Alcoholic",
+            "ArtificialSweetener",
+            "Caffeinated",
+            "CaneSugar",
+            "CornSyrup",
+            "Honey"
+          ],
+          "local_table": "rootbeer_brand_ingredients",
+          "local_name": "local_2",
+          "vertical_fragment_base": "rootbeerbrand_alcoholic"
+        },
+        {
+          "suffix": "available_in",
+          "non_pk_columns": [
+            "AvailableInBottles",
+            "AvailableInCans",
+            "AvailableInKegs"
+          ],
+          "local_table": "BrandContainerAvailability",
+          "local_name": "local_3",
+          "vertical_fragment_base": "rootbeerbrand_available_in"
+        },
+        {
+          "suffix": "brandname",
+          "non_pk_columns": [
+            "BrandName",
+            "BreweryName",
+            "Caffeinated",
+            "CurrentRetailPrice",
+            "Description",
+            "FirstBrewedYear",
+            "Website",
+            "WholesaleCost"
+          ],
+          "local_table": "BrandNamingProfile",
+          "local_name": "local_3",
+          "vertical_fragment_base": "rootbeerbrand_brandname"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Country",
+            "State"
+          ],
+          "local_table": "rootbeer_brand_origin",
+          "local_name": "local_2",
+          "vertical_fragment_base": "rootbeerbrand_city"
+        },
+        {
+          "suffix": "artificialsweetener",
+          "non_pk_columns": [
+            "ArtificialSweetener",
+            "CaneSugar",
+            "CurrentRetailPrice",
+            "Description",
+            "FacebookPage",
+            "FirstBrewedYear",
+            "Honey",
+            "Twitter",
+            "Website",
+            "WholesaleCost"
+          ],
+          "local_table": "BrandArtificialSweetenerProfile",
+          "local_name": "local_3",
+          "vertical_fragment_base": "rootbeerbrand_artificialsweetener"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "rootbeerbrand",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 21,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.04126045808067848,
+          "3": 0.04956276729032379,
+          "4": 0.058685070633299655,
+          "5": 0.06647517752011423
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.06647517752011423,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "Alcoholic",
+            "ArtificialSweetener",
+            "Caffeinated",
+            "CaneSugar",
+            "CornSyrup",
+            "Honey"
+          ],
+          [
+            "AvailableInBottles",
+            "AvailableInCans",
+            "AvailableInKegs"
+          ],
+          [
+            "BrandName",
+            "BreweryName",
+            "CurrentRetailPrice",
+            "FirstBrewedYear"
+          ],
+          [
+            "City",
+            "Country",
+            "State"
+          ],
+          [
+            "Description",
+            "FacebookPage",
+            "Twitter",
+            "Website",
+            "WholesaleCost"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "WholesaleCost",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "CurrentRetailPrice",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "Honey",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "Website",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "CaneSugar",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "FirstBrewedYear",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "Description",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Caffeinated",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "ArtificialSweetener",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Alcoholic",
+            "ArtificialSweetener",
+            "Caffeinated",
+            "CaneSugar",
+            "CornSyrup",
+            "Honey"
+          ],
+          [
+            "AvailableInBottles",
+            "AvailableInCans",
+            "AvailableInKegs"
+          ],
+          [
+            "BrandName",
+            "BreweryName",
+            "Caffeinated",
+            "CurrentRetailPrice",
+            "Description",
+            "FirstBrewedYear",
+            "Website",
+            "WholesaleCost"
+          ],
+          [
+            "City",
+            "Country",
+            "State"
+          ],
+          [
+            "ArtificialSweetener",
+            "CaneSugar",
+            "CurrentRetailPrice",
+            "Description",
+            "FacebookPage",
+            "FirstBrewedYear",
+            "Honey",
+            "Twitter",
+            "Website",
+            "WholesaleCost"
+          ]
+        ],
+        "pk_columns": [
+          "BrandID"
+        ],
+        "fragments": [
+          {
+            "suffix": "alcoholic",
+            "non_pk_columns": [
+              "Alcoholic",
+              "ArtificialSweetener",
+              "Caffeinated",
+              "CaneSugar",
+              "CornSyrup",
+              "Honey"
+            ]
+          },
+          {
+            "suffix": "available_in",
+            "non_pk_columns": [
+              "AvailableInBottles",
+              "AvailableInCans",
+              "AvailableInKegs"
+            ]
+          },
+          {
+            "suffix": "brandname",
+            "non_pk_columns": [
+              "BrandName",
+              "BreweryName",
+              "Caffeinated",
+              "CurrentRetailPrice",
+              "Description",
+              "FirstBrewedYear",
+              "Website",
+              "WholesaleCost"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "Country",
+              "State"
+            ]
+          },
+          {
+            "suffix": "artificialsweetener",
+            "non_pk_columns": [
+              "ArtificialSweetener",
+              "CaneSugar",
+              "CurrentRetailPrice",
+              "Description",
+              "FacebookPage",
+              "FirstBrewedYear",
+              "Honey",
+              "Twitter",
+              "Website",
+              "WholesaleCost"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "WholesaleCost",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "artificialsweetener",
+          "also_in_fragment_suffix": "brandname"
+        },
+        {
+          "column": "CurrentRetailPrice",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "brandname",
+          "also_in_fragment_suffix": "artificialsweetener"
+        },
+        {
+          "column": "Honey",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "alcoholic",
+          "also_in_fragment_suffix": "artificialsweetener"
+        },
+        {
+          "column": "Website",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "artificialsweetener",
+          "also_in_fragment_suffix": "brandname"
+        },
+        {
+          "column": "CaneSugar",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "alcoholic",
+          "also_in_fragment_suffix": "artificialsweetener"
+        },
+        {
+          "column": "FirstBrewedYear",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "brandname",
+          "also_in_fragment_suffix": "artificialsweetener"
+        },
+        {
+          "column": "Description",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "artificialsweetener",
+          "also_in_fragment_suffix": "brandname"
+        },
+        {
+          "column": "Caffeinated",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "alcoholic",
+          "also_in_fragment_suffix": "brandname"
+        },
+        {
+          "column": "ArtificialSweetener",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "alcoholic",
+          "also_in_fragment_suffix": "artificialsweetener"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,453 @@
+{
+  "Users": {
+    "pk_columns": [
+      "user_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "user",
+        "non_pk_columns": [
+          "user_average_stars",
+          "user_fans",
+          "user_review_count",
+          "user_yelping_since_year"
+        ],
+        "local_table": "user_profile_summary",
+        "local_name": "local_4",
+        "vertical_fragment_base": "Users_user"
+      },
+      {
+        "suffix": "user_2",
+        "non_pk_columns": [
+          "user_average_stars",
+          "user_fans",
+          "user_votes_cool",
+          "user_votes_funny",
+          "user_votes_useful",
+          "user_yelping_since_year"
+        ],
+        "local_table": "Users_user_2_part1",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Users_user_2",
+        "row_partition_names": [
+          "Users_user_2_part1",
+          "usersAvgStars3Point5",
+          "usersAvgStars5Point0",
+          "usersAvgStars4Point5",
+          "usersAvgStars3Point0",
+          "usersAvgStarsVeryLowOrNull"
+        ],
+        "row_partition_predicate_column": "user_average_stars"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Users",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 7,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.04294299750178552
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.04294299750178552,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "user_average_stars",
+          "user_fans",
+          "user_review_count",
+          "user_yelping_since_year"
+        ],
+        [
+          "user_votes_cool",
+          "user_votes_funny",
+          "user_votes_useful"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "user_fans",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "user_yelping_since_year",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "user_average_stars",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "user_average_stars",
+          "user_fans",
+          "user_review_count",
+          "user_yelping_since_year"
+        ],
+        [
+          "user_average_stars",
+          "user_fans",
+          "user_votes_cool",
+          "user_votes_funny",
+          "user_votes_useful",
+          "user_yelping_since_year"
+        ]
+      ],
+      "pk_columns": [
+        "user_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "user",
+          "non_pk_columns": [
+            "user_average_stars",
+            "user_fans",
+            "user_review_count",
+            "user_yelping_since_year"
+          ]
+        },
+        {
+          "suffix": "user_2",
+          "non_pk_columns": [
+            "user_average_stars",
+            "user_fans",
+            "user_votes_cool",
+            "user_votes_funny",
+            "user_votes_useful",
+            "user_yelping_since_year"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Users_user_2_part1",
+    "movable_candidates": [
+      "Users_user"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=0"
+  },
+  "Checkins": {
+    "pk_columns": [
+      "business_id",
+      "day_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "label_time",
+        "non_pk_columns": [
+          "label_time_0",
+          "label_time_12",
+          "label_time_13",
+          "label_time_14",
+          "label_time_16",
+          "label_time_17",
+          "label_time_18",
+          "label_time_19",
+          "label_time_20",
+          "label_time_21",
+          "label_time_4",
+          "label_time_5",
+          "label_time_6",
+          "label_time_7",
+          "label_time_8",
+          "label_time_9"
+        ],
+        "local_table": "checkinLabelsByDay",
+        "local_name": "local_5",
+        "vertical_fragment_base": "Checkins_label_time"
+      },
+      {
+        "suffix": "label_time_2",
+        "non_pk_columns": [
+          "label_time_1",
+          "label_time_2",
+          "label_time_3"
+        ],
+        "local_table": "CheckinsHoursOneToThree",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Checkins_label_time_2"
+      },
+      {
+        "suffix": "label_time_3",
+        "non_pk_columns": [
+          "label_time_10",
+          "label_time_22"
+        ],
+        "local_table": "CheckinsHoursTenAndTwentyTwo",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Checkins_label_time_3"
+      },
+      {
+        "suffix": "label_time_4",
+        "non_pk_columns": [
+          "label_time_11",
+          "label_time_23"
+        ],
+        "local_table": "CheckinsHoursElevenAndTwentyThree",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Checkins_label_time_4"
+      },
+      {
+        "suffix": "label_time_5",
+        "non_pk_columns": [
+          "label_time_0",
+          "label_time_12",
+          "label_time_13",
+          "label_time_14",
+          "label_time_15",
+          "label_time_16",
+          "label_time_17",
+          "label_time_18",
+          "label_time_19",
+          "label_time_20",
+          "label_time_21"
+        ],
+        "local_table": "CheckinsHours00And12To21WithNoneAt21",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Checkins_label_time_5",
+        "row_partition_names": [
+          "CheckinsHours00And12To21WithNoneAt21",
+          "CheckinsHours00And12To21WithVaried21"
+        ],
+        "row_partition_predicate_column": "label_time_21"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Checkins",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 24,
+      "min_non_pk_per_fragment": 2,
+      "pk_width": 2,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.20764163393952062,
+        "3": 0.23871169893715824,
+        "4": 0.26638381102893866,
+        "5": 0.3031028168228417
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.3031028168228417,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "label_time_0",
+          "label_time_4",
+          "label_time_5",
+          "label_time_6",
+          "label_time_7",
+          "label_time_8",
+          "label_time_9"
+        ],
+        [
+          "label_time_1",
+          "label_time_2",
+          "label_time_3"
+        ],
+        [
+          "label_time_10",
+          "label_time_22"
+        ],
+        [
+          "label_time_11",
+          "label_time_23"
+        ],
+        [
+          "label_time_12",
+          "label_time_13",
+          "label_time_14",
+          "label_time_15",
+          "label_time_16",
+          "label_time_17",
+          "label_time_18",
+          "label_time_19",
+          "label_time_20",
+          "label_time_21"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "label_time_0",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4
+        },
+        {
+          "column": "label_time_12",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "label_time_20",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "label_time_21",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "label_time_16",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "label_time_17",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "label_time_18",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "label_time_19",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "label_time_13",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "label_time_14",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "label_time_0",
+          "label_time_12",
+          "label_time_13",
+          "label_time_14",
+          "label_time_16",
+          "label_time_17",
+          "label_time_18",
+          "label_time_19",
+          "label_time_20",
+          "label_time_21",
+          "label_time_4",
+          "label_time_5",
+          "label_time_6",
+          "label_time_7",
+          "label_time_8",
+          "label_time_9"
+        ],
+        [
+          "label_time_1",
+          "label_time_2",
+          "label_time_3"
+        ],
+        [
+          "label_time_10",
+          "label_time_22"
+        ],
+        [
+          "label_time_11",
+          "label_time_23"
+        ],
+        [
+          "label_time_0",
+          "label_time_12",
+          "label_time_13",
+          "label_time_14",
+          "label_time_15",
+          "label_time_16",
+          "label_time_17",
+          "label_time_18",
+          "label_time_19",
+          "label_time_20",
+          "label_time_21"
+        ]
+      ],
+      "pk_columns": [
+        "business_id",
+        "day_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "label_time",
+          "non_pk_columns": [
+            "label_time_0",
+            "label_time_12",
+            "label_time_13",
+            "label_time_14",
+            "label_time_16",
+            "label_time_17",
+            "label_time_18",
+            "label_time_19",
+            "label_time_20",
+            "label_time_21",
+            "label_time_4",
+            "label_time_5",
+            "label_time_6",
+            "label_time_7",
+            "label_time_8",
+            "label_time_9"
+          ]
+        },
+        {
+          "suffix": "label_time_2",
+          "non_pk_columns": [
+            "label_time_1",
+            "label_time_2",
+            "label_time_3"
+          ]
+        },
+        {
+          "suffix": "label_time_3",
+          "non_pk_columns": [
+            "label_time_10",
+            "label_time_22"
+          ]
+        },
+        {
+          "suffix": "label_time_4",
+          "non_pk_columns": [
+            "label_time_11",
+            "label_time_23"
+          ]
+        },
+        {
+          "suffix": "label_time_5",
+          "non_pk_columns": [
+            "label_time_0",
+            "label_time_12",
+            "label_time_13",
+            "label_time_14",
+            "label_time_15",
+            "label_time_16",
+            "label_time_17",
+            "label_time_18",
+            "label_time_19",
+            "label_time_20",
+            "label_time_21"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Checkins_label_time",
+    "movable_candidates": [
+      "Checkins_label_time_2",
+      "Checkins_label_time_3",
+      "Checkins_label_time_4",
+      "Checkins_label_time_5_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=16;fk_column_endpoints_on_fragment=2"
+  }
+}

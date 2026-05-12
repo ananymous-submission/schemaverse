@@ -1,0 +1,1023 @@
+{
+  "alien_data": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "age",
+        "non_pk_columns": [
+          "age",
+          "birth_year",
+          "email",
+          "favorite_food",
+          "feeding_frequency",
+          "gender",
+          "occupation",
+          "type"
+        ],
+        "local_table": "AlienAgeMetrics",
+        "local_name": "local_1",
+        "vertical_fragment_base": "alien_data_age"
+      },
+      {
+        "suffix": "aggressive",
+        "non_pk_columns": [
+          "aggressive",
+          "birth_year",
+          "email",
+          "feeding_frequency",
+          "state",
+          "us_region"
+        ],
+        "local_table": "AlienAggressionBirthUpTo1746",
+        "local_name": "local_1",
+        "vertical_fragment_base": "alien_data_aggressive",
+        "row_partition_names": [
+          "AlienAggressionBirthUpTo1746",
+          "AlienAggressionBirth1747To1823",
+          "AlienAggressionBirth1824To1897",
+          "AlienAggressionBirthAfter1897OrUnknown"
+        ],
+        "row_partition_predicate_column": "birth_year"
+      },
+      {
+        "suffix": "age_2",
+        "non_pk_columns": [
+          "age",
+          "country",
+          "current_location",
+          "first_name",
+          "gender",
+          "last_name",
+          "type"
+        ],
+        "local_table": "AlienAgeProfiles",
+        "local_name": "local_1",
+        "vertical_fragment_base": "alien_data_age_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "alien_data",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 15,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.017432721401489614,
+        "3": 0.018030883871542783,
+        "4": 0.012221611977636942,
+        "5": 0.0130211469394651
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.018030883871542783,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "age",
+          "birth_year",
+          "email",
+          "favorite_food",
+          "feeding_frequency",
+          "gender",
+          "occupation",
+          "type"
+        ],
+        [
+          "aggressive",
+          "state",
+          "us_region"
+        ],
+        [
+          "country",
+          "current_location",
+          "first_name",
+          "last_name"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "age",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "email",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "gender",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "birth_year",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "feeding_frequency",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "age",
+          "birth_year",
+          "email",
+          "favorite_food",
+          "feeding_frequency",
+          "gender",
+          "occupation",
+          "type"
+        ],
+        [
+          "aggressive",
+          "birth_year",
+          "email",
+          "feeding_frequency",
+          "state",
+          "us_region"
+        ],
+        [
+          "age",
+          "country",
+          "current_location",
+          "first_name",
+          "gender",
+          "last_name",
+          "type"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "age",
+          "non_pk_columns": [
+            "age",
+            "birth_year",
+            "email",
+            "favorite_food",
+            "feeding_frequency",
+            "gender",
+            "occupation",
+            "type"
+          ]
+        },
+        {
+          "suffix": "aggressive",
+          "non_pk_columns": [
+            "aggressive",
+            "birth_year",
+            "email",
+            "feeding_frequency",
+            "state",
+            "us_region"
+          ]
+        },
+        {
+          "suffix": "age_2",
+          "non_pk_columns": [
+            "age",
+            "country",
+            "current_location",
+            "first_name",
+            "gender",
+            "last_name",
+            "type"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "alien_data_age",
+    "movable_candidates": [
+      "alien_data_age_2",
+      "alien_data_aggressive_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=4"
+  },
+  "legislators": {
+    "pk_columns": [
+      "id_google_entity_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "birthday",
+        "non_pk_columns": [
+          "birthday",
+          "gender",
+          "id_ballotpedia",
+          "id_bioguide",
+          "id_bioguide_previous_0",
+          "id_cspan",
+          "id_govtrack",
+          "id_house_history",
+          "id_house_history_alternate",
+          "id_icpsr",
+          "id_opensecrets",
+          "id_votesmart",
+          "id_wikidata",
+          "id_wikipedia",
+          "suffix"
+        ],
+        "local_table": "LegislatorsBirthdayIdentifiers",
+        "local_name": "local_1",
+        "vertical_fragment_base": "legislators_birthday"
+      },
+      {
+        "suffix": "first_name",
+        "non_pk_columns": [
+          "first_name",
+          "full_name",
+          "gender",
+          "last_name",
+          "middle_name",
+          "nickname",
+          "other_names_end",
+          "other_names_last",
+          "other_names_middle",
+          "suffix"
+        ],
+        "local_table": "LegislatorsNames",
+        "local_name": "local_1",
+        "vertical_fragment_base": "legislators_first_name"
+      },
+      {
+        "suffix": "id_fec",
+        "non_pk_columns": [
+          "id_fec_0",
+          "id_fec_1",
+          "id_fec_2"
+        ],
+        "local_table": "LegislatorsFecIdentifiers",
+        "local_name": "local_1",
+        "vertical_fragment_base": "legislators_id_fec"
+      },
+      {
+        "suffix": "birthday_2",
+        "non_pk_columns": [
+          "birthday",
+          "id_ballotpedia",
+          "id_bioguide_previous_0",
+          "id_cspan",
+          "id_govtrack",
+          "id_icpsr",
+          "id_lis",
+          "id_opensecrets",
+          "id_thomas",
+          "id_votesmart",
+          "id_wikidata",
+          "id_wikipedia"
+        ],
+        "local_table": "LegislatorsBirthdayAdditionalIdentifiers",
+        "local_name": "local_1",
+        "vertical_fragment_base": "legislators_birthday_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "legislators",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 28,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.07122390093383706,
+        "3": 0.08069723480506176,
+        "4": 0.09986883768218505,
+        "5": 0.09181604224547098
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.09986883768218505,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "birthday",
+          "gender",
+          "id_ballotpedia",
+          "id_bioguide",
+          "id_bioguide_previous_0",
+          "id_cspan",
+          "id_govtrack",
+          "id_house_history",
+          "id_house_history_alternate",
+          "id_wikidata",
+          "id_wikipedia"
+        ],
+        [
+          "first_name",
+          "full_name",
+          "last_name",
+          "middle_name",
+          "nickname",
+          "other_names_end",
+          "other_names_last",
+          "other_names_middle",
+          "suffix"
+        ],
+        [
+          "id_fec_0",
+          "id_fec_1",
+          "id_fec_2"
+        ],
+        [
+          "id_icpsr",
+          "id_lis",
+          "id_opensecrets",
+          "id_thomas",
+          "id_votesmart"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "id_cspan",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "id_govtrack",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "suffix",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "id_wikidata",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "gender",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "birthday",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "id_ballotpedia",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "id_bioguide_previous_0",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "id_votesmart",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "id_wikipedia",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "id_opensecrets",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "id_icpsr",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "birthday",
+          "gender",
+          "id_ballotpedia",
+          "id_bioguide",
+          "id_bioguide_previous_0",
+          "id_cspan",
+          "id_govtrack",
+          "id_house_history",
+          "id_house_history_alternate",
+          "id_icpsr",
+          "id_opensecrets",
+          "id_votesmart",
+          "id_wikidata",
+          "id_wikipedia",
+          "suffix"
+        ],
+        [
+          "first_name",
+          "full_name",
+          "gender",
+          "last_name",
+          "middle_name",
+          "nickname",
+          "other_names_end",
+          "other_names_last",
+          "other_names_middle",
+          "suffix"
+        ],
+        [
+          "id_fec_0",
+          "id_fec_1",
+          "id_fec_2"
+        ],
+        [
+          "birthday",
+          "id_ballotpedia",
+          "id_bioguide_previous_0",
+          "id_cspan",
+          "id_govtrack",
+          "id_icpsr",
+          "id_lis",
+          "id_opensecrets",
+          "id_thomas",
+          "id_votesmart",
+          "id_wikidata",
+          "id_wikipedia"
+        ]
+      ],
+      "pk_columns": [
+        "id_google_entity_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "birthday",
+          "non_pk_columns": [
+            "birthday",
+            "gender",
+            "id_ballotpedia",
+            "id_bioguide",
+            "id_bioguide_previous_0",
+            "id_cspan",
+            "id_govtrack",
+            "id_house_history",
+            "id_house_history_alternate",
+            "id_icpsr",
+            "id_opensecrets",
+            "id_votesmart",
+            "id_wikidata",
+            "id_wikipedia",
+            "suffix"
+          ]
+        },
+        {
+          "suffix": "first_name",
+          "non_pk_columns": [
+            "first_name",
+            "full_name",
+            "gender",
+            "last_name",
+            "middle_name",
+            "nickname",
+            "other_names_end",
+            "other_names_last",
+            "other_names_middle",
+            "suffix"
+          ]
+        },
+        {
+          "suffix": "id_fec",
+          "non_pk_columns": [
+            "id_fec_0",
+            "id_fec_1",
+            "id_fec_2"
+          ]
+        },
+        {
+          "suffix": "birthday_2",
+          "non_pk_columns": [
+            "birthday",
+            "id_ballotpedia",
+            "id_bioguide_previous_0",
+            "id_cspan",
+            "id_govtrack",
+            "id_icpsr",
+            "id_lis",
+            "id_opensecrets",
+            "id_thomas",
+            "id_votesmart",
+            "id_wikidata",
+            "id_wikipedia"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "legislators_birthday",
+    "movable_candidates": [
+      "legislators_birthday_2",
+      "legislators_first_name",
+      "legislators_id_fec"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=15;fk_column_endpoints_on_fragment=1"
+  },
+  "job_postings_fact": {
+    "pk_columns": [
+      "job_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "company_id",
+        "non_pk_columns": [
+          "company_id",
+          "job_country",
+          "job_posted_date",
+          "job_schedule_type",
+          "job_title",
+          "job_title_short",
+          "job_via",
+          "search_location"
+        ],
+        "local_table": "jp_co_country_hist",
+        "local_name": "local_3",
+        "vertical_fragment_base": "job_postings_fact_company_id"
+      },
+      {
+        "suffix": "company_id_2",
+        "non_pk_columns": [
+          "company_id",
+          "job_country",
+          "job_location",
+          "job_posted_date",
+          "job_schedule_type",
+          "job_via",
+          "search_location"
+        ],
+        "local_table": "jp_co_loc_hist",
+        "local_name": "local_3",
+        "vertical_fragment_base": "job_postings_fact_company_id_2"
+      },
+      {
+        "suffix": "job",
+        "non_pk_columns": [
+          "job_health_insurance",
+          "job_no_degree_mention",
+          "job_work_from_home"
+        ],
+        "local_table": "jp_health_le0",
+        "local_name": "local_3",
+        "vertical_fragment_base": "job_postings_fact_job",
+        "row_partition_names": [
+          "jp_health_le0",
+          "jp_health_gt0_or_null"
+        ],
+        "row_partition_predicate_column": "job_health_insurance"
+      },
+      {
+        "suffix": "salary",
+        "non_pk_columns": [
+          "salary_hour_avg",
+          "salary_rate",
+          "salary_year_avg"
+        ],
+        "local_table": "jp_salary_avg",
+        "local_name": "local_3",
+        "vertical_fragment_base": "job_postings_fact_salary"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "job_postings_fact",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 15,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 474614218,
+      "scores_by_k": {
+        "2": 0.04566308263108419,
+        "3": 0.05607685601077014,
+        "4": 0.06136847735537061,
+        "5": 0.06009044246071578
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.06136847735537061,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "company_id",
+          "job_posted_date",
+          "job_schedule_type",
+          "job_title",
+          "job_title_short"
+        ],
+        [
+          "job_country",
+          "job_location",
+          "job_via",
+          "search_location"
+        ],
+        [
+          "job_health_insurance",
+          "job_no_degree_mention",
+          "job_work_from_home"
+        ],
+        [
+          "salary_hour_avg",
+          "salary_rate",
+          "salary_year_avg"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "job_posted_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "company_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "job_schedule_type",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "job_via",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "job_country",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "search_location",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "company_id",
+          "job_country",
+          "job_posted_date",
+          "job_schedule_type",
+          "job_title",
+          "job_title_short",
+          "job_via",
+          "search_location"
+        ],
+        [
+          "company_id",
+          "job_country",
+          "job_location",
+          "job_posted_date",
+          "job_schedule_type",
+          "job_via",
+          "search_location"
+        ],
+        [
+          "job_health_insurance",
+          "job_no_degree_mention",
+          "job_work_from_home"
+        ],
+        [
+          "salary_hour_avg",
+          "salary_rate",
+          "salary_year_avg"
+        ]
+      ],
+      "pk_columns": [
+        "job_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "company_id",
+          "non_pk_columns": [
+            "company_id",
+            "job_country",
+            "job_posted_date",
+            "job_schedule_type",
+            "job_title",
+            "job_title_short",
+            "job_via",
+            "search_location"
+          ]
+        },
+        {
+          "suffix": "company_id_2",
+          "non_pk_columns": [
+            "company_id",
+            "job_country",
+            "job_location",
+            "job_posted_date",
+            "job_schedule_type",
+            "job_via",
+            "search_location"
+          ]
+        },
+        {
+          "suffix": "job",
+          "non_pk_columns": [
+            "job_health_insurance",
+            "job_no_degree_mention",
+            "job_work_from_home"
+          ]
+        },
+        {
+          "suffix": "salary",
+          "non_pk_columns": [
+            "salary_hour_avg",
+            "salary_rate",
+            "salary_year_avg"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "job_postings_fact_company_id",
+    "movable_candidates": [
+      "job_postings_fact_company_id_2",
+      "job_postings_fact_job_q1",
+      "job_postings_fact_salary"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=0"
+  },
+  "legislators_terms": {
+    "pk_columns": [
+      "term_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "address",
+        "non_pk_columns": [
+          "address",
+          "caucus",
+          "class",
+          "contact_form",
+          "fax",
+          "id_bioguide",
+          "office",
+          "party",
+          "phone",
+          "rss_url",
+          "url"
+        ],
+        "local_table": "leg_term_addr_full",
+        "local_name": "local_3",
+        "vertical_fragment_base": "legislators_terms_address"
+      },
+      {
+        "suffix": "address_2",
+        "non_pk_columns": [
+          "address",
+          "caucus",
+          "class",
+          "contact_form",
+          "how",
+          "office",
+          "rss_url",
+          "term_type"
+        ],
+        "local_table": "leg_term_addr_meta",
+        "local_name": "local_3",
+        "vertical_fragment_base": "legislators_terms_address_2"
+      },
+      {
+        "suffix": "district",
+        "non_pk_columns": [
+          "district",
+          "id_bioguide",
+          "state",
+          "state_rank"
+        ],
+        "local_table": "leg_term_dist_le2",
+        "local_name": "local_3",
+        "vertical_fragment_base": "legislators_terms_district",
+        "row_partition_names": [
+          "leg_term_dist_le2",
+          "leg_term_dist_gt2_le6",
+          "leg_term_dist_gt6_le11",
+          "leg_term_dist_gt11_or_null"
+        ],
+        "row_partition_predicate_column": "district"
+      },
+      {
+        "suffix": "party",
+        "non_pk_columns": [
+          "party",
+          "term_end",
+          "term_number",
+          "term_start"
+        ],
+        "local_table": "leg_term_party_hist",
+        "local_name": "local_3",
+        "vertical_fragment_base": "legislators_terms_party"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "legislators_terms",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 19,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.02160260563525638,
+        "3": 0.0349208040164917,
+        "4": 0.05161347856055639,
+        "5": 0.04219463148365349
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.05161347856055639,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "address",
+          "contact_form",
+          "fax",
+          "office",
+          "phone",
+          "rss_url",
+          "url"
+        ],
+        [
+          "caucus",
+          "class",
+          "how",
+          "term_type"
+        ],
+        [
+          "district",
+          "id_bioguide",
+          "state",
+          "state_rank"
+        ],
+        [
+          "party",
+          "term_end",
+          "term_number",
+          "term_start"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "party",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "rss_url",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "contact_form",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "address",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "id_bioguide",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "caucus",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "office",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "class",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "address",
+          "caucus",
+          "class",
+          "contact_form",
+          "fax",
+          "id_bioguide",
+          "office",
+          "party",
+          "phone",
+          "rss_url",
+          "url"
+        ],
+        [
+          "address",
+          "caucus",
+          "class",
+          "contact_form",
+          "how",
+          "office",
+          "rss_url",
+          "term_type"
+        ],
+        [
+          "district",
+          "id_bioguide",
+          "state",
+          "state_rank"
+        ],
+        [
+          "party",
+          "term_end",
+          "term_number",
+          "term_start"
+        ]
+      ],
+      "pk_columns": [
+        "term_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "caucus",
+            "class",
+            "contact_form",
+            "fax",
+            "id_bioguide",
+            "office",
+            "party",
+            "phone",
+            "rss_url",
+            "url"
+          ]
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "caucus",
+            "class",
+            "contact_form",
+            "how",
+            "office",
+            "rss_url",
+            "term_type"
+          ]
+        },
+        {
+          "suffix": "district",
+          "non_pk_columns": [
+            "district",
+            "id_bioguide",
+            "state",
+            "state_rank"
+          ]
+        },
+        {
+          "suffix": "party",
+          "non_pk_columns": [
+            "party",
+            "term_end",
+            "term_number",
+            "term_start"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "legislators_terms_address",
+    "movable_candidates": [
+      "legislators_terms_address_2",
+      "legislators_terms_district_q1",
+      "legislators_terms_party"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=11;fk_column_endpoints_on_fragment=0"
+  }
+}

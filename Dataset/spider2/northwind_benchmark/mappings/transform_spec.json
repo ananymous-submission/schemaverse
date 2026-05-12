@@ -1,0 +1,5415 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "CustomerDemographicTypes": {
+          "source_table": "customerdemographics",
+          "column_map": {
+            "CustomerTypeCode": "customertypeid",
+            "Description": "customerdesc"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "CustomerGroupThresholds": {
+          "source_table": "customergroupthreshold",
+          "column_map": {
+            "GroupKey": "groupname",
+            "RangeMin": "rangebottom",
+            "RangeMax": "rangetop"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "CityCustomersOwnerTitle": {
+          "source_table": "customers",
+          "column_map": {
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CompanyName": "companyname",
+            "ContactName": "contactname",
+            "JobTitle": "contacttitle",
+            "CountryName": "country",
+            "PhoneNumber": "phone",
+            "RegionName": "region"
+          },
+          "projected_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "row_predicate": "(\"contacttitle\" = 'Owner' OR (rowid IN (12,42,50,62,78)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CityCustomerCompact"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CityCustomerCompact",
+          "is_row_partition": true,
+          "row_partition_partner": "CityCustomersSalesRepresentativeTitle",
+          "row_partition_peers": [
+            "CityCustomersSalesRepresentativeTitle",
+            "CityCustomersMarketingManagerTitle",
+            "CityCustomersSalesManagerTitle",
+            "CityCustomersAccountingManagerTitle",
+            "CityCustomersSalesCatchAll",
+            "CityCustomersMarketingAssistantOrSalesAgent"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "city"
+        },
+        "CityCustomersSalesRepresentativeTitle": {
+          "source_table": "customers",
+          "column_map": {
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CompanyName": "companyname",
+            "ContactName": "contactname",
+            "JobTitle": "contacttitle",
+            "CountryName": "country",
+            "PhoneNumber": "phone",
+            "RegionName": "region"
+          },
+          "projected_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "row_predicate": "(\"contacttitle\" = 'Sales Representative' OR (rowid IN (2,3,18,24,33,56,57)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CityCustomerCompact"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CityCustomerCompact",
+          "is_row_partition": true,
+          "row_partition_partner": "CityCustomersMarketingManagerTitle",
+          "row_partition_peers": [
+            "CityCustomersMarketingManagerTitle",
+            "CityCustomersSalesManagerTitle",
+            "CityCustomersAccountingManagerTitle",
+            "CityCustomersSalesCatchAll",
+            "CityCustomersMarketingAssistantOrSalesAgent",
+            "CityCustomersOwnerTitle"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "city"
+        },
+        "CityCustomersMarketingManagerTitle": {
+          "source_table": "customers",
+          "column_map": {
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CompanyName": "companyname",
+            "ContactName": "contactname",
+            "JobTitle": "contacttitle",
+            "CountryName": "country",
+            "PhoneNumber": "phone",
+            "RegionName": "region"
+          },
+          "projected_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "row_predicate": "(\"contacttitle\" = 'Marketing Manager' OR (rowid IN (1,11,16,27,40,71,86)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CityCustomerCompact"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CityCustomerCompact",
+          "is_row_partition": true,
+          "row_partition_partner": "CityCustomersSalesManagerTitle",
+          "row_partition_peers": [
+            "CityCustomersSalesManagerTitle",
+            "CityCustomersAccountingManagerTitle",
+            "CityCustomersSalesCatchAll",
+            "CityCustomersMarketingAssistantOrSalesAgent",
+            "CityCustomersOwnerTitle",
+            "CityCustomersSalesRepresentativeTitle"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "city"
+        },
+        "CityCustomersSalesManagerTitle": {
+          "source_table": "customers",
+          "column_map": {
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CompanyName": "companyname",
+            "ContactName": "contactname",
+            "JobTitle": "contacttitle",
+            "CountryName": "country",
+            "PhoneNumber": "phone",
+            "RegionName": "region"
+          },
+          "projected_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "row_predicate": "(\"contacttitle\" = 'Sales Manager' OR (rowid IN (13,25,26,29,79)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CityCustomerCompact"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CityCustomerCompact",
+          "is_row_partition": true,
+          "row_partition_partner": "CityCustomersAccountingManagerTitle",
+          "row_partition_peers": [
+            "CityCustomersAccountingManagerTitle",
+            "CityCustomersSalesCatchAll",
+            "CityCustomersMarketingAssistantOrSalesAgent",
+            "CityCustomersOwnerTitle",
+            "CityCustomersSalesRepresentativeTitle",
+            "CityCustomersMarketingManagerTitle"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "city"
+        },
+        "CityCustomersAccountingManagerTitle": {
+          "source_table": "customers",
+          "column_map": {
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CompanyName": "companyname",
+            "ContactName": "contactname",
+            "JobTitle": "contacttitle",
+            "CountryName": "country",
+            "PhoneNumber": "phone",
+            "RegionName": "region"
+          },
+          "projected_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "row_predicate": "(\"contacttitle\" = 'Accounting Manager' OR (rowid IN (41,68,72,83,88)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CityCustomerCompact"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CityCustomerCompact",
+          "is_row_partition": true,
+          "row_partition_partner": "CityCustomersSalesCatchAll",
+          "row_partition_peers": [
+            "CityCustomersSalesCatchAll",
+            "CityCustomersMarketingAssistantOrSalesAgent",
+            "CityCustomersOwnerTitle",
+            "CityCustomersSalesRepresentativeTitle",
+            "CityCustomersMarketingManagerTitle",
+            "CityCustomersSalesManagerTitle"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "city"
+        },
+        "CityCustomersSalesCatchAll": {
+          "source_table": "customers",
+          "column_map": {
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CompanyName": "companyname",
+            "ContactName": "contactname",
+            "JobTitle": "contacttitle",
+            "CountryName": "country",
+            "PhoneNumber": "phone",
+            "RegionName": "region"
+          },
+          "projected_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "row_predicate": "((\"contacttitle\" = 'Sales Associate' OR (\"contacttitle\" = 'Assistant Sales Agent' OR (\"contacttitle\" IS NULL OR \"contacttitle\" NOT IN ('Owner', 'Sales Representative', 'Marketing Manager', 'Sales Manager', 'Accounting Manager', 'Sales Associate', 'Marketing Assistant', 'Sales Agent', 'Assistant Sales Agent')))) OR (rowid IN (10,22,46,63)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CityCustomerCompact"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CityCustomerCompact",
+          "is_row_partition": true,
+          "row_partition_partner": "CityCustomersMarketingAssistantOrSalesAgent",
+          "row_partition_peers": [
+            "CityCustomersMarketingAssistantOrSalesAgent",
+            "CityCustomersOwnerTitle",
+            "CityCustomersSalesRepresentativeTitle",
+            "CityCustomersMarketingManagerTitle",
+            "CityCustomersSalesManagerTitle",
+            "CityCustomersAccountingManagerTitle"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "city"
+        },
+        "CityCustomersMarketingAssistantOrSalesAgent": {
+          "source_table": "customers",
+          "column_map": {
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CompanyName": "companyname",
+            "ContactName": "contactname",
+            "JobTitle": "contacttitle",
+            "CountryName": "country",
+            "PhoneNumber": "phone",
+            "RegionName": "region"
+          },
+          "projected_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "row_predicate": "((\"contacttitle\" = 'Marketing Assistant' OR \"contacttitle\" = 'Sales Agent') OR (rowid IN (23,37,39,53,65,90)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "CityCustomerCompact"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "CityCustomerCompact",
+          "is_row_partition": true,
+          "row_partition_partner": "CityCustomersOwnerTitle",
+          "row_partition_peers": [
+            "CityCustomersOwnerTitle",
+            "CityCustomersSalesRepresentativeTitle",
+            "CityCustomersMarketingManagerTitle",
+            "CityCustomersSalesManagerTitle",
+            "CityCustomersAccountingManagerTitle",
+            "CityCustomersSalesCatchAll"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "city"
+        },
+        "CityCustomerCompact": {
+          "source_table": "customers",
+          "column_map": {
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CompanyName": "companyname",
+            "CustomerCode": "customerid",
+            "FaxNumber": "fax",
+            "PhoneNumber": "phone",
+            "PostalCode": "postalcode",
+            "RegionName": "region"
+          },
+          "projected_columns": [
+            "address",
+            "city",
+            "companyname",
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode",
+            "region"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "customers_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "customers_city",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "city_2"
+        },
+        "EmployeeAddresses": {
+          "source_table": "employees",
+          "column_map": {
+            "PostalCode": "postalcode",
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CountryName": "country",
+            "EmployeeIdentifier": "employeeid",
+            "PhoneExtension": "extension",
+            "FirstName": "firstname",
+            "HomePhone": "homephone",
+            "LastName": "lastname",
+            "RegionName": "region",
+            "ReportsToId": "reportsto"
+          },
+          "projected_columns": [
+            "postalcode",
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "EmployeeAddressesWithPhoto",
+            "EmployeeBirthAndHire"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "EmployeeAddressesWithPhoto",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "address"
+        },
+        "EmployeeBirthAndHire": {
+          "source_table": "employees",
+          "column_map": {
+            "PostalCode": "postalcode",
+            "BirthDate": "birthdate",
+            "HireDate": "hiredate",
+            "Notes": "notes"
+          },
+          "projected_columns": [
+            "postalcode",
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "EmployeeAddresses",
+            "EmployeeAddressesWithPhoto"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "EmployeeAddresses",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "birthdate"
+        },
+        "EmployeeAddressesWithPhoto": {
+          "source_table": "employees",
+          "column_map": {
+            "PostalCode": "postalcode",
+            "StreetAddress": "address",
+            "CityName": "city",
+            "CountryName": "country",
+            "EmployeeIdentifier": "employeeid",
+            "PhoneExtension": "extension",
+            "PhotoData": "photo",
+            "PhotoPath": "photopath",
+            "RegionName": "region",
+            "ReportsToId": "reportsto",
+            "JobTitle": "title",
+            "CourtesyTitle": "titleofcourtesy"
+          },
+          "projected_columns": [
+            "postalcode",
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "photo",
+            "photopath",
+            "region",
+            "reportsto",
+            "title",
+            "titleofcourtesy"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "EmployeeAddresses",
+            "EmployeeBirthAndHire"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "EmployeeAddresses",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "address_2"
+        },
+        "OrdersForNamedCustomerSet": {
+          "source_table": "orders",
+          "column_map": {
+            "OrderNumber": "orderid",
+            "CustomerCode": "customerid",
+            "EmployeeIdentifier": "employeeid",
+            "FreightCharge": "freight",
+            "ShippingCity": "shipcity",
+            "ShippingPostalCode": "shippostalcode",
+            "ShippingRegion": "shipregion",
+            "ShipViaCarrierId": "shipvia"
+          },
+          "projected_columns": [
+            "orderid",
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          "row_predicate": "((((\"customerid\" = 'SAVEA' OR (\"customerid\" = 'BERGS' OR \"customerid\" = 'BONAP')) OR (\"customerid\" = 'ERNSH' OR \"customerid\" = 'QUICK')) OR ((\"customerid\" = 'FOLKO' OR \"customerid\" = 'HUNGO') OR (\"customerid\" = 'HILAA' OR \"customerid\" = 'RATTC'))) OR (rowid IN (5,6,9,13,18,20,23,24,35,37,43,44,46,52,53,57,59,63,65,72,78,83,87,89,90,91,94,100,105,107,116,117,120,122,124,127,128,129,141,147,152,157,159,160,165,166,167,168,169,172,174,175,179,180,184,189,190,196,199,200,201,202,207,208,217,218,220,225,227,228,236,237,238,240,245,246,247,249,250,252,255,258,266,270,271,273,274,275,279,282,283,287,288,289,291,296,301,307,310,315,316,321,331,338,339,340,342,344,349,353,355,357,358,359,363,364,369,372,373,381,382,383,387,388,391,398,401,406,409,413,415,417,419,422,424,426,428,429,434,435,437,441,446,448,457,461,462,463,469,472,473,478,481,482,488,494,496,499,504,505,509,511,513,516,525,532,534,536,544,551,552,553,556,560,561,564,566,567,586,587,588,596,599,601,602,612,617,625,630,637,639,641,643,646,649,656,657,658,660,661,662,666,667,670,672,675,679,681,682,684,688,692,696,702,705,706,719,723,724,728,731,734,735,750,759,762,768,769,775,776,780,782,785,787,790,791,793,794,797,798,799,800,801,802,804,806,810,811,812,815,822,824,826)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "OrdersShippingInfo",
+            "OrderDates"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "OrdersShippingInfo",
+          "is_row_partition": true,
+          "row_partition_partner": "OrdersForOtherCustomers",
+          "row_partition_peers": [
+            "OrdersForOtherCustomers"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "customerid"
+        },
+        "OrdersForOtherCustomers": {
+          "source_table": "orders",
+          "column_map": {
+            "OrderNumber": "orderid",
+            "CustomerCode": "customerid",
+            "EmployeeIdentifier": "employeeid",
+            "FreightCharge": "freight",
+            "ShippingCity": "shipcity",
+            "ShippingPostalCode": "shippostalcode",
+            "ShippingRegion": "shipregion",
+            "ShipViaCarrierId": "shipvia"
+          },
+          "projected_columns": [
+            "orderid",
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          "row_predicate": "((\"customerid\" IS NULL OR \"customerid\" NOT IN ('SAVEA', 'ERNSH', 'QUICK', 'FOLKO', 'HUNGO', 'BERGS', 'HILAA', 'RATTC', 'BONAP')) OR (rowid IN (10,11,15,25,33,38,39,62,66,67,77,88,93,98,99,104,114,131,135,151,171,187,193,198,213,223,229,239,263,267,268,269,286,302,320,322,325,348,351,360,365,380,386,394,399,410,451,453,458,466,474,475,486,501,515,517,526,548,580,600,624,628,629,650,654,677,691,708,713,729,730,743,744,746,749,754,761,774,817,825)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "OrdersShippingInfo",
+            "OrderDates"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "OrdersShippingInfo",
+          "is_row_partition": true,
+          "row_partition_partner": "OrdersForNamedCustomerSet",
+          "row_partition_peers": [
+            "OrdersForNamedCustomerSet"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "customerid"
+        },
+        "OrderDates": {
+          "source_table": "orders",
+          "column_map": {
+            "OrderNumber": "orderid",
+            "OrderDate": "orderdate",
+            "RequiredDate": "requireddate",
+            "ShippedDate": "shippeddate"
+          },
+          "projected_columns": [
+            "orderid",
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "orders_customerid",
+            "OrdersShippingInfo"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "orders_customerid",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "orderdate"
+        },
+        "OrdersShippingInfo": {
+          "source_table": "orders",
+          "column_map": {
+            "OrderNumber": "orderid",
+            "CustomerCode": "customerid",
+            "EmployeeIdentifier": "employeeid",
+            "FreightCharge": "freight",
+            "ShippingAddress": "shipaddress",
+            "ShippingCity": "shipcity",
+            "ShippingCountry": "shipcountry",
+            "ShippingName": "shipname",
+            "ShippingPostalCode": "shippostalcode",
+            "ShippingRegion": "shipregion"
+          },
+          "projected_columns": [
+            "orderid",
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipaddress",
+            "shipcity",
+            "shipcountry",
+            "shipname",
+            "shippostalcode",
+            "shipregion"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "orders_customerid",
+            "OrderDates"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "orders_customerid",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "customerid_2"
+        },
+        "ProductsSupplierLowestQuartile": {
+          "source_table": "products",
+          "column_map": {
+            "ProductIdentifier": "productid",
+            "CategoryIdentifier": "categoryid",
+            "IsDiscontinued": "discontinued",
+            "ProductName": "productname",
+            "QuantityPerUnit": "quantityperunit",
+            "SupplierIdentifier": "supplierid",
+            "UnitPrice": "unitprice"
+          },
+          "projected_columns": [
+            "productid",
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          "row_predicate": "((\"supplierid\" IS NOT NULL AND \"supplierid\" <= 7) OR (rowid IN (50,52,54,56,59,60,61,62)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "ProductInventoryStatus"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "ProductInventoryStatus",
+          "is_row_partition": true,
+          "row_partition_partner": "ProductsSupplierSecondQuartile",
+          "row_partition_peers": [
+            "ProductsSupplierSecondQuartile",
+            "ProductsSupplierThirdQuartile",
+            "ProductsSupplierHighestQuartile"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "categoryid"
+        },
+        "ProductsSupplierSecondQuartile": {
+          "source_table": "products",
+          "column_map": {
+            "ProductIdentifier": "productid",
+            "CategoryIdentifier": "categoryid",
+            "IsDiscontinued": "discontinued",
+            "ProductName": "productname",
+            "QuantityPerUnit": "quantityperunit",
+            "SupplierIdentifier": "supplierid",
+            "UnitPrice": "unitprice"
+          },
+          "projected_columns": [
+            "productid",
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          "row_predicate": "((\"supplierid\" IS NOT NULL AND \"supplierid\" > 7 AND \"supplierid\" <= 12) OR (rowid IN (4,7,9,10,11,14,16,17,66)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "ProductInventoryStatus"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "ProductInventoryStatus",
+          "is_row_partition": true,
+          "row_partition_partner": "ProductsSupplierThirdQuartile",
+          "row_partition_peers": [
+            "ProductsSupplierThirdQuartile",
+            "ProductsSupplierHighestQuartile",
+            "ProductsSupplierLowestQuartile"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "categoryid"
+        },
+        "ProductsSupplierThirdQuartile": {
+          "source_table": "products",
+          "column_map": {
+            "ProductIdentifier": "productid",
+            "CategoryIdentifier": "categoryid",
+            "IsDiscontinued": "discontinued",
+            "ProductName": "productname",
+            "QuantityPerUnit": "quantityperunit",
+            "SupplierIdentifier": "supplierid",
+            "UnitPrice": "unitprice"
+          },
+          "projected_columns": [
+            "productid",
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          "row_predicate": "((\"supplierid\" IS NOT NULL AND \"supplierid\" > 12 AND \"supplierid\" <= 20) OR (rowid IN (19,20,23,27,28,68,75)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "ProductInventoryStatus"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "ProductInventoryStatus",
+          "is_row_partition": true,
+          "row_partition_partner": "ProductsSupplierHighestQuartile",
+          "row_partition_peers": [
+            "ProductsSupplierHighestQuartile",
+            "ProductsSupplierLowestQuartile",
+            "ProductsSupplierSecondQuartile"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "categoryid"
+        },
+        "ProductsSupplierHighestQuartile": {
+          "source_table": "products",
+          "column_map": {
+            "ProductIdentifier": "productid",
+            "CategoryIdentifier": "categoryid",
+            "IsDiscontinued": "discontinued",
+            "ProductName": "productname",
+            "QuantityPerUnit": "quantityperunit",
+            "SupplierIdentifier": "supplierid",
+            "UnitPrice": "unitprice"
+          },
+          "projected_columns": [
+            "productid",
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          "row_predicate": "((\"supplierid\" > 20 OR \"supplierid\" IS NULL) OR (rowid IN (30,35,39,40,41,42,69,72)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "ProductInventoryStatus"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "ProductInventoryStatus",
+          "is_row_partition": true,
+          "row_partition_partner": "ProductsSupplierLowestQuartile",
+          "row_partition_peers": [
+            "ProductsSupplierLowestQuartile",
+            "ProductsSupplierSecondQuartile",
+            "ProductsSupplierThirdQuartile"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "categoryid"
+        },
+        "ProductInventoryStatus": {
+          "source_table": "products",
+          "column_map": {
+            "ProductIdentifier": "productid",
+            "IsDiscontinued": "discontinued",
+            "ProductName": "productname",
+            "QuantityPerUnit": "quantityperunit",
+            "ReorderLevel": "reorderlevel",
+            "UnitPrice": "unitprice",
+            "UnitsInStock": "unitsinstock",
+            "UnitsOnOrder": "unitsonorder"
+          },
+          "projected_columns": [
+            "productid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "reorderlevel",
+            "unitprice",
+            "unitsinstock",
+            "unitsonorder"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "products_categoryid"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "products_categoryid",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "discontinued"
+        },
+        "Regions": {
+          "source_table": "region",
+          "column_map": {
+            "RegionIdentifier": "regionid",
+            "RegionDescription": "regiondescription"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "customers": "customers_city_part1",
+        "employees": "employees_address_2",
+        "orders": "orders_customerid_2",
+        "products": "products_discontinued"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "customerDemographicsLink": {
+          "source_table": "customercustomerdemo",
+          "column_map": {
+            "customerReferenceId": "customerid",
+            "demographicTypeId": "customertypeid"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "shippingProviders": {
+          "source_table": "shippers",
+          "column_map": {
+            "carrierId": "shipperid",
+            "businessName": "companyname",
+            "contactPhone": "phone"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "emp_terrs_emp_lte3": {
+          "source_table": "employeeterritories",
+          "column_map": {
+            "emp_id": "employeeid",
+            "terr_code": "territoryid"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"employeeid\" IS NOT NULL AND \"employeeid\" <= 3) OR (rowid IN (40,41,43,44,49)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "emp_terrs_emp_gt3_lte6",
+          "row_partition_peers": [
+            "emp_terrs_emp_gt3_lte6",
+            "emp_terrs_emp_gt6_lte7",
+            "emp_terrs_emp_gt7_or_null"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "emp_terrs_emp_gt3_lte6": {
+          "source_table": "employeeterritories",
+          "column_map": {
+            "emp_id": "employeeid",
+            "terr_code": "territoryid"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"employeeid\" IS NOT NULL AND \"employeeid\" > 3 AND \"employeeid\" <= 6) OR (rowid IN (2,3,9,10,11,12)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "emp_terrs_emp_gt6_lte7",
+          "row_partition_peers": [
+            "emp_terrs_emp_gt6_lte7",
+            "emp_terrs_emp_gt7_or_null",
+            "emp_terrs_emp_lte3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "emp_terrs_emp_gt6_lte7": {
+          "source_table": "employeeterritories",
+          "column_map": {
+            "emp_id": "employeeid",
+            "terr_code": "territoryid"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"employeeid\" IS NOT NULL AND \"employeeid\" > 6 AND \"employeeid\" <= 7) OR (rowid IN (15,17,20,22,26,28)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "emp_terrs_emp_gt7_or_null",
+          "row_partition_peers": [
+            "emp_terrs_emp_gt7_or_null",
+            "emp_terrs_emp_lte3",
+            "emp_terrs_emp_gt3_lte6"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "emp_terrs_emp_gt7_or_null": {
+          "source_table": "employeeterritories",
+          "column_map": {
+            "emp_id": "employeeid",
+            "terr_code": "territoryid"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"employeeid\" > 7 OR \"employeeid\" IS NULL) OR (rowid IN (29,31,33,38)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "emp_terrs_emp_lte3",
+          "row_partition_peers": [
+            "emp_terrs_emp_lte3",
+            "emp_terrs_emp_gt3_lte6",
+            "emp_terrs_emp_gt6_lte7"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "suppl_addr_view": {
+          "source_table": "suppliers",
+          "column_map": {
+            "postal_cd": "postalcode",
+            "addr": "address",
+            "cty": "city",
+            "comp_name": "companyname",
+            "cont_name": "contactname",
+            "cntry": "country",
+            "web_url": "homepage",
+            "regn": "region",
+            "sup_id": "supplierid"
+          },
+          "projected_columns": [
+            "postalcode",
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "country",
+            "homepage",
+            "region",
+            "supplierid"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "suppl_profile_comp"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "suppl_profile_comp",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "address"
+        },
+        "suppl_profile_comp": {
+          "source_table": "suppliers",
+          "column_map": {
+            "postal_cd": "postalcode",
+            "comp_name": "companyname",
+            "cont_name": "contactname",
+            "cont_title": "contacttitle",
+            "fax_num": "fax",
+            "web_url": "homepage",
+            "phone_num": "phone",
+            "regn": "region",
+            "sup_id": "supplierid"
+          },
+          "projected_columns": [
+            "postalcode",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone",
+            "region",
+            "supplierid"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "suppl_addr_view"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "suppl_addr_view",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "companyname"
+        }
+      },
+      "table_rename_map": {
+        "employeeterritories": "employeeterritories_q1",
+        "suppliers": "suppliers_companyname"
+      }
+    },
+    {
+      "local_id": 3,
+      "local_name": "local_4",
+      "tables": {
+        "order_items_orderid_le_10450": {
+          "source_table": "order_details",
+          "column_map": {
+            "order_id": "orderid",
+            "product_id": "productid",
+            "unit_price": "unitprice",
+            "quantity_ordered": "quantity",
+            "discount_rate": "discount"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"orderid\" IS NOT NULL AND \"orderid\" <= 10450) OR (rowid IN (1617,1621,1625,1626,1627,1628,1633,1634,1638,1641,1643,1644,1649,1651,1652,1653,1654,1655,1656,1659,1662,1666,1671,1678,1681,1682,1685,1689,1691,1692,1700,1703,1704,1705,1706,1707,1709,1712,1714,1719,1722,1725,1729,1731,1732,1737,1738,1740,1742,1743,1747,1749,1750,1752,1756,1758,1759,1761,1762,1764,1767,1768,1770,1771,1775,1776,1778,1781,1782,1785,1786,1788,1790,1791,1795,1800,1805,1808,1811,1813,1814,1816,1818,1825,1826,1827,1829,1834,1835,1837,1838,1839,1843,1845,1846,1849,1852,1854,1855,1857,1859,1861,1875,1877,1878,1881,1884,1888,1890,1893,1894,1897,1898,1899,1907,1908,1911,1912,1915,1918,1919,1924,1925,1929,1931,1932,1935,1936,1940,1942,1947,1949,1963,1966,1967,1969,1972,1977,1980,1982,1988,1990,1991,1992,1993,1995,1997,1998,1999,2000,2005,2006,2008,2010,2012,2013,2014,2016,2017,2020,2022,2023,2025,2029,2036,2038,2042,2043,2044,2046,2053,2056,2058,2059,2063,2065,2067,2068,2070,2071,2072,2079,2082,2083,2084,2085,2087,2090,2091,2092,2093,2095,2097,2098,2100,2102,2103,2104,2108,2113,2115,2116,2120,2124,2126,2130,2135,2139,2140,2142,2143,2144,2147,2148,2149,2151)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "order_items_orderid_gt_10450_to_10657",
+          "row_partition_peers": [
+            "order_items_orderid_gt_10450_to_10657",
+            "order_items_orderid_gt_10657_to_10862",
+            "order_items_orderid_gt_10862_or_null"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "order_items_orderid_gt_10450_to_10657": {
+          "source_table": "order_details",
+          "column_map": {
+            "order_id": "orderid",
+            "product_id": "productid",
+            "unit_price": "unitprice",
+            "quantity_ordered": "quantity",
+            "discount_rate": "discount"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"orderid\" IS NOT NULL AND \"orderid\" > 10450 AND \"orderid\" <= 10657) OR (rowid IN (2,4,5,10,21,22,23,27,30,31,32,33,35,39,40,42,44,45,46,47,49,53,55,57,60,62,63,66,68,72,76,77,79,83,85,87,88,89,90,91,92,100,102,103,109,110,111,113,114,120,126,128,130,133,136,140,141,142,143,144,149,160,162,163,164,168,169,172,175,176,178,182,186,187,189,190,192,195,202,203,205,211,212,216,217,219,221,223,225,226,227,230,233,235,236,238,239,246,249,251,252,256,257,258,259,260,263,264,267,268,270,271,272,275,280,281,282,284,287,290,291,293,295,303,306,307,315,318,319,320,324,325,328,335,336,337,339,340,341,345,348,349,350,351,352,353,356,357,360,364,366,368,369,382,383,387,388,390,391,396,400,402,403,404,406,408,410,411,412,413,416,418,421,423,427,428,433,435,439,440,442,446,447,450,453,454,455,462,463,466,470,474,476,477,484,493,494,496,497,500,501,503,504,505,507,509,510,511,512,513,515,522,524,526,536,538)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "order_items_orderid_gt_10657_to_10862",
+          "row_partition_peers": [
+            "order_items_orderid_gt_10657_to_10862",
+            "order_items_orderid_gt_10862_or_null",
+            "order_items_orderid_le_10450"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "order_items_orderid_gt_10657_to_10862": {
+          "source_table": "order_details",
+          "column_map": {
+            "order_id": "orderid",
+            "product_id": "productid",
+            "unit_price": "unitprice",
+            "quantity_ordered": "quantity",
+            "discount_rate": "discount"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"orderid\" IS NOT NULL AND \"orderid\" > 10657 AND \"orderid\" <= 10862) OR (rowid IN (543,546,547,549,550,552,554,556,557,560,562,564,568,572,573,574,578,580,581,587,591,596,597,609,611,612,613,615,617,618,619,620,626,629,634,635,636,638,639,642,644,646,647,650,653,654,657,661,663,664,666,669,674,676,677,678,679,682,694,696,702,704,706,707,710,713,717,718,720,723,724,726,736,737,739,740,744,749,751,755,757,759,763,767,772,775,776,779,782,784,788,789,791,793,795,797,798,801,803,804,807,808,809,810,812,814,816,818,819,832,835,837,842,843,846,847,848,850,851,854,855,858,859,862,863,865,868,869,871,874,879,880,888,889,890,892,893,894,896,902,904,907,910,914,916,917,919,923,924,926,929,930,934,935,936,938,939,941,950,951,952,953,954,955,957,958,960,961,962,964,965,977,978,979,980,985,987,988,991,992,998,999,1000,1001,1005,1007,1009,1011,1013,1017,1019,1020,1027,1028,1031,1032,1033,1034,1035,1039,1041,1043,1044,1053,1057,1058,1060,1061,1065,1067,1068,1069,1072,1074,1075,1077,1078)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "order_items_orderid_gt_10862_or_null",
+          "row_partition_peers": [
+            "order_items_orderid_gt_10862_or_null",
+            "order_items_orderid_le_10450",
+            "order_items_orderid_gt_10450_to_10657"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "order_items_orderid_gt_10862_or_null": {
+          "source_table": "order_details",
+          "column_map": {
+            "order_id": "orderid",
+            "product_id": "productid",
+            "unit_price": "unitprice",
+            "quantity_ordered": "quantity",
+            "discount_rate": "discount"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"orderid\" > 10862 OR \"orderid\" IS NULL) OR (rowid IN (1080,1082,1084,1085,1087,1089,1092,1093,1094,1096,1097,1103,1104,1105,1106,1107,1108,1109,1110,1113,1114,1117,1122,1125,1127,1128,1129,1131,1133,1135,1136,1138,1139,1141,1150,1151,1153,1155,1157,1159,1164,1167,1168,1174,1178,1179,1180,1184,1185,1188,1191,1192,1194,1196,1199,1202,1205,1206,1212,1213,1214,1221,1222,1224,1225,1226,1228,1229,1232,1234,1235,1236,1241,1245,1248,1251,1252,1254,1256,1257,1260,1261,1262,1263,1265,1267,1268,1273,1274,1279,1280,1284,1286,1289,1292,1294,1295,1297,1308,1309,1314,1315,1316,1317,1324,1325,1332,1334,1336,1338,1339,1340,1342,1343,1349,1350,1357,1361,1362,1374,1378,1384,1385,1386,1390,1398,1400,1402,1403,1404,1405,1408,1409,1412,1415,1418,1419,1424,1426,1428,1431,1432,1436,1437,1438,1443,1445,1447,1450,1452,1457,1461,1464,1472,1473,1474,1475,1478,1479,1480,1485,1486,1487,1489,1494,1495,1496,1500,1502,1506,1509,1510,1514,1517,1519,1520,1521,1522,1523,1524,1525,1526,1528,1529,1530,1532,1535,1539,1540,1543,1548,1552,1553,1560,1562,1563,1572,1573,1575,1579,1580,1582,1585,1587,1590,1597,1598,1599,1601,1602,1606,1607,1613,1615,1616)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "order_items_orderid_le_10450",
+          "row_partition_peers": [
+            "order_items_orderid_le_10450",
+            "order_items_orderid_gt_10450_to_10657",
+            "order_items_orderid_gt_10657_to_10862"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "territories_region_le_1": {
+          "source_table": "territories",
+          "column_map": {
+            "territory_id": "territoryid",
+            "territory_description": "territorydescription",
+            "region_id": "regionid"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"regionid\" IS NOT NULL AND \"regionid\" <= 1) OR (rowid IN (23,26,38,39)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "territories_region_gt_1_to_2",
+          "row_partition_peers": [
+            "territories_region_gt_1_to_2",
+            "territories_region_gt_2_to_3",
+            "territories_region_gt_3_or_null"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "territories_region_gt_1_to_2": {
+          "source_table": "territories",
+          "column_map": {
+            "territory_id": "territoryid",
+            "territory_description": "territorydescription",
+            "region_id": "regionid"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"regionid\" IS NOT NULL AND \"regionid\" > 1 AND \"regionid\" <= 2) OR (rowid IN (2,5,7,10,12,13,16,27)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "territories_region_gt_2_to_3",
+          "row_partition_peers": [
+            "territories_region_gt_2_to_3",
+            "territories_region_gt_3_or_null",
+            "territories_region_le_1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "territories_region_gt_2_to_3": {
+          "source_table": "territories",
+          "column_map": {
+            "territory_id": "territoryid",
+            "territory_description": "territorydescription",
+            "region_id": "regionid"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"regionid\" IS NOT NULL AND \"regionid\" > 2 AND \"regionid\" <= 3) OR (rowid IN (36,37,45,46,50,52)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "territories_region_gt_3_or_null",
+          "row_partition_peers": [
+            "territories_region_gt_3_or_null",
+            "territories_region_le_1",
+            "territories_region_gt_1_to_2"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "territories_region_gt_3_or_null": {
+          "source_table": "territories",
+          "column_map": {
+            "territory_id": "territoryid",
+            "territory_description": "territorydescription",
+            "region_id": "regionid"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"regionid\" > 3 OR \"regionid\" IS NULL) OR (rowid IN (8,31,32,33,34)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "territories_region_le_1",
+          "row_partition_peers": [
+            "territories_region_le_1",
+            "territories_region_gt_1_to_2",
+            "territories_region_gt_2_to_3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "order_details": "order_details_q1",
+        "territories": "territories_q1"
+      }
+    },
+    {
+      "local_id": 4,
+      "local_name": "local_5",
+      "tables": {
+        "ProductCategories": {
+          "source_table": "categories",
+          "column_map": {
+            "CategoryIdentifier": "categoryid",
+            "CategoryLabel": "categoryname",
+            "DescriptionText": "description",
+            "ImageData": "picture"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "EasternStates": {
+          "source_table": "usstates",
+          "column_map": {
+            "StateIdentifier": "stateid",
+            "StateName": "statename",
+            "StateAbbreviation": "stateabbr",
+            "RegionName": "stateregion"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"stateregion\" = 'east' OR (rowid IN (1,4,10,11,18,24)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "MidwestStates",
+          "row_partition_peers": [
+            "MidwestStates",
+            "WesternStates",
+            "SouthernAndNorthernStates"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "MidwestStates": {
+          "source_table": "usstates",
+          "column_map": {
+            "StateIdentifier": "stateid",
+            "StateName": "statename",
+            "StateAbbreviation": "stateabbr",
+            "RegionName": "stateregion"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"stateregion\" = 'midwest' OR (rowid IN (7,9,31,41,46,47)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "WesternStates",
+          "row_partition_peers": [
+            "WesternStates",
+            "SouthernAndNorthernStates",
+            "EasternStates"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "WesternStates": {
+          "source_table": "usstates",
+          "column_map": {
+            "StateIdentifier": "stateid",
+            "StateName": "statename",
+            "StateAbbreviation": "stateabbr",
+            "RegionName": "stateregion"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"stateregion\" = 'west' OR (rowid IN (14,17,28,37,50)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "SouthernAndNorthernStates",
+          "row_partition_peers": [
+            "SouthernAndNorthernStates",
+            "EasternStates",
+            "MidwestStates"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "SouthernAndNorthernStates": {
+          "source_table": "usstates",
+          "column_map": {
+            "StateIdentifier": "stateid",
+            "StateName": "statename",
+            "StateAbbreviation": "stateabbr",
+            "RegionName": "stateregion"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"stateregion\" = 'south' OR (\"stateregion\" = 'north' OR \"stateregion\" IS NULL)) OR (rowid IN (3,6,27,45,48)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "EasternStates",
+          "row_partition_peers": [
+            "EasternStates",
+            "MidwestStates",
+            "WesternStates"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "usstates": "usstates_part1"
+      }
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "customerdemographics": "CustomerDemographicTypes",
+        "customergroupthreshold": "CustomerGroupThresholds",
+        "customers_city_part1": "CityCustomersOwnerTitle",
+        "customers_city_part2": "CityCustomersSalesRepresentativeTitle",
+        "customers_city_part3": "CityCustomersMarketingManagerTitle",
+        "customers_city_part4": "CityCustomersSalesManagerTitle",
+        "customers_city_part5": "CityCustomersAccountingManagerTitle",
+        "customers_city_part6": "CityCustomersSalesCatchAll",
+        "customers_city_part7": "CityCustomersMarketingAssistantOrSalesAgent",
+        "customers_city_2": "CityCustomerCompact",
+        "employees_address": "EmployeeAddresses",
+        "employees_birthdate": "EmployeeBirthAndHire",
+        "employees_address_2": "EmployeeAddressesWithPhoto",
+        "orders_customerid_part1": "OrdersForNamedCustomerSet",
+        "orders_customerid_part2": "OrdersForOtherCustomers",
+        "orders_orderdate": "OrderDates",
+        "orders_customerid_2": "OrdersShippingInfo",
+        "products_categoryid_q1": "ProductsSupplierLowestQuartile",
+        "products_categoryid_q2": "ProductsSupplierSecondQuartile",
+        "products_categoryid_q3": "ProductsSupplierThirdQuartile",
+        "products_categoryid_q4": "ProductsSupplierHighestQuartile",
+        "products_discontinued": "ProductInventoryStatus",
+        "region": "Regions"
+      },
+      "column_renames": {
+        "customerdemographics": {
+          "customertypeid": "CustomerTypeCode",
+          "customerdesc": "Description"
+        },
+        "customergroupthreshold": {
+          "groupname": "GroupKey",
+          "rangebottom": "RangeMin",
+          "rangetop": "RangeMax"
+        },
+        "customers_city_part1": {
+          "address": "StreetAddress",
+          "city": "CityName",
+          "companyname": "CompanyName",
+          "contactname": "ContactName",
+          "contacttitle": "JobTitle",
+          "country": "CountryName",
+          "phone": "PhoneNumber",
+          "region": "RegionName"
+        },
+        "customers_city_part2": {
+          "address": "StreetAddress",
+          "city": "CityName",
+          "companyname": "CompanyName",
+          "contactname": "ContactName",
+          "contacttitle": "JobTitle",
+          "country": "CountryName",
+          "phone": "PhoneNumber",
+          "region": "RegionName"
+        },
+        "customers_city_part3": {
+          "address": "StreetAddress",
+          "city": "CityName",
+          "companyname": "CompanyName",
+          "contactname": "ContactName",
+          "contacttitle": "JobTitle",
+          "country": "CountryName",
+          "phone": "PhoneNumber",
+          "region": "RegionName"
+        },
+        "customers_city_part4": {
+          "address": "StreetAddress",
+          "city": "CityName",
+          "companyname": "CompanyName",
+          "contactname": "ContactName",
+          "contacttitle": "JobTitle",
+          "country": "CountryName",
+          "phone": "PhoneNumber",
+          "region": "RegionName"
+        },
+        "customers_city_part5": {
+          "address": "StreetAddress",
+          "city": "CityName",
+          "companyname": "CompanyName",
+          "contactname": "ContactName",
+          "contacttitle": "JobTitle",
+          "country": "CountryName",
+          "phone": "PhoneNumber",
+          "region": "RegionName"
+        },
+        "customers_city_part6": {
+          "address": "StreetAddress",
+          "city": "CityName",
+          "companyname": "CompanyName",
+          "contactname": "ContactName",
+          "contacttitle": "JobTitle",
+          "country": "CountryName",
+          "phone": "PhoneNumber",
+          "region": "RegionName"
+        },
+        "customers_city_part7": {
+          "address": "StreetAddress",
+          "city": "CityName",
+          "companyname": "CompanyName",
+          "contactname": "ContactName",
+          "contacttitle": "JobTitle",
+          "country": "CountryName",
+          "phone": "PhoneNumber",
+          "region": "RegionName"
+        },
+        "customers_city_2": {
+          "address": "StreetAddress",
+          "city": "CityName",
+          "companyname": "CompanyName",
+          "customerid": "CustomerCode",
+          "fax": "FaxNumber",
+          "phone": "PhoneNumber",
+          "postalcode": "PostalCode",
+          "region": "RegionName"
+        },
+        "employees_address": {
+          "postalcode": "PostalCode",
+          "address": "StreetAddress",
+          "city": "CityName",
+          "country": "CountryName",
+          "employeeid": "EmployeeIdentifier",
+          "extension": "PhoneExtension",
+          "firstname": "FirstName",
+          "homephone": "HomePhone",
+          "lastname": "LastName",
+          "region": "RegionName",
+          "reportsto": "ReportsToId"
+        },
+        "employees_birthdate": {
+          "postalcode": "PostalCode",
+          "birthdate": "BirthDate",
+          "hiredate": "HireDate",
+          "notes": "Notes"
+        },
+        "employees_address_2": {
+          "postalcode": "PostalCode",
+          "address": "StreetAddress",
+          "city": "CityName",
+          "country": "CountryName",
+          "employeeid": "EmployeeIdentifier",
+          "extension": "PhoneExtension",
+          "photo": "PhotoData",
+          "photopath": "PhotoPath",
+          "region": "RegionName",
+          "reportsto": "ReportsToId",
+          "title": "JobTitle",
+          "titleofcourtesy": "CourtesyTitle"
+        },
+        "orders_customerid_part1": {
+          "orderid": "OrderNumber",
+          "customerid": "CustomerCode",
+          "employeeid": "EmployeeIdentifier",
+          "freight": "FreightCharge",
+          "shipcity": "ShippingCity",
+          "shippostalcode": "ShippingPostalCode",
+          "shipregion": "ShippingRegion",
+          "shipvia": "ShipViaCarrierId"
+        },
+        "orders_customerid_part2": {
+          "orderid": "OrderNumber",
+          "customerid": "CustomerCode",
+          "employeeid": "EmployeeIdentifier",
+          "freight": "FreightCharge",
+          "shipcity": "ShippingCity",
+          "shippostalcode": "ShippingPostalCode",
+          "shipregion": "ShippingRegion",
+          "shipvia": "ShipViaCarrierId"
+        },
+        "orders_orderdate": {
+          "orderid": "OrderNumber",
+          "orderdate": "OrderDate",
+          "requireddate": "RequiredDate",
+          "shippeddate": "ShippedDate"
+        },
+        "orders_customerid_2": {
+          "orderid": "OrderNumber",
+          "customerid": "CustomerCode",
+          "employeeid": "EmployeeIdentifier",
+          "freight": "FreightCharge",
+          "shipaddress": "ShippingAddress",
+          "shipcity": "ShippingCity",
+          "shipcountry": "ShippingCountry",
+          "shipname": "ShippingName",
+          "shippostalcode": "ShippingPostalCode",
+          "shipregion": "ShippingRegion"
+        },
+        "products_categoryid_q1": {
+          "productid": "ProductIdentifier",
+          "categoryid": "CategoryIdentifier",
+          "discontinued": "IsDiscontinued",
+          "productname": "ProductName",
+          "quantityperunit": "QuantityPerUnit",
+          "supplierid": "SupplierIdentifier",
+          "unitprice": "UnitPrice"
+        },
+        "products_categoryid_q2": {
+          "productid": "ProductIdentifier",
+          "categoryid": "CategoryIdentifier",
+          "discontinued": "IsDiscontinued",
+          "productname": "ProductName",
+          "quantityperunit": "QuantityPerUnit",
+          "supplierid": "SupplierIdentifier",
+          "unitprice": "UnitPrice"
+        },
+        "products_categoryid_q3": {
+          "productid": "ProductIdentifier",
+          "categoryid": "CategoryIdentifier",
+          "discontinued": "IsDiscontinued",
+          "productname": "ProductName",
+          "quantityperunit": "QuantityPerUnit",
+          "supplierid": "SupplierIdentifier",
+          "unitprice": "UnitPrice"
+        },
+        "products_categoryid_q4": {
+          "productid": "ProductIdentifier",
+          "categoryid": "CategoryIdentifier",
+          "discontinued": "IsDiscontinued",
+          "productname": "ProductName",
+          "quantityperunit": "QuantityPerUnit",
+          "supplierid": "SupplierIdentifier",
+          "unitprice": "UnitPrice"
+        },
+        "products_discontinued": {
+          "productid": "ProductIdentifier",
+          "discontinued": "IsDiscontinued",
+          "productname": "ProductName",
+          "quantityperunit": "QuantityPerUnit",
+          "reorderlevel": "ReorderLevel",
+          "unitprice": "UnitPrice",
+          "unitsinstock": "UnitsInStock",
+          "unitsonorder": "UnitsOnOrder"
+        },
+        "region": {
+          "regionid": "RegionIdentifier",
+          "regiondescription": "RegionDescription"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "customercustomerdemo": "customerDemographicsLink",
+        "shippers": "shippingProviders"
+      },
+      "column_renames": {
+        "customercustomerdemo": {
+          "customerid": "customerReferenceId",
+          "customertypeid": "demographicTypeId"
+        },
+        "shippers": {
+          "shipperid": "carrierId",
+          "companyname": "businessName",
+          "phone": "contactPhone"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_3": {
+      "table_renames": {
+        "employeeterritories_q1": "emp_terrs_emp_lte3",
+        "employeeterritories_q2": "emp_terrs_emp_gt3_lte6",
+        "employeeterritories_q3": "emp_terrs_emp_gt6_lte7",
+        "employeeterritories_q4": "emp_terrs_emp_gt7_or_null",
+        "suppliers_address": "suppl_addr_view",
+        "suppliers_companyname": "suppl_profile_comp"
+      },
+      "column_renames": {
+        "employeeterritories_q1": {
+          "employeeid": "emp_id",
+          "territoryid": "terr_code"
+        },
+        "employeeterritories_q2": {
+          "employeeid": "emp_id",
+          "territoryid": "terr_code"
+        },
+        "employeeterritories_q3": {
+          "employeeid": "emp_id",
+          "territoryid": "terr_code"
+        },
+        "employeeterritories_q4": {
+          "employeeid": "emp_id",
+          "territoryid": "terr_code"
+        },
+        "suppliers_address": {
+          "postalcode": "postal_cd",
+          "address": "addr",
+          "city": "cty",
+          "companyname": "comp_name",
+          "contactname": "cont_name",
+          "country": "cntry",
+          "homepage": "web_url",
+          "region": "regn",
+          "supplierid": "sup_id"
+        },
+        "suppliers_companyname": {
+          "postalcode": "postal_cd",
+          "companyname": "comp_name",
+          "contactname": "cont_name",
+          "contacttitle": "cont_title",
+          "fax": "fax_num",
+          "homepage": "web_url",
+          "phone": "phone_num",
+          "region": "regn",
+          "supplierid": "sup_id"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_4": {
+      "table_renames": {
+        "order_details_q1": "order_items_orderid_le_10450",
+        "order_details_q2": "order_items_orderid_gt_10450_to_10657",
+        "order_details_q3": "order_items_orderid_gt_10657_to_10862",
+        "order_details_q4": "order_items_orderid_gt_10862_or_null",
+        "territories_q1": "territories_region_le_1",
+        "territories_q2": "territories_region_gt_1_to_2",
+        "territories_q3": "territories_region_gt_2_to_3",
+        "territories_q4": "territories_region_gt_3_or_null"
+      },
+      "column_renames": {
+        "order_details_q1": {
+          "orderid": "order_id",
+          "productid": "product_id",
+          "unitprice": "unit_price",
+          "quantity": "quantity_ordered",
+          "discount": "discount_rate"
+        },
+        "order_details_q2": {
+          "orderid": "order_id",
+          "productid": "product_id",
+          "unitprice": "unit_price",
+          "quantity": "quantity_ordered",
+          "discount": "discount_rate"
+        },
+        "order_details_q3": {
+          "orderid": "order_id",
+          "productid": "product_id",
+          "unitprice": "unit_price",
+          "quantity": "quantity_ordered",
+          "discount": "discount_rate"
+        },
+        "order_details_q4": {
+          "orderid": "order_id",
+          "productid": "product_id",
+          "unitprice": "unit_price",
+          "quantity": "quantity_ordered",
+          "discount": "discount_rate"
+        },
+        "territories_q1": {
+          "territoryid": "territory_id",
+          "territorydescription": "territory_description",
+          "regionid": "region_id"
+        },
+        "territories_q2": {
+          "territoryid": "territory_id",
+          "territorydescription": "territory_description",
+          "regionid": "region_id"
+        },
+        "territories_q3": {
+          "territoryid": "territory_id",
+          "territorydescription": "territory_description",
+          "regionid": "region_id"
+        },
+        "territories_q4": {
+          "territoryid": "territory_id",
+          "territorydescription": "territory_description",
+          "regionid": "region_id"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_5": {
+      "table_renames": {
+        "categories": "ProductCategories",
+        "usstates_part1": "EasternStates",
+        "usstates_part2": "MidwestStates",
+        "usstates_part3": "WesternStates",
+        "usstates_part4": "SouthernAndNorthernStates"
+      },
+      "column_renames": {
+        "categories": {
+          "categoryid": "CategoryIdentifier",
+          "categoryname": "CategoryLabel",
+          "description": "DescriptionText",
+          "picture": "ImageData"
+        },
+        "usstates_part1": {
+          "stateid": "StateIdentifier",
+          "statename": "StateName",
+          "stateabbr": "StateAbbreviation",
+          "stateregion": "RegionName"
+        },
+        "usstates_part2": {
+          "stateid": "StateIdentifier",
+          "statename": "StateName",
+          "stateabbr": "StateAbbreviation",
+          "stateregion": "RegionName"
+        },
+        "usstates_part3": {
+          "stateid": "StateIdentifier",
+          "statename": "StateName",
+          "stateabbr": "StateAbbreviation",
+          "stateregion": "RegionName"
+        },
+        "usstates_part4": {
+          "stateid": "StateIdentifier",
+          "statename": "StateName",
+          "stateabbr": "StateAbbreviation",
+          "stateregion": "RegionName"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    }
+  },
+  "vertical_split_map": {
+    "customers": {
+      "pk_columns": [
+        "address"
+      ],
+      "fragments": [
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "local_table": "CityCustomersOwnerTitle",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_city",
+          "row_partition_names": [
+            "CityCustomersOwnerTitle",
+            "CityCustomersSalesRepresentativeTitle",
+            "CityCustomersMarketingManagerTitle",
+            "CityCustomersSalesManagerTitle",
+            "CityCustomersAccountingManagerTitle",
+            "CityCustomersSalesCatchAll",
+            "CityCustomersMarketingAssistantOrSalesAgent"
+          ],
+          "row_partition_predicate_column": "contacttitle"
+        },
+        {
+          "suffix": "city_2",
+          "non_pk_columns": [
+            "city",
+            "companyname",
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode",
+            "region"
+          ],
+          "local_table": "CityCustomerCompact",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_city_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.02792759299948202
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02792759299948202,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "region"
+          ],
+          [
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "companyname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          [
+            "city",
+            "companyname",
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode",
+            "region"
+          ]
+        ],
+        "pk_columns": [
+          "address"
+        ],
+        "fragments": [
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "city",
+              "companyname",
+              "contactname",
+              "contacttitle",
+              "country",
+              "phone",
+              "region"
+            ]
+          },
+          {
+            "suffix": "city_2",
+            "non_pk_columns": [
+              "city",
+              "companyname",
+              "customerid",
+              "fax",
+              "phone",
+              "postalcode",
+              "region"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "customers_city_part1",
+      "movable_candidates": [
+        "customers_city_2"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=0"
+    },
+    "employees": {
+      "pk_columns": [
+        "postalcode"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          "local_table": "EmployeeAddresses",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_address"
+        },
+        {
+          "suffix": "birthdate",
+          "non_pk_columns": [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          "local_table": "EmployeeBirthAndHire",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_birthdate"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "photo",
+            "photopath",
+            "region",
+            "reportsto",
+            "title",
+            "titleofcourtesy"
+          ],
+          "local_table": "EmployeeAddressesWithPhoto",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_address_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "employees",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 17,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.012507479964058833,
+          "3": 0.0046008208575015795,
+          "4": 0.01795286072459659,
+          "5": 0.014808876298589605
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.01795286072459659,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          [
+            "photo",
+            "photopath",
+            "title",
+            "titleofcourtesy"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "employeeid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "reportsto",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "extension",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "country",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "photo",
+            "photopath",
+            "region",
+            "reportsto",
+            "title",
+            "titleofcourtesy"
+          ]
+        ],
+        "pk_columns": [
+          "postalcode"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "country",
+              "employeeid",
+              "extension",
+              "firstname",
+              "homephone",
+              "lastname",
+              "region",
+              "reportsto"
+            ]
+          },
+          {
+            "suffix": "birthdate",
+            "non_pk_columns": [
+              "birthdate",
+              "hiredate",
+              "notes"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "country",
+              "employeeid",
+              "extension",
+              "photo",
+              "photopath",
+              "region",
+              "reportsto",
+              "title",
+              "titleofcourtesy"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "employees_address_2",
+      "movable_candidates": [
+        "employees_address",
+        "employees_birthdate"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=11;fk_column_endpoints_on_fragment=0"
+    },
+    "orders": {
+      "pk_columns": [
+        "orderid"
+      ],
+      "fragments": [
+        {
+          "suffix": "customerid",
+          "non_pk_columns": [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          "local_table": "OrdersForNamedCustomerSet",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_customerid",
+          "row_partition_names": [
+            "OrdersForNamedCustomerSet",
+            "OrdersForOtherCustomers"
+          ],
+          "row_partition_predicate_column": "customerid"
+        },
+        {
+          "suffix": "orderdate",
+          "non_pk_columns": [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          "local_table": "OrderDates",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_orderdate"
+        },
+        {
+          "suffix": "customerid_2",
+          "non_pk_columns": [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipaddress",
+            "shipcity",
+            "shipcountry",
+            "shipname",
+            "shippostalcode",
+            "shipregion"
+          ],
+          "local_table": "OrdersShippingInfo",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_customerid_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 13,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.059564409537500494,
+          "3": 0.06223281480440092,
+          "4": 0.06223281480440092
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.06223281480440092,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          [
+            "shipaddress",
+            "shipcountry",
+            "shipname"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "shipregion",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "shipcity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "freight",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "employeeid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "customerid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "shippostalcode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipaddress",
+            "shipcity",
+            "shipcountry",
+            "shipname",
+            "shippostalcode",
+            "shipregion"
+          ]
+        ],
+        "pk_columns": [
+          "orderid"
+        ],
+        "fragments": [
+          {
+            "suffix": "customerid",
+            "non_pk_columns": [
+              "customerid",
+              "employeeid",
+              "freight",
+              "shipcity",
+              "shippostalcode",
+              "shipregion",
+              "shipvia"
+            ]
+          },
+          {
+            "suffix": "orderdate",
+            "non_pk_columns": [
+              "orderdate",
+              "requireddate",
+              "shippeddate"
+            ]
+          },
+          {
+            "suffix": "customerid_2",
+            "non_pk_columns": [
+              "customerid",
+              "employeeid",
+              "freight",
+              "shipaddress",
+              "shipcity",
+              "shipcountry",
+              "shipname",
+              "shippostalcode",
+              "shipregion"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "orders_customerid_2",
+      "movable_candidates": [
+        "orders_customerid_part1",
+        "orders_orderdate"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=0"
+    },
+    "products": {
+      "pk_columns": [
+        "productid"
+      ],
+      "fragments": [
+        {
+          "suffix": "categoryid",
+          "non_pk_columns": [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          "local_table": "ProductsSupplierLowestQuartile",
+          "local_name": "local_1",
+          "vertical_fragment_base": "products_categoryid",
+          "row_partition_names": [
+            "ProductsSupplierLowestQuartile",
+            "ProductsSupplierSecondQuartile",
+            "ProductsSupplierThirdQuartile",
+            "ProductsSupplierHighestQuartile"
+          ],
+          "row_partition_predicate_column": "supplierid"
+        },
+        {
+          "suffix": "discontinued",
+          "non_pk_columns": [
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "reorderlevel",
+            "unitprice",
+            "unitsinstock",
+            "unitsonorder"
+          ],
+          "local_table": "ProductInventoryStatus",
+          "local_name": "local_1",
+          "vertical_fragment_base": "products_discontinued"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "products",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.04442152750887599,
+          "3": 0.04442152750887599
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.04442152750887599,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          [
+            "reorderlevel",
+            "unitsinstock",
+            "unitsonorder"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "discontinued",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "quantityperunit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "productname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "unitprice",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          [
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "reorderlevel",
+            "unitprice",
+            "unitsinstock",
+            "unitsonorder"
+          ]
+        ],
+        "pk_columns": [
+          "productid"
+        ],
+        "fragments": [
+          {
+            "suffix": "categoryid",
+            "non_pk_columns": [
+              "categoryid",
+              "discontinued",
+              "productname",
+              "quantityperunit",
+              "supplierid",
+              "unitprice"
+            ]
+          },
+          {
+            "suffix": "discontinued",
+            "non_pk_columns": [
+              "discontinued",
+              "productname",
+              "quantityperunit",
+              "reorderlevel",
+              "unitprice",
+              "unitsinstock",
+              "unitsonorder"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "products_discontinued",
+      "movable_candidates": [
+        "products_categoryid_q1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=0"
+    },
+    "suppliers": {
+      "pk_columns": [
+        "postalcode"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "country",
+            "homepage",
+            "region",
+            "supplierid"
+          ],
+          "local_table": "suppl_addr_view",
+          "local_name": "local_3",
+          "vertical_fragment_base": "suppliers_address"
+        },
+        {
+          "suffix": "companyname",
+          "non_pk_columns": [
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone",
+            "region",
+            "supplierid"
+          ],
+          "local_table": "suppl_profile_comp",
+          "local_name": "local_3",
+          "vertical_fragment_base": "suppliers_companyname"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "suppliers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.02127624642812896,
+          "3": 0.020609490474530843
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02127624642812896,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "companyname",
+            "country",
+            "region",
+            "supplierid"
+          ],
+          [
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "supplierid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "homepage",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "companyname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "contactname",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "country",
+            "homepage",
+            "region",
+            "supplierid"
+          ],
+          [
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone",
+            "region",
+            "supplierid"
+          ]
+        ],
+        "pk_columns": [
+          "postalcode"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "companyname",
+              "contactname",
+              "country",
+              "homepage",
+              "region",
+              "supplierid"
+            ]
+          },
+          {
+            "suffix": "companyname",
+            "non_pk_columns": [
+              "companyname",
+              "contactname",
+              "contacttitle",
+              "fax",
+              "homepage",
+              "phone",
+              "region",
+              "supplierid"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "suppliers_companyname",
+      "movable_candidates": [
+        "suppliers_address"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=0"
+    }
+  },
+  "split_map": {
+    "customers": {
+      "pk_columns": [
+        "address"
+      ],
+      "fragments": [
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          "local_table": "CityCustomersOwnerTitle",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_city",
+          "row_partition_names": [
+            "CityCustomersOwnerTitle",
+            "CityCustomersSalesRepresentativeTitle",
+            "CityCustomersMarketingManagerTitle",
+            "CityCustomersSalesManagerTitle",
+            "CityCustomersAccountingManagerTitle",
+            "CityCustomersSalesCatchAll",
+            "CityCustomersMarketingAssistantOrSalesAgent"
+          ],
+          "row_partition_predicate_column": "contacttitle"
+        },
+        {
+          "suffix": "city_2",
+          "non_pk_columns": [
+            "city",
+            "companyname",
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode",
+            "region"
+          ],
+          "local_table": "CityCustomerCompact",
+          "local_name": "local_1",
+          "vertical_fragment_base": "customers_city_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.02792759299948202
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02792759299948202,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "region"
+          ],
+          [
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "companyname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "city",
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "country",
+            "phone",
+            "region"
+          ],
+          [
+            "city",
+            "companyname",
+            "customerid",
+            "fax",
+            "phone",
+            "postalcode",
+            "region"
+          ]
+        ],
+        "pk_columns": [
+          "address"
+        ],
+        "fragments": [
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "city",
+              "companyname",
+              "contactname",
+              "contacttitle",
+              "country",
+              "phone",
+              "region"
+            ]
+          },
+          {
+            "suffix": "city_2",
+            "non_pk_columns": [
+              "city",
+              "companyname",
+              "customerid",
+              "fax",
+              "phone",
+              "postalcode",
+              "region"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "customers_city_part1",
+      "movable_candidates": [
+        "customers_city_2"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=0"
+    },
+    "employees": {
+      "pk_columns": [
+        "postalcode"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          "local_table": "EmployeeAddresses",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_address"
+        },
+        {
+          "suffix": "birthdate",
+          "non_pk_columns": [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          "local_table": "EmployeeBirthAndHire",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_birthdate"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "photo",
+            "photopath",
+            "region",
+            "reportsto",
+            "title",
+            "titleofcourtesy"
+          ],
+          "local_table": "EmployeeAddressesWithPhoto",
+          "local_name": "local_1",
+          "vertical_fragment_base": "employees_address_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "employees",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 17,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.012507479964058833,
+          "3": 0.0046008208575015795,
+          "4": 0.01795286072459659,
+          "5": 0.014808876298589605
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.01795286072459659,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          [
+            "photo",
+            "photopath",
+            "title",
+            "titleofcourtesy"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "employeeid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "reportsto",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "extension",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "city",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "country",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "firstname",
+            "homephone",
+            "lastname",
+            "region",
+            "reportsto"
+          ],
+          [
+            "birthdate",
+            "hiredate",
+            "notes"
+          ],
+          [
+            "address",
+            "city",
+            "country",
+            "employeeid",
+            "extension",
+            "photo",
+            "photopath",
+            "region",
+            "reportsto",
+            "title",
+            "titleofcourtesy"
+          ]
+        ],
+        "pk_columns": [
+          "postalcode"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "country",
+              "employeeid",
+              "extension",
+              "firstname",
+              "homephone",
+              "lastname",
+              "region",
+              "reportsto"
+            ]
+          },
+          {
+            "suffix": "birthdate",
+            "non_pk_columns": [
+              "birthdate",
+              "hiredate",
+              "notes"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "country",
+              "employeeid",
+              "extension",
+              "photo",
+              "photopath",
+              "region",
+              "reportsto",
+              "title",
+              "titleofcourtesy"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "employees_address_2",
+      "movable_candidates": [
+        "employees_address",
+        "employees_birthdate"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=11;fk_column_endpoints_on_fragment=0"
+    },
+    "orders": {
+      "pk_columns": [
+        "orderid"
+      ],
+      "fragments": [
+        {
+          "suffix": "customerid",
+          "non_pk_columns": [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          "local_table": "OrdersForNamedCustomerSet",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_customerid",
+          "row_partition_names": [
+            "OrdersForNamedCustomerSet",
+            "OrdersForOtherCustomers"
+          ],
+          "row_partition_predicate_column": "customerid"
+        },
+        {
+          "suffix": "orderdate",
+          "non_pk_columns": [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          "local_table": "OrderDates",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_orderdate"
+        },
+        {
+          "suffix": "customerid_2",
+          "non_pk_columns": [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipaddress",
+            "shipcity",
+            "shipcountry",
+            "shipname",
+            "shippostalcode",
+            "shipregion"
+          ],
+          "local_table": "OrdersShippingInfo",
+          "local_name": "local_1",
+          "vertical_fragment_base": "orders_customerid_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 13,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.059564409537500494,
+          "3": 0.06223281480440092,
+          "4": 0.06223281480440092
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.06223281480440092,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          [
+            "shipaddress",
+            "shipcountry",
+            "shipname"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "shipregion",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "shipcity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "freight",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "employeeid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "customerid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "shippostalcode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipcity",
+            "shippostalcode",
+            "shipregion",
+            "shipvia"
+          ],
+          [
+            "orderdate",
+            "requireddate",
+            "shippeddate"
+          ],
+          [
+            "customerid",
+            "employeeid",
+            "freight",
+            "shipaddress",
+            "shipcity",
+            "shipcountry",
+            "shipname",
+            "shippostalcode",
+            "shipregion"
+          ]
+        ],
+        "pk_columns": [
+          "orderid"
+        ],
+        "fragments": [
+          {
+            "suffix": "customerid",
+            "non_pk_columns": [
+              "customerid",
+              "employeeid",
+              "freight",
+              "shipcity",
+              "shippostalcode",
+              "shipregion",
+              "shipvia"
+            ]
+          },
+          {
+            "suffix": "orderdate",
+            "non_pk_columns": [
+              "orderdate",
+              "requireddate",
+              "shippeddate"
+            ]
+          },
+          {
+            "suffix": "customerid_2",
+            "non_pk_columns": [
+              "customerid",
+              "employeeid",
+              "freight",
+              "shipaddress",
+              "shipcity",
+              "shipcountry",
+              "shipname",
+              "shippostalcode",
+              "shipregion"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "orders_customerid_2",
+      "movable_candidates": [
+        "orders_customerid_part1",
+        "orders_orderdate"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=9;fk_column_endpoints_on_fragment=0"
+    },
+    "products": {
+      "pk_columns": [
+        "productid"
+      ],
+      "fragments": [
+        {
+          "suffix": "categoryid",
+          "non_pk_columns": [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          "local_table": "ProductsSupplierLowestQuartile",
+          "local_name": "local_1",
+          "vertical_fragment_base": "products_categoryid",
+          "row_partition_names": [
+            "ProductsSupplierLowestQuartile",
+            "ProductsSupplierSecondQuartile",
+            "ProductsSupplierThirdQuartile",
+            "ProductsSupplierHighestQuartile"
+          ],
+          "row_partition_predicate_column": "supplierid"
+        },
+        {
+          "suffix": "discontinued",
+          "non_pk_columns": [
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "reorderlevel",
+            "unitprice",
+            "unitsinstock",
+            "unitsonorder"
+          ],
+          "local_table": "ProductInventoryStatus",
+          "local_name": "local_1",
+          "vertical_fragment_base": "products_discontinued"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "products",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.04442152750887599,
+          "3": 0.04442152750887599
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.04442152750887599,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          [
+            "reorderlevel",
+            "unitsinstock",
+            "unitsonorder"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "discontinued",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "quantityperunit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "productname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "unitprice",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "categoryid",
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "supplierid",
+            "unitprice"
+          ],
+          [
+            "discontinued",
+            "productname",
+            "quantityperunit",
+            "reorderlevel",
+            "unitprice",
+            "unitsinstock",
+            "unitsonorder"
+          ]
+        ],
+        "pk_columns": [
+          "productid"
+        ],
+        "fragments": [
+          {
+            "suffix": "categoryid",
+            "non_pk_columns": [
+              "categoryid",
+              "discontinued",
+              "productname",
+              "quantityperunit",
+              "supplierid",
+              "unitprice"
+            ]
+          },
+          {
+            "suffix": "discontinued",
+            "non_pk_columns": [
+              "discontinued",
+              "productname",
+              "quantityperunit",
+              "reorderlevel",
+              "unitprice",
+              "unitsinstock",
+              "unitsonorder"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "products_discontinued",
+      "movable_candidates": [
+        "products_categoryid_q1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=0"
+    },
+    "suppliers": {
+      "pk_columns": [
+        "postalcode"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "country",
+            "homepage",
+            "region",
+            "supplierid"
+          ],
+          "local_table": "suppl_addr_view",
+          "local_name": "local_3",
+          "vertical_fragment_base": "suppliers_address"
+        },
+        {
+          "suffix": "companyname",
+          "non_pk_columns": [
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone",
+            "region",
+            "supplierid"
+          ],
+          "local_table": "suppl_profile_comp",
+          "local_name": "local_3",
+          "vertical_fragment_base": "suppliers_companyname"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "suppliers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.02127624642812896,
+          "3": 0.020609490474530843
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02127624642812896,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "city",
+            "companyname",
+            "country",
+            "region",
+            "supplierid"
+          ],
+          [
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "supplierid",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "homepage",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "companyname",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "contactname",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "city",
+            "companyname",
+            "contactname",
+            "country",
+            "homepage",
+            "region",
+            "supplierid"
+          ],
+          [
+            "companyname",
+            "contactname",
+            "contacttitle",
+            "fax",
+            "homepage",
+            "phone",
+            "region",
+            "supplierid"
+          ]
+        ],
+        "pk_columns": [
+          "postalcode"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "city",
+              "companyname",
+              "contactname",
+              "country",
+              "homepage",
+              "region",
+              "supplierid"
+            ]
+          },
+          {
+            "suffix": "companyname",
+            "non_pk_columns": [
+              "companyname",
+              "contactname",
+              "contacttitle",
+              "fax",
+              "homepage",
+              "phone",
+              "region",
+              "supplierid"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "suppliers_companyname",
+      "movable_candidates": [
+        "suppliers_address"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=0"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 15,
+    "eligible_candidate_count": 13,
+    "num_selected_for_vertical_split": 12,
+    "num_from_rate_alone": 12,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 5,
+    "selected_original_tables": [
+      "employees",
+      "orders",
+      "suppliers",
+      "customers",
+      "products",
+      "order_details",
+      "categories",
+      "usstates",
+      "customergroupthreshold",
+      "shippers",
+      "territories",
+      "employeeterritories"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/northwind/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "order_details",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "categories",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "usstates",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "customergroupthreshold",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "shippers",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "territories",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "employeeterritories",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "customers||vfrag=city": {
+      "source_table": "customers",
+      "vertical_fragment_suffix": "city",
+      "num_partitions": 7,
+      "partition_names": [
+        "CityCustomersOwnerTitle",
+        "CityCustomersSalesRepresentativeTitle",
+        "CityCustomersMarketingManagerTitle",
+        "CityCustomersSalesManagerTitle",
+        "CityCustomersAccountingManagerTitle",
+        "CityCustomersSalesCatchAll",
+        "CityCustomersMarketingAssistantOrSalesAgent"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1"
+      ],
+      "predicate_column": "contacttitle",
+      "partition_values": [
+        {
+          "value": "Owner",
+          "includes_null": false
+        },
+        {
+          "value": "Sales Representative",
+          "includes_null": false
+        },
+        {
+          "value": "Marketing Manager",
+          "includes_null": false
+        },
+        {
+          "value": "Sales Manager",
+          "includes_null": false
+        },
+        {
+          "value": "Accounting Manager",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Sales Associate",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "Assistant Sales Agent",
+                  "includes_null": false
+                },
+                {
+                  "value": "__OTHER__",
+                  "includes_null": true,
+                  "excluded_values": [
+                    "Owner",
+                    "Sales Representative",
+                    "Marketing Manager",
+                    "Sales Manager",
+                    "Accounting Manager",
+                    "Sales Associate",
+                    "Marketing Assistant",
+                    "Sales Agent",
+                    "Assistant Sales Agent"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Marketing Assistant",
+              "includes_null": false
+            },
+            {
+              "value": "Sales Agent",
+              "includes_null": false
+            }
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"contacttitle\" = 'Owner' OR (rowid IN (12,42,50,62,78)))",
+        "(\"contacttitle\" = 'Sales Representative' OR (rowid IN (2,3,18,24,33,56,57)))",
+        "(\"contacttitle\" = 'Marketing Manager' OR (rowid IN (1,11,16,27,40,71,86)))",
+        "(\"contacttitle\" = 'Sales Manager' OR (rowid IN (13,25,26,29,79)))",
+        "(\"contacttitle\" = 'Accounting Manager' OR (rowid IN (41,68,72,83,88)))",
+        "((\"contacttitle\" = 'Sales Associate' OR (\"contacttitle\" = 'Assistant Sales Agent' OR (\"contacttitle\" IS NULL OR \"contacttitle\" NOT IN ('Owner', 'Sales Representative', 'Marketing Manager', 'Sales Manager', 'Accounting Manager', 'Sales Associate', 'Marketing Assistant', 'Sales Agent', 'Assistant Sales Agent')))) OR (rowid IN (10,22,46,63)))",
+        "((\"contacttitle\" = 'Marketing Assistant' OR \"contacttitle\" = 'Sales Agent') OR (rowid IN (23,37,39,53,65,90)))"
+      ],
+      "base_predicate_sqls": [
+        "\"contacttitle\" = 'Owner'",
+        "\"contacttitle\" = 'Sales Representative'",
+        "\"contacttitle\" = 'Marketing Manager'",
+        "\"contacttitle\" = 'Sales Manager'",
+        "\"contacttitle\" = 'Accounting Manager'",
+        "(\"contacttitle\" = 'Sales Associate' OR (\"contacttitle\" = 'Assistant Sales Agent' OR (\"contacttitle\" IS NULL OR \"contacttitle\" NOT IN ('Owner', 'Sales Representative', 'Marketing Manager', 'Sales Manager', 'Accounting Manager', 'Sales Associate', 'Marketing Assistant', 'Sales Agent', 'Assistant Sales Agent'))))",
+        "(\"contacttitle\" = 'Marketing Assistant' OR \"contacttitle\" = 'Sales Agent')"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where contacttitle = Owner",
+        "rows where contacttitle = Sales Representative",
+        "rows where contacttitle = Marketing Manager",
+        "rows where contacttitle = Sales Manager",
+        "rows where contacttitle = Accounting Manager",
+        "rows where contacttitle = Sales Associate + rows where contacttitle = Assistant Sales Agent + rows where contacttitle is NULL or not in {'Owner', 'Sales Representative', 'Marketing Manager', 'Sales Manager', 'Accounting Manager', 'Sales Associate', 'Marketing Assistant', 'Sales Agent', 'Assistant Sales Agent'} (catch-all 'OTHER' bucket)",
+        "rows where contacttitle = Marketing Assistant + rows where contacttitle = Sales Agent"
+      ],
+      "home_fragment": "CityCustomersOwnerTitle",
+      "movable_fragments": [
+        "CityCustomersSalesRepresentativeTitle",
+        "CityCustomersMarketingManagerTitle",
+        "CityCustomersSalesManagerTitle",
+        "CityCustomersAccountingManagerTitle",
+        "CityCustomersSalesCatchAll",
+        "CityCustomersMarketingAssistantOrSalesAgent"
+      ],
+      "movable_fragment": "CityCustomersSalesRepresentativeTitle",
+      "default_movable_fragment": "CityCustomersSalesRepresentativeTitle",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "contacttitle",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "contacttitle",
+            "rhs": "country",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "contacttitle",
+          "country"
+        ],
+        "ranked_columns": [
+          {
+            "column": "contacttitle",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "country",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 91
+      },
+      "predicate_sql_fragment_A": "(\"contacttitle\" = 'Owner' OR (rowid IN (12,42,50,62,78)))",
+      "predicate_sql_fragment_B": "(\"contacttitle\" = 'Sales Representative' OR (rowid IN (2,3,18,24,33,56,57)))",
+      "fragment_role_A": "rows where contacttitle = Owner",
+      "fragment_role_B": "rows where contacttitle = Sales Representative"
+    },
+    "orders||vfrag=customerid": {
+      "source_table": "orders",
+      "vertical_fragment_suffix": "customerid",
+      "num_partitions": 2,
+      "partition_names": [
+        "OrdersForNamedCustomerSet",
+        "OrdersForOtherCustomers"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_1"
+      ],
+      "predicate_column": "customerid",
+      "partition_values": [
+        {
+          "merged_buckets": [
+            {
+              "merged_buckets": [
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "SAVEA",
+                      "includes_null": false
+                    },
+                    {
+                      "merged_buckets": [
+                        {
+                          "value": "BERGS",
+                          "includes_null": false
+                        },
+                        {
+                          "value": "BONAP",
+                          "includes_null": false
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "ERNSH",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "QUICK",
+                      "includes_null": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "merged_buckets": [
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "FOLKO",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "HUNGO",
+                      "includes_null": false
+                    }
+                  ]
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": "HILAA",
+                      "includes_null": false
+                    },
+                    {
+                      "value": "RATTC",
+                      "includes_null": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "SAVEA",
+            "ERNSH",
+            "QUICK",
+            "FOLKO",
+            "HUNGO",
+            "BERGS",
+            "HILAA",
+            "RATTC",
+            "BONAP"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "((((\"customerid\" = 'SAVEA' OR (\"customerid\" = 'BERGS' OR \"customerid\" = 'BONAP')) OR (\"customerid\" = 'ERNSH' OR \"customerid\" = 'QUICK')) OR ((\"customerid\" = 'FOLKO' OR \"customerid\" = 'HUNGO') OR (\"customerid\" = 'HILAA' OR \"customerid\" = 'RATTC'))) OR (rowid IN (5,6,9,13,18,20,23,24,35,37,43,44,46,52,53,57,59,63,65,72,78,83,87,89,90,91,94,100,105,107,116,117,120,122,124,127,128,129,141,147,152,157,159,160,165,166,167,168,169,172,174,175,179,180,184,189,190,196,199,200,201,202,207,208,217,218,220,225,227,228,236,237,238,240,245,246,247,249,250,252,255,258,266,270,271,273,274,275,279,282,283,287,288,289,291,296,301,307,310,315,316,321,331,338,339,340,342,344,349,353,355,357,358,359,363,364,369,372,373,381,382,383,387,388,391,398,401,406,409,413,415,417,419,422,424,426,428,429,434,435,437,441,446,448,457,461,462,463,469,472,473,478,481,482,488,494,496,499,504,505,509,511,513,516,525,532,534,536,544,551,552,553,556,560,561,564,566,567,586,587,588,596,599,601,602,612,617,625,630,637,639,641,643,646,649,656,657,658,660,661,662,666,667,670,672,675,679,681,682,684,688,692,696,702,705,706,719,723,724,728,731,734,735,750,759,762,768,769,775,776,780,782,785,787,790,791,793,794,797,798,799,800,801,802,804,806,810,811,812,815,822,824,826)))",
+        "((\"customerid\" IS NULL OR \"customerid\" NOT IN ('SAVEA', 'ERNSH', 'QUICK', 'FOLKO', 'HUNGO', 'BERGS', 'HILAA', 'RATTC', 'BONAP')) OR (rowid IN (10,11,15,25,33,38,39,62,66,67,77,88,93,98,99,104,114,131,135,151,171,187,193,198,213,223,229,239,263,267,268,269,286,302,320,322,325,348,351,360,365,380,386,394,399,410,451,453,458,466,474,475,486,501,515,517,526,548,580,600,624,628,629,650,654,677,691,708,713,729,730,743,744,746,749,754,761,774,817,825)))"
+      ],
+      "base_predicate_sqls": [
+        "(((\"customerid\" = 'SAVEA' OR (\"customerid\" = 'BERGS' OR \"customerid\" = 'BONAP')) OR (\"customerid\" = 'ERNSH' OR \"customerid\" = 'QUICK')) OR ((\"customerid\" = 'FOLKO' OR \"customerid\" = 'HUNGO') OR (\"customerid\" = 'HILAA' OR \"customerid\" = 'RATTC')))",
+        "(\"customerid\" IS NULL OR \"customerid\" NOT IN ('SAVEA', 'ERNSH', 'QUICK', 'FOLKO', 'HUNGO', 'BERGS', 'HILAA', 'RATTC', 'BONAP'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where customerid = SAVEA + rows where customerid = BERGS + rows where customerid = BONAP + rows where customerid = ERNSH + rows where customerid = QUICK + rows where customerid = FOLKO + rows where customerid = HUNGO + rows where customerid = HILAA + rows where customerid = RATTC",
+        "rows where customerid is NULL or not in {'SAVEA', 'ERNSH', 'QUICK', 'FOLKO', 'HUNGO', 'BERGS', 'HILAA', 'RATTC', 'BONAP'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "OrdersForNamedCustomerSet",
+      "movable_fragments": [
+        "OrdersForOtherCustomers"
+      ],
+      "movable_fragment": "OrdersForOtherCustomers",
+      "default_movable_fragment": "OrdersForOtherCustomers",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "customerid",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "customerid",
+            "rhs": "employeeid",
+            "precision": 1.0
+          },
+          {
+            "lhs": "customerid",
+            "rhs": "shipcity",
+            "precision": 1.0
+          },
+          {
+            "lhs": "customerid",
+            "rhs": "shippostalcode",
+            "precision": 1.0
+          },
+          {
+            "lhs": "customerid",
+            "rhs": "shipvia",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "customerid",
+          "employeeid",
+          "shipcity",
+          "shippostalcode",
+          "shipvia"
+        ],
+        "ranked_columns": [
+          {
+            "column": "customerid",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "shipcity",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "shippostalcode",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "employeeid",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "shipvia",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 830
+      },
+      "predicate_sql_fragment_A": "((((\"customerid\" = 'SAVEA' OR (\"customerid\" = 'BERGS' OR \"customerid\" = 'BONAP')) OR (\"customerid\" = 'ERNSH' OR \"customerid\" = 'QUICK')) OR ((\"customerid\" = 'FOLKO' OR \"customerid\" = 'HUNGO') OR (\"customerid\" = 'HILAA' OR \"customerid\" = 'RATTC'))) OR (rowid IN (5,6,9,13,18,20,23,24,35,37,43,44,46,52,53,57,59,63,65,72,78,83,87,89,90,91,94,100,105,107,116,117,120,122,124,127,128,129,141,147,152,157,159,160,165,166,167,168,169,172,174,175,179,180,184,189,190,196,199,200,201,202,207,208,217,218,220,225,227,228,236,237,238,240,245,246,247,249,250,252,255,258,266,270,271,273,274,275,279,282,283,287,288,289,291,296,301,307,310,315,316,321,331,338,339,340,342,344,349,353,355,357,358,359,363,364,369,372,373,381,382,383,387,388,391,398,401,406,409,413,415,417,419,422,424,426,428,429,434,435,437,441,446,448,457,461,462,463,469,472,473,478,481,482,488,494,496,499,504,505,509,511,513,516,525,532,534,536,544,551,552,553,556,560,561,564,566,567,586,587,588,596,599,601,602,612,617,625,630,637,639,641,643,646,649,656,657,658,660,661,662,666,667,670,672,675,679,681,682,684,688,692,696,702,705,706,719,723,724,728,731,734,735,750,759,762,768,769,775,776,780,782,785,787,790,791,793,794,797,798,799,800,801,802,804,806,810,811,812,815,822,824,826)))",
+      "predicate_sql_fragment_B": "((\"customerid\" IS NULL OR \"customerid\" NOT IN ('SAVEA', 'ERNSH', 'QUICK', 'FOLKO', 'HUNGO', 'BERGS', 'HILAA', 'RATTC', 'BONAP')) OR (rowid IN (10,11,15,25,33,38,39,62,66,67,77,88,93,98,99,104,114,131,135,151,171,187,193,198,213,223,229,239,263,267,268,269,286,302,320,322,325,348,351,360,365,380,386,394,399,410,451,453,458,466,474,475,486,501,515,517,526,548,580,600,624,628,629,650,654,677,691,708,713,729,730,743,744,746,749,754,761,774,817,825)))",
+      "fragment_role_A": "rows where customerid = SAVEA + rows where customerid = BERGS + rows where customerid = BONAP + rows where customerid = ERNSH + rows where customerid = QUICK + rows where customerid = FOLKO + rows where customerid = HUNGO + rows where customerid = HILAA + rows where customerid = RATTC",
+      "fragment_role_B": "rows where customerid is NULL or not in {'SAVEA', 'ERNSH', 'QUICK', 'FOLKO', 'HUNGO', 'BERGS', 'HILAA', 'RATTC', 'BONAP'} (catch-all 'OTHER' bucket)"
+    },
+    "products||vfrag=categoryid": {
+      "source_table": "products",
+      "vertical_fragment_suffix": "categoryid",
+      "num_partitions": 4,
+      "partition_names": [
+        "ProductsSupplierLowestQuartile",
+        "ProductsSupplierSecondQuartile",
+        "ProductsSupplierThirdQuartile",
+        "ProductsSupplierHighestQuartile"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1"
+      ],
+      "predicate_column": "supplierid",
+      "partition_values": [
+        {
+          "upper": 7
+        },
+        {
+          "lower": 7,
+          "upper": 12
+        },
+        {
+          "lower": 12,
+          "upper": 20
+        },
+        {
+          "lower": 20,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"supplierid\" IS NOT NULL AND \"supplierid\" <= 7) OR (rowid IN (50,52,54,56,59,60,61,62)))",
+        "((\"supplierid\" IS NOT NULL AND \"supplierid\" > 7 AND \"supplierid\" <= 12) OR (rowid IN (4,7,9,10,11,14,16,17,66)))",
+        "((\"supplierid\" IS NOT NULL AND \"supplierid\" > 12 AND \"supplierid\" <= 20) OR (rowid IN (19,20,23,27,28,68,75)))",
+        "((\"supplierid\" > 20 OR \"supplierid\" IS NULL) OR (rowid IN (30,35,39,40,41,42,69,72)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"supplierid\" IS NOT NULL AND \"supplierid\" <= 7)",
+        "(\"supplierid\" IS NOT NULL AND \"supplierid\" > 7 AND \"supplierid\" <= 12)",
+        "(\"supplierid\" IS NOT NULL AND \"supplierid\" > 12 AND \"supplierid\" <= 20)",
+        "(\"supplierid\" > 20 OR \"supplierid\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where supplierid <= 7",
+        "rows where 7 < supplierid <= 12",
+        "rows where 12 < supplierid <= 20",
+        "rows where supplierid > 20 or is NULL"
+      ],
+      "home_fragment": "ProductsSupplierLowestQuartile",
+      "movable_fragments": [
+        "ProductsSupplierSecondQuartile",
+        "ProductsSupplierThirdQuartile",
+        "ProductsSupplierHighestQuartile"
+      ],
+      "movable_fragment": "ProductsSupplierSecondQuartile",
+      "default_movable_fragment": "ProductsSupplierSecondQuartile",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "supplierid",
+        "mean_strong": 1.0,
+        "coverage": 0.5,
+        "score": 0.5,
+        "strong_dependencies": [
+          {
+            "lhs": "supplierid",
+            "rhs": "categoryid",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "categoryid",
+          "discontinued",
+          "supplierid"
+        ],
+        "ranked_columns": [
+          {
+            "column": "supplierid",
+            "score": 0.5,
+            "mean_strong": 1.0,
+            "coverage": 0.5
+          },
+          {
+            "column": "categoryid",
+            "score": 0.5,
+            "mean_strong": 1.0,
+            "coverage": 0.5
+          },
+          {
+            "column": "discontinued",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 77
+      },
+      "predicate_sql_fragment_A": "((\"supplierid\" IS NOT NULL AND \"supplierid\" <= 7) OR (rowid IN (50,52,54,56,59,60,61,62)))",
+      "predicate_sql_fragment_B": "((\"supplierid\" IS NOT NULL AND \"supplierid\" > 7 AND \"supplierid\" <= 12) OR (rowid IN (4,7,9,10,11,14,16,17,66)))",
+      "fragment_role_A": "rows where supplierid <= 7",
+      "fragment_role_B": "rows where 7 < supplierid <= 12"
+    },
+    "employeeterritories": {
+      "source_table": "employeeterritories",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "emp_terrs_emp_lte3",
+        "emp_terrs_emp_gt3_lte6",
+        "emp_terrs_emp_gt6_lte7",
+        "emp_terrs_emp_gt7_or_null"
+      ],
+      "partition_locals": [
+        "local_3",
+        "local_3",
+        "local_3",
+        "local_3"
+      ],
+      "predicate_column": "employeeid",
+      "partition_values": [
+        {
+          "upper": 3
+        },
+        {
+          "lower": 3,
+          "upper": 6
+        },
+        {
+          "lower": 6,
+          "upper": 7
+        },
+        {
+          "lower": 7,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"employeeid\" IS NOT NULL AND \"employeeid\" <= 3) OR (rowid IN (40,41,43,44,49)))",
+        "((\"employeeid\" IS NOT NULL AND \"employeeid\" > 3 AND \"employeeid\" <= 6) OR (rowid IN (2,3,9,10,11,12)))",
+        "((\"employeeid\" IS NOT NULL AND \"employeeid\" > 6 AND \"employeeid\" <= 7) OR (rowid IN (15,17,20,22,26,28)))",
+        "((\"employeeid\" > 7 OR \"employeeid\" IS NULL) OR (rowid IN (29,31,33,38)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"employeeid\" IS NOT NULL AND \"employeeid\" <= 3)",
+        "(\"employeeid\" IS NOT NULL AND \"employeeid\" > 3 AND \"employeeid\" <= 6)",
+        "(\"employeeid\" IS NOT NULL AND \"employeeid\" > 6 AND \"employeeid\" <= 7)",
+        "(\"employeeid\" > 7 OR \"employeeid\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where employeeid <= 3",
+        "rows where 3 < employeeid <= 6",
+        "rows where 6 < employeeid <= 7",
+        "rows where employeeid > 7 or is NULL"
+      ],
+      "home_fragment": "emp_terrs_emp_lte3",
+      "movable_fragments": [
+        "emp_terrs_emp_gt3_lte6",
+        "emp_terrs_emp_gt6_lte7",
+        "emp_terrs_emp_gt7_or_null"
+      ],
+      "movable_fragment": "emp_terrs_emp_gt3_lte6",
+      "default_movable_fragment": "emp_terrs_emp_gt3_lte6",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "employeeid",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "employeeid"
+        ],
+        "ranked_columns": [
+          {
+            "column": "employeeid",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "((\"employeeid\" IS NOT NULL AND \"employeeid\" <= 3) OR (rowid IN (40,41,43,44,49)))",
+      "predicate_sql_fragment_B": "((\"employeeid\" IS NOT NULL AND \"employeeid\" > 3 AND \"employeeid\" <= 6) OR (rowid IN (2,3,9,10,11,12)))",
+      "fragment_role_A": "rows where employeeid <= 3",
+      "fragment_role_B": "rows where 3 < employeeid <= 6"
+    },
+    "order_details": {
+      "source_table": "order_details",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "order_items_orderid_le_10450",
+        "order_items_orderid_gt_10450_to_10657",
+        "order_items_orderid_gt_10657_to_10862",
+        "order_items_orderid_gt_10862_or_null"
+      ],
+      "partition_locals": [
+        "local_4",
+        "local_4",
+        "local_4",
+        "local_4"
+      ],
+      "predicate_column": "orderid",
+      "partition_values": [
+        {
+          "upper": 10450
+        },
+        {
+          "lower": 10450,
+          "upper": 10657
+        },
+        {
+          "lower": 10657,
+          "upper": 10862
+        },
+        {
+          "lower": 10862,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"orderid\" IS NOT NULL AND \"orderid\" <= 10450) OR (rowid IN (1617,1621,1625,1626,1627,1628,1633,1634,1638,1641,1643,1644,1649,1651,1652,1653,1654,1655,1656,1659,1662,1666,1671,1678,1681,1682,1685,1689,1691,1692,1700,1703,1704,1705,1706,1707,1709,1712,1714,1719,1722,1725,1729,1731,1732,1737,1738,1740,1742,1743,1747,1749,1750,1752,1756,1758,1759,1761,1762,1764,1767,1768,1770,1771,1775,1776,1778,1781,1782,1785,1786,1788,1790,1791,1795,1800,1805,1808,1811,1813,1814,1816,1818,1825,1826,1827,1829,1834,1835,1837,1838,1839,1843,1845,1846,1849,1852,1854,1855,1857,1859,1861,1875,1877,1878,1881,1884,1888,1890,1893,1894,1897,1898,1899,1907,1908,1911,1912,1915,1918,1919,1924,1925,1929,1931,1932,1935,1936,1940,1942,1947,1949,1963,1966,1967,1969,1972,1977,1980,1982,1988,1990,1991,1992,1993,1995,1997,1998,1999,2000,2005,2006,2008,2010,2012,2013,2014,2016,2017,2020,2022,2023,2025,2029,2036,2038,2042,2043,2044,2046,2053,2056,2058,2059,2063,2065,2067,2068,2070,2071,2072,2079,2082,2083,2084,2085,2087,2090,2091,2092,2093,2095,2097,2098,2100,2102,2103,2104,2108,2113,2115,2116,2120,2124,2126,2130,2135,2139,2140,2142,2143,2144,2147,2148,2149,2151)))",
+        "((\"orderid\" IS NOT NULL AND \"orderid\" > 10450 AND \"orderid\" <= 10657) OR (rowid IN (2,4,5,10,21,22,23,27,30,31,32,33,35,39,40,42,44,45,46,47,49,53,55,57,60,62,63,66,68,72,76,77,79,83,85,87,88,89,90,91,92,100,102,103,109,110,111,113,114,120,126,128,130,133,136,140,141,142,143,144,149,160,162,163,164,168,169,172,175,176,178,182,186,187,189,190,192,195,202,203,205,211,212,216,217,219,221,223,225,226,227,230,233,235,236,238,239,246,249,251,252,256,257,258,259,260,263,264,267,268,270,271,272,275,280,281,282,284,287,290,291,293,295,303,306,307,315,318,319,320,324,325,328,335,336,337,339,340,341,345,348,349,350,351,352,353,356,357,360,364,366,368,369,382,383,387,388,390,391,396,400,402,403,404,406,408,410,411,412,413,416,418,421,423,427,428,433,435,439,440,442,446,447,450,453,454,455,462,463,466,470,474,476,477,484,493,494,496,497,500,501,503,504,505,507,509,510,511,512,513,515,522,524,526,536,538)))",
+        "((\"orderid\" IS NOT NULL AND \"orderid\" > 10657 AND \"orderid\" <= 10862) OR (rowid IN (543,546,547,549,550,552,554,556,557,560,562,564,568,572,573,574,578,580,581,587,591,596,597,609,611,612,613,615,617,618,619,620,626,629,634,635,636,638,639,642,644,646,647,650,653,654,657,661,663,664,666,669,674,676,677,678,679,682,694,696,702,704,706,707,710,713,717,718,720,723,724,726,736,737,739,740,744,749,751,755,757,759,763,767,772,775,776,779,782,784,788,789,791,793,795,797,798,801,803,804,807,808,809,810,812,814,816,818,819,832,835,837,842,843,846,847,848,850,851,854,855,858,859,862,863,865,868,869,871,874,879,880,888,889,890,892,893,894,896,902,904,907,910,914,916,917,919,923,924,926,929,930,934,935,936,938,939,941,950,951,952,953,954,955,957,958,960,961,962,964,965,977,978,979,980,985,987,988,991,992,998,999,1000,1001,1005,1007,1009,1011,1013,1017,1019,1020,1027,1028,1031,1032,1033,1034,1035,1039,1041,1043,1044,1053,1057,1058,1060,1061,1065,1067,1068,1069,1072,1074,1075,1077,1078)))",
+        "((\"orderid\" > 10862 OR \"orderid\" IS NULL) OR (rowid IN (1080,1082,1084,1085,1087,1089,1092,1093,1094,1096,1097,1103,1104,1105,1106,1107,1108,1109,1110,1113,1114,1117,1122,1125,1127,1128,1129,1131,1133,1135,1136,1138,1139,1141,1150,1151,1153,1155,1157,1159,1164,1167,1168,1174,1178,1179,1180,1184,1185,1188,1191,1192,1194,1196,1199,1202,1205,1206,1212,1213,1214,1221,1222,1224,1225,1226,1228,1229,1232,1234,1235,1236,1241,1245,1248,1251,1252,1254,1256,1257,1260,1261,1262,1263,1265,1267,1268,1273,1274,1279,1280,1284,1286,1289,1292,1294,1295,1297,1308,1309,1314,1315,1316,1317,1324,1325,1332,1334,1336,1338,1339,1340,1342,1343,1349,1350,1357,1361,1362,1374,1378,1384,1385,1386,1390,1398,1400,1402,1403,1404,1405,1408,1409,1412,1415,1418,1419,1424,1426,1428,1431,1432,1436,1437,1438,1443,1445,1447,1450,1452,1457,1461,1464,1472,1473,1474,1475,1478,1479,1480,1485,1486,1487,1489,1494,1495,1496,1500,1502,1506,1509,1510,1514,1517,1519,1520,1521,1522,1523,1524,1525,1526,1528,1529,1530,1532,1535,1539,1540,1543,1548,1552,1553,1560,1562,1563,1572,1573,1575,1579,1580,1582,1585,1587,1590,1597,1598,1599,1601,1602,1606,1607,1613,1615,1616)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"orderid\" IS NOT NULL AND \"orderid\" <= 10450)",
+        "(\"orderid\" IS NOT NULL AND \"orderid\" > 10450 AND \"orderid\" <= 10657)",
+        "(\"orderid\" IS NOT NULL AND \"orderid\" > 10657 AND \"orderid\" <= 10862)",
+        "(\"orderid\" > 10862 OR \"orderid\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where orderid <= 10450",
+        "rows where 10450 < orderid <= 10657",
+        "rows where 10657 < orderid <= 10862",
+        "rows where orderid > 10862 or is NULL"
+      ],
+      "home_fragment": "order_items_orderid_le_10450",
+      "movable_fragments": [
+        "order_items_orderid_gt_10450_to_10657",
+        "order_items_orderid_gt_10657_to_10862",
+        "order_items_orderid_gt_10862_or_null"
+      ],
+      "movable_fragment": "order_items_orderid_gt_10450_to_10657",
+      "default_movable_fragment": "order_items_orderid_gt_10450_to_10657",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "orderid",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "orderid",
+            "rhs": "discount",
+            "precision": 1.0
+          },
+          {
+            "lhs": "orderid",
+            "rhs": "productid",
+            "precision": 1.0
+          },
+          {
+            "lhs": "orderid",
+            "rhs": "quantity",
+            "precision": 1.0
+          },
+          {
+            "lhs": "orderid",
+            "rhs": "unitprice",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "discount",
+          "orderid",
+          "productid",
+          "quantity",
+          "unitprice"
+        ],
+        "ranked_columns": [
+          {
+            "column": "orderid",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "productid",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "quantity",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "unitprice",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "discount",
+            "score": 0.75,
+            "mean_strong": 1.0,
+            "coverage": 0.75
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 2155
+      },
+      "predicate_sql_fragment_A": "((\"orderid\" IS NOT NULL AND \"orderid\" <= 10450) OR (rowid IN (1617,1621,1625,1626,1627,1628,1633,1634,1638,1641,1643,1644,1649,1651,1652,1653,1654,1655,1656,1659,1662,1666,1671,1678,1681,1682,1685,1689,1691,1692,1700,1703,1704,1705,1706,1707,1709,1712,1714,1719,1722,1725,1729,1731,1732,1737,1738,1740,1742,1743,1747,1749,1750,1752,1756,1758,1759,1761,1762,1764,1767,1768,1770,1771,1775,1776,1778,1781,1782,1785,1786,1788,1790,1791,1795,1800,1805,1808,1811,1813,1814,1816,1818,1825,1826,1827,1829,1834,1835,1837,1838,1839,1843,1845,1846,1849,1852,1854,1855,1857,1859,1861,1875,1877,1878,1881,1884,1888,1890,1893,1894,1897,1898,1899,1907,1908,1911,1912,1915,1918,1919,1924,1925,1929,1931,1932,1935,1936,1940,1942,1947,1949,1963,1966,1967,1969,1972,1977,1980,1982,1988,1990,1991,1992,1993,1995,1997,1998,1999,2000,2005,2006,2008,2010,2012,2013,2014,2016,2017,2020,2022,2023,2025,2029,2036,2038,2042,2043,2044,2046,2053,2056,2058,2059,2063,2065,2067,2068,2070,2071,2072,2079,2082,2083,2084,2085,2087,2090,2091,2092,2093,2095,2097,2098,2100,2102,2103,2104,2108,2113,2115,2116,2120,2124,2126,2130,2135,2139,2140,2142,2143,2144,2147,2148,2149,2151)))",
+      "predicate_sql_fragment_B": "((\"orderid\" IS NOT NULL AND \"orderid\" > 10450 AND \"orderid\" <= 10657) OR (rowid IN (2,4,5,10,21,22,23,27,30,31,32,33,35,39,40,42,44,45,46,47,49,53,55,57,60,62,63,66,68,72,76,77,79,83,85,87,88,89,90,91,92,100,102,103,109,110,111,113,114,120,126,128,130,133,136,140,141,142,143,144,149,160,162,163,164,168,169,172,175,176,178,182,186,187,189,190,192,195,202,203,205,211,212,216,217,219,221,223,225,226,227,230,233,235,236,238,239,246,249,251,252,256,257,258,259,260,263,264,267,268,270,271,272,275,280,281,282,284,287,290,291,293,295,303,306,307,315,318,319,320,324,325,328,335,336,337,339,340,341,345,348,349,350,351,352,353,356,357,360,364,366,368,369,382,383,387,388,390,391,396,400,402,403,404,406,408,410,411,412,413,416,418,421,423,427,428,433,435,439,440,442,446,447,450,453,454,455,462,463,466,470,474,476,477,484,493,494,496,497,500,501,503,504,505,507,509,510,511,512,513,515,522,524,526,536,538)))",
+      "fragment_role_A": "rows where orderid <= 10450",
+      "fragment_role_B": "rows where 10450 < orderid <= 10657"
+    },
+    "territories": {
+      "source_table": "territories",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "territories_region_le_1",
+        "territories_region_gt_1_to_2",
+        "territories_region_gt_2_to_3",
+        "territories_region_gt_3_or_null"
+      ],
+      "partition_locals": [
+        "local_4",
+        "local_4",
+        "local_4",
+        "local_4"
+      ],
+      "predicate_column": "regionid",
+      "partition_values": [
+        {
+          "upper": 1
+        },
+        {
+          "lower": 1,
+          "upper": 2
+        },
+        {
+          "lower": 2,
+          "upper": 3
+        },
+        {
+          "lower": 3,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"regionid\" IS NOT NULL AND \"regionid\" <= 1) OR (rowid IN (23,26,38,39)))",
+        "((\"regionid\" IS NOT NULL AND \"regionid\" > 1 AND \"regionid\" <= 2) OR (rowid IN (2,5,7,10,12,13,16,27)))",
+        "((\"regionid\" IS NOT NULL AND \"regionid\" > 2 AND \"regionid\" <= 3) OR (rowid IN (36,37,45,46,50,52)))",
+        "((\"regionid\" > 3 OR \"regionid\" IS NULL) OR (rowid IN (8,31,32,33,34)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"regionid\" IS NOT NULL AND \"regionid\" <= 1)",
+        "(\"regionid\" IS NOT NULL AND \"regionid\" > 1 AND \"regionid\" <= 2)",
+        "(\"regionid\" IS NOT NULL AND \"regionid\" > 2 AND \"regionid\" <= 3)",
+        "(\"regionid\" > 3 OR \"regionid\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where regionid <= 1",
+        "rows where 1 < regionid <= 2",
+        "rows where 2 < regionid <= 3",
+        "rows where regionid > 3 or is NULL"
+      ],
+      "home_fragment": "territories_region_le_1",
+      "movable_fragments": [
+        "territories_region_gt_1_to_2",
+        "territories_region_gt_2_to_3",
+        "territories_region_gt_3_or_null"
+      ],
+      "movable_fragment": "territories_region_gt_1_to_2",
+      "default_movable_fragment": "territories_region_gt_1_to_2",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "regionid",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "regionid"
+        ],
+        "ranked_columns": [
+          {
+            "column": "regionid",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "((\"regionid\" IS NOT NULL AND \"regionid\" <= 1) OR (rowid IN (23,26,38,39)))",
+      "predicate_sql_fragment_B": "((\"regionid\" IS NOT NULL AND \"regionid\" > 1 AND \"regionid\" <= 2) OR (rowid IN (2,5,7,10,12,13,16,27)))",
+      "fragment_role_A": "rows where regionid <= 1",
+      "fragment_role_B": "rows where 1 < regionid <= 2"
+    },
+    "usstates": {
+      "source_table": "usstates",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "EasternStates",
+        "MidwestStates",
+        "WesternStates",
+        "SouthernAndNorthernStates"
+      ],
+      "partition_locals": [
+        "local_5",
+        "local_5",
+        "local_5",
+        "local_5"
+      ],
+      "predicate_column": "stateregion",
+      "partition_values": [
+        {
+          "value": "east",
+          "includes_null": false
+        },
+        {
+          "value": "midwest",
+          "includes_null": false
+        },
+        {
+          "value": "west",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "south",
+              "includes_null": false
+            },
+            {
+              "value": "north",
+              "includes_null": true
+            }
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"stateregion\" = 'east' OR (rowid IN (1,4,10,11,18,24)))",
+        "(\"stateregion\" = 'midwest' OR (rowid IN (7,9,31,41,46,47)))",
+        "(\"stateregion\" = 'west' OR (rowid IN (14,17,28,37,50)))",
+        "((\"stateregion\" = 'south' OR (\"stateregion\" = 'north' OR \"stateregion\" IS NULL)) OR (rowid IN (3,6,27,45,48)))"
+      ],
+      "base_predicate_sqls": [
+        "\"stateregion\" = 'east'",
+        "\"stateregion\" = 'midwest'",
+        "\"stateregion\" = 'west'",
+        "(\"stateregion\" = 'south' OR (\"stateregion\" = 'north' OR \"stateregion\" IS NULL))"
+      ],
+      "predicate_kind": "afd_categorical_fway",
+      "fragment_roles": [
+        "rows where stateregion = east",
+        "rows where stateregion = midwest",
+        "rows where stateregion = west",
+        "rows where stateregion = south + rows where stateregion = north or is NULL"
+      ],
+      "home_fragment": "EasternStates",
+      "movable_fragments": [
+        "MidwestStates",
+        "WesternStates",
+        "SouthernAndNorthernStates"
+      ],
+      "movable_fragment": "MidwestStates",
+      "default_movable_fragment": "MidwestStates",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "stateregion",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "stateregion"
+        ],
+        "ranked_columns": [
+          {
+            "column": "stateregion",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"stateregion\" = 'east' OR (rowid IN (1,4,10,11,18,24)))",
+      "predicate_sql_fragment_B": "(\"stateregion\" = 'midwest' OR (rowid IN (7,9,31,41,46,47)))",
+      "fragment_role_A": "rows where stateregion = east",
+      "fragment_role_B": "rows where stateregion = midwest"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": []
+  },
+  "relocations": [],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {},
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "categories": "local_5",
+      "customercustomerdemo": "local_2",
+      "customerdemographics": "local_1",
+      "customergroupthreshold": "local_1",
+      "customers_city_2": "local_1",
+      "customers_city_part1": "local_1",
+      "customers_city_part2": "local_1",
+      "customers_city_part3": "local_1",
+      "customers_city_part4": "local_1",
+      "customers_city_part5": "local_1",
+      "customers_city_part6": "local_1",
+      "customers_city_part7": "local_1",
+      "employees_address": "local_1",
+      "employees_address_2": "local_1",
+      "employees_birthdate": "local_1",
+      "employeeterritories_q1": "local_3",
+      "employeeterritories_q2": "local_3",
+      "employeeterritories_q3": "local_3",
+      "employeeterritories_q4": "local_3",
+      "order_details_q1": "local_4",
+      "order_details_q2": "local_4",
+      "order_details_q3": "local_4",
+      "order_details_q4": "local_4",
+      "orders_customerid_2": "local_1",
+      "orders_customerid_part1": "local_1",
+      "orders_customerid_part2": "local_1",
+      "orders_orderdate": "local_1",
+      "products_categoryid_q1": "local_1",
+      "products_categoryid_q2": "local_1",
+      "products_categoryid_q3": "local_1",
+      "products_categoryid_q4": "local_1",
+      "products_discontinued": "local_1",
+      "region": "local_1",
+      "shippers": "local_2",
+      "suppliers_address": "local_3",
+      "suppliers_companyname": "local_3",
+      "territories_q1": "local_4",
+      "territories_q2": "local_4",
+      "territories_q3": "local_4",
+      "territories_q4": "local_4",
+      "usstates_part1": "local_5",
+      "usstates_part2": "local_5",
+      "usstates_part3": "local_5",
+      "usstates_part4": "local_5"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [],
+    "moved_fragments": [],
+    "pinned_fragments": [],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "categories": {
+        "columns": [
+          {
+            "name": "categoryid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "categoryname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "description",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "picture",
+            "type": "BLOB",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "categoryid"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 8
+      },
+      "customercustomerdemo": {
+        "columns": [
+          {
+            "name": "customerid",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "customertypeid",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 0
+      },
+      "customerdemographics": {
+        "columns": [
+          {
+            "name": "customertypeid",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "customerdesc",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 0
+      },
+      "customers": {
+        "columns": [
+          {
+            "name": "customerid",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "companyname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "contactname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "contacttitle",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "region",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "postalcode",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "fax",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "address"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 91
+      },
+      "employees": {
+        "columns": [
+          {
+            "name": "employeeid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "lastname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "firstname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "title",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "titleofcourtesy",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birthdate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "hiredate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "region",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "postalcode",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "homephone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "extension",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "photo",
+            "type": "BLOB",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "notes",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "reportsto",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "photopath",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "postalcode"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 9
+      },
+      "employeeterritories": {
+        "columns": [
+          {
+            "name": "employeeid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "territoryid",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "territoryid"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 49
+      },
+      "order_details": {
+        "columns": [
+          {
+            "name": "orderid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "productid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "unitprice",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "quantity",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "discount",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "orderid",
+          "productid"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 2155
+      },
+      "orders": {
+        "columns": [
+          {
+            "name": "orderid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "customerid",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "employeeid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "orderdate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "requireddate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shippeddate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shipvia",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "freight",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shipname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shipaddress",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shipcity",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shipregion",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shippostalcode",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "shipcountry",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "orderid"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 830
+      },
+      "products": {
+        "columns": [
+          {
+            "name": "productid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "productname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "supplierid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "categoryid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "quantityperunit",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "unitprice",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "unitsinstock",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "unitsonorder",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "reorderlevel",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "discontinued",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "productid"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 77
+      },
+      "region": {
+        "columns": [
+          {
+            "name": "regionid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "regiondescription",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "regiondescription"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 4
+      },
+      "shippers": {
+        "columns": [
+          {
+            "name": "shipperid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "companyname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "companyname"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 6
+      },
+      "suppliers": {
+        "columns": [
+          {
+            "name": "supplierid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "companyname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "contactname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "contacttitle",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "region",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "postalcode",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "fax",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "homepage",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "postalcode"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 29
+      },
+      "territories": {
+        "columns": [
+          {
+            "name": "territoryid",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "territorydescription",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "regionid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "territoryid"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 53
+      },
+      "usstates": {
+        "columns": [
+          {
+            "name": "stateid",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "statename",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stateabbr",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stateregion",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "stateabbr"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 51
+      },
+      "customergroupthreshold": {
+        "columns": [
+          {
+            "name": "groupname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "rangebottom",
+            "type": "DECIMAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "rangetop",
+            "type": "DECIMAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "groupname"
+        ],
+        "pk_origin": "inferred",
+        "row_count": 4
+      }
+    },
+    "foreign_keys": [],
+    "stats": {
+      "num_tables": 15,
+      "num_fk_edges": 0,
+      "hub_tables": [],
+      "connected_components": 15
+    }
+  }
+}

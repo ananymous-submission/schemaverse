@@ -1,0 +1,1036 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 6,
+    "eligible_candidate_count": 6,
+    "num_selected_for_vertical_split": 5,
+    "num_from_rate_alone": 5,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 4,
+    "selected_original_tables": [
+      "central_superstore",
+      "east_superstore",
+      "south_superstore",
+      "west_superstore",
+      "people"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/superstore/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "per_table": {
+    "people": {
+      "pk_columns": [
+        "Customer ID",
+        "Region"
+      ],
+      "fragments": [
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Customer Name",
+            "Postal Code",
+            "Segment"
+          ],
+          "local_table": "customerCityRegistry",
+          "local_name": "local_1",
+          "vertical_fragment_base": "people_city"
+        },
+        {
+          "suffix": "country",
+          "non_pk_columns": [
+            "Country",
+            "State"
+          ],
+          "local_table": "customerCountryRegistry",
+          "local_name": "local_1",
+          "vertical_fragment_base": "people_country"
+        },
+        {
+          "suffix": "city_2",
+          "non_pk_columns": [
+            "City",
+            "Customer Name",
+            "Segment"
+          ],
+          "local_table": "dim_cust_city",
+          "local_name": "local_2",
+          "vertical_fragment_base": "people_city_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "people",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.029143871373912347,
+          "3": 0.03247360516404026
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.03247360516404026,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "City",
+            "Postal Code"
+          ],
+          [
+            "Country",
+            "State"
+          ],
+          [
+            "Customer Name",
+            "Segment"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "City",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Segment",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Customer Name",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "City",
+            "Customer Name",
+            "Postal Code",
+            "Segment"
+          ],
+          [
+            "Country",
+            "State"
+          ],
+          [
+            "City",
+            "Customer Name",
+            "Segment"
+          ]
+        ],
+        "pk_columns": [
+          "Customer ID",
+          "Region"
+        ],
+        "fragments": [
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "Customer Name",
+              "Postal Code",
+              "Segment"
+            ]
+          },
+          {
+            "suffix": "country",
+            "non_pk_columns": [
+              "Country",
+              "State"
+            ]
+          },
+          {
+            "suffix": "city_2",
+            "non_pk_columns": [
+              "City",
+              "Customer Name",
+              "Segment"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "City",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "city_2"
+        },
+        {
+          "column": "Segment",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city_2",
+          "also_in_fragment_suffix": "city"
+        },
+        {
+          "column": "Customer Name",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city_2",
+          "also_in_fragment_suffix": "city"
+        }
+      ]
+    },
+    "west_superstore": {
+      "pk_columns": [
+        "Row ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "customer_id",
+          "non_pk_columns": [
+            "Customer ID",
+            "Discount",
+            "Order Date",
+            "Order ID",
+            "Product ID",
+            "Quantity",
+            "Region",
+            "Ship Date",
+            "Ship Mode"
+          ],
+          "local_table": "westOrdersOnOrBefore2015May19",
+          "local_name": "local_1",
+          "vertical_fragment_base": "west_superstore_customer_id",
+          "row_partition_names": [
+            "westOrdersOnOrBefore2015May19",
+            "west_superstore_customer_id_q2",
+            "west_superstore_customer_id_q3",
+            "westOrdersAfter2017Jul19OrNull"
+          ],
+          "row_partition_predicate_column": "Order Date"
+        },
+        {
+          "suffix": "discount",
+          "non_pk_columns": [
+            "Discount",
+            "Product ID",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ],
+          "local_table": "wst_discount",
+          "local_name": "local_2",
+          "vertical_fragment_base": "west_superstore_discount"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "west_superstore",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.0397595915529836,
+          "3": 0.03525413592221544
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0397595915529836,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Customer ID",
+            "Order Date",
+            "Order ID",
+            "Product ID",
+            "Ship Date"
+          ],
+          [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Product ID",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Region",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Ship Mode",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Quantity",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Discount",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Customer ID",
+            "Discount",
+            "Order Date",
+            "Order ID",
+            "Product ID",
+            "Quantity",
+            "Region",
+            "Ship Date",
+            "Ship Mode"
+          ],
+          [
+            "Discount",
+            "Product ID",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ]
+        ],
+        "pk_columns": [
+          "Row ID"
+        ],
+        "fragments": [
+          {
+            "suffix": "customer_id",
+            "non_pk_columns": [
+              "Customer ID",
+              "Discount",
+              "Order Date",
+              "Order ID",
+              "Product ID",
+              "Quantity",
+              "Region",
+              "Ship Date",
+              "Ship Mode"
+            ]
+          },
+          {
+            "suffix": "discount",
+            "non_pk_columns": [
+              "Discount",
+              "Product ID",
+              "Profit",
+              "Quantity",
+              "Region",
+              "Sales",
+              "Ship Mode"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Product ID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "customer_id",
+          "also_in_fragment_suffix": "discount"
+        },
+        {
+          "column": "Region",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Ship Mode",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Quantity",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Discount",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        }
+      ]
+    },
+    "east_superstore": {
+      "pk_columns": [
+        "Row ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "customer_id",
+          "non_pk_columns": [
+            "Customer ID",
+            "Discount",
+            "Order ID",
+            "Product ID",
+            "Quantity",
+            "Region",
+            "Sales"
+          ],
+          "local_table": "est_cust_sales",
+          "local_name": "local_2",
+          "vertical_fragment_base": "east_superstore_customer_id"
+        },
+        {
+          "suffix": "discount",
+          "non_pk_columns": [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ],
+          "local_table": "eastDiscountsProfitAtMost1Point5552",
+          "local_name": "local_1",
+          "vertical_fragment_base": "east_superstore_discount",
+          "row_partition_names": [
+            "eastDiscountsProfitAtMost1Point5552",
+            "eastDiscountsProfitBetween1Point5552And8Point1552",
+            "eastDiscountsProfitBetween8Point1552And28Point7064",
+            "eastDiscountsProfitAbove28Point7064OrNull"
+          ],
+          "row_partition_predicate_column": "Profit"
+        },
+        {
+          "suffix": "order_date",
+          "non_pk_columns": [
+            "Order Date",
+            "Ship Date",
+            "Ship Mode"
+          ],
+          "local_table": "est_order_dates",
+          "local_name": "local_2",
+          "vertical_fragment_base": "east_superstore_order_date"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "east_superstore",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.0379976015789228,
+          "3": 0.03995300419501355
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.03995300419501355,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Customer ID",
+            "Order ID",
+            "Product ID",
+            "Quantity"
+          ],
+          [
+            "Discount",
+            "Profit",
+            "Region",
+            "Sales"
+          ],
+          [
+            "Order Date",
+            "Ship Date",
+            "Ship Mode"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Quantity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Sales",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Region",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Ship Mode",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Discount",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Customer ID",
+            "Discount",
+            "Order ID",
+            "Product ID",
+            "Quantity",
+            "Region",
+            "Sales"
+          ],
+          [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ],
+          [
+            "Order Date",
+            "Ship Date",
+            "Ship Mode"
+          ]
+        ],
+        "pk_columns": [
+          "Row ID"
+        ],
+        "fragments": [
+          {
+            "suffix": "customer_id",
+            "non_pk_columns": [
+              "Customer ID",
+              "Discount",
+              "Order ID",
+              "Product ID",
+              "Quantity",
+              "Region",
+              "Sales"
+            ]
+          },
+          {
+            "suffix": "discount",
+            "non_pk_columns": [
+              "Discount",
+              "Profit",
+              "Quantity",
+              "Region",
+              "Sales",
+              "Ship Mode"
+            ]
+          },
+          {
+            "suffix": "order_date",
+            "non_pk_columns": [
+              "Order Date",
+              "Ship Date",
+              "Ship Mode"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Quantity",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "customer_id",
+          "also_in_fragment_suffix": "discount"
+        },
+        {
+          "column": "Sales",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Region",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Ship Mode",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order_date",
+          "also_in_fragment_suffix": "discount"
+        },
+        {
+          "column": "Discount",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        }
+      ]
+    },
+    "central_superstore": {
+      "pk_columns": [
+        "Row ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "customer_id",
+          "non_pk_columns": [
+            "Customer ID",
+            "Discount",
+            "Order ID",
+            "Product ID",
+            "Profit",
+            "Region",
+            "Sales"
+          ],
+          "local_table": "central_superstore_customer_id_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "central_superstore_customer_id",
+          "row_partition_names": [
+            "central_superstore_customer_id_q1",
+            "ctr_cust_profit_midlow",
+            "ctr_cust_profit_midhigh",
+            "ctr_cust_profit_high_null"
+          ],
+          "row_partition_predicate_column": "Profit"
+        },
+        {
+          "suffix": "discount",
+          "non_pk_columns": [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ],
+          "local_table": "ctr_discount",
+          "local_name": "local_2",
+          "vertical_fragment_base": "central_superstore_discount"
+        },
+        {
+          "suffix": "order_date",
+          "non_pk_columns": [
+            "Order Date",
+            "Ship Date",
+            "Ship Mode"
+          ],
+          "local_table": "central_region_order_fulfillment_dates",
+          "local_name": "local_3",
+          "vertical_fragment_base": "central_superstore_order_date"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "central_superstore",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.04494318424146712,
+          "3": 0.05377687817098558
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.05377687817098558,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Customer ID",
+            "Order ID",
+            "Product ID",
+            "Region"
+          ],
+          [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Sales"
+          ],
+          [
+            "Order Date",
+            "Ship Date",
+            "Ship Mode"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Region",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Ship Mode",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Sales",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Discount",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Profit",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Customer ID",
+            "Discount",
+            "Order ID",
+            "Product ID",
+            "Profit",
+            "Region",
+            "Sales"
+          ],
+          [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ],
+          [
+            "Order Date",
+            "Ship Date",
+            "Ship Mode"
+          ]
+        ],
+        "pk_columns": [
+          "Row ID"
+        ],
+        "fragments": [
+          {
+            "suffix": "customer_id",
+            "non_pk_columns": [
+              "Customer ID",
+              "Discount",
+              "Order ID",
+              "Product ID",
+              "Profit",
+              "Region",
+              "Sales"
+            ]
+          },
+          {
+            "suffix": "discount",
+            "non_pk_columns": [
+              "Discount",
+              "Profit",
+              "Quantity",
+              "Region",
+              "Sales",
+              "Ship Mode"
+            ]
+          },
+          {
+            "suffix": "order_date",
+            "non_pk_columns": [
+              "Order Date",
+              "Ship Date",
+              "Ship Mode"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Region",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "customer_id",
+          "also_in_fragment_suffix": "discount"
+        },
+        {
+          "column": "Ship Mode",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order_date",
+          "also_in_fragment_suffix": "discount"
+        },
+        {
+          "column": "Sales",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Discount",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Profit",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        }
+      ]
+    },
+    "south_superstore": {
+      "pk_columns": [
+        "Row ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "customer_id",
+          "non_pk_columns": [
+            "Customer ID",
+            "Discount",
+            "Order ID",
+            "Product ID",
+            "Quantity"
+          ],
+          "local_table": "sth_cust_sales",
+          "local_name": "local_2",
+          "vertical_fragment_base": "south_superstore_customer_id"
+        },
+        {
+          "suffix": "discount",
+          "non_pk_columns": [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ],
+          "local_table": "southern_region_sales_profit_le_1_9024",
+          "local_name": "local_3",
+          "vertical_fragment_base": "south_superstore_discount",
+          "row_partition_names": [
+            "southern_region_sales_profit_le_1_9024",
+            "south_superstore_discount_q2",
+            "south_superstore_discount_q3",
+            "southern_region_sales_profit_gt_34_2144_or_null"
+          ],
+          "row_partition_predicate_column": "Profit"
+        },
+        {
+          "suffix": "order_date",
+          "non_pk_columns": [
+            "Order Date",
+            "Profit",
+            "Region",
+            "Ship Date",
+            "Ship Mode"
+          ],
+          "local_table": "sth_order_dates",
+          "local_name": "local_2",
+          "vertical_fragment_base": "south_superstore_order_date"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "south_superstore",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 11,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.03160735897670692,
+          "3": 0.06336372285126755
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.06336372285126755,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Customer ID",
+            "Order ID",
+            "Product ID"
+          ],
+          [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Sales",
+            "Ship Mode"
+          ],
+          [
+            "Order Date",
+            "Region",
+            "Ship Date"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Region",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Ship Mode",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Quantity",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Discount",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Profit",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Customer ID",
+            "Discount",
+            "Order ID",
+            "Product ID",
+            "Quantity"
+          ],
+          [
+            "Discount",
+            "Profit",
+            "Quantity",
+            "Region",
+            "Sales",
+            "Ship Mode"
+          ],
+          [
+            "Order Date",
+            "Profit",
+            "Region",
+            "Ship Date",
+            "Ship Mode"
+          ]
+        ],
+        "pk_columns": [
+          "Row ID"
+        ],
+        "fragments": [
+          {
+            "suffix": "customer_id",
+            "non_pk_columns": [
+              "Customer ID",
+              "Discount",
+              "Order ID",
+              "Product ID",
+              "Quantity"
+            ]
+          },
+          {
+            "suffix": "discount",
+            "non_pk_columns": [
+              "Discount",
+              "Profit",
+              "Quantity",
+              "Region",
+              "Sales",
+              "Ship Mode"
+            ]
+          },
+          {
+            "suffix": "order_date",
+            "non_pk_columns": [
+              "Order Date",
+              "Profit",
+              "Region",
+              "Ship Date",
+              "Ship Mode"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Region",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order_date",
+          "also_in_fragment_suffix": "discount"
+        },
+        {
+          "column": "Ship Mode",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "order_date"
+        },
+        {
+          "column": "Quantity",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Discount",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "Profit",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "discount",
+          "also_in_fragment_suffix": "order_date"
+        }
+      ]
+    }
+  }
+}

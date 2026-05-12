@@ -1,0 +1,673 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 7,
+    "eligible_candidate_count": 6,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 2,
+    "selected_original_tables": [
+      "Crime",
+      "Ward",
+      "District",
+      "Community_Area",
+      "FBI_Code",
+      "IUCR"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/chicago_crime/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "Community_Area",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "FBI_Code",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "IUCR",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "Crime": {
+      "pk_columns": [
+        "report_no"
+      ],
+      "fragments": [
+        {
+          "suffix": "arrest",
+          "non_pk_columns": [
+            "arrest",
+            "beat",
+            "block",
+            "case_number",
+            "date",
+            "domestic",
+            "iucr_no"
+          ],
+          "local_table": "CrimeArrestRecord",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Crime_arrest"
+        },
+        {
+          "suffix": "beat",
+          "non_pk_columns": [
+            "beat",
+            "block",
+            "case_number",
+            "community_area_no",
+            "date",
+            "district_no",
+            "fbi_code_no",
+            "iucr_no",
+            "location_description",
+            "ward_no"
+          ],
+          "local_table": "Crime_beat_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Crime_beat",
+          "row_partition_names": [
+            "Crime_beat_q1",
+            "crime_incidents_beats_gt_611_to_1031",
+            "crime_incidents_beats_gt_1031_to_1723",
+            "crime_incidents_beats_above_1723_or_null"
+          ],
+          "row_partition_predicate_column": "beat"
+        },
+        {
+          "suffix": "latitude",
+          "non_pk_columns": [
+            "latitude",
+            "location_description",
+            "longitude"
+          ],
+          "local_table": "CrimeGeoCoordinate",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Crime_latitude"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Crime",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 14,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.03507439219667753,
+          "3": 0.0563056325329634,
+          "4": 0.0229875710825724
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.0563056325329634,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "arrest",
+            "date",
+            "domestic"
+          ],
+          [
+            "beat",
+            "block",
+            "case_number",
+            "community_area_no",
+            "district_no",
+            "fbi_code_no",
+            "iucr_no",
+            "ward_no"
+          ],
+          [
+            "latitude",
+            "location_description",
+            "longitude"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "block",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "location_description",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "case_number",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "beat",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "iucr_no",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "arrest",
+            "beat",
+            "block",
+            "case_number",
+            "date",
+            "domestic",
+            "iucr_no"
+          ],
+          [
+            "beat",
+            "block",
+            "case_number",
+            "community_area_no",
+            "date",
+            "district_no",
+            "fbi_code_no",
+            "iucr_no",
+            "location_description",
+            "ward_no"
+          ],
+          [
+            "latitude",
+            "location_description",
+            "longitude"
+          ]
+        ],
+        "pk_columns": [
+          "report_no"
+        ],
+        "fragments": [
+          {
+            "suffix": "arrest",
+            "non_pk_columns": [
+              "arrest",
+              "beat",
+              "block",
+              "case_number",
+              "date",
+              "domestic",
+              "iucr_no"
+            ]
+          },
+          {
+            "suffix": "beat",
+            "non_pk_columns": [
+              "beat",
+              "block",
+              "case_number",
+              "community_area_no",
+              "date",
+              "district_no",
+              "fbi_code_no",
+              "iucr_no",
+              "location_description",
+              "ward_no"
+            ]
+          },
+          {
+            "suffix": "latitude",
+            "non_pk_columns": [
+              "latitude",
+              "location_description",
+              "longitude"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "block",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "beat",
+          "also_in_fragment_suffix": "arrest"
+        },
+        {
+          "column": "location_description",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "latitude",
+          "also_in_fragment_suffix": "beat"
+        },
+        {
+          "column": "case_number",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "beat",
+          "also_in_fragment_suffix": "arrest"
+        },
+        {
+          "column": "beat",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "beat",
+          "also_in_fragment_suffix": "arrest"
+        },
+        {
+          "column": "date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "arrest",
+          "also_in_fragment_suffix": "beat"
+        },
+        {
+          "column": "iucr_no",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "beat",
+          "also_in_fragment_suffix": "arrest"
+        }
+      ]
+    },
+    "District": {
+      "pk_columns": [
+        "district_no"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "commander",
+            "district_name",
+            "email",
+            "twitter",
+            "zip_code"
+          ],
+          "local_table": "PoliceDistrictOffice",
+          "local_name": "local_1",
+          "vertical_fragment_base": "District_address"
+        },
+        {
+          "suffix": "district_name",
+          "non_pk_columns": [
+            "district_name",
+            "email",
+            "fax",
+            "phone",
+            "tty",
+            "twitter",
+            "zip_code"
+          ],
+          "local_table": "districtDirectory",
+          "local_name": "local_3",
+          "vertical_fragment_base": "District_district_name"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "District",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.023288731159941636
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.023288731159941636,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "commander",
+            "district_name",
+            "email",
+            "twitter",
+            "zip_code"
+          ],
+          [
+            "fax",
+            "phone",
+            "tty"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "zip_code",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "email",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "twitter",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "district_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "commander",
+            "district_name",
+            "email",
+            "twitter",
+            "zip_code"
+          ],
+          [
+            "district_name",
+            "email",
+            "fax",
+            "phone",
+            "tty",
+            "twitter",
+            "zip_code"
+          ]
+        ],
+        "pk_columns": [
+          "district_no"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "commander",
+              "district_name",
+              "email",
+              "twitter",
+              "zip_code"
+            ]
+          },
+          {
+            "suffix": "district_name",
+            "non_pk_columns": [
+              "district_name",
+              "email",
+              "fax",
+              "phone",
+              "tty",
+              "twitter",
+              "zip_code"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "zip_code",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "district_name"
+        },
+        {
+          "column": "email",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "district_name"
+        },
+        {
+          "column": "twitter",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "district_name"
+        },
+        {
+          "column": "district_name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "district_name"
+        }
+      ]
+    },
+    "Ward": {
+      "pk_columns": [
+        "ward_no"
+      ],
+      "fragments": [
+        {
+          "suffix": "population",
+          "non_pk_columns": [
+            "Population",
+            "alderman_name_suffix",
+            "ward_email",
+            "ward_office_address",
+            "ward_office_fax",
+            "ward_office_phone",
+            "ward_office_zip"
+          ],
+          "local_table": "wardProfile",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Ward_population"
+        },
+        {
+          "suffix": "population_2",
+          "non_pk_columns": [
+            "Population",
+            "alderman_first_name",
+            "alderman_last_name",
+            "alderman_name_suffix",
+            "ward_email",
+            "ward_office_zip"
+          ],
+          "local_table": "WardPopulationDetails",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Ward_population_2"
+        },
+        {
+          "suffix": "city_hall_office_fax",
+          "non_pk_columns": [
+            "city_hall_office_fax",
+            "city_hall_office_phone",
+            "city_hall_office_room",
+            "ward_office_fax"
+          ],
+          "local_table": "WardOfficeFaxListed",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Ward_city_hall_office_fax",
+          "row_partition_names": [
+            "WardOfficeFaxListed",
+            "WardOfficeFaxOther"
+          ],
+          "row_partition_predicate_column": "ward_office_fax"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Ward",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.09781577366778561,
+          "3": 0.1311165605951572,
+          "4": 0.1311165605951572
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.1311165605951572,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Population",
+            "ward_email",
+            "ward_office_address",
+            "ward_office_fax",
+            "ward_office_phone",
+            "ward_office_zip"
+          ],
+          [
+            "alderman_first_name",
+            "alderman_last_name",
+            "alderman_name_suffix"
+          ],
+          [
+            "city_hall_office_fax",
+            "city_hall_office_phone",
+            "city_hall_office_room"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Population",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "ward_email",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "ward_office_fax",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "ward_office_zip",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "alderman_name_suffix",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Population",
+            "alderman_name_suffix",
+            "ward_email",
+            "ward_office_address",
+            "ward_office_fax",
+            "ward_office_phone",
+            "ward_office_zip"
+          ],
+          [
+            "Population",
+            "alderman_first_name",
+            "alderman_last_name",
+            "alderman_name_suffix",
+            "ward_email",
+            "ward_office_zip"
+          ],
+          [
+            "city_hall_office_fax",
+            "city_hall_office_phone",
+            "city_hall_office_room",
+            "ward_office_fax"
+          ]
+        ],
+        "pk_columns": [
+          "ward_no"
+        ],
+        "fragments": [
+          {
+            "suffix": "population",
+            "non_pk_columns": [
+              "Population",
+              "alderman_name_suffix",
+              "ward_email",
+              "ward_office_address",
+              "ward_office_fax",
+              "ward_office_phone",
+              "ward_office_zip"
+            ]
+          },
+          {
+            "suffix": "population_2",
+            "non_pk_columns": [
+              "Population",
+              "alderman_first_name",
+              "alderman_last_name",
+              "alderman_name_suffix",
+              "ward_email",
+              "ward_office_zip"
+            ]
+          },
+          {
+            "suffix": "city_hall_office_fax",
+            "non_pk_columns": [
+              "city_hall_office_fax",
+              "city_hall_office_phone",
+              "city_hall_office_room",
+              "ward_office_fax"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Population",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "population",
+          "also_in_fragment_suffix": "population_2"
+        },
+        {
+          "column": "ward_email",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "population",
+          "also_in_fragment_suffix": "population_2"
+        },
+        {
+          "column": "ward_office_fax",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "population",
+          "also_in_fragment_suffix": "city_hall_office_fax"
+        },
+        {
+          "column": "ward_office_zip",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "population",
+          "also_in_fragment_suffix": "population_2"
+        },
+        {
+          "column": "alderman_name_suffix",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "population_2",
+          "also_in_fragment_suffix": "population"
+        }
+      ]
+    }
+  }
+}

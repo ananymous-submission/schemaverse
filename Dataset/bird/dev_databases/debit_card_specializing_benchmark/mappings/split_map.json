@@ -1,0 +1,148 @@
+{
+  "transactions_1k": {
+    "pk_columns": [
+      "TransactionID"
+    ],
+    "fragments": [
+      {
+        "suffix": "amount",
+        "non_pk_columns": [
+          "Amount",
+          "CardID",
+          "CustomerID",
+          "GasStationID",
+          "Price",
+          "ProductID"
+        ],
+        "local_table": "transactions_amount_up_to_5",
+        "local_name": "local_2",
+        "vertical_fragment_base": "transactions_1k_amount",
+        "row_partition_names": [
+          "transactions_amount_up_to_5",
+          "transactions_amount_over_5_to_19",
+          "transactions_amount_over_19_to_27",
+          "transactions_amount_over_27_or_missing"
+        ],
+        "row_partition_predicate_column": "Amount"
+      },
+      {
+        "suffix": "amount_2",
+        "non_pk_columns": [
+          "Amount",
+          "CardID",
+          "Date",
+          "GasStationID",
+          "Price",
+          "Time"
+        ],
+        "local_table": "transactions_with_datetime",
+        "local_name": "local_2",
+        "vertical_fragment_base": "transactions_1k_amount_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "transactions_1k",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.03684385598722005
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.03684385598722005,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "Amount",
+          "CardID",
+          "CustomerID",
+          "GasStationID",
+          "ProductID"
+        ],
+        [
+          "Date",
+          "Price",
+          "Time"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "Amount",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "Price",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "GasStationID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "CardID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "Amount",
+          "CardID",
+          "CustomerID",
+          "GasStationID",
+          "Price",
+          "ProductID"
+        ],
+        [
+          "Amount",
+          "CardID",
+          "Date",
+          "GasStationID",
+          "Price",
+          "Time"
+        ]
+      ],
+      "pk_columns": [
+        "TransactionID"
+      ],
+      "fragments": [
+        {
+          "suffix": "amount",
+          "non_pk_columns": [
+            "Amount",
+            "CardID",
+            "CustomerID",
+            "GasStationID",
+            "Price",
+            "ProductID"
+          ]
+        },
+        {
+          "suffix": "amount_2",
+          "non_pk_columns": [
+            "Amount",
+            "CardID",
+            "Date",
+            "GasStationID",
+            "Price",
+            "Time"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "transactions_1k_amount_q1",
+    "movable_candidates": [
+      "transactions_1k_amount_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=0"
+  }
+}

@@ -1,0 +1,2252 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 7,
+    "eligible_candidate_count": 6,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 3,
+    "selected_original_tables": [
+      "Match",
+      "Player_Attributes",
+      "Team_Attributes",
+      "Player",
+      "Team",
+      "League"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/dev_databases/european_football_2/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "Player",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Team",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "League",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "Player_Attributes": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "acceleration",
+          "non_pk_columns": [
+            "acceleration",
+            "aggression",
+            "agility",
+            "balance",
+            "ball_control",
+            "crossing",
+            "curve",
+            "dribbling",
+            "interceptions",
+            "jumping",
+            "long_shots",
+            "marking",
+            "penalties",
+            "positioning",
+            "reactions",
+            "shot_power",
+            "sliding_tackle",
+            "sprint_speed",
+            "stamina",
+            "standing_tackle",
+            "strength",
+            "vision",
+            "volleys"
+          ],
+          "local_table": "playerAttributesAccelerationProfile",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Player_Attributes_acceleration"
+        },
+        {
+          "suffix": "attacking_work_rate",
+          "non_pk_columns": [
+            "attacking_work_rate",
+            "defensive_work_rate",
+            "player_api_id",
+            "player_fifa_api_id"
+          ],
+          "local_table": "playerWorkRateProfile",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Player_Attributes_attacking_work_rate"
+        },
+        {
+          "suffix": "date",
+          "non_pk_columns": [
+            "date",
+            "overall_rating",
+            "potential",
+            "preferred_foot"
+          ],
+          "local_table": "pl_attr_snapshot",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Player_Attributes_date"
+        },
+        {
+          "suffix": "crossing",
+          "non_pk_columns": [
+            "crossing",
+            "dribbling",
+            "finishing",
+            "free_kick_accuracy",
+            "heading_accuracy",
+            "interceptions",
+            "long_passing",
+            "long_shots",
+            "penalties",
+            "short_passing",
+            "vision",
+            "volleys"
+          ],
+          "local_table": "pl_attr_tech_xing",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Player_Attributes_crossing"
+        },
+        {
+          "suffix": "aggression",
+          "non_pk_columns": [
+            "aggression",
+            "balance",
+            "gk_diving",
+            "gk_handling",
+            "gk_kicking",
+            "gk_positioning",
+            "gk_reflexes",
+            "jumping",
+            "marking",
+            "positioning",
+            "reactions",
+            "shot_power",
+            "sliding_tackle",
+            "sprint_speed",
+            "standing_tackle"
+          ],
+          "local_table": "Player_Attributes_aggression_q1",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Player_Attributes_aggression",
+          "row_partition_names": [
+            "Player_Attributes_aggression_q1",
+            "Player_Attributes_aggression_q2",
+            "Player_Attributes_aggression_q3",
+            "playerAttributesHighAggressionAbove73OrNull"
+          ],
+          "row_partition_predicate_column": "aggression"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Player_Attributes",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 41,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.01881164026807454,
+          "3": 0.027086435153420643,
+          "4": 0.03208007792630073,
+          "5": 0.03442673718980015
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.03442673718980015,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "acceleration",
+            "aggression",
+            "agility",
+            "balance",
+            "ball_control",
+            "crossing",
+            "curve",
+            "dribbling",
+            "interceptions",
+            "jumping",
+            "long_shots",
+            "marking",
+            "penalties",
+            "positioning",
+            "reactions",
+            "sliding_tackle",
+            "sprint_speed",
+            "stamina",
+            "standing_tackle",
+            "strength",
+            "vision",
+            "volleys"
+          ],
+          [
+            "attacking_work_rate",
+            "defensive_work_rate",
+            "player_api_id",
+            "player_fifa_api_id"
+          ],
+          [
+            "date",
+            "overall_rating",
+            "potential",
+            "preferred_foot"
+          ],
+          [
+            "finishing",
+            "free_kick_accuracy",
+            "heading_accuracy",
+            "long_passing",
+            "short_passing"
+          ],
+          [
+            "gk_diving",
+            "gk_handling",
+            "gk_kicking",
+            "gk_positioning",
+            "gk_reflexes",
+            "shot_power"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "long_shots",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "penalties",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "shot_power",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "positioning",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "sliding_tackle",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "dribbling",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "aggression",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "crossing",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "reactions",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "sprint_speed",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "standing_tackle",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "marking",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "vision",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "volleys",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "balance",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "jumping",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "interceptions",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "acceleration",
+            "aggression",
+            "agility",
+            "balance",
+            "ball_control",
+            "crossing",
+            "curve",
+            "dribbling",
+            "interceptions",
+            "jumping",
+            "long_shots",
+            "marking",
+            "penalties",
+            "positioning",
+            "reactions",
+            "shot_power",
+            "sliding_tackle",
+            "sprint_speed",
+            "stamina",
+            "standing_tackle",
+            "strength",
+            "vision",
+            "volleys"
+          ],
+          [
+            "attacking_work_rate",
+            "defensive_work_rate",
+            "player_api_id",
+            "player_fifa_api_id"
+          ],
+          [
+            "date",
+            "overall_rating",
+            "potential",
+            "preferred_foot"
+          ],
+          [
+            "crossing",
+            "dribbling",
+            "finishing",
+            "free_kick_accuracy",
+            "heading_accuracy",
+            "interceptions",
+            "long_passing",
+            "long_shots",
+            "penalties",
+            "short_passing",
+            "vision",
+            "volleys"
+          ],
+          [
+            "aggression",
+            "balance",
+            "gk_diving",
+            "gk_handling",
+            "gk_kicking",
+            "gk_positioning",
+            "gk_reflexes",
+            "jumping",
+            "marking",
+            "positioning",
+            "reactions",
+            "shot_power",
+            "sliding_tackle",
+            "sprint_speed",
+            "standing_tackle"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "acceleration",
+            "non_pk_columns": [
+              "acceleration",
+              "aggression",
+              "agility",
+              "balance",
+              "ball_control",
+              "crossing",
+              "curve",
+              "dribbling",
+              "interceptions",
+              "jumping",
+              "long_shots",
+              "marking",
+              "penalties",
+              "positioning",
+              "reactions",
+              "shot_power",
+              "sliding_tackle",
+              "sprint_speed",
+              "stamina",
+              "standing_tackle",
+              "strength",
+              "vision",
+              "volleys"
+            ]
+          },
+          {
+            "suffix": "attacking_work_rate",
+            "non_pk_columns": [
+              "attacking_work_rate",
+              "defensive_work_rate",
+              "player_api_id",
+              "player_fifa_api_id"
+            ]
+          },
+          {
+            "suffix": "date",
+            "non_pk_columns": [
+              "date",
+              "overall_rating",
+              "potential",
+              "preferred_foot"
+            ]
+          },
+          {
+            "suffix": "crossing",
+            "non_pk_columns": [
+              "crossing",
+              "dribbling",
+              "finishing",
+              "free_kick_accuracy",
+              "heading_accuracy",
+              "interceptions",
+              "long_passing",
+              "long_shots",
+              "penalties",
+              "short_passing",
+              "vision",
+              "volleys"
+            ]
+          },
+          {
+            "suffix": "aggression",
+            "non_pk_columns": [
+              "aggression",
+              "balance",
+              "gk_diving",
+              "gk_handling",
+              "gk_kicking",
+              "gk_positioning",
+              "gk_reflexes",
+              "jumping",
+              "marking",
+              "positioning",
+              "reactions",
+              "shot_power",
+              "sliding_tackle",
+              "sprint_speed",
+              "standing_tackle"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "long_shots",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "crossing"
+        },
+        {
+          "column": "penalties",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "crossing"
+        },
+        {
+          "column": "shot_power",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aggression",
+          "also_in_fragment_suffix": "acceleration"
+        },
+        {
+          "column": "positioning",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "sliding_tackle",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "dribbling",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "crossing"
+        },
+        {
+          "column": "aggression",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "crossing",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "crossing"
+        },
+        {
+          "column": "reactions",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "sprint_speed",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "standing_tackle",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "marking",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "vision",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "crossing"
+        },
+        {
+          "column": "volleys",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "crossing"
+        },
+        {
+          "column": "balance",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "jumping",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "aggression"
+        },
+        {
+          "column": "interceptions",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "acceleration",
+          "also_in_fragment_suffix": "crossing"
+        }
+      ]
+    },
+    "Team_Attributes": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "buildupplaydribbling",
+          "non_pk_columns": [
+            "buildUpPlayDribbling",
+            "buildUpPlayDribblingClass",
+            "buildUpPlayPassing",
+            "buildUpPlayPassingClass",
+            "buildUpPlayPositioningClass",
+            "buildUpPlaySpeed",
+            "buildUpPlaySpeedClass",
+            "chanceCreationPassing",
+            "chanceCreationPassingClass",
+            "chanceCreationPositioningClass"
+          ],
+          "local_table": "TeamAttributesBuildUpPlayDribbling",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Team_Attributes_buildupplaydribbling"
+        },
+        {
+          "suffix": "buildupplaydribblingclas",
+          "non_pk_columns": [
+            "buildUpPlayDribblingClass",
+            "chanceCreationCrossing",
+            "chanceCreationCrossingClass",
+            "chanceCreationShooting",
+            "chanceCreationShootingClass"
+          ],
+          "local_table": "TeamAttributesBuildUpPlayDribblingClassifications",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Team_Attributes_buildupplaydribblingclas"
+        },
+        {
+          "suffix": "chancecreationpassing",
+          "non_pk_columns": [
+            "chanceCreationPassing",
+            "chanceCreationPassingClass",
+            "defencePressure",
+            "defencePressureClass",
+            "defenceTeamWidthClass"
+          ],
+          "local_table": "tm_attr_chc_pass",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Team_Attributes_chancecreationpassing"
+        },
+        {
+          "suffix": "buildupplaypositioningcl",
+          "non_pk_columns": [
+            "buildUpPlayPositioningClass",
+            "chanceCreationPositioningClass",
+            "date",
+            "defenceAggression",
+            "defenceAggressionClass",
+            "defenceDefenderLineClass",
+            "defenceTeamWidth"
+          ],
+          "local_table": "tm_attr_bup_pos_cl",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Team_Attributes_buildupplaypositioningcl"
+        },
+        {
+          "suffix": "date",
+          "non_pk_columns": [
+            "date",
+            "defenceAggression",
+            "defenceDefenderLineClass",
+            "defenceTeamWidth",
+            "defenceTeamWidthClass",
+            "team_api_id",
+            "team_fifa_api_id"
+          ],
+          "local_table": "tm_attr_defaggr_le44_date",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Team_Attributes_date",
+          "row_partition_names": [
+            "tm_attr_defaggr_le44_date",
+            "tm_attr_defaggr_45_48_date",
+            "tm_attr_defaggr_49_55_date",
+            "tm_attr_defaggr_gt55_nullok_date"
+          ],
+          "row_partition_predicate_column": "defenceAggression"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Team_Attributes",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 24,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.036225185335108136,
+          "3": 0.04234790710078146,
+          "4": 0.05979224263197324,
+          "5": 0.0749929654752393
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.0749929654752393,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "buildUpPlayDribbling",
+            "buildUpPlayDribblingClass",
+            "buildUpPlayPassing",
+            "buildUpPlayPassingClass",
+            "buildUpPlayPositioningClass",
+            "buildUpPlaySpeed",
+            "buildUpPlaySpeedClass",
+            "chanceCreationPassing"
+          ],
+          [
+            "chanceCreationCrossing",
+            "chanceCreationCrossingClass",
+            "chanceCreationShooting",
+            "chanceCreationShootingClass"
+          ],
+          [
+            "chanceCreationPassingClass",
+            "defencePressure",
+            "defencePressureClass"
+          ],
+          [
+            "chanceCreationPositioningClass",
+            "defenceAggression",
+            "defenceAggressionClass",
+            "defenceDefenderLineClass"
+          ],
+          [
+            "date",
+            "defenceTeamWidth",
+            "defenceTeamWidthClass",
+            "team_api_id",
+            "team_fifa_api_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "chanceCreationPassing",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "chanceCreationPassingClass",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "date",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "buildUpPlayPositioningClass",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "defenceTeamWidth",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "chanceCreationPositioningClass",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "defenceTeamWidthClass",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "buildUpPlayDribblingClass",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "defenceDefenderLineClass",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "defenceAggression",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "buildUpPlayDribbling",
+            "buildUpPlayDribblingClass",
+            "buildUpPlayPassing",
+            "buildUpPlayPassingClass",
+            "buildUpPlayPositioningClass",
+            "buildUpPlaySpeed",
+            "buildUpPlaySpeedClass",
+            "chanceCreationPassing",
+            "chanceCreationPassingClass",
+            "chanceCreationPositioningClass"
+          ],
+          [
+            "buildUpPlayDribblingClass",
+            "chanceCreationCrossing",
+            "chanceCreationCrossingClass",
+            "chanceCreationShooting",
+            "chanceCreationShootingClass"
+          ],
+          [
+            "chanceCreationPassing",
+            "chanceCreationPassingClass",
+            "defencePressure",
+            "defencePressureClass",
+            "defenceTeamWidthClass"
+          ],
+          [
+            "buildUpPlayPositioningClass",
+            "chanceCreationPositioningClass",
+            "date",
+            "defenceAggression",
+            "defenceAggressionClass",
+            "defenceDefenderLineClass",
+            "defenceTeamWidth"
+          ],
+          [
+            "date",
+            "defenceAggression",
+            "defenceDefenderLineClass",
+            "defenceTeamWidth",
+            "defenceTeamWidthClass",
+            "team_api_id",
+            "team_fifa_api_id"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "buildupplaydribbling",
+            "non_pk_columns": [
+              "buildUpPlayDribbling",
+              "buildUpPlayDribblingClass",
+              "buildUpPlayPassing",
+              "buildUpPlayPassingClass",
+              "buildUpPlayPositioningClass",
+              "buildUpPlaySpeed",
+              "buildUpPlaySpeedClass",
+              "chanceCreationPassing",
+              "chanceCreationPassingClass",
+              "chanceCreationPositioningClass"
+            ]
+          },
+          {
+            "suffix": "buildupplaydribblingclas",
+            "non_pk_columns": [
+              "buildUpPlayDribblingClass",
+              "chanceCreationCrossing",
+              "chanceCreationCrossingClass",
+              "chanceCreationShooting",
+              "chanceCreationShootingClass"
+            ]
+          },
+          {
+            "suffix": "chancecreationpassing",
+            "non_pk_columns": [
+              "chanceCreationPassing",
+              "chanceCreationPassingClass",
+              "defencePressure",
+              "defencePressureClass",
+              "defenceTeamWidthClass"
+            ]
+          },
+          {
+            "suffix": "buildupplaypositioningcl",
+            "non_pk_columns": [
+              "buildUpPlayPositioningClass",
+              "chanceCreationPositioningClass",
+              "date",
+              "defenceAggression",
+              "defenceAggressionClass",
+              "defenceDefenderLineClass",
+              "defenceTeamWidth"
+            ]
+          },
+          {
+            "suffix": "date",
+            "non_pk_columns": [
+              "date",
+              "defenceAggression",
+              "defenceDefenderLineClass",
+              "defenceTeamWidth",
+              "defenceTeamWidthClass",
+              "team_api_id",
+              "team_fifa_api_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "chanceCreationPassing",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "buildupplaydribbling",
+          "also_in_fragment_suffix": "chancecreationpassing"
+        },
+        {
+          "column": "chanceCreationPassingClass",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "chancecreationpassing",
+          "also_in_fragment_suffix": "buildupplaydribbling"
+        },
+        {
+          "column": "date",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "date",
+          "also_in_fragment_suffix": "buildupplaypositioningcl"
+        },
+        {
+          "column": "buildUpPlayPositioningClass",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "buildupplaydribbling",
+          "also_in_fragment_suffix": "buildupplaypositioningcl"
+        },
+        {
+          "column": "defenceTeamWidth",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "date",
+          "also_in_fragment_suffix": "buildupplaypositioningcl"
+        },
+        {
+          "column": "chanceCreationPositioningClass",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "buildupplaypositioningcl",
+          "also_in_fragment_suffix": "buildupplaydribbling"
+        },
+        {
+          "column": "defenceTeamWidthClass",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "date",
+          "also_in_fragment_suffix": "chancecreationpassing"
+        },
+        {
+          "column": "buildUpPlayDribblingClass",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "buildupplaydribbling",
+          "also_in_fragment_suffix": "buildupplaydribblingclas"
+        },
+        {
+          "column": "defenceDefenderLineClass",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "buildupplaypositioningcl",
+          "also_in_fragment_suffix": "date"
+        },
+        {
+          "column": "defenceAggression",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "buildupplaypositioningcl",
+          "also_in_fragment_suffix": "date"
+        }
+      ]
+    },
+    "Match": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "b365a",
+          "non_pk_columns": [
+            "B365A",
+            "B365D",
+            "B365H",
+            "BSA",
+            "BSD",
+            "BSH",
+            "BWA",
+            "BWD",
+            "BWH",
+            "GBA",
+            "GBD",
+            "GBH",
+            "IWA",
+            "IWD",
+            "IWH",
+            "LBA",
+            "LBD",
+            "LBH",
+            "PSA",
+            "PSD",
+            "PSH",
+            "SJA",
+            "SJD",
+            "SJH",
+            "VCA",
+            "VCD",
+            "VCH",
+            "WHA",
+            "WHD",
+            "WHH",
+            "away_player_10",
+            "away_team_api_id",
+            "away_team_goal",
+            "card",
+            "corner",
+            "country_id",
+            "cross",
+            "date",
+            "foulcommit",
+            "goal",
+            "home_team_api_id",
+            "home_team_goal",
+            "league_id",
+            "match_api_id",
+            "possession",
+            "season",
+            "shotoff",
+            "shoton",
+            "stage"
+          ],
+          "local_table": "B365ALowestQuartileMatches",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Match_b365a",
+          "row_partition_names": [
+            "B365ALowestQuartileMatches",
+            "B365AQuartileRange2Point5To3Point5Matches",
+            "B365AQuartileRange3Point5To5Point25Matches",
+            "B365AHighestQuartileOrNullMatches"
+          ],
+          "row_partition_predicate_column": "B365A"
+        },
+        {
+          "suffix": "b365a_2",
+          "non_pk_columns": [
+            "B365A",
+            "B365H",
+            "BWA",
+            "BWH",
+            "GBA",
+            "GBH",
+            "IWA",
+            "IWH",
+            "LBH",
+            "PSA",
+            "PSH",
+            "SJA",
+            "SJD",
+            "SJH",
+            "VCH",
+            "WHA",
+            "WHD",
+            "WHH",
+            "away_player_1",
+            "away_player_10",
+            "away_player_11",
+            "away_player_2",
+            "away_player_3",
+            "away_player_4",
+            "away_player_5",
+            "away_player_6",
+            "away_player_7",
+            "away_player_8",
+            "away_player_9",
+            "away_team_api_id",
+            "card",
+            "corner",
+            "country_id",
+            "cross",
+            "date",
+            "foulcommit",
+            "goal",
+            "home_player_1",
+            "home_player_10",
+            "home_player_11",
+            "home_player_2",
+            "home_player_3",
+            "home_player_4",
+            "home_player_5",
+            "home_player_6",
+            "home_player_7",
+            "home_player_8",
+            "home_player_9",
+            "home_team_api_id",
+            "league_id",
+            "match_api_id",
+            "possession",
+            "season",
+            "shotoff",
+            "shoton",
+            "stage"
+          ],
+          "local_table": "mt_bet_odds",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Match_b365a_2"
+        },
+        {
+          "suffix": "away_player_x1",
+          "non_pk_columns": [
+            "away_player_X1",
+            "away_player_X10",
+            "away_player_X11",
+            "away_player_X2",
+            "away_player_X3",
+            "away_player_X4",
+            "away_player_X5",
+            "away_player_X6",
+            "away_player_X7",
+            "away_player_X8",
+            "away_player_X9",
+            "home_player_X10",
+            "home_player_X11"
+          ],
+          "local_table": "mt_away_pl_lineup",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Match_away_player_x1"
+        },
+        {
+          "suffix": "away_player_11",
+          "non_pk_columns": [
+            "away_player_11",
+            "away_player_Y1",
+            "away_player_Y10",
+            "away_player_Y11",
+            "away_player_Y2",
+            "away_player_Y3",
+            "away_player_Y4",
+            "away_player_Y5",
+            "away_player_Y6",
+            "away_player_Y7",
+            "away_player_Y8",
+            "away_player_Y9",
+            "away_team_goal",
+            "home_player_Y10",
+            "home_player_Y11",
+            "home_player_Y8",
+            "home_player_Y9"
+          ],
+          "local_table": "AwayPlayerElevenRosterEntries",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Match_away_player_11"
+        },
+        {
+          "suffix": "away_player_x10",
+          "non_pk_columns": [
+            "away_player_X10",
+            "away_player_X11",
+            "home_player_10",
+            "home_player_11",
+            "home_player_X1",
+            "home_player_X10",
+            "home_player_X11",
+            "home_player_X2",
+            "home_player_X3",
+            "home_player_X4",
+            "home_player_X5",
+            "home_player_X6",
+            "home_player_X7",
+            "home_player_X8",
+            "home_player_X9",
+            "home_player_Y1",
+            "home_player_Y10",
+            "home_player_Y11",
+            "home_player_Y2",
+            "home_player_Y3",
+            "home_player_Y4",
+            "home_player_Y5",
+            "home_player_Y6",
+            "home_player_Y7",
+            "home_team_goal"
+          ],
+          "local_table": "AwayPlayerXTenRosterEntries",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Match_away_player_x10"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Match",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 114,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.17439785209952607,
+          "3": 0.19000007353093176,
+          "4": 0.24552605687170853,
+          "5": 0.2810278713863156
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.2810278713863156,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "B365A",
+            "B365D",
+            "B365H",
+            "BSA",
+            "BSD",
+            "BSH",
+            "BWA",
+            "BWD",
+            "BWH",
+            "GBA",
+            "GBD",
+            "GBH",
+            "IWA",
+            "IWD",
+            "IWH",
+            "LBA",
+            "LBD",
+            "LBH",
+            "PSA",
+            "PSD",
+            "PSH",
+            "SJA",
+            "SJD",
+            "SJH",
+            "VCA",
+            "VCD",
+            "VCH",
+            "WHA",
+            "WHD",
+            "WHH",
+            "away_team_goal",
+            "card",
+            "corner",
+            "country_id",
+            "cross",
+            "date",
+            "foulcommit",
+            "goal",
+            "home_team_goal",
+            "league_id",
+            "possession",
+            "season",
+            "shotoff",
+            "shoton",
+            "stage"
+          ],
+          [
+            "away_player_1",
+            "away_player_10",
+            "away_player_11",
+            "away_player_2",
+            "away_player_3",
+            "away_player_4",
+            "away_player_5",
+            "away_player_6",
+            "away_player_7",
+            "away_player_8",
+            "away_player_9",
+            "away_team_api_id",
+            "home_player_1",
+            "home_player_10",
+            "home_player_11",
+            "home_player_2",
+            "home_player_3",
+            "home_player_4",
+            "home_player_5",
+            "home_player_6",
+            "home_player_7",
+            "home_player_8",
+            "home_player_9",
+            "home_team_api_id",
+            "match_api_id"
+          ],
+          [
+            "away_player_X1",
+            "away_player_X10",
+            "away_player_X11",
+            "away_player_X2",
+            "away_player_X3",
+            "away_player_X4",
+            "away_player_X5",
+            "away_player_X6",
+            "away_player_X7",
+            "away_player_X8",
+            "away_player_X9"
+          ],
+          [
+            "away_player_Y1",
+            "away_player_Y10",
+            "away_player_Y11",
+            "away_player_Y2",
+            "away_player_Y3",
+            "away_player_Y4",
+            "away_player_Y5",
+            "away_player_Y6",
+            "away_player_Y7",
+            "away_player_Y8",
+            "away_player_Y9",
+            "home_player_Y10",
+            "home_player_Y11",
+            "home_player_Y8",
+            "home_player_Y9"
+          ],
+          [
+            "home_player_X1",
+            "home_player_X10",
+            "home_player_X11",
+            "home_player_X2",
+            "home_player_X3",
+            "home_player_X4",
+            "home_player_X5",
+            "home_player_X6",
+            "home_player_X7",
+            "home_player_X8",
+            "home_player_X9",
+            "home_player_Y1",
+            "home_player_Y2",
+            "home_player_Y3",
+            "home_player_Y4",
+            "home_player_Y5",
+            "home_player_Y6",
+            "home_player_Y7"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "match_api_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "away_team_api_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "home_team_api_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "country_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "league_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "away_team_goal",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "home_team_goal",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "season",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "stage",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "possession",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "shoton",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "corner",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "cross",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "shotoff",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "card",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "foulcommit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "goal",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "home_player_10",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "home_player_11",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "away_player_10",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "home_player_Y10",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "away_player_11",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "home_player_Y11",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "home_player_X10",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "home_player_X11",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "BWH",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "WHH",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SJH",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "IWH",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "WHA",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SJA",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "VCH",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "B365H",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "PSH",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "GBH",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "WHD",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SJD",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BWA",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "B365A",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "PSA",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "GBA",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "IWA",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "away_player_X10",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "away_player_X11",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "LBH",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "B365A",
+            "B365D",
+            "B365H",
+            "BSA",
+            "BSD",
+            "BSH",
+            "BWA",
+            "BWD",
+            "BWH",
+            "GBA",
+            "GBD",
+            "GBH",
+            "IWA",
+            "IWD",
+            "IWH",
+            "LBA",
+            "LBD",
+            "LBH",
+            "PSA",
+            "PSD",
+            "PSH",
+            "SJA",
+            "SJD",
+            "SJH",
+            "VCA",
+            "VCD",
+            "VCH",
+            "WHA",
+            "WHD",
+            "WHH",
+            "away_player_10",
+            "away_team_api_id",
+            "away_team_goal",
+            "card",
+            "corner",
+            "country_id",
+            "cross",
+            "date",
+            "foulcommit",
+            "goal",
+            "home_team_api_id",
+            "home_team_goal",
+            "league_id",
+            "match_api_id",
+            "possession",
+            "season",
+            "shotoff",
+            "shoton",
+            "stage"
+          ],
+          [
+            "B365A",
+            "B365H",
+            "BWA",
+            "BWH",
+            "GBA",
+            "GBH",
+            "IWA",
+            "IWH",
+            "LBH",
+            "PSA",
+            "PSH",
+            "SJA",
+            "SJD",
+            "SJH",
+            "VCH",
+            "WHA",
+            "WHD",
+            "WHH",
+            "away_player_1",
+            "away_player_10",
+            "away_player_11",
+            "away_player_2",
+            "away_player_3",
+            "away_player_4",
+            "away_player_5",
+            "away_player_6",
+            "away_player_7",
+            "away_player_8",
+            "away_player_9",
+            "away_team_api_id",
+            "card",
+            "corner",
+            "country_id",
+            "cross",
+            "date",
+            "foulcommit",
+            "goal",
+            "home_player_1",
+            "home_player_10",
+            "home_player_11",
+            "home_player_2",
+            "home_player_3",
+            "home_player_4",
+            "home_player_5",
+            "home_player_6",
+            "home_player_7",
+            "home_player_8",
+            "home_player_9",
+            "home_team_api_id",
+            "league_id",
+            "match_api_id",
+            "possession",
+            "season",
+            "shotoff",
+            "shoton",
+            "stage"
+          ],
+          [
+            "away_player_X1",
+            "away_player_X10",
+            "away_player_X11",
+            "away_player_X2",
+            "away_player_X3",
+            "away_player_X4",
+            "away_player_X5",
+            "away_player_X6",
+            "away_player_X7",
+            "away_player_X8",
+            "away_player_X9",
+            "home_player_X10",
+            "home_player_X11"
+          ],
+          [
+            "away_player_11",
+            "away_player_Y1",
+            "away_player_Y10",
+            "away_player_Y11",
+            "away_player_Y2",
+            "away_player_Y3",
+            "away_player_Y4",
+            "away_player_Y5",
+            "away_player_Y6",
+            "away_player_Y7",
+            "away_player_Y8",
+            "away_player_Y9",
+            "away_team_goal",
+            "home_player_Y10",
+            "home_player_Y11",
+            "home_player_Y8",
+            "home_player_Y9"
+          ],
+          [
+            "away_player_X10",
+            "away_player_X11",
+            "home_player_10",
+            "home_player_11",
+            "home_player_X1",
+            "home_player_X10",
+            "home_player_X11",
+            "home_player_X2",
+            "home_player_X3",
+            "home_player_X4",
+            "home_player_X5",
+            "home_player_X6",
+            "home_player_X7",
+            "home_player_X8",
+            "home_player_X9",
+            "home_player_Y1",
+            "home_player_Y10",
+            "home_player_Y11",
+            "home_player_Y2",
+            "home_player_Y3",
+            "home_player_Y4",
+            "home_player_Y5",
+            "home_player_Y6",
+            "home_player_Y7",
+            "home_team_goal"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "b365a",
+            "non_pk_columns": [
+              "B365A",
+              "B365D",
+              "B365H",
+              "BSA",
+              "BSD",
+              "BSH",
+              "BWA",
+              "BWD",
+              "BWH",
+              "GBA",
+              "GBD",
+              "GBH",
+              "IWA",
+              "IWD",
+              "IWH",
+              "LBA",
+              "LBD",
+              "LBH",
+              "PSA",
+              "PSD",
+              "PSH",
+              "SJA",
+              "SJD",
+              "SJH",
+              "VCA",
+              "VCD",
+              "VCH",
+              "WHA",
+              "WHD",
+              "WHH",
+              "away_player_10",
+              "away_team_api_id",
+              "away_team_goal",
+              "card",
+              "corner",
+              "country_id",
+              "cross",
+              "date",
+              "foulcommit",
+              "goal",
+              "home_team_api_id",
+              "home_team_goal",
+              "league_id",
+              "match_api_id",
+              "possession",
+              "season",
+              "shotoff",
+              "shoton",
+              "stage"
+            ]
+          },
+          {
+            "suffix": "b365a_2",
+            "non_pk_columns": [
+              "B365A",
+              "B365H",
+              "BWA",
+              "BWH",
+              "GBA",
+              "GBH",
+              "IWA",
+              "IWH",
+              "LBH",
+              "PSA",
+              "PSH",
+              "SJA",
+              "SJD",
+              "SJH",
+              "VCH",
+              "WHA",
+              "WHD",
+              "WHH",
+              "away_player_1",
+              "away_player_10",
+              "away_player_11",
+              "away_player_2",
+              "away_player_3",
+              "away_player_4",
+              "away_player_5",
+              "away_player_6",
+              "away_player_7",
+              "away_player_8",
+              "away_player_9",
+              "away_team_api_id",
+              "card",
+              "corner",
+              "country_id",
+              "cross",
+              "date",
+              "foulcommit",
+              "goal",
+              "home_player_1",
+              "home_player_10",
+              "home_player_11",
+              "home_player_2",
+              "home_player_3",
+              "home_player_4",
+              "home_player_5",
+              "home_player_6",
+              "home_player_7",
+              "home_player_8",
+              "home_player_9",
+              "home_team_api_id",
+              "league_id",
+              "match_api_id",
+              "possession",
+              "season",
+              "shotoff",
+              "shoton",
+              "stage"
+            ]
+          },
+          {
+            "suffix": "away_player_x1",
+            "non_pk_columns": [
+              "away_player_X1",
+              "away_player_X10",
+              "away_player_X11",
+              "away_player_X2",
+              "away_player_X3",
+              "away_player_X4",
+              "away_player_X5",
+              "away_player_X6",
+              "away_player_X7",
+              "away_player_X8",
+              "away_player_X9",
+              "home_player_X10",
+              "home_player_X11"
+            ]
+          },
+          {
+            "suffix": "away_player_11",
+            "non_pk_columns": [
+              "away_player_11",
+              "away_player_Y1",
+              "away_player_Y10",
+              "away_player_Y11",
+              "away_player_Y2",
+              "away_player_Y3",
+              "away_player_Y4",
+              "away_player_Y5",
+              "away_player_Y6",
+              "away_player_Y7",
+              "away_player_Y8",
+              "away_player_Y9",
+              "away_team_goal",
+              "home_player_Y10",
+              "home_player_Y11",
+              "home_player_Y8",
+              "home_player_Y9"
+            ]
+          },
+          {
+            "suffix": "away_player_x10",
+            "non_pk_columns": [
+              "away_player_X10",
+              "away_player_X11",
+              "home_player_10",
+              "home_player_11",
+              "home_player_X1",
+              "home_player_X10",
+              "home_player_X11",
+              "home_player_X2",
+              "home_player_X3",
+              "home_player_X4",
+              "home_player_X5",
+              "home_player_X6",
+              "home_player_X7",
+              "home_player_X8",
+              "home_player_X9",
+              "home_player_Y1",
+              "home_player_Y10",
+              "home_player_Y11",
+              "home_player_Y2",
+              "home_player_Y3",
+              "home_player_Y4",
+              "home_player_Y5",
+              "home_player_Y6",
+              "home_player_Y7",
+              "home_team_goal"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "match_api_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "b365a_2",
+          "also_in_fragment_suffix": "b365a"
+        },
+        {
+          "column": "away_team_api_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "b365a_2",
+          "also_in_fragment_suffix": "b365a"
+        },
+        {
+          "column": "home_team_api_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "b365a_2",
+          "also_in_fragment_suffix": "b365a"
+        },
+        {
+          "column": "country_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "league_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "away_team_goal",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "away_player_11"
+        },
+        {
+          "column": "home_team_goal",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "away_player_x10"
+        },
+        {
+          "column": "season",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "stage",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "possession",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "shoton",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "corner",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "cross",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "shotoff",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "card",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "foulcommit",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "goal",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "home_player_10",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "b365a_2",
+          "also_in_fragment_suffix": "away_player_x10"
+        },
+        {
+          "column": "home_player_11",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "b365a_2",
+          "also_in_fragment_suffix": "away_player_x10"
+        },
+        {
+          "column": "away_player_10",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "b365a_2",
+          "also_in_fragment_suffix": "b365a"
+        },
+        {
+          "column": "home_player_Y10",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "away_player_11",
+          "also_in_fragment_suffix": "away_player_x10"
+        },
+        {
+          "column": "away_player_11",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "b365a_2",
+          "also_in_fragment_suffix": "away_player_11"
+        },
+        {
+          "column": "home_player_Y11",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "away_player_11",
+          "also_in_fragment_suffix": "away_player_x10"
+        },
+        {
+          "column": "home_player_X10",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "away_player_x10",
+          "also_in_fragment_suffix": "away_player_x1"
+        },
+        {
+          "column": "home_player_X11",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "away_player_x10",
+          "also_in_fragment_suffix": "away_player_x1"
+        },
+        {
+          "column": "BWH",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "WHH",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "SJH",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "IWH",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "WHA",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "SJA",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "VCH",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "B365H",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "PSH",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "GBH",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "WHD",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "SJD",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "BWA",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "B365A",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "PSA",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "GBA",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "IWA",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        },
+        {
+          "column": "away_player_X10",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "away_player_x1",
+          "also_in_fragment_suffix": "away_player_x10"
+        },
+        {
+          "column": "away_player_X11",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "away_player_x1",
+          "also_in_fragment_suffix": "away_player_x10"
+        },
+        {
+          "column": "LBH",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "b365a",
+          "also_in_fragment_suffix": "b365a_2"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,516 @@
+{
+  "Classes": {
+    "pk_columns": [
+      "ClassID"
+    ],
+    "fragments": [
+      {
+        "suffix": "classroomid",
+        "non_pk_columns": [
+          "ClassRoomID",
+          "Credits",
+          "Duration",
+          "SubjectID"
+        ],
+        "local_table": "ClassSectionDurationUpTo50",
+        "local_name": "local_4",
+        "vertical_fragment_base": "Classes_classroomid",
+        "row_partition_names": [
+          "ClassSectionDurationUpTo50",
+          "ClassSectionDuration51To110",
+          "ClassSectionDurationAbove110OrNull"
+        ],
+        "row_partition_predicate_column": "Duration"
+      },
+      {
+        "suffix": "credits",
+        "non_pk_columns": [
+          "Credits",
+          "Duration",
+          "StartDate",
+          "StartTime",
+          "TuesdaySchedule",
+          "WednesdaySchedule"
+        ],
+        "local_table": "cls_credit",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Classes_credits"
+      },
+      {
+        "suffix": "fridayschedule",
+        "non_pk_columns": [
+          "FridaySchedule",
+          "MondaySchedule",
+          "SaturdaySchedule",
+          "StartDate",
+          "ThursdaySchedule",
+          "TuesdaySchedule",
+          "WednesdaySchedule"
+        ],
+        "local_table": "cls_sched_days",
+        "local_name": "local_1",
+        "vertical_fragment_base": "Classes_fridayschedule"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Classes",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 12,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.08531531544121262,
+        "3": 0.0978896935293068,
+        "4": 0.08531531544121262
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.0978896935293068,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "ClassRoomID",
+          "Credits",
+          "SubjectID"
+        ],
+        [
+          "Duration",
+          "StartDate",
+          "StartTime"
+        ],
+        [
+          "FridaySchedule",
+          "MondaySchedule",
+          "SaturdaySchedule",
+          "ThursdaySchedule",
+          "TuesdaySchedule",
+          "WednesdaySchedule"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "Credits",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "StartDate",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "Duration",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "WednesdaySchedule",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "TuesdaySchedule",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "ClassRoomID",
+          "Credits",
+          "Duration",
+          "SubjectID"
+        ],
+        [
+          "Credits",
+          "Duration",
+          "StartDate",
+          "StartTime",
+          "TuesdaySchedule",
+          "WednesdaySchedule"
+        ],
+        [
+          "FridaySchedule",
+          "MondaySchedule",
+          "SaturdaySchedule",
+          "StartDate",
+          "ThursdaySchedule",
+          "TuesdaySchedule",
+          "WednesdaySchedule"
+        ]
+      ],
+      "pk_columns": [
+        "ClassID"
+      ],
+      "fragments": [
+        {
+          "suffix": "classroomid",
+          "non_pk_columns": [
+            "ClassRoomID",
+            "Credits",
+            "Duration",
+            "SubjectID"
+          ]
+        },
+        {
+          "suffix": "credits",
+          "non_pk_columns": [
+            "Credits",
+            "Duration",
+            "StartDate",
+            "StartTime",
+            "TuesdaySchedule",
+            "WednesdaySchedule"
+          ]
+        },
+        {
+          "suffix": "fridayschedule",
+          "non_pk_columns": [
+            "FridaySchedule",
+            "MondaySchedule",
+            "SaturdaySchedule",
+            "StartDate",
+            "ThursdaySchedule",
+            "TuesdaySchedule",
+            "WednesdaySchedule"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Classes_fridayschedule",
+    "movable_candidates": [
+      "Classes_classroomid_q1",
+      "Classes_credits"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+  },
+  "Staff": {
+    "pk_columns": [
+      "StaffID"
+    ],
+    "fragments": [
+      {
+        "suffix": "datehired",
+        "non_pk_columns": [
+          "DateHired",
+          "Position",
+          "Salary",
+          "StfCity",
+          "StfPhoneNumber",
+          "StfState",
+          "StfStreetAddress"
+        ],
+        "local_table": "staffHireRecords",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Staff_datehired"
+      },
+      {
+        "suffix": "position",
+        "non_pk_columns": [
+          "Position",
+          "StfFirstName",
+          "StfLastname"
+        ],
+        "local_table": "StaffMember",
+        "local_name": "local_4",
+        "vertical_fragment_base": "Staff_position"
+      },
+      {
+        "suffix": "salary",
+        "non_pk_columns": [
+          "Salary",
+          "StfAreaCode",
+          "StfPhoneNumber",
+          "StfState",
+          "StfStreetAddress",
+          "StfZipCode"
+        ],
+        "local_table": "staffPayrollRecords",
+        "local_name": "local_2",
+        "vertical_fragment_base": "Staff_salary"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Staff",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 11,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.02321938785358166,
+        "3": 0.02817115966197289
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.02817115966197289,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "DateHired",
+          "Salary",
+          "StfCity",
+          "StfStreetAddress"
+        ],
+        [
+          "Position",
+          "StfFirstName",
+          "StfLastname"
+        ],
+        [
+          "StfAreaCode",
+          "StfPhoneNumber",
+          "StfState",
+          "StfZipCode"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "StfStreetAddress",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "StfPhoneNumber",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Position",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "StfState",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "Salary",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "DateHired",
+          "Position",
+          "Salary",
+          "StfCity",
+          "StfPhoneNumber",
+          "StfState",
+          "StfStreetAddress"
+        ],
+        [
+          "Position",
+          "StfFirstName",
+          "StfLastname"
+        ],
+        [
+          "Salary",
+          "StfAreaCode",
+          "StfPhoneNumber",
+          "StfState",
+          "StfStreetAddress",
+          "StfZipCode"
+        ]
+      ],
+      "pk_columns": [
+        "StaffID"
+      ],
+      "fragments": [
+        {
+          "suffix": "datehired",
+          "non_pk_columns": [
+            "DateHired",
+            "Position",
+            "Salary",
+            "StfCity",
+            "StfPhoneNumber",
+            "StfState",
+            "StfStreetAddress"
+          ]
+        },
+        {
+          "suffix": "position",
+          "non_pk_columns": [
+            "Position",
+            "StfFirstName",
+            "StfLastname"
+          ]
+        },
+        {
+          "suffix": "salary",
+          "non_pk_columns": [
+            "Salary",
+            "StfAreaCode",
+            "StfPhoneNumber",
+            "StfState",
+            "StfStreetAddress",
+            "StfZipCode"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Staff_datehired",
+    "movable_candidates": [
+      "Staff_position",
+      "Staff_salary"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=3"
+  },
+  "Students": {
+    "pk_columns": [
+      "StudentID"
+    ],
+    "fragments": [
+      {
+        "suffix": "stud",
+        "non_pk_columns": [
+          "StudAreaCode",
+          "StudFirstName",
+          "StudLastName",
+          "StudPhoneNumber",
+          "StudState",
+          "StudStreetAddress",
+          "StudZipCode"
+        ],
+        "local_table": "student_profiles",
+        "local_name": "local_3",
+        "vertical_fragment_base": "Students_stud"
+      },
+      {
+        "suffix": "stud_2",
+        "non_pk_columns": [
+          "StudCity",
+          "StudFirstName",
+          "StudGPA",
+          "StudLastName",
+          "StudMajor",
+          "StudState",
+          "StudStreetAddress"
+        ],
+        "local_table": "studentProfiles",
+        "local_name": "local_5",
+        "vertical_fragment_base": "Students_stud_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "Students",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 10,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "3": 0.02238393818114344
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.02238393818114344,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "StudAreaCode",
+          "StudFirstName",
+          "StudLastName",
+          "StudPhoneNumber",
+          "StudState",
+          "StudStreetAddress",
+          "StudZipCode"
+        ],
+        [
+          "StudCity",
+          "StudGPA",
+          "StudMajor"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "StudStreetAddress",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "StudState",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "StudLastName",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "StudFirstName",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "StudAreaCode",
+          "StudFirstName",
+          "StudLastName",
+          "StudPhoneNumber",
+          "StudState",
+          "StudStreetAddress",
+          "StudZipCode"
+        ],
+        [
+          "StudCity",
+          "StudFirstName",
+          "StudGPA",
+          "StudLastName",
+          "StudMajor",
+          "StudState",
+          "StudStreetAddress"
+        ]
+      ],
+      "pk_columns": [
+        "StudentID"
+      ],
+      "fragments": [
+        {
+          "suffix": "stud",
+          "non_pk_columns": [
+            "StudAreaCode",
+            "StudFirstName",
+            "StudLastName",
+            "StudPhoneNumber",
+            "StudState",
+            "StudStreetAddress",
+            "StudZipCode"
+          ]
+        },
+        {
+          "suffix": "stud_2",
+          "non_pk_columns": [
+            "StudCity",
+            "StudFirstName",
+            "StudGPA",
+            "StudLastName",
+            "StudMajor",
+            "StudState",
+            "StudStreetAddress"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "Students_stud_2",
+    "movable_candidates": [
+      "Students_stud"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+  }
+}

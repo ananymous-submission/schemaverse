@@ -1,0 +1,602 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 7,
+    "eligible_candidate_count": 7,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "orders",
+      "stores",
+      "hubs",
+      "payments",
+      "deliveries",
+      "channels"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/delivery_center/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "hubs",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "payments",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "deliveries",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "channels",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "orders": {
+      "pk_columns": [
+        "order_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "channel_id",
+          "non_pk_columns": [
+            "channel_id",
+            "delivery_order_id",
+            "payment_order_id",
+            "store_id"
+          ],
+          "local_table": "order_channel_links",
+          "local_name": "local_2",
+          "vertical_fragment_base": "orders_channel_id"
+        },
+        {
+          "suffix": "order",
+          "non_pk_columns": [
+            "order_amount",
+            "order_delivery_cost",
+            "order_delivery_fee",
+            "order_metric_collected_time",
+            "order_metric_cycle_time",
+            "order_metric_expediton_speed_time",
+            "order_metric_paused_time",
+            "order_metric_production_time",
+            "order_metric_transit_time",
+            "order_metric_walking_time",
+            "order_moment_collected",
+            "order_moment_in_expedition",
+            "order_moment_ready",
+            "order_status"
+          ],
+          "local_table": "orders_overview",
+          "local_name": "local_2",
+          "vertical_fragment_base": "orders_order"
+        },
+        {
+          "suffix": "order_2",
+          "non_pk_columns": [
+            "order_amount",
+            "order_created_day",
+            "order_created_hour",
+            "order_created_minute",
+            "order_created_month",
+            "order_created_year",
+            "order_status"
+          ],
+          "local_table": "orders_created_day_up_to_8",
+          "local_name": "local_2",
+          "vertical_fragment_base": "orders_order_2",
+          "row_partition_names": [
+            "orders_created_day_up_to_8",
+            "orders_created_day_9_to_16",
+            "orders_created_day_17_to_24",
+            "orders_created_day_25_or_null"
+          ],
+          "row_partition_predicate_column": "order_created_day"
+        },
+        {
+          "suffix": "order_3",
+          "non_pk_columns": [
+            "order_delivery_cost",
+            "order_delivery_fee",
+            "order_metric_collected_time",
+            "order_metric_cycle_time",
+            "order_metric_expediton_speed_time",
+            "order_metric_production_time",
+            "order_metric_walking_time",
+            "order_moment_accepted",
+            "order_moment_collected",
+            "order_moment_created",
+            "order_moment_delivered",
+            "order_moment_delivering",
+            "order_moment_finished",
+            "order_moment_in_expedition",
+            "order_moment_ready"
+          ],
+          "local_table": "orders_timeline_metrics",
+          "local_name": "local_2",
+          "vertical_fragment_base": "orders_order_3"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "orders",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 28,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.05071166975380126,
+          "3": 0.051310967739459035,
+          "4": 0.057139653615905825,
+          "5": 0.07405209250738311
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.07405209250738311,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "channel_id",
+            "delivery_order_id",
+            "payment_order_id",
+            "store_id"
+          ],
+          [
+            "order_amount",
+            "order_delivery_cost",
+            "order_delivery_fee",
+            "order_metric_collected_time",
+            "order_metric_cycle_time",
+            "order_metric_expediton_speed_time",
+            "order_metric_paused_time",
+            "order_metric_production_time",
+            "order_metric_transit_time",
+            "order_metric_walking_time"
+          ],
+          [
+            "order_created_day",
+            "order_created_hour",
+            "order_created_minute",
+            "order_created_month",
+            "order_created_year",
+            "order_status"
+          ],
+          [
+            "order_moment_accepted",
+            "order_moment_collected",
+            "order_moment_created",
+            "order_moment_delivered",
+            "order_moment_delivering",
+            "order_moment_finished",
+            "order_moment_in_expedition",
+            "order_moment_ready"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "order_status",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "order_amount",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "order_delivery_fee",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "order_metric_expediton_speed_time",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "order_delivery_cost",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "order_moment_in_expedition",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "order_metric_walking_time",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "order_moment_ready",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "order_metric_collected_time",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "order_moment_collected",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "order_metric_production_time",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "order_metric_cycle_time",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "channel_id",
+            "delivery_order_id",
+            "payment_order_id",
+            "store_id"
+          ],
+          [
+            "order_amount",
+            "order_delivery_cost",
+            "order_delivery_fee",
+            "order_metric_collected_time",
+            "order_metric_cycle_time",
+            "order_metric_expediton_speed_time",
+            "order_metric_paused_time",
+            "order_metric_production_time",
+            "order_metric_transit_time",
+            "order_metric_walking_time",
+            "order_moment_collected",
+            "order_moment_in_expedition",
+            "order_moment_ready",
+            "order_status"
+          ],
+          [
+            "order_amount",
+            "order_created_day",
+            "order_created_hour",
+            "order_created_minute",
+            "order_created_month",
+            "order_created_year",
+            "order_status"
+          ],
+          [
+            "order_delivery_cost",
+            "order_delivery_fee",
+            "order_metric_collected_time",
+            "order_metric_cycle_time",
+            "order_metric_expediton_speed_time",
+            "order_metric_production_time",
+            "order_metric_walking_time",
+            "order_moment_accepted",
+            "order_moment_collected",
+            "order_moment_created",
+            "order_moment_delivered",
+            "order_moment_delivering",
+            "order_moment_finished",
+            "order_moment_in_expedition",
+            "order_moment_ready"
+          ]
+        ],
+        "pk_columns": [
+          "order_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "channel_id",
+            "non_pk_columns": [
+              "channel_id",
+              "delivery_order_id",
+              "payment_order_id",
+              "store_id"
+            ]
+          },
+          {
+            "suffix": "order",
+            "non_pk_columns": [
+              "order_amount",
+              "order_delivery_cost",
+              "order_delivery_fee",
+              "order_metric_collected_time",
+              "order_metric_cycle_time",
+              "order_metric_expediton_speed_time",
+              "order_metric_paused_time",
+              "order_metric_production_time",
+              "order_metric_transit_time",
+              "order_metric_walking_time",
+              "order_moment_collected",
+              "order_moment_in_expedition",
+              "order_moment_ready",
+              "order_status"
+            ]
+          },
+          {
+            "suffix": "order_2",
+            "non_pk_columns": [
+              "order_amount",
+              "order_created_day",
+              "order_created_hour",
+              "order_created_minute",
+              "order_created_month",
+              "order_created_year",
+              "order_status"
+            ]
+          },
+          {
+            "suffix": "order_3",
+            "non_pk_columns": [
+              "order_delivery_cost",
+              "order_delivery_fee",
+              "order_metric_collected_time",
+              "order_metric_cycle_time",
+              "order_metric_expediton_speed_time",
+              "order_metric_production_time",
+              "order_metric_walking_time",
+              "order_moment_accepted",
+              "order_moment_collected",
+              "order_moment_created",
+              "order_moment_delivered",
+              "order_moment_delivering",
+              "order_moment_finished",
+              "order_moment_in_expedition",
+              "order_moment_ready"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "order_status",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order_2",
+          "also_in_fragment_suffix": "order"
+        },
+        {
+          "column": "order_amount",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_2"
+        },
+        {
+          "column": "order_delivery_fee",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_3"
+        },
+        {
+          "column": "order_metric_expediton_speed_time",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_3"
+        },
+        {
+          "column": "order_delivery_cost",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_3"
+        },
+        {
+          "column": "order_moment_in_expedition",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order_3",
+          "also_in_fragment_suffix": "order"
+        },
+        {
+          "column": "order_metric_walking_time",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_3"
+        },
+        {
+          "column": "order_moment_ready",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order_3",
+          "also_in_fragment_suffix": "order"
+        },
+        {
+          "column": "order_metric_collected_time",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_3"
+        },
+        {
+          "column": "order_moment_collected",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "order_3",
+          "also_in_fragment_suffix": "order"
+        },
+        {
+          "column": "order_metric_production_time",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_3"
+        },
+        {
+          "column": "order_metric_cycle_time",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "order",
+          "also_in_fragment_suffix": "order_3"
+        }
+      ]
+    },
+    "stores": {
+      "pk_columns": [
+        "store_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "hub_id",
+          "non_pk_columns": [
+            "hub_id",
+            "store_name",
+            "store_plan_price",
+            "store_segment"
+          ],
+          "local_table": "storesHubIdUpTo18",
+          "local_name": "local_3",
+          "vertical_fragment_base": "stores_hub_id",
+          "row_partition_names": [
+            "storesHubIdUpTo18",
+            "storesHubId19To27",
+            "storesHubId28To35",
+            "storesHubIdAbove35OrNull"
+          ],
+          "row_partition_predicate_column": "hub_id"
+        },
+        {
+          "suffix": "hub_id_2",
+          "non_pk_columns": [
+            "hub_id",
+            "store_latitude",
+            "store_longitude",
+            "store_name",
+            "store_segment"
+          ],
+          "local_table": "storesHubIdEquals2",
+          "local_name": "local_3",
+          "vertical_fragment_base": "stores_hub_id_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "stores",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.0407994606715534
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0407994606715534,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "hub_id",
+            "store_plan_price",
+            "store_segment"
+          ],
+          [
+            "store_latitude",
+            "store_longitude",
+            "store_name"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "store_name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "store_segment",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "hub_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "hub_id",
+            "store_name",
+            "store_plan_price",
+            "store_segment"
+          ],
+          [
+            "hub_id",
+            "store_latitude",
+            "store_longitude",
+            "store_name",
+            "store_segment"
+          ]
+        ],
+        "pk_columns": [
+          "store_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "hub_id",
+            "non_pk_columns": [
+              "hub_id",
+              "store_name",
+              "store_plan_price",
+              "store_segment"
+            ]
+          },
+          {
+            "suffix": "hub_id_2",
+            "non_pk_columns": [
+              "hub_id",
+              "store_latitude",
+              "store_longitude",
+              "store_name",
+              "store_segment"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "store_name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "hub_id_2",
+          "also_in_fragment_suffix": "hub_id"
+        },
+        {
+          "column": "store_segment",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "hub_id",
+          "also_in_fragment_suffix": "hub_id_2"
+        },
+        {
+          "column": "hub_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "hub_id",
+          "also_in_fragment_suffix": "hub_id_2"
+        }
+      ]
+    }
+  }
+}

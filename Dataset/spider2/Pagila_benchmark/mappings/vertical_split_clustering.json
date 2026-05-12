@@ -1,0 +1,1062 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 16,
+    "eligible_candidate_count": 14,
+    "num_selected_for_vertical_split": 13,
+    "num_from_rate_alone": 13,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 2,
+    "selected_original_tables": [
+      "film",
+      "staff",
+      "customer",
+      "address",
+      "payment",
+      "rental",
+      "actor",
+      "city",
+      "inventory",
+      "store",
+      "category",
+      "country",
+      "film_text"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/Pagila/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "actor",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "city",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "inventory",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "store",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "category",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "country",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "film_text",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "address": {
+      "pk_columns": [
+        "address_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "address2",
+            "district",
+            "last_update",
+            "phone",
+            "postal_code"
+          ],
+          "local_table": "addresses_oldest_quartile",
+          "local_name": "local_2",
+          "vertical_fragment_base": "address_address",
+          "row_partition_names": [
+            "addresses_oldest_quartile",
+            "addresses_quartile",
+            "addresses_quartile",
+            "addresses_newest_quartile"
+          ],
+          "row_partition_predicate_column": "last_update"
+        },
+        {
+          "suffix": "city_id",
+          "non_pk_columns": [
+            "city_id",
+            "last_update",
+            "phone",
+            "postal_code"
+          ],
+          "local_table": "addresses_with_city_ref",
+          "local_name": "local_2",
+          "vertical_fragment_base": "address_city_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "address",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.009196380315532503
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.009196380315532503,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "address2",
+            "district"
+          ],
+          [
+            "city_id",
+            "last_update",
+            "phone",
+            "postal_code"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "last_update",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "postal_code",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "address2",
+            "district",
+            "last_update",
+            "phone",
+            "postal_code"
+          ],
+          [
+            "city_id",
+            "last_update",
+            "phone",
+            "postal_code"
+          ]
+        ],
+        "pk_columns": [
+          "address_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "address2",
+              "district",
+              "last_update",
+              "phone",
+              "postal_code"
+            ]
+          },
+          {
+            "suffix": "city_id",
+            "non_pk_columns": [
+              "city_id",
+              "last_update",
+              "phone",
+              "postal_code"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "last_update",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city_id",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "phone",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city_id",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "postal_code",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city_id",
+          "also_in_fragment_suffix": "address"
+        }
+      ]
+    },
+    "customer": {
+      "pk_columns": [
+        "customer_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "active",
+          "non_pk_columns": [
+            "active",
+            "create_date",
+            "first_name",
+            "last_name",
+            "last_update",
+            "store_id"
+          ],
+          "local_table": "customer_active_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "customer_active",
+          "row_partition_names": [
+            "customer_active_q1",
+            "customer_active_q2",
+            "customer_active_q3",
+            "customers_active_recent_updates"
+          ],
+          "row_partition_predicate_column": "last_update"
+        },
+        {
+          "suffix": "active_2",
+          "non_pk_columns": [
+            "active",
+            "address_id",
+            "create_date",
+            "email",
+            "last_update",
+            "store_id"
+          ],
+          "local_table": "customers_active_address_linked",
+          "local_name": "local_2",
+          "vertical_fragment_base": "customer_active_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customer",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.04501291727650206
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.04501291727650206,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "active",
+            "create_date",
+            "first_name",
+            "last_name",
+            "last_update"
+          ],
+          [
+            "address_id",
+            "email",
+            "store_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "active",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "store_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "create_date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "last_update",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "active",
+            "create_date",
+            "first_name",
+            "last_name",
+            "last_update",
+            "store_id"
+          ],
+          [
+            "active",
+            "address_id",
+            "create_date",
+            "email",
+            "last_update",
+            "store_id"
+          ]
+        ],
+        "pk_columns": [
+          "customer_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "active",
+            "non_pk_columns": [
+              "active",
+              "create_date",
+              "first_name",
+              "last_name",
+              "last_update",
+              "store_id"
+            ]
+          },
+          {
+            "suffix": "active_2",
+            "non_pk_columns": [
+              "active",
+              "address_id",
+              "create_date",
+              "email",
+              "last_update",
+              "store_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "active",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "active",
+          "also_in_fragment_suffix": "active_2"
+        },
+        {
+          "column": "store_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "active_2",
+          "also_in_fragment_suffix": "active"
+        },
+        {
+          "column": "create_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "active",
+          "also_in_fragment_suffix": "active_2"
+        },
+        {
+          "column": "last_update",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "active",
+          "also_in_fragment_suffix": "active_2"
+        }
+      ]
+    },
+    "payment": {
+      "pk_columns": [
+        "payment_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "amount",
+          "non_pk_columns": [
+            "amount",
+            "last_update",
+            "payment_date",
+            "rental_id"
+          ],
+          "local_table": "payment_amount_part1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "payment_amount",
+          "row_partition_names": [
+            "payment_amount_part1",
+            "payment_amount_part2",
+            "payment_amount_part3",
+            "payment_amount_part4",
+            "payments_amount_bucketed"
+          ],
+          "row_partition_predicate_column": "amount"
+        },
+        {
+          "suffix": "amount_2",
+          "non_pk_columns": [
+            "amount",
+            "customer_id",
+            "last_update",
+            "rental_id",
+            "staff_id"
+          ],
+          "local_table": "payments_by_customer_ref",
+          "local_name": "local_2",
+          "vertical_fragment_base": "payment_amount_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "payment",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.05201196314657628
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.05201196314657628,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "amount",
+            "last_update",
+            "payment_date"
+          ],
+          [
+            "customer_id",
+            "rental_id",
+            "staff_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "amount",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "rental_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "last_update",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "amount",
+            "last_update",
+            "payment_date",
+            "rental_id"
+          ],
+          [
+            "amount",
+            "customer_id",
+            "last_update",
+            "rental_id",
+            "staff_id"
+          ]
+        ],
+        "pk_columns": [
+          "payment_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "amount",
+            "non_pk_columns": [
+              "amount",
+              "last_update",
+              "payment_date",
+              "rental_id"
+            ]
+          },
+          {
+            "suffix": "amount_2",
+            "non_pk_columns": [
+              "amount",
+              "customer_id",
+              "last_update",
+              "rental_id",
+              "staff_id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "amount",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "amount",
+          "also_in_fragment_suffix": "amount_2"
+        },
+        {
+          "column": "rental_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "amount_2",
+          "also_in_fragment_suffix": "amount"
+        },
+        {
+          "column": "last_update",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "amount",
+          "also_in_fragment_suffix": "amount_2"
+        }
+      ]
+    },
+    "staff": {
+      "pk_columns": [
+        "staff_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "active",
+          "non_pk_columns": [
+            "active",
+            "address_id",
+            "email",
+            "last_update",
+            "password",
+            "picture",
+            "store_id"
+          ],
+          "local_table": "staff_members_active",
+          "local_name": "local_2",
+          "vertical_fragment_base": "staff_active"
+        },
+        {
+          "suffix": "active_2",
+          "non_pk_columns": [
+            "active",
+            "first_name",
+            "last_name",
+            "last_update",
+            "password",
+            "picture",
+            "username"
+          ],
+          "local_table": "StaffActiveStatus",
+          "local_name": "local_4",
+          "vertical_fragment_base": "staff_active_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "staff",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.030366648774434225,
+          "3": 0.029198128078396928
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.030366648774434225,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "active",
+            "address_id",
+            "email",
+            "password",
+            "picture",
+            "store_id"
+          ],
+          [
+            "first_name",
+            "last_name",
+            "last_update",
+            "username"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "picture",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "password",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "last_update",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "active",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "active",
+            "address_id",
+            "email",
+            "last_update",
+            "password",
+            "picture",
+            "store_id"
+          ],
+          [
+            "active",
+            "first_name",
+            "last_name",
+            "last_update",
+            "password",
+            "picture",
+            "username"
+          ]
+        ],
+        "pk_columns": [
+          "staff_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "active",
+            "non_pk_columns": [
+              "active",
+              "address_id",
+              "email",
+              "last_update",
+              "password",
+              "picture",
+              "store_id"
+            ]
+          },
+          {
+            "suffix": "active_2",
+            "non_pk_columns": [
+              "active",
+              "first_name",
+              "last_name",
+              "last_update",
+              "password",
+              "picture",
+              "username"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "picture",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "active",
+          "also_in_fragment_suffix": "active_2"
+        },
+        {
+          "column": "password",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "active",
+          "also_in_fragment_suffix": "active_2"
+        },
+        {
+          "column": "last_update",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "active_2",
+          "also_in_fragment_suffix": "active"
+        },
+        {
+          "column": "active",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "active",
+          "also_in_fragment_suffix": "active_2"
+        }
+      ]
+    },
+    "rental": {
+      "pk_columns": [
+        "rental_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "customer_id",
+          "non_pk_columns": [
+            "customer_id",
+            "inventory_id",
+            "last_update",
+            "staff_id"
+          ],
+          "local_table": "rental_customer_id_q1",
+          "local_name": "local_4",
+          "vertical_fragment_base": "rental_customer_id",
+          "row_partition_names": [
+            "rental_customer_id_q1",
+            "rental_customer_id_q2",
+            "rental_customer_id_q3",
+            "RentalRecentHighUpdate"
+          ],
+          "row_partition_predicate_column": "last_update"
+        },
+        {
+          "suffix": "customer_id_2",
+          "non_pk_columns": [
+            "customer_id",
+            "inventory_id",
+            "last_update",
+            "rental_date",
+            "return_date"
+          ],
+          "local_table": "RentalMidCustomerInventory",
+          "local_name": "local_4",
+          "vertical_fragment_base": "rental_customer_id_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "rental",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 213348186,
+        "scores_by_k": {
+          "2": 0.08213627198037783
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.08213627198037783,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "customer_id",
+            "inventory_id",
+            "staff_id"
+          ],
+          [
+            "last_update",
+            "rental_date",
+            "return_date"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "last_update",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "inventory_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "customer_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "customer_id",
+            "inventory_id",
+            "last_update",
+            "staff_id"
+          ],
+          [
+            "customer_id",
+            "inventory_id",
+            "last_update",
+            "rental_date",
+            "return_date"
+          ]
+        ],
+        "pk_columns": [
+          "rental_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "customer_id",
+            "non_pk_columns": [
+              "customer_id",
+              "inventory_id",
+              "last_update",
+              "staff_id"
+            ]
+          },
+          {
+            "suffix": "customer_id_2",
+            "non_pk_columns": [
+              "customer_id",
+              "inventory_id",
+              "last_update",
+              "rental_date",
+              "return_date"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "last_update",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "customer_id_2",
+          "also_in_fragment_suffix": "customer_id"
+        },
+        {
+          "column": "inventory_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "customer_id",
+          "also_in_fragment_suffix": "customer_id_2"
+        },
+        {
+          "column": "customer_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "customer_id",
+          "also_in_fragment_suffix": "customer_id_2"
+        }
+      ]
+    },
+    "film": {
+      "pk_columns": [
+        "film_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "description",
+          "non_pk_columns": [
+            "description",
+            "language_id",
+            "last_update",
+            "original_language_id",
+            "rating",
+            "release_year",
+            "special_features",
+            "title"
+          ],
+          "local_table": "film_description_part1",
+          "local_name": "local_5",
+          "vertical_fragment_base": "film_description",
+          "row_partition_names": [
+            "film_description_part1",
+            "film_description_part2",
+            "film_description_part3",
+            "film_description_part4",
+            "FilmDescriptionOtherFeatures"
+          ],
+          "row_partition_predicate_column": "special_features"
+        },
+        {
+          "suffix": "last_update",
+          "non_pk_columns": [
+            "last_update",
+            "length",
+            "rating",
+            "release_year",
+            "rental_duration",
+            "rental_rate",
+            "replacement_cost",
+            "special_features",
+            "title"
+          ],
+          "local_table": "FilmLifecycleMetadata",
+          "local_name": "local_5",
+          "vertical_fragment_base": "film_last_update"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "film",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "3": 0.021639188180655026,
+          "4": 0.018265717652485084
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.021639188180655026,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "description",
+            "language_id",
+            "last_update",
+            "original_language_id",
+            "rating",
+            "release_year",
+            "special_features",
+            "title"
+          ],
+          [
+            "length",
+            "rental_duration",
+            "rental_rate",
+            "replacement_cost"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "rating",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "release_year",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "last_update",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "title",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "special_features",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "description",
+            "language_id",
+            "last_update",
+            "original_language_id",
+            "rating",
+            "release_year",
+            "special_features",
+            "title"
+          ],
+          [
+            "last_update",
+            "length",
+            "rating",
+            "release_year",
+            "rental_duration",
+            "rental_rate",
+            "replacement_cost",
+            "special_features",
+            "title"
+          ]
+        ],
+        "pk_columns": [
+          "film_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "description",
+            "non_pk_columns": [
+              "description",
+              "language_id",
+              "last_update",
+              "original_language_id",
+              "rating",
+              "release_year",
+              "special_features",
+              "title"
+            ]
+          },
+          {
+            "suffix": "last_update",
+            "non_pk_columns": [
+              "last_update",
+              "length",
+              "rating",
+              "release_year",
+              "rental_duration",
+              "rental_rate",
+              "replacement_cost",
+              "special_features",
+              "title"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "rating",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "last_update"
+        },
+        {
+          "column": "release_year",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "last_update"
+        },
+        {
+          "column": "last_update",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "last_update"
+        },
+        {
+          "column": "title",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "last_update"
+        },
+        {
+          "column": "special_features",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "last_update"
+        }
+      ]
+    }
+  }
+}

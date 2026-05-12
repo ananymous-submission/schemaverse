@@ -1,0 +1,813 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 11,
+    "eligible_candidate_count": 6,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 9,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 2,
+    "selected_original_tables": [
+      "employees",
+      "customers",
+      "invoices",
+      "tracks",
+      "invoice_items",
+      "albums"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/chinook/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "invoice_items",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "albums",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "tracks": {
+      "pk_columns": [
+        "TrackId"
+      ],
+      "fragments": [
+        {
+          "suffix": "albumid",
+          "non_pk_columns": [
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "GenreId",
+            "MediaTypeId",
+            "UnitPrice"
+          ],
+          "local_table": "track_items",
+          "local_name": "local_1",
+          "vertical_fragment_base": "tracks_albumid"
+        },
+        {
+          "suffix": "albumid_2",
+          "non_pk_columns": [
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ],
+          "local_table": "TracksAlbumReference",
+          "local_name": "local_3",
+          "vertical_fragment_base": "tracks_albumid_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "tracks",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.04481586866930629
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.04481586866930629,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "AlbumId",
+            "GenreId",
+            "MediaTypeId"
+          ],
+          [
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Bytes",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Composer",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "UnitPrice",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "AlbumId",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "GenreId",
+            "MediaTypeId",
+            "UnitPrice"
+          ],
+          [
+            "AlbumId",
+            "Bytes",
+            "Composer",
+            "Milliseconds",
+            "Name",
+            "UnitPrice"
+          ]
+        ],
+        "pk_columns": [
+          "TrackId"
+        ],
+        "fragments": [
+          {
+            "suffix": "albumid",
+            "non_pk_columns": [
+              "AlbumId",
+              "Bytes",
+              "Composer",
+              "GenreId",
+              "MediaTypeId",
+              "UnitPrice"
+            ]
+          },
+          {
+            "suffix": "albumid_2",
+            "non_pk_columns": [
+              "AlbumId",
+              "Bytes",
+              "Composer",
+              "Milliseconds",
+              "Name",
+              "UnitPrice"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Bytes",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "albumid_2",
+          "also_in_fragment_suffix": "albumid"
+        },
+        {
+          "column": "Composer",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "albumid_2",
+          "also_in_fragment_suffix": "albumid"
+        },
+        {
+          "column": "UnitPrice",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "albumid_2",
+          "also_in_fragment_suffix": "albumid"
+        },
+        {
+          "column": "AlbumId",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "albumid",
+          "also_in_fragment_suffix": "albumid_2"
+        }
+      ]
+    },
+    "customers": {
+      "pk_columns": [
+        "CustomerId"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "local_table": "customersUsaAddress",
+          "local_name": "local_2",
+          "vertical_fragment_base": "customers_address",
+          "row_partition_names": [
+            "customersUsaAddress",
+            "customersCanadaUnitedKingdomPortugalAddress",
+            "customersBrazilFranceAddress",
+            "customersGermanyCzechRepublicIndiaAddress",
+            "customersOtherRegionAddress"
+          ],
+          "row_partition_predicate_column": "Country"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          "local_table": "customersCityProfile",
+          "local_name": "local_2",
+          "vertical_fragment_base": "customers_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "customers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03700023201990114,
+          "3": 0.035988784163452546,
+          "4": 0.03516274386239294
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.03700023201990114,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Address",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode"
+          ],
+          [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName",
+            "State",
+            "SupportRepId"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "SupportRepId",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "State",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "PostalCode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Country",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "City",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Address",
+            "City",
+            "Country",
+            "Email",
+            "Fax",
+            "Phone",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ],
+          [
+            "City",
+            "Company",
+            "Country",
+            "FirstName",
+            "LastName",
+            "PostalCode",
+            "State",
+            "SupportRepId"
+          ]
+        ],
+        "pk_columns": [
+          "CustomerId"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "Address",
+              "City",
+              "Country",
+              "Email",
+              "Fax",
+              "Phone",
+              "PostalCode",
+              "State",
+              "SupportRepId"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "Company",
+              "Country",
+              "FirstName",
+              "LastName",
+              "PostalCode",
+              "State",
+              "SupportRepId"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "SupportRepId",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "State",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "PostalCode",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "address",
+          "also_in_fragment_suffix": "city"
+        },
+        {
+          "column": "Country",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "City",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "address"
+        }
+      ]
+    },
+    "employees": {
+      "pk_columns": [
+        "EmployeeId"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "Address",
+            "Email",
+            "Phone",
+            "PostalCode",
+            "State"
+          ],
+          "local_table": "employeeContactInfo",
+          "local_name": "local_2",
+          "vertical_fragment_base": "employees_address"
+        },
+        {
+          "suffix": "birthdate",
+          "non_pk_columns": [
+            "BirthDate",
+            "City",
+            "Country",
+            "Fax",
+            "HireDate",
+            "Phone",
+            "ReportsTo",
+            "Title"
+          ],
+          "local_table": "employeePersonnelRecord",
+          "local_name": "local_2",
+          "vertical_fragment_base": "employees_birthdate"
+        },
+        {
+          "suffix": "city",
+          "non_pk_columns": [
+            "City",
+            "Country",
+            "Fax",
+            "FirstName",
+            "LastName",
+            "ReportsTo",
+            "Title"
+          ],
+          "local_table": "employeeLocationRecord",
+          "local_name": "local_2",
+          "vertical_fragment_base": "employees_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "employees",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 14,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.019240692589793124,
+          "3": 0.029563347761518987,
+          "4": 0.01950301401062906
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.029563347761518987,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Address",
+            "Email",
+            "PostalCode",
+            "State"
+          ],
+          [
+            "BirthDate",
+            "City",
+            "Country",
+            "Fax",
+            "HireDate",
+            "Phone"
+          ],
+          [
+            "FirstName",
+            "LastName",
+            "ReportsTo",
+            "Title"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "ReportsTo",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Title",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Fax",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Phone",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "City",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Country",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Address",
+            "Email",
+            "Phone",
+            "PostalCode",
+            "State"
+          ],
+          [
+            "BirthDate",
+            "City",
+            "Country",
+            "Fax",
+            "HireDate",
+            "Phone",
+            "ReportsTo",
+            "Title"
+          ],
+          [
+            "City",
+            "Country",
+            "Fax",
+            "FirstName",
+            "LastName",
+            "ReportsTo",
+            "Title"
+          ]
+        ],
+        "pk_columns": [
+          "EmployeeId"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "Address",
+              "Email",
+              "Phone",
+              "PostalCode",
+              "State"
+            ]
+          },
+          {
+            "suffix": "birthdate",
+            "non_pk_columns": [
+              "BirthDate",
+              "City",
+              "Country",
+              "Fax",
+              "HireDate",
+              "Phone",
+              "ReportsTo",
+              "Title"
+            ]
+          },
+          {
+            "suffix": "city",
+            "non_pk_columns": [
+              "City",
+              "Country",
+              "Fax",
+              "FirstName",
+              "LastName",
+              "ReportsTo",
+              "Title"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "ReportsTo",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "birthdate"
+        },
+        {
+          "column": "Title",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "city",
+          "also_in_fragment_suffix": "birthdate"
+        },
+        {
+          "column": "Fax",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "birthdate",
+          "also_in_fragment_suffix": "city"
+        },
+        {
+          "column": "Phone",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "birthdate",
+          "also_in_fragment_suffix": "address"
+        },
+        {
+          "column": "City",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "birthdate",
+          "also_in_fragment_suffix": "city"
+        },
+        {
+          "column": "Country",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "birthdate",
+          "also_in_fragment_suffix": "city"
+        }
+      ]
+    },
+    "invoices": {
+      "pk_columns": [
+        "InvoiceId"
+      ],
+      "fragments": [
+        {
+          "suffix": "billingaddress",
+          "non_pk_columns": [
+            "BillingAddress",
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "InvoiceDate"
+          ],
+          "local_table": "InvoicesBillingAddressKnownLocations",
+          "local_name": "local_3",
+          "vertical_fragment_base": "invoices_billingaddress",
+          "row_partition_names": [
+            "InvoicesBillingAddressKnownLocations",
+            "InvoicesBillingAddressOtherLocations"
+          ],
+          "row_partition_predicate_column": "BillingAddress"
+        },
+        {
+          "suffix": "billingaddress_2",
+          "non_pk_columns": [
+            "BillingAddress",
+            "BillingCity",
+            "BillingPostalCode",
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ],
+          "local_table": "invoicesBillingDetails",
+          "local_name": "local_2",
+          "vertical_fragment_base": "invoices_billingaddress_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "invoices",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.026219587751991714
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.026219587751991714,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "BillingAddress",
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState"
+          ],
+          [
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "BillingPostalCode",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BillingAddress",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BillingCity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "InvoiceDate",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "BillingAddress",
+            "BillingCity",
+            "BillingCountry",
+            "BillingPostalCode",
+            "BillingState",
+            "InvoiceDate"
+          ],
+          [
+            "BillingAddress",
+            "BillingCity",
+            "BillingPostalCode",
+            "CustomerId",
+            "InvoiceDate",
+            "Total"
+          ]
+        ],
+        "pk_columns": [
+          "InvoiceId"
+        ],
+        "fragments": [
+          {
+            "suffix": "billingaddress",
+            "non_pk_columns": [
+              "BillingAddress",
+              "BillingCity",
+              "BillingCountry",
+              "BillingPostalCode",
+              "BillingState",
+              "InvoiceDate"
+            ]
+          },
+          {
+            "suffix": "billingaddress_2",
+            "non_pk_columns": [
+              "BillingAddress",
+              "BillingCity",
+              "BillingPostalCode",
+              "CustomerId",
+              "InvoiceDate",
+              "Total"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "BillingPostalCode",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "billingaddress",
+          "also_in_fragment_suffix": "billingaddress_2"
+        },
+        {
+          "column": "BillingAddress",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "billingaddress",
+          "also_in_fragment_suffix": "billingaddress_2"
+        },
+        {
+          "column": "BillingCity",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "billingaddress",
+          "also_in_fragment_suffix": "billingaddress_2"
+        },
+        {
+          "column": "InvoiceDate",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "billingaddress_2",
+          "also_in_fragment_suffix": "billingaddress"
+        }
+      ]
+    }
+  }
+}

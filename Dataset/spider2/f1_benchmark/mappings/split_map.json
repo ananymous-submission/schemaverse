@@ -1,0 +1,1396 @@
+{
+  "circuits": {
+    "pk_columns": [
+      "circuit_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "alt",
+        "non_pk_columns": [
+          "alt",
+          "lat",
+          "lng",
+          "location",
+          "name",
+          "url"
+        ],
+        "local_table": "circ_alt_core",
+        "local_name": "local_1",
+        "vertical_fragment_base": "circuits_alt"
+      },
+      {
+        "suffix": "alt_2",
+        "non_pk_columns": [
+          "alt",
+          "circuit_ref",
+          "country",
+          "location",
+          "name",
+          "url"
+        ],
+        "local_table": "circ_alt_usa",
+        "local_name": "local_1",
+        "vertical_fragment_base": "circuits_alt_2",
+        "row_partition_names": [
+          "circ_alt_usa",
+          "circ_alt_fr_it_de",
+          "circ_alt_es_be_ca",
+          "circ_alt_pt_uk",
+          "circ_alt_other"
+        ],
+        "row_partition_predicate_column": "country"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "circuits",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 474614218,
+      "scores_by_k": {
+        "2": 0.03551514779712442
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.03551514779712442,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "alt",
+          "lat",
+          "lng"
+        ],
+        [
+          "circuit_ref",
+          "country",
+          "location",
+          "name",
+          "url"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "alt",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "url",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "location",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "alt",
+          "lat",
+          "lng",
+          "location",
+          "name",
+          "url"
+        ],
+        [
+          "alt",
+          "circuit_ref",
+          "country",
+          "location",
+          "name",
+          "url"
+        ]
+      ],
+      "pk_columns": [
+        "circuit_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "alt",
+          "non_pk_columns": [
+            "alt",
+            "lat",
+            "lng",
+            "location",
+            "name",
+            "url"
+          ]
+        },
+        {
+          "suffix": "alt_2",
+          "non_pk_columns": [
+            "alt",
+            "circuit_ref",
+            "country",
+            "location",
+            "name",
+            "url"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "circuits_alt_2_part1",
+    "movable_candidates": [
+      "circuits_alt"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=0"
+  },
+  "results": {
+    "pk_columns": [
+      "result_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "constructor_id",
+        "non_pk_columns": [
+          "constructor_id",
+          "driver_id",
+          "race_id",
+          "status_id"
+        ],
+        "local_table": "res_ctor_map",
+        "local_name": "local_1",
+        "vertical_fragment_base": "results_constructor_id"
+      },
+      {
+        "suffix": "fastest_lap",
+        "non_pk_columns": [
+          "fastest_lap",
+          "fastest_lap_speed",
+          "fastest_lap_time",
+          "rank"
+        ],
+        "local_table": "res_fast_lap",
+        "local_name": "local_1",
+        "vertical_fragment_base": "results_fastest_lap"
+      },
+      {
+        "suffix": "grid",
+        "non_pk_columns": [
+          "grid",
+          "laps",
+          "number",
+          "points",
+          "position",
+          "position_order",
+          "position_text",
+          "time"
+        ],
+        "local_table": "res_grid_grp_0_1_3_7_10",
+        "local_name": "local_1",
+        "vertical_fragment_base": "results_grid",
+        "row_partition_names": [
+          "res_grid_grp_0_1_3_7_10",
+          "res_grid_grp_4_5_9_11",
+          "res_grid_other"
+        ],
+        "row_partition_predicate_column": "grid"
+      },
+      {
+        "suffix": "grid_2",
+        "non_pk_columns": [
+          "grid",
+          "laps",
+          "milliseconds",
+          "number",
+          "points",
+          "position_order",
+          "status_id",
+          "time"
+        ],
+        "local_table": "res_grid_full",
+        "local_name": "local_1",
+        "vertical_fragment_base": "results_grid_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "results",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 17,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.05965873026376862,
+        "3": 0.067323001238701,
+        "4": 0.09190513844038932,
+        "5": 0.0893404487332587
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.09190513844038932,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "constructor_id",
+          "driver_id",
+          "race_id",
+          "status_id"
+        ],
+        [
+          "fastest_lap",
+          "fastest_lap_speed",
+          "fastest_lap_time",
+          "rank"
+        ],
+        [
+          "grid",
+          "position",
+          "position_order",
+          "position_text"
+        ],
+        [
+          "laps",
+          "milliseconds",
+          "number",
+          "points",
+          "time"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "grid",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "points",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "number",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "status_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "laps",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "time",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "position_order",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "constructor_id",
+          "driver_id",
+          "race_id",
+          "status_id"
+        ],
+        [
+          "fastest_lap",
+          "fastest_lap_speed",
+          "fastest_lap_time",
+          "rank"
+        ],
+        [
+          "grid",
+          "laps",
+          "number",
+          "points",
+          "position",
+          "position_order",
+          "position_text",
+          "time"
+        ],
+        [
+          "grid",
+          "laps",
+          "milliseconds",
+          "number",
+          "points",
+          "position_order",
+          "status_id",
+          "time"
+        ]
+      ],
+      "pk_columns": [
+        "result_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "constructor_id",
+          "non_pk_columns": [
+            "constructor_id",
+            "driver_id",
+            "race_id",
+            "status_id"
+          ]
+        },
+        {
+          "suffix": "fastest_lap",
+          "non_pk_columns": [
+            "fastest_lap",
+            "fastest_lap_speed",
+            "fastest_lap_time",
+            "rank"
+          ]
+        },
+        {
+          "suffix": "grid",
+          "non_pk_columns": [
+            "grid",
+            "laps",
+            "number",
+            "points",
+            "position",
+            "position_order",
+            "position_text",
+            "time"
+          ]
+        },
+        {
+          "suffix": "grid_2",
+          "non_pk_columns": [
+            "grid",
+            "laps",
+            "milliseconds",
+            "number",
+            "points",
+            "position_order",
+            "status_id",
+            "time"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "results_grid_part1",
+    "movable_candidates": [
+      "results_constructor_id",
+      "results_fastest_lap",
+      "results_grid_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=0"
+  },
+  "drivers": {
+    "pk_columns": [
+      "driver_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "code",
+        "non_pk_columns": [
+          "code",
+          "dob",
+          "driver_ref",
+          "nationality",
+          "number",
+          "url"
+        ],
+        "local_table": "DriverProfilesBritish",
+        "local_name": "local_3",
+        "vertical_fragment_base": "drivers_code",
+        "row_partition_names": [
+          "DriverProfilesBritish",
+          "DriverProfilesAmerican",
+          "DriverProfilesItalian",
+          "DriverProfilesFrenchBrazilianArgentine",
+          "DriverProfilesGermanBelgianSouthAfrican",
+          "DriverProfilesOther"
+        ],
+        "row_partition_predicate_column": "nationality"
+      },
+      {
+        "suffix": "code_2",
+        "non_pk_columns": [
+          "code",
+          "driver_ref",
+          "forename",
+          "nationality",
+          "number",
+          "surname"
+        ],
+        "local_table": "DriverProfilesShortCodes",
+        "local_name": "local_3",
+        "vertical_fragment_base": "drivers_code_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "drivers",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1389401365,
+      "scores_by_k": {
+        "2": 0.022671913784361487
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.022671913784361487,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "code",
+          "dob",
+          "nationality",
+          "number",
+          "url"
+        ],
+        [
+          "driver_ref",
+          "forename",
+          "surname"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "nationality",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "driver_ref",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "code",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "number",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "code",
+          "dob",
+          "driver_ref",
+          "nationality",
+          "number",
+          "url"
+        ],
+        [
+          "code",
+          "driver_ref",
+          "forename",
+          "nationality",
+          "number",
+          "surname"
+        ]
+      ],
+      "pk_columns": [
+        "driver_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "code",
+          "non_pk_columns": [
+            "code",
+            "dob",
+            "driver_ref",
+            "nationality",
+            "number",
+            "url"
+          ]
+        },
+        {
+          "suffix": "code_2",
+          "non_pk_columns": [
+            "code",
+            "driver_ref",
+            "forename",
+            "nationality",
+            "number",
+            "surname"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "drivers_code_part1",
+    "movable_candidates": [
+      "drivers_code_2"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=0"
+  },
+  "sprint_results": {
+    "pk_columns": [
+      "result_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "constructor_id",
+        "non_pk_columns": [
+          "constructor_id",
+          "driver_id",
+          "race_id",
+          "status_id"
+        ],
+        "local_table": "SprintResultsConstructors1And51",
+        "local_name": "local_3",
+        "vertical_fragment_base": "sprint_results_constructor_id",
+        "row_partition_names": [
+          "SprintResultsConstructors1And51",
+          "SprintResultsConstructor3",
+          "SprintResultsConstructor6",
+          "SprintResultsConstructor9",
+          "SprintResultsConstructor117",
+          "SprintResultsConstructor131",
+          "SprintResultsConstructor210",
+          "SprintResultsConstructor214",
+          "SprintResultsConstructorsOther"
+        ],
+        "row_partition_predicate_column": "constructor_id"
+      },
+      {
+        "suffix": "fastest_lap",
+        "non_pk_columns": [
+          "fastest_lap",
+          "fastest_lap_speed",
+          "fastest_lap_time"
+        ],
+        "local_table": "SprintResultsFastestLapDetails",
+        "local_name": "local_3",
+        "vertical_fragment_base": "sprint_results_fastest_lap"
+      },
+      {
+        "suffix": "grid",
+        "non_pk_columns": [
+          "grid",
+          "laps",
+          "milliseconds",
+          "position",
+          "position_order",
+          "position_text",
+          "status_id",
+          "time"
+        ],
+        "local_table": "SprintResultsGridSummary",
+        "local_name": "local_3",
+        "vertical_fragment_base": "sprint_results_grid"
+      },
+      {
+        "suffix": "grid_2",
+        "non_pk_columns": [
+          "grid",
+          "laps",
+          "milliseconds",
+          "number",
+          "points",
+          "position_order",
+          "position_text",
+          "time"
+        ],
+        "local_table": "SprintResultsGridExtended",
+        "local_name": "local_3",
+        "vertical_fragment_base": "sprint_results_grid_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "sprint_results",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 16,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.045439429339552265,
+        "3": 0.058766900070248144,
+        "4": 0.073822568515539,
+        "5": 0.08039740026396827
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.08039740026396827,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "constructor_id",
+          "driver_id",
+          "race_id",
+          "status_id"
+        ],
+        [
+          "fastest_lap",
+          "fastest_lap_speed",
+          "fastest_lap_time"
+        ],
+        [
+          "grid",
+          "milliseconds",
+          "position",
+          "position_order",
+          "position_text",
+          "time"
+        ],
+        [
+          "laps",
+          "number",
+          "points"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "status_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "milliseconds",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "grid",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "time",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "position_order",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "position_text",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "laps",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "constructor_id",
+          "driver_id",
+          "race_id",
+          "status_id"
+        ],
+        [
+          "fastest_lap",
+          "fastest_lap_speed",
+          "fastest_lap_time"
+        ],
+        [
+          "grid",
+          "laps",
+          "milliseconds",
+          "position",
+          "position_order",
+          "position_text",
+          "status_id",
+          "time"
+        ],
+        [
+          "grid",
+          "laps",
+          "milliseconds",
+          "number",
+          "points",
+          "position_order",
+          "position_text",
+          "time"
+        ]
+      ],
+      "pk_columns": [
+        "result_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "constructor_id",
+          "non_pk_columns": [
+            "constructor_id",
+            "driver_id",
+            "race_id",
+            "status_id"
+          ]
+        },
+        {
+          "suffix": "fastest_lap",
+          "non_pk_columns": [
+            "fastest_lap",
+            "fastest_lap_speed",
+            "fastest_lap_time"
+          ]
+        },
+        {
+          "suffix": "grid",
+          "non_pk_columns": [
+            "grid",
+            "laps",
+            "milliseconds",
+            "position",
+            "position_order",
+            "position_text",
+            "status_id",
+            "time"
+          ]
+        },
+        {
+          "suffix": "grid_2",
+          "non_pk_columns": [
+            "grid",
+            "laps",
+            "milliseconds",
+            "number",
+            "points",
+            "position_order",
+            "position_text",
+            "time"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "sprint_results_grid_2",
+    "movable_candidates": [
+      "sprint_results_constructor_id_part1",
+      "sprint_results_fastest_lap",
+      "sprint_results_grid"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=0"
+  },
+  "lap_times": {
+    "pk_columns": [
+      "race_id",
+      "driver_id",
+      "lap"
+    ],
+    "fragments": [
+      {
+        "suffix": "milliseconds",
+        "non_pk_columns": [
+          "milliseconds",
+          "time"
+        ],
+        "local_table": "lap_time_ms_general",
+        "local_name": "local_4",
+        "vertical_fragment_base": "lap_times_milliseconds"
+      },
+      {
+        "suffix": "milliseconds_2",
+        "non_pk_columns": [
+          "milliseconds",
+          "position",
+          "time"
+        ],
+        "local_table": "lap_time_ms_positions_1_and_3",
+        "local_name": "local_4",
+        "vertical_fragment_base": "lap_times_milliseconds_2",
+        "row_partition_names": [
+          "lap_time_ms_positions_1_and_3",
+          "lap_time_ms_positions_2_8_9",
+          "lap_time_ms_positions_4_and_5",
+          "lap_time_ms_positions_6_and_7",
+          "lap_time_ms_positions_other"
+        ],
+        "row_partition_predicate_column": "position"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "lap_times",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 3,
+      "min_non_pk_per_fragment": 1,
+      "pk_width": 3,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 941324542,
+      "scores_by_k": {
+        "2": 0.05694355984292182,
+        "3": -1.0
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.05694355984292182,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "milliseconds",
+          "time"
+        ],
+        [
+          "position"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "milliseconds",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "time",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "milliseconds",
+          "time"
+        ],
+        [
+          "milliseconds",
+          "position",
+          "time"
+        ]
+      ],
+      "pk_columns": [
+        "race_id",
+        "driver_id",
+        "lap"
+      ],
+      "fragments": [
+        {
+          "suffix": "milliseconds",
+          "non_pk_columns": [
+            "milliseconds",
+            "time"
+          ]
+        },
+        {
+          "suffix": "milliseconds_2",
+          "non_pk_columns": [
+            "milliseconds",
+            "position",
+            "time"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "lap_times_milliseconds_2_part1",
+    "movable_candidates": [
+      "lap_times_milliseconds"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=0"
+  },
+  "races": {
+    "pk_columns": [
+      "race_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "circuit_id",
+        "non_pk_columns": [
+          "circuit_id",
+          "date",
+          "fp1_date",
+          "fp2_date",
+          "fp3_date",
+          "quali_date",
+          "sprint_date",
+          "sprint_time",
+          "url",
+          "year"
+        ],
+        "local_table": "race_records_circuits_14_11_70",
+        "local_name": "local_4",
+        "vertical_fragment_base": "races_circuit_id",
+        "row_partition_names": [
+          "race_records_circuits_14_11_70",
+          "race_records_circuits_6_9",
+          "race_records_circuits_13_7_18_20",
+          "race_records_circuits_other"
+        ],
+        "row_partition_predicate_column": "circuit_id"
+      },
+      {
+        "suffix": "fp1_time",
+        "non_pk_columns": [
+          "fp1_time",
+          "fp2_time",
+          "fp3_time",
+          "quali_time",
+          "sprint_date",
+          "sprint_time",
+          "time"
+        ],
+        "local_table": "race_session_times",
+        "local_name": "local_4",
+        "vertical_fragment_base": "races_fp1_time"
+      },
+      {
+        "suffix": "circuit_id_2",
+        "non_pk_columns": [
+          "circuit_id",
+          "date",
+          "name",
+          "quali_date",
+          "round",
+          "url",
+          "year"
+        ],
+        "local_table": "race_overview_circuit_link",
+        "local_name": "local_4",
+        "vertical_fragment_base": "races_circuit_id_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "races",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 17,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.07545953948876688,
+        "3": 0.09269791295528218,
+        "4": 0.07954811604266596,
+        "5": 0.06248084494773485
+      },
+      "chosen_k": 3,
+      "best_metric_score": 0.09269791295528218,
+      "num_final_clusters": 3,
+      "column_clusters": [
+        [
+          "circuit_id",
+          "date",
+          "fp1_date",
+          "fp2_date",
+          "fp3_date",
+          "quali_date",
+          "sprint_date"
+        ],
+        [
+          "fp1_time",
+          "fp2_time",
+          "fp3_time",
+          "quali_time",
+          "sprint_time",
+          "time"
+        ],
+        [
+          "name",
+          "round",
+          "url",
+          "year"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "circuit_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "sprint_time",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "year",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "quali_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "url",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "sprint_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "circuit_id",
+          "date",
+          "fp1_date",
+          "fp2_date",
+          "fp3_date",
+          "quali_date",
+          "sprint_date",
+          "sprint_time",
+          "url",
+          "year"
+        ],
+        [
+          "fp1_time",
+          "fp2_time",
+          "fp3_time",
+          "quali_time",
+          "sprint_date",
+          "sprint_time",
+          "time"
+        ],
+        [
+          "circuit_id",
+          "date",
+          "name",
+          "quali_date",
+          "round",
+          "url",
+          "year"
+        ]
+      ],
+      "pk_columns": [
+        "race_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "circuit_id",
+          "non_pk_columns": [
+            "circuit_id",
+            "date",
+            "fp1_date",
+            "fp2_date",
+            "fp3_date",
+            "quali_date",
+            "sprint_date",
+            "sprint_time",
+            "url",
+            "year"
+          ]
+        },
+        {
+          "suffix": "fp1_time",
+          "non_pk_columns": [
+            "fp1_time",
+            "fp2_time",
+            "fp3_time",
+            "quali_time",
+            "sprint_date",
+            "sprint_time",
+            "time"
+          ]
+        },
+        {
+          "suffix": "circuit_id_2",
+          "non_pk_columns": [
+            "circuit_id",
+            "date",
+            "name",
+            "quali_date",
+            "round",
+            "url",
+            "year"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "races_circuit_id_part1",
+    "movable_candidates": [
+      "races_circuit_id_2",
+      "races_fp1_time"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=10;fk_column_endpoints_on_fragment=0"
+  },
+  "pit_stops": {
+    "pk_columns": [
+      "race_id",
+      "driver_id",
+      "stop"
+    ],
+    "fragments": [
+      {
+        "suffix": "duration",
+        "non_pk_columns": [
+          "duration",
+          "milliseconds",
+          "time"
+        ],
+        "local_table": "PitStopDurations",
+        "local_name": "local_5",
+        "vertical_fragment_base": "pit_stops_duration"
+      },
+      {
+        "suffix": "lap",
+        "non_pk_columns": [
+          "lap",
+          "milliseconds",
+          "time"
+        ],
+        "local_table": "PitStopLapsFeaturedSet",
+        "local_name": "local_5",
+        "vertical_fragment_base": "pit_stops_lap",
+        "row_partition_names": [
+          "PitStopLapsFeaturedSet",
+          "PitStopLapsSecondarySet",
+          "PitStopLapsOtherSet"
+        ],
+        "row_partition_predicate_column": "lap"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "pit_stops",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 4,
+      "min_non_pk_per_fragment": 1,
+      "pk_width": 3,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 194975212,
+      "scores_by_k": {
+        "2": 0.089178717224741,
+        "3": 0.026416915087117254,
+        "4": -1.0
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.089178717224741,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "duration",
+          "milliseconds",
+          "time"
+        ],
+        [
+          "lap"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "milliseconds",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "time",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "duration",
+          "milliseconds",
+          "time"
+        ],
+        [
+          "lap",
+          "milliseconds",
+          "time"
+        ]
+      ],
+      "pk_columns": [
+        "race_id",
+        "driver_id",
+        "stop"
+      ],
+      "fragments": [
+        {
+          "suffix": "duration",
+          "non_pk_columns": [
+            "duration",
+            "milliseconds",
+            "time"
+          ]
+        },
+        {
+          "suffix": "lap",
+          "non_pk_columns": [
+            "lap",
+            "milliseconds",
+            "time"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "pit_stops_lap_part1",
+    "movable_candidates": [
+      "pit_stops_duration"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=0"
+  },
+  "qualifying": {
+    "pk_columns": [
+      "qualify_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "constructor_id",
+        "non_pk_columns": [
+          "constructor_id",
+          "driver_id",
+          "number",
+          "position",
+          "race_id"
+        ],
+        "local_table": "qualifyingForConstructors3And6",
+        "local_name": "local_6",
+        "vertical_fragment_base": "qualifying_constructor_id",
+        "row_partition_names": [
+          "qualifyingForConstructors3And6",
+          "qualifyingForConstructors1And4And10",
+          "qualifyingForConstructors9And15",
+          "qualifyingForConstructors131And5",
+          "qualifyingForOtherConstructors"
+        ],
+        "row_partition_predicate_column": "constructor_id"
+      },
+      {
+        "suffix": "constructor_id_2",
+        "non_pk_columns": [
+          "constructor_id",
+          "number",
+          "position",
+          "q1",
+          "q2",
+          "q3",
+          "race_id"
+        ],
+        "local_table": "qualifyingSessionTimings",
+        "local_name": "local_6",
+        "vertical_fragment_base": "qualifying_constructor_id_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "qualifying",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 213348186,
+      "scores_by_k": {
+        "2": 0.13327120788244845
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.13327120788244845,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "constructor_id",
+          "driver_id",
+          "number",
+          "race_id"
+        ],
+        [
+          "position",
+          "q1",
+          "q2",
+          "q3"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "position",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "number",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "constructor_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "race_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "constructor_id",
+          "driver_id",
+          "number",
+          "position",
+          "race_id"
+        ],
+        [
+          "constructor_id",
+          "number",
+          "position",
+          "q1",
+          "q2",
+          "q3",
+          "race_id"
+        ]
+      ],
+      "pk_columns": [
+        "qualify_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "constructor_id",
+          "non_pk_columns": [
+            "constructor_id",
+            "driver_id",
+            "number",
+            "position",
+            "race_id"
+          ]
+        },
+        {
+          "suffix": "constructor_id_2",
+          "non_pk_columns": [
+            "constructor_id",
+            "number",
+            "position",
+            "q1",
+            "q2",
+            "q3",
+            "race_id"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "qualifying_constructor_id_2",
+    "movable_candidates": [
+      "qualifying_constructor_id_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=0"
+  }
+}

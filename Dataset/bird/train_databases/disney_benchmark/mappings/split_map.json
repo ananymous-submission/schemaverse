@@ -1,0 +1,119 @@
+{
+  "movies_total_gross": {
+    "pk_columns": [
+      "movie_title",
+      "release_date"
+    ],
+    "fragments": [
+      {
+        "suffix": "mpaa_rating",
+        "non_pk_columns": [
+          "MPAA_rating",
+          "genre"
+        ],
+        "local_table": "gross_mpaa_comedy",
+        "local_name": "local_1",
+        "vertical_fragment_base": "movies_total_gross_mpaa_rating",
+        "row_partition_names": [
+          "gross_mpaa_comedy",
+          "gross_mpaa_adventure",
+          "gross_mpaa_drama",
+          "gross_mpaa_act_thr_rom",
+          "gross_mpaa_other_doc_mus"
+        ],
+        "row_partition_predicate_column": "genre"
+      },
+      {
+        "suffix": "mpaa_rating_2",
+        "non_pk_columns": [
+          "MPAA_rating",
+          "genre",
+          "inflation_adjusted_gross",
+          "total_gross"
+        ],
+        "local_table": "gross_mpaa_full",
+        "local_name": "local_1",
+        "vertical_fragment_base": "movies_total_gross_mpaa_rating_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "movies_total_gross",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 4,
+      "min_non_pk_per_fragment": 2,
+      "pk_width": 2,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.07812379230542252
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.07812379230542252,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "MPAA_rating",
+          "genre"
+        ],
+        [
+          "inflation_adjusted_gross",
+          "total_gross"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "genre",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "MPAA_rating",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "MPAA_rating",
+          "genre"
+        ],
+        [
+          "MPAA_rating",
+          "genre",
+          "inflation_adjusted_gross",
+          "total_gross"
+        ]
+      ],
+      "pk_columns": [
+        "movie_title",
+        "release_date"
+      ],
+      "fragments": [
+        {
+          "suffix": "mpaa_rating",
+          "non_pk_columns": [
+            "MPAA_rating",
+            "genre"
+          ]
+        },
+        {
+          "suffix": "mpaa_rating_2",
+          "non_pk_columns": [
+            "MPAA_rating",
+            "genre",
+            "inflation_adjusted_gross",
+            "total_gross"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "movies_total_gross_mpaa_rating_2",
+    "movable_candidates": [
+      "movies_total_gross_mpaa_rating_part1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=4;fk_column_endpoints_on_fragment=1"
+  }
+}

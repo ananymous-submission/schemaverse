@@ -1,0 +1,870 @@
+[
+  {
+    "sql": "SELECT COUNT(Lang) FROM Method WHERE Lang = 'en' AND CommentIsXml = 1",
+    "question_id": null,
+    "question": "How many English language codes whose comments for the method are in the XML format?",
+    "difficulty": "",
+    "evidence": "English language refers to Lang = 'en'; the comments for this method is XML format refers to CommentIsXml = 1;"
+  },
+  {
+    "sql": "SELECT SUBSTR(SUBSTR(Name, INSTR(Name, '.') + 1), 1, INSTR(SUBSTR(Name, INSTR(Name, '.') + 1), '.') - 1) task FROM Method WHERE NameTokenized = 'online median filter test median window filling'",
+    "question_id": null,
+    "question": "What is the task of the method whose tokenized name is \"online median filter test median window filling\"?",
+    "difficulty": "",
+    "evidence": "tokenized name refers to NameTokenized; task of the method refers to the second part of name deliminated by \".\"; for example, the task of 'LinqToDelicious.HttpWebRequestFactory.Create' is 'HttpWebRequestFactory'"
+  },
+  {
+    "sql": "SELECT DISTINCT SampledAt, SolutionId FROM Method WHERE SampledAt = ( SELECT MAX(SampledAt) FROM Method )",
+    "question_id": null,
+    "question": "What is the time of sampling of the solution with the highest sampling time? Indicate the id number of the solution.",
+    "difficulty": "",
+    "evidence": "highest sampling time refers to max(SampledAt); id number of the solution refers to SolutionId;"
+  },
+  {
+    "sql": "SELECT Forks, Url FROM Repo WHERE Forks = ( SELECT MAX(Forks) FROM Repo )",
+    "question_id": null,
+    "question": "How many followers do the most followed repository on Github have? Give the github address of the repository.",
+    "difficulty": "",
+    "evidence": "more forks refers to more people follow this repository; most followed repository refers to max(Forks);\u00a0 the github address of the repository refers to Url;"
+  },
+  {
+    "sql": "SELECT RepoId FROM solution GROUP BY RepoId ORDER BY COUNT(Path) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the id of the repository with the highest number of solution path?",
+    "difficulty": "",
+    "evidence": "highest number of solution path refers to max(count(Path)); id of the repository refers to RepoId"
+  },
+  {
+    "sql": "SELECT Url, Stars FROM Repo WHERE Stars = ( SELECT MAX(Stars) FROM Repo )",
+    "question_id": null,
+    "question": "What is the most liked repository? Indicate its github address and the amount of stars it has received.",
+    "difficulty": "",
+    "evidence": "more stars mean more people like this repository; most liked refers to max(Stars); the github address of repository refers to Url;"
+  },
+  {
+    "sql": "SELECT Path FROM Solution WHERE ProcessedTime = ( SELECT MAX(ProcessedTime) FROM Solution )",
+    "question_id": null,
+    "question": "What is the name of the solution path with the highest processed time?",
+    "difficulty": "",
+    "evidence": "highest processed time refers to max(ProcessedTime);"
+  },
+  {
+    "sql": "SELECT ProcessedTime FROM Repo WHERE Watchers = ( SELECT MAX(Watchers) FROM Repo )",
+    "question_id": null,
+    "question": "How much is the processed time of downloading the most popular repository?",
+    "difficulty": "",
+    "evidence": "more watchers mean that this repository is more popular;"
+  },
+  {
+    "sql": "SELECT Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE Path = 'nofear_MaraMara.sln'",
+    "question_id": null,
+    "question": "What is the github address of the \"nofear_Mara\\Mara.sln\" solution path?",
+    "difficulty": "",
+    "evidence": "github address of repository refers to Url;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.id, T2.WasCompiled FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.ProcessedTime = ( SELECT MAX(ProcessedTime) FROM Repo )",
+    "question_id": null,
+    "question": "Which repository has the longest amount of processed time of downloading? Indicate whether the solution paths in the repository can be implemented without needs of compilation.",
+    "difficulty": "",
+    "evidence": "longest amount of processed time refers to max(ProcessedTime); the repository can be implemented without needs of compilation refers to WasCompiled = 1;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.NameTokenized FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'maravillas_linq-to-delicious'",
+    "question_id": null,
+    "question": "What is the tokenized name of the solution whose path is \"maravillas_linq-to-delicious\\tasty.sln\"?",
+    "difficulty": "",
+    "evidence": "tokenized name refers to NameTokenized"
+  },
+  {
+    "sql": "SELECT T2.RepoId, COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars BETWEEN 6000 AND 9000 AND T2.WasCompiled = 0 GROUP BY T2.RepoId ORDER BY COUNT(T2.RepoId) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the repositories whose number of stars received are between 6,000 to 9,000, which repository has the highest number of solution paths and many of those solution paths needs to be compiled if user wants to implement it?",
+    "difficulty": "",
+    "evidence": "Stars between 6,000 to 9,000; highest number of solution paths refers to max(count(Path)); needs to be compiled if user wants to implement it refers to WasCompiled = 0;"
+  },
+  {
+    "sql": "SELECT T3.ApiCalls FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId INNER JOIN Method AS T3 ON T2.Id = T3.SolutionId WHERE T1.Url = 'https://github.com/wallerdev/htmlsharp.git'",
+    "question_id": null,
+    "question": "In the \"https://github.com/wallerdev/htmlsharp.git\", give all the linearized sequenced of API calls.",
+    "difficulty": "",
+    "evidence": "linearized sequenced of API calls refers to ApiCalls; 'https://github.com/wallerdev/htmlsharp.git' is url of repository"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.Path) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Watchers = ( SELECT Watchers FROM Repo ORDER BY Watchers DESC LIMIT 1, 1 )",
+    "question_id": null,
+    "question": "How many solution paths are there inside the 2nd most popular repository?",
+    "difficulty": "",
+    "evidence": "more watchers mean that this repository is more popular; most popular repository refers to max(Watchers);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.ProcessedTime) AS REAL) / COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Url = 'https://github.com/zphingphong/DiscardCustomerApp.git'",
+    "question_id": null,
+    "question": "What is the average processed time of the solution paths inside the \"https://github.com/zphingphong/DiscardCustomerApp.git\"?",
+    "difficulty": "",
+    "evidence": "average processed time = avg(Solution.ProcessedTime);"
+  },
+  {
+    "sql": "SELECT T2.FullComment FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'bmatzelle_niniSourceNini.sln' AND T2.NameTokenized = 'alias text add alias'",
+    "question_id": null,
+    "question": "What is the full comment on the method whose solution path is \"bmatzelle_nini\\Source\\Nini.sln\" with a tokenized name of \"alias text add alias\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.ApiCalls FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'mauriciodeamorim_tdd.encontro2Tdd.Encontro2.sln'",
+    "question_id": null,
+    "question": "What is the linearized sequenced of API calls of the method whose solution path is \"mauriciodeamorim_tdd.encontro2\\Tdd.Encontro2.sln\"?",
+    "difficulty": "",
+    "evidence": "linearized sequenced of API calls refers to ApiCalls;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.Path) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Url = 'https://github.com/jeffdik/tachy.git' AND T2.WasCompiled = 0",
+    "question_id": null,
+    "question": "How many solution paths that needs to be compiled if user wants to implement it in \"https://github.com/jeffdik/tachy.git\"?",
+    "difficulty": "",
+    "evidence": "needs to be compiled if user wants to implement refers to WasCompiled = 0; https://github.com/jeffdik/tachy.git is url of repository"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.ProcessedTime, T2.Lang FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.NameTokenized = 'about box1 dispose'",
+    "question_id": null,
+    "question": "How much is the processed time of the method whose tokenized name is \"about box1 dispose\"? Indicate the language of the method.",
+    "difficulty": "",
+    "evidence": "language refers to Lang;"
+  },
+  {
+    "sql": "SELECT T2.SampledAt FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'maxild_playgroundPlayground.sln' AND T2.Name = 'GitHubRepo.Cli.GitHubClientWrapper.GetReleases'",
+    "question_id": null,
+    "question": "In \"maxild_playground\\Playground.sln\", what is the time of sampling for the method \"GitHubRepo.Cli.GitHubClientWrapper.GetReleases\"?",
+    "difficulty": "",
+    "evidence": "the time of sampling refers to SampledAt; 'maxild_playground\\Playground.sln' is the path of a solution"
+  },
+  {
+    "sql": "SELECT T2.Lang FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'opendns_diagnosticappwindowsOpenDnsDiagnostic.sln'",
+    "question_id": null,
+    "question": "What is the language of the method used in the solution path \"opendns_diagnosticapp\\windows\\OpenDnsDiagnostic.sln\"?",
+    "difficulty": "",
+    "evidence": "language refers to Lang;"
+  },
+  {
+    "sql": "SELECT SUBSTR(SUBSTR(Name, INSTR(Name, '.') + 1), 1, INSTR(SUBSTR(Name, INSTR(Name, '.') + 1), '.') - 1) task FROM Method WHERE NameTokenized = 'html parser feed'",
+    "question_id": null,
+    "question": "What's the task of the method whose tokenized name is \"html parser feed\"?",
+    "difficulty": "",
+    "evidence": "tokenized name refers to NameTokenized; task of the method refers to the second part of name deliminated by \".\"; for example, the task of 'LinqToDelicious.HttpWebRequestFactory.Create' is 'HttpWebRequestFactory'"
+  },
+  {
+    "sql": "SELECT CASE WHEN CommentIsXml = 0 THEN 'No' WHEN CommentIsXml = 1 THEN 'Yes' END isXMLFormat FROM Method WHERE Name = 'HtmlSharp.HtmlParser.Feed'",
+    "question_id": null,
+    "question": "Are the comments for the method \"HtmlSharp.HtmlParser.Feed\" in XML format?",
+    "difficulty": "",
+    "evidence": "the comment for this method is not XML refers to CommentsXML = 0; the comments for this method is XML refers to CommentsXML = 1"
+  },
+  {
+    "sql": "SELECT Name FROM Method WHERE Summary = 'Write a command to the log'",
+    "question_id": null,
+    "question": "Which method has the summary \"Write a command to the log\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars = ( SELECT MAX(Stars) FROM Repo )",
+    "question_id": null,
+    "question": "How many solutions contain files found within the repository most people like?",
+    "difficulty": "",
+    "evidence": "more stars mean more people like this repository; most people like refers to max(Stars);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Path FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars = ( SELECT MAX(Stars) FROM Repo )",
+    "question_id": null,
+    "question": "Please list the path of the solution that contains files found within the repository most people like.",
+    "difficulty": "",
+    "evidence": "more stars mean more people like this repository; most people like refers to max(Stars);"
+  },
+  {
+    "sql": "SELECT T1.Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Id = 12",
+    "question_id": null,
+    "question": "What is the github address of the repository that contains files used by solution ID12?",
+    "difficulty": "",
+    "evidence": "github address refers to Url;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Forks > 1000 AND T2.WasCompiled = 1",
+    "question_id": null,
+    "question": "Among the solutions that contain files within the repository followed by over 1000 people, how many of them can be\nimplemented without needs of compilation?",
+    "difficulty": "",
+    "evidence": "followed by over 1000 people refers to Forks >1000; can be\nimplemented without needs of compilation refers to WasCompiled = 1;"
+  },
+  {
+    "sql": "SELECT CASE WHEN SUM(CASE WHEN T2.Id = 18 THEN T1.Watchers ELSE 0 END) > SUM(CASE WHEN T2.Id = 19 THEN T1.Watchers ELSE 0 END) THEN 'SolutionID18' WHEN SUM(CASE WHEN T2.Id = 18 THEN T1.Watchers ELSE 0 END) < SUM(CASE WHEN T2.Id = 19 THEN T1.Watchers ELSE 0 END) THEN 'SolutionID19' END isMorePopular FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId",
+    "question_id": null,
+    "question": "Which solution contains files within a more popular repository, the solution ID18 or solution ID19?",
+    "difficulty": "",
+    "evidence": "more watchers mean that this repository is more popular;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.ProcessedTime = ( SELECT MAX(ProcessedTime) FROM Repo ) AND T2.WasCompiled = 1",
+    "question_id": null,
+    "question": "Among the solutions that contain files within the repository needing the longest processed time to download, how many of them doesn't need to be\ncompiled if user wants to implement it?",
+    "difficulty": "",
+    "evidence": "longest processed time refers to max(Solution.ProcessedTime); needs to be compiled if user wants to implement it refers to WasCompiled = 0\uff1b"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.ProcessedTime FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Path = 'jeffdik_tachysrcTachy.sln'",
+    "question_id": null,
+    "question": "What is the processed time to download the repository whose files are contained in the solution with the path \"jeffdik_tachy\\src\\Tachy.sln\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Id = 9",
+    "question_id": null,
+    "question": "Please give the url of the repository whose files are contained in solution ID 9?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Path FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Url = 'https://github.com/maxild/playground.git'",
+    "question_id": null,
+    "question": "Please list all the paths of the solutions containing files within the repository whose url is \"https://github.com/maxild/playground.git\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.ProcessedTime < 636439500080712000 AND T1.Stars > 200",
+    "question_id": null,
+    "question": "Among the repositories with over 200 likes, how many of them have files contained by solutions with a processed time of under 636439500080712000?",
+    "difficulty": "",
+    "evidence": "over 200 likes refers to Stars > 200; ProcessedTime<636439500080712000;"
+  },
+  {
+    "sql": "SELECT T2.Id FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId ORDER BY T1.Forks DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the IDs of the solutions that contain files within the top 3 followed repositories.",
+    "difficulty": "",
+    "evidence": "more forks refers to more people follow this repository;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.ProcessedTime) AS REAL) / COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Url = 'https://github.com/jeffdik/tachy.git'",
+    "question_id": null,
+    "question": "What is the average time needed for the solutions containing files within the repository whose url is \"https://github.com/jeffdik/tachy.git\" to be processd?",
+    "difficulty": "",
+    "evidence": "average time = avg(ProcessedTime)\uff1b"
+  },
+  {
+    "sql": "SELECT CAST((SUM(CASE WHEN T2.Id = 18 THEN T1.Forks ELSE 0 END) - SUM(CASE WHEN T2.Id = 19 THEN T1.Forks ELSE 0 END)) AS REAL) * 100 / SUM(CASE WHEN T2.Id = 19 THEN T1.Forks ELSE 0 END) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId",
+    "question_id": null,
+    "question": "How many more followers in percentage are there for the repository used by solution ID 18 than solution ID19?",
+    "difficulty": "",
+    "evidence": "followers refers to Forks; percentage = divide(SUBTRACT(Forks(Solution.ID = 18), Forks(Solution.ID = 19)), Forks(Solution.ID = 19))*100%"
+  },
+  {
+    "sql": "SELECT Lang FROM Method WHERE Name = 'PixieTests.SqlConnectionLayerTests.TestSqlCreateGuidColumn'",
+    "question_id": null,
+    "question": "What is the language of the method ''PixieTests.SqlConnectionLayerTests.TestSqlCreateGuidColumn\"?",
+    "difficulty": "",
+    "evidence": "language refers to Lang\uff1b"
+  },
+  {
+    "sql": "SELECT FullComment FROM Method WHERE Name = 'DE2_UE_Fahrradkurier.de2_uebung_fahrradkurierDataSet1TableAdapters.TableAdapterManager.UpdateInsertedRows'",
+    "question_id": null,
+    "question": "Show the full Comment of the method \"DE2_UE_Fahrradkurier.de2_uebung_fahrradkurierDataSet1TableAdapters.TableAdapterManager.UpdateInsertedRows\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT Summary FROM Method WHERE Name = 'Castle.MonoRail.Framework.Test.StubViewComponentContext.RenderSection'",
+    "question_id": null,
+    "question": "List the summary of the method \"Castle.MonoRail.Framework.Test.StubViewComponentContext.RenderSection\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT NameTokenized FROM Method WHERE Name = 'Supay.Irc.Messages.KnockMessage.GetTokens'",
+    "question_id": null,
+    "question": "Give the tokenized name for the method \"Supay.Irc.Messages.KnockMessage.GetTokens\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Stars FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Id = 45997",
+    "question_id": null,
+    "question": "How many stars does the repository of the solution No. 45997 have?",
+    "difficulty": "",
+    "evidence": "repository of solution no. refers to Id"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars = 8094",
+    "question_id": null,
+    "question": "For the repository which got '8094' Stars, how many solutions does it contain?",
+    "difficulty": "",
+    "evidence": "repository refers to Repo.Id;"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Name = 'IQ.Data.DbQueryProvider.CanBeEvaluatedLocally'",
+    "question_id": null,
+    "question": "What is the solution path for the method \"IQ.Data.DbQueryProvider.CanBeEvaluatedLocally\"?",
+    "difficulty": "",
+    "evidence": "solution path refers to Path; method refers to Name; Name = 'IQ.Data.DbQueryProvider.CanBeEvaluatedLocally'"
+  },
+  {
+    "sql": "SELECT T1.ProcessedTime FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.NameTokenized = 'interp parser expr'",
+    "question_id": null,
+    "question": "For the method which got the tokenized name as 'interp parser expr', what is the processed time for its solution?",
+    "difficulty": "",
+    "evidence": "tokenized name refers to NameTokenized; NameTokenized = 'interp parser expr'; processed time for its solution refers to ProcessedTime;"
+  },
+  {
+    "sql": "SELECT T1.RepoId FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Name = 'SCore.Poisson.ngtIndex'",
+    "question_id": null,
+    "question": "What is the repository number for the solution of method \"SCore.Poisson.ngtIndex\"?",
+    "difficulty": "",
+    "evidence": "repository number refers to RepoId; method refers to Name; Name = \u2018SCore.Poisson.ngtIndex\u2019"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Name = 'ExportToRTF.RTFStyleSheet.H6Write'",
+    "question_id": null,
+    "question": "Tell the path of the solution for the method \"ExportToRTF.RTFStyleSheet.H6Write\".",
+    "difficulty": "",
+    "evidence": "path of the solution refers to Path; method refers to Name; Name = 'ExportToRTF.RTFStyleSheet.H6Write';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Watchers = 8094",
+    "question_id": null,
+    "question": "For the repository with '8094' watchers , how many solutions does it contain?",
+    "difficulty": "",
+    "evidence": "repository refers to Repo.Id and RepoId; solutions a repository contains refers to Solution.Id;"
+  },
+  {
+    "sql": "SELECT T1.Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId GROUP BY T2.RepoId ORDER BY COUNT(T2.RepoId) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the repository Url of the one with most solutions.",
+    "difficulty": "",
+    "evidence": "repository URL refers to Url; repository Url with most solutions refers to MAX(COUNT(Solution.Id));"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Forks = 1445",
+    "question_id": null,
+    "question": "How many solutions does the repository which has 1445 Forks contain?",
+    "difficulty": "",
+    "evidence": "solutions refers to Solution.Id; repository refers to Repository.Id;"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Lang = 'zh-cn' GROUP BY T1.Path ORDER BY COUNT(T1.Path) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among all the solution of the 'zh-cn' methods, which path is most often used?",
+    "difficulty": "",
+    "evidence": "solution refers to SolutionId; zh-cn refers to Lang = 'zh-cn'; path that is most often used refers to MAX(COUNT(Path));"
+  },
+  {
+    "sql": "SELECT T1.Watchers FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Id = 338082",
+    "question_id": null,
+    "question": "Give the number of watchers that the repository of the solution No. 338082 have.",
+    "difficulty": "",
+    "evidence": "number of watchers refers to Watchers; solution number refers to Solution.Id;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars = 189 AND T2.WasCompiled = 0",
+    "question_id": null,
+    "question": "For the repository which got '189' Stars, how many solutions which needs to be compiled does it contain?",
+    "difficulty": "",
+    "evidence": "repository refers to Repository.Id; solution needs to be compiled refers to WasCompiled = 0;"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Name = 'Mosa.Platform.x86.Instructions.IMul.EmitLegacy'",
+    "question_id": null,
+    "question": "Show the solution path for the method \"Mosa.Platform.x86.Instructions.IMul.EmitLegacy\"?",
+    "difficulty": "",
+    "evidence": "solution path refers to Path; method refers to Name; Name = 'Mosa.Platform.x86.Instructions.IMul.EmitLegacy';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.ProcessedTime FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.NameTokenized = 't jadwal entity get single mpic'",
+    "question_id": null,
+    "question": "For the method which got the tokenized name as 't jadwal entity get single mpic', what is the path time for its solution?",
+    "difficulty": "",
+    "evidence": "tokenized name refers to NameTokenized; NameTokenized = 't jadwal entity get single mpic'; path time for its solution refers to ProcessedTime;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.RepoId FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Name = 'Kalibrasi.Data.EntityClasses.THistoryJadwalEntity.GetSingleTjadwal'",
+    "question_id": null,
+    "question": "Give the repository ID for the solution of method \"Kalibrasi.Data.EntityClasses.THistoryJadwalEntity.GetSingleTjadwal\".",
+    "difficulty": "",
+    "evidence": "repository ID refers to RepoID; method refers to Name; Name = 'Kalibrasi.Data.EntityClasses.THistoryJadwalEntity.GetSingleTjadwal';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Summary = 'Refetches the Entity FROM the persistent storage. Refetch is used to re-load an Entity which is marked \"Out-of-sync\", due to a save action. Refetching an empty Entity has no effect.'",
+    "question_id": null,
+    "question": "For the method has the summary of \"Refetches the Entity from the persistent storage. Refetch is used to re-load an Entity which is marked \"Out-of-sync\", due to a save action. Refetching an empty Entity has no effect.\", what is its solution path?",
+    "difficulty": "",
+    "evidence": "solution path refers to Path;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars = 3060",
+    "question_id": null,
+    "question": "Give the number of solutions that the repository which has 3060 Stars contains.",
+    "difficulty": "",
+    "evidence": "solutions refers to Solution.Id; repository refers to Repository.Id;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Lang = 'sw'",
+    "question_id": null,
+    "question": "For the solution of the most 'sw' methods, what is its path?",
+    "difficulty": "",
+    "evidence": "solution refers to SolutionId; sw refers to Lang = 'sw'; solution with the most 'sw' methods refers to MAX(COUNT(Lang = 'sw'));"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Id = 83855 THEN T1.Watchers ELSE 0 END) - SUM(CASE WHEN T2.Id = 1502 THEN T1.Watchers ELSE 0 END) AS REAL) * 100 / SUM(CASE WHEN T2.Id = 1502 THEN T1.Watchers ELSE 0 END) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId",
+    "question_id": null,
+    "question": "How many percent more of the watchers for the repository of solution No.83855 than No.1502?",
+    "difficulty": "",
+    "evidence": "solution No. refers to Solution.Id; percentage = DIVIDE(MULTIPLY(SUBTRACT(SUM(Solution.Id = 83855), SUM(Solution.Id = 1502)), 100)), SUM(Soltution.Id = 1502);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Id = 51424 THEN T1.Stars ELSE 0 END) - SUM(CASE WHEN T2.Id = 167053 THEN T1.Stars ELSE 0 END) AS REAL) * 100 / SUM(CASE WHEN T2.Id = 167053 THEN T1.Stars ELSE 0 END) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId",
+    "question_id": null,
+    "question": "How many percent more of the stars for the repository of solution No.51424 than No.167053?",
+    "difficulty": "",
+    "evidence": "solution No. refers to Solution.Id; percentage = DIVIDE(MULTIPLY(SUBTRACT(SUM(Solution.Id = 51424), SUM(Solution.Id = 167053)), 100)), SUM(Solution.Id = 167053);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Id = 53546 THEN T1.Forks ELSE 0 END) - SUM(CASE WHEN T2.Id = 1502 THEN T1.Forks ELSE 0 END) AS REAL) * 100 / SUM(CASE WHEN T2.Id = 1502 THEN T1.Forks ELSE 0 END) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId",
+    "question_id": null,
+    "question": "How many percent more of the Forks for the repository of solution No.53546 than No.1502?",
+    "difficulty": "",
+    "evidence": "solution No. refers to Solution.Id; percentage = DIVIDE(MULTIPLY(SUBTRACT(SUM(Solution.Id = 53546), SUM(Solution.Id = 1502)), 100)), SUM(Solution.Id = 1502);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Name FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.ProcessedTime = 636449700980488000",
+    "question_id": null,
+    "question": "List all the methods with a solution with a \"636449700980488000\" processed time.",
+    "difficulty": "",
+    "evidence": "methods refers to Name; solution refers to SolutionId;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Url = 'https://github.com/derickbailey/presentations-and-training.git'",
+    "question_id": null,
+    "question": "How many solutions are in \"https://github.com/derickbailey/presentations-and-training.git\"?",
+    "difficulty": "",
+    "evidence": "solutions refers to Solution.Id; https://github.com/derickbailey/presentations-and-training.git refers to Url; Url; = 'https://github.com/derickbailey/presentations-and-training.git';"
+  },
+  {
+    "sql": "SELECT SUM(T2.ProcessedTime) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Forks = ( SELECT MAX(Forks) FROM Repo )",
+    "question_id": null,
+    "question": "What is the total processed time of all solutions from the repository with the most forks?",
+    "difficulty": "",
+    "evidence": "total processed time = AVG(ProcessedTime where MAX(COUNT(Forks))); repository with the most forks refers to MAX(COUNT(Forks));"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Lang = 'it'",
+    "question_id": null,
+    "question": "List all the path of solution from all the \"it\" lang code method.",
+    "difficulty": "",
+    "evidence": "path of the solution refers to Path; solution refers to Solution.Id;"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Name = 'spinachLexer.mT__55'",
+    "question_id": null,
+    "question": "What is the path of solution of \"spinachLexer.mT__55\" method?",
+    "difficulty": "",
+    "evidence": "path of the solution refers to Path; solution refers to Solution.Id; method refers to Name; Name = 'spinachLexer.mT__55';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.id FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.RepoId = 1093 AND T2.Lang = 'en'",
+    "question_id": null,
+    "question": "What are the \"en\" methods with solutions from repository \"1093\"",
+    "difficulty": "",
+    "evidence": "en methods refers to lang = 'en'; solution refers to Solution.Id; repository refers to RepoId; RepoId = 1093;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Path FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Url = 'https://github.com/ecoffey/Bebop.git'",
+    "question_id": null,
+    "question": "What are the paths of solutions in repository \"https://github.com/ecoffey/Bebop.git\"",
+    "difficulty": "",
+    "evidence": "path of solutions refers to Path; https://github.com/ecoffey/Bebop.git refers to Url; Url = 'https://github.com/ecoffey/Bebop.git';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.RepoId FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Lang = 'ro'",
+    "question_id": null,
+    "question": "List all the ids of repositories for solutions with \"ro\" methods.",
+    "difficulty": "",
+    "evidence": "ids of repositories refers to RepoId; ro refers to lang = 'ro';"
+  },
+  {
+    "sql": "SELECT T1.RepoId FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.NameTokenized = 'crc parameters get hash code'",
+    "question_id": null,
+    "question": "What is the repository id of the method with tokenized name \"crc parameters get hash code\"?",
+    "difficulty": "",
+    "evidence": "repository id refers to RepoId; tokenized name refers to NameTokenized; NameTokenized = 'crc parameters get hash code';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.SolutionId) FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'maravillas_linq-to-delicious\\tasty.sln'",
+    "question_id": null,
+    "question": "How many methods with solutions with path 'maravillas_linq-to-delicious\\tasty.sln'?",
+    "difficulty": "",
+    "evidence": "solution refers to SolutionId;"
+  },
+  {
+    "sql": "SELECT T2.Id FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.ProcessedTime = 636430969128176000",
+    "question_id": null,
+    "question": "List all the solutions ids of the repository with \"636430969128176000\" processed time",
+    "difficulty": "",
+    "evidence": "solution ids refers to Solution.Id;"
+  },
+  {
+    "sql": "SELECT T1.Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.ProcessedTime = ( SELECT MAX(ProcessedTime) FROM Solution )",
+    "question_id": null,
+    "question": "What is the url for repository that has the longest processed time solution?",
+    "difficulty": "",
+    "evidence": "Url for repository refers to Url; longest processed toe trefers to MAX(ProcessedTime);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Id FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Forks > T1.Watchers / 2",
+    "question_id": null,
+    "question": "List all the solutions of repositories with the Forks higher than half of the watchers.",
+    "difficulty": "",
+    "evidence": "solutions refers to Solution.Id; forks higher than half of the watchers refers tto Forks>(Watchers/2);;"
+  },
+  {
+    "sql": "SELECT CAST(T1.Forks AS REAL) * 100 / T1.Stars FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Id = 104086",
+    "question_id": null,
+    "question": "What is the percentage of Forks to Stars of repository for solution \"104086\"?",
+    "difficulty": "",
+    "evidence": "solution refers to Solution.Id; Solution.Id = 104086; percentage = MULTIPLY(DIVIDE(Forkk, Stars), 100);"
+  },
+  {
+    "sql": "SELECT Id FROM Repo WHERE Stars = ( SELECT MAX(Stars) FROM Repo )",
+    "question_id": null,
+    "question": "Please provide the id of the respository that the most people like.",
+    "difficulty": "",
+    "evidence": "repository that the most people like refers to MAX(Stars);"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Name = 'HtmlSharp.HtmlParser.Feed'",
+    "question_id": null,
+    "question": "What is the solution's path of method \"HtmlSharp.HtmlParser.Feed\"?",
+    "difficulty": "",
+    "evidence": "solution's path refers to Path; method refers to Name; Name = 'HtmlSharp.HtmlParser.Feed';"
+  },
+  {
+    "sql": "SELECT T1.Forks FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Id = 35",
+    "question_id": null,
+    "question": "Please provide the number of forks that the repository of the solution 35 have.",
+    "difficulty": "",
+    "evidence": "solution refers to Solution.Id; Solution.Id = 35;"
+  },
+  {
+    "sql": "SELECT T2.Id FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Watchers = ( SELECT MAX(Watchers) FROM Repo )",
+    "question_id": null,
+    "question": "Please provide the id of the solution whose repository has the most watchers.",
+    "difficulty": "",
+    "evidence": "id of the solution refers to Solution.Id; repository has the most watchers refers to MAX(Watchers);"
+  },
+  {
+    "sql": "SELECT T1.Stars FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Id = 20",
+    "question_id": null,
+    "question": "Please provide the number of stars that the repository of the solution 20 have.",
+    "difficulty": "",
+    "evidence": "solution refers to Solution.ID; Solution.Id = 20;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.SolutionId) , CASE WHEN T1.WasCompiled = 0 THEN 'Needs' ELSE 'NoNeeds' END needToCompile FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.SolutionId = 1",
+    "question_id": null,
+    "question": "How many methods does solution 1 have? And please tell me if solution 1 needs to be compiled.",
+    "difficulty": "",
+    "evidence": "method refers to Name; solution refers to Solution.Id; Solution.Id = 1; solution needs to be compiled refers to WasCompiled = 0;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.WasCompiled = 0 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.SolutionId) FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.CommentIsXml = 1",
+    "question_id": null,
+    "question": "What is the percentage of the methods' solutions that need to be compiled among the methods whose comments is XML format?",
+    "difficulty": "",
+    "evidence": "comment is XML format refers to CommentIsXml = 1; solution needs to be compiled refesr to WasCompiled = 0; percentage = MULTIPLY(DIVIDE(SUM(WasCompiled = 0), COUNT(Solution.Id)), 100);"
+  },
+  {
+    "sql": "SELECT T2.Name FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'wallerdev_htmlsharpHtmlSharp.sln'",
+    "question_id": null,
+    "question": "Please list the names of methods with the solution path \"wallerdev_htmlsharp\\HtmlSharp.sln\".",
+    "difficulty": "",
+    "evidence": "name of the methods refers to Name; solution path refers to Path; Path = 'wallerdev_htmlsharp\\HtmlSharp.sln';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN Stars > 2000 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(Stars) FROM Repo",
+    "question_id": null,
+    "question": "What is the percentage of respositories that receive more than 2,000 stars?",
+    "difficulty": "",
+    "evidence": "stars>2000; percentage = DIVIDE(MULTIPLY(COUNT(Stars>2000), 100), COUNT(Id));"
+  },
+  {
+    "sql": "SELECT T1.Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Id = 1",
+    "question_id": null,
+    "question": "What is the url of solution 1?",
+    "difficulty": "",
+    "evidence": "solution refers to Solution.Id; Solution.Id = 1;"
+  },
+  {
+    "sql": "SELECT Id FROM Repo WHERE Stars = 21 AND Forks = ( SELECT MAX(Forks) FROM Repo WHERE Stars = 21 )",
+    "question_id": null,
+    "question": "Please provide the id of the respository that received the most forks among the respositories that receive 21 stars.",
+    "difficulty": "",
+    "evidence": "repository that received the most forks refers to MAX(Forks);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN Lang = 'en' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(Name) FROM Method WHERE CommentIsXml = 1",
+    "question_id": null,
+    "question": "What the percentage of the english methods among the methods whose comments is XML format?",
+    "difficulty": "",
+    "evidence": "english methods refers to lang = 'en'; comment is XML format refers to CommentIsXml = 1;"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.NameTokenized = 'html parser feed'",
+    "question_id": null,
+    "question": "Please provide the path of solution of method whose tokenized name is html parser feed.",
+    "difficulty": "",
+    "evidence": "path of solution refers to Path; method refers to Name; tokenized name refers to NameTokenized; Name = ''html parser feed';"
+  },
+  {
+    "sql": "SELECT T2.Id FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Forks = 238",
+    "question_id": null,
+    "question": "Please provide the solution id of the respository among the respository that receive 238 forks.",
+    "difficulty": "",
+    "evidence": "solution id of the repository refers to solution.Id;"
+  },
+  {
+    "sql": "SELECT NameTokenized FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE Lang = 'en' AND WasCompiled = 0",
+    "question_id": null,
+    "question": "Among the english methods,please list the tokenized names of methods whose solutions need to be compiled.",
+    "difficulty": "",
+    "evidence": "english methods refers to lang = 'en'; tokenized name refers to NameTokenized; methods refers to Name; solution needs to be compiled refers to WasCompiled = 0;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.RepoId) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Forks < T1.Stars * 1 / 3",
+    "question_id": null,
+    "question": "How many solutions whose repository's stars are a third more than forks?",
+    "difficulty": "",
+    "evidence": "solutions refers to Solution.Id; repository stars are a third more than forks = (MULTIPLY(Stars, 1/3))>Forks;"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.FullComment = 'Feeds data into the parser'",
+    "question_id": null,
+    "question": "Please provide the path of solution of method whose full comment is Feeds data into the parser.",
+    "difficulty": "",
+    "evidence": "path of solution refers to Path; method refers to name; full comment = 'Feeds data into the parser';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.SolutionId) FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.RepoId = 3 AND T2.CommentIsXml = 1",
+    "question_id": null,
+    "question": "Among the repository \"3\", how many methods whose comments is XML format?",
+    "difficulty": "",
+    "evidence": "repository refers to RepoId; RepoId = 3; method refers to Name; method whose comment is XML format refers to CommentIsXml = 1;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.WasCompiled = 0 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(Lang) FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Lang = 'en'",
+    "question_id": null,
+    "question": "What is the percentage of solutions for the method that needs to be compiled in the English methods?",
+    "difficulty": "",
+    "evidence": "method that needs to be compiled refers to WasCompiled = 0; English method refers to Lang = 'en'; percentage of solutions = MULTIPLY(DIVIDE(SUM(WasCompiled = 0), COUNT(Solution.Id)), 100);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Id = 1 THEN T1.Stars ELSE 0 END) - SUM(CASE WHEN T2.Id = 2 THEN T1.Stars ELSE 0 END) AS REAL) * 100 / SUM(CASE WHEN T2.Id = 2 THEN T1.Stars ELSE 0 END) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId",
+    "question_id": null,
+    "question": "How many more stars in percentage are there for the repository of solution \"1\" than solution \"2\"?",
+    "difficulty": "",
+    "evidence": "solution refers to Solution.Id; Solution.Id = 1 OR 2; percentage = DIVIDE(MULTIPLY(SUBTRACT(SUM(Solution.Id = 1), SUM(Solution.Id = 2)), 100)), SUM(Solution.Id = 2);"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.Id) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars > CAST(T1.Forks AS REAL) / 3",
+    "question_id": null,
+    "question": "How many solutions are there whose respositories received the number of stars more than one third of the number of forks?",
+    "difficulty": "",
+    "evidence": "number of solutions are there whose repositories received the number of stars more than one third of the number of forks refers to Stars>DIVIDE(Forks, 3);"
+  },
+  {
+    "sql": "SELECT SUBSTR(SUBSTR(Name, INSTR(Name, '.') + 1), 1, INSTR(SUBSTR(Name, INSTR(Name, '.') + 1), '.') - 1) task FROM Method WHERE Id = 2",
+    "question_id": null,
+    "question": "What is the task of method number 2?",
+    "difficulty": "",
+    "evidence": "task of the method refers to the second part of the Name after the \".\"; method number refers to Method_100k.Id; Method_100k.Id = 2;"
+  },
+  {
+    "sql": "SELECT CASE WHEN CommentIsXml = 0 THEN 'isNotXMLFormat' WHEN CommentIsXml = 1 THEN 'isXMLFormat' END format FROM Method WHERE Id = 8",
+    "question_id": null,
+    "question": "What format does the method number 8's comment have?",
+    "difficulty": "",
+    "evidence": "format refers CommentIsXml; method number refers to Method_100k.Id; Method_100k.Id = 8;"
+  },
+  {
+    "sql": "SELECT Url FROM Repo WHERE Watchers = ( SELECT MAX(Watchers) FROM Repo )",
+    "question_id": null,
+    "question": "Please provide a link to the most well-known repository's Github address.",
+    "difficulty": "",
+    "evidence": "link refers to Url; well-known repository refers to MAX(Watchers);"
+  },
+  {
+    "sql": "SELECT DISTINCT SUBSTR(SUBSTR(Name, INSTR(Name, '.') + 1), 1, INSTR(SUBSTR(Name, INSTR(Name, '.') + 1), '.') - 1) task FROM Method WHERE Lang = 'cs'",
+    "question_id": null,
+    "question": "What is the task of the method that is in the Czech language?",
+    "difficulty": "",
+    "evidence": "method refers to Name; task of the method refers to the second part of the Name after the \".\"; Czech language refers to Lang = 'cs'"
+  },
+  {
+    "sql": "SELECT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Id = 3",
+    "question_id": null,
+    "question": "What is the solution path for method number 3?",
+    "difficulty": "",
+    "evidence": "solution path refers to Path; method number refers to Method_100k.Id; Method_100k.Id = 3;"
+  },
+  {
+    "sql": "SELECT T2.Lang FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Id = 28 AND T1.RepoId = 3",
+    "question_id": null,
+    "question": "What is the language of method number 28 that can be found in the repository number 3?",
+    "difficulty": "",
+    "evidence": "language of method refers to Lang; method number refers to Method_100k.Id; Method_100k.Id = 28; repository number refers to RepoId; RepoID = 3;"
+  },
+  {
+    "sql": "SELECT T1.ProcessedTime, COUNT(T2.SolutionId) FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.SolutionId = 1",
+    "question_id": null,
+    "question": "What is solution 1's processing time and how many methods have been using this solution?",
+    "difficulty": "",
+    "evidence": "solution refers to Solution.Id and SolutionId; Solution.Id = 1; SolutionId = 1; processing time refers to ProcessedTime; methods refers to Name;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.SolutionId) FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.NameTokenized LIKE 'query language%'",
+    "question_id": null,
+    "question": "How many methods in the same repository share a tokenized name that begins with \"query language...\"?",
+    "difficulty": "",
+    "evidence": "methods refers to Name; tokenized name refers to NameTokenized; NameTokenized LIKE 'query language%';"
+  },
+  {
+    "sql": "SELECT T2.ApiCalls, T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Id = 10",
+    "question_id": null,
+    "question": "Please state the API calls for method number 10 and its intended course of action.",
+    "difficulty": "",
+    "evidence": "method number refers to Method_100k.Id; Method_100k.Id = 10; intended course of action refers to Path;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.SolutionId) FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.RepoId = 150 AND T2.FullComment IS NULL AND T2.Summary IS NULL",
+    "question_id": null,
+    "question": "How many methods in repository 150 did not have a comment and a summary?",
+    "difficulty": "",
+    "evidence": "methods refers to Name; repository that did not have a comment and a summary refers to FullComment IS NULL AND Summary IS NULL;"
+  },
+  {
+    "sql": "SELECT CASE WHEN T2.CommentIsXml = 0 THEN 'isNotXMLFormat' WHEN T2.CommentIsXml = 1 THEN 'isXMLFormat' END format FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.Id = 50 AND T1.Path = 'managedfusion_managedfusionManagedFusion.sln'",
+    "question_id": null,
+    "question": "What is the comment format of method number 50 with the solution path \"managedfusion_managedfusion\\ManagedFusion.sln\"?",
+    "difficulty": "",
+    "evidence": "comment format refers to CommentIsXml; method number refers to Method_100k.Id; Method_100k.Id = 50; solution path refers to Path; Path = 'managedfusion_managedfusion\\ManagedFusion.sln';"
+  },
+  {
+    "sql": "SELECT DISTINCT SUBSTR(SUBSTR(Name, INSTR(Name, '.') + 1), 1, INSTR(SUBSTR(Name, INSTR(Name, '.') + 1), '.') - 1) task FROM Method WHERE NameTokenized = 'string extensions to pascal case'",
+    "question_id": null,
+    "question": "What is the task method of the tokenized name \"string extensions to pascal case\n\"?",
+    "difficulty": "",
+    "evidence": "method refers to Name; task of the method refers to the second part of the Name after the \".\"; tokenized name refers to NameTokenized; NameTokenized = 'string extensions to pascal case';"
+  },
+  {
+    "sql": "SELECT NameTokenized FROM Method WHERE Name = 'Sky.Excel.ExcelBook.TypeConvert'",
+    "question_id": null,
+    "question": "Provide the tokenized name of the method \"Sky.Excel.ExcelBook.TypeConvert\".",
+    "difficulty": "",
+    "evidence": "tokenized name refers to NameTokenized; NameTokenized = 'Sky.Excel.ExcelBook.TypeConvert';"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.Path) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Url = 'https://github.com/jeffdik/tachy.git'",
+    "question_id": null,
+    "question": "How many path does the github address \"https://github.com/jeffdik/tachy.git\" have?",
+    "difficulty": "",
+    "evidence": "github address refers to Url; Url = 'https://github.com/jeffdik/tachy.git';"
+  },
+  {
+    "sql": "SELECT T1.Watchers FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Path = 'maff_se3ue7US7.sln'",
+    "question_id": null,
+    "question": "How many watchers does the path \"maff_se3ue7\\US7.sln\" have?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.WasCompiled = 1 LIMIT 5",
+    "question_id": null,
+    "question": "List 5 github address that the solutions can be implemented without the need of compilation.",
+    "difficulty": "",
+    "evidence": "github address refers to Url; solution can be implemented without the need of compliation refers to WasCompiled = 1;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.NameTokenized = 'matrix multiply'",
+    "question_id": null,
+    "question": "What are the solution path of the tokenized name \"matrix multiply\"?",
+    "difficulty": "",
+    "evidence": "solution path refers to Path; tokenized name refers to NameTokenized; NameTokenized = 'matrix multiply';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.CommentIsXml) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId INNER JOIN Method AS T3 ON T2.Id = T3.SolutionId WHERE T1.Url = 'https://github.com/dogeth/vss2git.git' AND T3.CommentIsXml = 1",
+    "question_id": null,
+    "question": "How many XML format does the github address \"https://github.com/dogeth/vss2git.git\" have?",
+    "difficulty": "",
+    "evidence": "Xml format refers to CommentisXml, github address refers to Url; Url = 'https://github.com/dogeth/vss2git.git';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Path FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T2.SampledAt = 636431758961741000 LIMIT 5",
+    "question_id": null,
+    "question": "List 5 solution path that has sampling time of 636431758961741000.",
+    "difficulty": "",
+    "evidence": "solution path refers to Path; sampling time refers to SampledAt; SampledAt = '636431758961741000';"
+  },
+  {
+    "sql": "SELECT T1.Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Path = 'joeyrobert_bloomfilterDataTypes.BloomFilter.sln'",
+    "question_id": null,
+    "question": "What is the github address of the solution path \"joeyrobert_bloomfilter\\DataTypes.BloomFilter.sln\"?",
+    "difficulty": "",
+    "evidence": "github address refers to Url; solution path refers to Path; Path = 'joeyrobert_bloomfilter\\DataTypes.BloomFilter.sln';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Name FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'graffen_NLog.Targets.SyslogsrcNLog.Targets.Syslog.sln'",
+    "question_id": null,
+    "question": "List all the method name of the solution path \"graffen_NLog.Targets.Syslog\\src\\NLog.Targets.Syslog.sln\n\".",
+    "difficulty": "",
+    "evidence": "method name refers to Name; solution path refers to Path; Path = 'graffen_NLog.Targets.Syslog\\src\\NLog.Targets.Syslog.sln';"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.NameTokenized FROM Solution AS T1 INNER JOIN Method AS T2 ON T1.Id = T2.SolutionId WHERE T1.Path = 'jurney_P4BackupP4BackupP4Backup.sln'",
+    "question_id": null,
+    "question": "List all the tokenized name of the solution path \"jurney_P4Backup\\P4Backup\\P4Backup.sln\n\".",
+    "difficulty": "",
+    "evidence": "tokenized name refers to NameTokenized; solution path refers to Path; Path = 'jurney_P4Backup\\P4Backup\\P4Backup.sln';"
+  },
+  {
+    "sql": "SELECT T1.Url FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId INNER JOIN Method AS T3 ON T2.Id = T3.SolutionId WHERE T3.Summary = 'A test for Decompose'",
+    "question_id": null,
+    "question": "Provide the github address with the summary of method \"A test for Decompose\n\".",
+    "difficulty": "",
+    "evidence": "github address refers to Url; summary of method refers to Summary; Summary = 'A test for Decompose';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Stars FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T2.Path = 'ninject_NinjectNinject.sln'",
+    "question_id": null,
+    "question": "How many liked by people does the solution path \"ninject_Ninject\\Ninject.sln\n\" have?",
+    "difficulty": "",
+    "evidence": "how many liked by people refers to Stars; solution path refers to Path; Path = 'ninject_Ninject\\Ninject.sln';"
+  },
+  {
+    "sql": "SELECT COUNT(T2.Path) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars = 111 AND T1.Forks = 58 AND T1.Watchers = 111",
+    "question_id": null,
+    "question": "How many solution path does the repository with 111 stars, 58 forks, and 111 watchers?",
+    "difficulty": "",
+    "evidence": "solution path refers to Path;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.ProcessedTime) AS REAL) / COUNT(T2.ProcessedTime) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId WHERE T1.Stars = 254 AND T1.Forks = 88 AND T1.Watchers = 254",
+    "question_id": null,
+    "question": "What is the average processed time of the solution with a repository of 254 likes, 88 followers, and 254 watchers?",
+    "difficulty": "",
+    "evidence": "average processed time = AVG(ProcessedTime);"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.Lang) FROM Repo AS T1 INNER JOIN Solution AS T2 ON T1.Id = T2.RepoId INNER JOIN Method AS T3 ON T2.Id = T3.SolutionId WHERE T1.Url = 'https://github.com/managedfusion/managedfusion.git'",
+    "question_id": null,
+    "question": "How many language code of method is used for the github address \"https://github.com/managedfusion/managedfusion.git\n\"?",
+    "difficulty": "",
+    "evidence": "language code of method refers to Lang; github address refers to Url; Url = 'https://github.com/managedfusion/managedfusion.git';"
+  }
+]

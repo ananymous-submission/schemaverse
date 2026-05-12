@@ -1,0 +1,20 @@
+CREATE TABLE `cars` (
+  `id` INTEGER NOT NULL,
+  `train_id` INTEGER DEFAULT NULL,
+  `position` INTEGER DEFAULT NULL,
+  `shape` TEXT DEFAULT NULL,
+  `len`TEXT DEFAULT NULL,
+  `sides` TEXT DEFAULT NULL,
+  `roof` TEXT DEFAULT NULL,
+  `wheels` INTEGER DEFAULT NULL,
+  `load_shape` TEXT DEFAULT NULL,
+  `load_num` INTEGER DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`train_id`) REFERENCES `trains` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `trains` (
+  `id` INTEGER NOT NULL,
+  `direction` TEXT DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);

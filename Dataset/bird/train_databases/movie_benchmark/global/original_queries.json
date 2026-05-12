@@ -1,0 +1,324 @@
+[
+  {
+    "sql": "SELECT T2.`Character Name` FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID WHERE T1.Title = 'Look Who''s Talking'",
+    "question_id": null,
+    "question": "Please list the names of the characters in the movie Look Who's Talking.",
+    "difficulty": "",
+    "evidence": "movie Look Who's Talking refers to title = 'Look Who's Talking'"
+  },
+  {
+    "sql": "SELECT T2.`Character Name` FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID WHERE T1.Title = 'Batman' ORDER BY T2.screentime DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which character has the longest screen time in the movie Batman?",
+    "difficulty": "",
+    "evidence": "longest screen time refers to max(screentime); movie Batman refers to title = 'Batman'"
+  },
+  {
+    "sql": "SELECT T3.Name FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Batman' AND T2.`Character Name` = 'Joker'",
+    "question_id": null,
+    "question": "Which actor played the role of Joker in the movie Batman?",
+    "difficulty": "",
+    "evidence": "role of Joker refers to character_name = 'Joker'; movie Batman refers to title = 'Batman'"
+  },
+  {
+    "sql": "SELECT T3.Name FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Batman'",
+    "question_id": null,
+    "question": "Please list the names of the actors who played a role in the movie Batman.",
+    "difficulty": "",
+    "evidence": "movie Batman refers to title = 'Batman'"
+  },
+  {
+    "sql": "SELECT T1.Title FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID WHERE T2.`Character Name` = 'Dr. Archibald ''Moonlight'' Graham'",
+    "question_id": null,
+    "question": "Which movie is the character Dr. Archibald 'Moonlight' Graham from?",
+    "difficulty": "",
+    "evidence": "movie name refers to title; character Dr. Archibald 'Moonlight' Graham refers to character_name = 'Dr. Archibald 'Moonlight' Graham'"
+  },
+  {
+    "sql": "SELECT T1.Title FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Name = 'Tom Cruise'",
+    "question_id": null,
+    "question": "Please list the names of the movies starring Tom Cruise.",
+    "difficulty": "",
+    "evidence": "movie name refers to title; starring Tom Cruise refers to name = 'Tom Cruise'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Name = 'Morgan Freeman' AND T1.`MPAA Rating` = 'PG'",
+    "question_id": null,
+    "question": "How many movies starring Morgan Freeman are suggested by parental guidance?",
+    "difficulty": "",
+    "evidence": "'suggested by parental guidance' refers to mpaa_rating = 'PG'"
+  },
+  {
+    "sql": "SELECT T1.Title FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Name = 'Tom Cruise' ORDER BY T1.Rating DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the movies starring Tom Cruise, which one of them has the best quality?",
+    "difficulty": "",
+    "evidence": "starring Tom Cruise refers to name = 'Tom Cruise'; best quality refers to max(rating)"
+  },
+  {
+    "sql": "SELECT T2.`Character Name` FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Name = 'Tom Cruise' AND T1.Title = 'Born on the Fourth of July'",
+    "question_id": null,
+    "question": "What is the name of the character played by Tom Cruise in the movie Born on the Fourth of July?",
+    "difficulty": "",
+    "evidence": "played by Tom Cruise refers to name = 'Tom Cruise'; movie Born on the Fourth of July refers to title = 'Born on the Fourth of July'"
+  },
+  {
+    "sql": "SELECT T1.`Character Name` FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID WHERE T2.Name = 'Tom Cruise'",
+    "question_id": null,
+    "question": "Please list the names of all the characters played by Tom Cruise.",
+    "difficulty": "",
+    "evidence": "played by Tom Cruise refers to name = 'Tom Cruise'"
+  },
+  {
+    "sql": "SELECT T3.Name FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Batman' ORDER BY T3.`Height (Inches)` DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the actors who starred in the movie Batman, which one of them is the tallest?",
+    "difficulty": "",
+    "evidence": "movie Batman refers to title = 'Batman'; tallest refers to max(height_inches)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID WHERE T2.Gender = 'Male' AND T2.Ethnicity = 'African American'",
+    "question_id": null,
+    "question": "How many movies star a male African American actor?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'Male'; African American refers to ethnicity = 'African American'"
+  },
+  {
+    "sql": "SELECT AVG(T1.Rating) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Name = 'Tom Cruise'",
+    "question_id": null,
+    "question": "What is the average rating of all the movies starring Tom Cruise?",
+    "difficulty": "",
+    "evidence": "starring Tom Cruise refers to name = 'Tom Cruise'; average rating = divide(sum(rating where name = 'Tom Cruise'), count(movieid where name = 'Tom Cruise'))"
+  },
+  {
+    "sql": "SELECT (MAX(CAST(SUBSTR(T2.screentime, 3, 2) AS REAL)) - MIN(CAST(SUBSTR(T2.screentime, 3, 2) AS REAL))) * 100 / MIN(CAST(SUBSTR(T2.screentime, 3, 2) AS REAL)) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID WHERE T1.Title = 'Batman'",
+    "question_id": null,
+    "question": "How much longer in percentage is the screen time of the most important character in Batman than the least important one?",
+    "difficulty": "",
+    "evidence": "most important character refers to max(screentime); least important character refers to min(screentime); movie Batman refers to title = 'Batman'; percentage = divide(subtract(max(screentime) , min(screentime)) , min(screentime)) * 100%"
+  },
+  {
+    "sql": "SELECT Title FROM movie ORDER BY Budget DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which movie had the biggest budget? Give the name of the movie.",
+    "difficulty": "",
+    "evidence": "biggest budget refers to max(Budget); name of the movie refers to Title"
+  },
+  {
+    "sql": "SELECT T1.`MPAA Rating` FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID WHERE T2.`Character Name` = 'Peter Quill'",
+    "question_id": null,
+    "question": "What is the MPAA rating for the movie with the character named \"Peter Quill\" in it?",
+    "difficulty": "",
+    "evidence": "MPAA rating = 'G' means General audiences; MPAA rating = 'PG' means Parental guidance suggested; MPAA rating = 'R'means Restricted; MPAA rating = 'X' means No one under 17 admitted"
+  },
+  {
+    "sql": "SELECT T2.`Character Name` FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID WHERE T2.creditOrder = '1' AND T1.Genre = 'Thriller' ORDER BY T1.Rating DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the name of the No.1 character in the credit list from the highest rating thriller movie.",
+    "difficulty": "",
+    "evidence": "No.1 character in the credit list refers to creditOrder = '1'; highest rating refers to max(rating); thriller movie refers to Genre = 'Thriller'"
+  },
+  {
+    "sql": "SELECT T2.Name FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID INNER JOIN movie AS T3 ON T3.MovieID = T1.MovieID WHERE T3.Title = 'Batman' ORDER BY T1.screentime DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who was the actor that played in the movie \"Batman\" with the longest screentime?",
+    "difficulty": "",
+    "evidence": "movie \"Batman\" refers to Title = 'Batman'; longest screentime refers to max(screentime)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID WHERE CAST(REPLACE(REPLACE(T2.NetWorth, ',', ''), '$', '') AS REAL) = ( SELECT MAX(CAST(REPLACE(REPLACE(NetWorth, ',', ''), '$', '') AS REAL)) FROM actor)",
+    "question_id": null,
+    "question": "How many movies has the highest networth actor acted in?",
+    "difficulty": "",
+    "evidence": "highest networth refers to max(networth)"
+  },
+  {
+    "sql": "SELECT T2.Name FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID WHERE T1.`Character Name` = 'Chanice Kobolowski'",
+    "question_id": null,
+    "question": "Who played the character named \"Chanice Kobolowski\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.`Date of Birth` FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID WHERE T1.`Character Name` = 'Sully'",
+    "question_id": null,
+    "question": "When is the birthday of the actor who played \"Sully\"?",
+    "difficulty": "",
+    "evidence": "birthday refers to Date of Birth; \"Sully\" refers to Character Name = 'Sully'"
+  },
+  {
+    "sql": "SELECT T2.`Birth City` FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID WHERE T1.`Character Name` = 'Gabriel Martin'",
+    "question_id": null,
+    "question": "Show the birth city of the actor who played \"Gabriel Martin\".",
+    "difficulty": "",
+    "evidence": "\"Gabriel Martin\" refers to Character Name = 'Gabriel Martin'"
+  },
+  {
+    "sql": "SELECT T2.Biography FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID WHERE T1.`Character Name` = 'Michael Moscovitz'",
+    "question_id": null,
+    "question": "Give the biography of the actor who played \"Michael Moscovitz\".",
+    "difficulty": "",
+    "evidence": "\"Michael Moscovitz\" refers to Character Name = 'Michael Moscovitz'"
+  },
+  {
+    "sql": "SELECT T2.`Height (Inches)` FROM characters AS T1 INNER JOIN actor AS T2 ON T1.ActorID = T2.ActorID WHERE T1.`Character Name` = 'Lurch'",
+    "question_id": null,
+    "question": "How tall is the actor who played \"Lurch\"?",
+    "difficulty": "",
+    "evidence": "tall refers to Height (Inches); \"Lurch\" refers to Character Name = 'Lurch'"
+  },
+  {
+    "sql": "SELECT T2.`Character Name` FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID WHERE T1.Title = 'G.I. Joe: The Rise of Cobra' AND T2.creditOrder = '3'",
+    "question_id": null,
+    "question": "Show the No.3 character name in the credit list of the movie \"G.I. Joe: The Rise of Cobra\".",
+    "difficulty": "",
+    "evidence": "No.3 character refers to creditOrder = '3'; movie \"G.I. Joe: The Rise of Cobra\" refers to Title = 'G.I. Joe: The Rise of Cobra'"
+  },
+  {
+    "sql": "SELECT T3.Name FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'American Hustle' AND T2.creditOrder = '2'",
+    "question_id": null,
+    "question": "Who played the No.2 character in the credit list of the movie \"American Hustle\"?",
+    "difficulty": "",
+    "evidence": "No.2 character refers to creditOrder = '2'; movie \"American Hustle\" refers to Title = 'American Hustle'"
+  },
+  {
+    "sql": "SELECT T3.Name FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.`Release Date` = '2015-10-26' AND T2.creditOrder = '1'",
+    "question_id": null,
+    "question": "Who played the No.1 character in the credit list of the movie which was released on \"2015/10/26\"?",
+    "difficulty": "",
+    "evidence": "No.1 character refers to creditOrder = '1'; released on \"2015/10/26\" refers to Release Date = '2015-10-26'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T3.`Birth Country` = 'USA' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T3.`Birth Country`) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Mrs. Doubtfire'",
+    "question_id": null,
+    "question": "What is the percentage of the USA actors that showed up in the credit list of movie \"Mrs. Doubtfire\"?",
+    "difficulty": "",
+    "evidence": "USA actors refers to Birth Country = 'USA'; movie \"Mrs. Doubtfire\" refers to Title = 'Mrs. Doubtfire'; percentage = divide(count(ActorID where Birth Country = 'USA'), count(ActorID)) * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T3.`Date of Birth` > '1970-01-01' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T3.`Date of Birth`) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Dawn of the Planet of the Apes'",
+    "question_id": null,
+    "question": "What is the percentage of the actors that showed up in the credit list of movie \"Dawn of the Planet of the Apes\" that were born after \"1970/1/1\"?",
+    "difficulty": "",
+    "evidence": "movie \"Dawn of the Planet of the Apes\" refers to Title = 'Dawn of the Planet of the Apes'; born after \"1970/1/1\" refers to Date of Birth > '1970/1/1'; percentage = divide(count(ActorID where Date of Birth > '1970/1/1'), count(ActorID))*100%"
+  },
+  {
+    "sql": "SELECT MovieID FROM movie WHERE Rating BETWEEN 7 AND 8 AND Budget = 15000000",
+    "question_id": null,
+    "question": "List down the movie ID of movie with a budget of 15000000 and a rating between 7 to 8.",
+    "difficulty": "",
+    "evidence": "a budget of 15000000 refers to Budget = 15000000; rating between 7 to 8 refers to Rating BETWEEN 7 and 8"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM movie WHERE `MPAA Rating` = 'PG' AND `Release Date` LIKE '1990-06%'",
+    "question_id": null,
+    "question": "In rated PG movies, how many of them released in June 1990?",
+    "difficulty": "",
+    "evidence": "rated PG refers to MPAA Rating = 'PG'; released in June 1990 refers to Release Date BETWEEN '1990-06-01' and '1990-06-30'"
+  },
+  {
+    "sql": "SELECT Name FROM actor WHERE ActorID = 439 AND Gender = 'Male' AND Ethnicity = 'White'",
+    "question_id": null,
+    "question": "What is the name of male and white actor with actor ID 439?",
+    "difficulty": "",
+    "evidence": "male refers to Gender = 'Male'; white refers to Ethnicity = 'White'"
+  },
+  {
+    "sql": "SELECT T1.Genre FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.`Birth City` = 'New York City' AND T1.Rating > 5",
+    "question_id": null,
+    "question": "Among the actors born in New York City, list the genre of their movie with a rating greater than 5.",
+    "difficulty": "",
+    "evidence": "born in New York City refers to Birth City = 'New York City'; rating greater than 5 refers to Rating > 5"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Genre = 'Romance' AND T3.Name = 'John Travolta'",
+    "question_id": null,
+    "question": "In romantic movies, how many of them starred by John Travolta?",
+    "difficulty": "",
+    "evidence": "romantic movies refers to Genre = 'Romance'; starred by John Travolta refers to Name = 'John Travolta'"
+  },
+  {
+    "sql": "SELECT T3.`Height (Inches)`, T3.NetWorth FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Three Men and a Little Lady'",
+    "question_id": null,
+    "question": "List the height and net worth of actors starred in Three Men and a Little Lady.",
+    "difficulty": "",
+    "evidence": "Three Men and a Little Lady refers to Title = 'Three Men and a Little Lady'"
+  },
+  {
+    "sql": "SELECT T1.Genre FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.`MPAA Rating` = 'PG' ORDER BY CAST(REPLACE(REPLACE(T3.NetWorth, ',', ''), '$', '') AS REAL) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the genre of PG rated movie starred by the actor with highest net worth?",
+    "difficulty": "",
+    "evidence": "PG rated refers to MPAA Rating = 'PG';\u00a0 highest net worth refers to max(NetWorth)"
+  },
+  {
+    "sql": "SELECT T3.NetWorth FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Misery' AND T3.`Height (Inches)` BETWEEN 60 AND 70 AND T3.Gender = 'Male'",
+    "question_id": null,
+    "question": "What is the net worth of the actor starred in Misery who has a height ranging from 60 to 70 inches tall?",
+    "difficulty": "",
+    "evidence": "Misery refers to Title = 'Misery'; height ranging from 60 to 70 inches refers to Height (Inches) BETWEEN 60 and 70"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Ghost' AND T3.Gender = 'Male' AND T3.`Birth Country` = 'USA'",
+    "question_id": null,
+    "question": "Count the male actors born in USA that starred in Ghost.",
+    "difficulty": "",
+    "evidence": "male refers to Gender = 'Male'; born in USA refers to Birth Country = 'USA'; Ghost refers to Title = 'Ghost'"
+  },
+  {
+    "sql": "SELECT T1.`MPAA Rating`, T1.Title FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Name = 'Leonardo DiCaprio' ORDER BY T1.Budget DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the MPAA rating and title of the movie starred by Leonardo DiCaprio with highest budget?",
+    "difficulty": "",
+    "evidence": "starred by Leonardo DiCaprio refers to Name = 'Leonardo Dicaprio'; highest budget refers to max(Budget)"
+  },
+  {
+    "sql": "SELECT T3.NetWorth, T3.`Date of Birth` FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Title = 'Die Hard 2' AND T3.`Height (Inches)` BETWEEN 60 AND 65",
+    "question_id": null,
+    "question": "Among the actors starred in Die Hard 2, list their net worth and birth date of actors with a height between 60 to 65.",
+    "difficulty": "",
+    "evidence": "Die Hard 2 refers to Title = 'Die Hard 2'; height between 60 to 65 refers to Height (Inches) BETWEEN 60 AND 65"
+  },
+  {
+    "sql": "SELECT T1.Runtime FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Ethnicity = 'African American' AND T3.`Date of Birth` = '1954-12-28'",
+    "question_id": null,
+    "question": "List the runtime of movies starred by an African-American actor born on December 28, 1954.",
+    "difficulty": "",
+    "evidence": "African-American refers to Ethnicity = 'African American'; born on December 28 1954 refers to Date of Birth = '1954-12-28'"
+  },
+  {
+    "sql": "SELECT T3.Name FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Gross = 136766062 AND T2.`Character Name` = 'Don Altobello' AND T1.Genre = 'Drama'",
+    "question_id": null,
+    "question": "Find the actor's name that played as Don Altobello in a drama movie that has a gross of 136766062.",
+    "difficulty": "",
+    "evidence": "actor's name refers to Name; as Don Altobello refers to Character Name = 'Don Altobello'; drama movie refers to Genre = 'Drama'"
+  },
+  {
+    "sql": "SELECT SUM(T1.Gross) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE CAST(REPLACE(REPLACE(T3.NetWorth, ',', ''), '$', '') AS REAL) > 375000000 AND T1.Rating < 7 AND T1.Genre = 'Comedy'",
+    "question_id": null,
+    "question": "What is the gross of a comedy movie with a rating lower than 7 and starred by an actor with a net worth greater than $375,000,000.00?",
+    "difficulty": "",
+    "evidence": "comedy movie refers to Genre = 'Comedy'; rating lower than 7 refers to Rating < 7; net worth greater than $375,000,000.00 refers to NetWorth > '$375,000,000.00'"
+  },
+  {
+    "sql": "SELECT T1.Runtime FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Name = 'Jackie Chan' AND T1.Rating > 7",
+    "question_id": null,
+    "question": "What is the runtime of the movie starred by Jackie Chan with a rating greater than 7?",
+    "difficulty": "",
+    "evidence": "starred by Jackie Chan refers to Name = 'Jackie Chan'; rating greater than 7 refers to Rating > 7"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN CAST(REPLACE(REPLACE(T3.NetWorth, ',', ''), '$', '') AS REAL) > 400000000 THEN 1 ELSE 0 END) - SUM(CASE WHEN CAST(REPLACE(REPLACE(T3.NetWorth, ',', ''), '$', '') AS REAL) < 400000000 THEN 1 ELSE 0 END) FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T1.Genre = 'Drama'",
+    "question_id": null,
+    "question": "Among the movies with drama genre, what is the percentage of the actors with net worth greater than $400,000,000.00?",
+    "difficulty": "",
+    "evidence": "drama genre refers to Genre = 'Drama'; net worth greater than $400,000,000.00 refers to NetWorth > '$400,000,000.00'; percentage = divide(count(ActorID where NetWorth > '$400,000,000.00'), COUNT(ActorID))*100%"
+  },
+  {
+    "sql": "SELECT T3.Name FROM movie AS T1 INNER JOIN characters AS T2 ON T1.MovieID = T2.MovieID INNER JOIN actor AS T3 ON T3.ActorID = T2.ActorID WHERE T3.Gender = 'Female' AND T1.Title = 'Godzilla' AND T3.`Birth City` = 'Sherman Oaks' AND T3.`Height (Inches)` * 100 > ( SELECT AVG(`Height (Inches)`) FROM actor ) * 50",
+    "question_id": null,
+    "question": "List the character's name of actress born in Sherman Oaks and starred in the movie Bruce Almighty with height greater than the 50% of average height of all actors listed.",
+    "difficulty": "",
+    "evidence": "actress refers to Gender = 'Female'; born in Sherman Oaks refers to Birth City = 'Sherman Oaks'; movie Bruce Almighty refers to Title = 'Bruce Almighty'; height greater than the 50% of average height refers to Height (Inches) > multiply(avg(Height (Inches)), 0.5)"
+  }
+]

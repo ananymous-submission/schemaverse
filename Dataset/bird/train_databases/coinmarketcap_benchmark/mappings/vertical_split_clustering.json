@@ -1,0 +1,251 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 2,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "coins"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/coinmarketcap/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "per_table": {
+    "coins": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "category",
+          "non_pk_columns": [
+            "category",
+            "description",
+            "name",
+            "notice",
+            "platform_id",
+            "status",
+            "symbol",
+            "tag_names",
+            "tags"
+          ],
+          "local_table": "CoinClassification",
+          "local_name": "local_1",
+          "vertical_fragment_base": "coins_category"
+        },
+        {
+          "suffix": "date_added",
+          "non_pk_columns": [
+            "date_added",
+            "date_launched",
+            "description",
+            "name",
+            "notice",
+            "platform_id",
+            "slug",
+            "status",
+            "subreddit",
+            "symbol",
+            "website"
+          ],
+          "local_table": "CoinReleaseAddedOnOrBefore2017Dec06",
+          "local_name": "local_1",
+          "vertical_fragment_base": "coins_date_added",
+          "row_partition_names": [
+            "CoinReleaseAddedOnOrBefore2017Dec06",
+            "CoinReleaseAddedAfter2017Dec06Through2020Mar18",
+            "CoinReleaseAddedAfter2020Mar18Through2021Jan29",
+            "CoinReleaseAddedAfter2021Jan29OrNull"
+          ],
+          "row_partition_predicate_column": "date_added"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "coins",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 14,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.02270120566768538,
+          "3": 0.023788874339031738,
+          "4": 0.02478225122567562
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02478225122567562,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "category",
+            "platform_id",
+            "tag_names",
+            "tags"
+          ],
+          [
+            "date_added",
+            "date_launched",
+            "description",
+            "name",
+            "notice",
+            "slug",
+            "status",
+            "subreddit",
+            "symbol",
+            "website"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "description",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "notice",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "platform_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "status",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "symbol",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "category",
+            "description",
+            "name",
+            "notice",
+            "platform_id",
+            "status",
+            "symbol",
+            "tag_names",
+            "tags"
+          ],
+          [
+            "date_added",
+            "date_launched",
+            "description",
+            "name",
+            "notice",
+            "platform_id",
+            "slug",
+            "status",
+            "subreddit",
+            "symbol",
+            "website"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "category",
+            "non_pk_columns": [
+              "category",
+              "description",
+              "name",
+              "notice",
+              "platform_id",
+              "status",
+              "symbol",
+              "tag_names",
+              "tags"
+            ]
+          },
+          {
+            "suffix": "date_added",
+            "non_pk_columns": [
+              "date_added",
+              "date_launched",
+              "description",
+              "name",
+              "notice",
+              "platform_id",
+              "slug",
+              "status",
+              "subreddit",
+              "symbol",
+              "website"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "description",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "date_added",
+          "also_in_fragment_suffix": "category"
+        },
+        {
+          "column": "notice",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "date_added",
+          "also_in_fragment_suffix": "category"
+        },
+        {
+          "column": "platform_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "category",
+          "also_in_fragment_suffix": "date_added"
+        },
+        {
+          "column": "status",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "date_added",
+          "also_in_fragment_suffix": "category"
+        },
+        {
+          "column": "symbol",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "date_added",
+          "also_in_fragment_suffix": "category"
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "date_added",
+          "also_in_fragment_suffix": "category"
+        }
+      ]
+    }
+  }
+}

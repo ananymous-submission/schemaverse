@@ -1,0 +1,111 @@
+{
+  "pizza_clean_customer_orders": {
+    "pk_columns": [
+      "customer_id",
+      "extras"
+    ],
+    "fragments": [
+      {
+        "suffix": "exclusions",
+        "non_pk_columns": [
+          "exclusions",
+          "order_id",
+          "order_time"
+        ],
+        "local_table": "CustomerOrderExclusions",
+        "local_name": "local_4",
+        "vertical_fragment_base": "pizza_clean_customer_orders_exclusions"
+      },
+      {
+        "suffix": "order_id",
+        "non_pk_columns": [
+          "order_id",
+          "order_time",
+          "pizza_id"
+        ],
+        "local_table": "CustomerOrderPizzas",
+        "local_name": "local_4",
+        "vertical_fragment_base": "pizza_clean_customer_orders_order_id"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "pizza_clean_customer_orders",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 4,
+      "min_non_pk_per_fragment": 2,
+      "pk_width": 2,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.028771733410404527
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.028771733410404527,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "exclusions",
+          "order_time"
+        ],
+        [
+          "order_id",
+          "pizza_id"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "order_time",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "order_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "exclusions",
+          "order_id",
+          "order_time"
+        ],
+        [
+          "order_id",
+          "order_time",
+          "pizza_id"
+        ]
+      ],
+      "pk_columns": [
+        "customer_id",
+        "extras"
+      ],
+      "fragments": [
+        {
+          "suffix": "exclusions",
+          "non_pk_columns": [
+            "exclusions",
+            "order_id",
+            "order_time"
+          ]
+        },
+        {
+          "suffix": "order_id",
+          "non_pk_columns": [
+            "order_id",
+            "order_time",
+            "pizza_id"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "pizza_clean_customer_orders_order_id",
+    "movable_candidates": [
+      "pizza_clean_customer_orders_exclusions"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+  }
+}

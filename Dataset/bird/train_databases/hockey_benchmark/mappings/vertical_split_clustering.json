@@ -1,0 +1,2606 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 22,
+    "eligible_candidate_count": 12,
+    "num_selected_for_vertical_split": 12,
+    "num_from_rate_alone": 18,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 5,
+    "selected_original_tables": [
+      "TeamSplits",
+      "Teams",
+      "Goalies",
+      "TeamsPost",
+      "Coaches",
+      "GoaliesSC",
+      "TeamsHalf",
+      "TeamsSC",
+      "AwardsMisc",
+      "TeamVsTeam",
+      "AwardsPlayers",
+      "HOF"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/hockey/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "AwardsMisc",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "HOF",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "Coaches": {
+      "pk_columns": [
+        "coachID",
+        "year",
+        "tmID",
+        "stint"
+      ],
+      "fragments": [
+        {
+          "suffix": "frag_89111",
+          "non_pk_columns": [
+            "g",
+            "lgID",
+            "postg"
+          ],
+          "local_table": "coachSeriesAppearances",
+          "local_name": "local_4",
+          "vertical_fragment_base": "Coaches_frag_89111"
+        },
+        {
+          "suffix": "frag_5874",
+          "non_pk_columns": [
+            "l",
+            "postt",
+            "t",
+            "w"
+          ],
+          "local_table": "coachSeasonResults",
+          "local_name": "local_4",
+          "vertical_fragment_base": "Coaches_frag_5874"
+        },
+        {
+          "suffix": "notes",
+          "non_pk_columns": [
+            "notes"
+          ],
+          "local_table": "coachSeasonNotes",
+          "local_name": "local_4",
+          "vertical_fragment_base": "Coaches_notes"
+        },
+        {
+          "suffix": "frag_99399",
+          "non_pk_columns": [
+            "g",
+            "postg",
+            "postl",
+            "postt",
+            "postw",
+            "t"
+          ],
+          "local_table": "coaches_games_max_37",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Coaches_frag_99399",
+          "row_partition_names": [
+            "coaches_games_max_37",
+            "Coaches_frag_99399_q2",
+            "Coaches_frag_99399_q3",
+            "coaches_games_over_80_or_null"
+          ],
+          "row_partition_predicate_column": "g"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Coaches",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 0,
+        "pk_width": 4,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 213348186,
+        "scores_by_k": {
+          "2": 0.056247710778597096,
+          "3": 0.065371566877204,
+          "4": 0.08775115633199104,
+          "5": 0.08362778024160937
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.08775115633199104,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "g",
+            "lgID"
+          ],
+          [
+            "l",
+            "t",
+            "w"
+          ],
+          [
+            "notes"
+          ],
+          [
+            "postg",
+            "postl",
+            "postt",
+            "postw"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "postg",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "postt",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "g",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "t",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "g",
+            "lgID",
+            "postg"
+          ],
+          [
+            "l",
+            "postt",
+            "t",
+            "w"
+          ],
+          [
+            "notes"
+          ],
+          [
+            "g",
+            "postg",
+            "postl",
+            "postt",
+            "postw",
+            "t"
+          ]
+        ],
+        "pk_columns": [
+          "coachID",
+          "year",
+          "tmID",
+          "stint"
+        ],
+        "fragments": [
+          {
+            "suffix": "frag_89111",
+            "non_pk_columns": [
+              "g",
+              "lgID",
+              "postg"
+            ]
+          },
+          {
+            "suffix": "frag_5874",
+            "non_pk_columns": [
+              "l",
+              "postt",
+              "t",
+              "w"
+            ]
+          },
+          {
+            "suffix": "notes",
+            "non_pk_columns": [
+              "notes"
+            ]
+          },
+          {
+            "suffix": "frag_99399",
+            "non_pk_columns": [
+              "g",
+              "postg",
+              "postl",
+              "postt",
+              "postw",
+              "t"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "postg",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "frag_99399",
+          "also_in_fragment_suffix": "frag_89111"
+        },
+        {
+          "column": "postt",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_99399",
+          "also_in_fragment_suffix": "frag_5874"
+        },
+        {
+          "column": "g",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "frag_89111",
+          "also_in_fragment_suffix": "frag_99399"
+        },
+        {
+          "column": "t",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "frag_5874",
+          "also_in_fragment_suffix": "frag_99399"
+        }
+      ]
+    },
+    "Goalies": {
+      "pk_columns": [
+        "playerID",
+        "year",
+        "stint"
+      ],
+      "fragments": [
+        {
+          "suffix": "eng",
+          "non_pk_columns": [
+            "ENG",
+            "GA",
+            "L",
+            "PostENG",
+            "PostGA",
+            "PostSHO",
+            "PostT",
+            "SHO",
+            "T/OL",
+            "W"
+          ],
+          "local_table": "goalieEngBucketZero",
+          "local_name": "local_4",
+          "vertical_fragment_base": "Goalies_eng",
+          "row_partition_names": [
+            "goalieEngBucketZero",
+            "goalieEngBucketOne",
+            "goalieEngBucketTwoThree",
+            "goalieEngBucketFourToEight",
+            "goalieEngBucketOther"
+          ],
+          "row_partition_predicate_column": "ENG"
+        },
+        {
+          "suffix": "gp",
+          "non_pk_columns": [
+            "GP",
+            "Min",
+            "PostGP",
+            "PostMin"
+          ],
+          "local_table": "goalieGamesMinutes",
+          "local_name": "local_4",
+          "vertical_fragment_base": "Goalies_gp"
+        },
+        {
+          "suffix": "gp_2",
+          "non_pk_columns": [
+            "GP",
+            "L",
+            "PostGP",
+            "PostL",
+            "PostSHO",
+            "PostT",
+            "PostW",
+            "SHO",
+            "T/OL",
+            "W"
+          ],
+          "local_table": "goalies_gp_with_post_stats",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Goalies_gp_2"
+        },
+        {
+          "suffix": "postsa",
+          "non_pk_columns": [
+            "PostSA",
+            "SA"
+          ],
+          "local_table": "goalies_postseason_sa_stats",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Goalies_postsa"
+        },
+        {
+          "suffix": "lgid",
+          "non_pk_columns": [
+            "lgID",
+            "tmID"
+          ],
+          "local_table": "goalieLeagueAssignment",
+          "local_name": "local_4",
+          "vertical_fragment_base": "Goalies_lgid"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Goalies",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 20,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.0449156948509432,
+          "3": 0.07793149919223301,
+          "4": 0.0864523733464118,
+          "5": 0.11966959739807578
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.11966959739807578,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "ENG",
+            "GA",
+            "PostENG",
+            "PostGA",
+            "SHO",
+            "T/OL"
+          ],
+          [
+            "GP",
+            "Min",
+            "PostMin"
+          ],
+          [
+            "L",
+            "PostGP",
+            "PostL",
+            "PostSHO",
+            "PostT",
+            "PostW",
+            "W"
+          ],
+          [
+            "PostSA",
+            "SA"
+          ],
+          [
+            "lgID",
+            "tmID"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "T/OL",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "SHO",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "PostT",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "PostSHO",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "GP",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "PostGP",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "W",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "L",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "ENG",
+            "GA",
+            "L",
+            "PostENG",
+            "PostGA",
+            "PostSHO",
+            "PostT",
+            "SHO",
+            "T/OL",
+            "W"
+          ],
+          [
+            "GP",
+            "Min",
+            "PostGP",
+            "PostMin"
+          ],
+          [
+            "GP",
+            "L",
+            "PostGP",
+            "PostL",
+            "PostSHO",
+            "PostT",
+            "PostW",
+            "SHO",
+            "T/OL",
+            "W"
+          ],
+          [
+            "PostSA",
+            "SA"
+          ],
+          [
+            "lgID",
+            "tmID"
+          ]
+        ],
+        "pk_columns": [
+          "playerID",
+          "year",
+          "stint"
+        ],
+        "fragments": [
+          {
+            "suffix": "eng",
+            "non_pk_columns": [
+              "ENG",
+              "GA",
+              "L",
+              "PostENG",
+              "PostGA",
+              "PostSHO",
+              "PostT",
+              "SHO",
+              "T/OL",
+              "W"
+            ]
+          },
+          {
+            "suffix": "gp",
+            "non_pk_columns": [
+              "GP",
+              "Min",
+              "PostGP",
+              "PostMin"
+            ]
+          },
+          {
+            "suffix": "gp_2",
+            "non_pk_columns": [
+              "GP",
+              "L",
+              "PostGP",
+              "PostL",
+              "PostSHO",
+              "PostT",
+              "PostW",
+              "SHO",
+              "T/OL",
+              "W"
+            ]
+          },
+          {
+            "suffix": "postsa",
+            "non_pk_columns": [
+              "PostSA",
+              "SA"
+            ]
+          },
+          {
+            "suffix": "lgid",
+            "non_pk_columns": [
+              "lgID",
+              "tmID"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "T/OL",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "eng",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "SHO",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "eng",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "PostT",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "gp_2",
+          "also_in_fragment_suffix": "eng"
+        },
+        {
+          "column": "PostSHO",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "gp_2",
+          "also_in_fragment_suffix": "eng"
+        },
+        {
+          "column": "GP",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "gp",
+          "also_in_fragment_suffix": "gp_2"
+        },
+        {
+          "column": "PostGP",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "gp_2",
+          "also_in_fragment_suffix": "gp"
+        },
+        {
+          "column": "W",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "gp_2",
+          "also_in_fragment_suffix": "eng"
+        },
+        {
+          "column": "L",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "gp_2",
+          "also_in_fragment_suffix": "eng"
+        }
+      ]
+    },
+    "GoaliesSC": {
+      "pk_columns": [
+        "playerID",
+        "year"
+      ],
+      "fragments": [
+        {
+          "suffix": "ga",
+          "non_pk_columns": [
+            "GA",
+            "GP",
+            "L",
+            "Min",
+            "SHO",
+            "T",
+            "W"
+          ],
+          "local_table": "goalies_ga_bench_pkc",
+          "local_name": "local_3",
+          "vertical_fragment_base": "GoaliesSC_ga"
+        },
+        {
+          "suffix": "ga_2",
+          "non_pk_columns": [
+            "GA",
+            "Min",
+            "SHO",
+            "T",
+            "lgID",
+            "tmID"
+          ],
+          "local_table": "goalies_ga_fragments_bench",
+          "local_name": "local_3",
+          "vertical_fragment_base": "GoaliesSC_ga_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "GoaliesSC",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1185099586,
+        "scores_by_k": {
+          "2": 0.05973247017269345,
+          "3": 0.05363522764719524,
+          "4": 0.05363522764719524
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.05973247017269345,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "GA",
+            "GP",
+            "L",
+            "Min",
+            "SHO",
+            "T",
+            "W"
+          ],
+          [
+            "lgID",
+            "tmID"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Min",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SHO",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "GA",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "T",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "GA",
+            "GP",
+            "L",
+            "Min",
+            "SHO",
+            "T",
+            "W"
+          ],
+          [
+            "GA",
+            "Min",
+            "SHO",
+            "T",
+            "lgID",
+            "tmID"
+          ]
+        ],
+        "pk_columns": [
+          "playerID",
+          "year"
+        ],
+        "fragments": [
+          {
+            "suffix": "ga",
+            "non_pk_columns": [
+              "GA",
+              "GP",
+              "L",
+              "Min",
+              "SHO",
+              "T",
+              "W"
+            ]
+          },
+          {
+            "suffix": "ga_2",
+            "non_pk_columns": [
+              "GA",
+              "Min",
+              "SHO",
+              "T",
+              "lgID",
+              "tmID"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Min",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "ga",
+          "also_in_fragment_suffix": "ga_2"
+        },
+        {
+          "column": "SHO",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "ga",
+          "also_in_fragment_suffix": "ga_2"
+        },
+        {
+          "column": "GA",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "ga",
+          "also_in_fragment_suffix": "ga_2"
+        },
+        {
+          "column": "T",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "ga",
+          "also_in_fragment_suffix": "ga_2"
+        }
+      ]
+    },
+    "TeamSplits": {
+      "pk_columns": [
+        "year",
+        "tmID"
+      ],
+      "fragments": [
+        {
+          "suffix": "aprl",
+          "non_pk_columns": [
+            "AprL",
+            "AprOL",
+            "AprT",
+            "AprW",
+            "DecL",
+            "DecOL",
+            "DecT",
+            "DecW",
+            "FebL",
+            "FebOL",
+            "FebT",
+            "FebW",
+            "JanL",
+            "JanOL",
+            "JanT",
+            "JanW",
+            "SepL",
+            "SepOL",
+            "SepT",
+            "SepW",
+            "lgID"
+          ],
+          "local_table": "teamMonthlySplitsAprilComprehensive",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamSplits_aprl"
+        },
+        {
+          "suffix": "aprol",
+          "non_pk_columns": [
+            "AprOL",
+            "DecL",
+            "DecOL",
+            "FebL",
+            "FebOL",
+            "JanOL",
+            "MarOL",
+            "NovL",
+            "NovOL",
+            "NovT",
+            "NovW",
+            "SepL",
+            "SepOL"
+          ],
+          "local_table": "teamMonthlyOvertimeLosses",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamSplits_aprol"
+        },
+        {
+          "suffix": "aprl_2",
+          "non_pk_columns": [
+            "AprL",
+            "AprT",
+            "DecT",
+            "FebT",
+            "JanT",
+            "MarL",
+            "MarOL",
+            "MarT",
+            "MarW",
+            "SepT",
+            "lgID",
+            "rT"
+          ],
+          "local_table": "teamMonthlySplitsAprilTotals",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamSplits_aprl_2"
+        },
+        {
+          "suffix": "oct",
+          "non_pk_columns": [
+            "OctL",
+            "OctOL",
+            "OctT",
+            "OctW"
+          ],
+          "local_table": "teamMonthlySplitsOctober",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamSplits_oct"
+        },
+        {
+          "suffix": "hl",
+          "non_pk_columns": [
+            "hL",
+            "hOTL",
+            "hT",
+            "hW",
+            "rL",
+            "rOTL",
+            "rT",
+            "rW"
+          ],
+          "local_table": "teamHomeLossesQuartileLowest",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamSplits_hl",
+          "row_partition_names": [
+            "teamHomeLossesQuartileLowest",
+            "teamHomeLossesQuartileLowerMiddle",
+            "teamHomeLossesQuartileUpperMiddle",
+            "teamHomeLossesQuartileHighest"
+          ],
+          "row_partition_predicate_column": "hL"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "TeamSplits",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 41,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.05840937332170887,
+          "3": 0.06314980858011833,
+          "4": 0.08065568199428827,
+          "5": 0.08564340270366627
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.08564340270366627,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "AprL",
+            "AprW",
+            "DecL",
+            "DecW",
+            "FebL",
+            "FebW",
+            "JanL",
+            "JanOL",
+            "JanT",
+            "JanW",
+            "SepL",
+            "SepW",
+            "lgID"
+          ],
+          [
+            "AprOL",
+            "DecOL",
+            "FebOL",
+            "NovL",
+            "NovOL",
+            "NovT",
+            "NovW",
+            "SepOL"
+          ],
+          [
+            "AprT",
+            "DecT",
+            "FebT",
+            "MarL",
+            "MarOL",
+            "MarT",
+            "MarW",
+            "SepT",
+            "rT"
+          ],
+          [
+            "OctL",
+            "OctOL",
+            "OctT",
+            "OctW"
+          ],
+          [
+            "hL",
+            "hOTL",
+            "hT",
+            "hW",
+            "rL",
+            "rOTL",
+            "rW"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "AprT",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "AprOL",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "rT",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "JanOL",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "JanT",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "lgID",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "FebT",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "DecT",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "SepT",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "DecOL",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "FebOL",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "SepOL",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "MarOL",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "AprL",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "FebL",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SepL",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "DecL",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "AprL",
+            "AprOL",
+            "AprT",
+            "AprW",
+            "DecL",
+            "DecOL",
+            "DecT",
+            "DecW",
+            "FebL",
+            "FebOL",
+            "FebT",
+            "FebW",
+            "JanL",
+            "JanOL",
+            "JanT",
+            "JanW",
+            "SepL",
+            "SepOL",
+            "SepT",
+            "SepW",
+            "lgID"
+          ],
+          [
+            "AprOL",
+            "DecL",
+            "DecOL",
+            "FebL",
+            "FebOL",
+            "JanOL",
+            "MarOL",
+            "NovL",
+            "NovOL",
+            "NovT",
+            "NovW",
+            "SepL",
+            "SepOL"
+          ],
+          [
+            "AprL",
+            "AprT",
+            "DecT",
+            "FebT",
+            "JanT",
+            "MarL",
+            "MarOL",
+            "MarT",
+            "MarW",
+            "SepT",
+            "lgID",
+            "rT"
+          ],
+          [
+            "OctL",
+            "OctOL",
+            "OctT",
+            "OctW"
+          ],
+          [
+            "hL",
+            "hOTL",
+            "hT",
+            "hW",
+            "rL",
+            "rOTL",
+            "rT",
+            "rW"
+          ]
+        ],
+        "pk_columns": [
+          "year",
+          "tmID"
+        ],
+        "fragments": [
+          {
+            "suffix": "aprl",
+            "non_pk_columns": [
+              "AprL",
+              "AprOL",
+              "AprT",
+              "AprW",
+              "DecL",
+              "DecOL",
+              "DecT",
+              "DecW",
+              "FebL",
+              "FebOL",
+              "FebT",
+              "FebW",
+              "JanL",
+              "JanOL",
+              "JanT",
+              "JanW",
+              "SepL",
+              "SepOL",
+              "SepT",
+              "SepW",
+              "lgID"
+            ]
+          },
+          {
+            "suffix": "aprol",
+            "non_pk_columns": [
+              "AprOL",
+              "DecL",
+              "DecOL",
+              "FebL",
+              "FebOL",
+              "JanOL",
+              "MarOL",
+              "NovL",
+              "NovOL",
+              "NovT",
+              "NovW",
+              "SepL",
+              "SepOL"
+            ]
+          },
+          {
+            "suffix": "aprl_2",
+            "non_pk_columns": [
+              "AprL",
+              "AprT",
+              "DecT",
+              "FebT",
+              "JanT",
+              "MarL",
+              "MarOL",
+              "MarT",
+              "MarW",
+              "SepT",
+              "lgID",
+              "rT"
+            ]
+          },
+          {
+            "suffix": "oct",
+            "non_pk_columns": [
+              "OctL",
+              "OctOL",
+              "OctT",
+              "OctW"
+            ]
+          },
+          {
+            "suffix": "hl",
+            "non_pk_columns": [
+              "hL",
+              "hOTL",
+              "hT",
+              "hW",
+              "rL",
+              "rOTL",
+              "rT",
+              "rW"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "AprT",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aprl_2",
+          "also_in_fragment_suffix": "aprl"
+        },
+        {
+          "column": "AprOL",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aprol",
+          "also_in_fragment_suffix": "aprl"
+        },
+        {
+          "column": "rT",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "aprl_2",
+          "also_in_fragment_suffix": "hl"
+        },
+        {
+          "column": "JanOL",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "aprl",
+          "also_in_fragment_suffix": "aprol"
+        },
+        {
+          "column": "JanT",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "aprl",
+          "also_in_fragment_suffix": "aprl_2"
+        },
+        {
+          "column": "lgID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "aprl",
+          "also_in_fragment_suffix": "aprl_2"
+        },
+        {
+          "column": "FebT",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aprl_2",
+          "also_in_fragment_suffix": "aprl"
+        },
+        {
+          "column": "DecT",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aprl_2",
+          "also_in_fragment_suffix": "aprl"
+        },
+        {
+          "column": "SepT",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aprl_2",
+          "also_in_fragment_suffix": "aprl"
+        },
+        {
+          "column": "DecOL",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aprol",
+          "also_in_fragment_suffix": "aprl"
+        },
+        {
+          "column": "FebOL",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aprol",
+          "also_in_fragment_suffix": "aprl"
+        },
+        {
+          "column": "SepOL",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "aprol",
+          "also_in_fragment_suffix": "aprl"
+        },
+        {
+          "column": "MarOL",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "aprl_2",
+          "also_in_fragment_suffix": "aprol"
+        },
+        {
+          "column": "AprL",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "aprl",
+          "also_in_fragment_suffix": "aprl_2"
+        },
+        {
+          "column": "FebL",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "aprl",
+          "also_in_fragment_suffix": "aprol"
+        },
+        {
+          "column": "SepL",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "aprl",
+          "also_in_fragment_suffix": "aprol"
+        },
+        {
+          "column": "DecL",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "aprl",
+          "also_in_fragment_suffix": "aprol"
+        }
+      ]
+    },
+    "TeamVsTeam": {
+      "pk_columns": [
+        "year",
+        "tmID",
+        "oppID"
+      ],
+      "fragments": [
+        {
+          "suffix": "frag_52440",
+          "non_pk_columns": [
+            "L",
+            "OTL",
+            "T",
+            "W"
+          ],
+          "local_table": "teamMatchupLossesGroupLowest",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamVsTeam_frag_52440",
+          "row_partition_names": [
+            "teamMatchupLossesGroupLowest",
+            "teamMatchupLossesGroupMiddle",
+            "teamMatchupLossesGroupHighest"
+          ],
+          "row_partition_predicate_column": "L"
+        },
+        {
+          "suffix": "otl",
+          "non_pk_columns": [
+            "OTL",
+            "T",
+            "lgID"
+          ],
+          "local_table": "teamMatchupOvertimeDetails",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamVsTeam_otl"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "TeamVsTeam",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 5,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1594242464,
+        "scores_by_k": {
+          "2": 0.12954212036170892,
+          "3": 0.09225036766600916,
+          "4": 0.050446578554667866,
+          "5": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.12954212036170892,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "L",
+            "OTL",
+            "T",
+            "W"
+          ],
+          [
+            "lgID"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "T",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "OTL",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "L",
+            "OTL",
+            "T",
+            "W"
+          ],
+          [
+            "OTL",
+            "T",
+            "lgID"
+          ]
+        ],
+        "pk_columns": [
+          "year",
+          "tmID",
+          "oppID"
+        ],
+        "fragments": [
+          {
+            "suffix": "frag_52440",
+            "non_pk_columns": [
+              "L",
+              "OTL",
+              "T",
+              "W"
+            ]
+          },
+          {
+            "suffix": "otl",
+            "non_pk_columns": [
+              "OTL",
+              "T",
+              "lgID"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "T",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_52440",
+          "also_in_fragment_suffix": "otl"
+        },
+        {
+          "column": "OTL",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_52440",
+          "also_in_fragment_suffix": "otl"
+        }
+      ]
+    },
+    "Teams": {
+      "pk_columns": [
+        "year",
+        "tmID"
+      ],
+      "fragments": [
+        {
+          "suffix": "benchminor",
+          "non_pk_columns": [
+            "BenchMinor",
+            "PIM"
+          ],
+          "local_table": "teams_bench_minor_stats",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Teams_benchminor"
+        },
+        {
+          "suffix": "frag_54165",
+          "non_pk_columns": [
+            "G",
+            "L",
+            "OTL",
+            "Pts",
+            "SoL",
+            "SoW",
+            "T",
+            "W",
+            "confID",
+            "divID",
+            "franchID",
+            "name",
+            "playoff",
+            "rank"
+          ],
+          "local_table": "Teams_frag_54165_q1",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Teams_frag_54165",
+          "row_partition_names": [
+            "Teams_frag_54165_q1",
+            "teams_games_71_80",
+            "teams_games_over_80_or_null"
+          ],
+          "row_partition_predicate_column": "G"
+        },
+        {
+          "suffix": "ga",
+          "non_pk_columns": [
+            "GA",
+            "GF",
+            "PKG",
+            "PPG",
+            "SHA",
+            "SHF"
+          ],
+          "local_table": "teamsSeasonGoalsSummary",
+          "local_name": "local_4",
+          "vertical_fragment_base": "Teams_ga"
+        },
+        {
+          "suffix": "pkc",
+          "non_pk_columns": [
+            "PKC",
+            "PPC"
+          ],
+          "local_table": "teams_penalty_kc_stats",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Teams_pkc"
+        },
+        {
+          "suffix": "pts",
+          "non_pk_columns": [
+            "Pts",
+            "SoL",
+            "SoW",
+            "T",
+            "confID",
+            "divID",
+            "franchID",
+            "lgID",
+            "name",
+            "playoff",
+            "rank"
+          ],
+          "local_table": "teams_points_standings",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Teams_pts"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Teams",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 25,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.07176974096350604,
+          "3": 0.090391145468739,
+          "4": 0.10664286069449128,
+          "5": 0.1267659435975184
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.1267659435975184,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "BenchMinor",
+            "PIM"
+          ],
+          [
+            "G",
+            "L",
+            "OTL",
+            "Pts",
+            "SoL",
+            "SoW",
+            "T",
+            "W",
+            "name"
+          ],
+          [
+            "GA",
+            "GF",
+            "PKG",
+            "PPG",
+            "SHA",
+            "SHF"
+          ],
+          [
+            "PKC",
+            "PPC"
+          ],
+          [
+            "confID",
+            "divID",
+            "franchID",
+            "lgID",
+            "playoff",
+            "rank"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "Pts",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "playoff",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SoW",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "franchID",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "rank",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "confID",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "T",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          },
+          {
+            "column": "divID",
+            "primary_fragment_index": 4,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "SoL",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 4
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "BenchMinor",
+            "PIM"
+          ],
+          [
+            "G",
+            "L",
+            "OTL",
+            "Pts",
+            "SoL",
+            "SoW",
+            "T",
+            "W",
+            "confID",
+            "divID",
+            "franchID",
+            "name",
+            "playoff",
+            "rank"
+          ],
+          [
+            "GA",
+            "GF",
+            "PKG",
+            "PPG",
+            "SHA",
+            "SHF"
+          ],
+          [
+            "PKC",
+            "PPC"
+          ],
+          [
+            "Pts",
+            "SoL",
+            "SoW",
+            "T",
+            "confID",
+            "divID",
+            "franchID",
+            "lgID",
+            "name",
+            "playoff",
+            "rank"
+          ]
+        ],
+        "pk_columns": [
+          "year",
+          "tmID"
+        ],
+        "fragments": [
+          {
+            "suffix": "benchminor",
+            "non_pk_columns": [
+              "BenchMinor",
+              "PIM"
+            ]
+          },
+          {
+            "suffix": "frag_54165",
+            "non_pk_columns": [
+              "G",
+              "L",
+              "OTL",
+              "Pts",
+              "SoL",
+              "SoW",
+              "T",
+              "W",
+              "confID",
+              "divID",
+              "franchID",
+              "name",
+              "playoff",
+              "rank"
+            ]
+          },
+          {
+            "suffix": "ga",
+            "non_pk_columns": [
+              "GA",
+              "GF",
+              "PKG",
+              "PPG",
+              "SHA",
+              "SHF"
+            ]
+          },
+          {
+            "suffix": "pkc",
+            "non_pk_columns": [
+              "PKC",
+              "PPC"
+            ]
+          },
+          {
+            "suffix": "pts",
+            "non_pk_columns": [
+              "Pts",
+              "SoL",
+              "SoW",
+              "T",
+              "confID",
+              "divID",
+              "franchID",
+              "lgID",
+              "name",
+              "playoff",
+              "rank"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "frag_54165",
+          "also_in_fragment_suffix": "pts"
+        },
+        {
+          "column": "Pts",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "frag_54165",
+          "also_in_fragment_suffix": "pts"
+        },
+        {
+          "column": "playoff",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "pts",
+          "also_in_fragment_suffix": "frag_54165"
+        },
+        {
+          "column": "SoW",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "frag_54165",
+          "also_in_fragment_suffix": "pts"
+        },
+        {
+          "column": "franchID",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "pts",
+          "also_in_fragment_suffix": "frag_54165"
+        },
+        {
+          "column": "rank",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "pts",
+          "also_in_fragment_suffix": "frag_54165"
+        },
+        {
+          "column": "confID",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "pts",
+          "also_in_fragment_suffix": "frag_54165"
+        },
+        {
+          "column": "T",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "frag_54165",
+          "also_in_fragment_suffix": "pts"
+        },
+        {
+          "column": "divID",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "pts",
+          "also_in_fragment_suffix": "frag_54165"
+        },
+        {
+          "column": "SoL",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 4,
+          "primary_fragment_suffix": "frag_54165",
+          "also_in_fragment_suffix": "pts"
+        }
+      ]
+    },
+    "TeamsHalf": {
+      "pk_columns": [
+        "year",
+        "tmID",
+        "half"
+      ],
+      "fragments": [
+        {
+          "suffix": "frag_59615",
+          "non_pk_columns": [
+            "G",
+            "L",
+            "T",
+            "W"
+          ],
+          "local_table": "teamHalfSeasonTotals",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsHalf_frag_59615"
+        },
+        {
+          "suffix": "frag_96174",
+          "non_pk_columns": [
+            "G",
+            "GA",
+            "GF",
+            "L",
+            "W"
+          ],
+          "local_table": "teamHalfSeasonGoalsSummary",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsHalf_frag_96174"
+        },
+        {
+          "suffix": "frag_5951",
+          "non_pk_columns": [
+            "T",
+            "lgID",
+            "rank"
+          ],
+          "local_table": "teamHalfSeasonRankQuartileLowest",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsHalf_frag_5951",
+          "row_partition_names": [
+            "teamHalfSeasonRankQuartileLowest",
+            "teamHalfSeasonRankQuartileLowerMiddle",
+            "teamHalfSeasonRankQuartileUpperMiddle",
+            "teamHalfSeasonRankQuartileHighest"
+          ],
+          "row_partition_predicate_column": "rank"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "TeamsHalf",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 662927108,
+        "scores_by_k": {
+          "2": 0.09321185347419483,
+          "3": 0.10316485868407338,
+          "4": 0.09513308386109888,
+          "5": 0.06764596712757814
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.10316485868407338,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "G",
+            "L",
+            "T",
+            "W"
+          ],
+          [
+            "GA",
+            "GF"
+          ],
+          [
+            "lgID",
+            "rank"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "T",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "W",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "L",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "G",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "G",
+            "L",
+            "T",
+            "W"
+          ],
+          [
+            "G",
+            "GA",
+            "GF",
+            "L",
+            "W"
+          ],
+          [
+            "T",
+            "lgID",
+            "rank"
+          ]
+        ],
+        "pk_columns": [
+          "year",
+          "tmID",
+          "half"
+        ],
+        "fragments": [
+          {
+            "suffix": "frag_59615",
+            "non_pk_columns": [
+              "G",
+              "L",
+              "T",
+              "W"
+            ]
+          },
+          {
+            "suffix": "frag_96174",
+            "non_pk_columns": [
+              "G",
+              "GA",
+              "GF",
+              "L",
+              "W"
+            ]
+          },
+          {
+            "suffix": "frag_5951",
+            "non_pk_columns": [
+              "T",
+              "lgID",
+              "rank"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "T",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "frag_59615",
+          "also_in_fragment_suffix": "frag_5951"
+        },
+        {
+          "column": "W",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_59615",
+          "also_in_fragment_suffix": "frag_96174"
+        },
+        {
+          "column": "L",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_59615",
+          "also_in_fragment_suffix": "frag_96174"
+        },
+        {
+          "column": "G",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_59615",
+          "also_in_fragment_suffix": "frag_96174"
+        }
+      ]
+    },
+    "TeamsPost": {
+      "pk_columns": [
+        "year",
+        "tmID"
+      ],
+      "fragments": [
+        {
+          "suffix": "benchminor",
+          "non_pk_columns": [
+            "BenchMinor",
+            "PIM"
+          ],
+          "local_table": "teamPostBenchMinorPenalties",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsPost_benchminor"
+        },
+        {
+          "suffix": "frag_98581",
+          "non_pk_columns": [
+            "G",
+            "GA",
+            "GF",
+            "L",
+            "T",
+            "W",
+            "lgID"
+          ],
+          "local_table": "teamPostseasonSummaryExtended",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsPost_frag_98581"
+        },
+        {
+          "suffix": "ga",
+          "non_pk_columns": [
+            "GA",
+            "GF",
+            "L",
+            "PKG",
+            "PPG",
+            "SHA",
+            "SHF",
+            "W",
+            "lgID"
+          ],
+          "local_table": "teamPostGoalsAgainstQuartileLowest",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsPost_ga",
+          "row_partition_names": [
+            "teamPostGoalsAgainstQuartileLowest",
+            "teamPostGoalsAgainstQuartileLowerMiddle",
+            "teamPostGoalsAgainstQuartileUpperMiddle",
+            "teamPostGoalsAgainstQuartileHighest"
+          ],
+          "row_partition_predicate_column": "GA"
+        },
+        {
+          "suffix": "pkc",
+          "non_pk_columns": [
+            "PKC",
+            "PPC",
+            "PPG"
+          ],
+          "local_table": "teamPostPenaltyCounts",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsPost_pkc"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "TeamsPost",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 15,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.08546277773754837,
+          "3": 0.09739993063301577,
+          "4": 0.11731565896792903,
+          "5": 0.11731565896792903
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.11731565896792903,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "BenchMinor",
+            "PIM"
+          ],
+          [
+            "G",
+            "L",
+            "T",
+            "W",
+            "lgID"
+          ],
+          [
+            "GA",
+            "GF",
+            "PKG",
+            "PPG",
+            "SHA",
+            "SHF"
+          ],
+          [
+            "PKC",
+            "PPC"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "lgID",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "GF",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "GA",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "PPG",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "W",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "L",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "BenchMinor",
+            "PIM"
+          ],
+          [
+            "G",
+            "GA",
+            "GF",
+            "L",
+            "T",
+            "W",
+            "lgID"
+          ],
+          [
+            "GA",
+            "GF",
+            "L",
+            "PKG",
+            "PPG",
+            "SHA",
+            "SHF",
+            "W",
+            "lgID"
+          ],
+          [
+            "PKC",
+            "PPC",
+            "PPG"
+          ]
+        ],
+        "pk_columns": [
+          "year",
+          "tmID"
+        ],
+        "fragments": [
+          {
+            "suffix": "benchminor",
+            "non_pk_columns": [
+              "BenchMinor",
+              "PIM"
+            ]
+          },
+          {
+            "suffix": "frag_98581",
+            "non_pk_columns": [
+              "G",
+              "GA",
+              "GF",
+              "L",
+              "T",
+              "W",
+              "lgID"
+            ]
+          },
+          {
+            "suffix": "ga",
+            "non_pk_columns": [
+              "GA",
+              "GF",
+              "L",
+              "PKG",
+              "PPG",
+              "SHA",
+              "SHF",
+              "W",
+              "lgID"
+            ]
+          },
+          {
+            "suffix": "pkc",
+            "non_pk_columns": [
+              "PKC",
+              "PPC",
+              "PPG"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "lgID",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "frag_98581",
+          "also_in_fragment_suffix": "ga"
+        },
+        {
+          "column": "GF",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "ga",
+          "also_in_fragment_suffix": "frag_98581"
+        },
+        {
+          "column": "GA",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "ga",
+          "also_in_fragment_suffix": "frag_98581"
+        },
+        {
+          "column": "PPG",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "ga",
+          "also_in_fragment_suffix": "pkc"
+        },
+        {
+          "column": "W",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "frag_98581",
+          "also_in_fragment_suffix": "ga"
+        },
+        {
+          "column": "L",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "frag_98581",
+          "also_in_fragment_suffix": "ga"
+        }
+      ]
+    },
+    "TeamsSC": {
+      "pk_columns": [
+        "year",
+        "tmID"
+      ],
+      "fragments": [
+        {
+          "suffix": "frag_78979",
+          "non_pk_columns": [
+            "G",
+            "L",
+            "PIM",
+            "T",
+            "W",
+            "lgID"
+          ],
+          "local_table": "teamScorecardPostseason",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsSC_frag_78979"
+        },
+        {
+          "suffix": "ga",
+          "non_pk_columns": [
+            "GA",
+            "GF",
+            "L",
+            "PIM",
+            "W",
+            "lgID"
+          ],
+          "local_table": "teamScorecardGoalsAggregate",
+          "local_name": "local_4",
+          "vertical_fragment_base": "TeamsSC_ga"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "TeamsSC",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 941324542,
+        "scores_by_k": {
+          "2": 0.073103970588476,
+          "3": 0.073103970588476,
+          "4": 0.073103970588476
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.073103970588476,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "G",
+            "L",
+            "PIM",
+            "T",
+            "W",
+            "lgID"
+          ],
+          [
+            "GA",
+            "GF"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "lgID",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "PIM",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "W",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "L",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "G",
+            "L",
+            "PIM",
+            "T",
+            "W",
+            "lgID"
+          ],
+          [
+            "GA",
+            "GF",
+            "L",
+            "PIM",
+            "W",
+            "lgID"
+          ]
+        ],
+        "pk_columns": [
+          "year",
+          "tmID"
+        ],
+        "fragments": [
+          {
+            "suffix": "frag_78979",
+            "non_pk_columns": [
+              "G",
+              "L",
+              "PIM",
+              "T",
+              "W",
+              "lgID"
+            ]
+          },
+          {
+            "suffix": "ga",
+            "non_pk_columns": [
+              "GA",
+              "GF",
+              "L",
+              "PIM",
+              "W",
+              "lgID"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "lgID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_78979",
+          "also_in_fragment_suffix": "ga"
+        },
+        {
+          "column": "PIM",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_78979",
+          "also_in_fragment_suffix": "ga"
+        },
+        {
+          "column": "W",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_78979",
+          "also_in_fragment_suffix": "ga"
+        },
+        {
+          "column": "L",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_78979",
+          "also_in_fragment_suffix": "ga"
+        }
+      ]
+    },
+    "AwardsPlayers": {
+      "pk_columns": [
+        "playerID",
+        "award",
+        "year"
+      ],
+      "fragments": [
+        {
+          "suffix": "lgid",
+          "non_pk_columns": [
+            "lgID",
+            "pos"
+          ],
+          "local_table": "AwardsPlayers_lgid_part1",
+          "local_name": "local_5",
+          "vertical_fragment_base": "AwardsPlayers_lgid",
+          "row_partition_names": [
+            "AwardsPlayers_lgid_part1",
+            "AwardsPlayers_lgid_part2",
+            "AwardsPlayers_lgid_part3",
+            "PlayerAwardWinnersByLeague"
+          ],
+          "row_partition_predicate_column": "pos"
+        },
+        {
+          "suffix": "lgid_2",
+          "non_pk_columns": [
+            "lgID",
+            "note",
+            "pos"
+          ],
+          "local_table": "PlayerAwardsByLeagueAnnotated",
+          "local_name": "local_5",
+          "vertical_fragment_base": "AwardsPlayers_lgid_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "AwardsPlayers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 3,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 130852918,
+        "scores_by_k": {
+          "2": 0.031935745504371865,
+          "3": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.031935745504371865,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "lgID",
+            "pos"
+          ],
+          [
+            "note"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "pos",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "lgID",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "lgID",
+            "pos"
+          ],
+          [
+            "lgID",
+            "note",
+            "pos"
+          ]
+        ],
+        "pk_columns": [
+          "playerID",
+          "award",
+          "year"
+        ],
+        "fragments": [
+          {
+            "suffix": "lgid",
+            "non_pk_columns": [
+              "lgID",
+              "pos"
+            ]
+          },
+          {
+            "suffix": "lgid_2",
+            "non_pk_columns": [
+              "lgID",
+              "note",
+              "pos"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "pos",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "lgid",
+          "also_in_fragment_suffix": "lgid_2"
+        },
+        {
+          "column": "lgID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "lgid",
+          "also_in_fragment_suffix": "lgid_2"
+        }
+      ]
+    }
+  }
+}

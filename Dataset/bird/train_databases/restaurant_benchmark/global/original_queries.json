@@ -1,0 +1,821 @@
+[
+  {
+    "sql": "SELECT COUNT(id_restaurant) FROM generalinfo WHERE review < 3",
+    "question_id": null,
+    "question": "How many restaurants have not obtained a minimum of 3 in their reviews?",
+    "difficulty": "",
+    "evidence": "have not obtained a minimum of 3 in review refers to review < 3"
+  },
+  {
+    "sql": "SELECT food_type FROM generalinfo WHERE review = ( SELECT MAX(review) FROM generalinfo ) LIMIT 4",
+    "question_id": null,
+    "question": "What types of food are served at the 4 top-reviewed restaurants?",
+    "difficulty": "",
+    "evidence": "top-reviewed refers to review = 4; type of food refers to food_type\n\n"
+  },
+  {
+    "sql": "SELECT COUNT(id_restaurant) FROM generalinfo WHERE food_type = 'mediterranean' AND city = 'richmond'",
+    "question_id": null,
+    "question": "How many restaurants in the city of Richmond serve Mediterranean food?",
+    "difficulty": "",
+    "evidence": "Mediterranean food refers to food_type = \u00a0 'mediterranean'"
+  },
+  {
+    "sql": "SELECT city FROM geographic WHERE county = 'sonoma county'",
+    "question_id": null,
+    "question": "List all the cities in Sonoma County.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT county FROM geographic WHERE region != 'bay area'",
+    "question_id": null,
+    "question": "What counties are not in the Bay Area Region?",
+    "difficulty": "",
+    "evidence": "not in the Bay Area region refers to region ! = 'bay area'"
+  },
+  {
+    "sql": "SELECT city FROM geographic WHERE region = 'northern california'",
+    "question_id": null,
+    "question": "List all cities in the Northern California Region.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT id_restaurant FROM location WHERE city = 'oakland' AND street_name = '11th street'",
+    "question_id": null,
+    "question": "List by its ID number all restaurants on 11th Street in Oakland.",
+    "difficulty": "",
+    "evidence": "11th Street refers to street_name = '11th street'; Oakland refers to city = 'oakland'; ID number of restaurant refers to id_restaurant\n\n"
+  },
+  {
+    "sql": "SELECT COUNT(id_restaurant) FROM location WHERE street_num = 871",
+    "question_id": null,
+    "question": "How many restaurants can we find at number 871 on its street?",
+    "difficulty": "",
+    "evidence": "number 871 on its street refers to street_num = 871"
+  },
+  {
+    "sql": "SELECT id_restaurant FROM location WHERE City = 'san francisco' AND street_name = '9th avenue'",
+    "question_id": null,
+    "question": "At what numbers on 9th Avenue of San Francisco there are restaurants?",
+    "difficulty": "",
+    "evidence": "9th Avenue refers to street_name = '9th avenue'; San Francisco refers to City = 'san francisco'"
+  },
+  {
+    "sql": "SELECT T1.food_type FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.street_name = 'adeline st' AND T2.city = 'berkeley'",
+    "question_id": null,
+    "question": "What type of food is there in the restaurants on Adeline Street in Berkeley city?",
+    "difficulty": "",
+    "evidence": "Adeline Street refers to street_name = 'adeline st'; type of food refers to food_type\n\n"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.region FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.food_type != 'african'",
+    "question_id": null,
+    "question": "In which regions are there no African food restaurants?",
+    "difficulty": "",
+    "evidence": "no African food restaurants refers to food_type <> 'african'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.county FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.label = 'a & w root beer'",
+    "question_id": null,
+    "question": "In which counties are there A&W Root Beer Restaurants?",
+    "difficulty": "",
+    "evidence": "A&W Root Beer Restaurant refers to label = 'a & w root beer'"
+  },
+  {
+    "sql": "SELECT T1.street_name, T1.street_num FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.label = 'adelitas taqueria'",
+    "question_id": null,
+    "question": "Indicate street and number of the Adelitas Taqueria Restaurants.",
+    "difficulty": "",
+    "evidence": "street refers to street_name; number refers to street_num; Adelitas Taqueria Restaurant refers to label = 'adelitas taqueria'"
+  },
+  {
+    "sql": "SELECT T2.food_type FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant INNER JOIN geographic AS T3 ON T2.city = T3.city WHERE T3.County = 'san mateo county' AND T1.street_name = 'alpine rd' AND T1.street_num = 3140",
+    "question_id": null,
+    "question": "What type of food is served at the restaurant located at 3140, Alpine Road at San Mateo County?",
+    "difficulty": "",
+    "evidence": "3140 Alpine Road at San Mateo County refers to street_num = 3140 AND street_name = 'alpine rd' AND County = 'san mateo county'; type of food refers to food_type"
+  },
+  {
+    "sql": "SELECT T1.street_name FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.city = 'san francisco' AND T2.food_type = 'seafood' AND street_name IS NOT NULL",
+    "question_id": null,
+    "question": "In which streets of the city of San Francisco are there restaurants that serve seafood?",
+    "difficulty": "",
+    "evidence": "street refers to street_name; seafood refers to food_type = 'seafood'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.county FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.label != 'bakers square restaurant & pie shop'",
+    "question_id": null,
+    "question": "List all counties where there is no Bakers Square Restaurant & Pie Shop.",
+    "difficulty": "",
+    "evidence": "no Bakers Square Restaurant & Pie Shop refers to label <> 'bakers square restaurant & pie shop'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.county) FROM location AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.street_name = 'appian way'",
+    "question_id": null,
+    "question": "In how many counties is there a street called Appian Way?",
+    "difficulty": "",
+    "evidence": "a street called Appian Way refers to street_name = 'appian way'"
+  },
+  {
+    "sql": "SELECT T1.review FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.street_name = 'atlantic ave'",
+    "question_id": null,
+    "question": "What is the rating of each restaurant reviews on Atlantic Ave?",
+    "difficulty": "",
+    "evidence": "Atlantic Ave refers to street_name = 'atlantic ave'; rating refers to review"
+  },
+  {
+    "sql": "SELECT T1.id_restaurant FROM location AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T2.county = 'contra costa county'",
+    "question_id": null,
+    "question": "Identify all restaurants in Contra Costa County by id.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.id_restaurant, T1.label FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T2.county = 'yolo county'",
+    "question_id": null,
+    "question": "Identify all the restaurants in Yolo County by their label.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.label FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.street_name = 'drive' AND T1.food_type != 'american' AND T2.city = 'san rafael'",
+    "question_id": null,
+    "question": "What restaurant on Drive Street in San Rafael doesn't serve American food?",
+    "difficulty": "",
+    "evidence": "Drive Street refers to street_name = 'drive'; San Rafael refers to city = 'san rafael'; American food refers to food_type\u00a0<> 'american'"
+  },
+  {
+    "sql": "SELECT T2.street_name FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.city = 'san francisco' AND T1.review = 1.7",
+    "question_id": null,
+    "question": "On which streets in the city of San Francisco are there restaurants with a review of 1.7?",
+    "difficulty": "",
+    "evidence": "street refers to street_name; review of 1.7 refers to review = 1.7"
+  },
+  {
+    "sql": "SELECT T2.label FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.street_name = 'avenida de las pulgas' AND T2.city = 'menlo park' ORDER BY review LIMIT 1",
+    "question_id": null,
+    "question": "Which restaurant on the street Alameda de las Pulgas in the city of Menlo Park is the worst rated?",
+    "difficulty": "",
+    "evidence": "restaurant refers to label; street Alameda de las Pulgas refers to street_name = 'avenida de las pulgas'; the worst rated refers to min(review)"
+  },
+  {
+    "sql": "SELECT T1.street_name FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant INNER JOIN geographic AS T3 ON T2.city = T3.city WHERE T2.label = 'good heavens' AND T3.county = 'tuolumne county'",
+    "question_id": null,
+    "question": "On what street in Tuolumne County is Good Heavens restaurant located?",
+    "difficulty": "",
+    "evidence": "street refers to street_name; Good Heavens restaurant refers to label = 'good heavens'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.street_num FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.label = 'aux delices vietnamese restaurant'",
+    "question_id": null,
+    "question": "Indicate the street numbers where Aux Delices Vietnamese Restaurant are located.",
+    "difficulty": "",
+    "evidence": "street numbers refers to street_num; Aux Delices Vietnamese Restaurant refers to label = 'aux delices vietnamese restaurant'"
+  },
+  {
+    "sql": "SELECT T1.id_restaurant FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T2.county = 'marin county'",
+    "question_id": null,
+    "question": "Identify all the restaurants in Marin County by their id.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.region FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.food_type = 'pizza' AND T2.region != 'unknown'",
+    "question_id": null,
+    "question": "In which regions are there no pizza restaurants?",
+    "difficulty": "",
+    "evidence": "no pizza restaurants refers to food_type = 'pizza'"
+  },
+  {
+    "sql": "SELECT AVG(T2.review) FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T1.county = 'santa cruz county'",
+    "question_id": null,
+    "question": "Calculate the average rating of reviews for restaurants in Santa Cruz County.",
+    "difficulty": "",
+    "evidence": "average rating = divide(sum(review where county = 'santa cruz county'), count(id_restaurant where county = 'santa cruz county'))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.food_type = 'mexican', 1, 0)) AS REAL) * 100 / COUNT(T2.id_restaurant) FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T1.county = 'monterey county'",
+    "question_id": null,
+    "question": "What percentage of restaurants in Monterey County have Mexican food?",
+    "difficulty": "",
+    "evidence": "Mexican food refers to food_type = 'mexican'; percentage = divide(count(id_restaurant where food_type = 'mexican'), count(id_restaurant)) where county = 'monterey county' * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T1.street_name = '11th st', 1, 0)) AS REAL) * 100 / COUNT(T1.id_restaurant) FROM location AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T2.County = 'alameda county'",
+    "question_id": null,
+    "question": "What percentage of streets named 11th Street are in Alameda County?",
+    "difficulty": "",
+    "evidence": "street named 11th Street refers to street_name = '11th st'; percentage = divide(count(street_name = '11th st' and County = 'alameda county'), count(street_name where County = 'alameda county')) * 100%"
+  },
+  {
+    "sql": "SELECT label FROM generalinfo WHERE food_type = 'european'",
+    "question_id": null,
+    "question": "Please list all of the restaurants that serve European food.",
+    "difficulty": "",
+    "evidence": "restaurant refers to label; European food refers to food_type = 'european'"
+  },
+  {
+    "sql": "SELECT city FROM geographic WHERE region = 'northern california'",
+    "question_id": null,
+    "question": "What cities are located in Northern California?",
+    "difficulty": "",
+    "evidence": "Northern California refers to region = 'northern california'"
+  },
+  {
+    "sql": "SELECT label FROM generalinfo WHERE food_type = '24 hour diner'",
+    "question_id": null,
+    "question": "What does the one and only 24-hour diner's name?",
+    "difficulty": "",
+    "evidence": "24-hour diner refers to food_type = '24 hour diner'; diner name refers to label"
+  },
+  {
+    "sql": "SELECT city FROM geographic WHERE county = 'unknown' AND region = 'unknown' LIMIT 5",
+    "question_id": null,
+    "question": "Please list any five cities that have an unidentified county and region.",
+    "difficulty": "",
+    "evidence": "unidentified county and region refers to county = 'unknown' AND region = 'unknown'"
+  },
+  {
+    "sql": "SELECT county, region FROM geographic WHERE city = 'Davis'",
+    "question_id": null,
+    "question": "What is the county and region of Davis City?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT street_name FROM location WHERE city = 'Clayton'",
+    "question_id": null,
+    "question": "Please list all of the street names in Clayton City.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT id_restaurant, label FROM generalinfo WHERE city = 'San Francisco' AND review = ( SELECT MAX(review) FROM generalinfo WHERE city = 'San Francisco' )",
+    "question_id": null,
+    "question": "What are the most popular restaurants in San Francisco among diners?",
+    "difficulty": "",
+    "evidence": "the most popular refers to max(review); restaurant refers to label; San Francisco refers to city = 'San Francisco'"
+  },
+  {
+    "sql": "SELECT COUNT(id_restaurant) FROM generalinfo WHERE food_type = 'american' AND city = 'carmel' AND review = ( SELECT MIN(review) FROM generalinfo WHERE food_type = 'american' AND city = 'carmel' )",
+    "question_id": null,
+    "question": "How many American food restaurants are unpopular in Carmel?",
+    "difficulty": "",
+    "evidence": "American Food Restaurant refers to food_type = 'ameraican'; unpopular refers to min(review); Carmel refers to city = 'Carmel'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(food_type = 'american food', 1, 0)) AS REAL) * 100 / COUNT(id_restaurant) FROM generalinfo WHERE city = 'dublin'",
+    "question_id": null,
+    "question": "What is the percentage of restaurants that serve American food in Dublin city?",
+    "difficulty": "",
+    "evidence": "American food refers to food_type = 'american food'; percentage = divide(count(id_restaurant), count(id_restaurant where food_type = 'american food')) where city = 'dublin' * 100%"
+  },
+  {
+    "sql": "SELECT T2.street_num, T2.street_name, T1.city FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.label = 'Albert''s Caf\u00e9'",
+    "question_id": null,
+    "question": "What is the full address of Albert's Caf\u00e9?",
+    "difficulty": "",
+    "evidence": "full address = street_num, street_name, city; Albert's Caf\u00e9 refers to label = 'Albert's Caf\u00e9'"
+  },
+  {
+    "sql": "SELECT T1.id_restaurant FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.city = 'Oakland' AND T2.street_name = '19th St'",
+    "question_id": null,
+    "question": "What are the restaurants that are located at \"19th St. Oakland\"?",
+    "difficulty": "",
+    "evidence": "restaurant refers to label; \"19th St. Oakland\" refers to street_name = '19th St' AND city = 'Oakland'"
+  },
+  {
+    "sql": "SELECT T1.food_type FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.street_num = 106 AND T2.street_name = 'e 25th ave'",
+    "question_id": null,
+    "question": "What kind of restaurants can be found at \"106 E 25th Ave\"?",
+    "difficulty": "",
+    "evidence": "kind of restaurant refers to food_type; \"106 E 25th Ave\" refers to street_name = 'e 25th ave'"
+  },
+  {
+    "sql": "SELECT T2.label FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant INNER JOIN geographic AS T3 ON T2.city = T3.city WHERE T3.region = 'unknown' LIMIT 3",
+    "question_id": null,
+    "question": "Please name any three restaurants that have an unidentified region.",
+    "difficulty": "",
+    "evidence": "restaurant name refers to label; unidentified region refers to region = 'unknown'"
+  },
+  {
+    "sql": "SELECT T1.label FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.street_num = 104 AND T1.city = 'campbell' AND T2.street_name = 'san tomas aquino road'",
+    "question_id": null,
+    "question": "What is the name of the Chinese restaurant that can be found at 104 San Tomas Aquino Road, Campbell?",
+    "difficulty": "",
+    "evidence": "restaurant name refers to label; Chinese restaurant refers to food_type = 'chinese'; 104 San Tomas Aquino Road Campbell refers to street_num = 104 AND street_name = 'san tomas aquino road' AND city = 'campbell'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id_restaurant) FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.food_type = 'thai' AND T1.city = 'albany' AND T2.street_name = 'san pablo ave'",
+    "question_id": null,
+    "question": "How many Thai restaurants can be found in San Pablo Ave, Albany?",
+    "difficulty": "",
+    "evidence": "Thai restaurant refers to food_type = 'thai'; San Pablo Ave Albany refers to street_name = 'san pablo ave' AND T1.city = 'albany'"
+  },
+  {
+    "sql": "SELECT T1.county, T1.region, T2.label FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T2.label = 'plearn-thai cuisine'",
+    "question_id": null,
+    "question": "What is the county and region of Plearn-Thai Cuisine restaurant?",
+    "difficulty": "",
+    "evidence": "Plearn-Thai Cuisine restaurant refers to label = 'plearn-thai cuisine'"
+  },
+  {
+    "sql": "SELECT T2.label FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T1.region = 'lake tahoe' AND T1.county = 'el dorado county'",
+    "question_id": null,
+    "question": "What is the name of the restaurant that is located in El Dorado County, Lake Tahoe region?",
+    "difficulty": "",
+    "evidence": "restaurant name refers to label"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.county, T2.region FROM location AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.street_name = 'E. El Camino Real'",
+    "question_id": null,
+    "question": "Which county and region does the street E. El Camino Real belong to?",
+    "difficulty": "",
+    "evidence": "street E. El Camino Real refers to street_name = 'E. El Camino Real'"
+  },
+  {
+    "sql": "SELECT T1.id_restaurant FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.city = 'berkeley' AND T2.street_name = 'shattuck ave' AND T1.food_type = 'Indian restaurant' ORDER BY T1.review LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the least popular Indian restaurant on Shattuck Avenue in Berkeley?",
+    "difficulty": "",
+    "evidence": "restaurant name refers to label; the least popular refers to min(review); Indian restaurant refers to food_type = 'Indian restaurant'; Shattuck Avenue in Berkeley refers to street_name = 'shattuck ave' and city = 'berkeley'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.review > 4, 1, 0)) AS REAL) * 100 / COUNT(T2.id_restaurant) FROM geographic AS T1 RIGHT JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T1.region = 'bay area'",
+    "question_id": null,
+    "question": "What is the percentage of restaurants in the Bay Area region that scored over 4 for the review rating?",
+    "difficulty": "",
+    "evidence": "scored over 4 refers to review > 4; percentage = divide(count(id_restaurant where region = 'bay area' and review > 4), count(id_restaurant where region = 'Bay Area')) * 100%"
+  },
+  {
+    "sql": "SELECT city FROM geographic WHERE county = 'san mateo county'",
+    "question_id": null,
+    "question": "List every city in San Mateo County.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(id_restaurant) AS cnt FROM generalinfo WHERE review > 4",
+    "question_id": null,
+    "question": "How many restaurants have more than 4 star reviews?",
+    "difficulty": "",
+    "evidence": "more than 4 star review refers to review > 4"
+  },
+  {
+    "sql": "SELECT street_name FROM location GROUP BY street_name ORDER BY COUNT(street_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which street has the most restaurants?",
+    "difficulty": "",
+    "evidence": "street refers to street_name; the most restaurants refers to max(count(street_name))"
+  },
+  {
+    "sql": "SELECT label FROM generalinfo WHERE food_type = 'chicken' ORDER BY review DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which chicken restaurant has the highest review?",
+    "difficulty": "",
+    "evidence": "chicken restaurant refers to food_type = 'chicken'; the highest review refers to max(review)"
+  },
+  {
+    "sql": "SELECT county FROM geographic WHERE city = 'el cerrito'",
+    "question_id": null,
+    "question": "Which county is El Cerrito from?",
+    "difficulty": "",
+    "evidence": "El Cerrito refers to city = 'el cerrito'"
+  },
+  {
+    "sql": "SELECT COUNT(id_restaurant) FROM location WHERE street_name = 'irving'",
+    "question_id": null,
+    "question": "How many restaurants are on Irving Street?",
+    "difficulty": "",
+    "evidence": "Irving Street refers to street_name = 'irving'"
+  },
+  {
+    "sql": "SELECT T1.label FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T2.county = 'marin county'",
+    "question_id": null,
+    "question": "Provide a list of restaurants from Marin county.",
+    "difficulty": "",
+    "evidence": "restaurant refers to label"
+  },
+  {
+    "sql": "SELECT T2.street_name FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.label = 'peking duck restaurant'",
+    "question_id": null,
+    "question": "What is the address of the Peking Duck restaurant?",
+    "difficulty": "",
+    "evidence": "address refers to street_num, street_name; Peking Duck restaurant refers to label = 'peking duck restaurant'"
+  },
+  {
+    "sql": "SELECT T2.street_name FROM geographic AS T1 INNER JOIN location AS T2 ON T1.city = T2.city WHERE T1.county = 'alameda county' GROUP BY T2.street_name HAVING COUNT(T2.id_restaurant) > 10",
+    "question_id": null,
+    "question": "List all the streets with more than 10 restaurants in Alameda county.",
+    "difficulty": "",
+    "evidence": "street refers to street_name; more than 10 restaurants refers to count(id_restaurant) > 10"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.region FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T2.food_type = 'greek'",
+    "question_id": null,
+    "question": "What are the regions with Greek restaurants?",
+    "difficulty": "",
+    "evidence": "Greek restaurant refers to food_type = 'greek'"
+  },
+  {
+    "sql": "SELECT T2.street_name FROM geographic AS T1 INNER JOIN location AS T2 ON T1.city = T2.city WHERE T1.region = 'unknown'",
+    "question_id": null,
+    "question": "List all of the restaurant addresses from an unknown region.",
+    "difficulty": "",
+    "evidence": "restaurant address refers to street_num, street_name; unknown region refers to region = 'unknown'"
+  },
+  {
+    "sql": "SELECT T2.review FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.street_name = 'murray ave' AND T1.street_num = 8440",
+    "question_id": null,
+    "question": "What is the review of the restaurant at 8440 Murray Ave?",
+    "difficulty": "",
+    "evidence": "8440 Murray Ave refers to street_num = 8440 and street_name = 'murray ave'"
+  },
+  {
+    "sql": "SELECT T2.food_type FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T1.county = 'Monterey' GROUP BY T2.food_type ORDER BY COUNT(T2.food_type) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What type of restaurant is most common in Monterey county?",
+    "difficulty": "",
+    "evidence": "type refers to food_type; most common refers to max(count(food_type))"
+  },
+  {
+    "sql": "SELECT T2.street_name FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.city = 'san francisco' AND T1.food_type = 'burgers' GROUP BY T2.street_name ORDER BY COUNT(T2.id_restaurant) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which street in San Francisco has the most burger restaurants?",
+    "difficulty": "",
+    "evidence": "street refers to street_name; San Francisco refers to city = 'san francisco'; burger restaurant refers to food_type = 'burgers'; the most burger restaurants refers to max(count(street_name where food_type = 'burgers' and city = 'san francisco'))"
+  },
+  {
+    "sql": "SELECT T2.region FROM location AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.street_num = 1149 AND T1.street_name = 'el camino real'",
+    "question_id": null,
+    "question": "What is the region of 1149 El Camino Real?",
+    "difficulty": "",
+    "evidence": "1149 El Camino Real refers to street_num = 1149 and street_name = 'el camino real'"
+  },
+  {
+    "sql": "SELECT T2.county FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.label = 'sankee'",
+    "question_id": null,
+    "question": "What is the county of the Sankee restaurant?",
+    "difficulty": "",
+    "evidence": "Sankee restaurant refers to label = 'sankee'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.city) FROM geographic AS T1 INNER JOIN location AS T2 ON T1.city = T2.city WHERE T1.region = 'northern california'",
+    "question_id": null,
+    "question": "How many streets with restaurants are there in the Northern California region?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.label FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.street_name = 'park st'",
+    "question_id": null,
+    "question": "List all of the restaurants on Park St.",
+    "difficulty": "",
+    "evidence": "restaurant refers to label; Park St refers to street_name = 'park st'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T1.region = 'bay area', 1, 0)) AS REAL) * 100 / COUNT(T2.id_restaurant) FROM geographic AS T1 INNER JOIN location AS T2 ON T1.city = T2.city",
+    "question_id": null,
+    "question": "What percentage of restaurants are from the Bay Area?",
+    "difficulty": "",
+    "evidence": "Bay Area refers to region = 'bay area'; percentage = divide(count(id_restaurant where region = 'bay area'), count(id_restaurant)) * 100%"
+  },
+  {
+    "sql": "SELECT AVG(T1.review) FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.food_type = 'chinese' GROUP BY T1.id_restaurant ORDER BY AVG(T1.review) DESC",
+    "question_id": null,
+    "question": "List all the average reviews of Chinese restaurants for each county from highest to lowest.",
+    "difficulty": "",
+    "evidence": "Chinese restaurant refers to food_type = 'chinese'; average review refers to divide(sum(review), count(review))"
+  },
+  {
+    "sql": "SELECT street_name FROM location WHERE city = 'San Francisco'",
+    "question_id": null,
+    "question": "List street names in San Francisco city.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT id_restaurant FROM location WHERE city = 'Danville'",
+    "question_id": null,
+    "question": "List restaurant ids located in Danville city.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(city) FROM geographic WHERE region = 'bay area'",
+    "question_id": null,
+    "question": "How many cities are located in the Bay Area?",
+    "difficulty": "",
+    "evidence": "the Bay Area refers to region = 'bay area'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.label) FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T2.county = 'unknown'",
+    "question_id": null,
+    "question": "How many labels of the restaurant have an unknown country?",
+    "difficulty": "",
+    "evidence": "unknown county refers to county = 'unknown'"
+  },
+  {
+    "sql": "SELECT T1.street_name FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T2.food_type = 'American'",
+    "question_id": null,
+    "question": "Please indicate the street names of restaurants with food type is American.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.label FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T2.county = 'Santa Cruz county'",
+    "question_id": null,
+    "question": "Please indicate which labels have the city located in Santa Cruz.",
+    "difficulty": "",
+    "evidence": "Santa Cruz refers to county = 'Santa Cruz county'"
+  },
+  {
+    "sql": "SELECT T1.review FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.street_name = 'Broadway' AND T2.street_num = 430",
+    "question_id": null,
+    "question": "Give the review of the restaurant at 430, Broadway.",
+    "difficulty": "",
+    "evidence": "430 Broadway refers to street_num = 430 and street_name = 'Broadway'"
+  },
+  {
+    "sql": "SELECT T2.street_num, T2.street_name FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant ORDER BY T1.review DESC LIMIT 1",
+    "question_id": null,
+    "question": "Indicate the address of the restaurant with the most popular reviews.",
+    "difficulty": "",
+    "evidence": "address refers to street_num, street_name; the most popular review refers to max(review)"
+  },
+  {
+    "sql": "SELECT T2.county FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.food_type = 'Italian' GROUP BY T2.county ORDER BY COUNT(T1.id_restaurant) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the most restaurants with Italian food?",
+    "difficulty": "",
+    "evidence": "Italian food refers to food_type = 'Italian'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(region = 'Napa Valley', 1, 0)) AS REAL) * 100 / COUNT(region) FROM geographic",
+    "question_id": null,
+    "question": "Find the percentage of restaurant in Napa Valley.",
+    "difficulty": "",
+    "evidence": "Napa Valley refers to region = 'Napa Valley'; percentage = divide(count(id_restaurant where region = 'Napa Valley'), count(id_restaurant)) * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(city) FROM geographic WHERE region = 'bay area'",
+    "question_id": null,
+    "question": "How many of the cities are in a Bay Area?",
+    "difficulty": "",
+    "evidence": "Bay Area refers to region = 'bay area'"
+  },
+  {
+    "sql": "SELECT city FROM geographic WHERE county = 'unknown'",
+    "question_id": null,
+    "question": "List down the cities with unknown country.",
+    "difficulty": "",
+    "evidence": "unknown county refers to county = 'unknown'"
+  },
+  {
+    "sql": "SELECT city FROM geographic WHERE region = 'bay area' AND county = 'santa clara county'",
+    "question_id": null,
+    "question": "What is the city located in Bay Area of Santa Clara?",
+    "difficulty": "",
+    "evidence": "Bay Area refers to region = 'bay area'; Santa Clara refers to county = 'santa clara county'"
+  },
+  {
+    "sql": "SELECT id_restaurant FROM location WHERE city = 'sunnyvale'",
+    "question_id": null,
+    "question": "List down the restaurant ID of restaurants located in Sunnyvale.",
+    "difficulty": "",
+    "evidence": "Sunnyvale refers to city = 'sunnyvale'"
+  },
+  {
+    "sql": "SELECT COUNT(city) FROM location WHERE street_name = 'railroad' AND street_num < 1000",
+    "question_id": null,
+    "question": "Among the restaurants on street number below 1000, how many of them are in Railroad St.?",
+    "difficulty": "",
+    "evidence": "street number below 1000 refers to street_num < 1000; Railroad St. refers to street_name = 'railroad'"
+  },
+  {
+    "sql": "SELECT label FROM generalinfo WHERE food_type = '24 hour diner' AND city = 'san francisco'",
+    "question_id": null,
+    "question": "What is the name of the 24 hour diner at San Francisco?",
+    "difficulty": "",
+    "evidence": "name refers to label; 24 hour diner refers to food_type = '24 hour diner'; San Francisco refers to city = 'san francisco'"
+  },
+  {
+    "sql": "SELECT T2.review FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.city = 'santa cruz' AND T1.street_name = 'ocean st'",
+    "question_id": null,
+    "question": "Give the review of the restaurant located in Ocean St., Santa Cruz.",
+    "difficulty": "",
+    "evidence": "Ocean St. refers to street_name = 'ocean st'; Santa Cruz refers to city = 'santa cruz'"
+  },
+  {
+    "sql": "SELECT T2.street_num FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.review = 2.7 AND T2.city = 'oakland' AND T1.food_type = 'bar'",
+    "question_id": null,
+    "question": "Give the street number of a bar in Oakland with a 2.7 review.",
+    "difficulty": "",
+    "evidence": "street number refers to street_num; bar refers to food_type = 'bar'; Oakland refers to city = 'oakland'; 2.7 review refers to review = 2.7"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id_restaurant) FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.food_type = 'bakery' AND T2.city = 'palo alto' AND T1.street_name = 'university ave.'",
+    "question_id": null,
+    "question": "Among the bakeries, what is total number of bakery located at University Avenue, Palo Alto?",
+    "difficulty": "",
+    "evidence": "bakery refers to food_type = 'bakery'; University Avenue refers to street_name = 'university ave.'; Palo Alto refers to city = 'palo alto'"
+  },
+  {
+    "sql": "SELECT T1.street_num FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.label = 'Tulocay winery' AND T2.food_type = 'winery'",
+    "question_id": null,
+    "question": "Among the listed winery, what is the street number of the winery named \"Tulocay Winery\"?",
+    "difficulty": "",
+    "evidence": "winery refers to food_type = 'winery'; street number refers to street_num; \"Tulocay Winery\" refers to label = 'Tulocay winery'"
+  },
+  {
+    "sql": "SELECT T2.review, T2.label FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.city = 'hayward' AND T1.street_name = 'mission blvd'",
+    "question_id": null,
+    "question": "List the review and label of the restaurants in Mission Blvd., Hayward.",
+    "difficulty": "",
+    "evidence": "Mission Blvd. refers to street_name = 'mission blvd'; Hayward refers to city = 'hayward'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id_restaurant) FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.street_name = 'castro st' AND T1.city = 'mountain view' AND T2.food_type = 'indian' AND T2.label LIKE '%cookhouse%'",
+    "question_id": null,
+    "question": "Among all indian restaurants in Castro St., Mountainview, how many of them is about cookhouse in their label?",
+    "difficulty": "",
+    "evidence": "indian restaurant refers to food_type = 'indian'; Castro St. refers to street_name = 'castro st'; Mountainview refers to city = 'mountainview'; have the word \"Indian\" in label refers to label = 'indian'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id_restaurant) FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.review = 2 AND T1.street_num < 500",
+    "question_id": null,
+    "question": "In restaurants with a review of 2, how many restaurants have a street number below 500?",
+    "difficulty": "",
+    "evidence": "review of 2 refers to review = 2; street number below 500 refers to street_num < 500"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id_restaurant) AS num FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.city = 'milpitas' AND T2.food_type = 'asian' AND T1.street_name = 'n milpitas blvd' AND T1.id_restaurant > 385",
+    "question_id": null,
+    "question": "Among all asian restaurants in N. Milpitas Blvd., Milpitas, how many of them have restaurant ID greater than 385?",
+    "difficulty": "",
+    "evidence": "asian restaurant refers to food_type = 'asian'; N. Milpitas Blvd. refers to street_name = 'n milpitas blvd'; Milpitas refers to city = 'milpitas'; restaurant ID greater than 385 refers to id_restaurant > 385"
+  },
+  {
+    "sql": "SELECT T2.label, T1.id_restaurant FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.city = 'san francisco' AND T1.street_name = 'ocean avenue'",
+    "question_id": null,
+    "question": "What is the restaurant's name and ID located at Ocean Avenue, San Francisco?",
+    "difficulty": "",
+    "evidence": "restaurant's name refers to label; Ocean Avenue refers to street_name = 'ocean avenue'; San Francisco refers to city = 'san francisco'"
+  },
+  {
+    "sql": "SELECT T2.city, T1.street_num, T1.street_name FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.label = 'sanuki restaurant'",
+    "question_id": null,
+    "question": "What is the full address of the restaurant named \"Sanuki Restaurant\"?",
+    "difficulty": "",
+    "evidence": "full address refers to city, street_num, street_name; restaurant named \"Sanuki Restaurant\" refers to label = 'sanuki restaurant'"
+  },
+  {
+    "sql": "SELECT T2.food_type FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.street_num = 22779 AND T1.street_name = '6th St' AND T2.city = 'hayward'",
+    "question_id": null,
+    "question": "List the food type of the restaurant located in 22779 6th St., Hayward City.",
+    "difficulty": "",
+    "evidence": "22779 refers to street_num = 22779; 6th St. refers to street_name = '6th St'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.food_type = 'american') FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.city = 'san francisco' AND T1.street_name = 'front'",
+    "question_id": null,
+    "question": "How many American restaurants are located in Front, San Francisco?",
+    "difficulty": "",
+    "evidence": "American restaurant refers to food_type = 'american'; Front refers to street_name = 'front'; San Francisco refers to city = 'san francisco'"
+  },
+  {
+    "sql": "SELECT T1.id_restaurant FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T2.food_type = 'american' AND T1.street_num > 2000 GROUP BY T1.id_restaurant ORDER BY AVG(T2.review) * 0.7 DESC",
+    "question_id": null,
+    "question": "List the restaurant's ID that has a review greater than the 70% of average review of all American restaurants with street number greater than 2000.",
+    "difficulty": "",
+    "evidence": "American restaurant refers to food_type = 'american'; street number greater than 2000 refers to street_num > 2000; review greater than the 70% of average review refers to review > multiply(avg(review), 0.7)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.food_type = 'afghani', 1, 0)) AS REAL) * 100 / COUNT(T1.id_restaurant) FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE 1000 <= T1.street_num <= 2000",
+    "question_id": null,
+    "question": "Among the restaurants located on the street number ranges from 1000 to 2000, what is the percentage of Afghani restaurants are there?",
+    "difficulty": "",
+    "evidence": "street number ranges from 1000 to 2000 refers to 1000 < = street_num < = 2000; Afghani restaurant refers to food_type = 'afghani'; percentage = divide(count(id_restaurant where food_type = 'afghani'), count(id_restaurant)) * 100%"
+  },
+  {
+    "sql": "SELECT label FROM generalinfo WHERE food_type = 'asian' AND city = 'san francisco' AND review = ( SELECT MAX(review) FROM generalinfo WHERE food_type = 'asian' AND city = 'san francisco' )",
+    "question_id": null,
+    "question": "What is the name of the most popular restaurant serving Asian foods in San Francisco?",
+    "difficulty": "",
+    "evidence": "the most popular refers to max(review); Asian food refers to food_type = 'asian'; San Francisco refers to city = 'san francisco'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT city) FROM geographic WHERE region = 'monterey'",
+    "question_id": null,
+    "question": "How many cities are there in Monterey?",
+    "difficulty": "",
+    "evidence": "Monterey refers to region = 'monterey'"
+  },
+  {
+    "sql": "SELECT COUNT(id_restaurant) FROM generalinfo WHERE city = 'belmont' AND review > 2 AND food_type = 'deli'",
+    "question_id": null,
+    "question": "How many deli in Belmont have a review rating of 2 or more?",
+    "difficulty": "",
+    "evidence": "deli ris a food type; Belmont refers to city = 'belmont'; review rating of 2 or more refers to review > 2"
+  },
+  {
+    "sql": "SELECT county FROM geographic WHERE region = 'northern california' GROUP BY county ORDER BY COUNT(city) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which county in northern California has the highest number of cities?",
+    "difficulty": "",
+    "evidence": "northern California refers to region = 'northern california'; the highest number of cities refers to max(count(city))"
+  },
+  {
+    "sql": "SELECT COUNT(id_restaurant) FROM location WHERE city = 'concord'",
+    "question_id": null,
+    "question": "How many restaurants can you find in Concord?",
+    "difficulty": "",
+    "evidence": "Concord refers to city = 'concord'"
+  },
+  {
+    "sql": "SELECT T2.region FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city ORDER BY T1.review DESC LIMIT 4",
+    "question_id": null,
+    "question": "In which region can you find the top 4 most popular restaurants?",
+    "difficulty": "",
+    "evidence": "the top 4 most popular restaurant refers to top 4 max(review)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id_restaurant) FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant WHERE T1.city = 'livermore' AND T1.food_type = 'chinese' AND T2.street_name = '1st st'",
+    "question_id": null,
+    "question": "How many Chinese restaurants are there on 1st st, Livermore?",
+    "difficulty": "",
+    "evidence": "Chinese restaurant refers to food_type = 'chinese'; 1st st refers to street_name = '1st st'; Livermore refers to city = 'livermore'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.city) FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T2.food_type = 'indian' AND T1.region = 'los angeles area'",
+    "question_id": null,
+    "question": "How many Indian restaurants are there in the Los Angeles area?",
+    "difficulty": "",
+    "evidence": "Indian restaurant refers to food_type = 'indian'; the Los Angeles area refers to region = 'los angeles area'"
+  },
+  {
+    "sql": "SELECT T2.food_type FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T1.region = 'bay area' GROUP BY T2.food_type ORDER BY COUNT(T2.food_type) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In the Bay Area, what is the most common type of food served by restaurants?",
+    "difficulty": "",
+    "evidence": "the Bay Area refers to region = 'bay area'; the most common type of food refers to max(count(food_type))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.id_restaurant) FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T1.street_name = 'broadway' AND T2.review < 3 AND T1.city = 'oakland'",
+    "question_id": null,
+    "question": "How many restaurants in Broadway, Oakland received a review of no more than 3?",
+    "difficulty": "",
+    "evidence": "Broadway refers to street_name = 'broadway';\u00a0 Oakland refers to city = 'oakland'; a review of no more than 3 refers to review < 3"
+  },
+  {
+    "sql": "SELECT T2.region AS num FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city WHERE T1.label = 'baskin robbins' GROUP BY T2.region ORDER BY COUNT(T1.city) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which region can you find the highest number of Baskin Robbins restaurants?",
+    "difficulty": "",
+    "evidence": "the highest number refers to max(count(city)); Baskin Robbins restaurant refers to label = 'baskin robbins'"
+  },
+  {
+    "sql": "SELECT T1.street_name FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T2.food_type = 'pizza' AND T1.city = 'san jose'",
+    "question_id": null,
+    "question": "List all the streets where pizza-serving restaurants are found in San Jose.",
+    "difficulty": "",
+    "evidence": "street refers to street_name; pizza-serving restaurant refers to food_type = 'pizza'; San Jose refers to city = 'san jose'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.food_type) FROM geographic AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T1.region = 'yosemite and mono lake area'",
+    "question_id": null,
+    "question": "How many types of restaurants are there in the Yosemite and Mono Lake area?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.street_name, T2.street_num, T2.city FROM generalinfo AS T1 INNER JOIN location AS T2 ON T1.id_restaurant = T2.id_restaurant ORDER BY T1.review DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full address of the most popular restaurant among the diners?",
+    "difficulty": "",
+    "evidence": "full address refers to street_num, street_name, city; the most popular refers to max(review)"
+  },
+  {
+    "sql": "SELECT T2.county FROM generalinfo AS T1 INNER JOIN geographic AS T2 ON T1.city = T2.city GROUP BY T2.county ORDER BY COUNT(T1.label) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which counties can you find the restaurant with the highest number of branches?",
+    "difficulty": "",
+    "evidence": "restaurant refers to label; the highest number of branches refers to max(count(city))"
+  },
+  {
+    "sql": "SELECT T1.region FROM geographic AS T1 INNER JOIN location AS T2 ON T1.city = T2.city GROUP BY T1.region ORDER BY COUNT(T2.id_restaurant) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which region has the highest number of restaurants?",
+    "difficulty": "",
+    "evidence": "the highest number refers to max(count(id_restaurant))"
+  },
+  {
+    "sql": "SELECT T1.street_num, T1.street_name, T1.city FROM location AS T1 INNER JOIN generalinfo AS T2 ON T1.city = T2.city WHERE T2.review >= 4",
+    "question_id": null,
+    "question": "List the full address of all the American restaurants with a review of 4 or more?",
+    "difficulty": "",
+    "evidence": "full address refers to street_num, street_name, city; American restaurant refers to food_type = 'american'; a review of 4 or more refers to review > 4"
+  }
+]

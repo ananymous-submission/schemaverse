@@ -1,0 +1,115 @@
+{
+  "invalid_action_log": {
+    "pk_columns": [
+      "user_id",
+      "products"
+    ],
+    "fragments": [
+      {
+        "suffix": "action",
+        "non_pk_columns": [
+          "action",
+          "category",
+          "stamp"
+        ],
+        "local_table": "invalidActionEvents",
+        "local_name": "local_1",
+        "vertical_fragment_base": "invalid_action_log_action"
+      },
+      {
+        "suffix": "amount",
+        "non_pk_columns": [
+          "amount",
+          "category",
+          "session",
+          "stamp"
+        ],
+        "local_table": "invalidAmountEvents",
+        "local_name": "local_1",
+        "vertical_fragment_base": "invalid_action_log_amount"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "invalid_action_log",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 5,
+      "min_non_pk_per_fragment": 2,
+      "pk_width": 2,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.026175338132620896
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.026175338132620896,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "action",
+          "category",
+          "stamp"
+        ],
+        [
+          "amount",
+          "session"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "category",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "stamp",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "action",
+          "category",
+          "stamp"
+        ],
+        [
+          "amount",
+          "category",
+          "session",
+          "stamp"
+        ]
+      ],
+      "pk_columns": [
+        "user_id",
+        "products"
+      ],
+      "fragments": [
+        {
+          "suffix": "action",
+          "non_pk_columns": [
+            "action",
+            "category",
+            "stamp"
+          ]
+        },
+        {
+          "suffix": "amount",
+          "non_pk_columns": [
+            "amount",
+            "category",
+            "session",
+            "stamp"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "invalid_action_log_amount",
+    "movable_candidates": [
+      "invalid_action_log_action"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=4;fk_column_endpoints_on_fragment=1"
+  }
+}

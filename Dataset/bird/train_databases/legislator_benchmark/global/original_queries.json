@@ -1,0 +1,1241 @@
+[
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE ballotpedia_id = '' OR ballotpedia_id IS NULL",
+    "question_id": null,
+    "question": "How many current legislators do not have an account on ballotpedia.org ?",
+    "difficulty": "",
+    "evidence": "do not have an account on ballotpedia.org refers to ballotpedia_id IS NULL OR ballotpedia_id = ''"
+  },
+  {
+    "sql": "SELECT official_full_name FROM current WHERE cspan_id IS NULL OR cspan_id = ''",
+    "question_id": null,
+    "question": "Please list the official full names of all the current legislators who do not have an account on C-SPAN's video website.",
+    "difficulty": "",
+    "evidence": "legislators who do not have an account refers to cspan_id IS NULL OR cspan_id = ''"
+  },
+  {
+    "sql": "SELECT COUNT(bioguide_id) FROM current WHERE birthday_bio >= '1961-01-01'",
+    "question_id": null,
+    "question": "How many current legislators were born after the year 1960?",
+    "difficulty": "",
+    "evidence": "born after the year 1960 refers to birthday_bio > '1960-01-01'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE (fec_id IS NULL OR fec_id = '') AND gender_bio = 'F'",
+    "question_id": null,
+    "question": "Among all the current female legislators, how many of them have not been registered in Federal Election Commission data?",
+    "difficulty": "",
+    "evidence": "have not been registered refers to fec_id IS NULL; female refers to gender_bio = 'F'"
+  },
+  {
+    "sql": "SELECT google_entity_id_id FROM current WHERE official_full_name = 'Sherrod Brown'",
+    "question_id": null,
+    "question": "What is the google entity ID of current legislator Sherrod Brown?",
+    "difficulty": "",
+    "evidence": "Sherrod Brown is an official_full_name"
+  },
+  {
+    "sql": "SELECT official_full_name FROM current WHERE official_full_name = 'Sherrod Brown' OR official_full_name = 'Maria Cantwell' ORDER BY birthday_bio LIMIT 1",
+    "question_id": null,
+    "question": "Which current legislator is older, Sherrod Brown or Maria Cantwell?",
+    "difficulty": "",
+    "evidence": "older refers to MAX(birthday_bio); 'Sherrod Brown' and 'Maria Cantwell' are official_full_name"
+  },
+  {
+    "sql": "SELECT T1.facebook FROM `social-media` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.official_full_name = 'Todd Young'",
+    "question_id": null,
+    "question": "What is the username of the current official Facebook presence of current legislator Todd Young?",
+    "difficulty": "",
+    "evidence": "Todd Young is an official_full_name; username of current official Facebook presences refers to facebook;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE T1.instagram IS NULL",
+    "question_id": null,
+    "question": "How many current legislators do not have an account on instagram?",
+    "difficulty": "",
+    "evidence": "do not have an account on instagram refers to instagram is null"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T2.twitter_id = 234128524",
+    "question_id": null,
+    "question": "To which current legislator does twitter ID234128524 belong? Please give his or her full official name.",
+    "difficulty": "",
+    "evidence": "full official name refers to official_full_name"
+  },
+  {
+    "sql": "SELECT T2.youtube FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T1.gender_bio = 'F'",
+    "question_id": null,
+    "question": "Please list the current official YouTube usernames of all the current female legislators.",
+    "difficulty": "",
+    "evidence": "official YouTube usernames refers to youtube; female refers to gender_bio = 'F'"
+  },
+  {
+    "sql": "SELECT T2.facebook FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id ORDER BY T1.birthday_bio LIMIT 1",
+    "question_id": null,
+    "question": "What is the username of the current official Facebook presence of the oldest current legislator?",
+    "difficulty": "",
+    "evidence": "username of the official Facebook refers to facebook; the oldest refers to MAX(birthday_bio)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.instagram IS NULL THEN 1 ELSE 0 END) AS count FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE T2.opensecrets_id IS NULL OR T2.opensecrets_id = ''",
+    "question_id": null,
+    "question": "Among the current legislators who do not have accounts on OpenSecrets.org., how many of them do not have instagram accounts either?",
+    "difficulty": "",
+    "evidence": "do not have accounts on OpenSecrets.org refers to opensecrets_ID is NULL OR opensecrets_id = ''; do not have instagram accounts refers to instagram is null"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.official_full_name = 'Roger F. Wicker' THEN 1 ELSE 0 END) AS count FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.district IS NULL OR T2.district = ''",
+    "question_id": null,
+    "question": "Current legislator Roger F. Wicker has not been a representative for how many terms?",
+    "difficulty": "",
+    "evidence": "Roger F. Wicker is an official_full_name; not a representative refers to district IS NULL OR district = ''"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Sherrod Brown'",
+    "question_id": null,
+    "question": "For how many terms has current legislator Sherrod Brown served?",
+    "difficulty": "",
+    "evidence": "Sherrod Brown is an official_full_name"
+  },
+  {
+    "sql": "SELECT T2.official_full_name FROM `current-terms` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T1.state_rank IS NOT NULL",
+    "question_id": null,
+    "question": "Please list the official full names of all the current legislators who were once a senator during his or her terms.",
+    "difficulty": "",
+    "evidence": "once a senator during term refers to state_rank IS NOT NULL"
+  },
+  {
+    "sql": "SELECT T1.state FROM `current-terms` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T1.start = '1993-01-05' AND T2.official_full_name = 'Sherrod Brown'",
+    "question_id": null,
+    "question": "For which state did current legislator Sherrod Brown serve during his term that started on 1993/1/5?",
+    "difficulty": "",
+    "evidence": "Sherrod Brown is an full official name; started on 1993/1/5 refers to start = '1993-01-05';"
+  },
+  {
+    "sql": "SELECT COUNT(CID) FROM ( SELECT T1.bioguide_id AS CID FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'F' GROUP BY T2.bioguide HAVING COUNT(T2.bioguide) > 4 )",
+    "question_id": null,
+    "question": "Among all the female current legislators, how many of them have served for more than 4 terms?",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'; served for more than 4 terms refers to COUNT(bioguide > 4)"
+  },
+  {
+    "sql": "SELECT COUNT(CID) FROM ( SELECT T1.bioguide_id AS CID FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.birthday_bio >= '1960-01-01' GROUP BY T2.bioguide HAVING COUNT(T2.bioguide) > 6 )",
+    "question_id": null,
+    "question": "Among the current legislators who have served for more than 6 terms, how many of them were born after 1960?",
+    "difficulty": "",
+    "evidence": "served for more than 6 terms refers to COUNT(bioguide > 6); born after 1960 refers to birthday_bio > = '1960-01-01'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.bioguide) AS REAL) / COUNT(DISTINCT T1.bioguide_id) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'F'",
+    "question_id": null,
+    "question": "What is the average number of terms for a current female legislator?",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'; calculation refers to DIVIDE(COUNT(bioguide WHERE gender_bio = 'F'), COUNT(bioguide_id))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.instagram IS NULL THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE T2.religion_bio = 'Roman Catholic'",
+    "question_id": null,
+    "question": "Among all the current legislators whose religion is Roman Catholic, what is the percentage of the ones without an instagram account?",
+    "difficulty": "",
+    "evidence": "religion is Roman Catholic refers to religion_bio = 'Roman Catholic'; calculation = MULTIPLY(DIVIDE(COUNT(instagram is null), COUNT(bioguide_id)), 1.0)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE gender_bio = 'M'",
+    "question_id": null,
+    "question": "How many males were members of the current legislators?",
+    "difficulty": "",
+    "evidence": "male refers to gender_bio = 'M'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM `current-terms` WHERE party = 'Republican'",
+    "question_id": null,
+    "question": "How many current legislators chose Republican as their political party?",
+    "difficulty": "",
+    "evidence": "chose Republican as their political party refers to party = 'Republican'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM `social-media` WHERE instagram IS NOT NULL AND instagram <> ''",
+    "question_id": null,
+    "question": "How many legislators have an Instagram account?",
+    "difficulty": "",
+    "evidence": "have an Instagram account refers to instagram is NOT null and instagram <>''"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM historical WHERE gender_bio = 'F'",
+    "question_id": null,
+    "question": "How many females were members of the past legislators?",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE religion_bio = 'Roman Catholic' AND gender_bio = 'M'",
+    "question_id": null,
+    "question": "How many male legislators are Roman Catholic?",
+    "difficulty": "",
+    "evidence": "male refers to gender_bio = 'M'; Roman Catholic is a religion_bio"
+  },
+  {
+    "sql": "SELECT T1.party FROM `current-terms` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.first_name = 'Sherrod' AND T2.last_name = 'Brown' AND T1.start LIKE '%2005%'",
+    "question_id": null,
+    "question": "What type of political party Sherrod Brown has in 2005?",
+    "difficulty": "",
+    "evidence": "political party refers to party; Sherrod Brown is an official_full_name; official_full_name refers to first_name, last_name; 2005 refers to start = 2005"
+  },
+  {
+    "sql": "SELECT T2.official_full_name FROM `current-terms` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T1.state_rank = 'senior' AND T1.type = 'sen' AND T1.start LIKE '2013%'",
+    "question_id": null,
+    "question": "List the full name of all the senior senators in year 2013.",
+    "difficulty": "",
+    "evidence": "full name refers to official_full_name; senior refers to state_rank = 'senior'; senators refers to type = 'sen'; 2013 refers to start LIKE '2013%'"
+  },
+  {
+    "sql": "SELECT T2.youtube FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T1.official_full_name = 'Chris Van Hollen'",
+    "question_id": null,
+    "question": "What is the current official Youtube username of Chris Van Hollen?",
+    "difficulty": "",
+    "evidence": "Youtube username refers to youtube; Chris Van Hollen is an official_full_name"
+  },
+  {
+    "sql": "SELECT CASE WHEN T1.facebook IS NOT NULL THEN 1 END + CASE WHEN T1.instagram IS NOT NULL THEN 1 END + CASE WHEN T1.twitter IS NOT NULL THEN 1 END + CASE WHEN T1.youtube IS NOT NULL THEN 1 END AS COUNTSOCIAL FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE T2.first_name = 'Mark' AND T2.last_name = 'Warner'",
+    "question_id": null,
+    "question": "How many official social media does Mark Warner have?",
+    "difficulty": "",
+    "evidence": "official social media refers to facebook is not null, instagram is not null, twitter is not null, youtube is not null; Mark Warner is an official_full_name; official_full_name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T1.last_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.state = 'CA' GROUP BY T1.last_name",
+    "question_id": null,
+    "question": "List the last name of all current legislators who live in California.",
+    "difficulty": "",
+    "evidence": "California refers to state = 'CA'"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM `current-terms` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T1.type = 'sen' AND T2.gender_bio = 'F' GROUP BY T2.ballotpedia_id",
+    "question_id": null,
+    "question": "List the full name of all current female senators.",
+    "difficulty": "",
+    "evidence": "full name refers to official_full_name; female refers to gender_bio = 'F'; senators refers to type = 'sen'"
+  },
+  {
+    "sql": "SELECT T2.govtrack FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T1.official_full_name = 'Chris Van Hollen'",
+    "question_id": null,
+    "question": "What is the numeric ID of Chris Van Hollen on GovTrack.us?",
+    "difficulty": "",
+    "evidence": "Chris Van Hollen is an official_full_name; numeric ID on GovTrack.us refers to govtrack"
+  },
+  {
+    "sql": "SELECT T2.twitter FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T1.official_full_name = 'Roger F. Wicker'",
+    "question_id": null,
+    "question": "What is the current official Twitter handle of Roger F. Wicker?",
+    "difficulty": "",
+    "evidence": "Twitter handle refers to twitter; Roger F. Wicker is an official_full_name"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.party = 'Pro-Administration' AND CAST(T2.start AS DATE) <= 1791 AND CAST(T2.END AS DATE) >= 1791",
+    "question_id": null,
+    "question": "List the full name of all past legislators that chose Pro-Administration as their political party in year 1791.",
+    "difficulty": "",
+    "evidence": "full name refers to official_full_name; chose Pro-Administration as their political party refers to party = 'Pro-Administration'; 1791 refers to start < = 1791 AND END > = 1791"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.party = 'Republican' AND T1.gender_bio = 'F' AND T2.END > DATE() GROUP BY T1.bioguide_id",
+    "question_id": null,
+    "question": "Provide the full name of all current female legislators that chose Republican as their political party.",
+    "difficulty": "",
+    "evidence": "full name refers to official_full_name; official_full_name refers to first_name, last_name; female refers to gender_bio = 'F'; chose Republican as their political party refers to party = 'Republican'; current legislators refers to END > Date()"
+  },
+  {
+    "sql": "SELECT T2.district FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Chris Van Hollen' AND T2.district IS NOT NULL GROUP BY T2.district",
+    "question_id": null,
+    "question": "What is the district number that Chris Van Hollen serving?",
+    "difficulty": "",
+    "evidence": "Chris Van Hollen is an official_full_name"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.district = 20 THEN 1 ELSE 0 END) AS count FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.first_name = 'Richard' AND T1.last_name = 'Durbin'",
+    "question_id": null,
+    "question": "How many times did Richard Durbin become a legislator in district 20?",
+    "difficulty": "",
+    "evidence": "Richard Durbin is an official_full_name;\u00a0 official_full_name refers to first_name, last_name; district 20 refers to district = 20"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.bioguide_id) AS REAL) / 22 FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'M' AND CAST(T2.start AS DATE) >= 2000 AND CAST(T2.END AS DATE) <= 2021 AND T2.party = 'Democrat'",
+    "question_id": null,
+    "question": "Calculate the average number of current male legislators who chose Democrat from 2000 until 2021.",
+    "difficulty": "",
+    "evidence": "male refers to gender_bio = 'M'; legislators who chose Democrat refers to party = 'Democrat'; from 2000 until 2021 refers to start > = 2000 AND END < = 2021; calculation = DIVIDE(COUNT(bioguide_id), 22)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN current.gender_bio = 'F' THEN current.bioguide_id ELSE NULL END) AS REAL) * 100 / ( SELECT COUNT(CASE WHEN historical.gender_bio = 'F' THEN historical.bioguide_id ELSE NULL END) FROM historical ) FROM current",
+    "question_id": null,
+    "question": "Calculate the percentage of the total number of current female legislators and past female legislators. State which one has the highest value.",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'; calculation = MULTIPLY(DIVIDE(COUNT(current.gender_bio = 'F' THEN current.bioguide_id)), (COUNT(historical.gender_bio = 'F' then historical.bioguide_id)), 1.0); the highest value refers to MAX(calculation)"
+  },
+  {
+    "sql": "SELECT youtube_id FROM `social-media` WHERE youtube = 'RepWassermanSchultz'",
+    "question_id": null,
+    "question": "Give the YouTube ID of the channel 'RepWassermanSchultz.'",
+    "difficulty": "",
+    "evidence": "RepWassermanSchultz refers to youtube"
+  },
+  {
+    "sql": "SELECT T2.facebook FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T1.official_full_name = 'Adam Kinzinger'",
+    "question_id": null,
+    "question": "What are the Facebook, Twitter and YouTube usernames of Adam Kinzinger?",
+    "difficulty": "",
+    "evidence": "Facebook, Twitter and YouTube usernames refers to facebook, twitter, youtube; Adam Kinzinger is an official_full_name"
+  },
+  {
+    "sql": "SELECT T1.party FROM `historical-terms` AS T1 INNER JOIN historical AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.first_name OR T2.middle_name OR T2.last_name = 'ChristopherHendersonClark'",
+    "question_id": null,
+    "question": "Which party does Christopher Henderson Clark belong to?",
+    "difficulty": "",
+    "evidence": "Christopher Henderson Clark is full name; full name refers to first_name, middle_name, last_name"
+  },
+  {
+    "sql": "SELECT T2.official_full_name FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE T1.facebook IS NOT NULL AND (T1.instagram IS NULL OR T1.instagram = '') LIMIT 10",
+    "question_id": null,
+    "question": "List the official full names of 10 legislators who have a YouTube account but no Instagram account.",
+    "difficulty": "",
+    "evidence": "have a YouTube account but no Instagram account refers to facebook is not null and (instagram is null or instagram = '')"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.state = 'VA' GROUP BY T1.official_full_name",
+    "question_id": null,
+    "question": "Give the official full names of legislators representing Virginia.",
+    "difficulty": "",
+    "evidence": "Virginia refers to state = 'VA'"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM `historical-terms` AS T1 INNER JOIN historical AS T2 ON T2.bioguide_id = T1.bioguide WHERE T1.party = 'National Greenbacker'",
+    "question_id": null,
+    "question": "Which historical legislators are members of the National Greenbacker party? Write their first and last names.",
+    "difficulty": "",
+    "evidence": "members of the National Greenbacker party refers to party = 'National Greenbacker'; first and last names refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T2.youtube = 'RoskamIL06'",
+    "question_id": null,
+    "question": "Which legislator has the YouTube channel 'RoskamIL06?' Write the official full name.",
+    "difficulty": "",
+    "evidence": "YouTube channel 'RoskamIL06' refers to youtube = 'RoskamIL06';"
+  },
+  {
+    "sql": "SELECT T2.official_full_name FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE (T1.youtube IS NULL OR T1.youtube = '') AND (T1.instagram IS NULL OR T1.instagram = '') AND (T1.twitter IS NULL OR T1.twitter = '') AND T1.facebook IS NOT NULL AND T1.facebook != ''",
+    "question_id": null,
+    "question": "List the full names of 10 legislators who only have a Facebook account.",
+    "difficulty": "",
+    "evidence": "full names refers to official_full_name; only have a Facebook account refers to youtube is NULL or youtube = '', instagram is NULL or instagram = '', twitter is NULL or twitter = '', facebook is not NULL and facebook = ''"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.party = 'Republican' AND T2.state_rank = 'junior' GROUP BY T1.official_full_name",
+    "question_id": null,
+    "question": "Write the full names of junior ranked Republicans.",
+    "difficulty": "",
+    "evidence": "full name refers to official_full_name; junior refers to state_rank = 'junior'; Republicans refers to party = 'Republican'"
+  },
+  {
+    "sql": "SELECT T2.contact_form FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Claire McCaskill' GROUP BY T2.contact_form",
+    "question_id": null,
+    "question": "What is the contact URL of Claire McCaskill?",
+    "difficulty": "",
+    "evidence": "contact URL refers to contact_form; Claire McCaskill is an official_full_name"
+  },
+  {
+    "sql": "SELECT T2.wikipedia_id FROM `historical-terms` AS T1 INNER JOIN historical AS T2 ON T2.bioguide_id = T1.bioguide WHERE T1.party = 'Readjuster Democrat'",
+    "question_id": null,
+    "question": "Give the Wikipedia IDs of historical legislators who are Readjuster Democrats.",
+    "difficulty": "",
+    "evidence": "Readjuster Democrats refers to party = 'Readjuster Democrat'"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.party = 'Republican' AND T1.nickname_name IS NOT NULL GROUP BY T1.official_full_name",
+    "question_id": null,
+    "question": "List the full names of Republican legislators who have a nickname.",
+    "difficulty": "",
+    "evidence": "full names refers to official_full_name; Republican refers to party = 'Republican'; nickname refers to nickname_name"
+  },
+  {
+    "sql": "SELECT T2.state, T2.party FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.first_name OR T1.middle_name OR T1.last_name = 'VeronicaGraceBoland'",
+    "question_id": null,
+    "question": "Which state did Veronica Grace Boland represent and which party is she affiliated?",
+    "difficulty": "",
+    "evidence": "Veronica Grace Boland is a full name; full name refers to first_name, middle_name, last_name; party affiliated refers to party"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM historical WHERE CAST(birthday_bio AS date) = 1973",
+    "question_id": null,
+    "question": "How many historical legislators were born in 1973?",
+    "difficulty": "",
+    "evidence": "born in 1973 refers to birthday_bio = 1973"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN gender_bio = 'M' THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN gender_bio = 'F' THEN 1 ELSE 0 END) FROM historical",
+    "question_id": null,
+    "question": "What is the ratio of males and females among historical legislators?",
+    "difficulty": "",
+    "evidence": "male refers to gender_bio = 'M'; female refers to gender_bio = 'F'; calculation = DIVIDE(COUNT(gender_bio = 'M' THEN bioguide_id), COUNT(gender_bio = 'F' THEN bioguide_id))"
+  },
+  {
+    "sql": "SELECT `END`, party FROM `current-terms` WHERE STRFTIME('%Y', `END`) = '2009' AND party = 'Republican'",
+    "question_id": null,
+    "question": "Among the legislators who will end in 2009, how many are from the Republican party?",
+    "difficulty": "",
+    "evidence": "the legislators who will end in 2009 refers to END 2009; from the Republican party refers to party = 'Republican'"
+  },
+  {
+    "sql": "SELECT official_full_name, gender_bio FROM current WHERE last_name = 'Collins'",
+    "question_id": null,
+    "question": "List the official full names and genders of legislators who have Collins as their last name.",
+    "difficulty": "",
+    "evidence": "genders refers to gender_bio; Collins is a last_name"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN class = 1 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `historical-terms` WHERE type = 'sen'",
+    "question_id": null,
+    "question": "How many percent of senators were from class 1?",
+    "difficulty": "",
+    "evidence": "senator refers to type = 'sen'; class 1 refers to class = 1; calculation = MULTIPLY(DIVIDE(COUNT(class = 1 then bioguide), COUNT(bioguide)), 1.0)"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.party = 'Independent' GROUP BY T1.official_full_name",
+    "question_id": null,
+    "question": "Provide the current legislators' official full names who are from the Independent party.",
+    "difficulty": "",
+    "evidence": "Independent party refers to party = 'Independent'"
+  },
+  {
+    "sql": "SELECT SUM(CAST(T2.END - T2.start AS DATE)) AS sum FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'John Conyers, Jr.'",
+    "question_id": null,
+    "question": "How many years had Jr. John Conyers served in total?",
+    "difficulty": "",
+    "evidence": "Jr. John Conyers is an official_full_name; years served refers to SUM(SUBTRACT(END, start))"
+  },
+  {
+    "sql": "SELECT CAST(MIN(T2.start) - T1.birthday_bio AS DATE) AS AGE FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'F. James Sensenbrenner, Jr.'",
+    "question_id": null,
+    "question": "How old was Jr. F. James Sensenbrenner when he first started as a legislator?",
+    "difficulty": "",
+    "evidence": "Jr. F. James Sensenbrenner is an official_full_name; How old refers to SUBTRACT(MIN(start), birthday_bio)"
+  },
+  {
+    "sql": "SELECT T1.official_full_name, T2.relation, T2.party FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.state = 'ME' GROUP BY T1.official_full_name, T2.relation, T2.party",
+    "question_id": null,
+    "question": "List the full names, religions, and parties of legislators who have served in Maine.",
+    "difficulty": "",
+    "evidence": "full names refers to official_full_name; religion refers to religion_bio; Maine refers to state = \"ME\""
+  },
+  {
+    "sql": "SELECT T1.official_full_name, T1.nickname_name FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T2.instagram IS NOT NULL AND T1.thomas_id < 1000",
+    "question_id": null,
+    "question": "Among legislators who have an Instagram account, list down their full names and nicknames who have a Thomas ID of less than 1000.",
+    "difficulty": "",
+    "evidence": "have an Instagram account refers to instagram is not null; full names refers to official_full_name; nicknames refers to nickname_name; Thomas ID of less than 1000 refers to thomas_id < 1000;"
+  },
+  {
+    "sql": "SELECT T1.END FROM `historical-terms` AS T1 INNER JOIN historical AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.official_full_name = 'Matt Salmon'",
+    "question_id": null,
+    "question": "When was the last serving date of Matt Salmon?",
+    "difficulty": "",
+    "evidence": "Matt Salmon is an official_full_name"
+  },
+  {
+    "sql": "SELECT T1.party, T1.state FROM `historical-terms` AS T1 INNER JOIN historical AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.house_history_id IS NOT NULL AND T2.birthday_bio LIKE '%1738%'",
+    "question_id": null,
+    "question": "Among the legislators who have served in the U.S. House, provide the party and the state of the legislators who were born in 1738.",
+    "difficulty": "",
+    "evidence": "have served in the U.S. House refers to house_history_id IS NOT NULL; born in 1738 refers to birthday_bio = 1738"
+  },
+  {
+    "sql": "SELECT T2.bioguide_id, T2.first_name, T2.last_name FROM `historical-terms` AS T1 INNER JOIN historical AS T2 ON T2.bioguide_id = T1.bioguide WHERE T1.party = 'Liberal Republican'",
+    "question_id": null,
+    "question": "List the IDs and full names of legislators from the Liberal Republican party.",
+    "difficulty": "",
+    "evidence": "full_name refers to first_name, last_name; from the Liberal Republican party refers to party = 'Liberal Republican'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.bioguide_id) FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'M' AND T2.start = '1793-12-02'",
+    "question_id": null,
+    "question": "Among the legislators who started a term on 2nd December 1793, how many of them were males?",
+    "difficulty": "",
+    "evidence": "started a term on 2nd December 1793 refers to start = '1793-12-02'; male refers to gender_bio = 'M'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN `current-terms`.start LIKE '2005%' THEN 1 ELSE 0 END) - ( SELECT SUM(CASE WHEN start LIKE '1875%' THEN 1 ELSE 0 END) FROM `historical-terms` ) FROM `current-terms`",
+    "question_id": null,
+    "question": "Compare the number of legislators who started the term in 1875 and 2005.",
+    "difficulty": "",
+    "evidence": "started the term in 1875 refers to start LIKE '1875%'; started the term in 2005 refers to start LIKE '2005%'"
+  },
+  {
+    "sql": "SELECT T2.official_full_name, T1.twitter_id, T1.youtube_id FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE T2.first_name = 'Richard'",
+    "question_id": null,
+    "question": "List the full names, Twitter IDs, and YouTube IDs of legislators who have Richard as their first name.",
+    "difficulty": "",
+    "evidence": "full names refers to official_full_name; Richard as their first name refers to first_name = 'Richard'"
+  },
+  {
+    "sql": "SELECT T2.start, T2.`end`, T2.party FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.first_name = 'Pearl' AND T1.middle_name = 'Peden' AND T1.last_name = 'Oldfield'",
+    "question_id": null,
+    "question": "Provide the start date, end date, and party of Pearl Peden Oldfield.",
+    "difficulty": "",
+    "evidence": "start date refers to start; end date refers to end date; Pearl Peden Oldfield refers to official_full_name; official_full_name refers to first_name, middle_name, last_name"
+  },
+  {
+    "sql": "SELECT birthday_bio FROM current WHERE first_name = 'Amy' AND last_name = 'Klobuchar'",
+    "question_id": null,
+    "question": "What is the birthday of Amy Klobuchar?",
+    "difficulty": "",
+    "evidence": "birthday refers to birthday_bio; Amy Klobuchar refers to full name; full name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE fec_id IS NULL OR fec_id = ''",
+    "question_id": null,
+    "question": "How many legislators have not been registered in Federal Election Commission data?",
+    "difficulty": "",
+    "evidence": "have not been registered in Federal Election Commission data refers to fec_id is null OR fec_id = ''"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE gender_bio = 'F'",
+    "question_id": null,
+    "question": "State the number of female legislators in the list.",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE opensecrets_id IS NOT NULL AND opensecrets_id <> ''",
+    "question_id": null,
+    "question": "Give the full name of legislators who have accounts on OpenSecrets.org.",
+    "difficulty": "",
+    "evidence": "full name refers to first_name, last_name; have accounts on OpenSecrets.org refers to opensecrets_id IS NOT NULL AND opensecrets_id <> ''"
+  },
+  {
+    "sql": "SELECT middle_name FROM current WHERE birthday_bio = '1956-08-24'",
+    "question_id": null,
+    "question": "What is the middle name of the legislator whose birthday was on 8/24/1956?",
+    "difficulty": "",
+    "evidence": "birthday was on 8/24/1956 refers to birthday_bio = '1956-08-24'"
+  },
+  {
+    "sql": "SELECT COUNT(bioguide) FROM `current-terms` WHERE title = 'Majority Leader'",
+    "question_id": null,
+    "question": "How many legislators hold the title \"Majority Leader\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.title FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.birthday_bio = '1942-02-20' GROUP BY T2.title",
+    "question_id": null,
+    "question": "What is the title of legislator whose birthday on 2/20/1942?",
+    "difficulty": "",
+    "evidence": "birthday on 2/20/1942 refers to birthday_bio = '1942-02-20'"
+  },
+  {
+    "sql": "SELECT T1.gender_bio FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.address = '317 Russell Senate Office Building Washington DC 20510'",
+    "question_id": null,
+    "question": "What is the gender of the legislator whose address at 317 Russell Senate Office Building Washington DC 20510?",
+    "difficulty": "",
+    "evidence": "gender refers to gender_bio"
+  },
+  {
+    "sql": "SELECT T1.first_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.state_rank = 'senior' GROUP BY T1.first_name",
+    "question_id": null,
+    "question": "List out the first name of legislators who are senior Senator.",
+    "difficulty": "",
+    "evidence": "senior refers to state_rank = 'senior'; only senator has this value 'senior'"
+  },
+  {
+    "sql": "SELECT COUNT(T3.state) FROM ( SELECT T2.state FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'M' AND (T2.class IS NULL OR T2.class = '') GROUP BY T2.state ) T3",
+    "question_id": null,
+    "question": "Among male legislators, state number of the legislators who are not the senator.",
+    "difficulty": "",
+    "evidence": "male refers to gender_bio = M; not the senator refers to class IS NULL OR class = ''"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.class IS NOT NULL THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.birthday_bio LIKE '%1964%'",
+    "question_id": null,
+    "question": "Calculate the percentage of legislators who are Senator and were born in 1964.",
+    "difficulty": "",
+    "evidence": "are senator refers to class IS NOT NULL; born in 1964 refers to birthday_bio = 1964; calculation = MULTIPLY(DIVIDE(COUNT(class IS NOT NULL THEN bioguide_id), COUNT(bioguide_id)), 1.0)"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN T2.class IS NULL THEN T1.bioguide_id ELSE NULL END) AS REAL) * 100 / COUNT(T1.bioguide_id) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE CAST(T1.birthday_bio AS DATE) <= 1975",
+    "question_id": null,
+    "question": "Calculate the percentage of legislators who are not Senator and were born before 1975.",
+    "difficulty": "",
+    "evidence": "not Senator refers to class is NULL; born before 1975 refers to birthday_bio < = 1975; calculation = MULTIPLY(DIVIDE(COUNT(class IS NULL THEN bioguide_id), COUNT(bioguide_id)), 1.0)"
+  },
+  {
+    "sql": "SELECT T2.twitter FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T1.birthday_bio = '1946-05-27'",
+    "question_id": null,
+    "question": "What is the twitter name of the legislator whose birthday was on 5/27/1946?",
+    "difficulty": "",
+    "evidence": "birthday on 5/27/1946 refers to birthday_bio = '1946-05-27'"
+  },
+  {
+    "sql": "SELECT T1.opensecrets_id FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T2.youtube = 'BLuetkemeyer'",
+    "question_id": null,
+    "question": "State the opensecrets_id of the legislator whose YouTube name is Bluetkemeyer.",
+    "difficulty": "",
+    "evidence": "Bluetkemeyer refers to youtube"
+  },
+  {
+    "sql": "SELECT T2.facebook FROM current AS T1 INNER JOIN `social-media` AS T2 ON T2.bioguide = T1.bioguide_id WHERE T1.first_name = 'Ralph' AND T1.last_name = 'Abraham'",
+    "question_id": null,
+    "question": "Mention the username of Facebook of Ralph Abraham.",
+    "difficulty": "",
+    "evidence": "username of Facebook refers to facebook; Ralph Abraham is an official_full_name; official_full_name refers to first_name, last_name"
+  },
+  {
+    "sql": "SELECT T1.first_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.address = '1005 Longworth HOB Washington DC 20515-1408' GROUP BY T1.first_name",
+    "question_id": null,
+    "question": "What is the first name of the legislator whose address at 1005 Longworth HOB; Washington DC 20515-1408?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.instagram FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE T2.birthday_bio = '1952-08-24'",
+    "question_id": null,
+    "question": "What is the Instagram name of the legislator whose birthday was on 8/24/1952?",
+    "difficulty": "",
+    "evidence": "Instagram name refers to instagram; birthday on 8/24/1952 refers to birthday_bio = '1952-08-24'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'F' AND (T2.class IS NULL OR T2.class = '')",
+    "question_id": null,
+    "question": "State number of legislators who are not the senator among female legislators.",
+    "difficulty": "",
+    "evidence": "not the senator refers to class IS NULL OR class = ''; female refers to gender_bio = 'F';"
+  },
+  {
+    "sql": "SELECT T2.religion_bio FROM `social-media` AS T1 INNER JOIN current AS T2 ON T1.bioguide = T2.bioguide_id WHERE T1.youtube = 'MaxineWaters'",
+    "question_id": null,
+    "question": "Give the religion of the legislator whose YouTube name is MaxineWaters.",
+    "difficulty": "",
+    "evidence": "MaxineWaters relates to youtube"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.title = 'Minority Leader' AND (T1.fec_id IS NULL OR T1.fec_id = '')",
+    "question_id": null,
+    "question": "How many minority leaders have not been registered in Federal Election Commission data?",
+    "difficulty": "",
+    "evidence": "minority leaders is a title; have not been registered in Federal Election Commission data refers to fec_id IS NULL OR fec_id = ''"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE gender_bio = 'M'",
+    "question_id": null,
+    "question": "How many of the legislators are male?",
+    "difficulty": "",
+    "evidence": "male refers to gender_bio = 'M';"
+  },
+  {
+    "sql": "SELECT facebook_id FROM `social-media` WHERE facebook = 'RepWilson'",
+    "question_id": null,
+    "question": "Provide the facebook ID of the facebook account named \"RepWilson\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE first_name = 'John'",
+    "question_id": null,
+    "question": "What is the total number of legislators with \"John\" as their first name?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT district FROM `historical-terms` WHERE party = 'Anti-Administration' GROUP BY district",
+    "question_id": null,
+    "question": "Give the district numbers with an Anti-Administration party.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT official_full_name FROM current WHERE birthday_bio LIKE '1960%'",
+    "question_id": null,
+    "question": "List the full name of legislators whose born in 1960.",
+    "difficulty": "",
+    "evidence": "full name refers to official_full_name; born in 1960 refers to birthday_bio like '1960%';"
+  },
+  {
+    "sql": "SELECT google_entity_id_id FROM historical WHERE first_name = 'Benjamin' AND last_name = 'Hawkins'",
+    "question_id": null,
+    "question": "What is the google entity ID of Benjamin Hawkins?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.party = 'Pro-Administration' AND T2.start = '1789-03-04' AND T2.end = '1791-12-31'",
+    "question_id": null,
+    "question": "Who is the Pro-Administration senator that runs from March 4, 1789 to December 31, 1791?",
+    "difficulty": "",
+    "evidence": "Pro-Administration refers to party = 'Pro-Administration'; senator refers to type = 'sen'; runs from March 4, 1789 refers to start = '1789-03-04'; runs to refers to end = '1791-12-31';"
+  },
+  {
+    "sql": "SELECT T2.first_name, T2.last_name FROM `historical-terms` AS T1 INNER JOIN historical AS T2 ON T2.bioguide_id = T1.bioguide WHERE T1.district = 9",
+    "question_id": null,
+    "question": "What are the first and last name of the representatives of the house in district 9?",
+    "difficulty": "",
+    "evidence": "representatives refers to type = 'rep';"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.party = 'Independent' GROUP BY T1.official_full_name",
+    "question_id": null,
+    "question": "Give the full name of the legislators with an independent party.",
+    "difficulty": "",
+    "evidence": "full name refers to official_full_name;"
+  },
+  {
+    "sql": "SELECT T1.opensecrets_id, T1.thomas_id FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.type = 'sen' AND T2.state = 'NJ' GROUP BY T1.opensecrets_id, T1.thomas_id",
+    "question_id": null,
+    "question": "List down the open secrets and thomas ID of the democrat senators of New Jersey.",
+    "difficulty": "",
+    "evidence": "open secrets refers to opensecrets_id; democrat refers to party = democrat; senators refers to type = 'sen'; New Jersey refers to state = 'NJ';"
+  },
+  {
+    "sql": "SELECT T1.google_entity_id_id FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.type = 'sen' AND T2.state = 'NY'",
+    "question_id": null,
+    "question": "Provide the google entity ID of the senators in New York.",
+    "difficulty": "",
+    "evidence": "google entity ID refers to google_entity_id_id; senators refers to type = 'sen'; New York refers to state = 'NY';"
+  },
+  {
+    "sql": "SELECT T1.religion_bio FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.rss_url = 'http://www.corker.senate.gov/public/index.cfm/rss/feed' GROUP BY T1.religion_bio",
+    "question_id": null,
+    "question": "Give the religion of the legislator with RSS url of http://www.corker.senate.gov/public/index.cfm/rss/feed.",
+    "difficulty": "",
+    "evidence": "religion refers to religion_bio;"
+  },
+  {
+    "sql": "SELECT T2.party FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Susan M. Collins' GROUP BY T2.party",
+    "question_id": null,
+    "question": "What is the party of the legislator named Susan M. Collins?",
+    "difficulty": "",
+    "evidence": "legislator's name refers to offical_full_name;"
+  },
+  {
+    "sql": "SELECT T2.district FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.last_name = 'Grout' AND T1.first_name = 'Jonathan' AND T2.type = 'rep'",
+    "question_id": null,
+    "question": "List down the district number of the representative of the house named Jonathan Grout.",
+    "difficulty": "",
+    "evidence": "district number refers to district; representative of the house refers to type = 'rep';"
+  },
+  {
+    "sql": "SELECT T2.party, T2.state FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.opensecrets_id = 'N00003689' AND T1.thomas_id = 186 GROUP BY T2.party, T2.state",
+    "question_id": null,
+    "question": "What is the party and state of the legislator that has an open secrets ID of N00003689 and thomas ID of 186?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.official_full_name, T1.birthday_bio FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.contact_form = 'http://www.brown.senate.gov/contact/'",
+    "question_id": null,
+    "question": "Provide the full name and birth date of the legislator with a contact form of http://www.brown.senate.gov/contact/.",
+    "difficulty": "",
+    "evidence": "full name refers to official_full_name; birth date refers to birthday_bio;"
+  },
+  {
+    "sql": "SELECT T2.state, T2.type FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.google_entity_id_id = 'kg:/m/02pyzk'",
+    "question_id": null,
+    "question": "Give the state and type of term of the legislator with the google entity ID of kg:/m/02pyzk.",
+    "difficulty": "",
+    "evidence": "type of term refers to type; google entity ID refers to google_entity_id_id; google_entity_id_id = 'kg:/m/02pyzk';"
+  },
+  {
+    "sql": "SELECT T2.type, T2.end FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.first_name = 'John' AND T1.last_name = 'Vining'",
+    "question_id": null,
+    "question": "Provide the type and end date of the term of the legislator named John Vining.",
+    "difficulty": "",
+    "evidence": "end date of the term refers to end;"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.type = 'sen' THEN 1 ELSE 0 END) - SUM(CASE WHEN T2.type = 'rep' THEN 1 ELSE 0 END) FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'F' AND strftime('%Y', T1.birthday_bio) BETWEEN '1930' AND '1970'",
+    "question_id": null,
+    "question": "Find the difference between the number of female senators and representatives born between 1930 to 1970.",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT(SUM(type = 'sen' WHERE gender_bio = 'F' AND strftime('%Y', birthday_bio) between '1930' and '1970'), SUM(type = 'rep' WHERE gender_bio = 'F' AND strftime('%Y', birthday_bio) between '1930' and '1970')); female refers to gender_bio = 'F'; senators refers to type = 'sen'; representatives refers to type = 'rep'; born between 1930 to 1970 strftime('%Y', birthday_bio) between '1930' and '1970';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.party = 'Independent' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.party) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'M' AND strftime('%Y', T1.birthday_bio) BETWEEN '1955' AND '1965'",
+    "question_id": null,
+    "question": "Among the male legislators born between 1955 to 1965, what is the percentage of the legislators with an independent party?",
+    "difficulty": "",
+    "evidence": "male refers to gender_bio = 'M'; born between 1955 to 1965 refers to strftime('%Y', birthday_bio) between '1955' and '1965'; percentage = MULTIPLY(DIVIDE(SUM(party = 'Independent' WHERE gender_bio = 'M' AND strftime('%Y', birthday_bio) between '1955' and '1965'), COUNT(party WHERE gender_bio = 'M' AND strftime('%Y', birthday_bio) between '1955' and '1965')), 100.0);"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM historical WHERE bioguide_id = 'W000059'",
+    "question_id": null,
+    "question": "What is the name of the legislator with the ID of W000059?",
+    "difficulty": "",
+    "evidence": "name of the legislator = first_name, last_name; ID of W000059 refers to bioguide_id = 'W000059';"
+  },
+  {
+    "sql": "SELECT CASE WHEN ballotpedia_id IS NULL THEN 'doesn''t have' ELSE 'have' END AS HaveorNot FROM historical WHERE first_name = 'Thomas' AND last_name = 'Carnes'",
+    "question_id": null,
+    "question": "Does Thomas Carnes have an account on ballotpedia.org?",
+    "difficulty": "",
+    "evidence": "if first_name = 'Thomas' and last_name = 'Carnes' AND ballotpedia_id is null then Thomas Carnes doesn't have an account on ballotpedia.org; if first_name = 'Thomas' and last_name = 'Carnes' AND ballotpedia_id is NOT null then Thomas Carnes have an account on ballotpedia.org;"
+  },
+  {
+    "sql": "SELECT COUNT(bioguide_id) FROM historical WHERE birthday_bio LIKE '1736%'",
+    "question_id": null,
+    "question": "How many legislators were born in 1736?",
+    "difficulty": "",
+    "evidence": "born in 1736 refers to birthday_bio like '1736%';"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM historical WHERE gender_bio = 'F'",
+    "question_id": null,
+    "question": "Which legislators are woman?",
+    "difficulty": "",
+    "evidence": "woman refers to gender_bio = 'F';"
+  },
+  {
+    "sql": "SELECT COUNT(district) FROM `current-terms` WHERE state = 'ID'",
+    "question_id": null,
+    "question": "How many districts are in Idaho?",
+    "difficulty": "",
+    "evidence": "Idaho refers to state = 'ID';"
+  },
+  {
+    "sql": "SELECT COUNT(bioguide) FROM `current-terms` WHERE class IS NULL",
+    "question_id": null,
+    "question": "How many legislators are not senator?",
+    "difficulty": "",
+    "evidence": "not senator refers to class is null;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN gender_bio = 'M' THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN gender_bio = 'F' THEN 1 ELSE 0 END) FROM historical",
+    "question_id": null,
+    "question": "What is the ratio between male and female legislators?",
+    "difficulty": "",
+    "evidence": "ratio = DIVIDE(SUM(gender_bio = 'M'),\u00a0 SUM(gender_bio = 'F')); male refers to gender_bio = 'M'; female refers to gender_bio = 'F'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN wikipedia_id IS NOT NULL THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(bioguide_id) FROM historical",
+    "question_id": null,
+    "question": "Calculate the percentage of famous_legislatorss.",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(wikipedia_id is not null), (bioguide_id)), 100.0); famous legislators refers to wikipedia_id is not null;"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM current AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.instagram IS NULL",
+    "question_id": null,
+    "question": "Which legislators do not have instagram account?",
+    "difficulty": "",
+    "evidence": "do not have instagram account refers to instagram is null;"
+  },
+  {
+    "sql": "SELECT T2.district, T2.state FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.start LIKE '1789%'",
+    "question_id": null,
+    "question": "List all the representatives in 1789 along with the districts and state.",
+    "difficulty": "",
+    "evidence": "representatives refers to type = 'rep'; in 1789 refers to start like '1789%';"
+  },
+  {
+    "sql": "SELECT T2.district FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.first_name = 'Benjamin' AND T1.last_name = 'Contee'",
+    "question_id": null,
+    "question": "State all the district that Benjamin Contee has served before.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.address FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.first_name = 'Amy' AND T1.last_name = 'Klobuchar' AND T2.start = '2001-04-01'",
+    "question_id": null,
+    "question": "State the address of Amy Klobuchar at the term of 4th of January 2001.",
+    "difficulty": "",
+    "evidence": "at the term of 4th of January 2001 refers to start = '2001-04-01';"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.start LIKE '1997%' AND T2.state_rank = 'junior'",
+    "question_id": null,
+    "question": "List all the junior senators in 1997.",
+    "difficulty": "",
+    "evidence": "junior senators refers to state_rank = 'junior'; in 1997 refers to start like '1997%';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE STRFTIME('%Y', T2.start) = '2015' AND T2.state = 'CA' AND T1.gender_bio = 'F'",
+    "question_id": null,
+    "question": "How many female legislators become representatives for California in 2015?",
+    "difficulty": "",
+    "evidence": "female legislators refers to gender_bio = 'F'; representatives refers to type = 'rep'; for California refers to state = 'CA'; in 2015 refers to the year of start date is '2015';"
+  },
+  {
+    "sql": "SELECT T1.twitter_id FROM `social-media` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.first_name = 'Emanuel' AND T2.last_name = 'Cleaver'",
+    "question_id": null,
+    "question": "What is the Twitter ID of Emanuel Cleaver?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.facebook_id FROM `current-terms` AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide = T2.bioguide WHERE T1.party = 'Democrat' GROUP BY T2.facebook_id",
+    "question_id": null,
+    "question": "State all the Facebook ID for current legislators under the democrat party.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.end = '1791-03-03' AND T1.gender_bio = 'F'",
+    "question_id": null,
+    "question": "Which historical female legislator that have their term ended on the 3rd of March 1791?",
+    "difficulty": "",
+    "evidence": "female legislator refers to gender_bio = 'F'; term ended on the 3rd of March 1791 refers to end = '1791-03-03';"
+  },
+  {
+    "sql": "SELECT T1.first_name, T1.last_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.religion_bio = 'Jewish' AND T2.state = 'FL' GROUP BY T1.first_name, T1.last_name",
+    "question_id": null,
+    "question": "List all the Jewish current legislators that had served in Florida.",
+    "difficulty": "",
+    "evidence": "Jewish refers to religion_bio = 'Jewish'; in Florida refers to state = 'FL';"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(CASE WHEN wikipedia_id IS NOT NULL THEN bioguide_id ELSE 0 END) AS REAL) * 100 / ( SELECT COUNT(CASE WHEN wikipedia_id IS NOT NULL THEN bioguide_id ELSE 0 END) FROM historical ) FROM current",
+    "question_id": null,
+    "question": "What is the ratio between famous current legislators and famous historical legislators?",
+    "difficulty": "",
+    "evidence": "ratio = DIVIDE(COUNT(current.bioguide_id WHERE current.wikipedia_id is not null), COUNT(historical.bioguide_id WHERE historical.wikipedia_id is not null)); famous current legislators refers to current.wikipedia_id is not null; famous historical legislators refers to historical.wikipedia_id is not null;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN strftime('%Y', T2.start) BETWEEN '2000' AND '2017' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.bioguide_id) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide",
+    "question_id": null,
+    "question": "Based on the number of current legislators, calculate the percentage of legislators that served in 21st-Century.",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(strftime('%Y', start) between '2000' and '2017'), COUNT(bioguide_id)), 100.0); 1st-Century refers to strftime('%Y', T2.start) between '2000' and '2017';"
+  },
+  {
+    "sql": "SELECT COUNT(bioguide_id) FROM historical WHERE religion_bio = 'Catholic' AND ballotpedia_id IS NULL",
+    "question_id": null,
+    "question": "How many Catholic legislators do not have an account on ballotpedia.org?",
+    "difficulty": "",
+    "evidence": "Catholic refers to religion_bio = 'Catholic'; do not have an account on ballotpedia.org refers to ballotpedia_id is null;"
+  },
+  {
+    "sql": "SELECT COUNT(bioguide) FROM `current-terms` WHERE class = 1 AND party = 'Republican'",
+    "question_id": null,
+    "question": "How many class 1 senators belong to the Republican party?",
+    "difficulty": "",
+    "evidence": "senators refers to type = 'sen';"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM historical WHERE gender_bio = 'F' AND google_entity_id_id IS NULL AND fec_id IS NULL",
+    "question_id": null,
+    "question": "What are the full names of the non-google female entity legislators that have not been registered in Federal Election Commission data?",
+    "difficulty": "",
+    "evidence": "full names = first_name, last_name; non-google entity refers to google_entity_id_id is null; female refers to gender_bio = 'F'; have not been registered in Federal Election Commission data refers to fec_id is null;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM `current-terms` WHERE state = 'CA' AND type = 'rep' AND end LIKE '1995%'",
+    "question_id": null,
+    "question": "In California, how many representatives ended their term in 1995?",
+    "difficulty": "",
+    "evidence": "California refers to state = 'CA'; representatives refers to type = 'rep'; ended the term in 1995 refers to end like '1995%';"
+  },
+  {
+    "sql": "SELECT first_name, last_name FROM historical ORDER BY birthday_bio LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the oldest legislator?",
+    "difficulty": "",
+    "evidence": "full name = first_name, last_name; oldest legislator refers to MIN(birthday_bio);"
+  },
+  {
+    "sql": "SELECT bioguide FROM `current-terms` WHERE type = 'rep' AND party = 'Democrat' AND end = '2019-01-03' AND district = 13",
+    "question_id": null,
+    "question": "List all of the ids of the representatives belonging to the Democrat party in district 13 that ended their term on 1/3/2019?",
+    "difficulty": "",
+    "evidence": "ids refers to bioguide; representatives refers to type = 'rep'; ended the term on 1/3/2019 refers to end = '2019-01-03';"
+  },
+  {
+    "sql": "SELECT T2.twitter FROM current AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Jason Lewis'",
+    "question_id": null,
+    "question": "What is the official Twitter handle of Jason Lewis?",
+    "difficulty": "",
+    "evidence": "official Twitter handle refers to twitter;"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.party = 'Independent' AND strftime('%Y', T2.start) >= '2011' AND T2.type = 'sen' AND T2.caucus = 'Democrat'",
+    "question_id": null,
+    "question": "Among the Independent senators that started their term in 2011 and onwards, what are the official full names of the senators that caucused with the Democrat?",
+    "difficulty": "",
+    "evidence": "Independent refers to party = 'Independent'; senators refers to type = 'sen'; started the term in 2011 and onwards refers to strftime('%Y', start) > = '2011'; caucused with the Democrat refers to caucus = 'Democrat';"
+  },
+  {
+    "sql": "SELECT COUNT(T3.bioguide_id) FROM ( SELECT T1.bioguide_id FROM current AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.facebook IS NULL GROUP BY T1.bioguide_id ) T3",
+    "question_id": null,
+    "question": "How many Jewish legislators do not have facebook?",
+    "difficulty": "",
+    "evidence": "Jewish legislators refers to religion_bio = 'Jewish'; do not have facebook refers to facebook is null;"
+  },
+  {
+    "sql": "SELECT T2.party FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.religion_bio = 'Baptist' GROUP BY T2.party ORDER BY COUNT(T2.party) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which party has the highest number of legislators who are Baptist?",
+    "difficulty": "",
+    "evidence": "party that has the highest number of legislators refers to MAX(COUNT(party)); Baptist refers to religion_bio = 'Baptist';"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.facebook IS NOT NULL AND T2.instagram IS NOT NULL AND T2.twitter IS NOT NULL AND T2.youtube IS NOT NULL",
+    "question_id": null,
+    "question": "List the official full names of all the legislators who have facebook, instagram, twitter and youtube accounts.",
+    "difficulty": "",
+    "evidence": "have facebook, instagram, twitter and youtube accounts refers to 'facebook' is not null AND 'instagram' is not null AND 'twitter' is not null AND 'youtube' is not null;"
+  },
+  {
+    "sql": "SELECT COUNT(T3.district) FROM ( SELECT T2.district FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'John Conyers, Jr.' GROUP BY T2.district ) T3",
+    "question_id": null,
+    "question": "How many districts did John Conyers, Jr. serve in total?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.wikipedia_id FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.type = 'sen' AND T2.party = 'Anti-Administration'",
+    "question_id": null,
+    "question": "What are the Wikipedia page names of all the anti-administration senators?",
+    "difficulty": "",
+    "evidence": "Wikipedia page names refers to wikipedia_id; anti-administration refers to party = 'Anti-Administration'; senators refers to type = 'sen';"
+  },
+  {
+    "sql": "SELECT DISTINCT CASE WHEN SUM(CAST(strftime('%Y', T2.end) AS int) - CAST(strftime('%Y', T2.start) AS int)) = 26 THEN T1.official_full_name END FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide GROUP BY T1.official_full_name, T2.district HAVING COUNT(T1.official_full_name) = 13",
+    "question_id": null,
+    "question": "List the official full names of all the legislators that served 13 district for 26 consecutive years.",
+    "difficulty": "",
+    "evidence": "served only one district for 26 consecutive years refers to SUBTRACT(SUM(cast(strftime('%Y', end)), CAST(strftime('%Y', start)))) = 26"
+  },
+  {
+    "sql": "SELECT COUNT(T.bioguide_id) FROM ( SELECT T1.bioguide_id FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.first_name = 'Benjamin' AND T2.party = 'Federalist' AND T2.type = 'rep' GROUP BY T1.bioguide_id ) AS T",
+    "question_id": null,
+    "question": "How many Federalist representatives are there whose first names are Benjamin?",
+    "difficulty": "",
+    "evidence": "Federalist refers to party = 'Federalist'; representatives refers to type = 'rep';"
+  },
+  {
+    "sql": "SELECT SUM(T3.result) FROM ( SELECT CASE WHEN SUM(CAST(strftime('%Y', T2.`end`) AS int) - CAST(strftime('%Y', T2.start) AS int)) > 10 THEN 1 ELSE 0 END AS result FROM current AS T1 INNER JOIN \"current-terms\" AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.gender_bio = 'F' AND T2.state = 'CA' AND T2.type = 'rep' ) AS T3",
+    "question_id": null,
+    "question": "How many female representatives served in the state of California for at least 10 years?",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'; representatives refers to type = 'rep'; served for at least 10 years refers to SUBTRACT(SUM(CAST(strftime('%Y', end)), CAST(strftime('%Y', start)))) > 10;"
+  },
+  {
+    "sql": "SELECT T1.party FROM `historical-terms` AS T1 INNER JOIN historical AS T2 ON T2.bioguide_id = T1.bioguide ORDER BY T2.birthday_bio LIMIT 1",
+    "question_id": null,
+    "question": "What is the party of the oldest legislator?",
+    "difficulty": "",
+    "evidence": "oldest legislator refers to MIN(birthday_bio);"
+  },
+  {
+    "sql": "SELECT CASE WHEN SUM(CAST(strftime('%Y', T2.end) AS int) - CAST(strftime('%Y', T2.start) AS int)) = 14 THEN official_full_name END FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.religion_bio = 'Lutheran' AND T2.state = 'OH' AND T2.type = 'rep'",
+    "question_id": null,
+    "question": "Who is the Lutheran representative that served in the state of Ohio for 14 years before becoming a senator?",
+    "difficulty": "",
+    "evidence": "Lutheran refers to religion_bio = 'Lutheran'; representative refers to type = 'rep'; served for 14 years refers to SUBTRACT(SUM(CAST(strftime('%Y', end)), CAST(strftime('%Y', start)))) = 14;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE strftime('%Y', birthday_bio) > '1960' AND google_entity_id_id IS NULL",
+    "question_id": null,
+    "question": "Among all the current legislators born after the year 1960, how many of them are not google entities?",
+    "difficulty": "",
+    "evidence": "born after the year 1960 refers to strftime('%Y', birthday_bio) > '1960'; not google entities refers to google_entity_id_id is null;"
+  },
+  {
+    "sql": "SELECT official_full_name FROM current WHERE house_history_id IS NOT NULL",
+    "question_id": null,
+    "question": "Please list the official full names of all the current legislators who have served in the U.S. House.",
+    "difficulty": "",
+    "evidence": "have served in the U.S. House refers to house_history_id is not null;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current WHERE icpsr_id IS NOT NULL AND maplight_id IS NOT NULL",
+    "question_id": null,
+    "question": "How many current legislators have both accounts on both VoteView.com and maplight.org?",
+    "difficulty": "",
+    "evidence": "have both accounts on both VoteView.com and maplight.org refers to icpsr_id is not null AND maplight_id is not null;"
+  },
+  {
+    "sql": "SELECT COUNT(lis_id) FROM current WHERE gender_bio = 'F' AND lis_id IS NOT NULL",
+    "question_id": null,
+    "question": "Among all the current female legislators, how many of them have attended in Senate roll call votes?",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'; have attended in Senate roll call votes refers to lis_id is not null;"
+  },
+  {
+    "sql": "SELECT religion_bio FROM current WHERE official_full_name = 'Sherrod Brown'",
+    "question_id": null,
+    "question": "What is the religion of current legislator Sherrod Brown?",
+    "difficulty": "",
+    "evidence": "religion refers to religion_bio;"
+  },
+  {
+    "sql": "SELECT religion_bio FROM current GROUP BY religion_bio ORDER BY COUNT(religion_bio) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the religion with the most occurrrence of the current legislators?",
+    "difficulty": "",
+    "evidence": "religion with the most occurrrence of the current legislators refers to MAX(count(religion_bio));"
+  },
+  {
+    "sql": "SELECT T2.instagram FROM current AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Bob Corker'",
+    "question_id": null,
+    "question": "What is the current official Instagram handle of current legislator Bob Corker?",
+    "difficulty": "",
+    "evidence": "official Instagram handle refers to instagram;"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.bioguide_id) FROM current AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.thomas_id IS NOT NULL AND T2.instagram IS NOT NULL",
+    "question_id": null,
+    "question": "Among the current legislators who have accounts on both http://thomas.gov, how many of them have accounts on instagram?",
+    "difficulty": "",
+    "evidence": "have accounts on both http://thomas.gov refers to thomas_id is NOT null; have accounts on instagram refers to instagram is not null;"
+  },
+  {
+    "sql": "SELECT T2.facebook FROM current AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.wikipedia_id IS NOT NULL GROUP BY T2.facebook",
+    "question_id": null,
+    "question": "Please list the username of the current official Facebook presence of all the current legislators that are famous or impact.",
+    "difficulty": "",
+    "evidence": "username of the current official Facebook presence of the legislators refers to facebook; legislators that are famous or impact refers to wikipedia_id is not null;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.bioguide) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.birthday_bio = ( SELECT MIN(birthday_bio) FROM current )",
+    "question_id": null,
+    "question": "For how many terms have the oldest current legislator served?",
+    "difficulty": "",
+    "evidence": "oldest legislator refers to MIN(birthday_bio);"
+  },
+  {
+    "sql": "SELECT T1.phone FROM `current-terms` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.official_full_name = 'Sherrod Brown' AND T1.start = '2013-01-03'",
+    "question_id": null,
+    "question": "What was current legislator Sherrod Brown's Washington, D.C. office phone number during his term starting on 2013/1/3?",
+    "difficulty": "",
+    "evidence": "Washington, DC office phone number refers to phone; terms starting on 2013/1/3 refers to start = '2013-01-03';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Sherrod Brown' AND T2.party = 'Democrat'",
+    "question_id": null,
+    "question": "Current legislator Sherrod Brown has been in the Democrat party during how many terms that he has served?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.start = '2013-01-03'",
+    "question_id": null,
+    "question": "Please list the full official names of all the current legislators who served the term that started on 2013/1/3.",
+    "difficulty": "",
+    "evidence": "term that started on 2013/1/3 refers to start = '2013-01-03';"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.start = '2013-01-03' AND T1.gender_bio = 'F'",
+    "question_id": null,
+    "question": "Among the current legislators who served the term starting on 2013/1/3, how many of them are female?",
+    "difficulty": "",
+    "evidence": "term starting on 2013/1/3 refers to start = '2013-01-03; female refers to gender_bio = 'F';"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide GROUP BY T1.official_full_name, T2.bioguide ORDER BY COUNT(T2.bioguide) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full official name of the current legislator that has served for the most number of terms?",
+    "difficulty": "",
+    "evidence": "served for the most number of terms refers to MAX(COUNT(bioguide));"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Sherrod Brown' AND T2.district = 13",
+    "question_id": null,
+    "question": "For how many terms has current legislator Sherrod Brown served as a representative for district no.13?",
+    "difficulty": "",
+    "evidence": "district no. 13 refers to district = 13;"
+  },
+  {
+    "sql": "SELECT T1.official_full_name FROM current AS T1 INNER JOIN `social-media` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.facebook = 'senjoniernst'",
+    "question_id": null,
+    "question": "What is the official full name of the current legislator whose current official Facebook presence is \"senjoniernst\"?",
+    "difficulty": "",
+    "evidence": "current official Facebook presence is \"senjoniernst\" refers to facebook = 'senjoniernst';"
+  },
+  {
+    "sql": "SELECT CASE WHEN SUM(CASE WHEN T1.official_full_name = 'Maria Cantwell' THEN 1 ELSE 0 END) > SUM(CASE WHEN T1.official_full_name = 'Sherrod Brown' THEN 1 ELSE 0 END) THEN 'Maria Cantwell' ELSE 'Sherrod Brown' END FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide",
+    "question_id": null,
+    "question": "Which current legislator has served for more terms, Sherrod Brown or Maria Cantwell?",
+    "difficulty": "",
+    "evidence": "if sum(official_full_name = 'Maria Cantwell') > sum(official_full_name = 'Sherrod Brown') then Maria Cantwell has served for more term than Sherrod Brown; if sum(official_full_name = 'Sherrod Brown') > sum(official_full_name = 'Maria Cantwell'), then Sherrod Brown has served for more terms than Maria Cantwell;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN gender_bio = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T3.bioguide) FROM ( SELECT T2.bioguide, T1.gender_bio FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide GROUP BY T2.bioguide HAVING COUNT(T2.bioguide) > 4 ) T3",
+    "question_id": null,
+    "question": "Among all the current legislators who have served for more than 4 terms, what is the percentage of them being female?",
+    "difficulty": "",
+    "evidence": "have served for more than 4 years refers to count(bioguide) > 4; percentage = MULTIPLY(DIVIDE(SUM(gender_bio = 'F'), count(bioguide)), 100.0); female refers to gender_bio = 'F'"
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T2.bioguide) AS REAL) / COUNT(DISTINCT T1.bioguide_id) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.wikipedia_id IS NOT NULL",
+    "question_id": null,
+    "question": "What is the average number of terms served for a current legislator that's famous or impact?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE(COUNT(bioguide), COUNT(bioguide_id)); legislator that's famous or impact refers to wikipedia_id is not null;"
+  },
+  {
+    "sql": "SELECT COUNT(gender_bio) FROM current WHERE gender_bio = 'F'",
+    "question_id": null,
+    "question": "How many of the legislators are female?",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F';"
+  },
+  {
+    "sql": "SELECT COUNT(type) FROM `historical-terms` WHERE state = 'NJ' AND type = 'rep'",
+    "question_id": null,
+    "question": "What is the total number of senators New Jersey have?",
+    "difficulty": "",
+    "evidence": "senators refers to type = 'rep'; New Jersey refers to state = 'NJ';"
+  },
+  {
+    "sql": "SELECT address FROM `current-terms` WHERE contact_form = 'http://www.carper.senate.gov/contact/'",
+    "question_id": null,
+    "question": "Provide the address of the legislator with the contact form of http://www.carper.senate.gov/contact/.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.instagram FROM `social-media` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.first_name = 'Benjamin' AND T2.last_name = 'Hawkins'",
+    "question_id": null,
+    "question": "Provide the Instagram username of the legislator named Benjamin Hawkins.",
+    "difficulty": "",
+    "evidence": "Instagram username refers to instagram;"
+  },
+  {
+    "sql": "SELECT T1.bioguide FROM `current-terms` AS T1 INNER JOIN current AS T2 ON T2.bioguide_id = T1.bioguide WHERE T2.religion_bio = 'Catholic' AND T1.state = 'NE'",
+    "question_id": null,
+    "question": "Give the alphanumeric ID of the Catholic legislators in Nebraska.",
+    "difficulty": "",
+    "evidence": "alphanumeric ID refers to bioguide; Catholic legislators refers to religion_bio = 'Catholic'; Nebraska refers to state = 'NE';"
+  },
+  {
+    "sql": "SELECT T1.maplight_id FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.type = 'rep' AND T2.state = 'ME' GROUP BY T1.maplight_id",
+    "question_id": null,
+    "question": "List down the MapLight ID of the representatives in Maine.",
+    "difficulty": "",
+    "evidence": "representatives refers to type = 'rep'; Maine refers to state = 'ME';"
+  },
+  {
+    "sql": "SELECT T2.type, T2.start FROM historical AS T1 INNER JOIN `historical-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.birthday_bio = '1727-11-26'",
+    "question_id": null,
+    "question": "Give the type and start date of the term of the legislator born on November 26, 1727.",
+    "difficulty": "",
+    "evidence": "start date of the term refers to start; born on November 26, 1727 refers to birthday_bio = '1727-11-26';"
+  },
+  {
+    "sql": "SELECT T2.contact_form FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T1.official_full_name = 'Rick Crawford'",
+    "question_id": null,
+    "question": "What is the contact form of the legislator named Rick Crawford?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T.bioguide_id) FROM ( SELECT T1.bioguide_id FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.type = 'rep' AND T2.state = 'MI' AND T1.gender_bio = 'F' GROUP BY T1.bioguide_id ) T",
+    "question_id": null,
+    "question": "How many female representatives are there in Michigan?",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'; representatives refers to type = 'rep'; Michigan refers to state = 'MI';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.type = 'sen' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.type) FROM current AS T1 INNER JOIN `current-terms` AS T2 ON T1.bioguide_id = T2.bioguide WHERE T2.state = 'ME' AND T1.gender_bio = 'F'",
+    "question_id": null,
+    "question": "Among the female legislators, what is the percentage of the senators in Maine?",
+    "difficulty": "",
+    "evidence": "female refers to gender_bio = 'F'; percentage = MULTIPLY(DIVIDE(SUM(type = 'sen'), COUNT(type)), 100.0); senators refers to type = 'sen'; Maine refers to state = 'ME';"
+  }
+]

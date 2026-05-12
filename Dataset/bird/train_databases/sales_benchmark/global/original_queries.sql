@@ -1,0 +1,214 @@
+SELECT COUNT(SalesID) FROM Sales WHERE CustomerID = 80;
+
+SELECT SUM(Quantity) FROM Sales WHERE SalesID BETWEEN 1 AND 10;
+
+SELECT AVG(Quantity) FROM Sales WHERE SalesID BETWEEN 20 AND 30;
+
+SELECT DISTINCT ProductID FROM Sales WHERE Quantity = ( SELECT MAX(Quantity) FROM Sales );
+
+SELECT COUNT(DISTINCT ProductID) FROM Products WHERE Price = ( SELECT MAX(Price) FROM Products );
+
+SELECT Name FROM Products WHERE Price = 0;
+
+SELECT Name FROM Products WHERE ProductID BETWEEN 1 AND 10;
+
+SELECT T2.Name FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID ORDER BY T1.Quantity LIMIT 1;
+
+SELECT COUNT(T1.CustomerID) FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'Hex Nut 9';
+
+SELECT COUNT(T1.SalesID) FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'Flat Washer 8';
+
+SELECT DISTINCT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.SalesPersonID = 10;
+
+SELECT T1.FirstName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T2.ProductID = 1;
+
+SELECT T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.SalesID = 178;
+
+SELECT DISTINCT T1.ProductID FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Abby';
+
+SELECT DISTINCT T2.ProductID FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID WHERE T1.FirstName = 'Meander';
+
+SELECT T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID WHERE T2.SalesID = 100;
+
+SELECT DISTINCT T3.FirstName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID WHERE T1.FirstName = 'Abigail';
+
+SELECT COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.CustomerID = 11782 AND T1.Price = 0;
+
+SELECT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.SalesPersonID = 5;
+
+SELECT T1.SalesID FROM Sales AS T1 INNER JOIN Employees AS T2 ON T1.SalesPersonID = T2.EmployeeID WHERE SUBSTR(T2.FirstName, 1, 1) = 's';
+
+SELECT T1.Price FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.CustomerID BETWEEN 1 AND 100 ORDER BY T1.Price DESC LIMIT 1;
+
+SELECT T1.FirstName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.LastName = 'Valdez' ORDER BY T2.Quantity DESC LIMIT 1;
+
+SELECT SUM(IIF(T2.FirstName = 'Morningstar', 1, 0)) + SUM(IIF(T2.FirstName = 'Heather', 1, 0)) + SUM(IIF(T2.FirstName = 'Dean', 1, 0)) AS num FROM Sales AS T1 INNER JOIN Employees AS T2 ON T1.SalesPersonID = T2.EmployeeID;
+
+SELECT IIF(T1.ProductID = 498, 'YES', 'NO') FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Alex';
+
+SELECT SUM(T3.Price * T2.quantity) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.FirstName = 'Adam';
+
+SELECT SUM(T1.Price * T2.quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.ProductID BETWEEN 400 AND 500;
+
+SELECT SUM(T2.Quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE SUBSTR(T1.Name, 1, 1) = 'C';
+
+SELECT SUM(T2.Quantity) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.FirstName = 'Adam';
+
+SELECT ProductID FROM Products ORDER BY Price DESC LIMIT 5;
+
+SELECT COUNT(ProductID) FROM Products WHERE Price = 0;
+
+SELECT DISTINCT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Quantity > 950;
+
+SELECT DISTINCT T2.FirstName, T2.MiddleInitial, T2.LastName FROM Sales AS T1 INNER JOIN Employees AS T2 ON T1.SalesPersonID = T2.EmployeeID WHERE T1.Quantity = 1000;
+
+SELECT T3.Name, T2.Quantity FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T2.SalesID BETWEEN 1 AND 10;
+
+SELECT SUM(T1.Price * T2.quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'Reflector';
+
+SELECT IIF(SUM(IIF(T1.Name = 'HL Mountain Frame - Silver, 42', T2.SalesID, 0)) - SUM(IIF(T1.Name = 'HL Mountain Frame - Black, 42', T2.SalesID, 0)) > 0, 'Silver', 'Black') FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID;
+
+SELECT ( SELECT Price FROM Products WHERE Name = 'HL Mountain Frame - Black, 42' ) - ( SELECT Price FROM Products WHERE Name = 'LL Mountain Frame - Black, 42' ) AS num;
+
+SELECT COUNT(T1.SalesID) FROM Sales AS T1 INNER JOIN Employees AS T2 ON T1.SalesPersonID = T2.EmployeeID WHERE T2.FirstName = 'Michel' AND T2.MiddleInitial = 'e' AND T2.LastName = 'DeFrance';
+
+SELECT CAST(COUNT(T1.CustomerID) AS REAL) / COUNT(T3.EmployeeID) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID;
+
+SELECT COUNT(T2.CustomerID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID WHERE T3.FirstName = 'Innes' AND T3.LastName = 'del Castillo' AND T1.Name = 'Short-Sleeve Classic Jersey, L' AND T3.MiddleInitial = 'e';
+
+SELECT DISTINCT T3.FirstName, T3.MiddleInitial, T3.LastName FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID INNER JOIN Customers AS T4 ON T2.CustomerID = T4.CustomerID WHERE T4.MiddleInitial = 'A' AND T4.LastName = 'White' AND T1.Name = 'Road-250 Black, 48' AND T4.FirstName = 'Elizabeth';
+
+SELECT COUNT(T2.SalesPersonID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'Headlights - Weatherproof';
+
+SELECT SUM(T2.Quantity * T1.Price) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'HL Road Frame - Red, 56';
+
+SELECT COUNT(T1.SalesID) FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Joe' AND T2.MiddleInitial = 'L' AND T2.LastName = 'Lopez';
+
+SELECT DISTINCT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T3.Name = 'Touring Rim' AND T3.Price = 0;
+
+SELECT COUNT(CustomerID) FROM Sales GROUP BY SalesPersonID;
+
+SELECT COUNT(EmployeeID) FROM Employees;
+
+SELECT FirstName, MiddleInitial, LastName FROM Employees WHERE EmployeeID = 7;
+
+SELECT Name FROM Products WHERE Price IN (( SELECT MAX(Price) FROM Products ), ( SELECT MIN(Price) FROM Products ));
+
+SELECT CAST(SUM(IIF(T3.FirstName = 'Albert' AND T3.MiddleInitial = 'I' AND T3.LastName = 'Ringer', 1, 0)) AS REAL) * 100 / COUNT(T2.CustomerID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID WHERE T1.Name = 'ML Bottom Bracket';
+
+SELECT COUNT(CustomerID) FROM Customers WHERE FirstName = 'Abigail';
+
+SELECT DISTINCT T2.Quantity FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'Blade';
+
+SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID ORDER BY T2.Quantity DESC LIMIT 1;
+
+SELECT T1.FirstName, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID ORDER BY T2.Quantity DESC LIMIT 1;
+
+SELECT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.SalesPersonID = 20 ORDER BY T2.Quantity DESC LIMIT 1;
+
+SELECT DISTINCT T1.FirstName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID WHERE T2.Quantity > 500;
+
+SELECT T1.FirstName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.SalesPersonID = 1;
+
+SELECT SUM(T2.Quantity) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID WHERE T2.SalesPersonID = 1 AND T1.FirstName = 'Aaron' AND T1.LastName = 'Alexander' AND T3.FirstName = 'Abraham';
+
+SELECT T1.FirstName, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.Quantity > 600;
+
+SELECT T1.FirstName, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.FirstName = 'Cameron' ORDER BY T2.Quantity DESC LIMIT 1;
+
+SELECT T2.SalesID FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name LIKE 'Hex Nut%' AND T1.Price > 100;
+
+SELECT DISTINCT T2.CustomerID FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Price BETWEEN 1000 AND 2000;
+
+SELECT SUM(T2.Quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Price = 0;
+
+SELECT CAST(SUM(IIF(T1.Price = 0, T2.Quantity, 0)) AS REAL) * 100 / SUM(T2.Quantity)FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID;
+
+SELECT CAST(SUM(IIF(T1.Name = 'Blade', T2.Quantity, 0)) AS REAL) * 100 / SUM(T2.Quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID;
+
+SELECT COUNT(LastName) FROM Employees WHERE LastName = 'Ringer';
+
+SELECT COUNT(ProductID) FROM Products WHERE ProductID < 15 AND Price <= 10;
+
+SELECT DISTINCT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T3.FirstName = 'Aaron' AND T3.LastName = 'Alexander';
+
+SELECT T1.ProductID, T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.quantity BETWEEN 400 AND 500 ORDER BY T1.Price DESC LIMIT 1;
+
+SELECT T2.FirstName, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Kate' ORDER BY T1.Quantity DESC LIMIT 1;
+
+SELECT T2.CustomerID, T2.SalesID FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Price BETWEEN 100 AND 150 AND T2.Quantity < 25;
+
+SELECT T2.Quantity, T1.Price FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T3.FirstName = 'Abigail' AND T3.LastName = 'Henderson';
+
+SELECT COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.quantity = 60 AND T1.Price <= 500;
+
+SELECT COUNT(T1.ProductID) FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Erica' AND T1.Quantity < 200;
+
+SELECT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T3.FirstName = 'Kathryn' AND T3.LastName = 'Ashe' ORDER BY T2.Quantity DESC LIMIT 1;
+
+SELECT DISTINCT T2.Price, T1.Quantity FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'Seat Tube';
+
+SELECT T3.Price, T3.Name FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T1.ProductID = T3.ProductID WHERE T2.FirstName = 'Erica' AND T2.LastName = 'Xu';
+
+SELECT T1.SalesID FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'External Lock Washer 7' AND T1.Quantity = 590;
+
+SELECT T2.FirstName, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Quantity = 403 AND T1.SalesID BETWEEN 30 AND 40;
+
+SELECT T2.CustomerID, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Quantity > ( SELECT AVG(Quantity) FROM Sales ) * 0.9;
+
+SELECT CAST(SUM(IIF(T2.Price BETWEEN 200 AND 300, 1, 0)) AS REAL) * 100 / COUNT(T2.Price) FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T1.SalesID BETWEEN 1 AND 200;
+
+SELECT Name FROM Products WHERE Price = ( SELECT MAX(Price) FROM Products );
+
+SELECT COUNT(CustomerID) FROM Customers WHERE FirstName = 'Madison';
+
+SELECT COUNT(ProductID) FROM Products WHERE Name LIKE '%HL Touring Frame%';
+
+SELECT COUNT(CustomerID) FROM Customers GROUP BY LastName ORDER BY COUNT(LastName) DESC LIMIT 1;
+
+SELECT COUNT(ProductID) FROM Products WHERE Price = 0;
+
+SELECT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T2.SalesPersonID = T1.EmployeeID GROUP BY T2.SalesPersonID, T1.FirstName, T1.MiddleInitial, T1.LastName ORDER BY COUNT(T2.SalesID) DESC LIMIT 1;
+
+SELECT T2.FirstName, T2.MiddleInitial, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T1.ProductID = T3.ProductID GROUP BY T1.SalesID, T1.Quantity, T3.Price, FirstName, MiddleInitial, LastName ORDER BY T1.Quantity * T3.Price DESC LIMIT 1;
+
+SELECT SUM(T2.Quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'Mountain-500 Black, 42';
+
+SELECT SUM(T2.Quantity * T3.Price) FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.FirstName = 'Heather' AND T1.LastName = 'McBadden';
+
+SELECT SUM(T2.Quantity) FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.FirstName = 'Stearns' AND T1.LastName = 'MacFeather' AND T3.Name = 'Mountain-100 Silver, 38';
+
+SELECT COUNT(T2.ProductID) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.FirstName = 'Dalton' AND T1.MiddleInitial = 'M' AND T1.LastName = 'Coleman';
+
+SELECT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID GROUP BY T2.SalesPersonID, T1.FirstName, T1.MiddleInitial, T1.LastName ORDER BY COUNT(T2.SalesID) DESC LIMIT 3;
+
+SELECT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name LIKE 'Mountain-500 Black%' GROUP BY T2.Quantity, T1.Name ORDER BY SUM(T2.Quantity) DESC LIMIT 1;
+
+SELECT COUNT(T2.SalesPersonID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'ML Road Frame-W - Yellow, 40';
+
+SELECT T1.Quantity FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'Chainring Bolts' AND T1.SalesID = 551971;
+
+SELECT COUNT(*) FROM ( SELECT SUM(Quantity) FROM Sales WHERE ProductID IN ( SELECT ProductID FROM Products WHERE Name = 'Touring-2000 Blue, 50' ) GROUP BY Quantity, SalesPersonID HAVING SUM(Quantity) > 20000 );
+
+SELECT SUM(T2.Quantity * T3.Price) FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.FirstName = 'Abraham' AND T1.MiddleInitial = 'e' AND T1.LastName = 'Bennet' AND T3.Name = 'Road-650 Red, 60';
+
+SELECT T1.Name, SUM(T2.Quantity * T1.Price) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID GROUP BY T1.ProductID, T1.Name ORDER BY SUM(T2.Quantity) DESC LIMIT 1;
+
+SELECT FirstName, LastName FROM Customers WHERE LastName = 'Chen';
+
+SELECT MiddleInitial FROM Employees GROUP BY MiddleInitial ORDER BY COUNT(MiddleInitial) DESC LIMIT 1;
+
+SELECT AVG(Price) FROM Products WHERE Price BETWEEN 100 AND 200;
+
+SELECT T2.FirstName, T2.MiddleInitial, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID GROUP BY T1.Quantity HAVING T1.Quantity > ( SELECT AVG(Quantity) FROM Sales );
+
+SELECT T3.FirstName, T3.MiddleInitial, T3.LastName FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID ORDER BY T2.Quantity * T1.Price DESC LIMIT 1;
+
+SELECT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID ORDER BY T2.Quantity * T3.Price DESC LIMIT 1;
+
+SELECT DISTINCT T3.FirstName, T3.MiddleInitial, T3.LastName FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T2.Quantity * T1.Price > 50000;
+
+SELECT T2.Name FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID ORDER BY T1.Quantity DESC LIMIT 1;
+
+SELECT DISTINCT T2.Name FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Quantity < ( SELECT AVG(Quantity) FROM Sales );
+

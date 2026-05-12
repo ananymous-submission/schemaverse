@@ -1,0 +1,338 @@
+[
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date LIKE '2018%' AND T2.market_cap = ( SELECT MAX(market_cap) FROM historical WHERE STRFTIME('%Y', date) = '2018' )",
+    "question_id": null,
+    "question": "Name the coin that has the highest market capitalization for all transactions in 2018.",
+    "difficulty": "",
+    "evidence": "highest market capitalization refers to max(market_cap); in 2018 refers to year(date) = 2018"
+  },
+  {
+    "sql": "SELECT T2.volume_24h FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Argentum' AND T2.date = '2016-10-11'",
+    "question_id": null,
+    "question": "What is the total value of Argentum coined traded in the past 24 hours on 2016/10/11.",
+    "difficulty": "",
+    "evidence": "total value in the past 24 hours refers to volume_24h; on 11/10/16 refers to date = '2016-11-10'"
+  },
+  {
+    "sql": "SELECT T2.price FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Zetacoin' AND T2.date BETWEEN '2013-11-01' AND '2013-11-07' UNION ALL SELECT AVG(T2.PRICE) FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Zetacoin' AND T2.date BETWEEN '2013-11-01' AND '2013-11-07'",
+    "question_id": null,
+    "question": "List the price for Zetacoin on 13/11/1 and the next 7 consecutive days. What is the average price for these 7 days?",
+    "difficulty": "",
+    "evidence": "on 1/11/13 and the next 7 consecutive days refers to DATE BETWEEN '2013-11-01' AND '2013-11-07'; average price refers to AVG(price); Zetacoin refers to name = 'Zetacoin'"
+  },
+  {
+    "sql": "SELECT T2.time_high, T2.time_low, T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'WARP' AND STRFTIME('%Y-%m', T2.date) = '2016-08'",
+    "question_id": null,
+    "question": "For all transactions for WRAP in August 2016, list the time to achieve highest price and the time to achieve the lowest price.",
+    "difficulty": "",
+    "evidence": "in May 2013 refers to month(date) = 5 AND year(date) = 2013; time to achieve the highest price refers to time_high; time to achieve the lowest price refers to time_low; WRAP refers to name = 'WARP'"
+  },
+  {
+    "sql": "SELECT T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'DigixDAO' ORDER BY T2.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the transaction date whereby DigixDAO was transacted at the hightest price.",
+    "difficulty": "",
+    "evidence": "the highest price refers to max(price); DigixDAO refers to name = 'DigixDAO'"
+  },
+  {
+    "sql": "SELECT T1.name, T2.DATE, T2.price FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.percent_change_24h = ( SELECT MAX(percent_change_24h) FROM historical )",
+    "question_id": null,
+    "question": "Name the coin with the highest percentage price changed in 24 hours. State the transaction date and price.",
+    "difficulty": "",
+    "evidence": "the highest percentage price changed in 24 hours refers to max(percent_change_24h)"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.circulating_supply) AS REAL) / 12 FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Frozen' AND STRFTIME('%Y', T2.date) = '2014'",
+    "question_id": null,
+    "question": "What is the average monthly circulating supply for Frozen in 2014.",
+    "difficulty": "",
+    "evidence": "average monthly circulating supply = AVG(circulating_supply); in 2017 refers to date BETWEEN '2017-01-01' AND '2017-12-31'"
+  },
+  {
+    "sql": "SELECT T1.NAME, MAX(T2.DATE) FROM coins AS T1 INNER JOIN historical AS T2 ON T1.ID = T2.coin_id WHERE T1.status = 'inactive' ORDER BY T2.DATE DESC LIMIT 1",
+    "question_id": null,
+    "question": "List all the inactive coins and state the last date of its transaction?",
+    "difficulty": "",
+    "evidence": "the last date refers to max(date); inactive coins refers to status = 'inactive'"
+  },
+  {
+    "sql": "SELECT AVG(T2.price) FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Bitcoin' AND STRFTIME('%Y', T2.date) = '2016'",
+    "question_id": null,
+    "question": "What was the price of 1 Bitcoin in 2016?",
+    "difficulty": "",
+    "evidence": "2016 refers to historical date where year(date) = 2016"
+  },
+  {
+    "sql": "SELECT T2.date, T2.price FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Bitcoin' ORDER BY T2.price LIMIT 1",
+    "question_id": null,
+    "question": "State the transaction date and the price when Bitcoin was bottomed?",
+    "difficulty": "",
+    "evidence": "was bottomed refers to min(price)"
+  },
+  {
+    "sql": "SELECT T1.status FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id GROUP BY T1.name HAVING AVG(T2.price) > 1000",
+    "question_id": null,
+    "question": "For all coins with average price more than $1000. State the current status of the coin.",
+    "difficulty": "",
+    "evidence": "average price more than $1000 refers to AVG(price)>1000"
+  },
+  {
+    "sql": "SELECT T1.name, T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.percent_change_1h = ( SELECT MIN(percent_change_1h) FROM historical )",
+    "question_id": null,
+    "question": "Name the coin and date of transactions with the greatest decline in percent change in 1 hour.",
+    "difficulty": "",
+    "evidence": "the greatest decline in percent change in 1 hour refers to max(percent_change_1h)"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.category = 'token' ORDER BY T2.high - T2.low DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the coin under the token category that gives the highest max profit.",
+    "difficulty": "",
+    "evidence": "the highest max profit refers to max(subtract(high, low))"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2020-06-22' GROUP BY T1.name HAVING AVG(T2.percent_change_24h) > T2.PRICE",
+    "question_id": null,
+    "question": "Name the coin that have higher than average percentage price changed from the previous 24 hours for transaction on 2013/6/22.",
+    "difficulty": "",
+    "evidence": "average percentage price changed from the previous 24 hours refers to AVG(percent_change_24h); on 15/5/2013 refers to DATE = '2013-04-15'"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-28' AND T2.cmc_rank = 1",
+    "question_id": null,
+    "question": "Which crytocurrency was ranked the first by CoinMarketCap on 2013/4/28?",
+    "difficulty": "",
+    "evidence": "ranked the first refers to cmc_rank = 1; on 2013/4/28 refers to date = '2013-04-28'"
+  },
+  {
+    "sql": "SELECT T2.market_cap FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-28' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "How much dollars was a Bitcoin worth on 2013/4/28 according to the coin market?",
+    "difficulty": "",
+    "evidence": "worth refers to price; on 2013/4/28 refers to date = '2013-04-28'"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-05-03' AND T2.open IS NULL",
+    "question_id": null,
+    "question": "Which crytocurrency was not opened on 2013/5/3?",
+    "difficulty": "",
+    "evidence": "not opened refers to open IS NULL; on 2013/5/3 refers to date = '2013-05-03'"
+  },
+  {
+    "sql": "SELECT T2.close FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-29' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "What was the price of Bitcoin when it closed at the end of the day on 2013/4/29?",
+    "difficulty": "",
+    "evidence": "price when it closed refers to close; on 2013/4/29 refers to date = '2013-04-29'"
+  },
+  {
+    "sql": "SELECT T2.time_high FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-29' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "When did Bitcoin reach its highest price on 2013/4/29?",
+    "difficulty": "",
+    "evidence": "time that a coin reaches its highest price refers to time_high; on 2013/4/29 refers to date = '2013-04-29'"
+  },
+  {
+    "sql": "SELECT T2.high - T2.low FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-28' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "What was the max profit a user can make on Bitcoin on 2013/4/28?",
+    "difficulty": "",
+    "evidence": "the max profit = subtract(high, low); on 2013/4/28 refers to date = '2013-04-28'"
+  },
+  {
+    "sql": "SELECT T2.max_supply - T2.total_supply FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-28' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "What was the number of Bitcoins verifiably burned until 2013/4/28?",
+    "difficulty": "",
+    "evidence": "the number of Bitcoins verifiably burned = max_supply - total_supply; 2013/4/28 refers to date = '2013-04-28'"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2016-01-08' AND T2.volume_24h = ( SELECT MAX(volume_24h) FROM historical WHERE date = '2016-01-08' )",
+    "question_id": null,
+    "question": "Which crytocurrency was traded in the highest value on 2016/1/8?",
+    "difficulty": "",
+    "evidence": "traded in the highest value refers to max(volume_24h); on 2016/1/8 refers to date = '2016-01-08'"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-28' AND T2.total_supply > 10000000",
+    "question_id": null,
+    "question": "Please list the names of the crytocurrencies that have a total amount of existence of over 10000000 on 2013/4/28.",
+    "difficulty": "",
+    "evidence": "a total amount of existence of over 10000000 refers to total_supply>10000000; on 2013/4/28 refers to date = '2013-04-28'"
+  },
+  {
+    "sql": "SELECT (CASE WHEN T2.percent_change_7d > 0 THEN 'INCREASED' ELSE 'DECREASED' END) FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-05-05' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "Had Bitcoin's price increased or decreased on 2013/5/5 compared with the price 7 days before?",
+    "difficulty": "",
+    "evidence": "price increased refers to percent_change_7d>0; decreased refers percent_change_7d<0; on 2013/5/5 refers to date = '2013-05-05'"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-28' AND T1.name IN ('Bitcoin', 'Litecoin') ORDER BY T2.circulating_supply DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which crytocurrency had a bigger number of coins circulating in the market and in the general public's hands on 2013/4/28, Bitcoin or Litecoin?",
+    "difficulty": "",
+    "evidence": "a bigger number of coins circulating in the market refers to max(circulating_supply); on 2013/4/28 refers to date = '2013-04-28'"
+  },
+  {
+    "sql": "SELECT T2.price FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-28' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "How much was a Bitcoin on 2013/4/28?",
+    "difficulty": "",
+    "evidence": "how much refers to price; on 2013/4/28 refers to date = '2013-04-28'"
+  },
+  {
+    "sql": "SELECT AVG(T2.price) FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE STRFTIME('%Y', T2.date) = '2013' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "What was the average price of a Bitcoin in the year 2013?",
+    "difficulty": "",
+    "evidence": "average price refers SUM(price)/COUNT(named = 'Bitcoin'); in the year 2013 refers to year(date) = 2013"
+  },
+  {
+    "sql": "SELECT CAST((SUM(T2.max_supply) - SUM(T2.total_supply)) AS REAL) / SUM(T2.total_supply) FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date < '2018-04-28' AND T1.name = 'Bitcoin'",
+    "question_id": null,
+    "question": "What was the percentage of the Bitcoins verifiably burned until 2018/4/28?",
+    "difficulty": "",
+    "evidence": "the percentage of the Bitcoins verifiably burned = divide(subtract(SUM(max_supply), SUM(total_supply)),SUM(total_supply))*100%; until 2013/4/28 refers to date<'2013-04-08'"
+  },
+  {
+    "sql": "SELECT name FROM coins WHERE status = 'extinct'",
+    "question_id": null,
+    "question": "Please list the names of coins that has been disappeared.",
+    "difficulty": "",
+    "evidence": "has disappeared refers to status = 'extinct'"
+  },
+  {
+    "sql": "SELECT description FROM coins WHERE name = 'BitBar'",
+    "question_id": null,
+    "question": "What's the descripition of BitBar?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(id) num FROM coins WHERE STRFTIME('%Y-%m', date_added) = '2013-05' UNION ALL SELECT name FROM coins WHERE STRFTIME('%Y-%m', date_added) = '2013-05'",
+    "question_id": null,
+    "question": "How many coins were added in May 2013? Please list the names of coins.",
+    "difficulty": "",
+    "evidence": "in May 2013 refers to year(date_added) = 2013 and month(date_added) = 5"
+  },
+  {
+    "sql": "SELECT name, symbol FROM coins WHERE date_added LIKE '2013-06-14%'",
+    "question_id": null,
+    "question": "List the names and symbols of the coins that were added on June 14, 2013.",
+    "difficulty": "",
+    "evidence": "added on June 14, 2013 refers to date_added like '2013-06-14%'"
+  },
+  {
+    "sql": "SELECT name FROM coins WHERE date_added LIKE '2014%' AND status = 'untracked'",
+    "question_id": null,
+    "question": "List the names of coins that cannot be traded in 2014.",
+    "difficulty": "",
+    "evidence": "cannot be tracked refers to status = 'untracked'; in 2014 refers to year(date_added) = '2014'"
+  },
+  {
+    "sql": "SELECT name FROM coins WHERE LENGTH(tag_names) - LENGTH(replace(tag_names, ',', '')) = 2",
+    "question_id": null,
+    "question": "Name the coins that have three tags.",
+    "difficulty": "",
+    "evidence": "have three tags refers to length(tag_names)-length(replace(tag_names,',','')) = 2"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.price = ( SELECT MAX(price) FROM historical )",
+    "question_id": null,
+    "question": "What is the name of the coin with the highest price?",
+    "difficulty": "",
+    "evidence": "the highest price refers to max(price)"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2013-04-29' AND T2.cmc_rank = 1",
+    "question_id": null,
+    "question": "Please name the coin that ranked first among the coins traded on April 29, 2013.",
+    "difficulty": "",
+    "evidence": "ranked first refers to cmc_rank = 1; on April 29, 2013 refers to date = '2013-04-29'"
+  },
+  {
+    "sql": "SELECT T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Bitcoin' ORDER BY T2.low LIMIT 1",
+    "question_id": null,
+    "question": "When is the best time to purchase Bitcoin?",
+    "difficulty": "",
+    "evidence": "lowest price refers to low; best time refers to date with the low;"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.volume_24h = ( SELECT MAX(volume_24h) FROM historical )",
+    "question_id": null,
+    "question": "What is the name of the coin that creates the most total value in the past 24 hours?",
+    "difficulty": "",
+    "evidence": "creates the most total value in the past 24 hours refers to max(volume_24h)"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE STRFTIME('%Y-%m', T2.date) = '2013-05' AND T2.open IS NULL",
+    "question_id": null,
+    "question": "Name the coins that were not opened on May 2013.",
+    "difficulty": "",
+    "evidence": "not opened refers to open IS NULL; on May 2013 refers to year(date) = 2019 AND month(date) = 5"
+  },
+  {
+    "sql": "SELECT T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'CHNCoin' ORDER BY T2.close DESC LIMIT 1",
+    "question_id": null,
+    "question": "When is the highest closed price of CHNCoin?",
+    "difficulty": "",
+    "evidence": "the highest closed price refers to max(close)"
+  },
+  {
+    "sql": "SELECT T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Peercoin' AND T2.cmc_rank = 5",
+    "question_id": null,
+    "question": "When did Peercoin rank fifth?",
+    "difficulty": "",
+    "evidence": "when refers to date; rank fifth refers to cmc_rank = 5"
+  },
+  {
+    "sql": "SELECT T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Devcoin' ORDER BY T2.market_cap DESC LIMIT 1",
+    "question_id": null,
+    "question": "When is Devcoin most valuable in the market?",
+    "difficulty": "",
+    "evidence": "when refers to date; most valuable refers to max(market_cap)"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2014-01-01' AND T2.cmc_rank <= 5",
+    "question_id": null,
+    "question": "List the names of the top five coins traded on January 1, 2014.",
+    "difficulty": "",
+    "evidence": "the top five coins refers to cmc_rank< = 5; on January 1, 2014 refers to date = '2014-01-01'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Lebowskis' AND (T2.open IS NULL OR T2.open = 0)",
+    "question_id": null,
+    "question": "When was Lebowskis not opened?",
+    "difficulty": "",
+    "evidence": "when refers to date; not opened refers to open IS NULL"
+  },
+  {
+    "sql": "SELECT T2.date FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Terracoin' ORDER BY T2.price DESC LIMIT 1",
+    "question_id": null,
+    "question": "When is the highest price of Terracoin?",
+    "difficulty": "",
+    "evidence": "when refers to date; the highest price refers to max(price)"
+  },
+  {
+    "sql": "SELECT COUNT(T2.coin_id) FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T1.name = 'Bytecoin' AND STRFTIME('%Y-%m', T2.date) = '2013-06'",
+    "question_id": null,
+    "question": "How many times was Bytecoin traded in June 2013?",
+    "difficulty": "",
+    "evidence": "in June 2013 refers to year(date) = 2013 AND month(date) = 6"
+  },
+  {
+    "sql": "SELECT T1.name FROM coins AS T1 INNER JOIN historical AS T2 ON T1.id = T2.coin_id WHERE T2.date = '2018-04-28' AND T2.price > ( SELECT AVG(price) FROM historical WHERE date = '2018-04-28' )",
+    "question_id": null,
+    "question": "List the names of the coins above the average price on April 28, 2013.",
+    "difficulty": "",
+    "evidence": "average price = divide(sum(price), count(name)); on April 28, 2013 refers to date = '2013-04-28'"
+  },
+  {
+    "sql": "SELECT T1.NAME FROM coins AS T1 INNER JOIN historical AS T2 ON T1.ID = T2.coin_id WHERE T2.DATE = '2013-05-29' AND T2.percent_change_1h > 0",
+    "question_id": null,
+    "question": "What's the percentage of coins that is higher than the price 1 hour ago in May 29,2013? List the names of these coins.",
+    "difficulty": "",
+    "evidence": "percentage that is higher than the price 1 hour ago refers to percent_change_1h>0; in May 29,2013 refers to date = '2013-05-29'"
+  }
+]

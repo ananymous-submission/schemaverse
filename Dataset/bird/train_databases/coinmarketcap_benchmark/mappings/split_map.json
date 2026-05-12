@@ -1,0 +1,190 @@
+{
+  "coins": {
+    "pk_columns": [
+      "id"
+    ],
+    "fragments": [
+      {
+        "suffix": "category",
+        "non_pk_columns": [
+          "category",
+          "description",
+          "name",
+          "notice",
+          "platform_id",
+          "status",
+          "symbol",
+          "tag_names",
+          "tags"
+        ],
+        "local_table": "CoinClassification",
+        "local_name": "local_1",
+        "vertical_fragment_base": "coins_category"
+      },
+      {
+        "suffix": "date_added",
+        "non_pk_columns": [
+          "date_added",
+          "date_launched",
+          "description",
+          "name",
+          "notice",
+          "platform_id",
+          "slug",
+          "status",
+          "subreddit",
+          "symbol",
+          "website"
+        ],
+        "local_table": "CoinReleaseAddedOnOrBefore2017Dec06",
+        "local_name": "local_1",
+        "vertical_fragment_base": "coins_date_added",
+        "row_partition_names": [
+          "CoinReleaseAddedOnOrBefore2017Dec06",
+          "CoinReleaseAddedAfter2017Dec06Through2020Mar18",
+          "CoinReleaseAddedAfter2020Mar18Through2021Jan29",
+          "CoinReleaseAddedAfter2021Jan29OrNull"
+        ],
+        "row_partition_predicate_column": "date_added"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "coins",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 14,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.02270120566768538,
+        "3": 0.023788874339031738,
+        "4": 0.02478225122567562
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.02478225122567562,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "category",
+          "platform_id",
+          "tag_names",
+          "tags"
+        ],
+        [
+          "date_added",
+          "date_launched",
+          "description",
+          "name",
+          "notice",
+          "slug",
+          "status",
+          "subreddit",
+          "symbol",
+          "website"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "description",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "notice",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "platform_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "status",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "symbol",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "category",
+          "description",
+          "name",
+          "notice",
+          "platform_id",
+          "status",
+          "symbol",
+          "tag_names",
+          "tags"
+        ],
+        [
+          "date_added",
+          "date_launched",
+          "description",
+          "name",
+          "notice",
+          "platform_id",
+          "slug",
+          "status",
+          "subreddit",
+          "symbol",
+          "website"
+        ]
+      ],
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "category",
+          "non_pk_columns": [
+            "category",
+            "description",
+            "name",
+            "notice",
+            "platform_id",
+            "status",
+            "symbol",
+            "tag_names",
+            "tags"
+          ]
+        },
+        {
+          "suffix": "date_added",
+          "non_pk_columns": [
+            "date_added",
+            "date_launched",
+            "description",
+            "name",
+            "notice",
+            "platform_id",
+            "slug",
+            "status",
+            "subreddit",
+            "symbol",
+            "website"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "coins_date_added_q1",
+    "movable_candidates": [
+      "coins_category"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=11;fk_column_endpoints_on_fragment=0"
+  }
+}

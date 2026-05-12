@@ -1,0 +1,2519 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "MovieCastRoles": {
+          "source_table": "characters",
+          "column_map": {
+            "MovieIdentifier": "MovieID",
+            "ActorIdentifier": "ActorID",
+            "CharacterName": "Character Name",
+            "CreditSequence": "creditOrder",
+            "Compensation": "pay",
+            "ScreenTime": "screentime"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "MovieGenreMetadata": {
+          "source_table": "movie",
+          "column_map": {
+            "MovieIdentifier": "MovieID",
+            "GenreName": "Genre",
+            "MpaaRating": "MPAA Rating",
+            "AverageRating": "Rating",
+            "ReleaseDate": "Release Date",
+            "SummaryText": "Summary",
+            "TitleName": "Title"
+          },
+          "projected_columns": [
+            "MovieID",
+            "Genre",
+            "MPAA Rating",
+            "Rating",
+            "Release Date",
+            "Summary",
+            "Title"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "movie_budget"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "movie_budget",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "genre"
+        },
+        "ActorBiographyHeightUpTo63Inches": {
+          "source_table": "actor",
+          "column_map": {
+            "ActorIdentifier": "ActorID",
+            "BiographyText": "Biography",
+            "EthnicBackground": "Ethnicity",
+            "GenderIdentity": "Gender",
+            "HeightInches": "Height (Inches)",
+            "FullName": "Name",
+            "EstimatedNetWorth": "NetWorth"
+          },
+          "projected_columns": [
+            "ActorID",
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "row_predicate": "((\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" <= 63) OR (rowid IN (5,16,18,26,34,40,41,42,50,51,54,57,59,60,61,72,75,79,83,86,90,94,97,99,100,113,117,130,134,155,162,172,174,180,183,188,192,193,204,205,206,220,223,226,237,243,256,260,261,262,268,270,271,287,294,317,320,323,326,327,333,334,340,349,386,387,390,391,392,397,398,399,400,417,434,435,440,445,446,461,464,465,466,469,490,495,498,501,502,513,516,524,525,530,531,533,549,557,568,575,576,589,591,596,599,609,611,618,623,629,632,640,644,649,653,668,673,676,678,682,685,688,695,727,728,731,734,744,745,754,756,778,783,796,798,800,801,807,817,823,833,834,841,845,860,861,880,884,887,893,895,896,899,901,912,962,968,972,976,983,992,993,1001,1007,1016,1018,1019,1032,1040,1041,1048,1056,1057,1064,1069,1076,1077,1078,1083,1084,1096,1101,1103,1104,1106,1108,1110,1115,1116,1128,1136,1139,1140,1145,1148,1157,1158,1174,1175,1176,1181,1183,1198,1200,1212,1236,1238,1239,1246,1270,1271,1274,1275,1286,1288,1297,1303,1305,1306,1315,1317,1326,1327,1341,1346,1348,1349,1351,1355,1357,1359,1363,1380,1381,1384,1393,1398,1402,1408,1410,1411,1412,1414,1435,1454,1456,1483,1484,1485,1493,1496,1501,1506,1507,1512,1517,1518,1521,1522,1526,1539,1561,1564,1566,1588,1592,1605,1610,1616,1628,1631,1632,1638,1656,1670,1676,1699,1701,1708,1710,1714,1719,1736,1740,1743,1745,1747,1751,1761,1763,1767,1777,1779,1785,1786,1791,1796,1797,1805,1807,1835,1842,1843,1857,1862,1876,1880,1886,1888,1891,1893,1894,1907,1910,1914,1917,1920,1929,1931,1941,1956,1961,1970,1972,1977,1982,1991,1994,1996,2004,2005,2036,2043,2062,2065,2077,2078,2084,2085,2086,2093,2096,2102,2117,2118,2126,2139,2153,2165,2191,2193,2205,2209,2214,2215,2216,2220,2240,2244,2292,2293,2299,2300,2313,2338,2339,2348,2353,2364,2382,2384,2387,2404,2411,2434,2435,2440,2441,2450,2452,2468,2483,2484,2488,2491,2492,2494,2495,2496,2510,2531,2536,2539,2544,2545,2556,2565,2572,2581,2584,2588,2598,2604,2615,2619,2630,2631,2636,2643,2646,2647,2651,2656,2657,2658,2659,2660,2661,2664,2665,2668,2671,2678,2679,2680,2681,2685,2686,2689,2691,2692,2693,2697,2698,2699,2700,2702,2705,2711)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "actor_birth_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "actor_birth_city",
+          "is_row_partition": true,
+          "row_partition_partner": "ActorBiographyHeightAbove63To67Inches",
+          "row_partition_peers": [
+            "ActorBiographyHeightAbove63To67Inches",
+            "ActorBiographyHeightAbove67To72Inches",
+            "actor_biography_q4"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "biography"
+        },
+        "ActorBiographyHeightAbove63To67Inches": {
+          "source_table": "actor",
+          "column_map": {
+            "ActorIdentifier": "ActorID",
+            "BiographyText": "Biography",
+            "EthnicBackground": "Ethnicity",
+            "GenderIdentity": "Gender",
+            "HeightInches": "Height (Inches)",
+            "FullName": "Name",
+            "EstimatedNetWorth": "NetWorth"
+          },
+          "projected_columns": [
+            "ActorID",
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "row_predicate": "((\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" > 63 AND \"Height (Inches)\" <= 67) OR (rowid IN (3,13,56,82,112,123,125,133,158,166,169,199,208,214,232,236,293,295,297,312,321,344,347,368,383,416,429,433,437,477,480,503,508,509,517,541,542,588,610,630,635,659,667,675,701,704,715,716,718,725,751,761,768,813,825,844,848,849,868,883,905,914,915,924,928,929,932,938,939,945,952,960,984,996,1006,1023,1030,1079,1087,1095,1119,1131,1151,1159,1161,1186,1201,1202,1203,1206,1208,1209,1229,1234,1243,1248,1252,1256,1259,1261,1278,1290,1292,1294,1312,1320,1324,1344,1353,1356,1419,1436,1442,1449,1466,1468,1489,1495,1515,1528,1533,1535,1542,1567,1568,1570,1573,1602,1603,1604,1614,1629,1630,1654,1661,1664,1685,1705,1715,1723,1755,1771,1800,1825,1828,1831,1834,1836,1858,1869,1878,1884,1913,1922,1923,1924,1925,1934,1935,1951,1984,2000,2003,2019,2022,2028,2047,2048,2055,2076,2104,2109,2112,2122,2125,2137,2177,2179,2183,2187,2194,2198,2207,2217,2236,2246,2248,2277,2279,2302,2318,2325,2340,2368,2378,2396,2430,2439,2442,2447,2454,2460,2501,2504,2509,2516,2533,2535,2547,2550,2566,2574,2590)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "actor_birth_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "actor_birth_city",
+          "is_row_partition": true,
+          "row_partition_partner": "ActorBiographyHeightAbove67To72Inches",
+          "row_partition_peers": [
+            "ActorBiographyHeightAbove67To72Inches",
+            "actor_biography_q4",
+            "ActorBiographyHeightUpTo63Inches"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "biography"
+        },
+        "ActorBiographyHeightAbove67To72Inches": {
+          "source_table": "actor",
+          "column_map": {
+            "ActorIdentifier": "ActorID",
+            "BiographyText": "Biography",
+            "EthnicBackground": "Ethnicity",
+            "GenderIdentity": "Gender",
+            "HeightInches": "Height (Inches)",
+            "FullName": "Name",
+            "EstimatedNetWorth": "NetWorth"
+          },
+          "projected_columns": [
+            "ActorID",
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "row_predicate": "((\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" > 67 AND \"Height (Inches)\" <= 72) OR (rowid IN (15,29,38,47,64,68,73,78,124,148,159,163,171,179,186,187,225,228,231,282,305,331,332,339,345,350,352,355,375,382,393,410,412,419,422,423,444,459,485,511,512,514,526,554,563,585,601,627,631,636,671,679,683,689,697,703,708,712,719,724,735,736,762,764,804,855,856,881,889,910,916,918,931,969,985,988,995,1005,1029,1037,1049,1063,1068,1086,1123,1127,1149,1153,1171,1177,1205,1223,1245,1247,1257,1262,1282,1296,1337,1340,1352,1366,1367,1374,1388,1437,1447,1457,1469,1472,1478,1487,1492,1510,1511,1513,1514,1529,1553,1558,1563,1569,1574,1583,1599,1600,1613,1636,1643,1649,1653,1679,1681,1689,1694,1696,1704,1706,1712,1730,1732,1750,1752,1784,1819,1822,1838,1847,1865,1873,1875,1882,1902,1903,1926,1932,1936,1944,1948,1949,1955,1959,1986,1989,2002,2007,2021,2023,2051,2070,2075,2083,2088,2089,2120,2121,2124,2141,2151,2166,2181,2195,2197,2211,2218,2227,2232,2249,2258,2276,2282,2284,2286,2290,2291,2317,2320,2324,2335,2342,2343,2359,2369,2370,2372,2383,2405,2416,2417,2418,2431,2453,2461,2493,2498,2530,2538,2552,2576,2582)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "actor_birth_city"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "actor_birth_city",
+          "is_row_partition": true,
+          "row_partition_partner": "actor_biography_q4",
+          "row_partition_peers": [
+            "actor_biography_q4",
+            "ActorBiographyHeightUpTo63Inches",
+            "ActorBiographyHeightAbove63To67Inches"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "biography"
+        },
+        "MoviesBudgetGreaterThan38000000UpTo80000000": {
+          "source_table": "movie",
+          "column_map": {
+            "MovieIdentifier": "MovieID",
+            "BudgetAmount": "Budget",
+            "GenreName": "Genre",
+            "BoxOfficeGross": "Gross",
+            "AverageRating": "Rating",
+            "RatingCount": "Rating Count",
+            "ReleaseDate": "Release Date",
+            "RuntimeMinutes": "Runtime",
+            "SummaryText": "Summary"
+          },
+          "projected_columns": [
+            "MovieID",
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ],
+          "row_predicate": "((\"Budget\" IS NOT NULL AND \"Budget\" > 38000000 AND \"Budget\" <= 80000000) OR (rowid IN (1,2,7,8,10,11,23,25,27,29,30,31,32,33,42,43,44,45,47,49,52,53,61,63,66,68,84,86,88,89,91,100,103,120,122,124,126,127,140,141,142,160,162,199,221,239,240,241,259,279,297,317,318,377,399,400,496,517,537,576,598,617,618,619)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "MovieGenreMetadata"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "MovieGenreMetadata",
+          "is_row_partition": true,
+          "row_partition_partner": "MoviesBudgetGreaterThan80000000UpTo140000000",
+          "row_partition_peers": [
+            "MoviesBudgetGreaterThan80000000UpTo140000000",
+            "movie_budget_q4",
+            "movie_budget_q1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "budget"
+        },
+        "MoviesBudgetGreaterThan80000000UpTo140000000": {
+          "source_table": "movie",
+          "column_map": {
+            "MovieIdentifier": "MovieID",
+            "BudgetAmount": "Budget",
+            "GenreName": "Genre",
+            "BoxOfficeGross": "Gross",
+            "AverageRating": "Rating",
+            "RatingCount": "Rating Count",
+            "ReleaseDate": "Release Date",
+            "RuntimeMinutes": "Runtime",
+            "SummaryText": "Summary"
+          },
+          "projected_columns": [
+            "MovieID",
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ],
+          "row_predicate": "((\"Budget\" IS NOT NULL AND \"Budget\" > 80000000 AND \"Budget\" <= 140000000) OR (rowid IN (18,35,36,57,58,73,74,76,77,92,96,112,115,116,117,118,145,148,152,153,154,155,164,165,167,185,187,189,190,191,203,205,208,210,223,225,227,243,245,261,269,281,283,285,301,303,304,319,320,321,323,341,342,344,361,362,363,381,422,423,457,461,480,481,498,518,521,540,558,579,600)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "MovieGenreMetadata"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "MovieGenreMetadata",
+          "is_row_partition": true,
+          "row_partition_partner": "movie_budget_q4",
+          "row_partition_peers": [
+            "movie_budget_q4",
+            "movie_budget_q1",
+            "MoviesBudgetGreaterThan38000000UpTo80000000"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "budget"
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "actor_biographies_height_over_72": {
+          "source_table": "actor",
+          "column_map": {
+            "actor_id": "ActorID",
+            "biography_text": "Biography",
+            "ethnic_background": "Ethnicity",
+            "gender_identity": "Gender",
+            "height_inches": "Height (Inches)",
+            "full_name": "Name",
+            "net_worth_estimate": "NetWorth"
+          },
+          "projected_columns": [
+            "ActorID",
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "row_predicate": "((\"Height (Inches)\" > 72 OR \"Height (Inches)\" IS NULL) OR (rowid IN (4,12,23,31,32,45,67,70,71,107,111,114,118,137,156,161,184,200,248,251,264,266,273,298,310,348,356,360,367,389,407,408,413,426,451,453,454,456,463,475,500,529,532,535,537,602,603,646,656,707,717,732,750,772,777,786,790,803,812,822,827,829,836,839,846,862,865,867,923,970,997,1004,1010,1020,1025,1026,1028,1043,1050,1075,1082,1100,1107,1117,1120,1124,1132,1141,1173,1199,1228,1232,1242,1251,1254,1258,1263,1276,1277,1279,1283,1285,1291,1302,1304,1345,1354,1371,1376,1406,1420,1441,1458,1467,1471,1475,1479,1480,1490,1524,1531,1536,1551,1556,1584,1608,1634,1641,1650,1660,1678,1729,1733,1739,1754,1758,1772,1774,1788,1789,1808,1813,1815,1821,1871,1883,1899,1905,1915,1940,1947,1960,1967,1968,1974,2008,2015,2035,2057,2064,2068,2133,2134,2136,2138,2150,2160,2170,2188,2202,2203,2223,2225,2226,2230,2237,2243,2250,2260,2285,2287,2295,2341,2361,2365,2374,2380,2385,2402,2407,2436,2438,2443,2449,2451,2462,2472,2473,2474,2482,2485,2499,2503,2511,2514,2525,2543,2546,2564,2587,2589,2592,2593,2595)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "actor_birth_locations"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "actor_birth_locations",
+          "is_row_partition": true,
+          "row_partition_partner": "actor_biography_q1",
+          "row_partition_peers": [
+            "actor_biography_q1",
+            "actor_biography_q2",
+            "actor_biography_q3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "biography"
+        },
+        "actor_birth_locations": {
+          "source_table": "actor",
+          "column_map": {
+            "actor_id": "ActorID",
+            "birth_city": "Birth City",
+            "birth_country": "Birth Country",
+            "birth_date": "Date of Birth",
+            "ethnic_background": "Ethnicity",
+            "height_inches": "Height (Inches)",
+            "full_name": "Name",
+            "net_worth_estimate": "NetWorth"
+          },
+          "projected_columns": [
+            "ActorID",
+            "Birth City",
+            "Birth Country",
+            "Date of Birth",
+            "Ethnicity",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "actor_biography"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "actor_biography",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "birth_city"
+        }
+      },
+      "table_rename_map": {
+        "actor": "actor_birth_city"
+      }
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "mv_bud_le_38m": {
+          "source_table": "movie",
+          "column_map": {
+            "mv_id": "MovieID",
+            "budg_usd": "Budget",
+            "genre_cat": "Genre",
+            "gross_usd": "Gross",
+            "avg_rating": "Rating",
+            "rating_cnt": "Rating Count",
+            "rel_date": "Release Date",
+            "run_mins": "Runtime",
+            "synopsis": "Summary"
+          },
+          "projected_columns": [
+            "MovieID",
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ],
+          "row_predicate": "((\"Budget\" IS NOT NULL AND \"Budget\" <= 38000000) OR (rowid IN (177,178,216,217,294,312,313,316,331,332,336,355,370,371,375,376,391,394,395,410,413,414,415,416,428,431,433,434,451,453,467,473,474,486,487,488,489,495,509,512,513,514,515,528,529,530,544,553,554,565,566,567,570,571,573,586,588,591,594,609,611,614,624,630)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "movie_genre"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "movie_genre",
+          "is_row_partition": true,
+          "row_partition_partner": "movie_budget_q2",
+          "row_partition_peers": [
+            "movie_budget_q2",
+            "movie_budget_q3",
+            "mv_bud_gt_140m_or_null"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "budget"
+        },
+        "mv_bud_gt_140m_or_null": {
+          "source_table": "movie",
+          "column_map": {
+            "mv_id": "MovieID",
+            "budg_usd": "Budget",
+            "genre_cat": "Genre",
+            "gross_usd": "Gross",
+            "avg_rating": "Rating",
+            "rating_cnt": "Rating Count",
+            "rel_date": "Release Date",
+            "run_mins": "Runtime",
+            "synopsis": "Summary"
+          },
+          "projected_columns": [
+            "MovieID",
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ],
+          "row_predicate": "((\"Budget\" > 140000000 OR \"Budget\" IS NULL) OR (rowid IN (59,99,119,157,158,159,173,174,193,197,198,212,229,230,233,234,246,250,254,255,256,288,290,292,305,309,310,327,330,348,349,350,351,365,386,387,406,424,445,448,463,464,484,502,522,525,541,542,560,562,584,585,605,628,629,635)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "movie_genre"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "movie_genre",
+          "is_row_partition": true,
+          "row_partition_partner": "mv_bud_le_38m",
+          "row_partition_peers": [
+            "mv_bud_le_38m",
+            "movie_budget_q2",
+            "movie_budget_q3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "budget"
+        }
+      },
+      "table_rename_map": {
+        "movie": "movie_budget_q1"
+      }
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "characters": "MovieCastRoles",
+        "movie_genre": "MovieGenreMetadata",
+        "actor_biography_q1": "ActorBiographyHeightUpTo63Inches",
+        "actor_biography_q2": "ActorBiographyHeightAbove63To67Inches",
+        "actor_biography_q3": "ActorBiographyHeightAbove67To72Inches",
+        "movie_budget_q2": "MoviesBudgetGreaterThan38000000UpTo80000000",
+        "movie_budget_q3": "MoviesBudgetGreaterThan80000000UpTo140000000"
+      },
+      "column_renames": {
+        "characters": {
+          "MovieID": "MovieIdentifier",
+          "ActorID": "ActorIdentifier",
+          "Character Name": "CharacterName",
+          "creditOrder": "CreditSequence",
+          "pay": "Compensation",
+          "screentime": "ScreenTime"
+        },
+        "movie_genre": {
+          "MovieID": "MovieIdentifier",
+          "Genre": "GenreName",
+          "MPAA Rating": "MpaaRating",
+          "Rating": "AverageRating",
+          "Release Date": "ReleaseDate",
+          "Summary": "SummaryText",
+          "Title": "TitleName"
+        },
+        "actor_biography_q1": {
+          "ActorID": "ActorIdentifier",
+          "Biography": "BiographyText",
+          "Ethnicity": "EthnicBackground",
+          "Gender": "GenderIdentity",
+          "Height (Inches)": "HeightInches",
+          "Name": "FullName",
+          "NetWorth": "EstimatedNetWorth"
+        },
+        "actor_biography_q2": {
+          "ActorID": "ActorIdentifier",
+          "Biography": "BiographyText",
+          "Ethnicity": "EthnicBackground",
+          "Gender": "GenderIdentity",
+          "Height (Inches)": "HeightInches",
+          "Name": "FullName",
+          "NetWorth": "EstimatedNetWorth"
+        },
+        "actor_biography_q3": {
+          "ActorID": "ActorIdentifier",
+          "Biography": "BiographyText",
+          "Ethnicity": "EthnicBackground",
+          "Gender": "GenderIdentity",
+          "Height (Inches)": "HeightInches",
+          "Name": "FullName",
+          "NetWorth": "EstimatedNetWorth"
+        },
+        "movie_budget_q2": {
+          "MovieID": "MovieIdentifier",
+          "Budget": "BudgetAmount",
+          "Genre": "GenreName",
+          "Gross": "BoxOfficeGross",
+          "Rating": "AverageRating",
+          "Rating Count": "RatingCount",
+          "Release Date": "ReleaseDate",
+          "Runtime": "RuntimeMinutes",
+          "Summary": "SummaryText"
+        },
+        "movie_budget_q3": {
+          "MovieID": "MovieIdentifier",
+          "Budget": "BudgetAmount",
+          "Genre": "GenreName",
+          "Gross": "BoxOfficeGross",
+          "Rating": "AverageRating",
+          "Rating Count": "RatingCount",
+          "Release Date": "ReleaseDate",
+          "Runtime": "RuntimeMinutes",
+          "Summary": "SummaryText"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "actor_biography_q4": "actor_biographies_height_over_72",
+        "actor_birth_city": "actor_birth_locations"
+      },
+      "column_renames": {
+        "actor_biography_q4": {
+          "ActorID": "actor_id",
+          "Biography": "biography_text",
+          "Ethnicity": "ethnic_background",
+          "Gender": "gender_identity",
+          "Height (Inches)": "height_inches",
+          "Name": "full_name",
+          "NetWorth": "net_worth_estimate"
+        },
+        "actor_birth_city": {
+          "ActorID": "actor_id",
+          "Birth City": "birth_city",
+          "Birth Country": "birth_country",
+          "Date of Birth": "birth_date",
+          "Ethnicity": "ethnic_background",
+          "Height (Inches)": "height_inches",
+          "Name": "full_name",
+          "NetWorth": "net_worth_estimate"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_3": {
+      "table_renames": {
+        "movie_budget_q1": "mv_bud_le_38m",
+        "movie_budget_q4": "mv_bud_gt_140m_or_null"
+      },
+      "column_renames": {
+        "movie_budget_q1": {
+          "MovieID": "mv_id",
+          "Budget": "budg_usd",
+          "Genre": "genre_cat",
+          "Gross": "gross_usd",
+          "Rating": "avg_rating",
+          "Rating Count": "rating_cnt",
+          "Release Date": "rel_date",
+          "Runtime": "run_mins",
+          "Summary": "synopsis"
+        },
+        "movie_budget_q4": {
+          "MovieID": "mv_id",
+          "Budget": "budg_usd",
+          "Genre": "genre_cat",
+          "Gross": "gross_usd",
+          "Rating": "avg_rating",
+          "Rating Count": "rating_cnt",
+          "Release Date": "rel_date",
+          "Runtime": "run_mins",
+          "Summary": "synopsis"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    }
+  },
+  "vertical_split_map": {
+    "actor": {
+      "pk_columns": [
+        "ActorID"
+      ],
+      "fragments": [
+        {
+          "suffix": "biography",
+          "non_pk_columns": [
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "local_table": "actor_biography_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "actor_biography",
+          "row_partition_names": [
+            "actor_biography_q1",
+            "actor_biography_q2",
+            "actor_biography_q3",
+            "actor_biographies_height_over_72"
+          ],
+          "row_partition_predicate_column": "Height (Inches)"
+        },
+        {
+          "suffix": "birth_city",
+          "non_pk_columns": [
+            "Birth City",
+            "Birth Country",
+            "Date of Birth",
+            "Ethnicity",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "local_table": "actor_birth_locations",
+          "local_name": "local_2",
+          "vertical_fragment_base": "actor_birth_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "actor",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.031910812018302155,
+          "3": 0.031910812018302155
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.031910812018302155,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          [
+            "Birth City",
+            "Birth Country",
+            "Date of Birth"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Height (Inches)",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "NetWorth",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Ethnicity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          [
+            "Birth City",
+            "Birth Country",
+            "Date of Birth",
+            "Ethnicity",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ]
+        ],
+        "pk_columns": [
+          "ActorID"
+        ],
+        "fragments": [
+          {
+            "suffix": "biography",
+            "non_pk_columns": [
+              "Biography",
+              "Ethnicity",
+              "Gender",
+              "Height (Inches)",
+              "Name",
+              "NetWorth"
+            ]
+          },
+          {
+            "suffix": "birth_city",
+            "non_pk_columns": [
+              "Birth City",
+              "Birth Country",
+              "Date of Birth",
+              "Ethnicity",
+              "Height (Inches)",
+              "Name",
+              "NetWorth"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "actor_birth_city",
+      "movable_candidates": [
+        "actor_biography_q1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=1"
+    },
+    "movie": {
+      "pk_columns": [
+        "MovieID"
+      ],
+      "fragments": [
+        {
+          "suffix": "budget",
+          "non_pk_columns": [
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ],
+          "local_table": "mv_bud_le_38m",
+          "local_name": "local_3",
+          "vertical_fragment_base": "movie_budget",
+          "row_partition_names": [
+            "mv_bud_le_38m",
+            "movie_budget_q2",
+            "movie_budget_q3",
+            "mv_bud_gt_140m_or_null"
+          ],
+          "row_partition_predicate_column": "Budget"
+        },
+        {
+          "suffix": "genre",
+          "non_pk_columns": [
+            "Genre",
+            "MPAA Rating",
+            "Rating",
+            "Release Date",
+            "Summary",
+            "Title"
+          ],
+          "local_table": "MovieGenreMetadata",
+          "local_name": "local_1",
+          "vertical_fragment_base": "movie_genre"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "movie",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.0146351814481484,
+          "3": 0.014220827788339857
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0146351814481484,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Budget",
+            "Gross",
+            "Rating Count",
+            "Runtime"
+          ],
+          [
+            "Genre",
+            "MPAA Rating",
+            "Rating",
+            "Release Date",
+            "Summary",
+            "Title"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Summary",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Release Date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Genre",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Rating",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ],
+          [
+            "Genre",
+            "MPAA Rating",
+            "Rating",
+            "Release Date",
+            "Summary",
+            "Title"
+          ]
+        ],
+        "pk_columns": [
+          "MovieID"
+        ],
+        "fragments": [
+          {
+            "suffix": "budget",
+            "non_pk_columns": [
+              "Budget",
+              "Genre",
+              "Gross",
+              "Rating",
+              "Rating Count",
+              "Release Date",
+              "Runtime",
+              "Summary"
+            ]
+          },
+          {
+            "suffix": "genre",
+            "non_pk_columns": [
+              "Genre",
+              "MPAA Rating",
+              "Rating",
+              "Release Date",
+              "Summary",
+              "Title"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "movie_budget_q1",
+      "movable_candidates": [
+        "movie_genre"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "split_map": {
+    "actor": {
+      "pk_columns": [
+        "ActorID"
+      ],
+      "fragments": [
+        {
+          "suffix": "biography",
+          "non_pk_columns": [
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "local_table": "actor_biography_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "actor_biography",
+          "row_partition_names": [
+            "actor_biography_q1",
+            "actor_biography_q2",
+            "actor_biography_q3",
+            "actor_biographies_height_over_72"
+          ],
+          "row_partition_predicate_column": "Height (Inches)"
+        },
+        {
+          "suffix": "birth_city",
+          "non_pk_columns": [
+            "Birth City",
+            "Birth Country",
+            "Date of Birth",
+            "Ethnicity",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          "local_table": "actor_birth_locations",
+          "local_name": "local_2",
+          "vertical_fragment_base": "actor_birth_city"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "actor",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.031910812018302155,
+          "3": 0.031910812018302155
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.031910812018302155,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          [
+            "Birth City",
+            "Birth Country",
+            "Date of Birth"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Height (Inches)",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "NetWorth",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Ethnicity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Biography",
+            "Ethnicity",
+            "Gender",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ],
+          [
+            "Birth City",
+            "Birth Country",
+            "Date of Birth",
+            "Ethnicity",
+            "Height (Inches)",
+            "Name",
+            "NetWorth"
+          ]
+        ],
+        "pk_columns": [
+          "ActorID"
+        ],
+        "fragments": [
+          {
+            "suffix": "biography",
+            "non_pk_columns": [
+              "Biography",
+              "Ethnicity",
+              "Gender",
+              "Height (Inches)",
+              "Name",
+              "NetWorth"
+            ]
+          },
+          {
+            "suffix": "birth_city",
+            "non_pk_columns": [
+              "Birth City",
+              "Birth Country",
+              "Date of Birth",
+              "Ethnicity",
+              "Height (Inches)",
+              "Name",
+              "NetWorth"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "actor_birth_city",
+      "movable_candidates": [
+        "actor_biography_q1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=1"
+    },
+    "movie": {
+      "pk_columns": [
+        "MovieID"
+      ],
+      "fragments": [
+        {
+          "suffix": "budget",
+          "non_pk_columns": [
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ],
+          "local_table": "mv_bud_le_38m",
+          "local_name": "local_3",
+          "vertical_fragment_base": "movie_budget",
+          "row_partition_names": [
+            "mv_bud_le_38m",
+            "movie_budget_q2",
+            "movie_budget_q3",
+            "mv_bud_gt_140m_or_null"
+          ],
+          "row_partition_predicate_column": "Budget"
+        },
+        {
+          "suffix": "genre",
+          "non_pk_columns": [
+            "Genre",
+            "MPAA Rating",
+            "Rating",
+            "Release Date",
+            "Summary",
+            "Title"
+          ],
+          "local_table": "MovieGenreMetadata",
+          "local_name": "local_1",
+          "vertical_fragment_base": "movie_genre"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "movie",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.0146351814481484,
+          "3": 0.014220827788339857
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0146351814481484,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Budget",
+            "Gross",
+            "Rating Count",
+            "Runtime"
+          ],
+          [
+            "Genre",
+            "MPAA Rating",
+            "Rating",
+            "Release Date",
+            "Summary",
+            "Title"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Summary",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Release Date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Genre",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Rating",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Budget",
+            "Genre",
+            "Gross",
+            "Rating",
+            "Rating Count",
+            "Release Date",
+            "Runtime",
+            "Summary"
+          ],
+          [
+            "Genre",
+            "MPAA Rating",
+            "Rating",
+            "Release Date",
+            "Summary",
+            "Title"
+          ]
+        ],
+        "pk_columns": [
+          "MovieID"
+        ],
+        "fragments": [
+          {
+            "suffix": "budget",
+            "non_pk_columns": [
+              "Budget",
+              "Genre",
+              "Gross",
+              "Rating",
+              "Rating Count",
+              "Release Date",
+              "Runtime",
+              "Summary"
+            ]
+          },
+          {
+            "suffix": "genre",
+            "non_pk_columns": [
+              "Genre",
+              "MPAA Rating",
+              "Rating",
+              "Release Date",
+              "Summary",
+              "Title"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "movie_budget_q1",
+      "movable_candidates": [
+        "movie_genre"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 3,
+    "eligible_candidate_count": 3,
+    "num_selected_for_vertical_split": 2,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "movie",
+      "actor"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/movie/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "row_partition_map": {
+    "actor||vfrag=biography": {
+      "source_table": "actor",
+      "vertical_fragment_suffix": "biography",
+      "num_partitions": 4,
+      "partition_names": [
+        "ActorBiographyHeightUpTo63Inches",
+        "ActorBiographyHeightAbove63To67Inches",
+        "ActorBiographyHeightAbove67To72Inches",
+        "actor_biographies_height_over_72"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_2"
+      ],
+      "predicate_column": "Height (Inches)",
+      "partition_values": [
+        {
+          "upper": 63
+        },
+        {
+          "lower": 63,
+          "upper": 67
+        },
+        {
+          "lower": 67,
+          "upper": 72
+        },
+        {
+          "lower": 72,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" <= 63) OR (rowid IN (5,16,18,26,34,40,41,42,50,51,54,57,59,60,61,72,75,79,83,86,90,94,97,99,100,113,117,130,134,155,162,172,174,180,183,188,192,193,204,205,206,220,223,226,237,243,256,260,261,262,268,270,271,287,294,317,320,323,326,327,333,334,340,349,386,387,390,391,392,397,398,399,400,417,434,435,440,445,446,461,464,465,466,469,490,495,498,501,502,513,516,524,525,530,531,533,549,557,568,575,576,589,591,596,599,609,611,618,623,629,632,640,644,649,653,668,673,676,678,682,685,688,695,727,728,731,734,744,745,754,756,778,783,796,798,800,801,807,817,823,833,834,841,845,860,861,880,884,887,893,895,896,899,901,912,962,968,972,976,983,992,993,1001,1007,1016,1018,1019,1032,1040,1041,1048,1056,1057,1064,1069,1076,1077,1078,1083,1084,1096,1101,1103,1104,1106,1108,1110,1115,1116,1128,1136,1139,1140,1145,1148,1157,1158,1174,1175,1176,1181,1183,1198,1200,1212,1236,1238,1239,1246,1270,1271,1274,1275,1286,1288,1297,1303,1305,1306,1315,1317,1326,1327,1341,1346,1348,1349,1351,1355,1357,1359,1363,1380,1381,1384,1393,1398,1402,1408,1410,1411,1412,1414,1435,1454,1456,1483,1484,1485,1493,1496,1501,1506,1507,1512,1517,1518,1521,1522,1526,1539,1561,1564,1566,1588,1592,1605,1610,1616,1628,1631,1632,1638,1656,1670,1676,1699,1701,1708,1710,1714,1719,1736,1740,1743,1745,1747,1751,1761,1763,1767,1777,1779,1785,1786,1791,1796,1797,1805,1807,1835,1842,1843,1857,1862,1876,1880,1886,1888,1891,1893,1894,1907,1910,1914,1917,1920,1929,1931,1941,1956,1961,1970,1972,1977,1982,1991,1994,1996,2004,2005,2036,2043,2062,2065,2077,2078,2084,2085,2086,2093,2096,2102,2117,2118,2126,2139,2153,2165,2191,2193,2205,2209,2214,2215,2216,2220,2240,2244,2292,2293,2299,2300,2313,2338,2339,2348,2353,2364,2382,2384,2387,2404,2411,2434,2435,2440,2441,2450,2452,2468,2483,2484,2488,2491,2492,2494,2495,2496,2510,2531,2536,2539,2544,2545,2556,2565,2572,2581,2584,2588,2598,2604,2615,2619,2630,2631,2636,2643,2646,2647,2651,2656,2657,2658,2659,2660,2661,2664,2665,2668,2671,2678,2679,2680,2681,2685,2686,2689,2691,2692,2693,2697,2698,2699,2700,2702,2705,2711)))",
+        "((\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" > 63 AND \"Height (Inches)\" <= 67) OR (rowid IN (3,13,56,82,112,123,125,133,158,166,169,199,208,214,232,236,293,295,297,312,321,344,347,368,383,416,429,433,437,477,480,503,508,509,517,541,542,588,610,630,635,659,667,675,701,704,715,716,718,725,751,761,768,813,825,844,848,849,868,883,905,914,915,924,928,929,932,938,939,945,952,960,984,996,1006,1023,1030,1079,1087,1095,1119,1131,1151,1159,1161,1186,1201,1202,1203,1206,1208,1209,1229,1234,1243,1248,1252,1256,1259,1261,1278,1290,1292,1294,1312,1320,1324,1344,1353,1356,1419,1436,1442,1449,1466,1468,1489,1495,1515,1528,1533,1535,1542,1567,1568,1570,1573,1602,1603,1604,1614,1629,1630,1654,1661,1664,1685,1705,1715,1723,1755,1771,1800,1825,1828,1831,1834,1836,1858,1869,1878,1884,1913,1922,1923,1924,1925,1934,1935,1951,1984,2000,2003,2019,2022,2028,2047,2048,2055,2076,2104,2109,2112,2122,2125,2137,2177,2179,2183,2187,2194,2198,2207,2217,2236,2246,2248,2277,2279,2302,2318,2325,2340,2368,2378,2396,2430,2439,2442,2447,2454,2460,2501,2504,2509,2516,2533,2535,2547,2550,2566,2574,2590)))",
+        "((\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" > 67 AND \"Height (Inches)\" <= 72) OR (rowid IN (15,29,38,47,64,68,73,78,124,148,159,163,171,179,186,187,225,228,231,282,305,331,332,339,345,350,352,355,375,382,393,410,412,419,422,423,444,459,485,511,512,514,526,554,563,585,601,627,631,636,671,679,683,689,697,703,708,712,719,724,735,736,762,764,804,855,856,881,889,910,916,918,931,969,985,988,995,1005,1029,1037,1049,1063,1068,1086,1123,1127,1149,1153,1171,1177,1205,1223,1245,1247,1257,1262,1282,1296,1337,1340,1352,1366,1367,1374,1388,1437,1447,1457,1469,1472,1478,1487,1492,1510,1511,1513,1514,1529,1553,1558,1563,1569,1574,1583,1599,1600,1613,1636,1643,1649,1653,1679,1681,1689,1694,1696,1704,1706,1712,1730,1732,1750,1752,1784,1819,1822,1838,1847,1865,1873,1875,1882,1902,1903,1926,1932,1936,1944,1948,1949,1955,1959,1986,1989,2002,2007,2021,2023,2051,2070,2075,2083,2088,2089,2120,2121,2124,2141,2151,2166,2181,2195,2197,2211,2218,2227,2232,2249,2258,2276,2282,2284,2286,2290,2291,2317,2320,2324,2335,2342,2343,2359,2369,2370,2372,2383,2405,2416,2417,2418,2431,2453,2461,2493,2498,2530,2538,2552,2576,2582)))",
+        "((\"Height (Inches)\" > 72 OR \"Height (Inches)\" IS NULL) OR (rowid IN (4,12,23,31,32,45,67,70,71,107,111,114,118,137,156,161,184,200,248,251,264,266,273,298,310,348,356,360,367,389,407,408,413,426,451,453,454,456,463,475,500,529,532,535,537,602,603,646,656,707,717,732,750,772,777,786,790,803,812,822,827,829,836,839,846,862,865,867,923,970,997,1004,1010,1020,1025,1026,1028,1043,1050,1075,1082,1100,1107,1117,1120,1124,1132,1141,1173,1199,1228,1232,1242,1251,1254,1258,1263,1276,1277,1279,1283,1285,1291,1302,1304,1345,1354,1371,1376,1406,1420,1441,1458,1467,1471,1475,1479,1480,1490,1524,1531,1536,1551,1556,1584,1608,1634,1641,1650,1660,1678,1729,1733,1739,1754,1758,1772,1774,1788,1789,1808,1813,1815,1821,1871,1883,1899,1905,1915,1940,1947,1960,1967,1968,1974,2008,2015,2035,2057,2064,2068,2133,2134,2136,2138,2150,2160,2170,2188,2202,2203,2223,2225,2226,2230,2237,2243,2250,2260,2285,2287,2295,2341,2361,2365,2374,2380,2385,2402,2407,2436,2438,2443,2449,2451,2462,2472,2473,2474,2482,2485,2499,2503,2511,2514,2525,2543,2546,2564,2587,2589,2592,2593,2595)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" <= 63)",
+        "(\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" > 63 AND \"Height (Inches)\" <= 67)",
+        "(\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" > 67 AND \"Height (Inches)\" <= 72)",
+        "(\"Height (Inches)\" > 72 OR \"Height (Inches)\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where Height (Inches) <= 63",
+        "rows where 63 < Height (Inches) <= 67",
+        "rows where 67 < Height (Inches) <= 72",
+        "rows where Height (Inches) > 72 or is NULL"
+      ],
+      "home_fragment": "ActorBiographyHeightUpTo63Inches",
+      "movable_fragments": [
+        "ActorBiographyHeightAbove63To67Inches",
+        "ActorBiographyHeightAbove67To72Inches",
+        "actor_biographies_height_over_72"
+      ],
+      "movable_fragment": "ActorBiographyHeightAbove63To67Inches",
+      "default_movable_fragment": "ActorBiographyHeightAbove63To67Inches",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "Height (Inches)",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "Height (Inches)",
+            "rhs": "Gender",
+            "precision": 1.0
+          },
+          {
+            "lhs": "Height (Inches)",
+            "rhs": "NetWorth",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "Gender",
+          "Height (Inches)",
+          "NetWorth"
+        ],
+        "ranked_columns": [
+          {
+            "column": "Height (Inches)",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "NetWorth",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "Gender",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 2713
+      },
+      "predicate_sql_fragment_A": "((\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" <= 63) OR (rowid IN (5,16,18,26,34,40,41,42,50,51,54,57,59,60,61,72,75,79,83,86,90,94,97,99,100,113,117,130,134,155,162,172,174,180,183,188,192,193,204,205,206,220,223,226,237,243,256,260,261,262,268,270,271,287,294,317,320,323,326,327,333,334,340,349,386,387,390,391,392,397,398,399,400,417,434,435,440,445,446,461,464,465,466,469,490,495,498,501,502,513,516,524,525,530,531,533,549,557,568,575,576,589,591,596,599,609,611,618,623,629,632,640,644,649,653,668,673,676,678,682,685,688,695,727,728,731,734,744,745,754,756,778,783,796,798,800,801,807,817,823,833,834,841,845,860,861,880,884,887,893,895,896,899,901,912,962,968,972,976,983,992,993,1001,1007,1016,1018,1019,1032,1040,1041,1048,1056,1057,1064,1069,1076,1077,1078,1083,1084,1096,1101,1103,1104,1106,1108,1110,1115,1116,1128,1136,1139,1140,1145,1148,1157,1158,1174,1175,1176,1181,1183,1198,1200,1212,1236,1238,1239,1246,1270,1271,1274,1275,1286,1288,1297,1303,1305,1306,1315,1317,1326,1327,1341,1346,1348,1349,1351,1355,1357,1359,1363,1380,1381,1384,1393,1398,1402,1408,1410,1411,1412,1414,1435,1454,1456,1483,1484,1485,1493,1496,1501,1506,1507,1512,1517,1518,1521,1522,1526,1539,1561,1564,1566,1588,1592,1605,1610,1616,1628,1631,1632,1638,1656,1670,1676,1699,1701,1708,1710,1714,1719,1736,1740,1743,1745,1747,1751,1761,1763,1767,1777,1779,1785,1786,1791,1796,1797,1805,1807,1835,1842,1843,1857,1862,1876,1880,1886,1888,1891,1893,1894,1907,1910,1914,1917,1920,1929,1931,1941,1956,1961,1970,1972,1977,1982,1991,1994,1996,2004,2005,2036,2043,2062,2065,2077,2078,2084,2085,2086,2093,2096,2102,2117,2118,2126,2139,2153,2165,2191,2193,2205,2209,2214,2215,2216,2220,2240,2244,2292,2293,2299,2300,2313,2338,2339,2348,2353,2364,2382,2384,2387,2404,2411,2434,2435,2440,2441,2450,2452,2468,2483,2484,2488,2491,2492,2494,2495,2496,2510,2531,2536,2539,2544,2545,2556,2565,2572,2581,2584,2588,2598,2604,2615,2619,2630,2631,2636,2643,2646,2647,2651,2656,2657,2658,2659,2660,2661,2664,2665,2668,2671,2678,2679,2680,2681,2685,2686,2689,2691,2692,2693,2697,2698,2699,2700,2702,2705,2711)))",
+      "predicate_sql_fragment_B": "((\"Height (Inches)\" IS NOT NULL AND \"Height (Inches)\" > 63 AND \"Height (Inches)\" <= 67) OR (rowid IN (3,13,56,82,112,123,125,133,158,166,169,199,208,214,232,236,293,295,297,312,321,344,347,368,383,416,429,433,437,477,480,503,508,509,517,541,542,588,610,630,635,659,667,675,701,704,715,716,718,725,751,761,768,813,825,844,848,849,868,883,905,914,915,924,928,929,932,938,939,945,952,960,984,996,1006,1023,1030,1079,1087,1095,1119,1131,1151,1159,1161,1186,1201,1202,1203,1206,1208,1209,1229,1234,1243,1248,1252,1256,1259,1261,1278,1290,1292,1294,1312,1320,1324,1344,1353,1356,1419,1436,1442,1449,1466,1468,1489,1495,1515,1528,1533,1535,1542,1567,1568,1570,1573,1602,1603,1604,1614,1629,1630,1654,1661,1664,1685,1705,1715,1723,1755,1771,1800,1825,1828,1831,1834,1836,1858,1869,1878,1884,1913,1922,1923,1924,1925,1934,1935,1951,1984,2000,2003,2019,2022,2028,2047,2048,2055,2076,2104,2109,2112,2122,2125,2137,2177,2179,2183,2187,2194,2198,2207,2217,2236,2246,2248,2277,2279,2302,2318,2325,2340,2368,2378,2396,2430,2439,2442,2447,2454,2460,2501,2504,2509,2516,2533,2535,2547,2550,2566,2574,2590)))",
+      "fragment_role_A": "rows where Height (Inches) <= 63",
+      "fragment_role_B": "rows where 63 < Height (Inches) <= 67"
+    },
+    "movie||vfrag=budget": {
+      "source_table": "movie",
+      "vertical_fragment_suffix": "budget",
+      "num_partitions": 4,
+      "partition_names": [
+        "mv_bud_le_38m",
+        "MoviesBudgetGreaterThan38000000UpTo80000000",
+        "MoviesBudgetGreaterThan80000000UpTo140000000",
+        "mv_bud_gt_140m_or_null"
+      ],
+      "partition_locals": [
+        "local_3",
+        "local_1",
+        "local_1",
+        "local_3"
+      ],
+      "predicate_column": "Budget",
+      "partition_values": [
+        {
+          "upper": 38000000
+        },
+        {
+          "lower": 38000000,
+          "upper": 80000000
+        },
+        {
+          "lower": 80000000,
+          "upper": 140000000
+        },
+        {
+          "lower": 140000000,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"Budget\" IS NOT NULL AND \"Budget\" <= 38000000) OR (rowid IN (177,178,216,217,294,312,313,316,331,332,336,355,370,371,375,376,391,394,395,410,413,414,415,416,428,431,433,434,451,453,467,473,474,486,487,488,489,495,509,512,513,514,515,528,529,530,544,553,554,565,566,567,570,571,573,586,588,591,594,609,611,614,624,630)))",
+        "((\"Budget\" IS NOT NULL AND \"Budget\" > 38000000 AND \"Budget\" <= 80000000) OR (rowid IN (1,2,7,8,10,11,23,25,27,29,30,31,32,33,42,43,44,45,47,49,52,53,61,63,66,68,84,86,88,89,91,100,103,120,122,124,126,127,140,141,142,160,162,199,221,239,240,241,259,279,297,317,318,377,399,400,496,517,537,576,598,617,618,619)))",
+        "((\"Budget\" IS NOT NULL AND \"Budget\" > 80000000 AND \"Budget\" <= 140000000) OR (rowid IN (18,35,36,57,58,73,74,76,77,92,96,112,115,116,117,118,145,148,152,153,154,155,164,165,167,185,187,189,190,191,203,205,208,210,223,225,227,243,245,261,269,281,283,285,301,303,304,319,320,321,323,341,342,344,361,362,363,381,422,423,457,461,480,481,498,518,521,540,558,579,600)))",
+        "((\"Budget\" > 140000000 OR \"Budget\" IS NULL) OR (rowid IN (59,99,119,157,158,159,173,174,193,197,198,212,229,230,233,234,246,250,254,255,256,288,290,292,305,309,310,327,330,348,349,350,351,365,386,387,406,424,445,448,463,464,484,502,522,525,541,542,560,562,584,585,605,628,629,635)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"Budget\" IS NOT NULL AND \"Budget\" <= 38000000)",
+        "(\"Budget\" IS NOT NULL AND \"Budget\" > 38000000 AND \"Budget\" <= 80000000)",
+        "(\"Budget\" IS NOT NULL AND \"Budget\" > 80000000 AND \"Budget\" <= 140000000)",
+        "(\"Budget\" > 140000000 OR \"Budget\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where Budget <= 38000000",
+        "rows where 38000000 < Budget <= 80000000",
+        "rows where 80000000 < Budget <= 140000000",
+        "rows where Budget > 140000000 or is NULL"
+      ],
+      "home_fragment": "mv_bud_le_38m",
+      "movable_fragments": [
+        "MoviesBudgetGreaterThan38000000UpTo80000000",
+        "MoviesBudgetGreaterThan80000000UpTo140000000",
+        "mv_bud_gt_140m_or_null"
+      ],
+      "movable_fragment": "MoviesBudgetGreaterThan38000000UpTo80000000",
+      "default_movable_fragment": "MoviesBudgetGreaterThan38000000UpTo80000000",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "Budget",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "Budget",
+            "rhs": "Genre",
+            "precision": 1.0
+          },
+          {
+            "lhs": "Budget",
+            "rhs": "Rating",
+            "precision": 1.0
+          },
+          {
+            "lhs": "Budget",
+            "rhs": "Runtime",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "Budget",
+          "Genre",
+          "Rating",
+          "Runtime"
+        ],
+        "ranked_columns": [
+          {
+            "column": "Budget",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "Genre",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "Rating",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "Runtime",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 634
+      },
+      "predicate_sql_fragment_A": "((\"Budget\" IS NOT NULL AND \"Budget\" <= 38000000) OR (rowid IN (177,178,216,217,294,312,313,316,331,332,336,355,370,371,375,376,391,394,395,410,413,414,415,416,428,431,433,434,451,453,467,473,474,486,487,488,489,495,509,512,513,514,515,528,529,530,544,553,554,565,566,567,570,571,573,586,588,591,594,609,611,614,624,630)))",
+      "predicate_sql_fragment_B": "((\"Budget\" IS NOT NULL AND \"Budget\" > 38000000 AND \"Budget\" <= 80000000) OR (rowid IN (1,2,7,8,10,11,23,25,27,29,30,31,32,33,42,43,44,45,47,49,52,53,61,63,66,68,84,86,88,89,91,100,103,120,122,124,126,127,140,141,142,160,162,199,221,239,240,241,259,279,297,317,318,377,399,400,496,517,537,576,598,617,618,619)))",
+      "fragment_role_A": "rows where Budget <= 38000000",
+      "fragment_role_B": "rows where 38000000 < Budget <= 80000000"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "characters",
+          "from_column": "MovieID",
+          "to_table": "movie",
+          "to_column": "MovieID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "characters",
+            "column_map": {
+              "MovieID": "MovieID",
+              "ActorID": "ActorID",
+              "Character Name": "Character Name",
+              "creditOrder": "creditOrder",
+              "pay": "pay",
+              "screentime": "screentime"
+            },
+            "orig_to_local": {
+              "MovieID": "MovieID",
+              "ActorID": "ActorID",
+              "Character Name": "Character Name",
+              "creditOrder": "creditOrder",
+              "pay": "pay",
+              "screentime": "screentime"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "movie_genre",
+            "column_map": {
+              "MovieID": "MovieID",
+              "Genre": "Genre",
+              "MPAA Rating": "MPAA Rating",
+              "Rating": "Rating",
+              "Release Date": "Release Date",
+              "Summary": "Summary",
+              "Title": "Title"
+            },
+            "orig_to_local": {
+              "MovieID": "MovieID",
+              "Genre": "Genre",
+              "MPAA Rating": "MPAA Rating",
+              "Rating": "Rating",
+              "Release Date": "Release Date",
+              "Summary": "Summary",
+              "Title": "Title"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "movie_budget_q2",
+            "column_map": {
+              "MovieID": "MovieID",
+              "Budget": "Budget",
+              "Genre": "Genre",
+              "Gross": "Gross",
+              "Rating": "Rating",
+              "Rating Count": "Rating Count",
+              "Release Date": "Release Date",
+              "Runtime": "Runtime",
+              "Summary": "Summary"
+            },
+            "orig_to_local": {
+              "MovieID": "MovieID",
+              "Budget": "Budget",
+              "Genre": "Genre",
+              "Gross": "Gross",
+              "Rating": "Rating",
+              "Rating Count": "Rating Count",
+              "Release Date": "Release Date",
+              "Runtime": "Runtime",
+              "Summary": "Summary"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "movie_budget_q3",
+            "column_map": {
+              "MovieID": "MovieID",
+              "Budget": "Budget",
+              "Genre": "Genre",
+              "Gross": "Gross",
+              "Rating": "Rating",
+              "Rating Count": "Rating Count",
+              "Release Date": "Release Date",
+              "Runtime": "Runtime",
+              "Summary": "Summary"
+            },
+            "orig_to_local": {
+              "MovieID": "MovieID",
+              "Budget": "Budget",
+              "Genre": "Genre",
+              "Gross": "Gross",
+              "Rating": "Rating",
+              "Rating Count": "Rating Count",
+              "Release Date": "Release Date",
+              "Runtime": "Runtime",
+              "Summary": "Summary"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "movie_budget_q1",
+            "column_map": {
+              "MovieID": "MovieID",
+              "Budget": "Budget",
+              "Genre": "Genre",
+              "Gross": "Gross",
+              "Rating": "Rating",
+              "Rating Count": "Rating Count",
+              "Release Date": "Release Date",
+              "Runtime": "Runtime",
+              "Summary": "Summary"
+            },
+            "orig_to_local": {
+              "MovieID": "MovieID",
+              "Budget": "Budget",
+              "Genre": "Genre",
+              "Gross": "Gross",
+              "Rating": "Rating",
+              "Rating Count": "Rating Count",
+              "Release Date": "Release Date",
+              "Runtime": "Runtime",
+              "Summary": "Summary"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "movie_budget_q4",
+            "column_map": {
+              "MovieID": "MovieID",
+              "Budget": "Budget",
+              "Genre": "Genre",
+              "Gross": "Gross",
+              "Rating": "Rating",
+              "Rating Count": "Rating Count",
+              "Release Date": "Release Date",
+              "Runtime": "Runtime",
+              "Summary": "Summary"
+            },
+            "orig_to_local": {
+              "MovieID": "MovieID",
+              "Budget": "Budget",
+              "Genre": "Genre",
+              "Gross": "Gross",
+              "Rating": "Rating",
+              "Rating Count": "Rating Count",
+              "Release Date": "Release Date",
+              "Runtime": "Runtime",
+              "Summary": "Summary"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "MoviesBudgetGreaterThan38000000UpTo80000000",
+            "from_local_column": "MovieIdentifier",
+            "to_local_column": "MovieIdentifier"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "MoviesBudgetGreaterThan80000000UpTo140000000",
+            "from_local_column": "MovieIdentifier",
+            "to_local_column": "MovieIdentifier"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "MovieGenreMetadata",
+            "from_local_column": "MovieIdentifier",
+            "to_local_column": "MovieIdentifier"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "mv_bud_le_38m",
+            "from_local_column": "MovieIdentifier",
+            "to_local_column": "mv_id"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "mv_bud_gt_140m_or_null",
+            "from_local_column": "MovieIdentifier",
+            "to_local_column": "mv_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "characters",
+          "from_column": "ActorID",
+          "to_table": "actor",
+          "to_column": "ActorID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "characters",
+            "column_map": {
+              "MovieID": "MovieID",
+              "ActorID": "ActorID",
+              "Character Name": "Character Name",
+              "creditOrder": "creditOrder",
+              "pay": "pay",
+              "screentime": "screentime"
+            },
+            "orig_to_local": {
+              "MovieID": "MovieID",
+              "ActorID": "ActorID",
+              "Character Name": "Character Name",
+              "creditOrder": "creditOrder",
+              "pay": "pay",
+              "screentime": "screentime"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "actor_biography_q1",
+            "column_map": {
+              "ActorID": "ActorID",
+              "Biography": "Biography",
+              "Ethnicity": "Ethnicity",
+              "Gender": "Gender",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            },
+            "orig_to_local": {
+              "ActorID": "ActorID",
+              "Biography": "Biography",
+              "Ethnicity": "Ethnicity",
+              "Gender": "Gender",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "actor_biography_q2",
+            "column_map": {
+              "ActorID": "ActorID",
+              "Biography": "Biography",
+              "Ethnicity": "Ethnicity",
+              "Gender": "Gender",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            },
+            "orig_to_local": {
+              "ActorID": "ActorID",
+              "Biography": "Biography",
+              "Ethnicity": "Ethnicity",
+              "Gender": "Gender",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "actor_biography_q3",
+            "column_map": {
+              "ActorID": "ActorID",
+              "Biography": "Biography",
+              "Ethnicity": "Ethnicity",
+              "Gender": "Gender",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            },
+            "orig_to_local": {
+              "ActorID": "ActorID",
+              "Biography": "Biography",
+              "Ethnicity": "Ethnicity",
+              "Gender": "Gender",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "actor_biography_q4",
+            "column_map": {
+              "ActorID": "ActorID",
+              "Biography": "Biography",
+              "Ethnicity": "Ethnicity",
+              "Gender": "Gender",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            },
+            "orig_to_local": {
+              "ActorID": "ActorID",
+              "Biography": "Biography",
+              "Ethnicity": "Ethnicity",
+              "Gender": "Gender",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "actor_birth_city",
+            "column_map": {
+              "ActorID": "ActorID",
+              "Birth City": "Birth City",
+              "Birth Country": "Birth Country",
+              "Date of Birth": "Date of Birth",
+              "Ethnicity": "Ethnicity",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            },
+            "orig_to_local": {
+              "ActorID": "ActorID",
+              "Birth City": "Birth City",
+              "Birth Country": "Birth Country",
+              "Date of Birth": "Date of Birth",
+              "Ethnicity": "Ethnicity",
+              "Height (Inches)": "Height (Inches)",
+              "Name": "Name",
+              "NetWorth": "NetWorth"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "ActorBiographyHeightAbove67To72Inches",
+            "from_local_column": "ActorIdentifier",
+            "to_local_column": "ActorIdentifier"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "ActorBiographyHeightUpTo63Inches",
+            "from_local_column": "ActorIdentifier",
+            "to_local_column": "ActorIdentifier"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "ActorBiographyHeightAbove63To67Inches",
+            "from_local_column": "ActorIdentifier",
+            "to_local_column": "ActorIdentifier"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "actor_biographies_height_over_72",
+            "from_local_column": "ActorIdentifier",
+            "to_local_column": "actor_id"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "MovieCastRoles",
+            "to_local_table": "actor_birth_locations",
+            "from_local_column": "ActorIdentifier",
+            "to_local_column": "actor_id"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "movie_genre",
+      "source_table": "movie",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_3",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 33,
+        "cross_local_query_count": 33,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "movie_budget_q1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "actor_biography_q1",
+      "source_table": "actor",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "actor_birth_city",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "actor_biography_q2",
+      "source_table": "actor",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "actor_birth_city",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "actor_biography_q3",
+      "source_table": "actor",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "actor_birth_city",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "movie_budget_q2",
+      "source_table": "movie",
+      "kind": "row_partition",
+      "from_local": "local_3",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 13,
+        "cross_local_query_count": 13,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "movie_budget_q1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "movie_budget_q3",
+      "source_table": "movie",
+      "kind": "row_partition",
+      "from_local": "local_3",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 13,
+        "cross_local_query_count": 13,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "movie_budget_q1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "actor_biography_q1|characters": 30,
+      "actor_biography_q1|movie_budget_q1": 11,
+      "actor_biography_q1|movie_budget_q2": 11,
+      "actor_biography_q1|movie_budget_q3": 11,
+      "actor_biography_q1|movie_budget_q4": 11,
+      "actor_biography_q1|movie_genre": 23,
+      "actor_biography_q2|characters": 30,
+      "actor_biography_q2|movie_budget_q1": 11,
+      "actor_biography_q2|movie_budget_q2": 11,
+      "actor_biography_q2|movie_budget_q3": 11,
+      "actor_biography_q2|movie_budget_q4": 11,
+      "actor_biography_q2|movie_genre": 23,
+      "actor_biography_q3|characters": 30,
+      "actor_biography_q3|movie_budget_q1": 11,
+      "actor_biography_q3|movie_budget_q2": 11,
+      "actor_biography_q3|movie_budget_q3": 11,
+      "actor_biography_q3|movie_budget_q4": 11,
+      "actor_biography_q3|movie_genre": 23,
+      "actor_biography_q4|characters": 30,
+      "actor_biography_q4|movie_budget_q1": 11,
+      "actor_biography_q4|movie_budget_q2": 11,
+      "actor_biography_q4|movie_budget_q3": 11,
+      "actor_biography_q4|movie_budget_q4": 11,
+      "actor_biography_q4|movie_genre": 23,
+      "actor_birth_city|characters": 34,
+      "actor_birth_city|movie_budget_q1": 12,
+      "actor_birth_city|movie_budget_q2": 12,
+      "actor_birth_city|movie_budget_q3": 12,
+      "actor_birth_city|movie_budget_q4": 12,
+      "actor_birth_city|movie_genre": 26,
+      "characters|movie_budget_q1": 13,
+      "characters|movie_budget_q2": 13,
+      "characters|movie_budget_q3": 13,
+      "characters|movie_budget_q4": 13,
+      "characters|movie_genre": 33
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "actor_biography_q1": "local_2",
+      "actor_biography_q2": "local_2",
+      "actor_biography_q3": "local_2",
+      "actor_biography_q4": "local_2",
+      "actor_birth_city": "local_2",
+      "characters": "local_1",
+      "movie_budget_q1": "local_3",
+      "movie_budget_q2": "local_3",
+      "movie_budget_q3": "local_3",
+      "movie_budget_q4": "local_3",
+      "movie_genre": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "actor": {
+        "R": 3,
+        "F": 5,
+        "rho": 0.8
+      },
+      "movie": {
+        "R": 3,
+        "F": 5,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "actor": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      },
+      "movie": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "actor": "actor_biography_q1",
+      "movie": "movie_budget_q1"
+    },
+    "intents": [
+      {
+        "source_table": "actor",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "actor_biography_q1",
+        "anchor_fragment": "actor_birth_city",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "actor",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "actor_biography_q2",
+        "anchor_fragment": "actor_birth_city",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "actor",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "actor_biography_q3",
+        "anchor_fragment": "actor_birth_city",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "movie",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "movie_genre",
+        "anchor_fragment": "movie_budget_q1",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 33,
+        "cross_local_query_count": 33,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "movie",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "movie_budget_q2",
+        "anchor_fragment": "movie_budget_q1",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 13,
+        "cross_local_query_count": 13,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "movie",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "movie_budget_q3",
+        "anchor_fragment": "movie_budget_q1",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 13,
+        "cross_local_query_count": 13,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "actor",
+        "kind": "row_partition",
+        "movable_fragment": "actor_biography_q2",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0,
+        "anchor_fragment": "actor_biography_q1"
+      },
+      {
+        "source_table": "actor",
+        "kind": "row_partition",
+        "movable_fragment": "actor_biography_q3",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0,
+        "anchor_fragment": "actor_biography_q1"
+      },
+      {
+        "source_table": "movie",
+        "kind": "row_partition",
+        "movable_fragment": "movie_budget_q2",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 13,
+        "cross_local_query_count": 13,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "movie_budget_q1"
+      },
+      {
+        "source_table": "movie",
+        "kind": "row_partition",
+        "movable_fragment": "movie_budget_q3",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 13,
+        "cross_local_query_count": 13,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "movie_budget_q1"
+      }
+    ],
+    "moved_fragments": [
+      "actor_biography_q1",
+      "actor_biography_q2",
+      "actor_biography_q3",
+      "movie_budget_q2",
+      "movie_budget_q3",
+      "movie_genre"
+    ],
+    "pinned_fragments": [
+      "characters"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "actor",
+        "kind": "row_partition",
+        "movable_fragment": "actor_biography_q2",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0,
+        "anchor_fragment": "actor_biography_q1",
+        "reason": "movable_already_moved"
+      },
+      {
+        "source_table": "actor",
+        "kind": "row_partition",
+        "movable_fragment": "actor_biography_q3",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 30,
+        "cross_local_query_count": 30,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0,
+        "anchor_fragment": "actor_biography_q1",
+        "reason": "movable_already_moved"
+      },
+      {
+        "source_table": "movie",
+        "kind": "row_partition",
+        "movable_fragment": "movie_budget_q2",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 13,
+        "cross_local_query_count": 13,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "movie_budget_q1",
+        "reason": "movable_already_moved"
+      },
+      {
+        "source_table": "movie",
+        "kind": "row_partition",
+        "movable_fragment": "movie_budget_q3",
+        "partner_fragment": "characters",
+        "partner_logical_table": "characters",
+        "partner_weight": 13,
+        "cross_local_query_count": 13,
+        "evidence_type": "fragment",
+        "source_local_idx": 2,
+        "target_local_idx": 0,
+        "anchor_fragment": "movie_budget_q1",
+        "reason": "movable_already_moved"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "actor": {
+        "columns": [
+          {
+            "name": "ActorID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Date of Birth",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Birth City",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Birth Country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Height (Inches)",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Biography",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Gender",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Ethnicity",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "NetWorth",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ActorID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 2713
+      },
+      "movie": {
+        "columns": [
+          {
+            "name": "MovieID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Title",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "MPAA Rating",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Budget",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Gross",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Release Date",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Genre",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Runtime",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Rating",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Rating Count",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Summary",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "MovieID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 634
+      },
+      "characters": {
+        "columns": [
+          {
+            "name": "MovieID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "ActorID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "Character Name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "creditOrder",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pay",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "screentime",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "MovieID",
+          "ActorID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 4312
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "characters",
+        "from_column": "MovieID",
+        "to_table": "movie",
+        "to_column": "MovieID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "characters",
+        "from_column": "ActorID",
+        "to_table": "actor",
+        "to_column": "ActorID",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 3,
+      "num_fk_edges": 2,
+      "hub_tables": [
+        "characters",
+        "actor",
+        "movie"
+      ],
+      "connected_components": 1
+    }
+  }
+}

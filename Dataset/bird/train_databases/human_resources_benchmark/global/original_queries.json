@@ -1,0 +1,415 @@
+[
+  {
+    "sql": "SELECT firstname, lastname FROM employee ORDER BY salary DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which employee has the highest salary? Please give his or her full name.",
+    "difficulty": "",
+    "evidence": "the highest salary refers to MAX(salary); full name = firstname, lastname"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee WHERE performance = 'Good'",
+    "question_id": null,
+    "question": "How many emplyees have a good job performance?",
+    "difficulty": "",
+    "evidence": "good job performance refers to performance = 'Good'"
+  },
+  {
+    "sql": "SELECT ssn FROM employee WHERE gender = 'M' AND CAST(REPLACE(SUBSTR(salary, 4), ',', '') AS REAL) > 70000",
+    "question_id": null,
+    "question": "Please list the social security numbers of the male employees with a salary of over $70,000 a year.",
+    "difficulty": "",
+    "evidence": "social security numbers refers to ssn; male employees refers to gender = 'M'; salary of over $70,000 a year refers to salary > '70000'"
+  },
+  {
+    "sql": "SELECT educationrequired FROM position WHERE positiontitle = 'Regional Manager'",
+    "question_id": null,
+    "question": "What is the required education for the position of regional manager?",
+    "difficulty": "",
+    "evidence": "required education refers to educationrequired; position of regional manager refers to\u00a0 positiontitle = 'Regional Manager'"
+  },
+  {
+    "sql": "SELECT positiontitle FROM position WHERE positiontitle = 'Account Representative' OR positiontitle = 'Trainee' ORDER BY minsalary ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which position has a lower minimum salary, Account Representative or Trainee?",
+    "difficulty": "",
+    "evidence": "position of Account Representative refers to positiontitle = 'Account Representative'; position of Trainee refers to positiontitle = 'Trainee'; lower minimum salary refers to MIN(minsalary)"
+  },
+  {
+    "sql": "SELECT T2.locationcity FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T1.lastname = 'Adams' AND T1.firstname = 'Sandy'",
+    "question_id": null,
+    "question": "In which city's office does Sandy Adams work at?",
+    "difficulty": "",
+    "evidence": "Sandy Adams is the fullname of an employee; full name = firstname, lastname; city refers to locationcity"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1 INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T2.state = 'NY' AND T1.performance = 'Good'",
+    "question_id": null,
+    "question": "Among the employees working at the office in New York, how many of them have a good job performance?",
+    "difficulty": "",
+    "evidence": "Sandy Adams is the fullname of an employee; full name = firstname, lastname; New York refers to state = 'NY'; good job performance refers to performance = 'Good';"
+  },
+  {
+    "sql": "SELECT T2.officephone FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T1.lastname = 'Adams' AND T1.firstname = 'Sandy'",
+    "question_id": null,
+    "question": "What is the office phone number of the location at which Sandy Adams works?",
+    "difficulty": "",
+    "evidence": "Sandy Adams is the fullname of an employee; full name = firstname, lastname;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T2.address = '450 Peachtree Rd' AND T1.gender = 'M'",
+    "question_id": null,
+    "question": "How many male employees work at the address 450 Peachtree Rd?",
+    "difficulty": "",
+    "evidence": "male employees refers to gender = 'M'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T2.positiontitle = 'Account Representative'",
+    "question_id": null,
+    "question": "How many employees work as an Account Representative?",
+    "difficulty": "",
+    "evidence": "work as an Account Representative refers to positiontitle = 'Account Representative'"
+  },
+  {
+    "sql": "SELECT CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL) - CAST(REPLACE(SUBSTR(T2.minsalary, 4), ',', '') AS REAL) AS diff FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.lastname = 'Johnson' AND T1.firstname = 'James'",
+    "question_id": null,
+    "question": "How much higher is James Johnson's salary from the minimum salary of his title?",
+    "difficulty": "",
+    "evidence": "James Johnson is the fullname of an employee; full name = firstname, lastname; minimum salary refers to minsalary; calculation = SUBTRACT(salary, minsalary)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID INNER JOIN position AS T3  ON T3.positionID = T1.positionID WHERE T3.positiontitle = 'Trainee' AND T2.state = 'NY'",
+    "question_id": null,
+    "question": "Among the employees who are Trainees, how many of them work in New York?",
+    "difficulty": "",
+    "evidence": "Trainees is a position title; California refers to state = 'NY'"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T2.positiontitle = 'Trainee'",
+    "question_id": null,
+    "question": "Please list the full names of the employees who are working as a Trainee.",
+    "difficulty": "",
+    "evidence": "full name = firstname, lastname; trainees is a position title"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE (T1.lastname = 'Adams' AND T1.firstname = 'Sandy') OR (T1.lastname = 'Rodriguez' AND T1.firstname = 'Jose') ORDER BY T2.educationrequired DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which employee's job position requires a higher education level, Jose Rodriguez or Sandy Adams?",
+    "difficulty": "",
+    "evidence": "Jose Rodriguez AND Sandy Adams are the fullname of employee; full name = firstname, lastname; higher education level refers to MAX(educationrequired)"
+  },
+  {
+    "sql": "SELECT T2.zipcode FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T1.gender = 'M' AND T1.performance = 'Good'",
+    "question_id": null,
+    "question": "Please list the zip codes of the offices where all the male employees with a good job performance work at.",
+    "difficulty": "",
+    "evidence": "male employees refers to gender = 'M'; good job performance refers to performance = 'Good'"
+  },
+  {
+    "sql": "SELECT T1.ssn FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T2.state = 'CA'",
+    "question_id": null,
+    "question": "Please list the social security numbers of all the employees who work in California.",
+    "difficulty": "",
+    "evidence": "social security numbers refers to ssn; California refers to state = 'CA'"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL) > 20000 AND T2.positiontitle = 'Trainee'",
+    "question_id": null,
+    "question": "Among the employees who work as a Trainee, how many of them have a salary of over &20,000 a year?",
+    "difficulty": "",
+    "evidence": "Trainee is a position title; salary of over 20,000 refers to salary > '20000'"
+  },
+  {
+    "sql": "SELECT AVG(CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL)) AS avg FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T2.positiontitle = 'Trainee'",
+    "question_id": null,
+    "question": "What is the average salary of the employees who work as a Trainee?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE( SUM(salary), COUNT(positiontitle) where positiontitle = 'Trainee'; Trainee is a position title"
+  },
+  {
+    "sql": "SELECT 100 * (AVG(CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL)) - CAST(REPLACE(SUBSTR(T2.minsalary, 4), ',', '') AS REAL)) / CAST(REPLACE(SUBSTR(T2.minsalary, 4), ',', '') AS REAL) AS per FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T2.positiontitle = 'Trainee'",
+    "question_id": null,
+    "question": "By what percentage is the average salary of Trainees higher than the minimum salary of this postion?",
+    "difficulty": "",
+    "evidence": "AVG(salary); Trainee is a position title; minimum salary refers to minsalary; calculation = DIVIDE(SUBTRACT(AVG(salary), minsalary), minsalary) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee WHERE gender = 'F'",
+    "question_id": null,
+    "question": "Give the number of female employees.",
+    "difficulty": "",
+    "evidence": "number of female employees means COUNT(gender = 'F')"
+  },
+  {
+    "sql": "SELECT T2.locationcity FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T1.firstname = 'Jose' AND T1.lastname = 'Rodriguez'",
+    "question_id": null,
+    "question": "State the name of the city where Jose Rodriguez works.",
+    "difficulty": "",
+    "evidence": "Jose Rodriguez is the fullname of an employee; full name = firstname, lastname; name of city refers to locationcity"
+  },
+  {
+    "sql": "SELECT T2.state FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T1.firstname = 'Emily' AND T1.lastname = 'Wood'",
+    "question_id": null,
+    "question": "In which state does Emily Wood work?",
+    "difficulty": "",
+    "evidence": "Emily Wood is the full name of an employee; full name = firstname, lastname;"
+  },
+  {
+    "sql": "SELECT T2.educationrequired FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.firstname = 'David' AND T1.lastname = 'Whitehead' AND T1.gender = 'M'",
+    "question_id": null,
+    "question": "What is the education required for David Whitehead to reach his current position?",
+    "difficulty": "",
+    "evidence": "David Whitehead is the full name of an employee; full name = firstname, lastname"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T2.locationcity = 'Miami'",
+    "question_id": null,
+    "question": "How many employees are there in the \"Miami\" office?",
+    "difficulty": "",
+    "evidence": "Miami office refers to locationcity = 'Miami'"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T2.locationcity = 'Boston' ORDER BY T1.salary DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the highest paid employee in \"Boston\"? Give the full name.",
+    "difficulty": "",
+    "evidence": "Boston refers to locationcity = 'Boston'; the highest paid employee refers to MAX(salary); full name = firstname, lastname"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname, T1.ssn FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T2.locationcity = 'New York City' AND T1.performance = 'Good'",
+    "question_id": null,
+    "question": "Who is the employee in \u201cNew York City\u201d with a good performance? Give the social security number of the employee.",
+    "difficulty": "",
+    "evidence": "New York City refers to locationcity = 'New York City'; good performance refers to performance = 'Good'; social security number refers to ssn"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID INNER JOIN position AS T3  ON T3.positionID = T1.positionID WHERE T3.positiontitle = 'Account Representative' AND T2.locationcity = 'Chicago' AND T1.performance = 'Good'",
+    "question_id": null,
+    "question": "How many \"account representatives\" are there in Chicago with a good performance?",
+    "difficulty": "",
+    "evidence": "account representatives is a position title; Chicago refers to locationcity = 'Chicago'; good performance refers to performance = 'Good'"
+  },
+  {
+    "sql": "SELECT T2.positiontitle FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.firstname = 'Kenneth' AND T1.lastname = 'Charles'",
+    "question_id": null,
+    "question": "What is Kenneth Charles's position title?",
+    "difficulty": "",
+    "evidence": "Kenneth Charles is the full name of an employee; full name = firstname, lastname"
+  },
+  {
+    "sql": "SELECT T2.address FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID INNER JOIN position AS T3  ON T3.positionID = T1.positionID WHERE T3.positiontitle = 'Manager' ORDER BY T1.salary DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the full address of the office of the highest paid manager.",
+    "difficulty": "",
+    "evidence": "the highest paid refers to MAX(salary); manager is a position title"
+  },
+  {
+    "sql": "SELECT T2.maxsalary FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.firstname = 'Tracy' AND T1.lastname = 'Coulter'",
+    "question_id": null,
+    "question": "What is the max salary for 'Tracy Coulter' if he/she stays on his/her position?",
+    "difficulty": "",
+    "evidence": "Tracy Coulter is the full name of an employee; full name = firstname, lastname"
+  },
+  {
+    "sql": "SELECT 100 * (CAST(REPLACE(SUBSTR(T2.maxsalary, 4), ',', '') AS REAL) - CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL)) / CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL) AS per FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.firstname = 'Jose' AND T1.lastname = 'Rodriguez'",
+    "question_id": null,
+    "question": "If Jose Rodriguez tried his best, how many percentage can his salary raise without changing his position?",
+    "difficulty": "",
+    "evidence": "Jose Rodriguez is the full name of an employee; full name = firstname, lastname; calculation = DIVIDE(SUBTRACT(maxsalary, salary), salary) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee WHERE performance = 'Poor' AND CAST(REPLACE(SUBSTR(salary, 4), ',', '') AS REAL) > 50000",
+    "question_id": null,
+    "question": "How many employees whose performance is poor have a salary of over $50,000 per year?",
+    "difficulty": "",
+    "evidence": "performance is poor refers to performance = 'Poor'; salary of over $50,000 refers to salary > '50000'"
+  },
+  {
+    "sql": "SELECT firstname, lastname FROM employee WHERE CAST(REPLACE(SUBSTR(salary, 4), ',', '') AS REAL) = ( SELECT MAX(CAST(REPLACE(SUBSTR(salary, 4), ',', '') AS REAL)) FROM employee )",
+    "question_id": null,
+    "question": "Who is the employee with the highest salary? Specify his/her full name.",
+    "difficulty": "",
+    "evidence": "the highest salary refers to MAX(salary); full name = firstname, lastname"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM position WHERE CAST(REPLACE(SUBSTR(maxsalary, 4), ',', '') AS REAL) < 100000",
+    "question_id": null,
+    "question": "How many positions have a maximum salary of no more than US$1000,000?",
+    "difficulty": "",
+    "evidence": "maximum salary of no more than US$1000,000 refers to maxsalary < '100000';"
+  },
+  {
+    "sql": "SELECT salary FROM employee ORDER BY hiredate ASC LIMIT 1",
+    "question_id": null,
+    "question": "How much is the salary of the first ever employee that was hired?",
+    "difficulty": "",
+    "evidence": "first-ever employee that was hired refers to MIN(hiredate)"
+  },
+  {
+    "sql": "SELECT minsalary FROM position ORDER BY educationrequired DESC LIMIT 1",
+    "question_id": null,
+    "question": "How much is the minimum salary given to the position with the most complex work?",
+    "difficulty": "",
+    "evidence": "most complex work refers to MAX(educationrequired); minimum salary refers to minsalary"
+  },
+  {
+    "sql": "SELECT T2.address, T2.locationcity, T2.state, T2.zipcode FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID GROUP BY T2.address, T2.locationcity, T2.state, T2.zipcode ORDER BY COUNT(*) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full office location address where most of the employees work at?",
+    "difficulty": "",
+    "evidence": "full office location address = address, locationcity, state, zipcode; location where most employees work at refers to MAX(locationID)"
+  },
+  {
+    "sql": "SELECT AVG(CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL)) FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T2.educationrequired = '2 year degree'",
+    "question_id": null,
+    "question": "What is the average salary of all employees with a 2 year degree position?",
+    "difficulty": "",
+    "evidence": "2 year degree refers to educationrequired = '2 year degree'; calculation = DIVIDE(SUM(salary), COUNT(positiontitle))"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T2.positiontitle = 'Regional Manager' AND T1.gender = 'M'",
+    "question_id": null,
+    "question": "How many male Regional Managers are there?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; Regional Managers is a position title"
+  },
+  {
+    "sql": "SELECT T2.positiontitle FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.performance = 'Poor' GROUP BY T2.positiontitle ORDER BY COUNT(T2.positiontitle) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which position has the highest amount of poor performing employees?",
+    "difficulty": "",
+    "evidence": "poor performing employees refers to performance = 'Poor'; the highest amount of employees refers to MAX(positiontitle)"
+  },
+  {
+    "sql": "SELECT T2.positiontitle FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T2.educationrequired = '2 year degree' AND T1.gender = 'F' GROUP BY T2.positiontitle ORDER BY COUNT(T2.positiontitle) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which position has the highest number of female employees with a 2 year degree?",
+    "difficulty": "",
+    "evidence": "2 year degree refers to educationrequired = '2 year degree'; female refers to gender = 'F'; the highest number of employees refers to MAX(positionID)"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID INNER JOIN position AS T3  ON T3.positionID = T1.positionID WHERE T3.positiontitle = 'Account Representative' AND T1.performance = 'Good' AND T2.state = 'IL'",
+    "question_id": null,
+    "question": "How many Account Representatives are there in Illinois with satisfying performance?",
+    "difficulty": "",
+    "evidence": "Account Representatives is a position title; satisfying performance mostly refers togood performance"
+  },
+  {
+    "sql": "SELECT AVG(CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL)) FROM employee AS T1 INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.performance = 'Poor' AND T2.positiontitle = 'Manager'",
+    "question_id": null,
+    "question": "What is the average salary of the worst performing managers?",
+    "difficulty": "",
+    "evidence": "the worst performing refers to performance = 'Poor'; manager is a positiontitle; average salary refers to AVG(salary)"
+  },
+  {
+    "sql": "SELECT T2.state FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID INNER JOIN position AS T3  ON T3.positionID = T1.positionID WHERE T3.positiontitle = 'Account Representative' AND T1.performance = 'Good' GROUP BY T2.state ORDER BY COUNT(T2.state) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which state can you find the highest amount of good performing Account Representatives?",
+    "difficulty": "",
+    "evidence": "good performing refers to performance = 'Good'; Account Representatives is a positiontitle; highest amount of employee refers to MAX(positionID);"
+  },
+  {
+    "sql": "SELECT firstname, lastname, performance FROM employee ORDER BY salary ASC LIMIT 1",
+    "question_id": null,
+    "question": "Mention the employee's full name and performance status who got the lowest in salary per year.",
+    "difficulty": "",
+    "evidence": "full name = firstname, lastname; the lowest salary refers to MIN(salary)"
+  },
+  {
+    "sql": "SELECT locationcity FROM location WHERE state IN ('CO', 'UT', 'CA')",
+    "question_id": null,
+    "question": "List the location cities in the Western states.",
+    "difficulty": "",
+    "evidence": "Western states refers to state = 'CO' OR state = 'UT' OR state = 'CA'; location cities refers to locationcity"
+  },
+  {
+    "sql": "SELECT locationcity, address FROM location WHERE zipcode > 90000",
+    "question_id": null,
+    "question": "Which city and address has zip code of above 90000?",
+    "difficulty": "",
+    "evidence": "zip code of above 90000 refers to zipcode > 90000; city refers to locationcity"
+  },
+  {
+    "sql": "SELECT positiontitle FROM position WHERE educationrequired = '4 year degree'",
+    "question_id": null,
+    "question": "Which positions are suitable with 4 years degree education?",
+    "difficulty": "",
+    "evidence": "4 years degree education refers to educationrequired = '4 year degree'; positions refers to positiontitle"
+  },
+  {
+    "sql": "SELECT maxsalary FROM position WHERE positiontitle = 'Trainee'",
+    "question_id": null,
+    "question": "What is the maximum salary of position \"Trainer\"?",
+    "difficulty": "",
+    "evidence": "maximum salary refers to maxsalary; Trainee is a positiontitle"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname, T1.ssn FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.performance = 'Average'",
+    "question_id": null,
+    "question": "List the full name and social security number of the account representative with average performance.",
+    "difficulty": "",
+    "evidence": "full name = firstname, lastname; social security number refers to ssn; account representative is a position title; average performance refers to performance = 'Average'"
+  },
+  {
+    "sql": "SELECT T1.hiredate, T2.positiontitle, T1.salary FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.firstname = 'Emily' AND T1.lastname = 'Wood'",
+    "question_id": null,
+    "question": "When was Emily Wood hired? Mention her position and salary.",
+    "difficulty": "",
+    "evidence": "Emily Wood is the full name of an employee; full name = firstname, lastname; when was she hired refers to hiredate"
+  },
+  {
+    "sql": "SELECT T2.maxsalary, T2.minsalary, T2.positiontitle FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.firstname = 'Bill' AND T1.lastname = 'Marlin'",
+    "question_id": null,
+    "question": "What are the maximum and minimum salary range and position title of Bill Marlin?",
+    "difficulty": "",
+    "evidence": "Bill Marlin is the full name of an employee; full name = firstname, lastname; maximum salary refers to maxsalary; minimum salary refers to minsalary"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname, T1.gender, T3.positiontitle FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID INNER JOIN position AS T3  ON T3.positionID = T1.positionID WHERE T2.locationcity = 'New York City'",
+    "question_id": null,
+    "question": "List the full names, gender and positions who's location is in New York city.",
+    "difficulty": "",
+    "evidence": "full name = firstname, lastname; New York city refers to locationcity = 'New York City'"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname, T1.hiredate, T1.performance FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T2.state = 'UT'",
+    "question_id": null,
+    "question": "Mention the full name, hired date and performance status of the employee whose location is in Utah state.",
+    "difficulty": "",
+    "evidence": "full name = firstname, lastname; Utah refers to state = 'UT'"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname, T2.locationcity, T2.address, T2.zipcode FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID INNER JOIN position AS T3  ON T3.positionID = T1.positionID WHERE T3.positiontitle = 'Manager' AND T1.performance = 'Poor'",
+    "question_id": null,
+    "question": "Among the employees with poor performance, provide the managers' full names, location city, address and its zip code.",
+    "difficulty": "",
+    "evidence": "poor performance refers to performance = 'Poor'; full name = firstname, lastname; managers is a position title"
+  },
+  {
+    "sql": "SELECT T2.educationrequired, T1.firstname, T1.lastname, T1.salary FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID WHERE T1.performance = 'Poor' AND T2.positiontitle = 'Account Representative'",
+    "question_id": null,
+    "question": "What is the education required to be account representative? Mention account representative full name and salary who got poor in performance status.",
+    "difficulty": "",
+    "evidence": "account representative is a position title; full name = firstname, lastname; poor performance refers to performance = 'Poor'"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname, T2.state, T2.locationcity FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID WHERE T1.ssn = '767-74-7373'",
+    "question_id": null,
+    "question": "Write down the full name, performance status and located city of the employee who's social security number is \"767-74-7373\".",
+    "difficulty": "",
+    "evidence": "full name = firstname, lastname; ssn = '767-74-7373'"
+  },
+  {
+    "sql": "SELECT T1.firstname, T1.lastname, T3.positiontitle, T2.locationcity, T2.officephone FROM employee AS T1  INNER JOIN location AS T2  ON T1.locationID = T2.locationID INNER JOIN position AS T3  ON T3.positionID = T1.positionID WHERE T2.state = 'CO'",
+    "question_id": null,
+    "question": "Describe the employees' full name, positions, located city and office phone number within Colorado state.",
+    "difficulty": "",
+    "evidence": "full name = firstname, lastname; Colorado state refers to state = 'CO'; positions refers to positiontitle; located city refers to locationcity; office phone number refers to officephone;"
+  },
+  {
+    "sql": "SELECT SUM(CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL)) / 12 AS avg, T1.firstname, T1.lastname , T2.positiontitle, T3.locationcity FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID INNER JOIN location AS T3  ON T1.locationID = T3.locationID WHERE CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL) = ( SELECT MAX(CAST(REPLACE(SUBSTR(T1.salary, 4), ',', '') AS REAL)) FROM employee AS T1  INNER JOIN position AS T2  ON T1.positionID = T2.positionID INNER JOIN location AS T3  ON T1.locationID = T3.locationID )",
+    "question_id": null,
+    "question": "Calculate the monthly average salary of the employee with highest salary. Mention his name, position title and location city.",
+    "difficulty": "",
+    "evidence": "highest salary refers to MAX(salary); name = firstname, lastname; calculation = DIVIDE(MAX(salary), 12)"
+  }
+]

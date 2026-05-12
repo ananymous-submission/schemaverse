@@ -1,0 +1,598 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 8,
+    "eligible_candidate_count": 8,
+    "num_selected_for_vertical_split": 6,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "district",
+      "trans",
+      "loan",
+      "order",
+      "account",
+      "card"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/dev_databases/financial/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "order",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "account",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "card",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "district": {
+      "pk_columns": [
+        "district_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "a10",
+          "non_pk_columns": [
+            "A10",
+            "A11",
+            "A12",
+            "A13",
+            "A14",
+            "A15",
+            "A16",
+            "A2",
+            "A3",
+            "A4",
+            "A9"
+          ],
+          "local_table": "district_a10_q1",
+          "local_name": "local_3",
+          "vertical_fragment_base": "district_a10",
+          "row_partition_names": [
+            "district_a10_q1",
+            "dist_a9_4to6",
+            "dist_a9_6to8",
+            "dist_a9_gt8_null"
+          ],
+          "row_partition_predicate_column": "A9"
+        },
+        {
+          "suffix": "a10_2",
+          "non_pk_columns": [
+            "A10",
+            "A11",
+            "A14",
+            "A2",
+            "A3",
+            "A5",
+            "A6",
+            "A7",
+            "A8",
+            "A9"
+          ],
+          "local_table": "district_metrics_a10_overview",
+          "local_name": "local_1",
+          "vertical_fragment_base": "district_a10_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "district",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 15,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.15676095464330006,
+          "3": 0.15289789372708038,
+          "4": 0.15563028976492982,
+          "5": 0.15676095464330006
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.15676095464330006,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "A10",
+            "A11",
+            "A12",
+            "A13",
+            "A14",
+            "A15",
+            "A16",
+            "A2",
+            "A3",
+            "A4",
+            "A9"
+          ],
+          [
+            "A5",
+            "A6",
+            "A7",
+            "A8"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "A3",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "A9",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "A2",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "A14",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "A10",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "A11",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "A10",
+            "A11",
+            "A12",
+            "A13",
+            "A14",
+            "A15",
+            "A16",
+            "A2",
+            "A3",
+            "A4",
+            "A9"
+          ],
+          [
+            "A10",
+            "A11",
+            "A14",
+            "A2",
+            "A3",
+            "A5",
+            "A6",
+            "A7",
+            "A8",
+            "A9"
+          ]
+        ],
+        "pk_columns": [
+          "district_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "a10",
+            "non_pk_columns": [
+              "A10",
+              "A11",
+              "A12",
+              "A13",
+              "A14",
+              "A15",
+              "A16",
+              "A2",
+              "A3",
+              "A4",
+              "A9"
+            ]
+          },
+          {
+            "suffix": "a10_2",
+            "non_pk_columns": [
+              "A10",
+              "A11",
+              "A14",
+              "A2",
+              "A3",
+              "A5",
+              "A6",
+              "A7",
+              "A8",
+              "A9"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "A3",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "a10",
+          "also_in_fragment_suffix": "a10_2"
+        },
+        {
+          "column": "A9",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "a10",
+          "also_in_fragment_suffix": "a10_2"
+        },
+        {
+          "column": "A2",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "a10",
+          "also_in_fragment_suffix": "a10_2"
+        },
+        {
+          "column": "A14",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "a10",
+          "also_in_fragment_suffix": "a10_2"
+        },
+        {
+          "column": "A10",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "a10",
+          "also_in_fragment_suffix": "a10_2"
+        },
+        {
+          "column": "A11",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "a10",
+          "also_in_fragment_suffix": "a10_2"
+        }
+      ]
+    },
+    "loan": {
+      "pk_columns": [
+        "loan_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "account_id",
+          "non_pk_columns": [
+            "account_id",
+            "date",
+            "duration",
+            "status"
+          ],
+          "local_table": "loan_account_duration_le_24",
+          "local_name": "local_1",
+          "vertical_fragment_base": "loan_account_id",
+          "row_partition_names": [
+            "loan_account_duration_le_24",
+            "loan_account_duration_gt24_le36",
+            "loan_account_duration_gt36_le48",
+            "loan_account_duration_over_48_or_null"
+          ],
+          "row_partition_predicate_column": "duration"
+        },
+        {
+          "suffix": "amount",
+          "non_pk_columns": [
+            "amount",
+            "date",
+            "duration",
+            "payments",
+            "status"
+          ],
+          "local_table": "loan_amounts",
+          "local_name": "local_1",
+          "vertical_fragment_base": "loan_amount"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "loan",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.02422482185284855
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02422482185284855,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "account_id",
+            "date",
+            "duration"
+          ],
+          [
+            "amount",
+            "payments",
+            "status"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "status",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "duration",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "account_id",
+            "date",
+            "duration",
+            "status"
+          ],
+          [
+            "amount",
+            "date",
+            "duration",
+            "payments",
+            "status"
+          ]
+        ],
+        "pk_columns": [
+          "loan_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "account_id",
+            "non_pk_columns": [
+              "account_id",
+              "date",
+              "duration",
+              "status"
+            ]
+          },
+          {
+            "suffix": "amount",
+            "non_pk_columns": [
+              "amount",
+              "date",
+              "duration",
+              "payments",
+              "status"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "status",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "amount",
+          "also_in_fragment_suffix": "account_id"
+        },
+        {
+          "column": "date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "account_id",
+          "also_in_fragment_suffix": "amount"
+        },
+        {
+          "column": "duration",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "account_id",
+          "also_in_fragment_suffix": "amount"
+        }
+      ]
+    },
+    "trans": {
+      "pk_columns": [
+        "trans_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "account",
+          "non_pk_columns": [
+            "account",
+            "account_id",
+            "amount",
+            "balance",
+            "bank",
+            "date"
+          ],
+          "local_table": "trans_account_q1",
+          "local_name": "local_3",
+          "vertical_fragment_base": "trans_account",
+          "row_partition_names": [
+            "trans_account_q1",
+            "trans_account_q2",
+            "trans_account_q3",
+            "txn_acct_highamt"
+          ],
+          "row_partition_predicate_column": "amount"
+        },
+        {
+          "suffix": "amount",
+          "non_pk_columns": [
+            "amount",
+            "balance",
+            "bank",
+            "date",
+            "k_symbol",
+            "operation",
+            "type"
+          ],
+          "local_table": "txn_amt_detail",
+          "local_name": "local_3",
+          "vertical_fragment_base": "trans_amount"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "trans",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03600252829636233,
+          "3": 0.038631897410284916
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.038631897410284916,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "account",
+            "account_id",
+            "balance"
+          ],
+          [
+            "amount",
+            "bank",
+            "date",
+            "k_symbol",
+            "operation",
+            "type"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "amount",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "bank",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "balance",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "account",
+            "account_id",
+            "amount",
+            "balance",
+            "bank",
+            "date"
+          ],
+          [
+            "amount",
+            "balance",
+            "bank",
+            "date",
+            "k_symbol",
+            "operation",
+            "type"
+          ]
+        ],
+        "pk_columns": [
+          "trans_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "account",
+            "non_pk_columns": [
+              "account",
+              "account_id",
+              "amount",
+              "balance",
+              "bank",
+              "date"
+            ]
+          },
+          {
+            "suffix": "amount",
+            "non_pk_columns": [
+              "amount",
+              "balance",
+              "bank",
+              "date",
+              "k_symbol",
+              "operation",
+              "type"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "amount",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "amount",
+          "also_in_fragment_suffix": "account"
+        },
+        {
+          "column": "bank",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "amount",
+          "also_in_fragment_suffix": "account"
+        },
+        {
+          "column": "date",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "amount",
+          "also_in_fragment_suffix": "account"
+        },
+        {
+          "column": "balance",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "account",
+          "also_in_fragment_suffix": "amount"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,478 @@
+[
+  {
+    "sql": "SELECT T1.total_cost FROM projects AS T1 WHERE T1.title = 'Theseus'",
+    "question_id": 0,
+    "question": "Find the total cost of the project Theseus",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT acronym FROM projects WHERE start_year = 2018",
+    "question_id": 1,
+    "question": "Show me the acronyms of projects that started in 2018",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT title FROM projects WHERE start_year < 2016",
+    "question_id": 2,
+    "question": "Show me the titles of projects that started before 2016",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.institutions_name FROM institutions AS T1 JOIN eu_territorial_units AS T2 ON T1.geocode_regions_3 = T2.geocode_regions WHERE T2.description = 'Nordjylland'",
+    "question_id": 3,
+    "question": "Find institutions from the region of Nordjylland",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.full_name FROM projects AS T1 join people as T2 on T1.principal_investigator = T2.unics_id WHERE T1.start_year = 2014",
+    "question_id": 4,
+    "question": "Find the name of principal investigators in projects that started in 2014",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.title FROM projects AS T1 join project_subject_areas as psa on T1.unics_id = psa.project join subject_areas as sa on psa.subject_area = sa.code WHERE sa.title = 'Mathematics and Statistics'",
+    "question_id": 5,
+    "question": "Find projects whose subject area is \u201cMathematics and Statistics\u201d",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.acronym, sa.description FROM projects AS T1 join project_subject_areas as psa on T1.unics_id = psa.project join subject_areas as sa on psa.subject_area = sa.code WHERE sa.title = 'Mathematics and Statistics'",
+    "question_id": 6,
+    "question": "Show the acronym and subject area description of projects with subject area \u201cMathematics and Statistics\u201d",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT distinct t.title FROM projects AS T1 join project_topics as pt on T1.unics_id = pt.project join topics as t on pt.topic = t.code where t1.end_year = 2014",
+    "question_id": 7,
+    "question": "Find all different topics of projects that ended in 2014",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "Select p.acronym from projects as p join project_members as pm on p.unics_id = pm.project join institutions as i on pm.institution_id = i.unics_id join countries as c on i.country_id = c.unics_id where c.country_name = 'Greece'",
+    "question_id": 8,
+    "question": "Show the acronym of projects with a member from Greece",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "Select i.institutions_name from institutions as i join countries as c on i.country_id = c.unics_id where c.country_name = 'France' or c.country_name = 'Germany'",
+    "question_id": 9,
+    "question": "Show names of institutions from France or Germany",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "Select i.institutions_name from institutions as i join countries as c on i.country_id = c.unics_id where c.country_name != 'France'",
+    "question_id": 10,
+    "question": "Show names of institutions which are not from France",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "Select count(p.unics_id) from projects as p where start_year = 2016",
+    "question_id": 11,
+    "question": "Count the projects that started in 2016",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "Select p.title from projects as p where total_cost = (select max(p2.total_cost) from projects as p2)",
+    "question_id": 12,
+    "question": "Show the title of the project with the highest total cost",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.member_name FROM project_members AS T1 JOIN projects AS T2 ON T1.project = T2.unics_id WHERE T2.total_cost < (SELECT AVG(T23.total_cost) FROM projects AS T23)",
+    "question_id": 13,
+    "question": "Show the name of members in projects costing less than the average project cost.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.unics_id from projects as p join project_members as pm on p.unics_id = pm.project group by p.unics_id having count(p.unics_id) >= 100",
+    "question_id": 14,
+    "question": "Find the id of projects with at least 100 members",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select s.code, s.title from funding_schemes as s where s.code = (select s2.code from funding_schemes as s2 join projects as p on s2.code = p.ec_fund_scheme group by s2.code order by count(*) desc LIMIT 1)",
+    "question_id": 15,
+    "question": "Find the code and title of the funding scheme which funded the highest number of projects.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT sum(total_cost) FROM projects",
+    "question_id": 16,
+    "question": "Show the total costs of all projects",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select title from projects where start_year > 2006 and end_year > 2006",
+    "question_id": 17,
+    "question": "Show me the title of projects which have an end year and a start year after 2006",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select title, end_year - start_year from projects order by end_year - start_year desc limit 1",
+    "question_id": 18,
+    "question": "Find the projects which lasted the longest and have an end year and a start year",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select title from topics where title like 'Raw materials%'",
+    "question_id": 19,
+    "question": "Show me topic titles which starts with 'Raw materials'",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select title from topics where title like '%climate%'",
+    "question_id": 20,
+    "question": "Show me topic titles which contain the word 'climate'",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select count(*) from projects as p join people as peep on p.principal_investigator = peep.unics_id where peep.full_name = 'Thomas Bell'",
+    "question_id": 21,
+    "question": "Show me the number of projects where Thomas Bell was principal investigator",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select distinct full_name from people",
+    "question_id": 22,
+    "question": "Show me the all different names of people",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.acronym from projects as p where p.total_cost between 100000 and 200000",
+    "question_id": 23,
+    "question": "Find the acronym of projects which have total costs between 100000 and 200000",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.title from projects as p where p.total_cost > 1000000",
+    "question_id": 24,
+    "question": "Show the title of projects with costs higher than 1000000",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select title, member_name from projects as p join project_members as pm on p.unics_id = pm.project join project_member_roles as pmr on pm.member_role = pmr.code where pmr.code = 'partner'",
+    "question_id": 25,
+    "question": "Show the project title and member name where the member has a partner role ",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select distinct description from erc_research_domains",
+    "question_id": 26,
+    "question": "What different research domains do exist?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select c.country_name from countries as c join institutions as i on c.unics_id = i.country_id",
+    "question_id": 27,
+    "question": "Show me the country name of all institutes.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select country_code2, country_code3 from countries where country_name = 'Andorra'",
+    "question_id": 28,
+    "question": "What is the country code 2 and country code 3 for Andorra?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select code from funding_schemes where title = 'Framework Partnership Agreement'",
+    "question_id": 29,
+    "question": "Find the code of the funding scheme for Framework Partnership Agreement",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select title from programmes where short_name = 'Transport'",
+    "question_id": 30,
+    "question": "Show me the full title of the program which is called 'Transport' in short.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select pm.member_name, pr.code from project_members as pm join projects as p on pm.project = p.unics_id join project_member_roles as pr on pm.member_role = pr.code where p.acronym = 'GTBB'",
+    "question_id": 31,
+    "question": "Find member name and role code of project members in project with acronym GTBB",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select title from programmes where parent = 'FP7'",
+    "question_id": 32,
+    "question": "Show titles of programmes which have FP7 as parent program",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select p.description from erc_panels as p join erc_research_domains as erd on p.part_of = erd.code where erd.description = 'Life Sciences'",
+    "question_id": 33,
+    "question": "Get panel descriptions from research domain Life Sciences",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select member_name from project_members as mb join activity_types as a on a.code = mb.activity_type where a.description = 'Research Organisations'",
+    "question_id": 34,
+    "question": "Find project members of type Research Organisations",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select objective from projects where acronym = 'DEEPCARBON'",
+    "question_id": 35,
+    "question": "What is the objective of DEEPCARBON?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select title from projects where objective like '%carbon capturing%'",
+    "question_id": 36,
+    "question": "Get the title of projects having the term 'carbon capturing' in it's objective.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select count(*) from projects where objective like '%carbon capturing%'",
+    "question_id": 37,
+    "question": "How many projects have an objective which contains 'carbon capturing'?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "select i.institutions_name from institutions as i join countries as c on c.unics_id = i.country_id where country_name = 'France' except select i.institutions_name from institutions as i join countries as c on c.unics_id = i.country_id join eu_territorial_units as etu on i.geocode_regions_3 = etu.geocode_regions where country_name = 'France' and etu.description = 'Paris'",
+    "question_id": 38,
+    "question": "Show all names of institutions from France except institutions from the territorial region of Paris",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT distinct member_name from project_members WHERE member_name NOT in (SELECT member_name from project_members where member_role = 'coordinator')",
+    "question_id": 39,
+    "question": "Which institutions have never been project coordinators",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.full_name, count(p.title) FROM people as t1 join projects as p on t1.unics_id = p.principal_investigator group by t1.full_name HAVING count(p.title) > 1",
+    "question_id": 40,
+    "question": "Show all of the names of people who have worked on multiple projects",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.title, MAX(t3.ec_max_contribution) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id  group by t1.title order by  MAX(t3.ec_max_contribution) DESC LIMIT 1",
+    "question_id": 41,
+    "question": "What is the title of the subject area that has been granted the most funding",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.title, MIN(t3.ec_max_contribution) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id  group by t1.title order by  MIN(t3.ec_max_contribution) DESC LIMIT 1",
+    "question_id": 42,
+    "question": "Which subject area has recieved the least funding contribution",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "Select i.institutions_name, Count(distinct project) From project_members join institutions as i on project_members.institution_id = i.unics_id GROUP BY i.institutions_name order by count(distinct project) desc limit 1",
+    "question_id": 43,
+    "question": "Which institution has participated in the most projects",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "Select t2.institutions_name, Count(distinct project) From project_members as t1 join institutions as t2 on t1.institution_id = t2.unics_id GROUP BY t2.institutions_name order by count(distinct project) asc limit 1",
+    "question_id": 44,
+    "question": "Which institution has participated in the fewest projects",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.title, sum(ec_max_contribution) from funding_schemes as t1 join projects as t2 on t1.code = t2.ec_fund_scheme group by t1.title ORDER BY sum(ec_max_contribution) DESC LIMIT 1",
+    "question_id": 45,
+    "question": "Which funding scheme provided the most funding",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.title, sum(ec_max_contribution) from funding_schemes as t1 join projects as t2 on t1.code = t2.ec_fund_scheme group by t1.title ORDER BY sum(ec_max_contribution) ASC LIMIT 1",
+    "question_id": 46,
+    "question": "Which funding scheme provided the least funding",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t2.code = 'PRC' ORDER BY ec_max_contribution DESC",
+    "question_id": 47,
+    "question": "Show the industrial partners that have worked on projects and the amount of funding they have recieved in order from most to least",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT p.title, p.start_year from projects as p order by start_year DESC",
+    "question_id": 48,
+    "question": "Show the title and the start year of the most recent projects",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT p.title, p.start_year from projects as p order by start_year ASC",
+    "question_id": 49,
+    "question": "Show title and the starting year of the least recent projects",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT p.start_date from projects as p order by start_date ASC",
+    "question_id": 50,
+    "question": "What is the starting date of the first recorded project",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t3.title from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id WHERE t1.title = 'Climate change and Carbon cycle research'",
+    "question_id": 51,
+    "question": "Show the titles of all of the projects in the subject area of Climate change and Carbon cycle research",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT pmr.description from project_member_roles as pmr",
+    "question_id": 52,
+    "question": "List all of the possible roles that project members can have in projects",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count(t1.description) from erc_panels as t1 join erc_research_domains as t2 on t2.code = t1.part_of WHERE t2.description = 'Life Sciences'",
+    "question_id": 53,
+    "question": "How many erc panels are dedicated to Life Sciences",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count(t1.description) from erc_panels as t1 join erc_research_domains as t2 on t2.code = t1.part_of WHERE t2.code = 'LS'",
+    "question_id": 54,
+    "question": "Count the number of erc panels that are part of Life Sciences",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.description from erc_panels as t1 join erc_research_domains as t2 on t2.code = t1.part_of WHERE t2.code = 'SH'",
+    "question_id": 55,
+    "question": "List all of the european research council panels related to social sciences and humanities",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count(t1.description) from erc_panels as t1 join erc_research_domains as t2 on t2.code = t1.part_of WHERE t2.code = 'SH'",
+    "question_id": 56,
+    "question": "How many european research council panels are related to social sciences and humanities",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT member_name FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.code = 'PRC'",
+    "question_id": 57,
+    "question": "Show all of the project members that are private for profit entities",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count(member_name) FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.code = 'PRC'",
+    "question_id": 58,
+    "question": "How many project members are businesses?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count (distinct member_name) FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.code = 'HES'",
+    "question_id": 59,
+    "question": "How many project members are Higher or Secondary Education Establishments?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count (distinct member_name) FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code WHERE t2.description = 'Higher or Secondary Education Establishments'",
+    "question_id": 60,
+    "question": "Count the number of project members that are Educational Establishments",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count(t3.title) from subject_areas as t1 join project_subject_areas as t2 on t1.code = t2.subject_area join projects as t3 on t2.project = t3.unics_id WHERE t1.title = 'Robotics'",
+    "question_id": 61,
+    "question": "How many projects have been related to Robotics?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU' ORDER BY ec_max_contribution DESC LIMIT 1",
+    "question_id": 62,
+    "question": "Which non-EU entity has recieved the most funding through a project?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.member_name, p.ec_max_contribution FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU' ORDER BY ec_max_contribution ASC LIMIT 1",
+    "question_id": 63,
+    "question": "Which non-EU entity has recieved the least funding through a project?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT count(distinct t1.member_name) FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id  WHERE t1.geocode_regions_3 = 'NONEU'",
+    "question_id": 64,
+    "question": "How many non-EU entities have participated in projects?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT distinct t1.member_name FROM project_members as t1 join activity_types as t2 on t1.activity_type = t2.code join projects as p on t1.project = p.unics_id WHERE t1.geocode_regions_3 = 'NONEU'",
+    "question_id": 65,
+    "question": "Which entities that are located outside of the European Union have participated in projects?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT p.title from programmes as p WHERE p.title like '%climate%'",
+    "question_id": 66,
+    "question": "Show all of the programmes with titles that are related to climate",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT t1.title, sum(t3.ec_max_contribution) from programmes as t1 join project_programmes as t2 on t1.code = t2.programme join projects as t3 on t3.unics_id = t2.project group by t1.title",
+    "question_id": 67,
+    "question": "Show the title and amount of funds that have been allocated per programme",
+    "difficulty": "",
+    "evidence": ""
+  }
+]

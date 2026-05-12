@@ -1,0 +1,2053 @@
+[
+  {
+    "sql": "SELECT T2.Name FROM ethnicGroup AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T1.Name = 'Polish' GROUP BY T2.Name, T1.Percentage ORDER BY T1.Percentage ASC LIMIT 1",
+    "question_id": null,
+    "question": "In which country does Polish found least in?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name FROM ethnicGroup AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T1.Name = 'African' AND T1.Percentage > 90",
+    "question_id": null,
+    "question": "Which countries have more than 90% of African? List the name of the country in full.",
+    "difficulty": "",
+    "evidence": "Percentage = 90 means 90% of the population"
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Percentage FROM ethnicGroup AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T2.Name = 'Singapore' GROUP BY T1.Name, T1.Percentage",
+    "question_id": null,
+    "question": "State the different ethnic group and percentage of the language in Singapore.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN Government = 'republic' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(Country) FROM politics WHERE STRFTIME('%Y', Independence) > '1970'",
+    "question_id": null,
+    "question": "Calculate the percentage of country which gained independence as republic after 1970.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.GDP, T2.Government FROM economy AS T1 INNER JOIN politics AS T2 ON T1.Country = T2.Country INNER JOIN country AS T3 ON T3.Code = T2.Country WHERE T3.Name = 'Bosnia and Herzegovina'",
+    "question_id": null,
+    "question": "Find the GPD for Bosnia and Herzegovina and the type of government it belongs to.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Population FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country WHERE T2.Population_Growth > 2 AND T2.Infant_Mortality < 5",
+    "question_id": null,
+    "question": "State the country and its population with population growth greater than 2% but infant mortality rate less than 5%.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T1.Population > 10000000 GROUP BY T2.Name, T2.Percentage ORDER BY T2.Percentage DESC LIMIT 2",
+    "question_id": null,
+    "question": "Which is the majority of the ethnic group in country with great than 10,000,000 population",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T2.Name, T2.Percentage FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T1.Name = ( SELECT T1.Name FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country GROUP BY T1.Name ORDER BY COUNT(T2.Name) DESC LIMIT 1 ) GROUP BY T1.Name, T2.Name, T2.Percentage",
+    "question_id": null,
+    "question": "Provide the country with its full name which has the most ethnic group? List them all ethnic group together with its percentage.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM ethnicGroup AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T1.Percentage = 100 AND T1.Name = 'African'",
+    "question_id": null,
+    "question": "What is the full name of the country with 100% Africans?",
+    "difficulty": "",
+    "evidence": "Percentage = 100 means 100% of the population"
+  },
+  {
+    "sql": "SELECT T1.Infant_Mortality FROM population AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Country = T2.Country WHERE T2.Name = 'Amerindian' ORDER BY T2.Percentage ASC LIMIT 1",
+    "question_id": null,
+    "question": "List the infant mortality of country with the least Amerindian.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Agriculture FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Area > 600000 AND T2.Agriculture IS NOT NULL",
+    "question_id": null,
+    "question": "For country with area greater than 600000, what is agriculture percentage of GDP the country contributes?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Country FROM population AS T1 INNER JOIN politics AS T2 ON T1.Country = T2.Country WHERE T2.Government = 'republic' ORDER BY T1.Population_Growth DESC LIMIT 1",
+    "question_id": null,
+    "question": "Provide the country with republic government which has the highest population growth?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Independence FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Bulgaria'",
+    "question_id": null,
+    "question": "When did 'Bulgaria' gain independence?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Percentage * T1.Population FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Arab'",
+    "question_id": null,
+    "question": "Calculate the population of Arab in each country?",
+    "difficulty": "",
+    "evidence": "Arab is the name of enthic groups in the country; Population of (Arab in each country) = (percentage of Arab) * (population of each country)"
+  },
+  {
+    "sql": "SELECT T2.Percentage * T1.Population FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'African' AND T1.Name = 'Turks and Caicos Islands'",
+    "question_id": null,
+    "question": "What is the population of African in 'Turks and Caicos Islands'?",
+    "difficulty": "",
+    "evidence": "African is the name of enthic groups in the country; Population of (African in Turks and Calcos Island) = (percentage of African) * (population of Turks and Calcos Island)"
+  },
+  {
+    "sql": "SELECT T2.Population_Growth * T1.Population FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country WHERE T2.Infant_Mortality IS NOT NULL ORDER BY T2.Infant_Mortality ASC LIMIT 1",
+    "question_id": null,
+    "question": "What is the number of growth population for country with the lowest infant mortality?",
+    "difficulty": "",
+    "evidence": "Growth population = population_growth * population"
+  },
+  {
+    "sql": "SELECT T1.Capital, T1.Population FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T2.GDP > 400000",
+    "question_id": null,
+    "question": "Among countries with more than 400,000 GDP, state its capital and population.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Service * T2.GDP FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Brazil'",
+    "question_id": null,
+    "question": "Calculate the service of GDP for Brazil.",
+    "difficulty": "",
+    "evidence": "The service of GDP can be computed by service * GDP"
+  },
+  {
+    "sql": "SELECT T1.Name, T2.Population_Growth FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country ORDER BY T2.Infant_Mortality DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the highest infant mortality? Also state its population growth.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Population, T2.Population_Growth FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country WHERE T2.Population_Growth < 0",
+    "question_id": null,
+    "question": "List all countries with negative growth in population. State the country, population and growth.",
+    "difficulty": "",
+    "evidence": "Negative growth in population means population_growth < 0"
+  },
+  {
+    "sql": "SELECT T1.Name, T2.Infant_Mortality FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country WHERE T1.Area BETWEEN 500000 AND 1000000",
+    "question_id": null,
+    "question": "For countries with area between 500000 to 1000000, state the country and infant mortality rate.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T3.GDP FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country INNER JOIN economy AS T3 ON T3.Country = T2.Country WHERE T2.Population_Growth > 3",
+    "question_id": null,
+    "question": "Among the countries with more than 3% population growth rate, state the country name in full along with its GDP.",
+    "difficulty": "",
+    "evidence": "Population_growth = 3 means 3% population growth rate"
+  },
+  {
+    "sql": "SELECT T2.Infant_Mortality FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Ethiopia'",
+    "question_id": null,
+    "question": "What is the infant mortality rate for Ethiopia?",
+    "difficulty": "",
+    "evidence": "Ethiopia is one of country names"
+  },
+  {
+    "sql": "SELECT T2.GDP * T2.Industry FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Singapore'",
+    "question_id": null,
+    "question": "How much does the gross domestic products goes to the industry sector for Singapore?",
+    "difficulty": "",
+    "evidence": "Singapore is one of country names; GDP refers to gross domestic products; GDP to the industry sector = GDP * Industry"
+  },
+  {
+    "sql": "SELECT T2.GDP * T2.Agriculture FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country ORDER BY T1.Area ASC LIMIT 1",
+    "question_id": null,
+    "question": "How much is her GDP in agriculture for the country with the least area?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Albanian' ORDER BY T2.Percentage DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the biggest percentage of the albanian ethnic group?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.Name) FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'African' AND T1.Area > 10000000",
+    "question_id": null,
+    "question": "Among the countries with the African ethnic group, how many of them has a population of over 10000000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country GROUP BY T1.Name HAVING COUNT(T1.Name) > 5",
+    "question_id": null,
+    "question": "Please list the name of the countries with over 5 ethnic groups.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country ORDER BY T2.GDP DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the highest GDP?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.Name) FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T2.GDP > 500000 AND T1.Population > 10000000",
+    "question_id": null,
+    "question": "Among the countries with a population of over 10000000, how many of them have a GDP of over 500000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Capital FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T2.Inflation < 2",
+    "question_id": null,
+    "question": "Please list the capital cities of the countries with an inflation rate under 2.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T2.Inflation IS NOT NULL ORDER BY T2.Inflation ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the lowest inflation rate?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.Name) FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T2.Agriculture < 50 AND T1.Area > 8000000",
+    "question_id": null,
+    "question": "Among the countries whose agriculture percentage of the GDP is under 50%, how many of them have an area of over 8000000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.City) FROM located AS T1 INNER JOIN lake AS T2 ON T1.Lake = T2.Name WHERE T2.Type = 'salt'",
+    "question_id": null,
+    "question": "How many cities have a salt lake located in it?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Depth FROM located AS T1 INNER JOIN lake AS T2 ON T1.Lake = T2.Name WHERE T1.Province = 'Albania'",
+    "question_id": null,
+    "question": "Please list the depth of the lakes that are located in the Province of Albania.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.City FROM lake AS T1 LEFT JOIN located AS T2 ON T2.Lake = T1.Name ORDER BY T1.Altitude DESC LIMIT 1",
+    "question_id": null,
+    "question": "The lake with the highest altitude is located in which city?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.Name) FROM located AS T1 INNER JOIN lake AS T2 ON T1.Lake = T2.Name WHERE T1.Province = 'Canary Islands' AND T2.Area > 1000000",
+    "question_id": null,
+    "question": "How many lakes in the Canary Islands cover an area of over 1000000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country GROUP BY T1.Name ORDER BY COUNT(T2.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the most languages spoken?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Capital FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Armenian' AND T2.Percentage > 90",
+    "question_id": null,
+    "question": "What is the capital city of the country that has the percentage of Armenian speakers over 90%?",
+    "difficulty": "",
+    "evidence": "Percentage of country > 90% refers to percentage > 90; America is one of country names"
+  },
+  {
+    "sql": "SELECT T2.Country FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country WHERE T1.Population < 1000000 GROUP BY T2.Country HAVING COUNT(T1.Name) > 2",
+    "question_id": null,
+    "question": "Among the countries with a population of under 1000000, how many of them have over 2 languages?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.Name) FROM country AS T1 INNER JOIN organization AS T2 ON T1.Code = T2.Country WHERE T1.Population < 1000000",
+    "question_id": null,
+    "question": "How many organizations are founded in countries with a population of under 1000000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Country, COUNT(T1.Country) FROM economy AS T1 INNER JOIN organization AS T2 ON T1.Country = T2.Country WHERE T1.GDP < 500000 AND STRFTIME('%Y', T2.Established) < '1999' GROUP BY T1.Country",
+    "question_id": null,
+    "question": "How many organizations are established after 1999/1/1 in a country whose GDP is under 500000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.Country) FROM economy AS T1 INNER JOIN organization AS T2 ON T1.Country = T2.Country WHERE T2.Country IN ( SELECT Country FROM organization GROUP BY Country HAVING COUNT(Country) > 3 ) AND T1.Inflation > 5",
+    "question_id": null,
+    "question": "Among the countries with over 3 organizations, how many of them have an inflation rate of over 5%?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.Province) FROM country AS T1 INNER JOIN organization AS T2 ON T1.Code = T2.Country INNER JOIN ethnicGroup AS T3 ON T3.Country = T2.Country GROUP BY T1.Name ORDER BY COUNT(T3.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many organizations are established in the country with the most ethnic groups?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name FROM language AS T1 INNER JOIN organization AS T2 ON T1.Country = T2.Country WHERE T1.Name = 'Dutch'",
+    "question_id": null,
+    "question": "Please list the organization names established in the countries where Dutch is spoken.",
+    "difficulty": "",
+    "evidence": "Dutch is one of language"
+  },
+  {
+    "sql": "SELECT COUNT(T2.Name) FROM language AS T1 INNER JOIN organization AS T2 ON T1.Country = T2.Country WHERE T1.Name = 'Bosnian'",
+    "question_id": null,
+    "question": "How many organizations are established in countries where people speak Bosnian?",
+    "difficulty": "",
+    "evidence": "Bosnian is one of language"
+  },
+  {
+    "sql": "SELECT MAX(T2.Infant_Mortality) FROM economy AS T1 INNER JOIN population AS T2 ON T1.Country = T2.Country WHERE T1.Inflation < 3",
+    "question_id": null,
+    "question": "What is the highest infant mortality rate per thousand of the countries whose inflation is under 3?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.Country) FROM economy AS T1 INNER JOIN population AS T2 ON T1.Country = T2.Country WHERE T1.GDP > 1000000 AND T2.Population_Growth > 3",
+    "question_id": null,
+    "question": "Among the countries whose GDP is over 1000000, how many of them have a population groth rate of over 3%?",
+    "difficulty": "",
+    "evidence": "population growth rate of over 3% means population_growth > 3"
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country ORDER BY T2.GDP / T1.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the highest GDP per capita?",
+    "difficulty": "",
+    "evidence": "GDP per capita = GDP / population"
+  },
+  {
+    "sql": "SELECT T2.Area * 100  / T3.Area FROM located AS T1 INNER JOIN lake AS T2 ON T1.Lake = T2.Name INNER JOIN country AS T3 ON T3.Code = T1.Country ORDER BY T2.Longitude DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the highest lake area coverage of a country?",
+    "difficulty": "",
+    "evidence": "Lake area coverage = [sum(area of the lakes in the country) / (area of the country)] * 100%"
+  },
+  {
+    "sql": "SELECT SUM(T3.Population_Growth) / COUNT(T3.Country) FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country INNER JOIN population AS T3 ON T3.Country = T2.Country WHERE T2.Country IN ( SELECT Country FROM language GROUP BY Country HAVING COUNT(Country) > 3 ) GROUP BY T3.Country",
+    "question_id": null,
+    "question": "What is the average population growth rate of countries where more than 3 languages are used?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country GROUP BY T1.Name, T2.Inflation HAVING T2.Inflation > AVG(T2.Inflation) * 1.3",
+    "question_id": null,
+    "question": "Please list the names of the countries with an inflation rate that's 30% above the average.",
+    "difficulty": "",
+    "evidence": "Average inflation rate = [sum(inflation) / count(countries)]; 30% above average implies inflation > 1.3 average inflation rate"
+  },
+  {
+    "sql": "SELECT Name FROM country WHERE Province = 'Baghdad'",
+    "question_id": null,
+    "question": "Where country does Baghdad belongs to?",
+    "difficulty": "",
+    "evidence": "Baghdad is one of provinces"
+  },
+  {
+    "sql": "SELECT T2.Name FROM country AS T1 INNER JOIN religion AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Martinique' ORDER BY T1.population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which religion has the largest population in Martinique?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN religion AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Christian' AND T2.Percentage = 41",
+    "question_id": null,
+    "question": "Which country is 41% Christian? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Name FROM located AS T1 INNER JOIN river AS T2 ON T1.River = T2.Name INNER JOIN country AS T3 ON T3.Code = T1.Country WHERE T2.Name = 'Detroit River'",
+    "question_id": null,
+    "question": "Which two countries does the Detroit River flow through? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Country1, T2.Country2 FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country1 ORDER BY T2.Length DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which two countries have the longest border in the world? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country1 GROUP BY T1.Name ORDER BY COUNT(T1.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the most neighbors? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Name FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country WHERE T2.Mountain = 'Cerro Chirripo'",
+    "question_id": null,
+    "question": "Which country is Mountain Cerro Chirripo located in? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.Mountain) FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Indonesia'",
+    "question_id": null,
+    "question": "How many mountains are there in Indonesia?",
+    "difficulty": "",
+    "evidence": "Indonesia refers to one of countries"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.Mountain) FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Japan'",
+    "question_id": null,
+    "question": "What is the quantity of the mountains does Japan have?",
+    "difficulty": "",
+    "evidence": "Japan is one of country names"
+  },
+  {
+    "sql": "SELECT T1.Latitude FROM island AS T1 INNER JOIN mountainOnIsland AS T2 ON T1.Name = T2.Island WHERE T2.Mountain = 'Andringitra'",
+    "question_id": null,
+    "question": "What is the latitude of the island on which Mount Andrinjitra is located?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Code FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country WHERE T2.Mountain = ( SELECT Name FROM mountain ORDER BY Height DESC LIMIT 1, 1 )",
+    "question_id": null,
+    "question": "Which two countries share the second highest mountain? Give the country code.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Percentage FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country INNER JOIN continent AS T3 ON T3.Name = T2.Continent WHERE T3.Name = 'Asia' AND T1.Name = 'Egypt'",
+    "question_id": null,
+    "question": "What is the area of Egypt as a percentage of Asia?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Area * 100 / T3.Area FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country INNER JOIN continent AS T3 ON T3.Name = T2.Continent WHERE T3.Name = 'Asia' AND T1.Name = 'Egypt'",
+    "question_id": null,
+    "question": "What is the area of Egypt as a percentage of Asia?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name FROM country AS T1 INNER JOIN city AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Japan' ORDER BY T2.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which city in Japan has the most people in the country?",
+    "difficulty": "",
+    "evidence": "most people refers to largest population"
+  },
+  {
+    "sql": "SELECT T1.Capital FROM country AS T1 INNER JOIN city AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Olsztyn'",
+    "question_id": null,
+    "question": "For the country in which Olsztyn is located, where is the capital?",
+    "difficulty": "",
+    "evidence": "Olsztyn is one of country names"
+  },
+  {
+    "sql": "SELECT T1.Province FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country INNER JOIN mountain AS T3 ON T3.Name = T2.Mountain WHERE T3.Type = 'volcano' ORDER BY T3.Height DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which province is the highest volcano mountain located in?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Independence FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Uganda'",
+    "question_id": null,
+    "question": "When did Uganda declare independence?",
+    "difficulty": "",
+    "evidence": "Uganda is one of country names"
+  },
+  {
+    "sql": "SELECT T2.Government FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Iran'",
+    "question_id": null,
+    "question": "What kind of government does Iran have?",
+    "difficulty": "",
+    "evidence": "Uganda is one of country names"
+  },
+  {
+    "sql": "SELECT T3.Name FROM locatedOn AS T1 INNER JOIN island AS T2 ON T1.Island = T2.Name INNER JOIN country AS T3 ON T3.Code = T1.Country WHERE T3.Name = 'Bermuda'",
+    "question_id": null,
+    "question": "Where does Bermuda belong to? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": "Bermuda is one of countries"
+  },
+  {
+    "sql": "SELECT T1.Capital FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Malay' ORDER BY T2.Percentage DESC LIMIT 1",
+    "question_id": null,
+    "question": "Where is the capital of country which has the largest percentage of Malay people?",
+    "difficulty": "",
+    "evidence": "Malay is one of country names"
+  },
+  {
+    "sql": "SELECT T2.Name FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T1.Name = ( SELECT Name FROM country ORDER BY Area DESC LIMIT 2, 1 ) GROUP BY T2.Name ORDER BY T2.Percentage * T1.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the third largest country, which ethinic group has the most population?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN city AS T2 ON T1.Code = T2.Country WHERE T2.Population = 114339",
+    "question_id": null,
+    "question": "Which country has the city of 114339 in population? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM river WHERE Sea IN ( SELECT Name FROM sea WHERE Depth = 459 )",
+    "question_id": null,
+    "question": "How many rivers finally flows to the sea of 459m in depth?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Area FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country WHERE T2.Independence = '1921-03-13'",
+    "question_id": null,
+    "question": "What is the area of the country which became independent in 1921/3/13?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(T1.Population AS REAL) / T1.Area FROM country AS T1 INNER JOIN city AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Petropavl'",
+    "question_id": null,
+    "question": "What is the population density of the Petropavl's home country?",
+    "difficulty": "",
+    "evidence": "Population density = Population / area"
+  },
+  {
+    "sql": "SELECT T3.Population * (T2.Percentage - T1.Percentage) FROM ethnicGroup AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Country = T2.Country INNER JOIN country AS T3 ON T1.Country = T3.Code WHERE T1.Name = 'Scottish' AND T2.Name = 'English' AND T3.Name = 'United Kingdom'",
+    "question_id": null,
+    "question": "How many more people speak English than speak Scottish in United Kingdom?",
+    "difficulty": "",
+    "evidence": "English and Scottish are two languages; United Kingdom is a country"
+  },
+  {
+    "sql": "SELECT T2.Name FROM country AS T1 INNER JOIN city AS T2 ON T1.Code = T2.Country WHERE T1.Name = ( SELECT Name FROM country ORDER BY CAST(Population AS REAL) / Area LIMIT 11, 1 ) ORDER BY T2.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most populated city of the 12th highest density country?",
+    "difficulty": "",
+    "evidence": "Population density = Population / area"
+  },
+  {
+    "sql": "SELECT MAX(T2.Length) / MIN(T2.Length) FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country2 WHERE T1.Name = 'United States'",
+    "question_id": null,
+    "question": "How many times longer is the longest border in the United States than the shortest?",
+    "difficulty": "",
+    "evidence": "How many times longer = longest border / shortest border"
+  },
+  {
+    "sql": "SELECT T1.Capital FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country GROUP BY T1.Name, T1.Capital HAVING COUNT(T1.Name) > 4",
+    "question_id": null,
+    "question": "Please list the capital cities of the countries that have more than 4 mountains.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.Mountain) FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country GROUP BY T1.Name ORDER BY T1.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many mountains are there in the country with the greatest population?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T3.Country) FROM ( SELECT T1.Country FROM economy AS T1 INNER JOIN geo_mountain AS T2 ON T1.Country = T2.Country WHERE T1.Industry < 40 GROUP BY T1.Country HAVING COUNT(T1.Country) < 2 ) AS T3",
+    "question_id": null,
+    "question": "Among the countries whose agriculture takes up more than 40% of its GDP, how many of them have less than 2 mountains?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Mountain FROM geo_mountain WHERE Country = ( SELECT Country FROM economy ORDER BY Inflation ASC LIMIT 1 )",
+    "question_id": null,
+    "question": "Please list the mountains in the country with the lowest inflation rate.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T3.Desert) FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country INNER JOIN geo_desert AS T3 ON T3.Country = T2.Country WHERE T2.Government = 'republic'",
+    "question_id": null,
+    "question": "Among the independent countries whose type of government is republic, what is the biggest number of deserts they have?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Desert FROM country AS T1 INNER JOIN geo_desert AS T2 ON T1.Code = T2.Country WHERE T1.Area > 100000 AND T1.Population < 500000",
+    "question_id": null,
+    "question": "Please list the deserts in the countries whose population is over 100000 and covers an area of under 500000.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.Desert) FROM country AS T1 INNER JOIN geo_desert AS T2 ON T1.Code = T2.Country INNER JOIN language AS T3 ON T1.Code = T2.Country WHERE T3.Name = 'Armenian' AND T3.Percentage > 90",
+    "question_id": null,
+    "question": "How many deserts are there in a country where over 90% of people speaks Armenian?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T4.Name FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country INNER JOIN geo_mountain AS T3 ON T3.Country = T2.Country INNER JOIN mountain AS T4 ON T4.Name = T3.Mountain WHERE T2.Independence IS NOT NULL ORDER BY T4.Height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which mountain is the highest in an independent country?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T3.Name) FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country INNER JOIN mountain AS T3 ON T3.Name = T2.Mountain WHERE T3.Type = 'volcanic' AND T1.Population <= 5000000",
+    "question_id": null,
+    "question": "How many volcanic mountains are there in countries whose population is no more than 5000000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.Name) FROM country AS T1 INNER JOIN geo_mountain AS T2 ON T1.Code = T2.Country INNER JOIN economy AS T3 ON T3.Country = T1.Code INNER JOIN mountain AS T4 ON T4.Name = T2.Mountain WHERE T3.GDP > 1000000 AND T4.Height > 1000",
+    "question_id": null,
+    "question": "Among the countries with a GDP of over 1000000, how many of them have mountains higher than 1000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT MAX(T3.Length) FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country INNER JOIN borders AS T3 ON T3.Country1 = T2.Country WHERE T2.Independence IS NOT NULL",
+    "question_id": null,
+    "question": "What is the greatest length of the border between 2 independent countries?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.Name) FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country INNER JOIN borders AS T3 ON T3.Country1 = T2.Country WHERE T2.Government = 'republic' AND T3.Length > 200",
+    "question_id": null,
+    "question": "Among the countries whose government type is republic, how many of them shares a border that's longer than 200?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country1 ORDER BY T2.Length ASC LIMIT 1",
+    "question_id": null,
+    "question": "Please list the countries that share the shortest border.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(T4.GDP) FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country INNER JOIN continent AS T3 ON T3.Name = T2.Continent INNER JOIN economy AS T4 ON T4.Country = T1.Code WHERE T3.Name = 'Europe'",
+    "question_id": null,
+    "question": "What is the GDP of the European Continent?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T3.Name) FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country INNER JOIN continent AS T3 ON T3.Name = T2.Continent INNER JOIN province AS T4 ON T4.Country = T1.Code INNER JOIN geo_mountain AS T5 ON T5.Province = T4.Name WHERE T3.Name = 'European'",
+    "question_id": null,
+    "question": "How many mountains are there on the African Continent?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T5.Name FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country INNER JOIN continent AS T3 ON T3.Name = T2.Continent INNER JOIN geo_desert AS T4 ON T4.Country = T1.Code INNER JOIN desert AS T5 ON T5.Name = T4.Desert WHERE T3.Name = 'America' ORDER BY T5.Area DESC LIMIT 1",
+    "question_id": null,
+    "question": "Of the deserts on the America Continent, which one covers the greatest area?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Country FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country INNER JOIN continent AS T3 ON T3.Name = T2.Continent INNER JOIN population AS T4 ON T4.Country = T1.Code WHERE T3.Name = 'Europe' AND T4.Population_Growth > 0.03",
+    "question_id": null,
+    "question": "Please list the countries on the European Continent that have a population growth of more than 3%.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.Name) FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country INNER JOIN continent AS T3 ON T3.Name = T2.Continent INNER JOIN population AS T4 ON T4.Country = T1.Code WHERE T3.Name = 'Europe' AND T4.Infant_Mortality < 100",
+    "question_id": null,
+    "question": "How many countries on the European Continent has an infant mortality rate per thousand of over 100?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.Name) FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country INNER JOIN population AS T3 ON T3.Country = T2.Country WHERE T2.Name = 'Bosnian' AND T3.Population_Growth < 0",
+    "question_id": null,
+    "question": "Among the countries that use Bosnian as their language, how many of them don't have a positive population growth rate?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT AVG(T4.Agriculture) FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country INNER JOIN economy AS T4 ON T4.Country = T3.Code WHERE T1.Name = 'Africa'",
+    "question_id": null,
+    "question": "What is the average percentage of agriculture of GDP in countries on the African Continent?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.Name) FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country INNER JOIN economy AS T3 ON T3.Country = T2.Country WHERE T2.Independence IS NOT NULL AND T3.GDP > 5000",
+    "question_id": null,
+    "question": "Among the independent countries, how many of them has a GDP per capita of over 5000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT AVG(T4.Inflation) FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country INNER JOIN economy AS T4 ON T4.Country = T3.Code WHERE T1.Name = ( SELECT Name FROM continent ORDER BY Area DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "What is the average inflation rate of the biggest continent?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Name, T3.Area FROM city AS T1 INNER JOIN locatedOn AS T2 ON T1.Name = T2.City INNER JOIN island AS T3 ON T3.Name = T2.Island WHERE T1.Name = 'Balikpapan'",
+    "question_id": null,
+    "question": "Which island is city Balikpapan located on? How big is the island?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Population FROM city AS T1 INNER JOIN locatedOn AS T2 ON T1.Name = T2.City INNER JOIN island AS T3 ON T3.Name = T2.Island WHERE T3.Name = 'Sumatra'",
+    "question_id": null,
+    "question": "List all the cities in Sumatra and state the population of each city.",
+    "difficulty": "",
+    "evidence": "Sumatra is an island"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.Longitude, T3.Latitude FROM city AS T1 INNER JOIN locatedOn AS T2 ON T1.Name = T2.City INNER JOIN island AS T3 ON T3.Name = T2.Island WHERE T1.Province = 'South Yorkshire'",
+    "question_id": null,
+    "question": "On which island does South Yorkshire situated? State it's longtitude and latitude.",
+    "difficulty": "",
+    "evidence": "'South Yorkshire' is a province"
+  },
+  {
+    "sql": "SELECT DISTINCT Name FROM island WHERE Area > ( SELECT DISTINCT T3.Area FROM city AS T1 INNER JOIN locatedOn AS T2 ON T1.Name = T2.City INNER JOIN island AS T3 ON T3.Name = T2.Island WHERE T1.Province = 'Warwickshire' )",
+    "question_id": null,
+    "question": "List all islands that are greater than the island on which Warwickshire is located.",
+    "difficulty": "",
+    "evidence": "Warwickshire is a province"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.Name, T1.Name FROM city AS T1 INNER JOIN locatedOn AS T2 ON T1.Name = T2.City INNER JOIN island AS T3 ON T3.Name = T2.Island WHERE T3.Area < 200",
+    "question_id": null,
+    "question": "For island area less than 200, list the island name and city it belongs to.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Province, T1.Capital FROM province AS T1 INNER JOIN city AS T2 ON T1.Name = T2.Province AND T1.Country = T2.Country WHERE T2.Name = 'Glenrothes'",
+    "question_id": null,
+    "question": "In which province is city Glenrothes located? What is the capital of the province?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Population FROM city AS T1 INNER JOIN province AS T2 ON T2.Name = T1.Province WHERE T2.Population > 1000000",
+    "question_id": null,
+    "question": "List the all the cities and its city population for provinces with population more than 1000000.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT City, Province FROM locatedOn WHERE Island IN ( SELECT Name FROM island WHERE Type = 'coral' )",
+    "question_id": null,
+    "question": "List all the coral islands along with its city and province.",
+    "difficulty": "",
+    "evidence": "Baltic Sea is a sea located in Northern Europe"
+  },
+  {
+    "sql": "SELECT AVG(T1.Population) FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN sea AS T3 ON T3.Name = T2.Sea WHERE T3.Name = 'Baltic Sea'",
+    "question_id": null,
+    "question": "What is the average population for all cities location at Baltic Sea?",
+    "difficulty": "",
+    "evidence": "Baltic Sea is a sea located in Northern Europe"
+  },
+  {
+    "sql": "SELECT CAST(T1.Population AS REAL) * 100 / T2.Population FROM city AS T1 INNER JOIN province AS T2 ON T1.Province = T2.Name WHERE T1.Name = 'Edmonton'",
+    "question_id": null,
+    "question": "Calculate the percentage of population in Edmonton city to the population of its province.",
+    "difficulty": "",
+    "evidence": "Percentage of population in each city = population(city) / population(province) * 100%"
+  },
+  {
+    "sql": "SELECT Name FROM river WHERE Sea = 'Black Sea'",
+    "question_id": null,
+    "question": "Which are the rivers that flows to Black Sea?",
+    "difficulty": "",
+    "evidence": "Black Sea is a sea located in Eastern Europe and Western Asia"
+  },
+  {
+    "sql": "SELECT Lake, City FROM located WHERE Province = 'Albania' AND Lake IS NOT NULL",
+    "question_id": null,
+    "question": "State the name of the lake in Albania province and in which city does it located at.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name, Height FROM mountain WHERE Mountains = 'Himalaya' ORDER BY Height DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the tallest mountain on Himalaya and what is its height.",
+    "difficulty": "",
+    "evidence": "Tallest refers to max(height)"
+  },
+  {
+    "sql": "SELECT Name, Latitude, Longitude FROM mountain WHERE Type = 'volcano'",
+    "question_id": null,
+    "question": "List all the mountains that are volcanic along with its longitude and latitude.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name FROM mountain WHERE Type = 'volcano' AND Height BETWEEN 2000 AND 4000",
+    "question_id": null,
+    "question": "Name all the volcano mountains between the height of 2000 to 4000.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name FROM river WHERE Sea = 'Mediterranean Sea' ORDER BY Length DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please state the longest river that flows to the Mediterranean Sea.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN type != 'volcano' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM mountain WHERE Mountains = 'Andes'",
+    "question_id": null,
+    "question": "How many percent of the mountains on Andes which are non-volcanic?",
+    "difficulty": "",
+    "evidence": "Percent of non-volcanic mountains = count(mountains = 'Andes' & type ! = 'volcano') / count(mountains = 'Andes') * 100%"
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Province FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN river AS T3 ON T3.Name = T2.River WHERE T3.Sea = 'Atlantic Ocean'",
+    "question_id": null,
+    "question": "List all the cities and provinces located at the rivers that flows to Atlantic Ocean.",
+    "difficulty": "",
+    "evidence": "Atlantic Ocean is the second-largest ocean on Earth, after the Pacific Ocean; Ocean and sea share the same meaning"
+  },
+  {
+    "sql": "SELECT T3.Name, T3.Length FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN river AS T3 ON T3.Name = T2.River WHERE T1.Name = 'Orleans'",
+    "question_id": null,
+    "question": "What is the name and length of rivers located at 'Orleans' city?",
+    "difficulty": "",
+    "evidence": "Orleans is a city in north-central France"
+  },
+  {
+    "sql": "SELECT T1.Height, T1.Latitude, T1.Longitude FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain INNER JOIN province AS T3 ON T3.Name = T2.Province INNER JOIN located AS T4 ON T4.Province = T3.Name WHERE T4.River = 'Lech'",
+    "question_id": null,
+    "question": "What is the height of the mountain on which river 'Lech' is located? Please also provide its longitude and latitude.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.SourceLongitude, T1.SourceLatitude, T1.SourceAltitude FROM river AS T1 INNER JOIN geo_river AS T2 ON T2.River = T1.Name WHERE T2.Province = 'Lorraine'",
+    "question_id": null,
+    "question": "Name the river of which Lorraine is on. Please name the mountains where to source flow from?",
+    "difficulty": "",
+    "evidence": "Lorraine is a province"
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Height FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain INNER JOIN province AS T3 ON T3.Name = T2.Province INNER JOIN geo_source AS T4 ON T4.Province = T3.Name WHERE T4.River = 'Blue Nile'",
+    "question_id": null,
+    "question": "Which mountain does the river source Blue Nile located? State the height of the mountain.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Length FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN river AS T3 ON T3.Name = T2.River WHERE T1.Name = 'Little Rock'",
+    "question_id": null,
+    "question": "Name the river at Little Rock city. State the length of the river.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Province, T2.Name FROM geo_river AS T1 INNER JOIN river AS T2 ON T1.River = T2.Name WHERE T2.Length > 1000",
+    "question_id": null,
+    "question": "List all rivers and province it is located that is greater than 1000 in length.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Province, T2.Country, T1.Height FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain WHERE T1.Name = 'Moldoveanu'",
+    "question_id": null,
+    "question": "In which province and country does Moldoveanu located? State its height.",
+    "difficulty": "",
+    "evidence": "Moldoveanu is a mountain"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.Name, T3.Length FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN river AS T3 ON T3.Name = T2.River WHERE T2.Country = 'USA'",
+    "question_id": null,
+    "question": "Provide all rivers name and length in USA.",
+    "difficulty": "",
+    "evidence": "USA is a country"
+  },
+  {
+    "sql": "SELECT AVG(T1.Height) FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain WHERE T2.Province = 'Nepal'",
+    "question_id": null,
+    "question": "What is the average height of all mountains in Nepal?",
+    "difficulty": "",
+    "evidence": "Nepal is a province"
+  },
+  {
+    "sql": "SELECT MAX(T1.Population) - MIN(T1.population) FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN river AS T3 ON T3.Name = T2.River WHERE T3.Name = 'Seine'",
+    "question_id": null,
+    "question": "For all cities where Seine is located at, which city has the greatest population? Calculate the difference from the city with least population.",
+    "difficulty": "",
+    "evidence": "Seince is a river; Population disparity refers to difference between cities with greatest and least population; Difference between cities with greatest and least population means max(population) - min(population)"
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Length FROM river AS T1 INNER JOIN located AS T2 ON T1.Name = T2.River INNER JOIN city AS T3 ON T3.Name = T2.City WHERE T3.Name = 'Belgrade'",
+    "question_id": null,
+    "question": "Which are the 2 rivers located at Belgrade city? Which river is longer and how by much?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Country FROM language WHERE Name = 'Spanish' AND Percentage = 100",
+    "question_id": null,
+    "question": "Which nations have a 100% Spanish-speaking population?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Country FROM politics WHERE Government = 'British crown dependency'",
+    "question_id": null,
+    "question": "Which countries are dependent on the British Crown?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.River FROM located AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T2.Name = 'Canada' AND T1.River IS NOT NULL",
+    "question_id": null,
+    "question": "What are the names of the rivers in Canada?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name FROM economy AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code ORDER BY T1.Inflation DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the country whose citizens have the lowest purchasing power?",
+    "difficulty": "",
+    "evidence": "Inflation can reduce purchasing power over time for recipients and payers."
+  },
+  {
+    "sql": "SELECT T1.Province, T1.Population FROM city AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T2.Name = 'United Kingdom' ORDER BY T1.Population DESC LIMIT 3, 1",
+    "question_id": null,
+    "question": "What province does the 4th most populous city in the United Kingdom belong to, and how many people live there?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Percentage * T1.Population FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Moldova' AND T2.Name = 'Jewish'",
+    "question_id": null,
+    "question": "How many Jewish residents are there in Moldova?",
+    "difficulty": "",
+    "evidence": "Moldova is one country located in Eastern Europe; The number of residents can be computed by percentage * population"
+  },
+  {
+    "sql": "SELECT AVG(Area) FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country WHERE T2.Continent = 'Asia'",
+    "question_id": null,
+    "question": "What is the average area of Asian countries?",
+    "difficulty": "",
+    "evidence": "Asia is a continent"
+  },
+  {
+    "sql": "SELECT T2.Country, T1.Latitude, T1.Longitude FROM desert AS T1 INNER JOIN geo_desert AS T2 ON T1.Name = T2.Desert WHERE T1.Name = ( SELECT Name FROM desert ORDER BY Area ASC LIMIT 1 )",
+    "question_id": null,
+    "question": "Which country is home to the world's tiniest desert, and what are its longitude and latitude?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Percentage * T2.Population FROM language AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T1.Name = 'Serbian' AND T2.Name = 'Montenegro'",
+    "question_id": null,
+    "question": "How many people in Montenegro speaks Serbian?",
+    "difficulty": "",
+    "evidence": "Serbian is one language; Montenegro is a country located in Southeastern Europe"
+  },
+  {
+    "sql": "SELECT COUNT(Mountain) FROM geo_mountain WHERE Country = ( SELECT Code FROM country ORDER BY Area DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "How many mountains are there in the country with the most land area?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Name FROM located AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE Sea = ( SELECT Name FROM sea ORDER BY Depth ASC LIMIT 1 )",
+    "question_id": null,
+    "question": "Which sea is the shallowest and which country surrounds it?",
+    "difficulty": "",
+    "evidence": "Shallow sea refers to the sea with less depth"
+  },
+  {
+    "sql": "SELECT T2.Country FROM politics AS T1 INNER JOIN economy AS T2 ON T1.Country = T2.Country WHERE T1.Government = 'Communist state' ORDER BY T2.GDP ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which nation's GDP is the lowest among those that are communist states?",
+    "difficulty": "",
+    "evidence": "Communist is a government form"
+  },
+  {
+    "sql": "SELECT T1.Government FROM politics AS T1 INNER JOIN economy AS T2 ON T1.Country = T2.Country ORDER BY T2.Inflation DESC LIMIT 1",
+    "question_id": null,
+    "question": "What kind of political system is in place in the country with the highest inflation rate?",
+    "difficulty": "",
+    "evidence": "Political system refers to government form"
+  },
+  {
+    "sql": "SELECT T1.Country FROM politics AS T1 INNER JOIN population AS T2 ON T1.Country = T2.Country WHERE STRFTIME('%Y', T1.Independence) = '1960' ORDER BY T2.Infant_Mortality DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which nation has the greatest infant mortality rate among those that attained independence in 1960?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Government, T3.Government FROM politics AS T1 INNER JOIN borders AS T2 ON T1.Country = T2.Country1 INNER JOIN politics AS T3 ON T3.Country = T2.Country2 ORDER BY T2.Length ASC LIMIT 1",
+    "question_id": null,
+    "question": "What is the smallest border's length, and what form of government do the two nations bordering it have?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Arabic' AND T2.Percentage = 100 ORDER BY T1.Population ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which Arabic-speaking country has the smallest population?",
+    "difficulty": "",
+    "evidence": "Arabic-speaking country = country that speaks 100% Arabic"
+  },
+  {
+    "sql": "SELECT Province FROM geo_desert WHERE Desert = ( SELECT Name FROM desert ORDER BY Area DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "What provinces encompass the world's biggest desert in terms of overall area?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM geo_lake WHERE Country = ( SELECT T4.Code FROM ( SELECT T2.Code, T2.Population FROM encompasses AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code INNER JOIN politics AS T3 ON T1.Country = T3.Country WHERE T1.Continent = 'Africa' AND T1.Percentage = 100 AND T3.Government = 'republic' ORDER BY Population DESC LIMIT 4 ) AS T4 ORDER BY population ASC LIMIT 1 )",
+    "question_id": null,
+    "question": "How many lakes are there in the 4th most populous African country with a republican form of government?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T4.Name FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country INNER JOIN religion AS T4 ON T4.Country = T3.Code WHERE T1.Name = 'Asia' GROUP BY T4.Name ORDER BY SUM(T4.Percentage) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which religion is most prevalent in Asia?",
+    "difficulty": "",
+    "evidence": "Most prevalent religion refers to the religion with the most population percentage"
+  },
+  {
+    "sql": "SELECT * FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain INNER JOIN province AS T3 ON T3.Country = T2.Country INNER JOIN country AS T4 ON T4.Code = T3.Country WHERE T1.Name = ( SELECT Name FROM mountain ORDER BY Height DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "What is the difference in population between the two nations where the tallest peak is located?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name FROM islandIn AS T1 INNER JOIN sea AS T2 ON T2.Name = T1.Sea WHERE T1.Island = ( SELECT Name FROM island ORDER BY Area DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "What are the names of the sea that can be found on the island with the biggest area?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Country FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN river AS T3 ON T3.Name = T2.River WHERE T3.Name = ( SELECT Name FROM river WHERE Sea = 'Atlantic Ocean' ORDER BY Length DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "What are the names of the three nations where the longest river that empties into the Atlantic Ocean stretches to?",
+    "difficulty": "",
+    "evidence": "Empties into the Atlantic Ocean = flows to the Atlantic Ocean"
+  },
+  {
+    "sql": "SELECT T3.Population FROM politics AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code INNER JOIN city AS T3 ON T3.Name = T2.Capital WHERE T1.Independence = '1947-08-15'",
+    "question_id": null,
+    "question": "How many people reside in the nation's capital city, which is situated in the nation that attained independence on 8/15/1947?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T5.Percentage * T6.Population FROM ethnicGroup AS T5 INNER JOIN country AS T6 ON T5.Country = T6.Code WHERE Country = ( SELECT T3.Code FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country INNER JOIN politics AS T4 ON T4.Country = T3.Code WHERE T4.Government = 'monarchy' AND T1.Name = 'Asia' ORDER BY T3.Population DESC LIMIT 1 ) AND T5.Name = 'Afro-Asian'",
+    "question_id": null,
+    "question": "What is the total number of Afro-Asian people in the most populous Asian country governed by a monarchy?",
+    "difficulty": "",
+    "evidence": "Total Number of People = Percentage * Population"
+  },
+  {
+    "sql": "SELECT T2.City, T1.Capital FROM country AS T1 INNER JOIN located AS T2 ON T1.Code = T2.Country INNER JOIN river AS T3 ON T3.Name = T2.River WHERE T3.Name = 'Euphrat'",
+    "question_id": null,
+    "question": "What are the names of the cities along the Euphrat River's course? Indicate the capital city of the nation where the Euphrat River flows.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Percentage * T1.Population FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country INNER JOIN politics AS T3 ON T3.Country = T2.Country WHERE T3.Dependent = 'USA' AND T2.Name = 'English'",
+    "question_id": null,
+    "question": "What is the proportion of English-speaking citizens in the countries that rely on the United States compared to the total number of citizens in those countries?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Country, T2.Service , SUM(T1.Population) / SUM(T1.Area) FROM province AS T1 INNER JOIN economy AS T2 ON T1.Country = T2.Country WHERE T1.Country IN ( SELECT Country FROM encompasses WHERE Continent = 'Europe' ) GROUP BY T1.Country, T2.Service ORDER BY COUNT(T1.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which federal republic country in Europe has the most provinces, and what proportion of GDP is devoted to services?\nCalculate the population density as well.",
+    "difficulty": "",
+    "evidence": "Republic is on of government forms; Percentage of Services of the GDP was mentioned in economy.Service; Population Density = Population / Area"
+  },
+  {
+    "sql": "SELECT T4.Capital, CAST(T3.Population AS REAL) * 100 / T4.Population FROM city AS T3 INNER JOIN ( SELECT T1.Capital , T1.Population FROM country AS T1 INNER JOIN encompasses AS T2 ON T1.Code = T2.Country WHERE T2.Continent = 'Asia' ORDER BY T1.Population DESC LIMIT 2, 1 ) AS T4 ON T3.Name = T4.Capital",
+    "question_id": null,
+    "question": "What is the capital of the 3rd most populated country in Asia and what is the capital city's ratio in percentage (%) against the overall population of the country?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name FROM desert ORDER BY Area DESC LIMIT 1, 1",
+    "question_id": null,
+    "question": "What's the name of the second biggest desert?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name FROM language WHERE Country = 'MNE' ORDER BY Percentage DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the main spoken language in MNE?",
+    "difficulty": "",
+    "evidence": "MNE is one country"
+  },
+  {
+    "sql": "SELECT T1.Percentage FROM language AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T2.Name = 'Cayman Islands' AND T1.Name = 'English'",
+    "question_id": null,
+    "question": "What's the percentage of people in Cayman Islands speak English?",
+    "difficulty": "",
+    "evidence": "Cayman Islands is a country"
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN located AS T2 ON T1.Code = T2.Country WHERE T2.River = 'Pjandsh'",
+    "question_id": null,
+    "question": "Which country was the source of Pjandsh River? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Population > 1000000000 ORDER BY T2.GDP ASC LIMIT 1",
+    "question_id": null,
+    "question": "For the countries have the population north of a billion, which one has the lowest GDP? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": "billion = 1000000000"
+  },
+  {
+    "sql": "SELECT T4.Capital FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain INNER JOIN province AS T3 ON T3.Name = T2.Province INNER JOIN country AS T4 ON T4.Province = T3.Name WHERE T1.Name = 'Licancabur'",
+    "question_id": null,
+    "question": "What is the capital of the country that has the Licancabur Mountain?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T4.Sea) FROM mountain AS T1 INNER JOIN mountainOnIsland AS T2 ON T1.Name = T2.Mountain INNER JOIN island AS T3 ON T3.Name = T2.Island INNER JOIN islandIn AS T4 ON T4.Island = T3.Name WHERE T1.Name = 'Kerinci'",
+    "question_id": null,
+    "question": "How much sea is around the island where Kerinci Mountain is located?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T4.Name FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN river AS T3 ON T3.Name = T2.River INNER JOIN country AS T4 ON T4.Code = T2.Country WHERE T3.Name = 'Amazonas'",
+    "question_id": null,
+    "question": "Which three countries does the Amazonas flow through? Give the full name of the countries.",
+    "difficulty": "",
+    "evidence": "Amazonas flow is a river"
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country WHERE T2.Independence = '1492-01-01'",
+    "question_id": null,
+    "question": "Which country became independent on 1492-01-01? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T2.Name) FROM country AS T1 INNER JOIN city AS T2 ON T2.Country = T1.Code WHERE T1.Name = 'France' AND T2.Population > 100000",
+    "question_id": null,
+    "question": "How many cities in France have a population of more than 100,000?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name FROM sea AS T1 INNER JOIN river AS T2 ON T2.Sea = T1.Name WHERE T1.Depth = 540 ORDER BY T2.Length DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among all the rivers finally flows to the sea of 540m in depth, which one has the longest length?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Country FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain INNER JOIN province AS T3 ON T3.Name = T2.Province ORDER BY T1.Height DESC LIMIT 1, 1",
+    "question_id": null,
+    "question": "In which Country is the second highest volcanic mountain located in? Give the code of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Longitude FROM mountain AS T1 INNER JOIN mountainOnIsland AS T2 ON T1.Name = T2.Mountain INNER JOIN island AS T3 ON T3.Name = T2.Island WHERE T1.Name = 'Olympos'",
+    "question_id": null,
+    "question": "What is the longitude of the island on which Mount Olympos is located?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Area < 100 ORDER BY T2.GDP DESC LIMIT 1",
+    "question_id": null,
+    "question": "For all the countries that is smaller than 100 square kilometres, which one has the most GDP?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T3.Name) FROM country AS T1 INNER JOIN province AS T2 ON T1.Code = T2.Country INNER JOIN city AS T3 ON T3.Province = T2.Name WHERE T1.Name = 'Japan'",
+    "question_id": null,
+    "question": "What is the total number of cities that Japan have?",
+    "difficulty": "",
+    "evidence": "Japan is a country"
+  },
+  {
+    "sql": "SELECT T3.Name FROM country AS T1 INNER JOIN province AS T2 ON T1.Code = T2.Country INNER JOIN city AS T3 ON T3.Province = T2.Name WHERE T1.Name = 'Bangladesh' AND T3.Name <> T1.Capital ORDER BY T3.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which city has most population other than its capital in Bangladesh?",
+    "difficulty": "",
+    "evidence": "Bangladesh is a country"
+  },
+  {
+    "sql": "SELECT T3.Name FROM country AS T1 INNER JOIN province AS T2 ON T1.Code = T2.Country INNER JOIN city AS T3 ON T3.Province = T2.Name WHERE T3.Name <> T1.Capital ORDER BY T3.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which non capital city has the most people of all?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN province AS T2 ON T1.Code = T2.Country INNER JOIN city AS T3 ON T3.Province = T2.Name WHERE T3.Name = 'Grozny'",
+    "question_id": null,
+    "question": "In which country is the city of Grozny? Give the full name of the country.",
+    "difficulty": "",
+    "evidence": "Grozny is a province"
+  },
+  {
+    "sql": "SELECT T2.Name FROM country AS T1 INNER JOIN religion AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Japan' ORDER BY T2.Percentage DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which religion has the majority of the people in Japan?",
+    "difficulty": "",
+    "evidence": "Japan is a country"
+  },
+  {
+    "sql": "SELECT T1.Name, T3.Name FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country1 INNER JOIN country AS T3 ON T3.Code = T2.Country2 WHERE T2.Length = 803",
+    "question_id": null,
+    "question": "Which two countries have the border in length of 803 km? Give the full names of the countries.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Percentage FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country WHERE T3.Name = 'Russia' AND T1.Name = 'Europe'",
+    "question_id": null,
+    "question": "How many percent of the total area of Russia is in Europe?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Name FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country GROUP BY T3.Name HAVING COUNT(T3.Name) > 1",
+    "question_id": null,
+    "question": "Give the full names of the countries that are located in more than one continent.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Population FROM country AS T1 INNER JOIN province AS T2 ON T1.Code = T2.Country INNER JOIN city AS T3 ON T3.Province = T2.Name WHERE T3.Name = 'Fareham'",
+    "question_id": null,
+    "question": "How many people are there in Fareham's mother country?",
+    "difficulty": "",
+    "evidence": "Mother country refers to home country"
+  },
+  {
+    "sql": "SELECT T2.Infant_Mortality * T1.Population * T2.Population_Growth FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Switzerland'",
+    "question_id": null,
+    "question": "What's the number of infant mortality in Switzerland in a year?",
+    "difficulty": "",
+    "evidence": "Number can be calculated = Infant_Mortality * Population * Population_Growth"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Name) FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain INNER JOIN province AS T3 ON T3.Name = T2.Province INNER JOIN country AS T4 ON T4.Province = T3.Name WHERE T4.Name = 'United States'",
+    "question_id": null,
+    "question": "How many mountains are there in the United States?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Independence FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Equatorial Guinea'",
+    "question_id": null,
+    "question": "When did Equatorial Guinea become independent?",
+    "difficulty": "",
+    "evidence": "Equatorial Guinea is a country"
+  },
+  {
+    "sql": "SELECT T2.GDP / T1.Population FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Switzerland'",
+    "question_id": null,
+    "question": "What is the GDP per capita in Switzerland?",
+    "difficulty": "",
+    "evidence": "GDP per capita = GDP / Population"
+  },
+  {
+    "sql": "SELECT T4.Service * T4.GDP FROM country AS T1 INNER JOIN province AS T2 ON T1.Code = T2.Country INNER JOIN city AS T3 ON T3.Province = T2.Name INNER JOIN economy AS T4 ON T4.Country = T2.Country WHERE T3.Name = 'Fuenlabrada'",
+    "question_id": null,
+    "question": "What is the GDP for Service of the country with Fuenlabrada as its city.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT MAX(T2.Length) / MIN(T2.Length) FROM located AS T1 INNER JOIN river AS T2 ON T1.River = T2.Name WHERE T1.Country = 'TJ'",
+    "question_id": null,
+    "question": "How many times longer is the longest river in Tajikistan than the shortest river?",
+    "difficulty": "",
+    "evidence": "TJ is an abbreviated country code of Tajikistan"
+  },
+  {
+    "sql": "SELECT T1.Population / T1.Area FROM country AS T1 INNER JOIN province AS T2 ON T1.Code = T2.Country INNER JOIN city AS T3 ON T3.Province = T2.Name WHERE T3.Name = 'Hanoi'",
+    "question_id": null,
+    "question": "What is the population density of Hanoi's home country?",
+    "difficulty": "",
+    "evidence": "population density = Population / Area"
+  },
+  {
+    "sql": "SELECT Country, Name FROM ethnicGroup AS T1 WHERE Percentage < 100 AND Percentage = ( SELECT MAX(Percentage) FROM ethnicGroup AS T2 WHERE T1.Country = T2.Country )",
+    "question_id": null,
+    "question": "In countries where there is more than one ethnic group, name the ethnic group with the greatest presence in each country and the country to which it corresponds.",
+    "difficulty": "",
+    "evidence": "greatest presence can be represented by largest percentage."
+  },
+  {
+    "sql": "SELECT Desert FROM geo_desert GROUP BY Desert HAVING COUNT(DISTINCT Country) > 1",
+    "question_id": null,
+    "question": "How many deserts are not located in a single country? Name them.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT River, GROUP_CONCAT(Province) FROM geo_river GROUP BY River HAVING COUNT(DISTINCT Country) > 1",
+    "question_id": null,
+    "question": "How many rivers belong to more than one country? Name the provinces where we can find them.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Name = 'Angola' THEN T1.Length ELSE 0 END) * 100 / SUM(T1.Length) FROM borders AS T1 LEFT JOIN country AS T2 ON T1.Country1 = T2.Code",
+    "question_id": null,
+    "question": "What percentage of the border does Angola share with each of the countries with which it borders?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN Area <= 300 THEN 1 ELSE 0 END) * 100 / COUNT(*) FROM island WHERE Islands = 'Lesser Antilles' AND (Type != 'volcanic' OR Type IS NULL)",
+    "question_id": null,
+    "question": "What percent of the non volcanic islands in the Lesser Antilles group of islands have an area of no more than 300 square kilometers?",
+    "difficulty": "",
+    "evidence": "Percent = [count(non volcanic islands Lesser Antilles area 300 or less) / count(non volcanic islands Lesser Antilles)] * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.Percentage = 100 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Name) FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'English'",
+    "question_id": null,
+    "question": "Of all the countries in which English is spoken, what percentage has English as their only language?",
+    "difficulty": "",
+    "evidence": "Percentage = [count(countries 100% English) / count(countries English)] * 100%"
+  },
+  {
+    "sql": "SELECT Capital FROM country WHERE Population <= ( SELECT MAX(Population) - MAX(Population) * 0.9995 FROM country )",
+    "question_id": null,
+    "question": "Name of the capitals of the countries that have less than 99.95% less population than the country that has the most population.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT * FROM river WHERE Name = 'Donau'",
+    "question_id": null,
+    "question": "Average length of the rivers flowing into the Donau River.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT 100 - (CAST(SUM(CASE WHEN Target = 'Christian' THEN 1 ELSE 0 END) AS REAL)) * 100 / COUNT(Country) FROM target",
+    "question_id": null,
+    "question": "Based on the data shown at Target, what percentage of countries are non-Christian?",
+    "difficulty": "",
+    "evidence": "percentage of countries are non-Christian = [count(non-Christian) / count(non-Christian + Christian)] * 100%"
+  },
+  {
+    "sql": "SELECT T2.Country FROM country AS T1 INNER JOIN isMember AS T2 ON T1.Code = T2.Country INNER JOIN organization AS T3 ON T3.Country = T2.Country INNER JOIN city AS T4 ON T4.Country = T3.Country WHERE T3.Abbreviation = 'EBRD' AND T4.Population BETWEEN 50000 AND 300000 AND T3.Established BETWEEN '1991-01-31' AND '1991-04-30'",
+    "question_id": null,
+    "question": "Which country with a city with a population between 50,000 and 300,000 inhabitants and which is a member of an organization established between 03/01/1991 and 04/30/1991 is also a member of the EBRD?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.River FROM country AS T1 INNER JOIN geo_river AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Slovenia' AND T2.River IN ( SELECT NAME FROM river WHERE Length > 500 AND River = 'Donau' )",
+    "question_id": null,
+    "question": "Which river with its mouth in the Donau River and a length greater than 500 km is located in Slovenia?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.City FROM sea AS T1 INNER JOIN located AS T2 ON T1.Name = T2.Sea INNER JOIN city AS T3 ON T3.Name = T2.City WHERE ( SELECT Depth FROM sea WHERE Name LIKE '%Bengal%' ) - T1.Depth = 4235",
+    "question_id": null,
+    "question": "In which city is the sea whose depth is 4232 meters less than that of the Bay of Bengal?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.City FROM lake AS T1 INNER JOIN located AS T2 ON T1.Name = T2.Lake INNER JOIN province AS T3 ON T3.Name = T2.Province INNER JOIN city AS T4 ON T4.Province = T3.Name WHERE T1.Longitude = -85.35 AND T1.Latitude = 11.6",
+    "question_id": null,
+    "question": "In which city is the lake located at coordinates longitude -85.35 and latitude 11.6?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country INNER JOIN economy AS T4 ON T4.Country = T3.Code ORDER BY T4.Inflation DESC LIMIT 1",
+    "question_id": null,
+    "question": "On which continent is the country with the most erosion of real income?",
+    "difficulty": "",
+    "evidence": "highest inflation rate results in the most erosion of real income"
+  },
+  {
+    "sql": "SELECT T4.Country1, T4.Country2 FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country INNER JOIN borders AS T4 ON T4.Country1 = T3.Code WHERE T1.Name = 'Asia' AND T4.Length = 1782",
+    "question_id": null,
+    "question": "Which two Asian countries share a border that is 1,782 kilometers long?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM lake AS T1 INNER JOIN geo_lake AS T2 ON T1.Name = T2.Lake INNER JOIN province AS T3 ON T3.Name = T2.Province INNER JOIN country AS T4 ON T4.Code = T3.Country WHERE T4.Name = 'Bolivia' ORDER BY T1.Depth DESC LIMIT 1",
+    "question_id": null,
+    "question": "Of all the lakes in Bolivia, which is the deepest?",
+    "difficulty": "",
+    "evidence": "Bolivia is the country"
+  },
+  {
+    "sql": "SELECT NAME FROM lake WHERE river = ( SELECT river FROM river WHERE NAME = 'Manicouagan' )",
+    "question_id": null,
+    "question": "In which lake flows the river that is, in turn, the mouth of the Manicouagan River?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Islands FROM island AS T1 INNER JOIN mountainOnIsland AS T2 ON T1.Name = T2.Island INNER JOIN mountain AS T3 ON T3.Name = T2.Mountain WHERE T3.Name = 'Rinjani'",
+    "question_id": null,
+    "question": "In which group of islands is Rinjani Mountain located?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Sea2 FROM sea AS T1 INNER JOIN mergesWith AS T2 ON T1.Name = T2.Sea1 WHERE T1.Name = ( SELECT Name FROM sea ORDER BY Depth DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "List all the seas with which the deepest sea merges.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT NAME FROM country WHERE CODE IN ( SELECT country FROM encompasses GROUP BY country HAVING COUNT(continent) > 1 ) AND population / Area <= 10",
+    "question_id": null,
+    "question": "Of all the countries that share territory with more than one continent, in which of them does the average population not exceed 10 inhabitants per square kilometer?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN religion AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Hindu' ORDER BY T1.Population / T1.Area ASC LIMIT 1",
+    "question_id": null,
+    "question": "Of all the countries of the Hindu religion, which has the lowest ratio of people per square meter of surface?",
+    "difficulty": "",
+    "evidence": "ratio of people per square meter of surface = Population / Area"
+  },
+  {
+    "sql": "SELECT Independence FROM politics WHERE country = ( SELECT country FROM economy WHERE GDP = 1100 )",
+    "question_id": null,
+    "question": "On what date did the country have a gross domestic product 400% higher than Saint Kitts and Nevis become independent?",
+    "difficulty": "",
+    "evidence": "GDP refers to gross domestic product"
+  },
+  {
+    "sql": "SELECT T1.Population / T1.Area FROM country AS T1 INNER JOIN organization AS T2 ON T1.Code = T2.Country WHERE STRFTIME('%Y', T2.Established) = '1947'",
+    "question_id": null,
+    "question": "What is the average population ratio of the countries in which organizations were established in 1947?",
+    "difficulty": "",
+    "evidence": "Average population ratio = Population / Area"
+  },
+  {
+    "sql": "SELECT Capital, Province FROM country WHERE Name = 'Anguilla'",
+    "question_id": null,
+    "question": "What is the name of Anguilla's capital, and where is it located?",
+    "difficulty": "",
+    "evidence": "Anguilla is a country"
+  },
+  {
+    "sql": "SELECT Name, Capital FROM country ORDER BY Population ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which nation has the smallest population, and where is its capital located?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT MAX(Area) - MIN(Area) FROM continent WHERE Name = 'Asia' OR Name = 'Europe'",
+    "question_id": null,
+    "question": "How much more space does Asia have than Europe?",
+    "difficulty": "",
+    "evidence": "Asia and Europe are two continents."
+  },
+  {
+    "sql": "SELECT Longitude, Latitude FROM city WHERE Name = 'Aarhus'",
+    "question_id": null,
+    "question": "What is the geographic location of Aarhus city? Please provide the answer with the coordinates of the location.",
+    "difficulty": "",
+    "evidence": "Longitude, Latitude = coordinates of the location"
+  },
+  {
+    "sql": "SELECT MAX(Population) - MIN(Population) FROM country WHERE Name = 'United Kingdom' OR Name = 'Italy'",
+    "question_id": null,
+    "question": "What is the population gap between the United Kingdom and Italy?",
+    "difficulty": "",
+    "evidence": "Population gap = Total population of the United Kingdom - Total population of Italy"
+  },
+  {
+    "sql": "SELECT City, Province FROM organization WHERE Name = 'European Bank for Reconstruction and Development'",
+    "question_id": null,
+    "question": "In which city is the European Bank for Reconstruction and Development's headquarters? Please include the city and province where the headquarters are located in your answer.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name FROM lake ORDER BY Area * Depth DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which lake is the largest in terms of both surface area and depth?",
+    "difficulty": "",
+    "evidence": "Area * Depth can represents the metric in terms of both surface area and depth"
+  },
+  {
+    "sql": "SELECT Country1, Country2 FROM borders ORDER BY Length DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which two nations are separated from one another by the longest border? Please include the entire names of the nations in your answer.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country ORDER BY T2.GDP DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which nation has the highest GDP? Please give the nation's full name.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'African' ORDER BY T2.Percentage ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which nation has the lowest proportion of people who speak an African language? Please state the nation's full name.",
+    "difficulty": "",
+    "evidence": "Nation and country share the same meaning. Proportion refers to percentage"
+  },
+  {
+    "sql": "SELECT T2.Country FROM country AS T1 INNER JOIN religion AS T2 ON T1.Code = T2.Country INNER JOIN language AS T3 ON T3.Country = T2.Country WHERE (T2.Name = 'Anglican' OR T2.Name = 'Christian' OR T2.Name = 'Roman Catholic') AND T3.Name = 'English' AND T3.Percentage = 100 GROUP BY T1.Name HAVING COUNT(T1.Name) = 3",
+    "question_id": null,
+    "question": "Which country has three different religions-Anglicanism, Christianity, and Roman Catholicism and uses 100% English?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country ORDER BY T2.Inflation DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the top 3 countries with the highest inflation rate.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN language AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'English' AND T2.Percentage = 100",
+    "question_id": null,
+    "question": "Please provide a list of every nation where English is spoken and utilized entirely.",
+    "difficulty": "",
+    "evidence": "Utilizition entirely means Percentage = 100% uses"
+  },
+  {
+    "sql": "SELECT COUNT(T3.Name) FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country INNER JOIN organization AS T3 ON T3.Country = T2.Country WHERE T2.Independence = NULL AND STRFTIME('%Y', T3.Established) > '1960'",
+    "question_id": null,
+    "question": "How many businesses were founded after 1960 in a nation that wasn't independent?",
+    "difficulty": "",
+    "evidence": "Established means founded; Country means nation; Organization means businesses"
+  },
+  {
+    "sql": "SELECT T1.Province FROM city AS T1 INNER JOIN located AS T2 ON T1.Name = T2.City INNER JOIN river AS T3 ON T3.Name = T2.River WHERE T3.Name = 'Klaraelv'",
+    "question_id": null,
+    "question": "What province did the river Klaeaelv travel through and how long is the river?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.province), T3.Depth FROM country AS T1 INNER JOIN located AS T2 ON T1.Code = T2.Country INNER JOIN sea AS T3 ON T3.Name = T2.Sea WHERE T1.Code = 'I' AND T3.Name = 'Mediterranean Sea' GROUP BY T3.Depth",
+    "question_id": null,
+    "question": "How many Italian regions are bordered by the Mediterranean Sea? How deep is the Mediterranean Sea?",
+    "difficulty": "",
+    "evidence": "Reigion refers to province"
+  },
+  {
+    "sql": "SELECT name FROM country WHERE CODE IN ( SELECT country FROM politics WHERE government = 'British Overseas Territories' )",
+    "question_id": null,
+    "question": "What nations are considered British Overseas Territories?",
+    "difficulty": "",
+    "evidence": "British Overseas Territories is one government form; Nation and country share the same meaning"
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country ORDER BY T2.GDP DESC, T2.Agriculture ASC LIMIT 1",
+    "question_id": null,
+    "question": "Which of the top 3 economies by GDP has the lowest proportion of the economy devoted to agriculture?",
+    "difficulty": "",
+    "evidence": "Economies refers to countries"
+  },
+  {
+    "sql": "SELECT T1.Area, COUNT(T3.Name) FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T3.Code = T2.Country WHERE T1.Name = 'Asia' GROUP BY T1.Name, T1.Area",
+    "question_id": null,
+    "question": "How big is Africa, and how many nations make up the continent?",
+    "difficulty": "",
+    "evidence": "Area can measure the size of countries; Country and nation share the same meaning"
+  },
+  {
+    "sql": "SELECT T1.Province FROM country AS T1 INNER JOIN organization AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'United States' GROUP BY T1.Province ORDER BY COUNT(T1.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which United States province is home to the greatest number of corporations' corporate headquarters?",
+    "difficulty": "",
+    "evidence": "Organization refers to corporation"
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country ORDER BY T2.Independence DESC LIMIT 3",
+    "question_id": null,
+    "question": "What are the most recent three independent nations?",
+    "difficulty": "",
+    "evidence": "Larger date of indepedence refers to more recent indepdence; Nation refers to country"
+  },
+  {
+    "sql": "SELECT country FROM politics WHERE government = 'republic' AND STRFTIME('%Y', independence) >= '1991' AND country IN ( SELECT country FROM country ) ORDER BY independence LIMIT 3",
+    "question_id": null,
+    "question": "Please name any three sovereign nations that have been governed by the republic since 1991.",
+    "difficulty": "",
+    "evidence": "Nation refers to country"
+  },
+  {
+    "sql": "SELECT NAME FROM organization WHERE country IN ( SELECT country FROM politics WHERE dependent != '' )",
+    "question_id": null,
+    "question": "Which company falls under the category of an associated member? Please provide the organization's full name.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Name FROM desert AS T1 INNER JOIN geo_desert AS T2 ON T1.Name = T2.Desert INNER JOIN country AS T3 ON T3.Code = T2.Country WHERE T1.Name = 'Kalahari'",
+    "question_id": null,
+    "question": "Which nations have a boundary with the Kalahari Desert?",
+    "difficulty": "",
+    "evidence": "Nation refers to country"
+  },
+  {
+    "sql": "SELECT T1.Name FROM desert AS T1 INNER JOIN geo_desert AS T2 ON T1.Name = T2.Desert INNER JOIN country AS T3 ON T3.Code = T2.Country WHERE T3.Name = 'Kazakstan' ORDER BY T1.Area DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which desert in Kazakhstan is the largest?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Sea2, T1.Depth FROM sea AS T1 INNER JOIN mergesWith AS T2 ON T1.Name = T2.Sea1 WHERE T1.Name = 'Baltic Sea'",
+    "question_id": null,
+    "question": "What sea does the Baltic Sea converge with, and how deep is the Baltic Sea?",
+    "difficulty": "",
+    "evidence": "Coverage refers to mergesWith"
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN organization AS T2 ON T1.Code = T2.Country INNER JOIN politics AS T3 ON T3.Country = T2.Country WHERE STRFTIME('%Y', T2.Established) > '1907' AND T3.Government = 'constitutional monarchy' GROUP BY T1.Name ORDER BY COUNT(DISTINCT T2.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which constitutional monarchy nations saw the greatest growth in the number of organizations after 1907?",
+    "difficulty": "",
+    "evidence": "Nation refers to country; Information of growth appears in the column Established"
+  },
+  {
+    "sql": "SELECT T1.Type, T3.Name, T4.Name FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain INNER JOIN province AS T3 ON T3.Name = T2.Province INNER JOIN country AS T4 ON T3.Country = T4.Code WHERE T1.Name = 'Ampato'",
+    "question_id": null,
+    "question": "What kind of mountain is Ampato? Which province and nation does this mountain belong to?",
+    "difficulty": "",
+    "evidence": "Nation refers to country"
+  },
+  {
+    "sql": "SELECT T1.Name FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain INNER JOIN province AS T3 ON T3.Name = T2.Province WHERE T3.Name = 'Ecuador' AND T1.Type = 'volcano'",
+    "question_id": null,
+    "question": "Please provide a list of every volcano mountain in the province of Ecuador.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(IIF(government = 'parliamentary democracy', 1, 0)) , CAST(SUM(IIF(government = 'parliamentary democracy', 1, 0)) AS REAL) * 100 / COUNT(*) FROM politics AS t1 WHERE STRFTIME('%Y', independence) >= '1993'",
+    "question_id": null,
+    "question": "What percentage of nations have achieved independence since 1993 and practice parliamentary democracy? Please include any three parliament-based democracies that attained independence after 1993.",
+    "difficulty": "",
+    "evidence": "Percentage of rivers with lengths greater than 3,000 miles = [(Total number of rivers with lengths greater than 3,000 miles) / (Total number of rivers)] * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.Length > 3000 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.Name) FROM river AS T1 INNER JOIN located AS T2 ON T1.Name = T2.River INNER JOIN country AS T3 ON T3.Code = T2.Country",
+    "question_id": null,
+    "question": "What proportion of rivers have a length of more than 3,000 miles? Please provide the name of a Russian river that is more than 3,000 miles long.",
+    "difficulty": "",
+    "evidence": "Proportion of rivers with lengths greater than 3,000 miles = [(Total number of rivers with lengths greater than 3,000 miles) / (Total number of rivers)] * 100%"
+  },
+  {
+    "sql": "SELECT Name, Established FROM organization WHERE Abbreviation = 'ABEDA'",
+    "question_id": null,
+    "question": "What is the full name of ABEDA and when was it established?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name FROM organization WHERE STRFTIME('%Y', Established) BETWEEN '1970' AND '1980'",
+    "question_id": null,
+    "question": "Name all the organisations that were established from 1970 to 1980.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name FROM organization WHERE City = 'London'",
+    "question_id": null,
+    "question": "Provide a list of all organisations with headquarters in London?",
+    "difficulty": "",
+    "evidence": "London is a city"
+  },
+  {
+    "sql": "SELECT Name, City FROM organization WHERE Country = 'USA'",
+    "question_id": null,
+    "question": "For each organisations with headquarters in the USA, provide the its full name and the city where the headquarter is located at.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Abbreviation, Name, Established FROM organization WHERE City = 'Paris' ORDER BY Established ASC LIMIT 1",
+    "question_id": null,
+    "question": "Name the first organisation established in the Paris city. State its abbreviation, full name and date of establishment.",
+    "difficulty": "",
+    "evidence": "Paris is a city"
+  },
+  {
+    "sql": "SELECT Name, City FROM organization WHERE Name LIKE '%United Nation%'",
+    "question_id": null,
+    "question": "List all the organisations that where its name contains 'United Nation'. State its full name and its headquarter city.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T3.Name FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country1 INNER JOIN country AS T3 ON T3.Code = T2.Country2 ORDER BY T2.Length DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which 2 countries' border span across the longest length? Provide the country's full name.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Name FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country1 INNER JOIN country AS T3 ON T3.Code = T2.Country2 WHERE T1.Name = 'Bulgaria'",
+    "question_id": null,
+    "question": "Name all countries in which have border with Bulgaria.",
+    "difficulty": "",
+    "evidence": "Bulgaria is a country name"
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country1 WHERE T2.Length > 4000",
+    "question_id": null,
+    "question": "State all countries with border greater than 4,000. List the full country name.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name FROM isMember AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T1.Organization = 'IOC' ORDER BY T2.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the country member of 'IOC' organization, which country has the most population?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Country, T2.Type FROM organization AS T1 INNER JOIN isMember AS T2 ON T1.Abbreviation = T2.Organization INNER JOIN country AS T3 ON T2.Country = T3.Code WHERE T1.Name = 'Islamic Development Bank'",
+    "question_id": null,
+    "question": "List all members and member type of the Islamic Development Bank.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Name, T2.Population FROM organization AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T1.Name = 'Asia Pacific Economic Cooperation'",
+    "question_id": null,
+    "question": "State the area and population of the country where Asia Pacific Economic Cooperation headquarter is located.",
+    "difficulty": "",
+    "evidence": "Asia Pacific Economic Cooperation is an organization name"
+  },
+  {
+    "sql": "SELECT T1.Name FROM organization AS T1 INNER JOIN isMember AS T2 ON T2.Country = T1.Country INNER JOIN country AS T3 ON T2.Country = T3.Code WHERE T2.Type = 'National Society'",
+    "question_id": null,
+    "question": "What is the organization(s) that has 'National Society' as member type.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT country FROM organization WHERE country IN ( SELECT Code FROM country ) GROUP BY country ORDER BY COUNT(NAME) LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the least organization membership?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name, Capital FROM country WHERE Code IN ( SELECT Country FROM isMember WHERE type = 'Category III' AND Organization = 'IFAD' )",
+    "question_id": null,
+    "question": "List all countries with 'Category III' membership in 'IFAD' organization. Please also provide the capital of the country.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM organization AS T1 INNER JOIN isMember AS T2 ON T2.Country = T1.Country INNER JOIN country AS T3 ON T2.Country = T3.Code GROUP BY T1.Name ORDER BY COUNT(T3.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the organizations with the most members.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Capital, T1.Name FROM organization AS T1 INNER JOIN country AS T2 ON T1.City = T2.Capital WHERE T2.Name = 'Australia'",
+    "question_id": null,
+    "question": "What is the capital of Australia? Is the capital a headquarter to any organization? Name the organization(s).",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.City = 'Washington' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T2.City) FROM country AS T1 INNER JOIN organization AS T2 ON T1.Code = T2.Country WHERE T2.Country = 'USA'",
+    "question_id": null,
+    "question": "Among the organizations where headquarters are in the 'USA', what is the percentage of the them are in 'Washington'?",
+    "difficulty": "",
+    "evidence": "percentage can be computed by [count(City = 'Washington') / count(all cities)] * 100%"
+  },
+  {
+    "sql": "SELECT Length FROM borders WHERE Country1 = 'MEX' AND Country2 = 'USA'",
+    "question_id": null,
+    "question": "What is the border length between 'USA' and 'MEX'",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Name FROM country AS T1 INNER JOIN isMember AS T2 ON T1.Code = T2.Country INNER JOIN organization AS T3 ON T3.Country = T2.Country WHERE T1.Name = 'Singapore' ORDER BY T3.Established DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the newest established organization where Singapore is a member of?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Population FROM organization AS T1 INNER JOIN city AS T2 ON T1.City = T2.Name WHERE T1.Name = 'World Tourism Organization'",
+    "question_id": null,
+    "question": "Provide the population of the city of the 'World Tourism Organization' headquarter.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Height, T2.Province FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain WHERE T1.Name = 'Dhaulagiri'",
+    "question_id": null,
+    "question": "What is the height of mountain Dhaulagiri located and in which province is it located?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Height FROM mountain AS T1 INNER JOIN geo_mountain AS T2 ON T1.Name = T2.Mountain WHERE T2.Province = 'Alaska'",
+    "question_id": null,
+    "question": "List all the name and height of all mountains in Alaska",
+    "difficulty": "",
+    "evidence": "Alaska is a province"
+  },
+  {
+    "sql": "SELECT T1.Population FROM country AS T1 INNER JOIN population AS T2 ON T1.Code = T2.Country ORDER BY T2.Infant_Mortality DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the population of the country with the highest infant mortality rate?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Inflation FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Name = 'Greece'",
+    "question_id": null,
+    "question": "State the inflation rate of Greece.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Government FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country INNER JOIN politics AS T3 ON T3.Country = T2.Country ORDER BY T2.Agriculture DESC LIMIT 1",
+    "question_id": null,
+    "question": "Find the government type for the country with the highest percentage GDP in Agriculture.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Capital FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country WHERE T2.Government = 'parliamentary democracy'",
+    "question_id": null,
+    "question": "List the full name its capital of all the countries with parliamentary democracy government.",
+    "difficulty": "",
+    "evidence": "Parliamentary democracy is a government form"
+  },
+  {
+    "sql": "SELECT T1.Name, T1.Population * T2.Percentage FROM country AS T1 INNER JOIN ethnicGroup AS T2 ON T1.Code = T2.Country WHERE T2.Name = 'Chinese' AND T2.Percentage > 70",
+    "question_id": null,
+    "question": "Provide a full list of countries and its population with more than 70% of Chinese.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Name, CAST(T3.Population AS REAL) * 100 / T1.Population FROM country AS T1 INNER JOIN province AS T2 ON T1.Code = T2.Country INNER JOIN city AS T3 ON T3.Country = T2.Country ORDER BY T3.Population DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which city has the greatest population, what is its percentage to its country population?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Independence FROM politics AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T2.Name = 'United States'",
+    "question_id": null,
+    "question": "When did the United States of America attained it's Independence?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Height, Name FROM mountain WHERE Type = 'volcanic' ORDER BY Height DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the peak height of the highest volcanic type of mountain? Give it's name.",
+    "difficulty": "",
+    "evidence": "peak means the highest"
+  },
+  {
+    "sql": "SELECT T1.Name FROM organization AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code WHERE T2.Name = 'Saudi Arabia' ORDER BY T1.Established DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the most recently founded organization in Saudi Arabia?",
+    "difficulty": "",
+    "evidence": "Saudi Arabia is a country"
+  },
+  {
+    "sql": "SELECT T2.Name FROM population AS T1 INNER JOIN country AS T2 ON T1.Country = T2.Code ORDER BY T1.Infant_Mortality DESC LIMIT 4, 1",
+    "question_id": null,
+    "question": "Which country has the 5th highest infant mortality rate?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name FROM country AS T1 INNER JOIN religion AS T2 ON T1.Code = T2.Country GROUP BY T1.Name ORDER BY COUNT(DISTINCT T2.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country has the widest range of religious practices?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT Name, Length FROM river ORDER BY Length DESC LIMIT 16, 1",
+    "question_id": null,
+    "question": "What river has the 17th-longest length overall? Specify it's length.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Independence FROM country AS T1 INNER JOIN politics AS T2 ON T1.Code = T2.Country WHERE T1.Capital = 'Nouakchott'",
+    "question_id": null,
+    "question": "When did the country whose capital is Nouakchott attained it's independence?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Name, T2.GDP FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country ORDER BY T1.Population ASC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the country with the smallest population, and what is its gross domestic product?",
+    "difficulty": "",
+    "evidence": "GDP refers to gross domestic product"
+  },
+  {
+    "sql": "SELECT T3.Name, T1.Name, T1.Depth FROM lake AS T1 INNER JOIN located AS T2 ON T1.Name = T2.Lake INNER JOIN province AS T3 ON T3.Name = T2.Province INNER JOIN country AS T4 ON T4.Code = T3.Country WHERE T4.Name = 'Zaire'",
+    "question_id": null,
+    "question": "Which Zaire region is home to the country's deepest lake's Name it and list its depth.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Height, T3.Type FROM island AS T1 INNER JOIN mountainOnIsland AS T2 ON T1.Name = T2.Island INNER JOIN mountain AS T3 ON T3.Name = T2.Mountain WHERE T1.Name = 'Madagaskar' ORDER BY T3.Height DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the maximal elevation of the summit of the shortest mountain that can be found in the island of Madagaskar? Indicate what type of mountain it is.",
+    "difficulty": "",
+    "evidence": "The elevation of the summit refers to height"
+  },
+  {
+    "sql": "SELECT T1.Name, T2.GDP FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Population BETWEEN 60000000 AND 90000000 ORDER BY T2.GDP DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which nation, with a population ranging from 60,000,000 to 99,000,000, has the greatest gross domestic product?",
+    "difficulty": "",
+    "evidence": "GDP refers to gross domestic product; Nation and country are synonyms"
+  },
+  {
+    "sql": "SELECT T2.Country FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T2.Country = T3.Code INNER JOIN economy AS T4 ON T4.Country = T3.Code WHERE T1.Name = 'Asia' ORDER BY T4.Agriculture DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which Asian country gave its agricultural sector the largest share of its gross domestic product?",
+    "difficulty": "",
+    "evidence": "Gross domestic product = GDP; Largest share of GDP in agricultural sector was mentioned in economy.Agriculture"
+  },
+  {
+    "sql": "SELECT T3.Government FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country INNER JOIN politics AS T3 ON T3.Country = T2.Country WHERE T2.GDP IS NOT NULL ORDER BY T2.GDP ASC LIMIT 1",
+    "question_id": null,
+    "question": "What form of governance does the least prosperous nation in the world have?",
+    "difficulty": "",
+    "evidence": "Nation and country are synonyms; Form of governance was mentioned in politics.Government; Least prosperous means lowest GDP"
+  },
+  {
+    "sql": "SELECT STRFTIME('%Y', T4.Established) FROM continent AS T1 INNER JOIN encompasses AS T2 ON T1.Name = T2.Continent INNER JOIN country AS T3 ON T2.Country = T3.Code INNER JOIN organization AS T4 ON T4.Country = T3.Code WHERE T1.Name = 'Europe' GROUP BY STRFTIME('%Y', T4.Established) ORDER BY COUNT(T4.Name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What year saw the greatest number of organizations created on the European continent?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.Country2, T2.Length FROM country AS T1 INNER JOIN borders AS T2 ON T1.Code = T2.Country1 INNER JOIN country AS T3 ON T3.Code = T2.Country2 WHERE T1.Name = ( SELECT Name FROM country ORDER BY Population DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "What other country does the most populated nation in the world share a border with and how long is the border between the two nations?",
+    "difficulty": "",
+    "evidence": "Nation and country are synonyms"
+  },
+  {
+    "sql": "SELECT T1.Population / T1.Area, T2.Industry FROM country AS T1 INNER JOIN economy AS T2 ON T1.Code = T2.Country WHERE T1.Province = 'Distrito Federal'",
+    "question_id": null,
+    "question": "What is the population density of the nation whose capital city is in the Distrito Federal province, and what portion of its gross domestic product is devoted to its industries?",
+    "difficulty": "",
+    "evidence": "ation and country are synonyms; Gross domestic product = GDP; Portion of GDP devoted to industries appears in economy.Industry; Population Density = Population / Area"
+  },
+  {
+    "sql": "SELECT * FROM politics WHERE STRFTIME('%Y', Independence) BETWEEN '1950' AND '1999' AND Government = 'parliamentary democracy'",
+    "question_id": null,
+    "question": "Lists all governments with a parliamentary democracy that achieved their independence between 01/01/1950 and 12/31/1999.",
+    "difficulty": "",
+    "evidence": "Inhabitants, synonymous with population"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN STRFTIME('%Y', Independence) = '1960' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(Country) FROM politics",
+    "question_id": null,
+    "question": "What percentage of countries became independent during the year 1960?",
+    "difficulty": "",
+    "evidence": "Percentage = count(countries independent 1960) / total num of countries"
+  },
+  {
+    "sql": "SELECT Name FROM desert WHERE Latitude < 30 OR Latitude > 40",
+    "question_id": null,
+    "question": "List all deserts that are not between latitudes 30 and 40.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.Latitude, T1.Longitude FROM desert AS T1 INNER JOIN geo_desert AS T2 ON T1.Name = T2.Desert GROUP BY T1.Name, T1.Latitude, T1.Longitude HAVING COUNT(T1.Name) > 1",
+    "question_id": null,
+    "question": "Indicate the coordinates of all the deserts whose area is in more than one country.",
+    "difficulty": "",
+    "evidence": "coordinates consists of Latitude, Longitude"
+  },
+  {
+    "sql": "SELECT CapProv FROM province WHERE Population < 80000 ORDER BY Population / Area DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the provincial capital of the province with a population of less than 80,000 that has the highest average population per area?",
+    "difficulty": "",
+    "evidence": "Average population per area = population / area"
+  }
+]

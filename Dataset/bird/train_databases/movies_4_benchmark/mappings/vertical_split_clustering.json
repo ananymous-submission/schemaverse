@@ -1,0 +1,256 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 17,
+    "eligible_candidate_count": 3,
+    "num_selected_for_vertical_split": 3,
+    "num_from_rate_alone": 14,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "movie",
+      "country",
+      "language"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/movies_4/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "country",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "language",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "movie": {
+      "pk_columns": [
+        "movie_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "budget",
+          "non_pk_columns": [
+            "budget",
+            "movie_status",
+            "overview",
+            "popularity",
+            "release_date",
+            "runtime",
+            "vote_average"
+          ],
+          "local_table": "movies_budget_under_one_million",
+          "local_name": "local_3",
+          "vertical_fragment_base": "movie_budget",
+          "row_partition_names": [
+            "movies_budget_under_one_million",
+            "movie_budget_q2",
+            "movie_budget_q3",
+            "movies_budget_over_forty_million_or_null"
+          ],
+          "row_partition_predicate_column": "budget"
+        },
+        {
+          "suffix": "homepage",
+          "non_pk_columns": [
+            "homepage",
+            "tagline",
+            "title"
+          ],
+          "local_table": "MovieWebPresence",
+          "local_name": "local_4",
+          "vertical_fragment_base": "movie_homepage"
+        },
+        {
+          "suffix": "budget_2",
+          "non_pk_columns": [
+            "budget",
+            "overview",
+            "release_date",
+            "revenue",
+            "runtime",
+            "vote_average",
+            "vote_count"
+          ],
+          "local_table": "filmFinancials",
+          "local_name": "local_5",
+          "vertical_fragment_base": "movie_budget_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "movie",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.008401834550443915,
+          "3": 0.010942370088420915,
+          "4": 0.010530992909691029
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.010942370088420915,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "budget",
+            "movie_status",
+            "overview",
+            "popularity",
+            "release_date"
+          ],
+          [
+            "homepage",
+            "tagline",
+            "title"
+          ],
+          [
+            "revenue",
+            "runtime",
+            "vote_average",
+            "vote_count"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "budget",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "overview",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "release_date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "vote_average",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "runtime",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "budget",
+            "movie_status",
+            "overview",
+            "popularity",
+            "release_date",
+            "runtime",
+            "vote_average"
+          ],
+          [
+            "homepage",
+            "tagline",
+            "title"
+          ],
+          [
+            "budget",
+            "overview",
+            "release_date",
+            "revenue",
+            "runtime",
+            "vote_average",
+            "vote_count"
+          ]
+        ],
+        "pk_columns": [
+          "movie_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "budget",
+            "non_pk_columns": [
+              "budget",
+              "movie_status",
+              "overview",
+              "popularity",
+              "release_date",
+              "runtime",
+              "vote_average"
+            ]
+          },
+          {
+            "suffix": "homepage",
+            "non_pk_columns": [
+              "homepage",
+              "tagline",
+              "title"
+            ]
+          },
+          {
+            "suffix": "budget_2",
+            "non_pk_columns": [
+              "budget",
+              "overview",
+              "release_date",
+              "revenue",
+              "runtime",
+              "vote_average",
+              "vote_count"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "budget",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "budget",
+          "also_in_fragment_suffix": "budget_2"
+        },
+        {
+          "column": "overview",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "budget",
+          "also_in_fragment_suffix": "budget_2"
+        },
+        {
+          "column": "release_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "budget",
+          "also_in_fragment_suffix": "budget_2"
+        },
+        {
+          "column": "vote_average",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "budget_2",
+          "also_in_fragment_suffix": "budget"
+        },
+        {
+          "column": "runtime",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "budget_2",
+          "also_in_fragment_suffix": "budget"
+        }
+      ]
+    }
+  }
+}

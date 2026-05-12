@@ -1,0 +1,1108 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "CarLoadsShapeCircleHexagonDiamond": {
+          "source_table": "cars",
+          "column_map": {
+            "CarLoadId": "id",
+            "LoadLength": "len",
+            "LoadQuantity": "load_num",
+            "LoadShape": "load_shape",
+            "RoofType": "roof",
+            "CarShape": "shape",
+            "SideConfiguration": "sides"
+          },
+          "projected_columns": [
+            "id",
+            "len",
+            "load_num",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          "row_predicate": "((\"load_shape\" = 'circle' OR (\"load_shape\" = 'hexagon' OR (\"load_shape\" = 'diamond' OR \"load_shape\" IS NULL))) OR (rowid IN (7,20,35,36,40,51,56,61)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "TrainCarSpecifications"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "TrainCarSpecifications",
+          "is_row_partition": true,
+          "row_partition_partner": "cars_len_part1",
+          "row_partition_peers": [
+            "cars_len_part1",
+            "cars_len_part2"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "len"
+        },
+        "TrainCarSpecifications": {
+          "source_table": "cars",
+          "column_map": {
+            "CarSpecificationId": "id",
+            "CarLength": "len",
+            "LoadQuantity": "load_num",
+            "CarPosition": "position",
+            "RoofType": "roof",
+            "SideConfiguration": "sides",
+            "TrainId": "train_id",
+            "WheelCount": "wheels"
+          },
+          "projected_columns": [
+            "id",
+            "len",
+            "load_num",
+            "position",
+            "roof",
+            "sides",
+            "train_id",
+            "wheels"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "cars_len"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "cars_len",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "len_2"
+        }
+      },
+      "table_rename_map": {
+        "cars": "cars_len_2"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "trainDirections": {
+          "source_table": "trains",
+          "column_map": {
+            "trainId": "id",
+            "travelDirection": "direction"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "carsWithRectangleLoad": {
+          "source_table": "cars",
+          "column_map": {
+            "carId": "id",
+            "carLength": "len",
+            "loadCount": "load_num",
+            "loadProfile": "load_shape",
+            "roofStyle": "roof",
+            "bodyShape": "shape",
+            "sideConfiguration": "sides"
+          },
+          "projected_columns": [
+            "id",
+            "len",
+            "load_num",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          "row_predicate": "(\"load_shape\" = 'rectangle' OR (rowid IN (2,5,10,19,27,34,38,52,62)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "cars_len_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "cars_len_2",
+          "is_row_partition": true,
+          "row_partition_partner": "carsWithTriangleLoad",
+          "row_partition_peers": [
+            "carsWithTriangleLoad",
+            "cars_len_part3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "len"
+        },
+        "carsWithTriangleLoad": {
+          "source_table": "cars",
+          "column_map": {
+            "carId": "id",
+            "carLength": "len",
+            "loadCount": "load_num",
+            "loadProfile": "load_shape",
+            "roofStyle": "roof",
+            "bodyShape": "shape",
+            "sideConfiguration": "sides"
+          },
+          "projected_columns": [
+            "id",
+            "len",
+            "load_num",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          "row_predicate": "(\"load_shape\" = 'triangle' OR (rowid IN (6,21,28,29,43,46,50,57,60)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "cars_len_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "cars_len_2",
+          "is_row_partition": true,
+          "row_partition_partner": "cars_len_part3",
+          "row_partition_peers": [
+            "cars_len_part3",
+            "carsWithRectangleLoad"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "len"
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "cars_len_part3": "CarLoadsShapeCircleHexagonDiamond",
+        "cars_len_2": "TrainCarSpecifications"
+      },
+      "column_renames": {
+        "cars_len_part3": {
+          "id": "CarLoadId",
+          "len": "LoadLength",
+          "load_num": "LoadQuantity",
+          "load_shape": "LoadShape",
+          "roof": "RoofType",
+          "shape": "CarShape",
+          "sides": "SideConfiguration"
+        },
+        "cars_len_2": {
+          "id": "CarSpecificationId",
+          "len": "CarLength",
+          "load_num": "LoadQuantity",
+          "position": "CarPosition",
+          "roof": "RoofType",
+          "sides": "SideConfiguration",
+          "train_id": "TrainId",
+          "wheels": "WheelCount"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "trains": "trainDirections",
+        "cars_len_part1": "carsWithRectangleLoad",
+        "cars_len_part2": "carsWithTriangleLoad"
+      },
+      "column_renames": {
+        "trains": {
+          "id": "trainId",
+          "direction": "travelDirection"
+        },
+        "cars_len_part1": {
+          "id": "carId",
+          "len": "carLength",
+          "load_num": "loadCount",
+          "load_shape": "loadProfile",
+          "roof": "roofStyle",
+          "shape": "bodyShape",
+          "sides": "sideConfiguration"
+        },
+        "cars_len_part2": {
+          "id": "carId",
+          "len": "carLength",
+          "load_num": "loadCount",
+          "load_shape": "loadProfile",
+          "roof": "roofStyle",
+          "shape": "bodyShape",
+          "sides": "sideConfiguration"
+        }
+      },
+      "naming_case_style": "camelCase"
+    }
+  },
+  "vertical_split_map": {
+    "cars": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "len",
+          "non_pk_columns": [
+            "len",
+            "load_num",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          "local_table": "cars_len_part1",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cars_len",
+          "row_partition_names": [
+            "cars_len_part1",
+            "cars_len_part2",
+            "CarLoadsShapeCircleHexagonDiamond"
+          ],
+          "row_partition_predicate_column": "load_shape"
+        },
+        {
+          "suffix": "len_2",
+          "non_pk_columns": [
+            "len",
+            "load_num",
+            "position",
+            "roof",
+            "sides",
+            "train_id",
+            "wheels"
+          ],
+          "local_table": "TrainCarSpecifications",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cars_len_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "cars",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.021534346100064307,
+          "3": 0.02030588575163936
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.021534346100064307,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "len",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          [
+            "load_num",
+            "position",
+            "train_id",
+            "wheels"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "len",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "sides",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "load_num",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "roof",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "len",
+            "load_num",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          [
+            "len",
+            "load_num",
+            "position",
+            "roof",
+            "sides",
+            "train_id",
+            "wheels"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "len",
+            "non_pk_columns": [
+              "len",
+              "load_num",
+              "load_shape",
+              "roof",
+              "shape",
+              "sides"
+            ]
+          },
+          {
+            "suffix": "len_2",
+            "non_pk_columns": [
+              "len",
+              "load_num",
+              "position",
+              "roof",
+              "sides",
+              "train_id",
+              "wheels"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "cars_len_2",
+      "movable_candidates": [
+        "cars_len_part1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "split_map": {
+    "cars": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "len",
+          "non_pk_columns": [
+            "len",
+            "load_num",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          "local_table": "cars_len_part1",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cars_len",
+          "row_partition_names": [
+            "cars_len_part1",
+            "cars_len_part2",
+            "CarLoadsShapeCircleHexagonDiamond"
+          ],
+          "row_partition_predicate_column": "load_shape"
+        },
+        {
+          "suffix": "len_2",
+          "non_pk_columns": [
+            "len",
+            "load_num",
+            "position",
+            "roof",
+            "sides",
+            "train_id",
+            "wheels"
+          ],
+          "local_table": "TrainCarSpecifications",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cars_len_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "cars",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.021534346100064307,
+          "3": 0.02030588575163936
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.021534346100064307,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "len",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          [
+            "load_num",
+            "position",
+            "train_id",
+            "wheels"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "len",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "sides",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "load_num",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "roof",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "len",
+            "load_num",
+            "load_shape",
+            "roof",
+            "shape",
+            "sides"
+          ],
+          [
+            "len",
+            "load_num",
+            "position",
+            "roof",
+            "sides",
+            "train_id",
+            "wheels"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "len",
+            "non_pk_columns": [
+              "len",
+              "load_num",
+              "load_shape",
+              "roof",
+              "shape",
+              "sides"
+            ]
+          },
+          {
+            "suffix": "len_2",
+            "non_pk_columns": [
+              "len",
+              "load_num",
+              "position",
+              "roof",
+              "sides",
+              "train_id",
+              "wheels"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "cars_len_2",
+      "movable_candidates": [
+        "cars_len_part1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 2,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 2,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "cars"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/trains/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "row_partition_map": {
+    "cars||vfrag=len": {
+      "source_table": "cars",
+      "vertical_fragment_suffix": "len",
+      "num_partitions": 3,
+      "partition_names": [
+        "carsWithRectangleLoad",
+        "carsWithTriangleLoad",
+        "CarLoadsShapeCircleHexagonDiamond"
+      ],
+      "partition_locals": [
+        "local_2",
+        "local_2",
+        "local_1"
+      ],
+      "predicate_column": "load_shape",
+      "partition_values": [
+        {
+          "value": "rectangle",
+          "includes_null": false
+        },
+        {
+          "value": "triangle",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "circle",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "hexagon",
+                  "includes_null": false
+                },
+                {
+                  "value": "diamond",
+                  "includes_null": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"load_shape\" = 'rectangle' OR (rowid IN (2,5,10,19,27,34,38,52,62)))",
+        "(\"load_shape\" = 'triangle' OR (rowid IN (6,21,28,29,43,46,50,57,60)))",
+        "((\"load_shape\" = 'circle' OR (\"load_shape\" = 'hexagon' OR (\"load_shape\" = 'diamond' OR \"load_shape\" IS NULL))) OR (rowid IN (7,20,35,36,40,51,56,61)))"
+      ],
+      "base_predicate_sqls": [
+        "\"load_shape\" = 'rectangle'",
+        "\"load_shape\" = 'triangle'",
+        "(\"load_shape\" = 'circle' OR (\"load_shape\" = 'hexagon' OR (\"load_shape\" = 'diamond' OR \"load_shape\" IS NULL)))"
+      ],
+      "predicate_kind": "afd_categorical_fway",
+      "fragment_roles": [
+        "rows where load_shape = rectangle",
+        "rows where load_shape = triangle",
+        "rows where load_shape = circle + rows where load_shape = hexagon + rows where load_shape = diamond or is NULL"
+      ],
+      "home_fragment": "carsWithRectangleLoad",
+      "movable_fragments": [
+        "carsWithTriangleLoad",
+        "CarLoadsShapeCircleHexagonDiamond"
+      ],
+      "movable_fragment": "carsWithTriangleLoad",
+      "default_movable_fragment": "carsWithTriangleLoad",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "load_shape",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "len",
+          "load_num",
+          "load_shape",
+          "roof",
+          "shape"
+        ],
+        "ranked_columns": [
+          {
+            "column": "load_shape",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "roof",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "shape",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "load_num",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "len",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "pandas_g3",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"load_shape\" = 'rectangle' OR (rowid IN (2,5,10,19,27,34,38,52,62)))",
+      "predicate_sql_fragment_B": "(\"load_shape\" = 'triangle' OR (rowid IN (6,21,28,29,43,46,50,57,60)))",
+      "fragment_role_A": "rows where load_shape = rectangle",
+      "fragment_role_B": "rows where load_shape = triangle"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "cars",
+          "from_column": "train_id",
+          "to_table": "trains",
+          "to_column": "id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "cars_len_part3",
+            "column_map": {
+              "id": "id",
+              "len": "len",
+              "load_num": "load_num",
+              "load_shape": "load_shape",
+              "roof": "roof",
+              "shape": "shape",
+              "sides": "sides"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "len": "len",
+              "load_num": "load_num",
+              "load_shape": "load_shape",
+              "roof": "roof",
+              "shape": "shape",
+              "sides": "sides"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "cars_len_2",
+            "column_map": {
+              "id": "id",
+              "len": "len",
+              "load_num": "load_num",
+              "position": "position",
+              "roof": "roof",
+              "sides": "sides",
+              "train_id": "train_id",
+              "wheels": "wheels"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "len": "len",
+              "load_num": "load_num",
+              "position": "position",
+              "roof": "roof",
+              "sides": "sides",
+              "train_id": "train_id",
+              "wheels": "wheels"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "cars_len_part1",
+            "column_map": {
+              "id": "id",
+              "len": "len",
+              "load_num": "load_num",
+              "load_shape": "load_shape",
+              "roof": "roof",
+              "shape": "shape",
+              "sides": "sides"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "len": "len",
+              "load_num": "load_num",
+              "load_shape": "load_shape",
+              "roof": "roof",
+              "shape": "shape",
+              "sides": "sides"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "cars_len_part2",
+            "column_map": {
+              "id": "id",
+              "len": "len",
+              "load_num": "load_num",
+              "load_shape": "load_shape",
+              "roof": "roof",
+              "shape": "shape",
+              "sides": "sides"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "len": "len",
+              "load_num": "load_num",
+              "load_shape": "load_shape",
+              "roof": "roof",
+              "shape": "shape",
+              "sides": "sides"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "trains",
+            "column_map": {
+              "id": "id",
+              "direction": "direction"
+            },
+            "orig_to_local": {
+              "id": "id",
+              "direction": "direction"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "TrainCarSpecifications",
+            "to_local_table": "trainDirections",
+            "from_local_column": "TrainId",
+            "to_local_column": "trainId"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "cars_len_part1",
+      "source_table": "cars",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "trains",
+        "partner_logical_table": "trains",
+        "partner_weight": 27,
+        "cross_local_query_count": 26,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "cars_len_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "cars_len_part2",
+      "source_table": "cars",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "trains",
+        "partner_logical_table": "trains",
+        "partner_weight": 27,
+        "cross_local_query_count": 26,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "cars_len_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "cars_len_2|trains": 28,
+      "cars_len_part1|trains": 27,
+      "cars_len_part2|trains": 27,
+      "cars_len_part3|trains": 27
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "cars_len_2": "local_1",
+      "cars_len_part1": "local_1",
+      "cars_len_part2": "local_1",
+      "cars_len_part3": "local_1",
+      "trains": "local_2"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "cars": {
+        "R": 2,
+        "F": 4,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "cars": {
+        "R": 1,
+        "F": 3,
+        "home_fragments": 3,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "cars": "cars_len_part1"
+    },
+    "intents": [
+      {
+        "source_table": "cars",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "cars_len_part1",
+        "anchor_fragment": "cars_len_2",
+        "partner_fragment": "trains",
+        "partner_logical_table": "trains",
+        "partner_weight": 27,
+        "cross_local_query_count": 26,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "cars",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "cars_len_part2",
+        "anchor_fragment": "cars_len_2",
+        "partner_fragment": "trains",
+        "partner_logical_table": "trains",
+        "partner_weight": 27,
+        "cross_local_query_count": 26,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "cars",
+        "kind": "row_partition",
+        "movable_fragment": "cars_len_part2",
+        "partner_fragment": "trains",
+        "partner_logical_table": "trains",
+        "partner_weight": 27,
+        "cross_local_query_count": 26,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "cars_len_part1"
+      }
+    ],
+    "moved_fragments": [
+      "cars_len_part1",
+      "cars_len_part2"
+    ],
+    "pinned_fragments": [
+      "trains"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "cars",
+        "kind": "row_partition",
+        "movable_fragment": "cars_len_part2",
+        "partner_fragment": "trains",
+        "partner_logical_table": "trains",
+        "partner_weight": 27,
+        "cross_local_query_count": 26,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "cars_len_part1",
+        "reason": "movable_already_moved"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "cars": {
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "train_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "position",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "shape",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "len",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "sides",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "roof",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "wheels",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "load_shape",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          },
+          {
+            "name": "load_num",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 63
+      },
+      "trains": {
+        "columns": [
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "direction",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "NULL"
+          }
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 20
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "cars",
+        "from_column": "train_id",
+        "to_table": "trains",
+        "to_column": "id",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 2,
+      "num_fk_edges": 1,
+      "hub_tables": [
+        "cars",
+        "trains"
+      ],
+      "connected_components": 1
+    }
+  }
+}

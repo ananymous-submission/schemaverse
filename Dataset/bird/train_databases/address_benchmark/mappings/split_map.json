@@ -1,0 +1,684 @@
+{
+  "congress": {
+    "pk_columns": [
+      "cognress_rep_id"
+    ],
+    "fragments": [
+      {
+        "suffix": "cid",
+        "non_pk_columns": [
+          "CID",
+          "District",
+          "House",
+          "abbreviation",
+          "land_area",
+          "party"
+        ],
+        "local_table": "congress_cid_q1",
+        "local_name": "local_2",
+        "vertical_fragment_base": "congress_cid",
+        "row_partition_names": [
+          "congress_cid_q1",
+          "congress_cid_q2",
+          "congress_cid_q3",
+          "representatives_district_above_13_or_null"
+        ],
+        "row_partition_predicate_column": "District"
+      },
+      {
+        "suffix": "cid_2",
+        "non_pk_columns": [
+          "CID",
+          "House",
+          "abbreviation",
+          "first_name",
+          "last_name",
+          "party",
+          "state"
+        ],
+        "local_table": "representatives_directory",
+        "local_name": "local_2",
+        "vertical_fragment_base": "congress_cid_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "congress",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 9,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1478885609,
+      "scores_by_k": {
+        "2": 0.0450730435173857,
+        "3": 0.0450730435173857
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.0450730435173857,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "CID",
+          "District",
+          "abbreviation",
+          "land_area",
+          "party"
+        ],
+        [
+          "House",
+          "first_name",
+          "last_name",
+          "state"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "House",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "abbreviation",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "party",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "CID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "CID",
+          "District",
+          "House",
+          "abbreviation",
+          "land_area",
+          "party"
+        ],
+        [
+          "CID",
+          "House",
+          "abbreviation",
+          "first_name",
+          "last_name",
+          "party",
+          "state"
+        ]
+      ],
+      "pk_columns": [
+        "cognress_rep_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "cid",
+          "non_pk_columns": [
+            "CID",
+            "District",
+            "House",
+            "abbreviation",
+            "land_area",
+            "party"
+          ]
+        },
+        {
+          "suffix": "cid_2",
+          "non_pk_columns": [
+            "CID",
+            "House",
+            "abbreviation",
+            "first_name",
+            "last_name",
+            "party",
+            "state"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "congress_cid_2",
+    "movable_candidates": [
+      "congress_cid_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+  },
+  "zip_data": {
+    "pk_columns": [
+      "zip_code"
+    ],
+    "fragments": [
+      {
+        "suffix": "1st_quarter_payroll",
+        "non_pk_columns": [
+          "1st_quarter_payroll",
+          "children",
+          "disabled_workers",
+          "monthly_benefits_all",
+          "monthly_benefits_retired_workers",
+          "monthly_benefits_widowed",
+          "parents_and_widowed",
+          "retired_workers",
+          "spouses",
+          "total_beneficiaries"
+        ],
+        "local_table": "zip_data_1st_quarter_payroll_q1",
+        "local_name": "local_3",
+        "vertical_fragment_base": "zip_data_1st_quarter_payroll",
+        "row_partition_names": [
+          "zip_data_1st_quarter_payroll_q1",
+          "zip_data_1st_quarter_payroll_q2",
+          "zip_data_1st_quarter_payroll_q3",
+          "zip_payroll_top_quart"
+        ],
+        "row_partition_predicate_column": "1st_quarter_payroll"
+      },
+      {
+        "suffix": "1st_quarter_payroll_2",
+        "non_pk_columns": [
+          "1st_quarter_payroll",
+          "CBSA",
+          "american_indian_population",
+          "annual_payroll",
+          "asian_population",
+          "avg_house_value",
+          "avg_income_per_household",
+          "children",
+          "city",
+          "county_fips",
+          "daylight_savings",
+          "division",
+          "elevation",
+          "employees",
+          "households",
+          "land_area",
+          "latitude",
+          "longitude",
+          "multi_county",
+          "organization",
+          "persons_per_household",
+          "region",
+          "state",
+          "state_fips",
+          "time_zone",
+          "type",
+          "water_area"
+        ],
+        "local_table": "zip_payroll_geo",
+        "local_name": "local_3",
+        "vertical_fragment_base": "zip_data_1st_quarter_payroll_2"
+      },
+      {
+        "suffix": "cbsa",
+        "non_pk_columns": [
+          "CBSA",
+          "american_indian_population",
+          "asian_population",
+          "black_population",
+          "businesses",
+          "daylight_savings",
+          "division",
+          "elevation",
+          "employees",
+          "female_population",
+          "hawaiian_population",
+          "hispanic_population",
+          "land_area",
+          "latitude",
+          "longitude",
+          "male_population",
+          "multi_county",
+          "other_population",
+          "over_65",
+          "population_2010",
+          "population_2020",
+          "type",
+          "water_area",
+          "white_population"
+        ],
+        "local_table": "zipCbsaProfile",
+        "local_name": "local_1",
+        "vertical_fragment_base": "zip_data_cbsa"
+      },
+      {
+        "suffix": "annual_payroll",
+        "non_pk_columns": [
+          "annual_payroll",
+          "business_mailboxes",
+          "businesses",
+          "city",
+          "households",
+          "multi_family_delivery_units",
+          "residential_mailboxes",
+          "single_family_delivery_units",
+          "total_delivery_receptacles"
+        ],
+        "local_table": "zipPayrollSummary",
+        "local_name": "local_1",
+        "vertical_fragment_base": "zip_data_annual_payroll"
+      },
+      {
+        "suffix": "avg_house_value",
+        "non_pk_columns": [
+          "avg_house_value",
+          "avg_income_per_household",
+          "female_median_age",
+          "male_median_age",
+          "median_age",
+          "persons_per_household"
+        ],
+        "local_table": "zipHousingValueMetrics",
+        "local_name": "local_1",
+        "vertical_fragment_base": "zip_data_avg_house_value"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "zip_data",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 54,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.040427999923740895,
+        "3": 0.054634058193697835,
+        "4": 0.06976099913260454,
+        "5": 0.07828366505767566
+      },
+      "chosen_k": 5,
+      "best_metric_score": 0.07828366505767566,
+      "num_final_clusters": 5,
+      "column_clusters": [
+        [
+          "1st_quarter_payroll",
+          "children",
+          "disabled_workers",
+          "monthly_benefits_all",
+          "monthly_benefits_retired_workers",
+          "monthly_benefits_widowed",
+          "parents_and_widowed",
+          "retired_workers",
+          "spouses",
+          "total_beneficiaries"
+        ],
+        [
+          "CBSA",
+          "city",
+          "county_fips",
+          "daylight_savings",
+          "division",
+          "elevation",
+          "land_area",
+          "latitude",
+          "longitude",
+          "multi_county",
+          "organization",
+          "region",
+          "state",
+          "state_fips",
+          "time_zone",
+          "type",
+          "water_area"
+        ],
+        [
+          "american_indian_population",
+          "asian_population",
+          "black_population",
+          "employees",
+          "female_population",
+          "hawaiian_population",
+          "hispanic_population",
+          "male_population",
+          "other_population",
+          "over_65",
+          "population_2010",
+          "population_2020",
+          "white_population"
+        ],
+        [
+          "annual_payroll",
+          "business_mailboxes",
+          "businesses",
+          "households",
+          "multi_family_delivery_units",
+          "residential_mailboxes",
+          "single_family_delivery_units",
+          "total_delivery_receptacles"
+        ],
+        [
+          "avg_house_value",
+          "avg_income_per_household",
+          "female_median_age",
+          "male_median_age",
+          "median_age",
+          "persons_per_household"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "1st_quarter_payroll",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "businesses",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "annual_payroll",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "employees",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "water_area",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "land_area",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "daylight_savings",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "elevation",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "multi_county",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "households",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "division",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "CBSA",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "avg_house_value",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "american_indian_population",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "avg_income_per_household",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "type",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "persons_per_household",
+          "primary_fragment_index": 4,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "longitude",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "latitude",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "children",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "asian_population",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "city",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "1st_quarter_payroll",
+          "children",
+          "disabled_workers",
+          "monthly_benefits_all",
+          "monthly_benefits_retired_workers",
+          "monthly_benefits_widowed",
+          "parents_and_widowed",
+          "retired_workers",
+          "spouses",
+          "total_beneficiaries"
+        ],
+        [
+          "1st_quarter_payroll",
+          "CBSA",
+          "american_indian_population",
+          "annual_payroll",
+          "asian_population",
+          "avg_house_value",
+          "avg_income_per_household",
+          "children",
+          "city",
+          "county_fips",
+          "daylight_savings",
+          "division",
+          "elevation",
+          "employees",
+          "households",
+          "land_area",
+          "latitude",
+          "longitude",
+          "multi_county",
+          "organization",
+          "persons_per_household",
+          "region",
+          "state",
+          "state_fips",
+          "time_zone",
+          "type",
+          "water_area"
+        ],
+        [
+          "CBSA",
+          "american_indian_population",
+          "asian_population",
+          "black_population",
+          "businesses",
+          "daylight_savings",
+          "division",
+          "elevation",
+          "employees",
+          "female_population",
+          "hawaiian_population",
+          "hispanic_population",
+          "land_area",
+          "latitude",
+          "longitude",
+          "male_population",
+          "multi_county",
+          "other_population",
+          "over_65",
+          "population_2010",
+          "population_2020",
+          "type",
+          "water_area",
+          "white_population"
+        ],
+        [
+          "annual_payroll",
+          "business_mailboxes",
+          "businesses",
+          "city",
+          "households",
+          "multi_family_delivery_units",
+          "residential_mailboxes",
+          "single_family_delivery_units",
+          "total_delivery_receptacles"
+        ],
+        [
+          "avg_house_value",
+          "avg_income_per_household",
+          "female_median_age",
+          "male_median_age",
+          "median_age",
+          "persons_per_household"
+        ]
+      ],
+      "pk_columns": [
+        "zip_code"
+      ],
+      "fragments": [
+        {
+          "suffix": "1st_quarter_payroll",
+          "non_pk_columns": [
+            "1st_quarter_payroll",
+            "children",
+            "disabled_workers",
+            "monthly_benefits_all",
+            "monthly_benefits_retired_workers",
+            "monthly_benefits_widowed",
+            "parents_and_widowed",
+            "retired_workers",
+            "spouses",
+            "total_beneficiaries"
+          ]
+        },
+        {
+          "suffix": "1st_quarter_payroll_2",
+          "non_pk_columns": [
+            "1st_quarter_payroll",
+            "CBSA",
+            "american_indian_population",
+            "annual_payroll",
+            "asian_population",
+            "avg_house_value",
+            "avg_income_per_household",
+            "children",
+            "city",
+            "county_fips",
+            "daylight_savings",
+            "division",
+            "elevation",
+            "employees",
+            "households",
+            "land_area",
+            "latitude",
+            "longitude",
+            "multi_county",
+            "organization",
+            "persons_per_household",
+            "region",
+            "state",
+            "state_fips",
+            "time_zone",
+            "type",
+            "water_area"
+          ]
+        },
+        {
+          "suffix": "cbsa",
+          "non_pk_columns": [
+            "CBSA",
+            "american_indian_population",
+            "asian_population",
+            "black_population",
+            "businesses",
+            "daylight_savings",
+            "division",
+            "elevation",
+            "employees",
+            "female_population",
+            "hawaiian_population",
+            "hispanic_population",
+            "land_area",
+            "latitude",
+            "longitude",
+            "male_population",
+            "multi_county",
+            "other_population",
+            "over_65",
+            "population_2010",
+            "population_2020",
+            "type",
+            "water_area",
+            "white_population"
+          ]
+        },
+        {
+          "suffix": "annual_payroll",
+          "non_pk_columns": [
+            "annual_payroll",
+            "business_mailboxes",
+            "businesses",
+            "city",
+            "households",
+            "multi_family_delivery_units",
+            "residential_mailboxes",
+            "single_family_delivery_units",
+            "total_delivery_receptacles"
+          ]
+        },
+        {
+          "suffix": "avg_house_value",
+          "non_pk_columns": [
+            "avg_house_value",
+            "avg_income_per_household",
+            "female_median_age",
+            "male_median_age",
+            "median_age",
+            "persons_per_household"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "zip_data_1st_quarter_payroll_2",
+    "movable_candidates": [
+      "zip_data_1st_quarter_payroll_q1",
+      "zip_data_annual_payroll",
+      "zip_data_avg_house_value",
+      "zip_data_cbsa"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=27;fk_column_endpoints_on_fragment=7"
+  }
+}

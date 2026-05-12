@@ -1,0 +1,4785 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "bowler_profiles": {
+          "source_table": "Bowlers",
+          "column_map": {
+            "bowler_id": "BowlerID",
+            "address": "BowlerAddress",
+            "city": "BowlerCity",
+            "name": "BowlerFirstName",
+            "last_name": "BowlerLastName",
+            "middle_initial": "BowlerMiddleInit",
+            "phone_number": "BowlerPhoneNumber",
+            "state": "BowlerState",
+            "postal_code": "BowlerZip"
+          },
+          "projected_columns": [
+            "BowlerID",
+            "BowlerAddress",
+            "BowlerCity",
+            "BowlerFirstName",
+            "BowlerLastName",
+            "BowlerMiddleInit",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerZip"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Bowlers_bowler_2",
+            "bowler_city_stats"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Bowlers_bowler_2",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "bowler"
+        },
+        "bowler_city_stats": {
+          "source_table": "Bowlers",
+          "column_map": {
+            "bowler_id": "BowlerID",
+            "city": "BowlerCity",
+            "current_average": "BowlerCurrentAverage",
+            "current_handicap": "BowlerCurrentHcp",
+            "middle_initial": "BowlerMiddleInit",
+            "postal_code": "BowlerZip",
+            "team_id": "TeamID"
+          },
+          "projected_columns": [
+            "BowlerID",
+            "BowlerCity",
+            "BowlerCurrentAverage",
+            "BowlerCurrentHcp",
+            "BowlerMiddleInit",
+            "BowlerZip",
+            "TeamID"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "bowler_profiles",
+            "Bowlers_bowler_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "bowler_profiles",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "bowlercity"
+        },
+        "team_directory": {
+          "source_table": "Teams",
+          "column_map": {
+            "team_id": "TeamID",
+            "team_name": "TeamName",
+            "captain_id": "CaptainID"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "tournament_events": {
+          "source_table": "Tournaments",
+          "column_map": {
+            "tournament_id": "TourneyID",
+            "event_date": "TourneyDate",
+            "location": "TourneyLocation"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "tournament_matches_lanes_15_16": {
+          "source_table": "Tourney_Matches",
+          "column_map": {
+            "match_id": "MatchID",
+            "tournament_id": "TourneyID",
+            "lanes_label": "Lanes",
+            "odd_lane_team_id": "OddLaneTeamID",
+            "even_lane_team_id": "EvenLaneTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"Lanes\" = '15-16' OR (rowid IN (2,7,32,53)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "tournament_matches_lanes_11_12_19_20",
+          "row_partition_peers": [
+            "tournament_matches_lanes_11_12_19_20",
+            "tournament_matches_lanes_13_14",
+            "tournament_matches_lanes_17_18",
+            "tournament_matches_lanes_05_06_07_08",
+            "tournament_matches_lanes_09_10_21_22",
+            "tournament_matches_lanes_other"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "tournament_matches_lanes_11_12_19_20": {
+          "source_table": "Tourney_Matches",
+          "column_map": {
+            "match_id": "MatchID",
+            "tournament_id": "TourneyID",
+            "lanes_label": "Lanes",
+            "odd_lane_team_id": "OddLaneTeamID",
+            "even_lane_team_id": "EvenLaneTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"Lanes\" = '11-12' OR \"Lanes\" = '19-20') OR (rowid IN (9,16,40,50)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "tournament_matches_lanes_13_14",
+          "row_partition_peers": [
+            "tournament_matches_lanes_13_14",
+            "tournament_matches_lanes_17_18",
+            "tournament_matches_lanes_05_06_07_08",
+            "tournament_matches_lanes_09_10_21_22",
+            "tournament_matches_lanes_other",
+            "tournament_matches_lanes_15_16"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "tournament_matches_lanes_13_14": {
+          "source_table": "Tourney_Matches",
+          "column_map": {
+            "match_id": "MatchID",
+            "tournament_id": "TourneyID",
+            "lanes_label": "Lanes",
+            "odd_lane_team_id": "OddLaneTeamID",
+            "even_lane_team_id": "EvenLaneTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"Lanes\" = '13-14' OR (rowid IN (14,24,28,41,48)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "tournament_matches_lanes_17_18",
+          "row_partition_peers": [
+            "tournament_matches_lanes_17_18",
+            "tournament_matches_lanes_05_06_07_08",
+            "tournament_matches_lanes_09_10_21_22",
+            "tournament_matches_lanes_other",
+            "tournament_matches_lanes_15_16",
+            "tournament_matches_lanes_11_12_19_20"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "tournament_matches_lanes_17_18": {
+          "source_table": "Tourney_Matches",
+          "column_map": {
+            "match_id": "MatchID",
+            "tournament_id": "TourneyID",
+            "lanes_label": "Lanes",
+            "odd_lane_team_id": "OddLaneTeamID",
+            "even_lane_team_id": "EvenLaneTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "(\"Lanes\" = '17-18' OR (rowid IN (18,39,49)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "tournament_matches_lanes_05_06_07_08",
+          "row_partition_peers": [
+            "tournament_matches_lanes_05_06_07_08",
+            "tournament_matches_lanes_09_10_21_22",
+            "tournament_matches_lanes_other",
+            "tournament_matches_lanes_15_16",
+            "tournament_matches_lanes_11_12_19_20",
+            "tournament_matches_lanes_13_14"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "tournament_matches_lanes_05_06_07_08": {
+          "source_table": "Tourney_Matches",
+          "column_map": {
+            "match_id": "MatchID",
+            "tournament_id": "TourneyID",
+            "lanes_label": "Lanes",
+            "odd_lane_team_id": "OddLaneTeamID",
+            "even_lane_team_id": "EvenLaneTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"Lanes\" = '05-06' OR \"Lanes\" = '07-08') OR (rowid IN (20,44,51)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "tournament_matches_lanes_09_10_21_22",
+          "row_partition_peers": [
+            "tournament_matches_lanes_09_10_21_22",
+            "tournament_matches_lanes_other",
+            "tournament_matches_lanes_15_16",
+            "tournament_matches_lanes_11_12_19_20",
+            "tournament_matches_lanes_13_14",
+            "tournament_matches_lanes_17_18"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "tournament_matches_lanes_09_10_21_22": {
+          "source_table": "Tourney_Matches",
+          "column_map": {
+            "match_id": "MatchID",
+            "tournament_id": "TourneyID",
+            "lanes_label": "Lanes",
+            "odd_lane_team_id": "OddLaneTeamID",
+            "even_lane_team_id": "EvenLaneTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"Lanes\" = '09-10' OR \"Lanes\" = '21-22') OR (rowid IN (4,45,46,55)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "tournament_matches_lanes_other",
+          "row_partition_peers": [
+            "tournament_matches_lanes_other",
+            "tournament_matches_lanes_15_16",
+            "tournament_matches_lanes_11_12_19_20",
+            "tournament_matches_lanes_13_14",
+            "tournament_matches_lanes_17_18",
+            "tournament_matches_lanes_05_06_07_08"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "tournament_matches_lanes_other": {
+          "source_table": "Tourney_Matches",
+          "column_map": {
+            "match_id": "MatchID",
+            "tournament_id": "TourneyID",
+            "lanes_label": "Lanes",
+            "odd_lane_team_id": "OddLaneTeamID",
+            "even_lane_team_id": "EvenLaneTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"Lanes\" IS NULL OR \"Lanes\" NOT IN ('15-16', '11-12', '13-14', '17-18', '19-20', '05-06', '07-08', '09-10', '21-22')) OR (rowid IN (12,23,36,37)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "tournament_matches_lanes_15_16",
+          "row_partition_peers": [
+            "tournament_matches_lanes_15_16",
+            "tournament_matches_lanes_11_12_19_20",
+            "tournament_matches_lanes_13_14",
+            "tournament_matches_lanes_17_18",
+            "tournament_matches_lanes_05_06_07_08",
+            "tournament_matches_lanes_09_10_21_22"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "bowler_scores_handicap_187_189_194_196_198": {
+          "source_table": "Bowler_Scores",
+          "column_map": {
+            "match_id": "MatchID",
+            "game_number": "GameNumber",
+            "bowler_id": "BowlerID",
+            "handicap_score": "HandiCapScore",
+            "raw_score": "RawScore"
+          },
+          "projected_columns": [
+            "MatchID",
+            "GameNumber",
+            "BowlerID",
+            "HandiCapScore",
+            "RawScore"
+          ],
+          "row_predicate": "(((\"HandiCapScore\" = 189 OR (\"HandiCapScore\" = 198 OR \"HandiCapScore\" = 196)) OR (\"HandiCapScore\" = 187 OR \"HandiCapScore\" = 194)) OR (rowid IN (5,7,8,14,19,28,29,31,33,35,42,45,46,47,50,58,59,67,71,72,74,81,82,91,94,95,99,102,103,114,118,121,126,129,131,134,138,140,146,152,158,159,162,165,168,171,182,184,186,187,189,193,194,195,198,203,205,209,210,225,227,228,230,231,234,242,249,250,253,254,256,257,261,264,267,268,269,274,279,280,287,291,296,298,303,305,306,308,310,311,314,316,319,323,324,325,334,335,336,358,363,364,368,369,372,374,377,379,381,383,384,386,396,398,401,403,405,410,414,415,416,418,423,424,426,430,434,439,442,444,446,449,451,453,455,462,478,482,483,484,488,490,494,495,497,501,506,507,508,509,513,515,518,522,523,525,526,529,533,535,541,545,546,549,552,556,557,558,567,569,570,574,579,581,585,603,610,618,620,623,639,640,645,647,649,651,652,654,655,657,659,665,666,674,676,684,689,691,695,715,725,735,737,738,746,750,758,761,765,767,783,786,788,789,792,795,798,802,806,807,812,814,819,827,833,843,845,846,849,851,852,859,861,867,869,874,875,877,879,884,888,889,891,895,902,904,911,913,919,920,921,923,925,935,937,938,942,943,949,955,957,959,960,964,967,969,970,974,979,986,987,988,989,991,994,999,1001,1010,1014,1020,1022,1025,1026,1029,1031,1035,1036,1038,1039,1042,1046,1048,1056,1059,1060,1061,1066,1069,1070,1073,1076,1078,1082,1094,1095,1099,1101,1103,1104,1106,1109,1113,1114,1118,1119,1121,1123,1135,1137,1141,1143,1144,1152,1153,1159,1163,1168,1170,1175,1180,1187,1188,1190,1191,1193,1195,1209,1210,1212,1214,1223,1225,1226,1228,1231,1235,1243,1246,1247,1249,1250,1274,1277,1279,1285,1288,1289,1291,1292,1297,1299,1307,1310,1317,1318,1326,1331,1337,1338,1339,1341,1343)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Bowler_Scores_handicapscore_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Bowler_Scores_handicapscore_2",
+          "is_row_partition": true,
+          "row_partition_partner": "bowler_scores_handicap_192_193_195_200",
+          "row_partition_peers": [
+            "bowler_scores_handicap_192_193_195_200",
+            "Bowler_Scores_handicapscore_part3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "handicapscore"
+        },
+        "bowler_scores_handicap_192_193_195_200": {
+          "source_table": "Bowler_Scores",
+          "column_map": {
+            "match_id": "MatchID",
+            "game_number": "GameNumber",
+            "bowler_id": "BowlerID",
+            "handicap_score": "HandiCapScore",
+            "raw_score": "RawScore"
+          },
+          "projected_columns": [
+            "MatchID",
+            "GameNumber",
+            "BowlerID",
+            "HandiCapScore",
+            "RawScore"
+          ],
+          "row_predicate": "(((\"HandiCapScore\" = 193 OR \"HandiCapScore\" = 195) OR (\"HandiCapScore\" = 192 OR \"HandiCapScore\" = 200)) OR (rowid IN (4,15,37,39,52,76,90,116,124,142,176,177,232,248,255,260,288,297,301,332,337,340,344,356,366,373,408,420,435,450,461,468,469,472,485,489,492,512,528,544,577,578,596,607,613,616,624,633,641,660,671,686,694,696,700,716,728,739,756,771,776,793,800,803,824,828,844,868,916,932,952,972,973,977,992,1008,1032,1054,1067,1074,1084,1108,1165,1196,1202,1213,1259,1273,1294,1313,1316,1319,1321,1334)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Bowler_Scores_handicapscore_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Bowler_Scores_handicapscore_2",
+          "is_row_partition": true,
+          "row_partition_partner": "Bowler_Scores_handicapscore_part3",
+          "row_partition_peers": [
+            "Bowler_Scores_handicapscore_part3",
+            "bowler_scores_handicap_187_189_194_196_198"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "handicapscore"
+        }
+      },
+      "table_rename_map": {
+        "Bowlers": "Bowlers_bowler",
+        "Tourney_Matches": "Tourney_Matches_part1"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "bowlerHandicapScoresOtherBucket": {
+          "source_table": "Bowler_Scores",
+          "column_map": {
+            "matchId": "MatchID",
+            "gameNumber": "GameNumber",
+            "bowlerId": "BowlerID",
+            "handicapScore": "HandiCapScore",
+            "rawScore": "RawScore"
+          },
+          "projected_columns": [
+            "MatchID",
+            "GameNumber",
+            "BowlerID",
+            "HandiCapScore",
+            "RawScore"
+          ],
+          "row_predicate": "((\"HandiCapScore\" IS NULL OR \"HandiCapScore\" NOT IN (189, 187, 193, 194, 192, 195, 198, 200, 196)) OR (rowid IN (9,12,13,24,48,80,89,96,120,141,148,161,164,166,190,222,241,276,293,304,349,354,378,413,428,436,440,460,480,520,568,576,580,625,644,668,708,720,826,857,880,885,890,917,954,962,985,993,1016,1017,1018,1049,1052,1075,1077,1091,1096,1124,1133,1145,1164,1229,1233,1236,1256,1260,1268,1270,1303,1308,1324,1328,1344)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "bowlerHandicapScoresStandard"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "bowlerHandicapScoresStandard",
+          "is_row_partition": true,
+          "row_partition_partner": "Bowler_Scores_handicapscore_part1",
+          "row_partition_peers": [
+            "Bowler_Scores_handicapscore_part1",
+            "Bowler_Scores_handicapscore_part2"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "handicapscore"
+        },
+        "bowlerHandicapScoresStandard": {
+          "source_table": "Bowler_Scores",
+          "column_map": {
+            "matchId": "MatchID",
+            "gameNumber": "GameNumber",
+            "bowlerId": "BowlerID",
+            "handicapScore": "HandiCapScore",
+            "rawScore": "RawScore",
+            "wonGame": "WonGame"
+          },
+          "projected_columns": [
+            "MatchID",
+            "GameNumber",
+            "BowlerID",
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Bowler_Scores_handicapscore"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Bowler_Scores_handicapscore",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "handicapscore_2"
+        },
+        "matchGamesWinningTeamUpToTwo": {
+          "source_table": "Match_Games",
+          "column_map": {
+            "matchId": "MatchID",
+            "gameNumber": "GameNumber",
+            "winningTeamId": "WinningTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" <= 2) OR (rowid IN (10,20,57,60,62,73,75,78,91,93,104,128,131,135,141,146,167)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+          "row_partition_peers": [
+            "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "matchGamesWinningTeamGreaterThanSixOrNull"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "matchGamesWinningTeamGreaterThanTwoUpToFour": {
+          "source_table": "Match_Games",
+          "column_map": {
+            "matchId": "MatchID",
+            "gameNumber": "GameNumber",
+            "winningTeamId": "WinningTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" > 2 AND \"WinningTeamID\" <= 4) OR (rowid IN (1,3,14,28,30,37,40,61,63,74,77,87,90,98,121,124,157)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "matchGamesWinningTeamGreaterThanFourUpToSix",
+          "row_partition_peers": [
+            "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "matchGamesWinningTeamGreaterThanSixOrNull",
+            "matchGamesWinningTeamUpToTwo"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "matchGamesWinningTeamGreaterThanFourUpToSix": {
+          "source_table": "Match_Games",
+          "column_map": {
+            "matchId": "MatchID",
+            "gameNumber": "GameNumber",
+            "winningTeamId": "WinningTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" > 4 AND \"WinningTeamID\" <= 6) OR (rowid IN (6,16,43,46,64,70,80,86,97,127,132,143,151,154,156,161,162)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "matchGamesWinningTeamGreaterThanSixOrNull",
+          "row_partition_peers": [
+            "matchGamesWinningTeamGreaterThanSixOrNull",
+            "matchGamesWinningTeamUpToTwo",
+            "matchGamesWinningTeamGreaterThanTwoUpToFour"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "matchGamesWinningTeamGreaterThanSixOrNull": {
+          "source_table": "Match_Games",
+          "column_map": {
+            "matchId": "MatchID",
+            "gameNumber": "GameNumber",
+            "winningTeamId": "WinningTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"WinningTeamID\" > 6 OR \"WinningTeamID\" IS NULL) OR (rowid IN (7,9,23,34,51,71,81,92,94,103,105,112,138,142,163,164,165)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "matchGamesWinningTeamUpToTwo",
+          "row_partition_peers": [
+            "matchGamesWinningTeamUpToTwo",
+            "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "matchGamesWinningTeamGreaterThanFourUpToSix"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "archivedTournaments": {
+          "source_table": "Tournaments_Archive",
+          "column_map": {
+            "tournamentId": "TourneyID",
+            "tournamentDate": "TourneyDate",
+            "location": "TourneyLocation"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "archivedTournamentMatches": {
+          "source_table": "Tourney_Matches_Archive",
+          "column_map": {
+            "matchId": "MatchID",
+            "tournamentId": "TourneyID",
+            "lanes": "Lanes",
+            "oddLaneTeamId": "OddLaneTeamID",
+            "evenLaneTeamId": "EvenLaneTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "bowlersRoster": {
+          "source_table": "Bowlers",
+          "column_map": {
+            "bowlerId": "BowlerID",
+            "address": "BowlerAddress",
+            "gamesBowled": "BowlerGamesBowled",
+            "phoneNumber": "BowlerPhoneNumber",
+            "state": "BowlerState",
+            "totalPins": "BowlerTotalPins"
+          },
+          "projected_columns": [
+            "BowlerID",
+            "BowlerAddress",
+            "BowlerGamesBowled",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerTotalPins"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Bowlers_bowler",
+            "Bowlers_bowlercity"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Bowlers_bowler",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "bowler_2"
+        }
+      },
+      "table_rename_map": {
+        "Bowler_Scores": "Bowler_Scores_handicapscore_2",
+        "Match_Games": "Match_Games_q1"
+      }
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "ArchivedBowlerHandicapScore": {
+          "source_table": "Bowler_Scores_Archive",
+          "column_map": {
+            "MatchIdentifier": "MatchID",
+            "GameSequence": "GameNumber",
+            "BowlerIdentifier": "BowlerID",
+            "HandicapScoreValue": "HandiCapScore",
+            "RawScoreValue": "RawScore"
+          },
+          "projected_columns": [
+            "MatchID",
+            "GameNumber",
+            "BowlerID",
+            "HandiCapScore",
+            "RawScore"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "ArchivedBowlerHandicapResult"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "ArchivedBowlerHandicapResult",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "handicapscore"
+        },
+        "ArchivedBowlerHandicapResult": {
+          "source_table": "Bowler_Scores_Archive",
+          "column_map": {
+            "MatchIdentifier": "MatchID",
+            "GameSequence": "GameNumber",
+            "BowlerIdentifier": "BowlerID",
+            "HandicapScoreValue": "HandiCapScore",
+            "RawScoreValue": "RawScore",
+            "GameWonFlag": "WonGame"
+          },
+          "projected_columns": [
+            "MatchID",
+            "GameNumber",
+            "BowlerID",
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "ArchivedBowlerHandicapScore"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "ArchivedBowlerHandicapScore",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "handicapscore_2"
+        },
+        "ArchivedMatchGame": {
+          "source_table": "Match_Games_Archive",
+          "column_map": {
+            "MatchIdentifier": "MatchID",
+            "GameSequence": "GameNumber",
+            "WinningTeamIdentifier": "WinningTeamID"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "WashingtonZipDirectory": {
+          "source_table": "WAZips",
+          "column_map": {
+            "ZipCode": "ZIP",
+            "CityName": "City",
+            "StateName": "State"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "Bowler_Scores_Archive": "Bowler_Scores_Archive_handicapscore_2"
+      }
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "Bowlers_bowler": "bowler_profiles",
+        "Bowlers_bowlercity": "bowler_city_stats",
+        "Teams": "team_directory",
+        "Tournaments": "tournament_events",
+        "Tourney_Matches_part1": "tournament_matches_lanes_15_16",
+        "Tourney_Matches_part2": "tournament_matches_lanes_11_12_19_20",
+        "Tourney_Matches_part3": "tournament_matches_lanes_13_14",
+        "Tourney_Matches_part4": "tournament_matches_lanes_17_18",
+        "Tourney_Matches_part5": "tournament_matches_lanes_05_06_07_08",
+        "Tourney_Matches_part6": "tournament_matches_lanes_09_10_21_22",
+        "Tourney_Matches_part7": "tournament_matches_lanes_other",
+        "Bowler_Scores_handicapscore_part1": "bowler_scores_handicap_187_189_194_196_198",
+        "Bowler_Scores_handicapscore_part2": "bowler_scores_handicap_192_193_195_200"
+      },
+      "column_renames": {
+        "Bowlers_bowler": {
+          "BowlerID": "bowler_id",
+          "BowlerAddress": "address",
+          "BowlerCity": "city",
+          "BowlerFirstName": "name",
+          "BowlerLastName": "last_name",
+          "BowlerMiddleInit": "middle_initial",
+          "BowlerPhoneNumber": "phone_number",
+          "BowlerState": "state",
+          "BowlerZip": "postal_code"
+        },
+        "Bowlers_bowlercity": {
+          "BowlerID": "bowler_id",
+          "BowlerCity": "city",
+          "BowlerCurrentAverage": "current_average",
+          "BowlerCurrentHcp": "current_handicap",
+          "BowlerMiddleInit": "middle_initial",
+          "BowlerZip": "postal_code",
+          "TeamID": "team_id"
+        },
+        "Teams": {
+          "TeamID": "team_id",
+          "TeamName": "team_name",
+          "CaptainID": "captain_id"
+        },
+        "Tournaments": {
+          "TourneyID": "tournament_id",
+          "TourneyDate": "event_date",
+          "TourneyLocation": "location"
+        },
+        "Tourney_Matches_part1": {
+          "MatchID": "match_id",
+          "TourneyID": "tournament_id",
+          "Lanes": "lanes_label",
+          "OddLaneTeamID": "odd_lane_team_id",
+          "EvenLaneTeamID": "even_lane_team_id"
+        },
+        "Tourney_Matches_part2": {
+          "MatchID": "match_id",
+          "TourneyID": "tournament_id",
+          "Lanes": "lanes_label",
+          "OddLaneTeamID": "odd_lane_team_id",
+          "EvenLaneTeamID": "even_lane_team_id"
+        },
+        "Tourney_Matches_part3": {
+          "MatchID": "match_id",
+          "TourneyID": "tournament_id",
+          "Lanes": "lanes_label",
+          "OddLaneTeamID": "odd_lane_team_id",
+          "EvenLaneTeamID": "even_lane_team_id"
+        },
+        "Tourney_Matches_part4": {
+          "MatchID": "match_id",
+          "TourneyID": "tournament_id",
+          "Lanes": "lanes_label",
+          "OddLaneTeamID": "odd_lane_team_id",
+          "EvenLaneTeamID": "even_lane_team_id"
+        },
+        "Tourney_Matches_part5": {
+          "MatchID": "match_id",
+          "TourneyID": "tournament_id",
+          "Lanes": "lanes_label",
+          "OddLaneTeamID": "odd_lane_team_id",
+          "EvenLaneTeamID": "even_lane_team_id"
+        },
+        "Tourney_Matches_part6": {
+          "MatchID": "match_id",
+          "TourneyID": "tournament_id",
+          "Lanes": "lanes_label",
+          "OddLaneTeamID": "odd_lane_team_id",
+          "EvenLaneTeamID": "even_lane_team_id"
+        },
+        "Tourney_Matches_part7": {
+          "MatchID": "match_id",
+          "TourneyID": "tournament_id",
+          "Lanes": "lanes_label",
+          "OddLaneTeamID": "odd_lane_team_id",
+          "EvenLaneTeamID": "even_lane_team_id"
+        },
+        "Bowler_Scores_handicapscore_part1": {
+          "MatchID": "match_id",
+          "GameNumber": "game_number",
+          "BowlerID": "bowler_id",
+          "HandiCapScore": "handicap_score",
+          "RawScore": "raw_score"
+        },
+        "Bowler_Scores_handicapscore_part2": {
+          "MatchID": "match_id",
+          "GameNumber": "game_number",
+          "BowlerID": "bowler_id",
+          "HandiCapScore": "handicap_score",
+          "RawScore": "raw_score"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_2": {
+      "table_renames": {
+        "Bowler_Scores_handicapscore_part3": "bowlerHandicapScoresOtherBucket",
+        "Bowler_Scores_handicapscore_2": "bowlerHandicapScoresStandard",
+        "Match_Games_q1": "matchGamesWinningTeamUpToTwo",
+        "Match_Games_q2": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+        "Match_Games_q3": "matchGamesWinningTeamGreaterThanFourUpToSix",
+        "Match_Games_q4": "matchGamesWinningTeamGreaterThanSixOrNull",
+        "Tournaments_Archive": "archivedTournaments",
+        "Tourney_Matches_Archive": "archivedTournamentMatches",
+        "Bowlers_bowler_2": "bowlersRoster"
+      },
+      "column_renames": {
+        "Bowler_Scores_handicapscore_part3": {
+          "MatchID": "matchId",
+          "GameNumber": "gameNumber",
+          "BowlerID": "bowlerId",
+          "HandiCapScore": "handicapScore",
+          "RawScore": "rawScore"
+        },
+        "Bowler_Scores_handicapscore_2": {
+          "MatchID": "matchId",
+          "GameNumber": "gameNumber",
+          "BowlerID": "bowlerId",
+          "HandiCapScore": "handicapScore",
+          "RawScore": "rawScore",
+          "WonGame": "wonGame"
+        },
+        "Match_Games_q1": {
+          "MatchID": "matchId",
+          "GameNumber": "gameNumber",
+          "WinningTeamID": "winningTeamId"
+        },
+        "Match_Games_q2": {
+          "MatchID": "matchId",
+          "GameNumber": "gameNumber",
+          "WinningTeamID": "winningTeamId"
+        },
+        "Match_Games_q3": {
+          "MatchID": "matchId",
+          "GameNumber": "gameNumber",
+          "WinningTeamID": "winningTeamId"
+        },
+        "Match_Games_q4": {
+          "MatchID": "matchId",
+          "GameNumber": "gameNumber",
+          "WinningTeamID": "winningTeamId"
+        },
+        "Tournaments_Archive": {
+          "TourneyID": "tournamentId",
+          "TourneyDate": "tournamentDate",
+          "TourneyLocation": "location"
+        },
+        "Tourney_Matches_Archive": {
+          "MatchID": "matchId",
+          "TourneyID": "tournamentId",
+          "Lanes": "lanes",
+          "OddLaneTeamID": "oddLaneTeamId",
+          "EvenLaneTeamID": "evenLaneTeamId"
+        },
+        "Bowlers_bowler_2": {
+          "BowlerID": "bowlerId",
+          "BowlerAddress": "address",
+          "BowlerGamesBowled": "gamesBowled",
+          "BowlerPhoneNumber": "phoneNumber",
+          "BowlerState": "state",
+          "BowlerTotalPins": "totalPins"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_3": {
+      "table_renames": {
+        "Bowler_Scores_Archive_handicapscore": "ArchivedBowlerHandicapScore",
+        "Bowler_Scores_Archive_handicapscore_2": "ArchivedBowlerHandicapResult",
+        "Match_Games_Archive": "ArchivedMatchGame",
+        "WAZips": "WashingtonZipDirectory"
+      },
+      "column_renames": {
+        "Bowler_Scores_Archive_handicapscore": {
+          "MatchID": "MatchIdentifier",
+          "GameNumber": "GameSequence",
+          "BowlerID": "BowlerIdentifier",
+          "HandiCapScore": "HandicapScoreValue",
+          "RawScore": "RawScoreValue"
+        },
+        "Bowler_Scores_Archive_handicapscore_2": {
+          "MatchID": "MatchIdentifier",
+          "GameNumber": "GameSequence",
+          "BowlerID": "BowlerIdentifier",
+          "HandiCapScore": "HandicapScoreValue",
+          "RawScore": "RawScoreValue",
+          "WonGame": "GameWonFlag"
+        },
+        "Match_Games_Archive": {
+          "MatchID": "MatchIdentifier",
+          "GameNumber": "GameSequence",
+          "WinningTeamID": "WinningTeamIdentifier"
+        },
+        "WAZips": {
+          "ZIP": "ZipCode",
+          "City": "CityName",
+          "State": "StateName"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    }
+  },
+  "vertical_split_map": {
+    "Bowlers": {
+      "pk_columns": [
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "bowler",
+          "non_pk_columns": [
+            "BowlerAddress",
+            "BowlerCity",
+            "BowlerFirstName",
+            "BowlerLastName",
+            "BowlerMiddleInit",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerZip"
+          ],
+          "local_table": "bowler_profiles",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Bowlers_bowler"
+        },
+        {
+          "suffix": "bowlercity",
+          "non_pk_columns": [
+            "BowlerCity",
+            "BowlerCurrentAverage",
+            "BowlerCurrentHcp",
+            "BowlerMiddleInit",
+            "BowlerZip",
+            "TeamID"
+          ],
+          "local_table": "bowler_city_stats",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Bowlers_bowlercity"
+        },
+        {
+          "suffix": "bowler_2",
+          "non_pk_columns": [
+            "BowlerAddress",
+            "BowlerGamesBowled",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerTotalPins"
+          ],
+          "local_table": "bowlersRoster",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Bowlers_bowler_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Bowlers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 13,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.021511346524243795,
+          "3": 0.02912138023753478,
+          "4": 0.027910589959761162
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.02912138023753478,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "BowlerAddress",
+            "BowlerCity",
+            "BowlerFirstName",
+            "BowlerLastName",
+            "BowlerMiddleInit",
+            "BowlerState",
+            "BowlerZip"
+          ],
+          [
+            "BowlerCurrentAverage",
+            "BowlerCurrentHcp",
+            "TeamID"
+          ],
+          [
+            "BowlerGamesBowled",
+            "BowlerPhoneNumber",
+            "BowlerTotalPins"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "BowlerCity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BowlerPhoneNumber",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "BowlerMiddleInit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BowlerZip",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BowlerState",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "BowlerAddress",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "BowlerAddress",
+            "BowlerCity",
+            "BowlerFirstName",
+            "BowlerLastName",
+            "BowlerMiddleInit",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerZip"
+          ],
+          [
+            "BowlerCity",
+            "BowlerCurrentAverage",
+            "BowlerCurrentHcp",
+            "BowlerMiddleInit",
+            "BowlerZip",
+            "TeamID"
+          ],
+          [
+            "BowlerAddress",
+            "BowlerGamesBowled",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerTotalPins"
+          ]
+        ],
+        "pk_columns": [
+          "BowlerID"
+        ],
+        "fragments": [
+          {
+            "suffix": "bowler",
+            "non_pk_columns": [
+              "BowlerAddress",
+              "BowlerCity",
+              "BowlerFirstName",
+              "BowlerLastName",
+              "BowlerMiddleInit",
+              "BowlerPhoneNumber",
+              "BowlerState",
+              "BowlerZip"
+            ]
+          },
+          {
+            "suffix": "bowlercity",
+            "non_pk_columns": [
+              "BowlerCity",
+              "BowlerCurrentAverage",
+              "BowlerCurrentHcp",
+              "BowlerMiddleInit",
+              "BowlerZip",
+              "TeamID"
+            ]
+          },
+          {
+            "suffix": "bowler_2",
+            "non_pk_columns": [
+              "BowlerAddress",
+              "BowlerGamesBowled",
+              "BowlerPhoneNumber",
+              "BowlerState",
+              "BowlerTotalPins"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Bowlers_bowler",
+      "movable_candidates": [
+        "Bowlers_bowler_2",
+        "Bowlers_bowlercity"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+    },
+    "Bowler_Scores": {
+      "pk_columns": [
+        "MatchID",
+        "GameNumber",
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "handicapscore",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          "local_table": "Bowler_Scores_handicapscore_part1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Bowler_Scores_handicapscore",
+          "row_partition_names": [
+            "Bowler_Scores_handicapscore_part1",
+            "Bowler_Scores_handicapscore_part2",
+            "bowlerHandicapScoresOtherBucket"
+          ],
+          "row_partition_predicate_column": "HandiCapScore"
+        },
+        {
+          "suffix": "handicapscore_2",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ],
+          "local_table": "bowlerHandicapScoresStandard",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Bowler_Scores_handicapscore_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Bowler_Scores",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 3,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.07598291437940186,
+          "3": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.07598291437940186,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          [
+            "WonGame"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "HandiCapScore",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "RawScore",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ]
+        ],
+        "pk_columns": [
+          "MatchID",
+          "GameNumber",
+          "BowlerID"
+        ],
+        "fragments": [
+          {
+            "suffix": "handicapscore",
+            "non_pk_columns": [
+              "HandiCapScore",
+              "RawScore"
+            ]
+          },
+          {
+            "suffix": "handicapscore_2",
+            "non_pk_columns": [
+              "HandiCapScore",
+              "RawScore",
+              "WonGame"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Bowler_Scores_handicapscore_2",
+      "movable_candidates": [
+        "Bowler_Scores_handicapscore_part1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=3"
+    },
+    "Bowler_Scores_Archive": {
+      "pk_columns": [
+        "MatchID",
+        "GameNumber",
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "handicapscore",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          "local_table": "ArchivedBowlerHandicapScore",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Bowler_Scores_Archive_handicapscore"
+        },
+        {
+          "suffix": "handicapscore_2",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ],
+          "local_table": "ArchivedBowlerHandicapResult",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Bowler_Scores_Archive_handicapscore_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Bowler_Scores_Archive",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 3,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.14835384800535387,
+          "3": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.14835384800535387,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          [
+            "WonGame"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "RawScore",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "HandiCapScore",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ]
+        ],
+        "pk_columns": [
+          "MatchID",
+          "GameNumber",
+          "BowlerID"
+        ],
+        "fragments": [
+          {
+            "suffix": "handicapscore",
+            "non_pk_columns": [
+              "HandiCapScore",
+              "RawScore"
+            ]
+          },
+          {
+            "suffix": "handicapscore_2",
+            "non_pk_columns": [
+              "HandiCapScore",
+              "RawScore",
+              "WonGame"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Bowler_Scores_Archive_handicapscore_2",
+      "movable_candidates": [
+        "Bowler_Scores_Archive_handicapscore"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "split_map": {
+    "Bowlers": {
+      "pk_columns": [
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "bowler",
+          "non_pk_columns": [
+            "BowlerAddress",
+            "BowlerCity",
+            "BowlerFirstName",
+            "BowlerLastName",
+            "BowlerMiddleInit",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerZip"
+          ],
+          "local_table": "bowler_profiles",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Bowlers_bowler"
+        },
+        {
+          "suffix": "bowlercity",
+          "non_pk_columns": [
+            "BowlerCity",
+            "BowlerCurrentAverage",
+            "BowlerCurrentHcp",
+            "BowlerMiddleInit",
+            "BowlerZip",
+            "TeamID"
+          ],
+          "local_table": "bowler_city_stats",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Bowlers_bowlercity"
+        },
+        {
+          "suffix": "bowler_2",
+          "non_pk_columns": [
+            "BowlerAddress",
+            "BowlerGamesBowled",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerTotalPins"
+          ],
+          "local_table": "bowlersRoster",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Bowlers_bowler_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Bowlers",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 13,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.021511346524243795,
+          "3": 0.02912138023753478,
+          "4": 0.027910589959761162
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.02912138023753478,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "BowlerAddress",
+            "BowlerCity",
+            "BowlerFirstName",
+            "BowlerLastName",
+            "BowlerMiddleInit",
+            "BowlerState",
+            "BowlerZip"
+          ],
+          [
+            "BowlerCurrentAverage",
+            "BowlerCurrentHcp",
+            "TeamID"
+          ],
+          [
+            "BowlerGamesBowled",
+            "BowlerPhoneNumber",
+            "BowlerTotalPins"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "BowlerCity",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BowlerPhoneNumber",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "BowlerMiddleInit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BowlerZip",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "BowlerState",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "BowlerAddress",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "BowlerAddress",
+            "BowlerCity",
+            "BowlerFirstName",
+            "BowlerLastName",
+            "BowlerMiddleInit",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerZip"
+          ],
+          [
+            "BowlerCity",
+            "BowlerCurrentAverage",
+            "BowlerCurrentHcp",
+            "BowlerMiddleInit",
+            "BowlerZip",
+            "TeamID"
+          ],
+          [
+            "BowlerAddress",
+            "BowlerGamesBowled",
+            "BowlerPhoneNumber",
+            "BowlerState",
+            "BowlerTotalPins"
+          ]
+        ],
+        "pk_columns": [
+          "BowlerID"
+        ],
+        "fragments": [
+          {
+            "suffix": "bowler",
+            "non_pk_columns": [
+              "BowlerAddress",
+              "BowlerCity",
+              "BowlerFirstName",
+              "BowlerLastName",
+              "BowlerMiddleInit",
+              "BowlerPhoneNumber",
+              "BowlerState",
+              "BowlerZip"
+            ]
+          },
+          {
+            "suffix": "bowlercity",
+            "non_pk_columns": [
+              "BowlerCity",
+              "BowlerCurrentAverage",
+              "BowlerCurrentHcp",
+              "BowlerMiddleInit",
+              "BowlerZip",
+              "TeamID"
+            ]
+          },
+          {
+            "suffix": "bowler_2",
+            "non_pk_columns": [
+              "BowlerAddress",
+              "BowlerGamesBowled",
+              "BowlerPhoneNumber",
+              "BowlerState",
+              "BowlerTotalPins"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Bowlers_bowler",
+      "movable_candidates": [
+        "Bowlers_bowler_2",
+        "Bowlers_bowlercity"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+    },
+    "Bowler_Scores": {
+      "pk_columns": [
+        "MatchID",
+        "GameNumber",
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "handicapscore",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          "local_table": "Bowler_Scores_handicapscore_part1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Bowler_Scores_handicapscore",
+          "row_partition_names": [
+            "Bowler_Scores_handicapscore_part1",
+            "Bowler_Scores_handicapscore_part2",
+            "bowlerHandicapScoresOtherBucket"
+          ],
+          "row_partition_predicate_column": "HandiCapScore"
+        },
+        {
+          "suffix": "handicapscore_2",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ],
+          "local_table": "bowlerHandicapScoresStandard",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Bowler_Scores_handicapscore_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Bowler_Scores",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 3,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.07598291437940186,
+          "3": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.07598291437940186,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          [
+            "WonGame"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "HandiCapScore",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "RawScore",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ]
+        ],
+        "pk_columns": [
+          "MatchID",
+          "GameNumber",
+          "BowlerID"
+        ],
+        "fragments": [
+          {
+            "suffix": "handicapscore",
+            "non_pk_columns": [
+              "HandiCapScore",
+              "RawScore"
+            ]
+          },
+          {
+            "suffix": "handicapscore_2",
+            "non_pk_columns": [
+              "HandiCapScore",
+              "RawScore",
+              "WonGame"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Bowler_Scores_handicapscore_2",
+      "movable_candidates": [
+        "Bowler_Scores_handicapscore_part1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=3"
+    },
+    "Bowler_Scores_Archive": {
+      "pk_columns": [
+        "MatchID",
+        "GameNumber",
+        "BowlerID"
+      ],
+      "fragments": [
+        {
+          "suffix": "handicapscore",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          "local_table": "ArchivedBowlerHandicapScore",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Bowler_Scores_Archive_handicapscore"
+        },
+        {
+          "suffix": "handicapscore_2",
+          "non_pk_columns": [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ],
+          "local_table": "ArchivedBowlerHandicapResult",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Bowler_Scores_Archive_handicapscore_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Bowler_Scores_Archive",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 3,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.14835384800535387,
+          "3": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.14835384800535387,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          [
+            "WonGame"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "RawScore",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "HandiCapScore",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "HandiCapScore",
+            "RawScore"
+          ],
+          [
+            "HandiCapScore",
+            "RawScore",
+            "WonGame"
+          ]
+        ],
+        "pk_columns": [
+          "MatchID",
+          "GameNumber",
+          "BowlerID"
+        ],
+        "fragments": [
+          {
+            "suffix": "handicapscore",
+            "non_pk_columns": [
+              "HandiCapScore",
+              "RawScore"
+            ]
+          },
+          {
+            "suffix": "handicapscore_2",
+            "non_pk_columns": [
+              "HandiCapScore",
+              "RawScore",
+              "WonGame"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Bowler_Scores_Archive_handicapscore_2",
+      "movable_candidates": [
+        "Bowler_Scores_Archive_handicapscore"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 11,
+    "eligible_candidate_count": 9,
+    "num_selected_for_vertical_split": 9,
+    "num_from_rate_alone": 9,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "Bowlers",
+      "Tourney_Matches",
+      "Tourney_Matches_Archive",
+      "Bowler_Scores",
+      "Bowler_Scores_Archive",
+      "Teams",
+      "Tournaments",
+      "Tournaments_Archive",
+      "WAZips"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/BowlingLeague/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "Tourney_Matches",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Tourney_Matches_Archive",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Teams",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Tournaments",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Tournaments_Archive",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "WAZips",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "Tourney_Matches": {
+      "source_table": "Tourney_Matches",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 7,
+      "partition_names": [
+        "tournament_matches_lanes_15_16",
+        "tournament_matches_lanes_11_12_19_20",
+        "tournament_matches_lanes_13_14",
+        "tournament_matches_lanes_17_18",
+        "tournament_matches_lanes_05_06_07_08",
+        "tournament_matches_lanes_09_10_21_22",
+        "tournament_matches_lanes_other"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1",
+        "local_1"
+      ],
+      "predicate_column": "Lanes",
+      "partition_values": [
+        {
+          "value": "15-16",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "11-12",
+              "includes_null": false
+            },
+            {
+              "value": "19-20",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "value": "13-14",
+          "includes_null": false
+        },
+        {
+          "value": "17-18",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "05-06",
+              "includes_null": false
+            },
+            {
+              "value": "07-08",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "09-10",
+              "includes_null": false
+            },
+            {
+              "value": "21-22",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "15-16",
+            "11-12",
+            "13-14",
+            "17-18",
+            "19-20",
+            "05-06",
+            "07-08",
+            "09-10",
+            "21-22"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"Lanes\" = '15-16' OR (rowid IN (2,7,32,53)))",
+        "((\"Lanes\" = '11-12' OR \"Lanes\" = '19-20') OR (rowid IN (9,16,40,50)))",
+        "(\"Lanes\" = '13-14' OR (rowid IN (14,24,28,41,48)))",
+        "(\"Lanes\" = '17-18' OR (rowid IN (18,39,49)))",
+        "((\"Lanes\" = '05-06' OR \"Lanes\" = '07-08') OR (rowid IN (20,44,51)))",
+        "((\"Lanes\" = '09-10' OR \"Lanes\" = '21-22') OR (rowid IN (4,45,46,55)))",
+        "((\"Lanes\" IS NULL OR \"Lanes\" NOT IN ('15-16', '11-12', '13-14', '17-18', '19-20', '05-06', '07-08', '09-10', '21-22')) OR (rowid IN (12,23,36,37)))"
+      ],
+      "base_predicate_sqls": [
+        "\"Lanes\" = '15-16'",
+        "(\"Lanes\" = '11-12' OR \"Lanes\" = '19-20')",
+        "\"Lanes\" = '13-14'",
+        "\"Lanes\" = '17-18'",
+        "(\"Lanes\" = '05-06' OR \"Lanes\" = '07-08')",
+        "(\"Lanes\" = '09-10' OR \"Lanes\" = '21-22')",
+        "(\"Lanes\" IS NULL OR \"Lanes\" NOT IN ('15-16', '11-12', '13-14', '17-18', '19-20', '05-06', '07-08', '09-10', '21-22'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where Lanes = 15-16",
+        "rows where Lanes = 11-12 + rows where Lanes = 19-20",
+        "rows where Lanes = 13-14",
+        "rows where Lanes = 17-18",
+        "rows where Lanes = 05-06 + rows where Lanes = 07-08",
+        "rows where Lanes = 09-10 + rows where Lanes = 21-22",
+        "rows where Lanes is NULL or not in {'15-16', '11-12', '13-14', '17-18', '19-20', '05-06', '07-08', '09-10', '21-22'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "tournament_matches_lanes_15_16",
+      "movable_fragments": [
+        "tournament_matches_lanes_11_12_19_20",
+        "tournament_matches_lanes_13_14",
+        "tournament_matches_lanes_17_18",
+        "tournament_matches_lanes_05_06_07_08",
+        "tournament_matches_lanes_09_10_21_22",
+        "tournament_matches_lanes_other"
+      ],
+      "movable_fragment": "tournament_matches_lanes_11_12_19_20",
+      "default_movable_fragment": "tournament_matches_lanes_11_12_19_20",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "Lanes",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "Lanes"
+        ],
+        "ranked_columns": [
+          {
+            "column": "Lanes",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"Lanes\" = '15-16' OR (rowid IN (2,7,32,53)))",
+      "predicate_sql_fragment_B": "((\"Lanes\" = '11-12' OR \"Lanes\" = '19-20') OR (rowid IN (9,16,40,50)))",
+      "fragment_role_A": "rows where Lanes = 15-16",
+      "fragment_role_B": "rows where Lanes = 11-12 + rows where Lanes = 19-20"
+    },
+    "Bowler_Scores||vfrag=handicapscore": {
+      "source_table": "Bowler_Scores",
+      "vertical_fragment_suffix": "handicapscore",
+      "num_partitions": 3,
+      "partition_names": [
+        "bowler_scores_handicap_187_189_194_196_198",
+        "bowler_scores_handicap_192_193_195_200",
+        "bowlerHandicapScoresOtherBucket"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_1",
+        "local_2"
+      ],
+      "predicate_column": "HandiCapScore",
+      "partition_values": [
+        {
+          "merged_buckets": [
+            {
+              "merged_buckets": [
+                {
+                  "value": 189,
+                  "includes_null": false
+                },
+                {
+                  "merged_buckets": [
+                    {
+                      "value": 198,
+                      "includes_null": false
+                    },
+                    {
+                      "value": 196,
+                      "includes_null": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": 187,
+                  "includes_null": false
+                },
+                {
+                  "value": 194,
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "merged_buckets": [
+                {
+                  "value": 193,
+                  "includes_null": false
+                },
+                {
+                  "value": 195,
+                  "includes_null": false
+                }
+              ]
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": 192,
+                  "includes_null": false
+                },
+                {
+                  "value": 200,
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            189,
+            187,
+            193,
+            194,
+            192,
+            195,
+            198,
+            200,
+            196
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(((\"HandiCapScore\" = 189 OR (\"HandiCapScore\" = 198 OR \"HandiCapScore\" = 196)) OR (\"HandiCapScore\" = 187 OR \"HandiCapScore\" = 194)) OR (rowid IN (5,7,8,14,19,28,29,31,33,35,42,45,46,47,50,58,59,67,71,72,74,81,82,91,94,95,99,102,103,114,118,121,126,129,131,134,138,140,146,152,158,159,162,165,168,171,182,184,186,187,189,193,194,195,198,203,205,209,210,225,227,228,230,231,234,242,249,250,253,254,256,257,261,264,267,268,269,274,279,280,287,291,296,298,303,305,306,308,310,311,314,316,319,323,324,325,334,335,336,358,363,364,368,369,372,374,377,379,381,383,384,386,396,398,401,403,405,410,414,415,416,418,423,424,426,430,434,439,442,444,446,449,451,453,455,462,478,482,483,484,488,490,494,495,497,501,506,507,508,509,513,515,518,522,523,525,526,529,533,535,541,545,546,549,552,556,557,558,567,569,570,574,579,581,585,603,610,618,620,623,639,640,645,647,649,651,652,654,655,657,659,665,666,674,676,684,689,691,695,715,725,735,737,738,746,750,758,761,765,767,783,786,788,789,792,795,798,802,806,807,812,814,819,827,833,843,845,846,849,851,852,859,861,867,869,874,875,877,879,884,888,889,891,895,902,904,911,913,919,920,921,923,925,935,937,938,942,943,949,955,957,959,960,964,967,969,970,974,979,986,987,988,989,991,994,999,1001,1010,1014,1020,1022,1025,1026,1029,1031,1035,1036,1038,1039,1042,1046,1048,1056,1059,1060,1061,1066,1069,1070,1073,1076,1078,1082,1094,1095,1099,1101,1103,1104,1106,1109,1113,1114,1118,1119,1121,1123,1135,1137,1141,1143,1144,1152,1153,1159,1163,1168,1170,1175,1180,1187,1188,1190,1191,1193,1195,1209,1210,1212,1214,1223,1225,1226,1228,1231,1235,1243,1246,1247,1249,1250,1274,1277,1279,1285,1288,1289,1291,1292,1297,1299,1307,1310,1317,1318,1326,1331,1337,1338,1339,1341,1343)))",
+        "(((\"HandiCapScore\" = 193 OR \"HandiCapScore\" = 195) OR (\"HandiCapScore\" = 192 OR \"HandiCapScore\" = 200)) OR (rowid IN (4,15,37,39,52,76,90,116,124,142,176,177,232,248,255,260,288,297,301,332,337,340,344,356,366,373,408,420,435,450,461,468,469,472,485,489,492,512,528,544,577,578,596,607,613,616,624,633,641,660,671,686,694,696,700,716,728,739,756,771,776,793,800,803,824,828,844,868,916,932,952,972,973,977,992,1008,1032,1054,1067,1074,1084,1108,1165,1196,1202,1213,1259,1273,1294,1313,1316,1319,1321,1334)))",
+        "((\"HandiCapScore\" IS NULL OR \"HandiCapScore\" NOT IN (189, 187, 193, 194, 192, 195, 198, 200, 196)) OR (rowid IN (9,12,13,24,48,80,89,96,120,141,148,161,164,166,190,222,241,276,293,304,349,354,378,413,428,436,440,460,480,520,568,576,580,625,644,668,708,720,826,857,880,885,890,917,954,962,985,993,1016,1017,1018,1049,1052,1075,1077,1091,1096,1124,1133,1145,1164,1229,1233,1236,1256,1260,1268,1270,1303,1308,1324,1328,1344)))"
+      ],
+      "base_predicate_sqls": [
+        "((\"HandiCapScore\" = 189 OR (\"HandiCapScore\" = 198 OR \"HandiCapScore\" = 196)) OR (\"HandiCapScore\" = 187 OR \"HandiCapScore\" = 194))",
+        "((\"HandiCapScore\" = 193 OR \"HandiCapScore\" = 195) OR (\"HandiCapScore\" = 192 OR \"HandiCapScore\" = 200))",
+        "(\"HandiCapScore\" IS NULL OR \"HandiCapScore\" NOT IN (189, 187, 193, 194, 192, 195, 198, 200, 196))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where HandiCapScore = 189 + rows where HandiCapScore = 198 + rows where HandiCapScore = 196 + rows where HandiCapScore = 187 + rows where HandiCapScore = 194",
+        "rows where HandiCapScore = 193 + rows where HandiCapScore = 195 + rows where HandiCapScore = 192 + rows where HandiCapScore = 200",
+        "rows where HandiCapScore is NULL or not in {189, 187, 193, 194, 192, 195, 198, 200, 196} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "bowler_scores_handicap_187_189_194_196_198",
+      "movable_fragments": [
+        "bowler_scores_handicap_192_193_195_200",
+        "bowlerHandicapScoresOtherBucket"
+      ],
+      "movable_fragment": "bowler_scores_handicap_192_193_195_200",
+      "default_movable_fragment": "bowler_scores_handicap_192_193_195_200",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "HandiCapScore",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "HandiCapScore",
+            "rhs": "RawScore",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "HandiCapScore",
+          "RawScore"
+        ],
+        "ranked_columns": [
+          {
+            "column": "HandiCapScore",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "RawScore",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 1344
+      },
+      "predicate_sql_fragment_A": "(((\"HandiCapScore\" = 189 OR (\"HandiCapScore\" = 198 OR \"HandiCapScore\" = 196)) OR (\"HandiCapScore\" = 187 OR \"HandiCapScore\" = 194)) OR (rowid IN (5,7,8,14,19,28,29,31,33,35,42,45,46,47,50,58,59,67,71,72,74,81,82,91,94,95,99,102,103,114,118,121,126,129,131,134,138,140,146,152,158,159,162,165,168,171,182,184,186,187,189,193,194,195,198,203,205,209,210,225,227,228,230,231,234,242,249,250,253,254,256,257,261,264,267,268,269,274,279,280,287,291,296,298,303,305,306,308,310,311,314,316,319,323,324,325,334,335,336,358,363,364,368,369,372,374,377,379,381,383,384,386,396,398,401,403,405,410,414,415,416,418,423,424,426,430,434,439,442,444,446,449,451,453,455,462,478,482,483,484,488,490,494,495,497,501,506,507,508,509,513,515,518,522,523,525,526,529,533,535,541,545,546,549,552,556,557,558,567,569,570,574,579,581,585,603,610,618,620,623,639,640,645,647,649,651,652,654,655,657,659,665,666,674,676,684,689,691,695,715,725,735,737,738,746,750,758,761,765,767,783,786,788,789,792,795,798,802,806,807,812,814,819,827,833,843,845,846,849,851,852,859,861,867,869,874,875,877,879,884,888,889,891,895,902,904,911,913,919,920,921,923,925,935,937,938,942,943,949,955,957,959,960,964,967,969,970,974,979,986,987,988,989,991,994,999,1001,1010,1014,1020,1022,1025,1026,1029,1031,1035,1036,1038,1039,1042,1046,1048,1056,1059,1060,1061,1066,1069,1070,1073,1076,1078,1082,1094,1095,1099,1101,1103,1104,1106,1109,1113,1114,1118,1119,1121,1123,1135,1137,1141,1143,1144,1152,1153,1159,1163,1168,1170,1175,1180,1187,1188,1190,1191,1193,1195,1209,1210,1212,1214,1223,1225,1226,1228,1231,1235,1243,1246,1247,1249,1250,1274,1277,1279,1285,1288,1289,1291,1292,1297,1299,1307,1310,1317,1318,1326,1331,1337,1338,1339,1341,1343)))",
+      "predicate_sql_fragment_B": "(((\"HandiCapScore\" = 193 OR \"HandiCapScore\" = 195) OR (\"HandiCapScore\" = 192 OR \"HandiCapScore\" = 200)) OR (rowid IN (4,15,37,39,52,76,90,116,124,142,176,177,232,248,255,260,288,297,301,332,337,340,344,356,366,373,408,420,435,450,461,468,469,472,485,489,492,512,528,544,577,578,596,607,613,616,624,633,641,660,671,686,694,696,700,716,728,739,756,771,776,793,800,803,824,828,844,868,916,932,952,972,973,977,992,1008,1032,1054,1067,1074,1084,1108,1165,1196,1202,1213,1259,1273,1294,1313,1316,1319,1321,1334)))",
+      "fragment_role_A": "rows where HandiCapScore = 189 + rows where HandiCapScore = 198 + rows where HandiCapScore = 196 + rows where HandiCapScore = 187 + rows where HandiCapScore = 194",
+      "fragment_role_B": "rows where HandiCapScore = 193 + rows where HandiCapScore = 195 + rows where HandiCapScore = 192 + rows where HandiCapScore = 200"
+    },
+    "Match_Games": {
+      "source_table": "Match_Games",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 4,
+      "partition_names": [
+        "matchGamesWinningTeamUpToTwo",
+        "matchGamesWinningTeamGreaterThanTwoUpToFour",
+        "matchGamesWinningTeamGreaterThanFourUpToSix",
+        "matchGamesWinningTeamGreaterThanSixOrNull"
+      ],
+      "partition_locals": [
+        "local_2",
+        "local_2",
+        "local_2",
+        "local_2"
+      ],
+      "predicate_column": "WinningTeamID",
+      "partition_values": [
+        {
+          "upper": 2
+        },
+        {
+          "lower": 2,
+          "upper": 4
+        },
+        {
+          "lower": 4,
+          "upper": 6
+        },
+        {
+          "lower": 6,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" <= 2) OR (rowid IN (10,20,57,60,62,73,75,78,91,93,104,128,131,135,141,146,167)))",
+        "((\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" > 2 AND \"WinningTeamID\" <= 4) OR (rowid IN (1,3,14,28,30,37,40,61,63,74,77,87,90,98,121,124,157)))",
+        "((\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" > 4 AND \"WinningTeamID\" <= 6) OR (rowid IN (6,16,43,46,64,70,80,86,97,127,132,143,151,154,156,161,162)))",
+        "((\"WinningTeamID\" > 6 OR \"WinningTeamID\" IS NULL) OR (rowid IN (7,9,23,34,51,71,81,92,94,103,105,112,138,142,163,164,165)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" <= 2)",
+        "(\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" > 2 AND \"WinningTeamID\" <= 4)",
+        "(\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" > 4 AND \"WinningTeamID\" <= 6)",
+        "(\"WinningTeamID\" > 6 OR \"WinningTeamID\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where WinningTeamID <= 2",
+        "rows where 2 < WinningTeamID <= 4",
+        "rows where 4 < WinningTeamID <= 6",
+        "rows where WinningTeamID > 6 or is NULL"
+      ],
+      "home_fragment": "matchGamesWinningTeamUpToTwo",
+      "movable_fragments": [
+        "matchGamesWinningTeamGreaterThanTwoUpToFour",
+        "matchGamesWinningTeamGreaterThanFourUpToSix",
+        "matchGamesWinningTeamGreaterThanSixOrNull"
+      ],
+      "movable_fragment": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+      "default_movable_fragment": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "WinningTeamID",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "WinningTeamID"
+        ],
+        "ranked_columns": [
+          {
+            "column": "WinningTeamID",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "((\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" <= 2) OR (rowid IN (10,20,57,60,62,73,75,78,91,93,104,128,131,135,141,146,167)))",
+      "predicate_sql_fragment_B": "((\"WinningTeamID\" IS NOT NULL AND \"WinningTeamID\" > 2 AND \"WinningTeamID\" <= 4) OR (rowid IN (1,3,14,28,30,37,40,61,63,74,77,87,90,98,121,124,157)))",
+      "fragment_role_A": "rows where WinningTeamID <= 2",
+      "fragment_role_B": "rows where 2 < WinningTeamID <= 4"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "Bowler_Scores",
+          "from_column": "MatchID",
+          "to_table": "Match_Games",
+          "to_column": "MatchID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Bowler_Scores_handicapscore_part1",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Bowler_Scores_handicapscore_part2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Bowler_Scores_handicapscore_part3",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Bowler_Scores_handicapscore_2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Match_Games_q1",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Match_Games_q2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Match_Games_q3",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Match_Games_q4",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "matchGamesWinningTeamUpToTwo",
+            "from_local_column": "matchId",
+            "to_local_column": "matchId"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "from_local_column": "matchId",
+            "to_local_column": "matchId"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "from_local_column": "matchId",
+            "to_local_column": "matchId"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "matchGamesWinningTeamUpToTwo",
+            "from_local_column": "matchId",
+            "to_local_column": "matchId"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "from_local_column": "matchId",
+            "to_local_column": "matchId"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "matchGamesWinningTeamGreaterThanSixOrNull",
+            "from_local_column": "matchId",
+            "to_local_column": "matchId"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "from_local_column": "matchId",
+            "to_local_column": "matchId"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "matchGamesWinningTeamGreaterThanSixOrNull",
+            "from_local_column": "matchId",
+            "to_local_column": "matchId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "matchGamesWinningTeamUpToTwo",
+            "from_local_column": "match_id",
+            "to_local_column": "matchId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "from_local_column": "match_id",
+            "to_local_column": "matchId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "from_local_column": "match_id",
+            "to_local_column": "matchId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "matchGamesWinningTeamGreaterThanSixOrNull",
+            "from_local_column": "match_id",
+            "to_local_column": "matchId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "matchGamesWinningTeamUpToTwo",
+            "from_local_column": "match_id",
+            "to_local_column": "matchId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "from_local_column": "match_id",
+            "to_local_column": "matchId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "from_local_column": "match_id",
+            "to_local_column": "matchId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "matchGamesWinningTeamGreaterThanSixOrNull",
+            "from_local_column": "match_id",
+            "to_local_column": "matchId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "Bowler_Scores",
+          "from_column": "GameNumber",
+          "to_table": "Match_Games",
+          "to_column": "GameNumber",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Bowler_Scores_handicapscore_part1",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Bowler_Scores_handicapscore_part2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Bowler_Scores_handicapscore_part3",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Bowler_Scores_handicapscore_2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Match_Games_q1",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Match_Games_q2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Match_Games_q3",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Match_Games_q4",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "from_local_column": "gameNumber",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "from_local_column": "gameNumber",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "matchGamesWinningTeamGreaterThanSixOrNull",
+            "from_local_column": "gameNumber",
+            "to_local_column": "gameNumber"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "matchGamesWinningTeamUpToTwo",
+            "from_local_column": "gameNumber",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "matchGamesWinningTeamUpToTwo",
+            "from_local_column": "gameNumber",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "from_local_column": "gameNumber",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "from_local_column": "gameNumber",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "matchGamesWinningTeamGreaterThanSixOrNull",
+            "from_local_column": "gameNumber",
+            "to_local_column": "gameNumber"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "matchGamesWinningTeamUpToTwo",
+            "from_local_column": "game_number",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "from_local_column": "game_number",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "from_local_column": "game_number",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "matchGamesWinningTeamGreaterThanSixOrNull",
+            "from_local_column": "game_number",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "matchGamesWinningTeamUpToTwo",
+            "from_local_column": "game_number",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "matchGamesWinningTeamGreaterThanTwoUpToFour",
+            "from_local_column": "game_number",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "matchGamesWinningTeamGreaterThanFourUpToSix",
+            "from_local_column": "game_number",
+            "to_local_column": "gameNumber"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "matchGamesWinningTeamGreaterThanSixOrNull",
+            "from_local_column": "game_number",
+            "to_local_column": "gameNumber"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "Bowler_Scores",
+          "from_column": "BowlerID",
+          "to_table": "Bowlers",
+          "to_column": "BowlerID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Bowler_Scores_handicapscore_part1",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Bowler_Scores_handicapscore_part2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Bowler_Scores_handicapscore_part3",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Bowler_Scores_handicapscore_2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Bowlers_bowler",
+            "column_map": {
+              "BowlerID": "BowlerID",
+              "BowlerAddress": "BowlerAddress",
+              "BowlerCity": "BowlerCity",
+              "BowlerFirstName": "BowlerFirstName",
+              "BowlerLastName": "BowlerLastName",
+              "BowlerMiddleInit": "BowlerMiddleInit",
+              "BowlerPhoneNumber": "BowlerPhoneNumber",
+              "BowlerState": "BowlerState",
+              "BowlerZip": "BowlerZip"
+            },
+            "orig_to_local": {
+              "BowlerID": "BowlerID",
+              "BowlerAddress": "BowlerAddress",
+              "BowlerCity": "BowlerCity",
+              "BowlerFirstName": "BowlerFirstName",
+              "BowlerLastName": "BowlerLastName",
+              "BowlerMiddleInit": "BowlerMiddleInit",
+              "BowlerPhoneNumber": "BowlerPhoneNumber",
+              "BowlerState": "BowlerState",
+              "BowlerZip": "BowlerZip"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Bowlers_bowlercity",
+            "column_map": {
+              "BowlerID": "BowlerID",
+              "BowlerCity": "BowlerCity",
+              "BowlerCurrentAverage": "BowlerCurrentAverage",
+              "BowlerCurrentHcp": "BowlerCurrentHcp",
+              "BowlerMiddleInit": "BowlerMiddleInit",
+              "BowlerZip": "BowlerZip",
+              "TeamID": "TeamID"
+            },
+            "orig_to_local": {
+              "BowlerID": "BowlerID",
+              "BowlerCity": "BowlerCity",
+              "BowlerCurrentAverage": "BowlerCurrentAverage",
+              "BowlerCurrentHcp": "BowlerCurrentHcp",
+              "BowlerMiddleInit": "BowlerMiddleInit",
+              "BowlerZip": "BowlerZip",
+              "TeamID": "TeamID"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Bowlers_bowler_2",
+            "column_map": {
+              "BowlerID": "BowlerID",
+              "BowlerAddress": "BowlerAddress",
+              "BowlerGamesBowled": "BowlerGamesBowled",
+              "BowlerPhoneNumber": "BowlerPhoneNumber",
+              "BowlerState": "BowlerState",
+              "BowlerTotalPins": "BowlerTotalPins"
+            },
+            "orig_to_local": {
+              "BowlerID": "BowlerID",
+              "BowlerAddress": "BowlerAddress",
+              "BowlerGamesBowled": "BowlerGamesBowled",
+              "BowlerPhoneNumber": "BowlerPhoneNumber",
+              "BowlerState": "BowlerState",
+              "BowlerTotalPins": "BowlerTotalPins"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "bowlersRoster",
+            "from_local_column": "bowlerId",
+            "to_local_column": "bowlerId"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "bowler_profiles",
+            "from_local_column": "bowler_id",
+            "to_local_column": "bowler_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "bowler_city_stats",
+            "from_local_column": "bowler_id",
+            "to_local_column": "bowler_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "bowler_profiles",
+            "from_local_column": "bowler_id",
+            "to_local_column": "bowler_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "bowler_city_stats",
+            "from_local_column": "bowler_id",
+            "to_local_column": "bowler_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "bowlersRoster",
+            "from_local_column": "bowlerId",
+            "to_local_column": "bowlerId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_187_189_194_196_198",
+            "to_local_table": "bowlersRoster",
+            "from_local_column": "bowler_id",
+            "to_local_column": "bowlerId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "bowler_scores_handicap_192_193_195_200",
+            "to_local_table": "bowlersRoster",
+            "from_local_column": "bowler_id",
+            "to_local_column": "bowlerId"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "bowler_profiles",
+            "from_local_column": "bowlerId",
+            "to_local_column": "bowler_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "bowlerHandicapScoresOtherBucket",
+            "to_local_table": "bowler_city_stats",
+            "from_local_column": "bowlerId",
+            "to_local_column": "bowler_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "bowler_profiles",
+            "from_local_column": "bowlerId",
+            "to_local_column": "bowler_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "bowlerHandicapScoresStandard",
+            "to_local_table": "bowler_city_stats",
+            "from_local_column": "bowlerId",
+            "to_local_column": "bowler_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "Bowler_Scores_Archive",
+          "from_column": "MatchID",
+          "to_table": "Match_Games_Archive",
+          "to_column": "MatchID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "Bowler_Scores_Archive_handicapscore",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Bowler_Scores_Archive_handicapscore_2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "Match_Games_Archive",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "ArchivedBowlerHandicapScore",
+            "to_local_table": "ArchivedMatchGame",
+            "from_local_column": "MatchIdentifier",
+            "to_local_column": "MatchIdentifier"
+          },
+          {
+            "local": "local_3",
+            "from_local_table": "ArchivedBowlerHandicapResult",
+            "to_local_table": "ArchivedMatchGame",
+            "from_local_column": "MatchIdentifier",
+            "to_local_column": "MatchIdentifier"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Bowler_Scores_Archive",
+          "from_column": "GameNumber",
+          "to_table": "Match_Games_Archive",
+          "to_column": "GameNumber",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "Bowler_Scores_Archive_handicapscore",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Bowler_Scores_Archive_handicapscore_2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "BowlerID": "BowlerID",
+              "HandiCapScore": "HandiCapScore",
+              "RawScore": "RawScore",
+              "WonGame": "WonGame"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "Match_Games_Archive",
+            "column_map": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "GameNumber": "GameNumber",
+              "WinningTeamID": "WinningTeamID"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "ArchivedBowlerHandicapScore",
+            "to_local_table": "ArchivedMatchGame",
+            "from_local_column": "GameSequence",
+            "to_local_column": "GameSequence"
+          },
+          {
+            "local": "local_3",
+            "from_local_table": "ArchivedBowlerHandicapResult",
+            "to_local_table": "ArchivedMatchGame",
+            "from_local_column": "GameSequence",
+            "to_local_column": "GameSequence"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Bowlers",
+          "from_column": "TeamID",
+          "to_table": "Teams",
+          "to_column": "TeamID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Bowlers_bowler",
+            "column_map": {
+              "BowlerID": "BowlerID",
+              "BowlerAddress": "BowlerAddress",
+              "BowlerCity": "BowlerCity",
+              "BowlerFirstName": "BowlerFirstName",
+              "BowlerLastName": "BowlerLastName",
+              "BowlerMiddleInit": "BowlerMiddleInit",
+              "BowlerPhoneNumber": "BowlerPhoneNumber",
+              "BowlerState": "BowlerState",
+              "BowlerZip": "BowlerZip"
+            },
+            "orig_to_local": {
+              "BowlerID": "BowlerID",
+              "BowlerAddress": "BowlerAddress",
+              "BowlerCity": "BowlerCity",
+              "BowlerFirstName": "BowlerFirstName",
+              "BowlerLastName": "BowlerLastName",
+              "BowlerMiddleInit": "BowlerMiddleInit",
+              "BowlerPhoneNumber": "BowlerPhoneNumber",
+              "BowlerState": "BowlerState",
+              "BowlerZip": "BowlerZip"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Bowlers_bowlercity",
+            "column_map": {
+              "BowlerID": "BowlerID",
+              "BowlerCity": "BowlerCity",
+              "BowlerCurrentAverage": "BowlerCurrentAverage",
+              "BowlerCurrentHcp": "BowlerCurrentHcp",
+              "BowlerMiddleInit": "BowlerMiddleInit",
+              "BowlerZip": "BowlerZip",
+              "TeamID": "TeamID"
+            },
+            "orig_to_local": {
+              "BowlerID": "BowlerID",
+              "BowlerCity": "BowlerCity",
+              "BowlerCurrentAverage": "BowlerCurrentAverage",
+              "BowlerCurrentHcp": "BowlerCurrentHcp",
+              "BowlerMiddleInit": "BowlerMiddleInit",
+              "BowlerZip": "BowlerZip",
+              "TeamID": "TeamID"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Bowlers_bowler_2",
+            "column_map": {
+              "BowlerID": "BowlerID",
+              "BowlerAddress": "BowlerAddress",
+              "BowlerGamesBowled": "BowlerGamesBowled",
+              "BowlerPhoneNumber": "BowlerPhoneNumber",
+              "BowlerState": "BowlerState",
+              "BowlerTotalPins": "BowlerTotalPins"
+            },
+            "orig_to_local": {
+              "BowlerID": "BowlerID",
+              "BowlerAddress": "BowlerAddress",
+              "BowlerGamesBowled": "BowlerGamesBowled",
+              "BowlerPhoneNumber": "BowlerPhoneNumber",
+              "BowlerState": "BowlerState",
+              "BowlerTotalPins": "BowlerTotalPins"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Teams",
+            "column_map": {
+              "TeamID": "TeamID",
+              "TeamName": "TeamName",
+              "CaptainID": "CaptainID"
+            },
+            "orig_to_local": {
+              "TeamID": "TeamID",
+              "TeamName": "TeamName",
+              "CaptainID": "CaptainID"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "bowler_city_stats",
+            "to_local_table": "team_directory",
+            "from_local_column": "team_id",
+            "to_local_column": "team_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Tourney_Matches",
+          "from_column": "TourneyID",
+          "to_table": "Tournaments",
+          "to_column": "TourneyID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part1",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part3",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part4",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part5",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part6",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part7",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Tournaments",
+            "column_map": {
+              "TourneyID": "TourneyID",
+              "TourneyDate": "TourneyDate",
+              "TourneyLocation": "TourneyLocation"
+            },
+            "orig_to_local": {
+              "TourneyID": "TourneyID",
+              "TourneyDate": "TourneyDate",
+              "TourneyLocation": "TourneyLocation"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_15_16",
+            "to_local_table": "tournament_events",
+            "from_local_column": "tournament_id",
+            "to_local_column": "tournament_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_11_12_19_20",
+            "to_local_table": "tournament_events",
+            "from_local_column": "tournament_id",
+            "to_local_column": "tournament_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_13_14",
+            "to_local_table": "tournament_events",
+            "from_local_column": "tournament_id",
+            "to_local_column": "tournament_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_17_18",
+            "to_local_table": "tournament_events",
+            "from_local_column": "tournament_id",
+            "to_local_column": "tournament_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_05_06_07_08",
+            "to_local_table": "tournament_events",
+            "from_local_column": "tournament_id",
+            "to_local_column": "tournament_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_09_10_21_22",
+            "to_local_table": "tournament_events",
+            "from_local_column": "tournament_id",
+            "to_local_column": "tournament_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_other",
+            "to_local_table": "tournament_events",
+            "from_local_column": "tournament_id",
+            "to_local_column": "tournament_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Tourney_Matches",
+          "from_column": "OddLaneTeamID",
+          "to_table": "Teams",
+          "to_column": "TeamID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part1",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part3",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part4",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part5",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part6",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part7",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Teams",
+            "column_map": {
+              "TeamID": "TeamID",
+              "TeamName": "TeamName",
+              "CaptainID": "CaptainID"
+            },
+            "orig_to_local": {
+              "TeamID": "TeamID",
+              "TeamName": "TeamName",
+              "CaptainID": "CaptainID"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_15_16",
+            "to_local_table": "team_directory",
+            "from_local_column": "odd_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_13_14",
+            "to_local_table": "team_directory",
+            "from_local_column": "odd_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_17_18",
+            "to_local_table": "team_directory",
+            "from_local_column": "odd_lane_team_id",
+            "to_local_column": "team_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_11_12_19_20",
+            "to_local_table": "team_directory",
+            "from_local_column": "odd_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_05_06_07_08",
+            "to_local_table": "team_directory",
+            "from_local_column": "odd_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_09_10_21_22",
+            "to_local_table": "team_directory",
+            "from_local_column": "odd_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_other",
+            "to_local_table": "team_directory",
+            "from_local_column": "odd_lane_team_id",
+            "to_local_column": "team_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Tourney_Matches",
+          "from_column": "EvenLaneTeamID",
+          "to_table": "Teams",
+          "to_column": "TeamID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part1",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part2",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part3",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part4",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part5",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part6",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Tourney_Matches_part7",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Teams",
+            "column_map": {
+              "TeamID": "TeamID",
+              "TeamName": "TeamName",
+              "CaptainID": "CaptainID"
+            },
+            "orig_to_local": {
+              "TeamID": "TeamID",
+              "TeamName": "TeamName",
+              "CaptainID": "CaptainID"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_17_18",
+            "to_local_table": "team_directory",
+            "from_local_column": "even_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_05_06_07_08",
+            "to_local_table": "team_directory",
+            "from_local_column": "even_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_09_10_21_22",
+            "to_local_table": "team_directory",
+            "from_local_column": "even_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_other",
+            "to_local_table": "team_directory",
+            "from_local_column": "even_lane_team_id",
+            "to_local_column": "team_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_15_16",
+            "to_local_table": "team_directory",
+            "from_local_column": "even_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_11_12_19_20",
+            "to_local_table": "team_directory",
+            "from_local_column": "even_lane_team_id",
+            "to_local_column": "team_id"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "tournament_matches_lanes_13_14",
+            "to_local_table": "team_directory",
+            "from_local_column": "even_lane_team_id",
+            "to_local_column": "team_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Tourney_Matches_Archive",
+          "from_column": "TourneyID",
+          "to_table": "Tournaments_Archive",
+          "to_column": "TourneyID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Tourney_Matches_Archive",
+            "column_map": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            },
+            "orig_to_local": {
+              "MatchID": "MatchID",
+              "TourneyID": "TourneyID",
+              "Lanes": "Lanes",
+              "OddLaneTeamID": "OddLaneTeamID",
+              "EvenLaneTeamID": "EvenLaneTeamID"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Tournaments_Archive",
+            "column_map": {
+              "TourneyID": "TourneyID",
+              "TourneyDate": "TourneyDate",
+              "TourneyLocation": "TourneyLocation"
+            },
+            "orig_to_local": {
+              "TourneyID": "TourneyID",
+              "TourneyDate": "TourneyDate",
+              "TourneyLocation": "TourneyLocation"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "archivedTournamentMatches",
+            "to_local_table": "archivedTournaments",
+            "from_local_column": "tournamentId",
+            "to_local_column": "tournamentId"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "Bowler_Scores_handicapscore_part1",
+      "source_table": "Bowler_Scores",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "Bowlers_bowler",
+        "partner_logical_table": "Bowlers",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fk_fallback",
+        "anchor_fragment": "Bowler_Scores_handicapscore_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "fk_neighbor_fallback",
+        "decision_signal": "fk_fallback"
+      }
+    },
+    {
+      "local_table": "Bowler_Scores_handicapscore_part2",
+      "source_table": "Bowler_Scores",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "Bowlers_bowler",
+        "partner_logical_table": "Bowlers",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fk_fallback",
+        "anchor_fragment": "Bowler_Scores_handicapscore_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "fk_neighbor_fallback",
+        "decision_signal": "fk_fallback"
+      }
+    },
+    {
+      "local_table": "Bowlers_bowler_2",
+      "source_table": "Bowlers",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "Bowler_Scores_handicapscore_2",
+        "partner_logical_table": "Bowler_Scores",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fk_fallback",
+        "anchor_fragment": "Bowlers_bowler",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "fk_neighbor_fallback",
+        "decision_signal": "fk_fallback"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {},
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "Bowler_Scores_Archive_handicapscore": "local_3",
+      "Bowler_Scores_Archive_handicapscore_2": "local_3",
+      "Bowler_Scores_handicapscore_2": "local_2",
+      "Bowler_Scores_handicapscore_part1": "local_2",
+      "Bowler_Scores_handicapscore_part2": "local_2",
+      "Bowler_Scores_handicapscore_part3": "local_2",
+      "Bowlers_bowler": "local_1",
+      "Bowlers_bowler_2": "local_1",
+      "Bowlers_bowlercity": "local_1",
+      "Match_Games_Archive": "local_3",
+      "Match_Games_q1": "local_2",
+      "Match_Games_q2": "local_2",
+      "Match_Games_q3": "local_2",
+      "Match_Games_q4": "local_2",
+      "Teams": "local_1",
+      "Tournaments": "local_1",
+      "Tournaments_Archive": "local_2",
+      "Tourney_Matches_Archive": "local_2",
+      "Tourney_Matches_part1": "local_1",
+      "Tourney_Matches_part2": "local_1",
+      "Tourney_Matches_part3": "local_1",
+      "Tourney_Matches_part4": "local_1",
+      "Tourney_Matches_part5": "local_1",
+      "Tourney_Matches_part6": "local_1",
+      "Tourney_Matches_part7": "local_1",
+      "WAZips": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "Bowler_Scores": {
+        "R": 2,
+        "F": 4,
+        "rho": 0.8
+      },
+      "Bowlers": {
+        "R": 1,
+        "F": 3,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "Bowler_Scores": {
+        "R": 1,
+        "F": 3,
+        "home_fragments": 3,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "Bowler_Scores": "Bowler_Scores_handicapscore_part1"
+    },
+    "intents": [
+      {
+        "source_table": "Bowler_Scores",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Bowler_Scores_handicapscore_part1",
+        "anchor_fragment": "Bowler_Scores_handicapscore_2",
+        "partner_fragment": "Bowlers_bowler",
+        "partner_logical_table": "Bowlers",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "evidence_type": "fk_fallback",
+        "source_local_idx": 1,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "Bowler_Scores",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Bowler_Scores_handicapscore_part2",
+        "anchor_fragment": "Bowler_Scores_handicapscore_2",
+        "partner_fragment": "Bowlers_bowler",
+        "partner_logical_table": "Bowlers",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "evidence_type": "fk_fallback",
+        "source_local_idx": 1,
+        "target_local_idx": 0
+      },
+      {
+        "source_table": "Bowlers",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Bowlers_bowler_2",
+        "anchor_fragment": "Bowlers_bowler",
+        "partner_fragment": "Bowler_Scores_handicapscore_2",
+        "partner_logical_table": "Bowler_Scores",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "evidence_type": "fk_fallback",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "Bowler_Scores",
+        "kind": "row_partition",
+        "movable_fragment": "Bowler_Scores_handicapscore_part2",
+        "partner_fragment": "Bowlers_bowler",
+        "partner_logical_table": "Bowlers",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "evidence_type": "fk_fallback",
+        "source_local_idx": 1,
+        "target_local_idx": 0,
+        "anchor_fragment": "Bowler_Scores_handicapscore_part1"
+      }
+    ],
+    "moved_fragments": [
+      "Bowler_Scores_handicapscore_part1",
+      "Bowler_Scores_handicapscore_part2",
+      "Bowlers_bowler_2"
+    ],
+    "pinned_fragments": [
+      "Bowler_Scores_handicapscore_2",
+      "Bowlers_bowler"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "Bowler_Scores",
+        "kind": "row_partition",
+        "movable_fragment": "Bowler_Scores_handicapscore_part2",
+        "partner_fragment": "Bowlers_bowler",
+        "partner_logical_table": "Bowlers",
+        "partner_weight": 0,
+        "cross_local_query_count": 0,
+        "evidence_type": "fk_fallback",
+        "source_local_idx": 1,
+        "target_local_idx": 0,
+        "anchor_fragment": "Bowler_Scores_handicapscore_part1",
+        "reason": "movable_already_moved"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "Bowler_Scores": {
+        "columns": [
+          {
+            "name": "MatchID",
+            "type": "INT",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "GameNumber",
+            "type": "smallint",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "BowlerID",
+            "type": "INT",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "RawScore",
+            "type": "smallint",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "HandiCapScore",
+            "type": "smallint",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "WonGame",
+            "type": "BOOLEAN",
+            "is_pk": false,
+            "nullable": false,
+            "default": "0"
+          }
+        ],
+        "primary_keys": [
+          "MatchID",
+          "GameNumber",
+          "BowlerID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 1344
+      },
+      "Bowler_Scores_Archive": {
+        "columns": [
+          {
+            "name": "MatchID",
+            "type": "INT",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "GameNumber",
+            "type": "smallint",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "BowlerID",
+            "type": "INT",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "RawScore",
+            "type": "smallint",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "HandiCapScore",
+            "type": "smallint",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "WonGame",
+            "type": "BOOLEAN",
+            "is_pk": false,
+            "nullable": false,
+            "default": "0"
+          }
+        ],
+        "primary_keys": [
+          "MatchID",
+          "GameNumber",
+          "BowlerID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 0
+      },
+      "Bowlers": {
+        "columns": [
+          {
+            "name": "BowlerID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerLastName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerFirstName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerMiddleInit",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerAddress",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerCity",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerState",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerZip",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerPhoneNumber",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "TeamID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "BowlerTotalPins",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "BowlerGamesBowled",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "BowlerCurrentAverage",
+            "type": "smallint",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "BowlerCurrentHcp",
+            "type": "smallint",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          }
+        ],
+        "primary_keys": [
+          "BowlerID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 34
+      },
+      "Match_Games": {
+        "columns": [
+          {
+            "name": "MatchID",
+            "type": "INT",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "GameNumber",
+            "type": "smallint",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "WinningTeamID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          }
+        ],
+        "primary_keys": [
+          "MatchID",
+          "GameNumber"
+        ],
+        "pk_origin": "declared",
+        "row_count": 168
+      },
+      "Match_Games_Archive": {
+        "columns": [
+          {
+            "name": "MatchID",
+            "type": "INT",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "GameNumber",
+            "type": "smallint",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "WinningTeamID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          }
+        ],
+        "primary_keys": [
+          "MatchID",
+          "GameNumber"
+        ],
+        "pk_origin": "declared",
+        "row_count": 0
+      },
+      "Teams": {
+        "columns": [
+          {
+            "name": "TeamID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "TeamName",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "CaptainID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "TeamID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 10
+      },
+      "Tournaments": {
+        "columns": [
+          {
+            "name": "TourneyID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "TourneyDate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "TourneyLocation",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "TourneyID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 20
+      },
+      "Tournaments_Archive": {
+        "columns": [
+          {
+            "name": "TourneyID",
+            "type": "INT",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "TourneyDate",
+            "type": "DATE",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "TourneyLocation",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "TourneyID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 0
+      },
+      "Tourney_Matches": {
+        "columns": [
+          {
+            "name": "MatchID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "TourneyID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "Lanes",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "OddLaneTeamID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "EvenLaneTeamID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          }
+        ],
+        "primary_keys": [
+          "MatchID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 57
+      },
+      "Tourney_Matches_Archive": {
+        "columns": [
+          {
+            "name": "MatchID",
+            "type": "INT",
+            "is_pk": true,
+            "nullable": false,
+            "default": "0"
+          },
+          {
+            "name": "TourneyID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "Lanes",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "OddLaneTeamID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          },
+          {
+            "name": "EvenLaneTeamID",
+            "type": "INT",
+            "is_pk": false,
+            "nullable": true,
+            "default": "0"
+          }
+        ],
+        "primary_keys": [
+          "MatchID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 0
+      },
+      "WAZips": {
+        "columns": [
+          {
+            "name": "ZIP",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "City",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "State",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ZIP"
+        ],
+        "pk_origin": "declared",
+        "row_count": 523
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "Bowler_Scores",
+        "from_column": "MatchID",
+        "to_table": "Match_Games",
+        "to_column": "MatchID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Bowler_Scores",
+        "from_column": "GameNumber",
+        "to_table": "Match_Games",
+        "to_column": "GameNumber",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Bowler_Scores",
+        "from_column": "BowlerID",
+        "to_table": "Bowlers",
+        "to_column": "BowlerID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Bowler_Scores_Archive",
+        "from_column": "MatchID",
+        "to_table": "Match_Games_Archive",
+        "to_column": "MatchID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Bowler_Scores_Archive",
+        "from_column": "GameNumber",
+        "to_table": "Match_Games_Archive",
+        "to_column": "GameNumber",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Bowlers",
+        "from_column": "TeamID",
+        "to_table": "Teams",
+        "to_column": "TeamID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Tourney_Matches",
+        "from_column": "TourneyID",
+        "to_table": "Tournaments",
+        "to_column": "TourneyID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Tourney_Matches",
+        "from_column": "OddLaneTeamID",
+        "to_table": "Teams",
+        "to_column": "TeamID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Tourney_Matches",
+        "from_column": "EvenLaneTeamID",
+        "to_table": "Teams",
+        "to_column": "TeamID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Tourney_Matches_Archive",
+        "from_column": "TourneyID",
+        "to_table": "Tournaments_Archive",
+        "to_column": "TourneyID",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 11,
+      "num_fk_edges": 10,
+      "hub_tables": [
+        "Bowler_Scores",
+        "Bowlers",
+        "Teams",
+        "Tourney_Matches",
+        "Bowler_Scores_Archive"
+      ],
+      "connected_components": 4
+    }
+  }
+}

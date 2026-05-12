@@ -1,0 +1,665 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 19,
+    "eligible_candidate_count": 18,
+    "num_selected_for_vertical_split": 15,
+    "num_from_rate_alone": 15,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "cleaned_weekly_sales",
+      "veg_txn_df",
+      "bitcoin_prices",
+      "bitcoin_transactions",
+      "interest_metrics",
+      "weekly_sales",
+      "shopping_cart_events",
+      "customer_nodes",
+      "interest_map",
+      "shopping_cart_campaign_identifier",
+      "veg_cat",
+      "shopping_cart_page_hierarchy",
+      "veg_loss_rate_df",
+      "veg_whsle_df",
+      "bitcoin_members"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/Spider2/spider2-lite/resource/databases/spider2-localdb/bank_sales_trading/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "bitcoin_prices",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "bitcoin_transactions",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "weekly_sales",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "shopping_cart_events",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "customer_nodes",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "interest_map",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "shopping_cart_campaign_identifier",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "veg_cat",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "shopping_cart_page_hierarchy",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "veg_loss_rate_df",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "veg_whsle_df",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "bitcoin_members",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "cleaned_weekly_sales": {
+      "pk_columns": [
+        "week_date",
+        "sales"
+      ],
+      "fragments": [
+        {
+          "suffix": "age_band",
+          "non_pk_columns": [
+            "age_band",
+            "segment"
+          ],
+          "local_table": "weeklySalesByAgeBand",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cleaned_weekly_sales_age_band"
+        },
+        {
+          "suffix": "avg_transaction",
+          "non_pk_columns": [
+            "avg_transaction",
+            "calendar_year",
+            "month_number",
+            "region",
+            "transactions"
+          ],
+          "local_table": "weeklySalesAvgTransactionByRegion",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cleaned_weekly_sales_avg_transaction"
+        },
+        {
+          "suffix": "avg_transaction_2",
+          "non_pk_columns": [
+            "avg_transaction",
+            "calendar_year",
+            "month_number",
+            "region",
+            "transactions",
+            "week_number"
+          ],
+          "local_table": "weeklySalesAvgTransactionByRegionWithWeekNumber",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cleaned_weekly_sales_avg_transaction_2"
+        },
+        {
+          "suffix": "customer_type",
+          "non_pk_columns": [
+            "customer_type",
+            "demographic"
+          ],
+          "local_table": "weeklySalesExistingCustomers",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cleaned_weekly_sales_customer_type",
+          "row_partition_names": [
+            "weeklySalesExistingCustomers",
+            "weeklySalesNewOrGuestCustomers"
+          ],
+          "row_partition_predicate_column": "customer_type"
+        },
+        {
+          "suffix": "platform",
+          "non_pk_columns": [
+            "platform",
+            "week_date_formatted"
+          ],
+          "local_table": "weeklySalesByPlatform",
+          "local_name": "local_1",
+          "vertical_fragment_base": "cleaned_weekly_sales_platform"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "cleaned_weekly_sales",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.03320283858746636,
+          "3": 0.03529166831291287,
+          "4": 0.03277487342145785,
+          "5": 0.035978628896361046
+        },
+        "chosen_k": 5,
+        "best_metric_score": 0.035978628896361046,
+        "num_final_clusters": 5,
+        "column_clusters": [
+          [
+            "age_band",
+            "segment"
+          ],
+          [
+            "avg_transaction",
+            "region",
+            "transactions"
+          ],
+          [
+            "calendar_year",
+            "month_number",
+            "week_number"
+          ],
+          [
+            "customer_type",
+            "demographic"
+          ],
+          [
+            "platform",
+            "week_date_formatted"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "region",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "avg_transaction",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "transactions",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "month_number",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "calendar_year",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "age_band",
+            "segment"
+          ],
+          [
+            "avg_transaction",
+            "calendar_year",
+            "month_number",
+            "region",
+            "transactions"
+          ],
+          [
+            "avg_transaction",
+            "calendar_year",
+            "month_number",
+            "region",
+            "transactions",
+            "week_number"
+          ],
+          [
+            "customer_type",
+            "demographic"
+          ],
+          [
+            "platform",
+            "week_date_formatted"
+          ]
+        ],
+        "pk_columns": [
+          "week_date",
+          "sales"
+        ],
+        "fragments": [
+          {
+            "suffix": "age_band",
+            "non_pk_columns": [
+              "age_band",
+              "segment"
+            ]
+          },
+          {
+            "suffix": "avg_transaction",
+            "non_pk_columns": [
+              "avg_transaction",
+              "calendar_year",
+              "month_number",
+              "region",
+              "transactions"
+            ]
+          },
+          {
+            "suffix": "avg_transaction_2",
+            "non_pk_columns": [
+              "avg_transaction",
+              "calendar_year",
+              "month_number",
+              "region",
+              "transactions",
+              "week_number"
+            ]
+          },
+          {
+            "suffix": "customer_type",
+            "non_pk_columns": [
+              "customer_type",
+              "demographic"
+            ]
+          },
+          {
+            "suffix": "platform",
+            "non_pk_columns": [
+              "platform",
+              "week_date_formatted"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "region",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "avg_transaction",
+          "also_in_fragment_suffix": "avg_transaction_2"
+        },
+        {
+          "column": "avg_transaction",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "avg_transaction",
+          "also_in_fragment_suffix": "avg_transaction_2"
+        },
+        {
+          "column": "transactions",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "avg_transaction",
+          "also_in_fragment_suffix": "avg_transaction_2"
+        },
+        {
+          "column": "month_number",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "avg_transaction_2",
+          "also_in_fragment_suffix": "avg_transaction"
+        },
+        {
+          "column": "calendar_year",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "avg_transaction_2",
+          "also_in_fragment_suffix": "avg_transaction"
+        }
+      ]
+    },
+    "interest_metrics": {
+      "pk_columns": [
+        "month_year",
+        "interest_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "month",
+          "non_pk_columns": [
+            "_month",
+            "_year",
+            "composition",
+            "index_value",
+            "ranking"
+          ],
+          "local_table": "interestMetricsByMonth",
+          "local_name": "local_1",
+          "vertical_fragment_base": "interest_metrics_month"
+        },
+        {
+          "suffix": "composition",
+          "non_pk_columns": [
+            "composition",
+            "index_value",
+            "percentile_ranking",
+            "ranking"
+          ],
+          "local_table": "interestCompositionAtMost2Point22",
+          "local_name": "local_1",
+          "vertical_fragment_base": "interest_metrics_composition",
+          "row_partition_names": [
+            "interestCompositionAtMost2Point22",
+            "interestCompositionBetween2Point22And2Point86",
+            "interestCompositionBetween2Point86And3Point87",
+            "interestCompositionAbove3Point87OrNull"
+          ],
+          "row_partition_predicate_column": "composition"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "interest_metrics",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.02950748972065015,
+          "3": 0.02950748972065015
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.02950748972065015,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "_month",
+            "_year"
+          ],
+          [
+            "composition",
+            "index_value",
+            "percentile_ranking",
+            "ranking"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "composition",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "index_value",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "ranking",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "_month",
+            "_year",
+            "composition",
+            "index_value",
+            "ranking"
+          ],
+          [
+            "composition",
+            "index_value",
+            "percentile_ranking",
+            "ranking"
+          ]
+        ],
+        "pk_columns": [
+          "month_year",
+          "interest_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "month",
+            "non_pk_columns": [
+              "_month",
+              "_year",
+              "composition",
+              "index_value",
+              "ranking"
+            ]
+          },
+          {
+            "suffix": "composition",
+            "non_pk_columns": [
+              "composition",
+              "index_value",
+              "percentile_ranking",
+              "ranking"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "composition",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "composition",
+          "also_in_fragment_suffix": "month"
+        },
+        {
+          "column": "index_value",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "composition",
+          "also_in_fragment_suffix": "month"
+        },
+        {
+          "column": "ranking",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "composition",
+          "also_in_fragment_suffix": "month"
+        }
+      ]
+    },
+    "veg_txn_df": {
+      "pk_columns": [
+        "index"
+      ],
+      "fragments": [
+        {
+          "suffix": "day_of_week",
+          "non_pk_columns": [
+            "day_of_week",
+            "discount(%)",
+            "item_code",
+            "sale/return",
+            "txn_date",
+            "txn_time"
+          ],
+          "local_table": "veg_txn_dow_txndt_lte_2021_02_06",
+          "local_name": "local_5",
+          "vertical_fragment_base": "veg_txn_df_day_of_week",
+          "row_partition_names": [
+            "veg_txn_dow_txndt_lte_2021_02_06",
+            "veg_txn_df_day_of_week_q2",
+            "veg_txn_df_day_of_week_q3",
+            "veg_txn_dow_txndt_gt_2022_09_10_or_null"
+          ],
+          "row_partition_predicate_column": "txn_date"
+        },
+        {
+          "suffix": "day_of_week_2",
+          "non_pk_columns": [
+            "day_of_week",
+            "discount(%)",
+            "item_code",
+            "qty_sold(kg)",
+            "txn_date",
+            "unit_selling_px_rmb/kg"
+          ],
+          "local_table": "veg_txn_dow_misc",
+          "local_name": "local_4",
+          "vertical_fragment_base": "veg_txn_df_day_of_week_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "veg_txn_df",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.028871174157561626
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.028871174157561626,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "day_of_week",
+            "sale/return",
+            "txn_date",
+            "txn_time"
+          ],
+          [
+            "discount(%)",
+            "item_code",
+            "qty_sold(kg)",
+            "unit_selling_px_rmb/kg"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "day_of_week",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "txn_date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "discount(%)",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "item_code",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "day_of_week",
+            "discount(%)",
+            "item_code",
+            "sale/return",
+            "txn_date",
+            "txn_time"
+          ],
+          [
+            "day_of_week",
+            "discount(%)",
+            "item_code",
+            "qty_sold(kg)",
+            "txn_date",
+            "unit_selling_px_rmb/kg"
+          ]
+        ],
+        "pk_columns": [
+          "index"
+        ],
+        "fragments": [
+          {
+            "suffix": "day_of_week",
+            "non_pk_columns": [
+              "day_of_week",
+              "discount(%)",
+              "item_code",
+              "sale/return",
+              "txn_date",
+              "txn_time"
+            ]
+          },
+          {
+            "suffix": "day_of_week_2",
+            "non_pk_columns": [
+              "day_of_week",
+              "discount(%)",
+              "item_code",
+              "qty_sold(kg)",
+              "txn_date",
+              "unit_selling_px_rmb/kg"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "day_of_week",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "day_of_week",
+          "also_in_fragment_suffix": "day_of_week_2"
+        },
+        {
+          "column": "txn_date",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "day_of_week",
+          "also_in_fragment_suffix": "day_of_week_2"
+        },
+        {
+          "column": "discount(%)",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "day_of_week_2",
+          "also_in_fragment_suffix": "day_of_week"
+        },
+        {
+          "column": "item_code",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "day_of_week_2",
+          "also_in_fragment_suffix": "day_of_week"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,198 @@
+[
+  {
+    "sql": "SELECT CAST(SUM(IIF(race = 'W', 1, 0)) AS REAL) * 100 / COUNT(case_number) FROM officers WHERE gender = 'M'",
+    "question_id": null,
+    "question": "Among all the male officers, what is the percentage of them are White?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; white refers to race = 'W'; percentage = divide(count(officers where race = 'W'), count(officers)) where gender = 'M' * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(officer_count > 3, 1, 0)) AS REAL) * 100 / COUNT(case_number) FROM incidents WHERE STRFTIME('%Y', date) BETWEEN '2010' AND '2015'",
+    "question_id": null,
+    "question": "What is the percentage of the cases involved more than 3 officers from year 2010 to 2015?",
+    "difficulty": "",
+    "evidence": "more than 3 officers refers to officer_count > 3; from year 2010 to 2015 refers to date between '2010-01-01' and '2015-12-31'; percentage = divide(count(case_number where officer_count > 3), count(case_number)) where date between '2010-01-01' and '2015-12-31' * 100%"
+  },
+  {
+    "sql": "SELECT STRFTIME('%Y', date) FROM incidents WHERE subject_weapon = 'Handgun' GROUP BY STRFTIME('%Y', date) ORDER BY COUNT(case_number) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which year has the greatest number of cases where Handgun was used as weapon?",
+    "difficulty": "",
+    "evidence": "year refers to year(date); the greatest number of cases refers to max(count(case_number)); OS Spray was used as weapon refers to subject_weapon = 'OS Spray'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(subject_statuses = 'Injured') AS REAL) * 100 / COUNT(case_number) FROM incidents WHERE grand_jury_disposition = 'No Bill'",
+    "question_id": null,
+    "question": "Among the cases dismissed by the grand jury disposition, what percentage of cases is where the subject is injured?",
+    "difficulty": "",
+    "evidence": "dismissed by the grand jury disposition refers to grand_jury_disposition = 'No Bill'; the subject is injured refers to subject_statuses = 'injured'; percentage = divide(count(incidents where subject_statuses = 'injured'), count(incidents)) where grand_jury_disposition = 'No Bill' * 100%"
+  },
+  {
+    "sql": "SELECT SUM(IIF(STRFTIME('%Y', date) = '2007', 1, 0)) - SUM(IIF(STRFTIME('%Y', date) = '2008', 1, 0)) FROM incidents WHERE subject_weapon = 'Vehicle'",
+    "question_id": null,
+    "question": "Did the number of cases with Vehicle as subject weapon increase or decrease from year 2007 to 2008. State the difference.",
+    "difficulty": "",
+    "evidence": "number of cases refers to count(case_number); with Vehicle as subject weapon refers to subject_weapon = 'Vehicle'; year 2007 refers to date between '2007-01-01' and '2007-12-31'; year 2008 refers to date between '2008-01-01' and '2008-12-31'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(subject_statuses = 'Shoot and Miss') AS REAL) * 100 / COUNT(case_number) FROM incidents WHERE subject_weapon = 'Handgun'",
+    "question_id": null,
+    "question": "Among the 'Handgun' weapon used by subject, how many percent were 'Shoot and Miss'?",
+    "difficulty": "",
+    "evidence": "'Handgun' weapon refers to subject_weapon = 'Handgun'; 'Shoot and Miss' refers to subject_statuses = 'Shoot and Miss'; percent = divide(count(incidents where subject_statuses = 'Shoot and Miss'), count(incidents)) where subject_weapon = 'Handgun' * 100%"
+  },
+  {
+    "sql": "SELECT T2.last_name, T2.gender FROM incidents AS T1 INNER JOIN officers AS T2 ON T1.case_number = T2.case_number WHERE T1.grand_jury_disposition = 'No Bill'",
+    "question_id": null,
+    "question": "Who are the officers involved in cases that are voted as 'No Bill'. List their last name and gender.",
+    "difficulty": "",
+    "evidence": "voted as 'No Bill' refers to grand_jury_disposition = 'No Bill'"
+  },
+  {
+    "sql": "SELECT T1.case_number, T1.subject_statuses, T1.subject_weapon FROM incidents AS T1 INNER JOIN subjects AS T2 ON T1.case_number = T2.case_number WHERE T2.gender = 'F'",
+    "question_id": null,
+    "question": "Which are the cases where the subject are female. List the case number, subject status and weapon.",
+    "difficulty": "",
+    "evidence": "female refers to gender = 'F'; weapon refers to subject_weapon"
+  },
+  {
+    "sql": "SELECT T1.case_number, T1.location, T1.subject_statuses FROM incidents AS T1 INNER JOIN subjects AS T2 ON T1.case_number = T2.case_number WHERE T2.gender = 'M'",
+    "question_id": null,
+    "question": "From the cases where the subject are male, list the case number and the location and subject status.",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'"
+  },
+  {
+    "sql": "SELECT T1.case_number, T1.grand_jury_disposition FROM incidents AS T1 INNER JOIN officers AS T2 ON T1.case_number = T2.case_number WHERE T2.first_name = 'George' AND T2.last_name = 'Evenden'",
+    "question_id": null,
+    "question": "For case(s) where officer 'Evenden, George' is in charged, state the case number and the grand jury disposition?",
+    "difficulty": "",
+    "evidence": "officer 'Evenden, George' refers to full_name = 'Evenden, George'"
+  },
+  {
+    "sql": "SELECT T2.last_name, T1.subject_statuses FROM incidents AS T1 INNER JOIN officers AS T2 ON T1.case_number = T2.case_number WHERE T1.case_number = '134472-2015'",
+    "question_id": null,
+    "question": "For case number '134472-2015', list the last name of the officers involved and state the subject statuses.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T2.last_name, T2.gender, T2.race, T2.case_number FROM incidents AS T1 INNER JOIN subjects AS T2 ON T1.case_number = T2.case_number WHERE T1.subject_statuses = 'Deceased'",
+    "question_id": null,
+    "question": "From the cases where the subject were deceased, list the subject's last name, gender, race and case number.",
+    "difficulty": "",
+    "evidence": "subject were deceased refers to subject_statuses = 'Deceased'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T1.subject_weapon = 'Vehicle') AS REAL) * 100 / COUNT(T1.case_number) FROM incidents T1 INNER JOIN subjects T2 ON T1.case_number = T2.case_number WHERE T2.gender = 'F'",
+    "question_id": null,
+    "question": "What is the percentage of subject who are female used the Vehicle as weapon?",
+    "difficulty": "",
+    "evidence": "female refers to gender = 'F'; use Vehicle as weapon refers to subject_weapon = 'Vehicle'; percentage = divide(count(case_number where subject_weapon = 'Vehicle'), count(case_number)) where gender = 'F' * 100%"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T1.subject_weapon = 'Knife') AS REAL) * 100 / SUM(T1.subject_weapon = 'Handgun') FROM incidents AS T1 INNER JOIN subjects AS T2 ON T1.case_number = T2.case_number WHERE T1.subject_statuses = 'Injured'",
+    "question_id": null,
+    "question": "From the 'Injured' statuses of the subject, what is the ratio of weapons used are knife against handgun?",
+    "difficulty": "",
+    "evidence": "the 'Shoot and Miss' status refers to subject_statuses = 'Shoot and Miss'; knife refers to subject_weapon = 'knife'; toy handgun refers to subject_weapon = 'toy handgun'; ratio = divide(count(case_number where subject_weapon = 'knife'), count(case_number where subject_weapon = 'toy handgun')) where subject_statuses = 'Shoot and Miss'"
+  },
+  {
+    "sql": "SELECT case_number FROM incidents WHERE STRFTIME('%Y', date) > '2011' AND subject_statuses = 'Deceased'",
+    "question_id": null,
+    "question": "List all cases from the year 2012 in which the subject was deceased",
+    "difficulty": "",
+    "evidence": "case refers to case_number; year 2012 refers to date between '2012-01-01' and '2012-12-31'; subject was deceased refers to subject_statuses = 'Deceased'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(race = 'B') AS REAL) * 100 / COUNT(case_number) FROM officers WHERE gender = 'M'",
+    "question_id": null,
+    "question": "Of all male officers, what percentage are black officers?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; black refers to race = 'B'; percentage = divide(count(officers where race = 'B'), count(officers)) where gender = 'M' * 100%"
+  },
+  {
+    "sql": "SELECT COUNT(T1.case_number) FROM incidents AS T1 INNER JOIN officers AS T2 ON T1.case_number = T2.case_number WHERE T1.subject_weapon = 'Vehicle' AND T2.gender = 'F'",
+    "question_id": null,
+    "question": "How many incidents in which the subject's weapon was a vehicle were investigated by a female officer?",
+    "difficulty": "",
+    "evidence": "subject's weapon was a vehicle refers to subject_weapon = 'Vehicle'; female refers to gender = 'F'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.case_number) FROM incidents AS T1 INNER JOIN subjects AS T2 ON T1.case_number = T2.case_number WHERE T2.gender = 'F' AND T1.subject_statuses = 'Deceased'",
+    "question_id": null,
+    "question": "In how many cases where the subject was a female was the subject's status listed as Deceased?",
+    "difficulty": "",
+    "evidence": " female refers to gender = 'F'; subject's status listed as Deceased refers to subject_statuses = 'Deceased'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.case_number) FROM officers AS T1 INNER JOIN incidents AS T2 ON T2.case_number = T1.case_number WHERE T1.race = 'B' AND T2.date BETWEEN '2010-01-01' AND '2015-12-31'",
+    "question_id": null,
+    "question": "Of the black officers, how many of them investigated cases between the years 2010 and 2015?",
+    "difficulty": "",
+    "evidence": "black refers to race = 'B'; between the years 2010 and 2015 refers to date between '2010-01-01' and '2015-12-31'; case refers to case_number"
+  },
+  {
+    "sql": "SELECT COUNT(case_number) FROM incidents WHERE date BETWEEN '2015-06-01' AND '2015-06-30'",
+    "question_id": null,
+    "question": "How many instances were found in June 2015?",
+    "difficulty": "",
+    "evidence": "in June 2015 refers to date between '2015-06-01' and '2015-06-30'; record number refers to case_number"
+  },
+  {
+    "sql": "SELECT COUNT(location) FROM incidents WHERE subject_weapon = 'Handgun' AND subject_statuses = 'Injured' AND date BETWEEN '2006-01-01' AND '2013-12-31'",
+    "question_id": null,
+    "question": "How many people were injured between 2006 and 2014 as a result of a handgun?",
+    "difficulty": "",
+    "evidence": "injured refers to subject_statuses = 'injured'; between 2006 and 2014 refers to date between '2006-01-01' and '2013-12-31'; handgun refers to subject_weapon = 'handgun'; where the incidents took place refers to location"
+  },
+  {
+    "sql": "SELECT subject_weapon FROM incidents WHERE subject_statuses = 'Deceased' GROUP BY subject_weapon ORDER BY COUNT(case_number) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most common type of weapon that causes death?",
+    "difficulty": "",
+    "evidence": "the most common type of weapon refers to max(count(subject_weapon)); causes death refers to subject_statuses = 'Deceased'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(gender = 'M') AS REAL) / SUM(gender = 'F') FROM officers WHERE race = 'W'",
+    "question_id": null,
+    "question": "What is the proportion of white males and females in the police force?",
+    "difficulty": "",
+    "evidence": "white refers to race = 'W'; male refers to gender = 'M'; female refers to gender = 'F'; proportion of white males = divide(count(officers where race = 'W' and gender = 'M'), count(officers)) * 100%; proportion of white females = divide(count(officers where race = 'W' and gender = 'F'), count(officers)) * 100%"
+  },
+  {
+    "sql": "SELECT SUM(race = 'B') - SUM(race = 'W') FROM subjects WHERE gender = 'F'",
+    "question_id": null,
+    "question": "How many more black female victims than white female victims were discovered?",
+    "difficulty": "",
+    "evidence": "black refers to race = 'B'; female refers to gender = 'F'; white refers to race = 'W'; result = subtract(count(victims where race = 'B'), count(victims where race = 'W')) where gender = 'F'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(subject_statuses = 'Deceased') AS REAL) * 100 / COUNT(case_number) FROM incidents WHERE subject_weapon = 'Rifle'",
+    "question_id": null,
+    "question": "What percentage of deaths were caused by rifles?",
+    "difficulty": "",
+    "evidence": "rifle refers to subject_weapon = 'rifles'; death refers to subject_statuses = 'Deceased'; percentage = divide(count(incidents where subject_weapon = 'rifles'), count(incidents)) where subject_statuses = 'Deceased' * 100%"
+  },
+  {
+    "sql": "SELECT T1.subject_weapon, T2.race, T2.gender FROM incidents AS T1 INNER JOIN subjects AS T2 ON T1.case_number = T2.case_number WHERE T1.case_number = '031347-2015'",
+    "question_id": null,
+    "question": "Which type of weapon was used to attack the victim in the record number 031347-2015? What is the victim's race and gender?",
+    "difficulty": "",
+    "evidence": "type of weapon refers to subject_weapon; record number 031347-2015 refers to case_number = '031347-2015'"
+  },
+  {
+    "sql": "SELECT T1.case_number, T3.race, T3.gender FROM incidents AS T1 INNER JOIN officers AS T2 ON T1.case_number = T2.case_number INNER JOIN subjects AS T3 ON T1.case_number = T3.case_number WHERE T2.first_name = 'Fredirick' AND T2.last_name = 'Ruben'",
+    "question_id": null,
+    "question": "Which near-death incident did a policeman by the name of Ruben Fredirick look into? What is the victim in this incident's race and gender?",
+    "difficulty": "",
+    "evidence": "near-death refers to subject_statuses = 'Deceased Injured'; incident refers to case_number; Ruben Fredirick refers to full_name = 'Ruben Fredirick'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.gender = 'M') AS REAL) * 100 / COUNT(T1.case_number) FROM incidents T1 INNER JOIN officers T2 ON T1.case_number = T2.case_number WHERE T1.subject_statuses = 'Injured'",
+    "question_id": null,
+    "question": "What proportion of male police officers looked into events where people were injured?",
+    "difficulty": "",
+    "evidence": "male refers to gender = 'M'; people were injured refers to subject_statuses = 'Injured'; proportion = divide(count(case_number where gender = 'M'), count(case_number)) where subject_statuses = 'Injured' * 100%"
+  }
+]

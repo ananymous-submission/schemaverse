@@ -1,0 +1,3181 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "awd_comedy_series": {
+          "source_table": "Award",
+          "column_map": {
+            "awd_id": "award_id",
+            "awd_title": "award",
+            "awd_cat": "award_category",
+            "org_name": "organization",
+            "person_name": "person",
+            "outcome": "result",
+            "role_desc": "role",
+            "yr": "year"
+          },
+          "projected_columns": [
+            "award_id",
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          "row_predicate": "(\"award\" = 'Comedy Series' OR (rowid IN (923,1123,1196,1231)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Award_award_category"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Award_award_category",
+          "is_row_partition": true,
+          "row_partition_partner": "Award_award_part2",
+          "row_partition_peers": [
+            "Award_award_part2",
+            "Award_award_part3",
+            "Award_award_part4",
+            "awd_other_misc"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "award"
+        },
+        "awd_other_misc": {
+          "source_table": "Award",
+          "column_map": {
+            "awd_id": "award_id",
+            "awd_title": "award",
+            "awd_cat": "award_category",
+            "org_name": "organization",
+            "person_name": "person",
+            "outcome": "result",
+            "role_desc": "role",
+            "yr": "year"
+          },
+          "projected_columns": [
+            "award_id",
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          "row_predicate": "((\"award\" IS NULL OR \"award\" NOT IN ('Comedy Series', 'Outstanding Animated Program (For Programming Less Than One Hour)', 'Animation', 'Favorite Cartoon', 'Outstanding Voice-Over Performance', 'Writing in a Television Production', 'Best Voice-Over Performance', 'Outstanding Writing in a Comedy Series', 'Best Animated Series')) OR (rowid IN (1075,1080,1081,1122)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Award_award_category"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Award_award_category",
+          "is_row_partition": true,
+          "row_partition_partner": "awd_comedy_series",
+          "row_partition_peers": [
+            "awd_comedy_series",
+            "Award_award_part2",
+            "Award_award_part3",
+            "Award_award_part4"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "award"
+        },
+        "ep_air_info": {
+          "source_table": "Episode",
+          "column_map": {
+            "ep_id": "episode_id",
+            "air_dt": "air_date",
+            "img_url": "episode_image",
+            "avg_rating": "rating",
+            "season_no": "season",
+            "synopsis": "summary",
+            "ep_title": "title",
+            "vote_cnt": "votes"
+          },
+          "projected_columns": [
+            "episode_id",
+            "air_date",
+            "episode_image",
+            "rating",
+            "season",
+            "summary",
+            "title",
+            "votes"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Episode_episode"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Episode_episode",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "air_date"
+        },
+        "ep_keyword": {
+          "source_table": "Keyword",
+          "column_map": {
+            "ep_id": "episode_id",
+            "kwd_term": "keyword"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "Award": "Award_award_part1",
+        "Episode": "Episode_air_date"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "episode_credits": {
+          "source_table": "Credit",
+          "column_map": {
+            "episode_ref_id": "episode_id",
+            "credit_category": "category",
+            "person_full_name": "person",
+            "role_description": "role",
+            "credited_status": "credited"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "people": {
+          "source_table": "Person",
+          "column_map": {
+            "full_name": "name",
+            "date_of_birth": "birthdate",
+            "original_name": "birth_name",
+            "birthplace_city": "birth_place",
+            "birthplace_region": "birth_region",
+            "birthplace_country": "birth_country",
+            "height_m": "height_meters",
+            "preferred_nickname": "nickname"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "awards_by_category": {
+          "source_table": "Award",
+          "column_map": {
+            "award_record_id": "award_id",
+            "category_label": "award_category",
+            "episode_code": "episode_id",
+            "outcome": "result",
+            "role_description": "role",
+            "season_tag": "season",
+            "song_title": "song",
+            "award_year": "year"
+          },
+          "projected_columns": [
+            "award_id",
+            "award_category",
+            "episode_id",
+            "result",
+            "role",
+            "season",
+            "song",
+            "year"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Award_award"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Award_award",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "award_category"
+        },
+        "awards_outstanding_animated_program_short": {
+          "source_table": "Award",
+          "column_map": {
+            "award_entry_id": "award_id",
+            "award_title": "award",
+            "category_label": "award_category",
+            "presenting_organization": "organization",
+            "recipient_name": "person",
+            "outcome": "result",
+            "role_description": "role",
+            "award_year": "year"
+          },
+          "projected_columns": [
+            "award_id",
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          "row_predicate": "(\"award\" = 'Outstanding Animated Program (For Programming Less Than One Hour)' OR (rowid IN (1284,1285,1287,1290,1291,1293,1294,1298,1299,1302)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "awards_by_category"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "awards_by_category",
+          "is_row_partition": true,
+          "row_partition_partner": "awards_animation_voiceover_writing_tv",
+          "row_partition_peers": [
+            "awards_animation_voiceover_writing_tv",
+            "awards_cartoon_writing_comedy_voiceover_animated",
+            "Award_award_part5",
+            "Award_award_part1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "award"
+        },
+        "awards_animation_voiceover_writing_tv": {
+          "source_table": "Award",
+          "column_map": {
+            "award_entry_id": "award_id",
+            "award_title": "award",
+            "category_label": "award_category",
+            "presenting_organization": "organization",
+            "recipient_name": "person",
+            "outcome": "result",
+            "role_description": "role",
+            "award_year": "year"
+          },
+          "projected_columns": [
+            "award_id",
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          "row_predicate": "((\"award\" = 'Animation' OR (\"award\" = 'Outstanding Voice-Over Performance' OR \"award\" = 'Writing in a Television Production')) OR (rowid IN (329,332,336,338,339,341,342,346)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "awards_by_category"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "awards_by_category",
+          "is_row_partition": true,
+          "row_partition_partner": "awards_cartoon_writing_comedy_voiceover_animated",
+          "row_partition_peers": [
+            "awards_cartoon_writing_comedy_voiceover_animated",
+            "Award_award_part5",
+            "Award_award_part1",
+            "awards_outstanding_animated_program_short"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "award"
+        },
+        "awards_cartoon_writing_comedy_voiceover_animated": {
+          "source_table": "Award",
+          "column_map": {
+            "award_entry_id": "award_id",
+            "award_title": "award",
+            "category_label": "award_category",
+            "presenting_organization": "organization",
+            "recipient_name": "person",
+            "outcome": "result",
+            "role_description": "role",
+            "award_year": "year"
+          },
+          "projected_columns": [
+            "award_id",
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          "row_predicate": "(((\"award\" = 'Favorite Cartoon' OR \"award\" = 'Outstanding Writing in a Comedy Series') OR (\"award\" = 'Best Voice-Over Performance' OR \"award\" = 'Best Animated Series')) OR (rowid IN (326,327,920,921,1279,1280)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "awards_by_category"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "awards_by_category",
+          "is_row_partition": true,
+          "row_partition_partner": "Award_award_part5",
+          "row_partition_peers": [
+            "Award_award_part5",
+            "Award_award_part1",
+            "awards_outstanding_animated_program_short",
+            "awards_animation_voiceover_writing_tv"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "award"
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "characterAward": {
+          "source_table": "Character_Award",
+          "column_map": {
+            "awardId": "award_id",
+            "characterName": "character"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "episodeRating": {
+          "source_table": "Vote",
+          "column_map": {
+            "episodeId": "episode_id",
+            "starRating": "stars",
+            "voteCount": "votes",
+            "votePercentage": "percent"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "episodeRecord": {
+          "source_table": "Episode",
+          "column_map": {
+            "episodeId": "episode_id",
+            "episodeNumber": "episode",
+            "imageUrl": "episode_image",
+            "overallEpisodeNumber": "number_in_series",
+            "averageRating": "rating",
+            "seasonNumber": "season",
+            "totalVotes": "votes"
+          },
+          "projected_columns": [
+            "episode_id",
+            "episode",
+            "episode_image",
+            "number_in_series",
+            "rating",
+            "season",
+            "votes"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "Episode_air_date"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "Episode_air_date",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "episode"
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "Award_award_part1": "awd_comedy_series",
+        "Award_award_part5": "awd_other_misc",
+        "Episode_air_date": "ep_air_info",
+        "Keyword": "ep_keyword"
+      },
+      "column_renames": {
+        "Award_award_part1": {
+          "award_id": "awd_id",
+          "award": "awd_title",
+          "award_category": "awd_cat",
+          "organization": "org_name",
+          "person": "person_name",
+          "result": "outcome",
+          "role": "role_desc",
+          "year": "yr"
+        },
+        "Award_award_part5": {
+          "award_id": "awd_id",
+          "award": "awd_title",
+          "award_category": "awd_cat",
+          "organization": "org_name",
+          "person": "person_name",
+          "result": "outcome",
+          "role": "role_desc",
+          "year": "yr"
+        },
+        "Episode_air_date": {
+          "episode_id": "ep_id",
+          "air_date": "air_dt",
+          "episode_image": "img_url",
+          "rating": "avg_rating",
+          "season": "season_no",
+          "summary": "synopsis",
+          "title": "ep_title",
+          "votes": "vote_cnt"
+        },
+        "Keyword": {
+          "episode_id": "ep_id",
+          "keyword": "kwd_term"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    },
+    "local_2": {
+      "table_renames": {
+        "Credit": "episode_credits",
+        "Person": "people",
+        "Award_award_category": "awards_by_category",
+        "Award_award_part2": "awards_outstanding_animated_program_short",
+        "Award_award_part3": "awards_animation_voiceover_writing_tv",
+        "Award_award_part4": "awards_cartoon_writing_comedy_voiceover_animated"
+      },
+      "column_renames": {
+        "Credit": {
+          "episode_id": "episode_ref_id",
+          "category": "credit_category",
+          "person": "person_full_name",
+          "role": "role_description",
+          "credited": "credited_status"
+        },
+        "Person": {
+          "name": "full_name",
+          "birthdate": "date_of_birth",
+          "birth_name": "original_name",
+          "birth_place": "birthplace_city",
+          "birth_region": "birthplace_region",
+          "birth_country": "birthplace_country",
+          "height_meters": "height_m",
+          "nickname": "preferred_nickname"
+        },
+        "Award_award_category": {
+          "award_id": "award_record_id",
+          "award_category": "category_label",
+          "episode_id": "episode_code",
+          "result": "outcome",
+          "role": "role_description",
+          "season": "season_tag",
+          "song": "song_title",
+          "year": "award_year"
+        },
+        "Award_award_part2": {
+          "award_id": "award_entry_id",
+          "award": "award_title",
+          "award_category": "category_label",
+          "organization": "presenting_organization",
+          "person": "recipient_name",
+          "result": "outcome",
+          "role": "role_description",
+          "year": "award_year"
+        },
+        "Award_award_part3": {
+          "award_id": "award_entry_id",
+          "award": "award_title",
+          "award_category": "category_label",
+          "organization": "presenting_organization",
+          "person": "recipient_name",
+          "result": "outcome",
+          "role": "role_description",
+          "year": "award_year"
+        },
+        "Award_award_part4": {
+          "award_id": "award_entry_id",
+          "award": "award_title",
+          "award_category": "category_label",
+          "organization": "presenting_organization",
+          "person": "recipient_name",
+          "result": "outcome",
+          "role": "role_description",
+          "year": "award_year"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_3": {
+      "table_renames": {
+        "Character_Award": "characterAward",
+        "Vote": "episodeRating",
+        "Episode_episode": "episodeRecord"
+      },
+      "column_renames": {
+        "Character_Award": {
+          "award_id": "awardId",
+          "character": "characterName"
+        },
+        "Vote": {
+          "episode_id": "episodeId",
+          "stars": "starRating",
+          "votes": "voteCount",
+          "percent": "votePercentage"
+        },
+        "Episode_episode": {
+          "episode_id": "episodeId",
+          "episode": "episodeNumber",
+          "episode_image": "imageUrl",
+          "number_in_series": "overallEpisodeNumber",
+          "rating": "averageRating",
+          "season": "seasonNumber",
+          "votes": "totalVotes"
+        }
+      },
+      "naming_case_style": "camelCase"
+    }
+  },
+  "vertical_split_map": {
+    "Award": {
+      "pk_columns": [
+        "award_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "award",
+          "non_pk_columns": [
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          "local_table": "awd_comedy_series",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Award_award",
+          "row_partition_names": [
+            "awd_comedy_series",
+            "Award_award_part2",
+            "Award_award_part3",
+            "Award_award_part4",
+            "awd_other_misc"
+          ],
+          "row_partition_predicate_column": "award"
+        },
+        {
+          "suffix": "award_category",
+          "non_pk_columns": [
+            "award_category",
+            "episode_id",
+            "result",
+            "role",
+            "season",
+            "song",
+            "year"
+          ],
+          "local_table": "awards_by_category",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Award_award_category"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Award",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.027458440068477797
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.027458440068477797,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "year"
+          ],
+          [
+            "episode_id",
+            "role",
+            "season",
+            "song"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "year",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "result",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "award_category",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "role",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          [
+            "award_category",
+            "episode_id",
+            "result",
+            "role",
+            "season",
+            "song",
+            "year"
+          ]
+        ],
+        "pk_columns": [
+          "award_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "award",
+            "non_pk_columns": [
+              "award",
+              "award_category",
+              "organization",
+              "person",
+              "result",
+              "role",
+              "year"
+            ]
+          },
+          {
+            "suffix": "award_category",
+            "non_pk_columns": [
+              "award_category",
+              "episode_id",
+              "result",
+              "role",
+              "season",
+              "song",
+              "year"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Award_award_part1",
+      "movable_candidates": [
+        "Award_award_category"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+    },
+    "Episode": {
+      "pk_columns": [
+        "episode_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "air_date",
+          "non_pk_columns": [
+            "air_date",
+            "episode_image",
+            "rating",
+            "season",
+            "summary",
+            "title",
+            "votes"
+          ],
+          "local_table": "ep_air_info",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Episode_air_date"
+        },
+        {
+          "suffix": "episode",
+          "non_pk_columns": [
+            "episode",
+            "episode_image",
+            "number_in_series",
+            "rating",
+            "season",
+            "votes"
+          ],
+          "local_table": "episodeRecord",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Episode_episode"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Episode",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.022771678657219033
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.022771678657219033,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "air_date",
+            "summary",
+            "title"
+          ],
+          [
+            "episode",
+            "episode_image",
+            "number_in_series",
+            "rating",
+            "season",
+            "votes"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "episode_image",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "rating",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "votes",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "season",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "air_date",
+            "episode_image",
+            "rating",
+            "season",
+            "summary",
+            "title",
+            "votes"
+          ],
+          [
+            "episode",
+            "episode_image",
+            "number_in_series",
+            "rating",
+            "season",
+            "votes"
+          ]
+        ],
+        "pk_columns": [
+          "episode_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "air_date",
+            "non_pk_columns": [
+              "air_date",
+              "episode_image",
+              "rating",
+              "season",
+              "summary",
+              "title",
+              "votes"
+            ]
+          },
+          {
+            "suffix": "episode",
+            "non_pk_columns": [
+              "episode",
+              "episode_image",
+              "number_in_series",
+              "rating",
+              "season",
+              "votes"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Episode_air_date",
+      "movable_candidates": [
+        "Episode_episode"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=4"
+    }
+  },
+  "split_map": {
+    "Award": {
+      "pk_columns": [
+        "award_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "award",
+          "non_pk_columns": [
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          "local_table": "awd_comedy_series",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Award_award",
+          "row_partition_names": [
+            "awd_comedy_series",
+            "Award_award_part2",
+            "Award_award_part3",
+            "Award_award_part4",
+            "awd_other_misc"
+          ],
+          "row_partition_predicate_column": "award"
+        },
+        {
+          "suffix": "award_category",
+          "non_pk_columns": [
+            "award_category",
+            "episode_id",
+            "result",
+            "role",
+            "season",
+            "song",
+            "year"
+          ],
+          "local_table": "awards_by_category",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Award_award_category"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Award",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.027458440068477797
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.027458440068477797,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "year"
+          ],
+          [
+            "episode_id",
+            "role",
+            "season",
+            "song"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "year",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "result",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "award_category",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "role",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "award",
+            "award_category",
+            "organization",
+            "person",
+            "result",
+            "role",
+            "year"
+          ],
+          [
+            "award_category",
+            "episode_id",
+            "result",
+            "role",
+            "season",
+            "song",
+            "year"
+          ]
+        ],
+        "pk_columns": [
+          "award_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "award",
+            "non_pk_columns": [
+              "award",
+              "award_category",
+              "organization",
+              "person",
+              "result",
+              "role",
+              "year"
+            ]
+          },
+          {
+            "suffix": "award_category",
+            "non_pk_columns": [
+              "award_category",
+              "episode_id",
+              "result",
+              "role",
+              "season",
+              "song",
+              "year"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Award_award_part1",
+      "movable_candidates": [
+        "Award_award_category"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+    },
+    "Episode": {
+      "pk_columns": [
+        "episode_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "air_date",
+          "non_pk_columns": [
+            "air_date",
+            "episode_image",
+            "rating",
+            "season",
+            "summary",
+            "title",
+            "votes"
+          ],
+          "local_table": "ep_air_info",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Episode_air_date"
+        },
+        {
+          "suffix": "episode",
+          "non_pk_columns": [
+            "episode",
+            "episode_image",
+            "number_in_series",
+            "rating",
+            "season",
+            "votes"
+          ],
+          "local_table": "episodeRecord",
+          "local_name": "local_3",
+          "vertical_fragment_base": "Episode_episode"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Episode",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.022771678657219033
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.022771678657219033,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "air_date",
+            "summary",
+            "title"
+          ],
+          [
+            "episode",
+            "episode_image",
+            "number_in_series",
+            "rating",
+            "season",
+            "votes"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "episode_image",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "rating",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "votes",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "season",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "air_date",
+            "episode_image",
+            "rating",
+            "season",
+            "summary",
+            "title",
+            "votes"
+          ],
+          [
+            "episode",
+            "episode_image",
+            "number_in_series",
+            "rating",
+            "season",
+            "votes"
+          ]
+        ],
+        "pk_columns": [
+          "episode_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "air_date",
+            "non_pk_columns": [
+              "air_date",
+              "episode_image",
+              "rating",
+              "season",
+              "summary",
+              "title",
+              "votes"
+            ]
+          },
+          {
+            "suffix": "episode",
+            "non_pk_columns": [
+              "episode",
+              "episode_image",
+              "number_in_series",
+              "rating",
+              "season",
+              "votes"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "Episode_air_date",
+      "movable_candidates": [
+        "Episode_episode"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=4"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 7,
+    "eligible_candidate_count": 3,
+    "num_selected_for_vertical_split": 3,
+    "num_from_rate_alone": 6,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "Award",
+      "Episode",
+      "Person"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/simpson_episodes/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "Person",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "Award||vfrag=award": {
+      "source_table": "Award",
+      "vertical_fragment_suffix": "award",
+      "num_partitions": 5,
+      "partition_names": [
+        "awd_comedy_series",
+        "awards_outstanding_animated_program_short",
+        "awards_animation_voiceover_writing_tv",
+        "awards_cartoon_writing_comedy_voiceover_animated",
+        "awd_other_misc"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_2",
+        "local_2",
+        "local_2",
+        "local_1"
+      ],
+      "predicate_column": "award",
+      "partition_values": [
+        {
+          "value": "Comedy Series",
+          "includes_null": false
+        },
+        {
+          "value": "Outstanding Animated Program (For Programming Less Than One Hour)",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "Animation",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "Outstanding Voice-Over Performance",
+                  "includes_null": false
+                },
+                {
+                  "value": "Writing in a Television Production",
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "merged_buckets": [
+                {
+                  "value": "Favorite Cartoon",
+                  "includes_null": false
+                },
+                {
+                  "value": "Outstanding Writing in a Comedy Series",
+                  "includes_null": false
+                }
+              ]
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "Best Voice-Over Performance",
+                  "includes_null": false
+                },
+                {
+                  "value": "Best Animated Series",
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "Comedy Series",
+            "Outstanding Animated Program (For Programming Less Than One Hour)",
+            "Animation",
+            "Favorite Cartoon",
+            "Outstanding Voice-Over Performance",
+            "Writing in a Television Production",
+            "Best Voice-Over Performance",
+            "Outstanding Writing in a Comedy Series",
+            "Best Animated Series"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"award\" = 'Comedy Series' OR (rowid IN (923,1123,1196,1231)))",
+        "(\"award\" = 'Outstanding Animated Program (For Programming Less Than One Hour)' OR (rowid IN (1284,1285,1287,1290,1291,1293,1294,1298,1299,1302)))",
+        "((\"award\" = 'Animation' OR (\"award\" = 'Outstanding Voice-Over Performance' OR \"award\" = 'Writing in a Television Production')) OR (rowid IN (329,332,336,338,339,341,342,346)))",
+        "(((\"award\" = 'Favorite Cartoon' OR \"award\" = 'Outstanding Writing in a Comedy Series') OR (\"award\" = 'Best Voice-Over Performance' OR \"award\" = 'Best Animated Series')) OR (rowid IN (326,327,920,921,1279,1280)))",
+        "((\"award\" IS NULL OR \"award\" NOT IN ('Comedy Series', 'Outstanding Animated Program (For Programming Less Than One Hour)', 'Animation', 'Favorite Cartoon', 'Outstanding Voice-Over Performance', 'Writing in a Television Production', 'Best Voice-Over Performance', 'Outstanding Writing in a Comedy Series', 'Best Animated Series')) OR (rowid IN (1075,1080,1081,1122)))"
+      ],
+      "base_predicate_sqls": [
+        "\"award\" = 'Comedy Series'",
+        "\"award\" = 'Outstanding Animated Program (For Programming Less Than One Hour)'",
+        "(\"award\" = 'Animation' OR (\"award\" = 'Outstanding Voice-Over Performance' OR \"award\" = 'Writing in a Television Production'))",
+        "((\"award\" = 'Favorite Cartoon' OR \"award\" = 'Outstanding Writing in a Comedy Series') OR (\"award\" = 'Best Voice-Over Performance' OR \"award\" = 'Best Animated Series'))",
+        "(\"award\" IS NULL OR \"award\" NOT IN ('Comedy Series', 'Outstanding Animated Program (For Programming Less Than One Hour)', 'Animation', 'Favorite Cartoon', 'Outstanding Voice-Over Performance', 'Writing in a Television Production', 'Best Voice-Over Performance', 'Outstanding Writing in a Comedy Series', 'Best Animated Series'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where award = Comedy Series",
+        "rows where award = Outstanding Animated Program (For Programming Less Than One Hour)",
+        "rows where award = Animation + rows where award = Outstanding Voice-Over Performance + rows where award = Writing in a Television Production",
+        "rows where award = Favorite Cartoon + rows where award = Outstanding Writing in a Comedy Series + rows where award = Best Voice-Over Performance + rows where award = Best Animated Series",
+        "rows where award is NULL or not in {'Comedy Series', 'Outstanding Animated Program (For Programming Less Than One Hour)', 'Animation', 'Favorite Cartoon', 'Outstanding Voice-Over Performance', 'Writing in a Television Production', 'Best Voice-Over Performance', 'Outstanding Writing in a Comedy Series', 'Best Animated Series'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "awd_comedy_series",
+      "movable_fragments": [
+        "awards_outstanding_animated_program_short",
+        "awards_animation_voiceover_writing_tv",
+        "awards_cartoon_writing_comedy_voiceover_animated",
+        "awd_other_misc"
+      ],
+      "movable_fragment": "awards_outstanding_animated_program_short",
+      "default_movable_fragment": "awards_outstanding_animated_program_short",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "award",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "award",
+          "award_category",
+          "organization",
+          "year"
+        ],
+        "ranked_columns": [
+          {
+            "column": "award",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "award_category",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "organization",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          },
+          {
+            "column": "year",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "pandas_g3",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"award\" = 'Comedy Series' OR (rowid IN (923,1123,1196,1231)))",
+      "predicate_sql_fragment_B": "(\"award\" = 'Outstanding Animated Program (For Programming Less Than One Hour)' OR (rowid IN (1284,1285,1287,1290,1291,1293,1294,1298,1299,1302)))",
+      "fragment_role_A": "rows where award = Comedy Series",
+      "fragment_role_B": "rows where award = Outstanding Animated Program (For Programming Less Than One Hour)"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "Award",
+          "from_column": "episode_id",
+          "to_table": "Episode",
+          "to_column": "episode_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Award_award_part1",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Award_award_part5",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_category",
+            "column_map": {
+              "award_id": "award_id",
+              "award_category": "award_category",
+              "episode_id": "episode_id",
+              "result": "result",
+              "role": "role",
+              "season": "season",
+              "song": "song",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award_category": "award_category",
+              "episode_id": "episode_id",
+              "result": "result",
+              "role": "role",
+              "season": "season",
+              "song": "song",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part2",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part3",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part4",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Episode_air_date",
+            "column_map": {
+              "episode_id": "episode_id",
+              "air_date": "air_date",
+              "episode_image": "episode_image",
+              "rating": "rating",
+              "season": "season",
+              "summary": "summary",
+              "title": "title",
+              "votes": "votes"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "air_date": "air_date",
+              "episode_image": "episode_image",
+              "rating": "rating",
+              "season": "season",
+              "summary": "summary",
+              "title": "title",
+              "votes": "votes"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Episode_episode",
+            "column_map": {
+              "episode_id": "episode_id",
+              "episode": "episode",
+              "episode_image": "episode_image",
+              "number_in_series": "number_in_series",
+              "rating": "rating",
+              "season": "season",
+              "votes": "votes"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "episode": "episode",
+              "episode_image": "episode_image",
+              "number_in_series": "number_in_series",
+              "rating": "rating",
+              "season": "season",
+              "votes": "votes"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "awards_by_category",
+            "to_local_table": "ep_air_info",
+            "from_local_column": "episode_code",
+            "to_local_column": "ep_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "awards_by_category",
+            "to_local_table": "episodeRecord",
+            "from_local_column": "episode_code",
+            "to_local_column": "episodeId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "Award",
+          "from_column": "person",
+          "to_table": "Person",
+          "to_column": "name",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Award_award_part1",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Award_award_part5",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_category",
+            "column_map": {
+              "award_id": "award_id",
+              "award_category": "award_category",
+              "episode_id": "episode_id",
+              "result": "result",
+              "role": "role",
+              "season": "season",
+              "song": "song",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award_category": "award_category",
+              "episode_id": "episode_id",
+              "result": "result",
+              "role": "role",
+              "season": "season",
+              "song": "song",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part2",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part3",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part4",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Person",
+            "column_map": {
+              "name": "name",
+              "birthdate": "birthdate",
+              "birth_name": "birth_name",
+              "birth_place": "birth_place",
+              "birth_region": "birth_region",
+              "birth_country": "birth_country",
+              "height_meters": "height_meters",
+              "nickname": "nickname"
+            },
+            "orig_to_local": {
+              "name": "name",
+              "birthdate": "birthdate",
+              "birth_name": "birth_name",
+              "birth_place": "birth_place",
+              "birth_region": "birth_region",
+              "birth_country": "birth_country",
+              "height_meters": "height_meters",
+              "nickname": "nickname"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "awards_outstanding_animated_program_short",
+            "to_local_table": "people",
+            "from_local_column": "recipient_name",
+            "to_local_column": "full_name"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "awards_animation_voiceover_writing_tv",
+            "to_local_table": "people",
+            "from_local_column": "recipient_name",
+            "to_local_column": "full_name"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "awards_cartoon_writing_comedy_voiceover_animated",
+            "to_local_table": "people",
+            "from_local_column": "recipient_name",
+            "to_local_column": "full_name"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "awd_comedy_series",
+            "to_local_table": "people",
+            "from_local_column": "person_name",
+            "to_local_column": "full_name"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "awd_other_misc",
+            "to_local_table": "people",
+            "from_local_column": "person_name",
+            "to_local_column": "full_name"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "Character_Award",
+          "from_column": "award_id",
+          "to_table": "Award",
+          "to_column": "award_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "Character_Award",
+            "column_map": {
+              "award_id": "award_id",
+              "character": "character"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "character": "character"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Award_award_part1",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "Award_award_part5",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_category",
+            "column_map": {
+              "award_id": "award_id",
+              "award_category": "award_category",
+              "episode_id": "episode_id",
+              "result": "result",
+              "role": "role",
+              "season": "season",
+              "song": "song",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award_category": "award_category",
+              "episode_id": "episode_id",
+              "result": "result",
+              "role": "role",
+              "season": "season",
+              "song": "song",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part2",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part3",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "Award_award_part4",
+            "column_map": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            },
+            "orig_to_local": {
+              "award_id": "award_id",
+              "award": "award",
+              "award_category": "award_category",
+              "organization": "organization",
+              "person": "person",
+              "result": "result",
+              "role": "role",
+              "year": "year"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "characterAward",
+            "to_local_table": "awd_comedy_series",
+            "from_local_column": "awardId",
+            "to_local_column": "awd_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "characterAward",
+            "to_local_table": "awd_other_misc",
+            "from_local_column": "awardId",
+            "to_local_column": "awd_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "characterAward",
+            "to_local_table": "awards_by_category",
+            "from_local_column": "awardId",
+            "to_local_column": "award_record_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "characterAward",
+            "to_local_table": "awards_outstanding_animated_program_short",
+            "from_local_column": "awardId",
+            "to_local_column": "award_entry_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "characterAward",
+            "to_local_table": "awards_animation_voiceover_writing_tv",
+            "from_local_column": "awardId",
+            "to_local_column": "award_entry_id"
+          },
+          {
+            "from_local": "local_3",
+            "to_local": "local_2",
+            "from_local_table": "characterAward",
+            "to_local_table": "awards_cartoon_writing_comedy_voiceover_animated",
+            "from_local_column": "awardId",
+            "to_local_column": "award_entry_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "Credit",
+          "from_column": "person",
+          "to_table": "Person",
+          "to_column": "name",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Credit",
+            "column_map": {
+              "episode_id": "episode_id",
+              "category": "category",
+              "person": "person",
+              "role": "role",
+              "credited": "credited"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "category": "category",
+              "person": "person",
+              "role": "role",
+              "credited": "credited"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Person",
+            "column_map": {
+              "name": "name",
+              "birthdate": "birthdate",
+              "birth_name": "birth_name",
+              "birth_place": "birth_place",
+              "birth_region": "birth_region",
+              "birth_country": "birth_country",
+              "height_meters": "height_meters",
+              "nickname": "nickname"
+            },
+            "orig_to_local": {
+              "name": "name",
+              "birthdate": "birthdate",
+              "birth_name": "birth_name",
+              "birth_place": "birth_place",
+              "birth_region": "birth_region",
+              "birth_country": "birth_country",
+              "height_meters": "height_meters",
+              "nickname": "nickname"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "episode_credits",
+            "to_local_table": "people",
+            "from_local_column": "person_full_name",
+            "to_local_column": "full_name"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "Credit",
+          "from_column": "episode_id",
+          "to_table": "Episode",
+          "to_column": "episode_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "Credit",
+            "column_map": {
+              "episode_id": "episode_id",
+              "category": "category",
+              "person": "person",
+              "role": "role",
+              "credited": "credited"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "category": "category",
+              "person": "person",
+              "role": "role",
+              "credited": "credited"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Episode_air_date",
+            "column_map": {
+              "episode_id": "episode_id",
+              "air_date": "air_date",
+              "episode_image": "episode_image",
+              "rating": "rating",
+              "season": "season",
+              "summary": "summary",
+              "title": "title",
+              "votes": "votes"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "air_date": "air_date",
+              "episode_image": "episode_image",
+              "rating": "rating",
+              "season": "season",
+              "summary": "summary",
+              "title": "title",
+              "votes": "votes"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Episode_episode",
+            "column_map": {
+              "episode_id": "episode_id",
+              "episode": "episode",
+              "episode_image": "episode_image",
+              "number_in_series": "number_in_series",
+              "rating": "rating",
+              "season": "season",
+              "votes": "votes"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "episode": "episode",
+              "episode_image": "episode_image",
+              "number_in_series": "number_in_series",
+              "rating": "rating",
+              "season": "season",
+              "votes": "votes"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "episode_credits",
+            "to_local_table": "ep_air_info",
+            "from_local_column": "episode_ref_id",
+            "to_local_column": "ep_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "episode_credits",
+            "to_local_table": "episodeRecord",
+            "from_local_column": "episode_ref_id",
+            "to_local_column": "episodeId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "Keyword",
+          "from_column": "episode_id",
+          "to_table": "Episode",
+          "to_column": "episode_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Keyword",
+            "column_map": {
+              "episode_id": "episode_id",
+              "keyword": "keyword"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "keyword": "keyword"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Episode_air_date",
+            "column_map": {
+              "episode_id": "episode_id",
+              "air_date": "air_date",
+              "episode_image": "episode_image",
+              "rating": "rating",
+              "season": "season",
+              "summary": "summary",
+              "title": "title",
+              "votes": "votes"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "air_date": "air_date",
+              "episode_image": "episode_image",
+              "rating": "rating",
+              "season": "season",
+              "summary": "summary",
+              "title": "title",
+              "votes": "votes"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Episode_episode",
+            "column_map": {
+              "episode_id": "episode_id",
+              "episode": "episode",
+              "episode_image": "episode_image",
+              "number_in_series": "number_in_series",
+              "rating": "rating",
+              "season": "season",
+              "votes": "votes"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "episode": "episode",
+              "episode_image": "episode_image",
+              "number_in_series": "number_in_series",
+              "rating": "rating",
+              "season": "season",
+              "votes": "votes"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "ep_keyword",
+            "to_local_table": "ep_air_info",
+            "from_local_column": "ep_id",
+            "to_local_column": "ep_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "ep_keyword",
+            "to_local_table": "episodeRecord",
+            "from_local_column": "ep_id",
+            "to_local_column": "episodeId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "Vote",
+          "from_column": "episode_id",
+          "to_table": "Episode",
+          "to_column": "episode_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "Vote",
+            "column_map": {
+              "episode_id": "episode_id",
+              "stars": "stars",
+              "votes": "votes",
+              "percent": "percent"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "stars": "stars",
+              "votes": "votes",
+              "percent": "percent"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "Episode_air_date",
+            "column_map": {
+              "episode_id": "episode_id",
+              "air_date": "air_date",
+              "episode_image": "episode_image",
+              "rating": "rating",
+              "season": "season",
+              "summary": "summary",
+              "title": "title",
+              "votes": "votes"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "air_date": "air_date",
+              "episode_image": "episode_image",
+              "rating": "rating",
+              "season": "season",
+              "summary": "summary",
+              "title": "title",
+              "votes": "votes"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "Episode_episode",
+            "column_map": {
+              "episode_id": "episode_id",
+              "episode": "episode",
+              "episode_image": "episode_image",
+              "number_in_series": "number_in_series",
+              "rating": "rating",
+              "season": "season",
+              "votes": "votes"
+            },
+            "orig_to_local": {
+              "episode_id": "episode_id",
+              "episode": "episode",
+              "episode_image": "episode_image",
+              "number_in_series": "number_in_series",
+              "rating": "rating",
+              "season": "season",
+              "votes": "votes"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "episodeRating",
+            "to_local_table": "episodeRecord",
+            "from_local_column": "episodeId",
+            "to_local_column": "episodeId"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "episodeRating",
+            "to_local_table": "ep_air_info",
+            "from_local_column": "episodeId",
+            "to_local_column": "ep_id"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "Award_award_category",
+      "source_table": "Award",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "Award_award_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "Award_award_part2",
+      "source_table": "Award",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "Award_award_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "Award_award_part3",
+      "source_table": "Award",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "Award_award_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "Award_award_part4",
+      "source_table": "Award",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_2",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "Award_award_part1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "Episode_episode",
+      "source_table": "Episode",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "Vote",
+        "partner_logical_table": "Vote",
+        "partner_weight": 9,
+        "cross_local_query_count": 9,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "Episode_air_date",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "Award_award_category|Character_Award": 12,
+      "Award_award_category|Credit": 3,
+      "Award_award_category|Person": 17,
+      "Award_award_category|Vote": 8,
+      "Award_award_part1|Character_Award": 15,
+      "Award_award_part1|Credit": 3,
+      "Award_award_part1|Person": 17,
+      "Award_award_part1|Vote": 7,
+      "Award_award_part2|Character_Award": 15,
+      "Award_award_part2|Credit": 3,
+      "Award_award_part2|Person": 17,
+      "Award_award_part2|Vote": 7,
+      "Award_award_part3|Character_Award": 15,
+      "Award_award_part3|Credit": 3,
+      "Award_award_part3|Person": 17,
+      "Award_award_part3|Vote": 7,
+      "Award_award_part4|Character_Award": 15,
+      "Award_award_part4|Credit": 3,
+      "Award_award_part4|Person": 17,
+      "Award_award_part4|Vote": 7,
+      "Award_award_part5|Character_Award": 15,
+      "Award_award_part5|Credit": 3,
+      "Award_award_part5|Person": 17,
+      "Award_award_part5|Vote": 7,
+      "Credit|Episode_air_date": 15,
+      "Credit|Episode_episode": 5,
+      "Credit|Keyword": 1,
+      "Credit|Vote": 1,
+      "Episode_air_date|Vote": 32,
+      "Episode_episode|Vote": 9,
+      "Keyword|Vote": 4
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "Award_award_category": "local_1",
+      "Award_award_part1": "local_1",
+      "Award_award_part2": "local_1",
+      "Award_award_part3": "local_1",
+      "Award_award_part4": "local_1",
+      "Award_award_part5": "local_1",
+      "Character_Award": "local_3",
+      "Credit": "local_2",
+      "Episode_air_date": "local_1",
+      "Episode_episode": "local_1",
+      "Keyword": "local_1",
+      "Person": "local_2",
+      "Vote": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "Award": {
+        "R": 4,
+        "F": 6,
+        "rho": 0.8
+      },
+      "Episode": {
+        "R": 1,
+        "F": 2,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "Award": {
+        "R": 3,
+        "F": 5,
+        "home_fragments": 5,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "Award": "Award_award_part1"
+    },
+    "intents": [
+      {
+        "source_table": "Award",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Award_award_category",
+        "anchor_fragment": "Award_award_part1",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "Award",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Award_award_part2",
+        "anchor_fragment": "Award_award_part1",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "Award",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Award_award_part3",
+        "anchor_fragment": "Award_award_part1",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "Award",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Award_award_part4",
+        "anchor_fragment": "Award_award_part1",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "Episode",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "Episode_episode",
+        "anchor_fragment": "Episode_air_date",
+        "partner_fragment": "Vote",
+        "partner_logical_table": "Vote",
+        "partner_weight": 9,
+        "cross_local_query_count": 9,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "Award",
+        "kind": "row_partition",
+        "movable_fragment": "Award_award_part2",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "Award_award_part1"
+      },
+      {
+        "source_table": "Award",
+        "kind": "row_partition",
+        "movable_fragment": "Award_award_part3",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "Award_award_part1"
+      },
+      {
+        "source_table": "Award",
+        "kind": "row_partition",
+        "movable_fragment": "Award_award_part4",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "Award_award_part1"
+      }
+    ],
+    "moved_fragments": [
+      "Award_award_category",
+      "Award_award_part2",
+      "Award_award_part3",
+      "Award_award_part4",
+      "Episode_episode"
+    ],
+    "pinned_fragments": [
+      "Person",
+      "Vote"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "Award",
+        "kind": "row_partition",
+        "movable_fragment": "Award_award_part2",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "Award_award_part1",
+        "reason": "movable_already_moved"
+      },
+      {
+        "source_table": "Award",
+        "kind": "row_partition",
+        "movable_fragment": "Award_award_part3",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "Award_award_part1",
+        "reason": "movable_already_moved"
+      },
+      {
+        "source_table": "Award",
+        "kind": "row_partition",
+        "movable_fragment": "Award_award_part4",
+        "partner_fragment": "Person",
+        "partner_logical_table": "Person",
+        "partner_weight": 17,
+        "cross_local_query_count": 17,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "anchor_fragment": "Award_award_part1",
+        "reason": "movable_already_moved"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "Episode": {
+        "columns": [
+          {
+            "name": "episode_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "season",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "episode",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "number_in_series",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "title",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "summary",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "air_date",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "episode_image",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "rating",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "votes",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "episode_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 21
+      },
+      "Person": {
+        "columns": [
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birthdate",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birth_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birth_place",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birth_region",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "birth_country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "height_meters",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "nickname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "name"
+        ],
+        "pk_origin": "declared",
+        "row_count": 369
+      },
+      "Award": {
+        "columns": [
+          {
+            "name": "award_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "organization",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "year",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "award_category",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "award",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "person",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "role",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "episode_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "season",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "song",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "result",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "award_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 75
+      },
+      "Character_Award": {
+        "columns": [
+          {
+            "name": "award_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "character",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 12
+      },
+      "Credit": {
+        "columns": [
+          {
+            "name": "episode_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "category",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "person",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "role",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "credited",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 4557
+      },
+      "Keyword": {
+        "columns": [
+          {
+            "name": "episode_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "keyword",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "episode_id",
+          "keyword"
+        ],
+        "pk_origin": "declared",
+        "row_count": 307
+      },
+      "Vote": {
+        "columns": [
+          {
+            "name": "episode_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stars",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "votes",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "percent",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 210
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "Award",
+        "from_column": "episode_id",
+        "to_table": "Episode",
+        "to_column": "episode_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Award",
+        "from_column": "person",
+        "to_table": "Person",
+        "to_column": "name",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Character_Award",
+        "from_column": "award_id",
+        "to_table": "Award",
+        "to_column": "award_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Credit",
+        "from_column": "person",
+        "to_table": "Person",
+        "to_column": "name",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Credit",
+        "from_column": "episode_id",
+        "to_table": "Episode",
+        "to_column": "episode_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Keyword",
+        "from_column": "episode_id",
+        "to_table": "Episode",
+        "to_column": "episode_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "Vote",
+        "from_column": "episode_id",
+        "to_table": "Episode",
+        "to_column": "episode_id",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 7,
+      "num_fk_edges": 7,
+      "hub_tables": [
+        "Episode",
+        "Award",
+        "Person",
+        "Credit",
+        "Character_Award"
+      ],
+      "connected_components": 1
+    }
+  }
+}

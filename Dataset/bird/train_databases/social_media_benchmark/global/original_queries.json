@@ -1,0 +1,548 @@
+[
+  {
+    "sql": "SELECT COUNT(TweetID) AS tweet_number FROM twitter WHERE Lang = 'en'",
+    "question_id": null,
+    "question": "How many tweets are in English?",
+    "difficulty": "",
+    "evidence": "english is the language and refers to Lang = 'en'"
+  },
+  {
+    "sql": "SELECT text FROM twitter WHERE IsReshare = 'TRUE'",
+    "question_id": null,
+    "question": "Please list the texts of all the tweets that are reshared.",
+    "difficulty": "",
+    "evidence": "reshared refers to Isreshare = 'TRUE'"
+  },
+  {
+    "sql": "SELECT COUNT(TweetID) AS tweet_number FROM twitter WHERE Reach > 1000",
+    "question_id": null,
+    "question": "How many tweets are seen by more than 1000 unique users?",
+    "difficulty": "",
+    "evidence": "seen by more than 1000 unique users refers to Reach > 1000"
+  },
+  {
+    "sql": "SELECT COUNT(TweetID) AS tweet_number FROM twitter WHERE Sentiment > 0 AND Weekday = 'Thursday'",
+    "question_id": null,
+    "question": "Among all the tweets that have a positive sentiment, how many of them are posted on Thursday?",
+    "difficulty": "",
+    "evidence": "positive sentiment refers to Sentiment > 0; posted on Thursday refers to Weekday = 'Thursday'"
+  },
+  {
+    "sql": "SELECT text FROM twitter WHERE Likes = ( SELECT MAX( Likes) FROM twitter )",
+    "question_id": null,
+    "question": "What is the text of the tweet that got the most `likes`?",
+    "difficulty": "",
+    "evidence": "got the most like refers to Max(Likes)"
+  },
+  {
+    "sql": "SELECT City FROM location WHERE City IS NOT NULL AND Country = 'Argentina'",
+    "question_id": null,
+    "question": "Please list all the cities in Argentina.",
+    "difficulty": "",
+    "evidence": "\"Argentina\" is the Country"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T2.Country = 'Argentina' LIMIT 1",
+    "question_id": null,
+    "question": "How many tweets in total were posted by a user in Argentina?",
+    "difficulty": "",
+    "evidence": "\"Argentina\" is the Country"
+  },
+  {
+    "sql": "SELECT T2.City FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T2.Country = 'Argentina' GROUP BY T2.City ORDER BY COUNT(T1.TweetID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Users in which city of Argentina post the most tweets?",
+    "difficulty": "",
+    "evidence": "\"Argentina\" is the Country; post the most tweets refers to Max(Count(TweetID))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T2.City = 'Buenos Aires' AND T1.IsReshare = 'TRUE'",
+    "question_id": null,
+    "question": "Among all the tweets that are reshared, how many of them are posted by a user in Buenos Aires?",
+    "difficulty": "",
+    "evidence": "reshared refers to Isreshare = 'TRUE'; 'Buenos Aires' is the City"
+  },
+  {
+    "sql": "SELECT T1.text FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T1.Sentiment > 0 AND T2.City = 'Buenos Aires'",
+    "question_id": null,
+    "question": "Please list the texts of all the tweets posted from Buenos Aires with a positive sentiment.",
+    "difficulty": "",
+    "evidence": "\"Buenos Aires\" is the City; positive sentiment refers to Sentiment > 0"
+  },
+  {
+    "sql": "SELECT T2.Country FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID ORDER BY T1.Likes DESC LIMIT 1",
+    "question_id": null,
+    "question": "From which country is the tweet with the most likes posted?",
+    "difficulty": "",
+    "evidence": "tweet with the most likes refers to Max(Likes)"
+  },
+  {
+    "sql": "SELECT T2.Country FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T2.Country IN ('Argentina', 'Australia') AND T1.Sentiment > 0 GROUP BY T2.Country ORDER BY COUNT(T1.TweetID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Users in which country has posted more numbers of positive tweets, Argentina or Australia?",
+    "difficulty": "",
+    "evidence": "\"Argentina\" and \"Australia\" are both Country; positive tweets refers to Sentiment > 0; Country posted more number of tweets refers to Country where Max(Count(TweetID))"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T2.City = 'Buenos Aires' AND T1.Weekday = 'Thursday'",
+    "question_id": null,
+    "question": "Among all the tweets posted from Buenos Aires, how many of them were posted on Thursdays?",
+    "difficulty": "",
+    "evidence": "\"Buenos Aires\" is the City; posted on Thursday refers to Weekday = 'Thursday'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.Likes > 10 AND T2.Gender = 'Male'",
+    "question_id": null,
+    "question": "Among all the users that have posted a tweet with over 1000 likes, how many of them are male?",
+    "difficulty": "",
+    "evidence": "over 1000 likes refers to Likes > 1000; 'Male' is the Gender of user"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Male'",
+    "question_id": null,
+    "question": "How many tweets have the male users posted in total?",
+    "difficulty": "",
+    "evidence": "male users refers to Gender = 'Male'; total tweets refers to Count(TweetID)"
+  },
+  {
+    "sql": "SELECT T2.Gender FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID ORDER BY T1.Reach DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the gender of the user who has posted the tweet that is seen by the most number of unique users?",
+    "difficulty": "",
+    "evidence": "seen by the most number of unique users refers to Max(Reach)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID INNER JOIN user AS T3 ON T1.UserID = T3.UserID WHERE T3.Gender = 'Male' AND T2.Country = 'Argentina'",
+    "question_id": null,
+    "question": "How many tweets are posted by male users in Argentina?",
+    "difficulty": "",
+    "evidence": "\"Argentina\" is the Country; male user refers to Gender = 'Male'"
+  },
+  {
+    "sql": "SELECT T1.text FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID INNER JOIN user AS T2 ON T2.UserID = T1.UserID INNER JOIN user AS T3 ON T1.UserID = T3.UserID WHERE T2.City = 'Buenos Aires' AND T3.Gender = 'Male'",
+    "question_id": null,
+    "question": "Please list the texts of all the tweets posted by male users from Buenos Aires.",
+    "difficulty": "",
+    "evidence": "\"Buenos Aires\" is the City; male user refers to Gender = 'Male'"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.City = 'Buenos Aires' THEN 1.0 ELSE 0 END) / COUNT(T1.TweetID) AS avg FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T2.Country = 'Argentina'",
+    "question_id": null,
+    "question": "What is the average number of tweets posted by the users in a city in Argentina?",
+    "difficulty": "",
+    "evidence": "\"Argentina\" is the Country; average number of tweets in a city = Divide (Count(TweetID where Country = 'Argentina'), Count (City))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.Gender = 'Male' THEN 1.0 ELSE 0 END) / COUNT(T1.TweetID) AS per FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.Sentiment > 0",
+    "question_id": null,
+    "question": "Among all the tweets with a positive sentiment, what is the percentage of those posted by a male user?",
+    "difficulty": "",
+    "evidence": "positive sentiment refers to Sentiment > 0; male user refers to Gender = 'Male'; percentage = Divide (Count(TweetID where Gender = 'Male'), Count (TweetID)) * 100"
+  },
+  {
+    "sql": "SELECT COUNT(UserID) AS user_number FROM user WHERE Gender = 'Unknown'",
+    "question_id": null,
+    "question": "Give the number of users who do not show their genders.",
+    "difficulty": "",
+    "evidence": "do not show their gender refers to Gender = 'Unknown'"
+  },
+  {
+    "sql": "SELECT COUNT(State) AS State_number FROM location WHERE Country = 'United Kingdom'",
+    "question_id": null,
+    "question": "State the number of states in the United Kingdom.",
+    "difficulty": "",
+    "evidence": "\"United Kingdom\" is the Country"
+  },
+  {
+    "sql": "SELECT DISTINCT StateCode FROM location WHERE State = 'Gwynedd'",
+    "question_id": null,
+    "question": "What is the code of Gwynedd State?",
+    "difficulty": "",
+    "evidence": "code refers to StateCode"
+  },
+  {
+    "sql": "SELECT DISTINCT LocationID FROM location WHERE State = 'West Sussex'",
+    "question_id": null,
+    "question": "Give the location id of West Sussex State.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T2.State = 'Texas' AND T1.IsReshare = 'TRUE'",
+    "question_id": null,
+    "question": "How many reshared tweets are there in Texas?",
+    "difficulty": "",
+    "evidence": "reshared tweet refers to IsReshare = 'TRUE'; 'Texas' is the State"
+  },
+  {
+    "sql": "SELECT T2.Country FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T1.Reach = 547851",
+    "question_id": null,
+    "question": "For the tweet which got a reach number of 547851, which country did it come from?",
+    "difficulty": "",
+    "evidence": "reach number of 547851 refers to Reach = 547851"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T1.Sentiment > 0 AND T2.State = 'Ha Noi'",
+    "question_id": null,
+    "question": "State the number of positive tweets from Ha Noi.",
+    "difficulty": "",
+    "evidence": "positive tweet refers to Sentiment > 0; 'Ha Noi' is the State"
+  },
+  {
+    "sql": "SELECT T1.text FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T2.State = 'Connecticut' ORDER BY T1.Klout DESC LIMIT 1",
+    "question_id": null,
+    "question": "Show the text of the tweet with the highest klout from Connecticut.",
+    "difficulty": "",
+    "evidence": "highest klout refers to Max(Klout); 'Connecticut' is the State"
+  },
+  {
+    "sql": "SELECT COUNT(T1.Likes) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID INNER JOIN user AS T3 ON T3.UserID = T1.UserID WHERE T2.State = 'Wisconsin' AND T3.Gender = 'Female'",
+    "question_id": null,
+    "question": "How many female Twitter users are there from Wisconsin?",
+    "difficulty": "",
+    "evidence": "female users refers to Gender = 'Female'; 'Wisconsin' is the State"
+  },
+  {
+    "sql": "SELECT T2.Gender FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.TweetID = 'tw-715909161071091712'",
+    "question_id": null,
+    "question": "What is the gender of the user who tweeted `tw-715909161071091712`?",
+    "difficulty": "",
+    "evidence": "\"tw-715909161071091712\" is the TweetID"
+  },
+  {
+    "sql": "SELECT T2.City FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T1.text = 'One of our favorite stories is @FINRA_News''s move to the cloud with AWS Enterprise Support! https://amp.twimg.com/v/991837f1-4815-4edc-a88f-e68ded09a02a'",
+    "question_id": null,
+    "question": "Give the name of the city of the user who tweeted `One of our favorite stories is @FINRA_News's move to the cloud with AWS Enterprise Support! https://amp.twimg.com/v/991837f1-4815-4edc-a88f-e68ded09a02a`.",
+    "difficulty": "",
+    "evidence": "\"One of our favorite stories is @FINRA_News's move to the cloud with AWS Enterprise Support! https://amp.twimg.com/v/991837f1-4815-4edc-a88f-e68ded09a02a\" is the text"
+  },
+  {
+    "sql": "SELECT T2.Gender FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.RetweetCount = 535",
+    "question_id": null,
+    "question": "What is the gender of the user whose tweet got 535 retweets?",
+    "difficulty": "",
+    "evidence": "tweet got 535 retweets refers to RetweetCount = 535"
+  },
+  {
+    "sql": "SELECT T2.Gender FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.Weekday = 'Wednesday' ORDER BY T1.Klout DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the gender of the user who made the highest klout tweet on Wednesdays.",
+    "difficulty": "",
+    "evidence": "highest klout refers to Max(Klout); 'Wednesday' is the Weekday"
+  },
+  {
+    "sql": "SELECT T2.Gender FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID ORDER BY T1.Likes DESC LIMIT 1",
+    "question_id": null,
+    "question": "For the tweet which got the most likes, state the gender of the user who tweeted it.",
+    "difficulty": "",
+    "evidence": "most likes refers to Max(Likes)"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T1.Weekday = 'Thursday' AND T2.State = 'Michigan'",
+    "question_id": null,
+    "question": "State the number of tweets from Michigan on Thursdays.",
+    "difficulty": "",
+    "evidence": "\"Michigan\" is the State; 'Thursday' is the Weekday; number of tweets refers to Count(TweetID)"
+  },
+  {
+    "sql": "SELECT T2.StateCode FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE T1.TweetID = 'tw-685681052912873473'",
+    "question_id": null,
+    "question": "Which state was the tweet `tw-685681052912873473` from? Give the state code.",
+    "difficulty": "",
+    "evidence": "tw-685681052912873473' is the TweetID"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T3.Gender = 'Male' THEN 1.0 ELSE 0 END) / COUNT(T1.TweetID) AS percentage FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID INNER JOIN user AS T3 ON T3.UserID = T1.UserID WHERE T2.State = 'Florida'",
+    "question_id": null,
+    "question": "What is the percentage of male Twitter users from Florida?",
+    "difficulty": "",
+    "evidence": "\"Florida\" is the State; male user refers to Gender = 'Male'; percentage = Divide (Count(UserID where Gender = 'Male'), Count (UserID)) * 100"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Sentiment > 0 THEN 1.0 ELSE 0 END) / COUNT(T1.TweetID) AS percentage FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID WHERE State = 'California'",
+    "question_id": null,
+    "question": "What is the percentage of the tweets from California are positive?",
+    "difficulty": "",
+    "evidence": "\"California\" is the State; positive tweet refers to Sentiment > 0; percentage = Divide (Count(TweetID where Sentiment > 0), Count (TweetID)) * 100"
+  },
+  {
+    "sql": "SELECT Weekday FROM twitter WHERE TweetID = 'tw-682712873332805633'",
+    "question_id": null,
+    "question": "What is the day of the week that tweet with ID tw-682712873332805633 was posted?",
+    "difficulty": "",
+    "evidence": "\"tw-682712873332805633\" is the TweetID; day of the week refers to Weekday"
+  },
+  {
+    "sql": "SELECT Reach FROM twitter WHERE text = 'Happy New Year to all those AWS instances of ours!'",
+    "question_id": null,
+    "question": "How many unique users have seen tweet with text `Happy New Year to all those AWS instances of ours!`?",
+    "difficulty": "",
+    "evidence": "\"Happy New Year to all those AWS instances of ours!\" is the text; seen unique users refers to Reach"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT TweetID) FROM twitter WHERE Lang = 'en'",
+    "question_id": null,
+    "question": "Count the total number of tweet IDs in `en`.",
+    "difficulty": "",
+    "evidence": "\"en\" is the language and refers to Lang = 'en'"
+  },
+  {
+    "sql": "SELECT LocationID FROM twitter WHERE TweetID = 'tw-682714048199311366'",
+    "question_id": null,
+    "question": "Is 3751 the location ID for tweet with ID tw-682714048199311366?",
+    "difficulty": "",
+    "evidence": "\"tw-682714048199311366\" is the TweetID"
+  },
+  {
+    "sql": "SELECT COUNT(TweetID) FROM twitter WHERE Weekday = 'Wednesday'",
+    "question_id": null,
+    "question": "How many tweets have been posted on Wednesday?",
+    "difficulty": "",
+    "evidence": "\"Wednesday\" is the Weekday"
+  },
+  {
+    "sql": "SELECT text FROM twitter WHERE Weekday = 'Thursday'",
+    "question_id": null,
+    "question": "List down all of the texts posted on Twitter on Thursday.",
+    "difficulty": "",
+    "evidence": "\"Thursday\" is the Weekday"
+  },
+  {
+    "sql": "SELECT T2.Gender FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.TweetID = 'tw-682714583044243456'",
+    "question_id": null,
+    "question": "What is the gender of the user who posted a tweet with ID tw-682714583044243456?",
+    "difficulty": "",
+    "evidence": "\"tw-682714583044243456\" is the TweetID"
+  },
+  {
+    "sql": "SELECT T1.text FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Unknown'",
+    "question_id": null,
+    "question": "List down the text of tweets posted by unknown gender users.",
+    "difficulty": "",
+    "evidence": "unknown gender user refers to Gender = 'Unknown'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Male'",
+    "question_id": null,
+    "question": "Calculate the total number of male tweet IDs.",
+    "difficulty": "",
+    "evidence": "\"Male\" is the Gender"
+  },
+  {
+    "sql": "SELECT T.Gender FROM ( SELECT T2.Gender, COUNT( text) AS num FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.Lang = 'en' GROUP BY T2.Gender ) T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "What gender of users posted the most tweets in `en`?",
+    "difficulty": "",
+    "evidence": "\"en\" is the language and refers to Lang = 'en'; most tweet in 'en' refers to Max(Count(text where Lang = 'en'))"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Gender FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.RetweetCount > 30",
+    "question_id": null,
+    "question": "What gender of users retweet more than 30 times?",
+    "difficulty": "",
+    "evidence": "retweet more than 30 times refers to RetweetCount > 30"
+  },
+  {
+    "sql": "SELECT COUNT(T1.UserID) FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Female' AND T1.IsReshare = 'TRUE'",
+    "question_id": null,
+    "question": "How many female users reshared their tweets?",
+    "difficulty": "",
+    "evidence": "female users refers to Gender = 'Female'; reshare refers to IsReshare = 'TRUE'"
+  },
+  {
+    "sql": "SELECT T.Country FROM ( SELECT T2.Country, SUM(T1.Likes) AS num FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID GROUP BY T2.Country ) T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which country's tweets collected the most likes?",
+    "difficulty": "",
+    "evidence": "country collected the most likes refers to Country where Max(Sum(Likes))"
+  },
+  {
+    "sql": "SELECT T2.Country FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T1.TweetID = 'tw-682723090279841798'",
+    "question_id": null,
+    "question": "Tweet with ID tw-682723090279841798 was posted from which country?",
+    "difficulty": "",
+    "evidence": "\"tw-682723090279841798\" is the TweetID"
+  },
+  {
+    "sql": "SELECT T1.text FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.Country = 'Australia'",
+    "question_id": null,
+    "question": "List down all the tweet text posted from Australia.",
+    "difficulty": "",
+    "evidence": "\"Australia\" is the Country"
+  },
+  {
+    "sql": "SELECT T1.text FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.City = 'Rawang' AND T2.State = 'Selangor' AND T2.Country = 'Malaysia'",
+    "question_id": null,
+    "question": "Write down the tweet text posted from Rawang, Selangor, Malaysia.",
+    "difficulty": "",
+    "evidence": "\"Rawang\" is the City; \"Selangor\" is the State; \"Malaysia\" is the Country"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Lang FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.Country = 'Brazil'",
+    "question_id": null,
+    "question": "Tweets that were posted from Brazil are in what languague?",
+    "difficulty": "",
+    "evidence": "\"Brazil\" is the Country; language refers to Lang"
+  },
+  {
+    "sql": "SELECT T.Country FROM ( SELECT T2.Country, SUM(T1.Sentiment) AS num FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T1.Sentiment > 0 GROUP BY T2.Country ) T ORDER BY T.num DESC LIMIT 1",
+    "question_id": null,
+    "question": "State the country where the most positive sentiment tweets were posted.",
+    "difficulty": "",
+    "evidence": "country with the most positive sentiment tweet refers to Country where Max(Count(Sentiment > 0))"
+  },
+  {
+    "sql": "SELECT SUM(T1.Likes) FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T1.Lang = 'ru' AND T2.Gender = 'Male'",
+    "question_id": null,
+    "question": "Calculate the total likes collected by tweets in `ru` posted by male users.",
+    "difficulty": "",
+    "evidence": "'ru' refers to Lang = 'ru'; male user refers to Gender = 'Male'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.TweetID) / COUNT(DISTINCT T1.UserID) / 7 AS avg FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Male' AND T1.Day BETWEEN 1 AND 31",
+    "question_id": null,
+    "question": "Calculate the average number of male users who posted tweets in a week.",
+    "difficulty": "",
+    "evidence": "male user refers to Gender = 'Male'; average tweet in a week per user refers to Divide ( Divide(Count(TweetID), Count (UserID)), Divide(31, 7))"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT TweetID) FROM twitter WHERE Klout > 50",
+    "question_id": null,
+    "question": "How many tweets have a klout of over 50?",
+    "difficulty": "",
+    "evidence": "klout of over 50 refers to Klout > 50"
+  },
+  {
+    "sql": "SELECT text FROM twitter WHERE Lang != 'en'",
+    "question_id": null,
+    "question": "Please list the texts of all the tweets that are not in English.",
+    "difficulty": "",
+    "evidence": "not in English refers to Lang <> en'"
+  },
+  {
+    "sql": "SELECT UserID FROM twitter GROUP BY UserID ORDER BY COUNT(DISTINCT TweetID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Please give the user ID of the user who has posted the most tweets.",
+    "difficulty": "",
+    "evidence": "users with the most tweet refers to UserID where Max(Count (TweetID))"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT TweetID) FROM twitter WHERE Weekday = 'Monday' AND IsReshare = 'TRUE'",
+    "question_id": null,
+    "question": "Among all the tweets posted on Mondays, how many of them are reshared?",
+    "difficulty": "",
+    "evidence": "\"Monday\" is the Weekday; reshare refers to IsReshare = 'TRUE'"
+  },
+  {
+    "sql": "SELECT text FROM twitter ORDER BY Reach DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the texts of the top 3 tweets with the most number of unique users seeing the tweet.",
+    "difficulty": "",
+    "evidence": "the most number of unique users seeing refers to Max(Reach)"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT TweetID) FROM twitter WHERE IsReshare = 'TRUE' AND Likes > 100",
+    "question_id": null,
+    "question": "How many reshared tweets have over 100 likes?",
+    "difficulty": "",
+    "evidence": "over 100 likes refers to Likes > 100; reshare tweet refers to IsReshare = 'TRUE'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.TweetID) FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Male' AND T1.Weekday = 'Monday'",
+    "question_id": null,
+    "question": "What is the total number of tweets sent by male users on Mondays?",
+    "difficulty": "",
+    "evidence": "male user refers to Gender = 'Male; 'Monday' is the Weekday; total number of tweet refers to Count (TweetID)"
+  },
+  {
+    "sql": "SELECT T2.Gender FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID ORDER BY T1.Likes DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the gender of the user who has posted the tweet that got the most likes?",
+    "difficulty": "",
+    "evidence": "tweet got the most likes refers to Max(Likes)"
+  },
+  {
+    "sql": "SELECT T1.text FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Male' AND T1.Lang = 'fr'",
+    "question_id": null,
+    "question": "Please list the texts of all the tweets in French posted by male users.",
+    "difficulty": "",
+    "evidence": "\"French\" is the language and refers to Lang = 'fr'; male user refers to Gender = 'Male'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T1.Lang = 'fr' AND T2.Country = 'Australia'",
+    "question_id": null,
+    "question": "How many tweets in French were posted from Australia?",
+    "difficulty": "",
+    "evidence": "\"French\" is the language and refers to Lang = 'fr'; 'Australia' is the Country"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T2.LocationID = T1.LocationID INNER JOIN user AS T3 ON T3.UserID = T1.UserID WHERE T2.Country = 'Australia' AND T3.Gender = 'Male' AND T1.Sentiment > 0",
+    "question_id": null,
+    "question": "Among all the tweets with a positive sentiment, how many of them were posted by male users in Australia?",
+    "difficulty": "",
+    "evidence": "tweet with positive sentiment refers to Sentiment > 0; male user refers to Gender = 'Male'; 'Australia' is the Country"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T1.Sentiment > 0 THEN 1 ELSE 0 END) - SUM(CASE WHEN T1.Sentiment = 0 THEN 1 ELSE 0 END) AS diff FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Male'",
+    "question_id": null,
+    "question": "How many more tweets with a positive sentiment than the tweets with a neutral sentiment were posted by male users?",
+    "difficulty": "",
+    "evidence": "positive sentiment tweet refers to Sentiment > 0; neutral sentiment refers to Sentiment = 0; male user refers to Gender = 'Male'; difference = Subtract (Count (TweetID where Sentiment > 0), Count (TweetID where Sentiment = 0))"
+  },
+  {
+    "sql": "SELECT T2.City FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID ORDER BY T1.RetweetCount DESC LIMIT 1",
+    "question_id": null,
+    "question": "From which city was the tweet with the most number of retweets posted?",
+    "difficulty": "",
+    "evidence": "tweet with most number of retweet post refers to Max(RetweetCount)"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.City = 'Bangkok' THEN 1 ELSE 0 END) AS bNum , SUM(CASE WHEN T2.City = 'Chiang Mai' THEN 1 ELSE 0 END) AS cNum FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.City IN ('Bangkok', 'Chiang Mai')",
+    "question_id": null,
+    "question": "From which city were more tweets posted, Bangkok or Chiang Mai?",
+    "difficulty": "",
+    "evidence": "\"Bangkok\" and \"Chiang Mai\" are both City"
+  },
+  {
+    "sql": "SELECT COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T1.Day = 31 AND T2.State = 'Santa' AND T2.Country = 'Argentina'",
+    "question_id": null,
+    "question": "Among the tweets posted from Santa Fe state in Argentina, how many of them were posted on 31st?",
+    "difficulty": "",
+    "evidence": "\"Sante Fe\" is the State; \"Argentina\" is the Country; posted on 31st refers to Day = 31"
+  },
+  {
+    "sql": "SELECT T.City FROM ( SELECT T2.City, COUNT(T1.TweetID) AS num FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.Country = 'Canada' GROUP BY T2.City ) T ORDER BY T.num DESC LIMIT 3",
+    "question_id": null,
+    "question": "Please list the top 3 cities with the most number of tweets posted in Canada.",
+    "difficulty": "",
+    "evidence": "\"Canada\" is the Country; city with most number of tweets refers to City where Max(Count(TweetID))"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.City FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE Sentiment = 0",
+    "question_id": null,
+    "question": "Please list all the cities from where tweets with neutral sentiments were posted.",
+    "difficulty": "",
+    "evidence": "neutral sentiment refers to Sentiment = 0"
+  },
+  {
+    "sql": "SELECT T2.text FROM user AS T1 INNER JOIN twitter AS T2 ON T1.UserID = T2.UserID INNER JOIN location AS T3 ON T2.LocationID = T3.LocationID WHERE T3.Country = 'Argentina' AND T1.Gender = 'Male' ORDER BY T2.Likes DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among all the tweets sent by male users in Argentina, what is the text of the one with the most number of likes?",
+    "difficulty": "",
+    "evidence": "male user refers to Gender = 'Male'; 'Argentina' is the Country; most number of likes refers to Max(Likes)"
+  },
+  {
+    "sql": "SELECT SUM(T1.Likes) / COUNT(T1.TweetID) FROM twitter AS T1 INNER JOIN user AS T2 ON T1.UserID = T2.UserID WHERE T2.Gender = 'Male' AND T1.Weekday = 'Monday'",
+    "question_id": null,
+    "question": "What is the average number of likes for a tweet posted by a male user on Mondays?",
+    "difficulty": "",
+    "evidence": "male user refers to Gender = 'Male'; 'Monday' is the Weekday; average number of likes = Divide (Sum(Likes), Count(TweetID))"
+  },
+  {
+    "sql": "SELECT SUM(CASE WHEN T2.City = 'Bangkok' THEN Likes ELSE NULL END) / COUNT(CASE WHEN T2.City = 'Bangkok' THEN 1 ELSE 0 END) AS bNum , SUM(CASE WHEN City = 'Chiang Mai' THEN Likes ELSE NULL END) / COUNT(CASE WHEN City = 'Chiang Mai' THEN TweetID ELSE NULL END) AS cNum FROM twitter AS T1 INNER JOIN location AS T2 ON T1.LocationID = T2.LocationID WHERE T2.City IN ('Bangkok', 'Chiang Mai')",
+    "question_id": null,
+    "question": "Tweets posted from which city has a higher number of average likes, Bangkok or Chiang Mai?",
+    "difficulty": "",
+    "evidence": "\"Bangkok\" and \"Chiang Mai\" are both City; average number of like = Divide (Sum(Likes), Count(TweetID))"
+  }
+]

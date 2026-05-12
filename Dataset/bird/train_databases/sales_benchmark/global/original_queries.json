@@ -1,0 +1,751 @@
+[
+  {
+    "sql": "SELECT COUNT(SalesID) FROM Sales WHERE CustomerID = 80",
+    "question_id": null,
+    "question": "How many sales ids are there for customer id 80?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(Quantity) FROM Sales WHERE SalesID BETWEEN 1 AND 10",
+    "question_id": null,
+    "question": "Count the total quantity for sales from id 1 to 10.",
+    "difficulty": "",
+    "evidence": "sales from id 1 to 10 refers to SalesID BETWEEN 1 AND 10;"
+  },
+  {
+    "sql": "SELECT AVG(Quantity) FROM Sales WHERE SalesID BETWEEN 20 AND 30",
+    "question_id": null,
+    "question": "Calculate the average quantity per sales from sales id 20 to 30.",
+    "difficulty": "",
+    "evidence": "average quantity = AVG(Quantity); SalesID BETWEEN 20 AND 30;"
+  },
+  {
+    "sql": "SELECT DISTINCT ProductID FROM Sales WHERE Quantity = ( SELECT MAX(Quantity) FROM Sales )",
+    "question_id": null,
+    "question": "List down the product id for products with the highest quantity.",
+    "difficulty": "",
+    "evidence": "highest quantity refers to MAX(Quantity);"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT ProductID) FROM Products WHERE Price = ( SELECT MAX(Price) FROM Products )",
+    "question_id": null,
+    "question": "How many product ids have the lowest price?",
+    "difficulty": "",
+    "evidence": "lowest price refers to MIN(Price);"
+  },
+  {
+    "sql": "SELECT Name FROM Products WHERE Price = 0",
+    "question_id": null,
+    "question": "List down product names of free gifts.",
+    "difficulty": "",
+    "evidence": "free gifts refers to Price = 0;"
+  },
+  {
+    "sql": "SELECT Name FROM Products WHERE ProductID BETWEEN 1 AND 10",
+    "question_id": null,
+    "question": "List down the product name for products from id 1 to 10.",
+    "difficulty": "",
+    "evidence": "products from id 1 to 10 refers to ProductID BETWEEN 1 AND 10;"
+  },
+  {
+    "sql": "SELECT T2.Name FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID ORDER BY T1.Quantity LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the product with the lowest quantity?",
+    "difficulty": "",
+    "evidence": "lowest quantity refers to MIN(Quantity);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.CustomerID) FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'Hex Nut 9'",
+    "question_id": null,
+    "question": "How many customer ids have purchased Hex Nut 9?",
+    "difficulty": "",
+    "evidence": "Hex Nut 9' is name of product;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.SalesID) FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'Flat Washer 8'",
+    "question_id": null,
+    "question": "Calculate the total sales ids that were sales of Flat Washer 8.",
+    "difficulty": "",
+    "evidence": "Flat Washer 8' is name of product;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.SalesPersonID = 10",
+    "question_id": null,
+    "question": "List down all of the product names that were placed by sales person with id 10.",
+    "difficulty": "",
+    "evidence": "id refers to SalesPersonID; SalesPersonID = 10"
+  },
+  {
+    "sql": "SELECT T1.FirstName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T2.ProductID = 1",
+    "question_id": null,
+    "question": "List down the first name of customers who placed order for product id 1.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.SalesID = 178",
+    "question_id": null,
+    "question": "What is the last name of the customer who placed an order for sales id 178?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T1.ProductID FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Abby'",
+    "question_id": null,
+    "question": "List down product ids that were purchased by customers called Abby.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.ProductID FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID WHERE T1.FirstName = 'Meander'",
+    "question_id": null,
+    "question": "Write down all of the product ids that were placed by Meander.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID WHERE T2.SalesID = 100",
+    "question_id": null,
+    "question": "What is the last name of sales person for sales id 100?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T3.FirstName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID WHERE T1.FirstName = 'Abigail'",
+    "question_id": null,
+    "question": "What is the first name of employee who handled sales for customer called Abigail?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.CustomerID = 11782 AND T1.Price = 0",
+    "question_id": null,
+    "question": "How many free gifts have customer with id 11782 received?",
+    "difficulty": "",
+    "evidence": "free gifts refers to Price = 0;"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.SalesPersonID = 5",
+    "question_id": null,
+    "question": "What is the full name of customers who dealt with sales person with id 5?",
+    "difficulty": "",
+    "evidence": "full name = FirstName, MiddleInitial, LastName;"
+  },
+  {
+    "sql": "SELECT T1.SalesID FROM Sales AS T1 INNER JOIN Employees AS T2 ON T1.SalesPersonID = T2.EmployeeID WHERE SUBSTR(T2.FirstName, 1, 1) = 's'",
+    "question_id": null,
+    "question": "List down all of the sales IDs for sales handled by sales people with first name starting with alphabet \"s\".",
+    "difficulty": "",
+    "evidence": "first name starting with alphabet \"s\" refers to FirstName LIKE 's%';"
+  },
+  {
+    "sql": "SELECT T1.Price FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.CustomerID BETWEEN 1 AND 100 ORDER BY T1.Price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among customers with IDs from 1 to 100, what is the highest price of products they purchased?",
+    "difficulty": "",
+    "evidence": "IDs from 1 to 100 refers to CustomerID BETWEEN 1 AND 100 ; highest price refers to MAX(Price);"
+  },
+  {
+    "sql": "SELECT T1.FirstName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.LastName = 'Valdez' ORDER BY T2.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among customers with the last name of Valdez, who purchased the highest quantity?",
+    "difficulty": "",
+    "evidence": "highest quantity refers to MAX(Quantity);"
+  },
+  {
+    "sql": "SELECT SUM(IIF(T2.FirstName = 'Morningstar', 1, 0)) + SUM(IIF(T2.FirstName = 'Heather', 1, 0)) + SUM(IIF(T2.FirstName = 'Dean', 1, 0)) AS num FROM Sales AS T1 INNER JOIN Employees AS T2 ON T1.SalesPersonID = T2.EmployeeID",
+    "question_id": null,
+    "question": "Sum up the number sales ids handled by employees called Morningstar, Heather and Dean.",
+    "difficulty": "",
+    "evidence": "SUM = ADD(SUM(SalesID WHERE FirstName = 'Morningstar'), SUM(SalesID WHERE FirstName = 'Heather'), SUM(SalesID WHERE FirstName = 'Dean'));"
+  },
+  {
+    "sql": "SELECT IIF(T1.ProductID = 498, 'YES', 'NO') FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Alex'",
+    "question_id": null,
+    "question": "Has Alex purchased product with id 498?",
+    "difficulty": "",
+    "evidence": "WHEN ProductID = 498 AND FirstName = 'Alex' means that Alex purchased a product; WHEN ProductID = 498 AND FirstName NOT 'Alex' means Alex has not purchased a product;"
+  },
+  {
+    "sql": "SELECT SUM(T3.Price * T2.quantity) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.FirstName = 'Adam'",
+    "question_id": null,
+    "question": "Calculate the total price of products purchased by Adam.",
+    "difficulty": "",
+    "evidence": "total price = SUM(MULTIPLY(Price, Quantity));"
+  },
+  {
+    "sql": "SELECT SUM(T1.Price * T2.quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.ProductID BETWEEN 400 AND 500",
+    "question_id": null,
+    "question": "Calculate the total price for products from id 400 to 500.",
+    "difficulty": "",
+    "evidence": "total price = SUM(MULTIPLY(Price, Quantity)); from id 400 to 500 refers to ProductID BETWEEN 400 AND 500;"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE SUBSTR(T1.Name, 1, 1) = 'C'",
+    "question_id": null,
+    "question": "Calculate the total quantity of products with name starting with alphabet \"c\".",
+    "difficulty": "",
+    "evidence": "name starting with alphabet \"c\" refers to Name LIKE 'C%';"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.FirstName = 'Adam'",
+    "question_id": null,
+    "question": "Calculate the total quantity of products purchased by customer called Adrian.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT ProductID FROM Products ORDER BY Price DESC LIMIT 5",
+    "question_id": null,
+    "question": "List the product ID of the top five products, by descending order, in terms of price.",
+    "difficulty": "",
+    "evidence": "top 5 products in terms of Price refers to MAX(Price) LIMIT 5;"
+  },
+  {
+    "sql": "SELECT COUNT(ProductID) FROM Products WHERE Price = 0",
+    "question_id": null,
+    "question": "Among the products, how many of them are freebies?",
+    "difficulty": "",
+    "evidence": "freebies refers to Price = 0;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Quantity > 950",
+    "question_id": null,
+    "question": "Write down the name of products whose sale quantity is more than 950.",
+    "difficulty": "",
+    "evidence": "quantity is more than 950 refers to Quantity > 950;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.FirstName, T2.MiddleInitial, T2.LastName FROM Sales AS T1 INNER JOIN Employees AS T2 ON T1.SalesPersonID = T2.EmployeeID WHERE T1.Quantity = 1000",
+    "question_id": null,
+    "question": "What is the full name of employee who sold 1000 units?",
+    "difficulty": "",
+    "evidence": "full name of employee = FirstName, MiddleInitial, LastName; units refers to quantity; Quantity = 100"
+  },
+  {
+    "sql": "SELECT T3.Name, T2.Quantity FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T2.SalesID BETWEEN 1 AND 10",
+    "question_id": null,
+    "question": "Tally the product name and quantity of the first ten sales.",
+    "difficulty": "",
+    "evidence": "first ten sales refers to SalesID BETWEEN 1 AND 10;"
+  },
+  {
+    "sql": "SELECT SUM(T1.Price * T2.quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'Reflector'",
+    "question_id": null,
+    "question": "What is the total sales amount for Reflector?",
+    "difficulty": "",
+    "evidence": "total sales amount = SUM(MULTIPLY(Price, Quantity)); 'Reflector' is name of product;"
+  },
+  {
+    "sql": "SELECT IIF(SUM(IIF(T1.Name = 'HL Mountain Frame - Silver, 42', T2.SalesID, 0)) - SUM(IIF(T1.Name = 'HL Mountain Frame - Black, 42', T2.SalesID, 0)) > 0, 'Silver', 'Black') FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID",
+    "question_id": null,
+    "question": "What is the best selling colour for HL Mountain Frame, 42?",
+    "difficulty": "",
+    "evidence": "best selling colour refers to name of product with higher total sales; SUM(SalesID WHERE Name = 'HL Mountain Frame - Silver, 42') > SUM(Name = 'HL Mountain Frame - Black, 42') means Silver is the best selling colour, otherwise Black is the best seling colour;"
+  },
+  {
+    "sql": "SELECT ( SELECT Price FROM Products WHERE Name = 'HL Mountain Frame - Black, 42' ) - ( SELECT Price FROM Products WHERE Name = 'LL Mountain Frame - Black, 42' ) AS num",
+    "question_id": null,
+    "question": "What is the difference in price between HL Mountain Frame - Black, 42 and LL Mountain Frame - Black, 42?",
+    "difficulty": "",
+    "evidence": "difference = SUBTRACT((Price WHERE Name = 'HL Mountain Frame - Black, 42'), (Price WHERE Name = 'HL Mountain Frame - Black, 42'));"
+  },
+  {
+    "sql": "SELECT COUNT(T1.SalesID) FROM Sales AS T1 INNER JOIN Employees AS T2 ON T1.SalesPersonID = T2.EmployeeID WHERE T2.FirstName = 'Michel' AND T2.MiddleInitial = 'e' AND T2.LastName = 'DeFrance'",
+    "question_id": null,
+    "question": "Calculate the total number of sales closed by Michel E. DeFrance?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT CAST(COUNT(T1.CustomerID) AS REAL) / COUNT(T3.EmployeeID) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID",
+    "question_id": null,
+    "question": "What is the average number of customers per sales person?",
+    "difficulty": "",
+    "evidence": "average = DIVIDE(COUNT(CustomerID), COUNT(EmployeeID));"
+  },
+  {
+    "sql": "SELECT COUNT(T2.CustomerID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID WHERE T3.FirstName = 'Innes' AND T3.LastName = 'del Castillo' AND T1.Name = 'Short-Sleeve Classic Jersey, L' AND T3.MiddleInitial = 'e'",
+    "question_id": null,
+    "question": "Among all customers handled by Innes E. del Castillo, how many have purchased Short-Sleeve Classic Jersey, L?",
+    "difficulty": "",
+    "evidence": "Short-Sleeve Classic Jersey, L' is name of product;"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.FirstName, T3.MiddleInitial, T3.LastName FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID INNER JOIN Customers AS T4 ON T2.CustomerID = T4.CustomerID WHERE T4.MiddleInitial = 'A' AND T4.LastName = 'White' AND T1.Name = 'Road-250 Black, 48' AND T4.FirstName = 'Elizabeth'",
+    "question_id": null,
+    "question": "Name the sales person who helped Elizabeth A. White to purchase Road-250 Black, 48.",
+    "difficulty": "",
+    "evidence": "name of the sales person = FirstName, MiddleInitial, LastName; 'Road-250 Black, 48' is name of product;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.SalesPersonID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'Headlights - Weatherproof'",
+    "question_id": null,
+    "question": "How many sales people managed to sell Headlights - Weatherproof?",
+    "difficulty": "",
+    "evidence": "Headlights - Weatherproof' is name of product"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity * T1.Price) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'HL Road Frame - Red, 56'",
+    "question_id": null,
+    "question": "Calculate the revenue produced through sales of HL Road Frame - Red, 56.",
+    "difficulty": "",
+    "evidence": "revenue = MULTIPLY(SUM(Quantity, Price)); 'HL Road Frame - Red, 56' is name of product;"
+  },
+  {
+    "sql": "SELECT COUNT(T1.SalesID) FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Joe' AND T2.MiddleInitial = 'L' AND T2.LastName = 'Lopez'",
+    "question_id": null,
+    "question": "How many sales transactions were given by the customer named Joe L. Lopez?",
+    "difficulty": "",
+    "evidence": "sales transactions refers to SalesID;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T3.Name = 'Touring Rim' AND T3.Price = 0",
+    "question_id": null,
+    "question": "Name the customers who received 'Touring Rim' as a free gift.",
+    "difficulty": "",
+    "evidence": "name of the customer = FirstName, MiddleInitial, LastName; 'Touring Rim' is name of product;"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM Sales GROUP BY SalesPersonID",
+    "question_id": null,
+    "question": "Find the number of customers handled by each of the sales people.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(EmployeeID) FROM Employees",
+    "question_id": null,
+    "question": "How many sales people are handling all the customers?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT FirstName, MiddleInitial, LastName FROM Employees WHERE EmployeeID = 7",
+    "question_id": null,
+    "question": "Identify the name of the sales person with employee ID 7.",
+    "difficulty": "",
+    "evidence": "name of the sales person = FirstName, MiddleInitial, LastName;"
+  },
+  {
+    "sql": "SELECT Name FROM Products WHERE Price IN (( SELECT MAX(Price) FROM Products ), ( SELECT MIN(Price) FROM Products ))",
+    "question_id": null,
+    "question": "Name the most expensive and the least expensive products available, excluding free gifts.",
+    "difficulty": "",
+    "evidence": "most expensive product refers to MAX(Price); least expensive product refers to MIN(Price); excluding free gifts refers to not including Price = 0;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T3.FirstName = 'Albert' AND T3.MiddleInitial = 'I' AND T3.LastName = 'Ringer', 1, 0)) AS REAL) * 100 / COUNT(T2.CustomerID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID WHERE T1.Name = 'ML Bottom Bracket'",
+    "question_id": null,
+    "question": "Among all the customers who have purchased ML Bottom Bracket, identify the percentage of sales by Albert I. Ringer?",
+    "difficulty": "",
+    "evidence": "ML Bottom Bracket' is name of product; percentage = MULTIPLY(DIVIDE(SUM(CustomerID WHERE FirstName = 'Albert' AND MiddleInitial = 'I' AND LastName = 'Ringer'), COUNT(CustomerID)), 1.0);"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM Customers WHERE FirstName = 'Abigail'",
+    "question_id": null,
+    "question": "How many customers have the first name Abigail?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Quantity FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'Blade'",
+    "question_id": null,
+    "question": "Indicate the quantity of Blade products sold.",
+    "difficulty": "",
+    "evidence": "Blade' is name of product;"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID ORDER BY T2.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the full name of the employee who has sold the most quantity.",
+    "difficulty": "",
+    "evidence": "full name of the employee = FirstName, LastName; most quantity refers to MAX(Quantity);"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID ORDER BY T2.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "List the full name of the customer who purchased the most quantity of products.",
+    "difficulty": "",
+    "evidence": "full name of the customer = FirstName, LastName; most quantity refers to MAX(Quantity);"
+  },
+  {
+    "sql": "SELECT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.SalesPersonID = 20 ORDER BY T2.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the product that is most sold by sale person id 20?",
+    "difficulty": "",
+    "evidence": "most sold refers to MAX(Quantity);"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.FirstName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID WHERE T2.Quantity > 500",
+    "question_id": null,
+    "question": "List the first names of employees with trading quantity for more than 500.",
+    "difficulty": "",
+    "evidence": "trading quantity for more than 500 refers to Quantity > 500;"
+  },
+  {
+    "sql": "SELECT T1.FirstName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.SalesPersonID = 1",
+    "question_id": null,
+    "question": "List the first names of customers who have purchased products from sale person id 1.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Employees AS T3 ON T2.SalesPersonID = T3.EmployeeID WHERE T2.SalesPersonID = 1 AND T1.FirstName = 'Aaron' AND T1.LastName = 'Alexander' AND T3.FirstName = 'Abraham'",
+    "question_id": null,
+    "question": "Calculate the total trading quantity of Abraham sold to Aaron Alexander.",
+    "difficulty": "",
+    "evidence": "total trading quantity = SUM(Quantity WHERE Employees.FirstName = 'Abraham' AND Customers.FirstName = 'Aaron' AND Customers.LastName = 'Alexander');"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.Quantity > 600",
+    "question_id": null,
+    "question": "List the full names of customers who have purchased products in quantity over 600.",
+    "difficulty": "",
+    "evidence": "full names of customers = FirstName, LastName; quantity over 600 refers to quantity > 600;"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.LastName FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.FirstName = 'Cameron' ORDER BY T2.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the customers whose first name is Cameron, who bought the product in the most quantity?",
+    "difficulty": "",
+    "evidence": "most quantity refers to MAX(Quantity); who refers to FirstName, LastName;"
+  },
+  {
+    "sql": "SELECT T2.SalesID FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name LIKE 'Hex Nut%' AND T1.Price > 100",
+    "question_id": null,
+    "question": "Please provide sales ID for products named Hex Nut with a price greater than 100.",
+    "difficulty": "",
+    "evidence": "price greater than 100 refers to price > 100;"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.CustomerID FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Price BETWEEN 1000 AND 2000",
+    "question_id": null,
+    "question": "Identify customer IDs who bought products priced from 1000 to 2000.",
+    "difficulty": "",
+    "evidence": "priced from 1000 to 2000 refers to Price BETWEEN 1000 AND 2000;"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Price = 0",
+    "question_id": null,
+    "question": "Calculate the total quantity of products that are gifts.",
+    "difficulty": "",
+    "evidence": "total quantity = SUM(Quantity); gifts refers to Price = 0;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T1.Price = 0, T2.Quantity, 0)) AS REAL) * 100 / SUM(T2.Quantity)FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID",
+    "question_id": null,
+    "question": "Calculate the quantity percentage of the gift products in the total trading quantity.",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(Quantity WHERE Price = 0), SUM(Quantity)), 1.0); gift products refers to Price = 0;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T1.Name = 'Blade', T2.Quantity, 0)) AS REAL) * 100 / SUM(T2.Quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID",
+    "question_id": null,
+    "question": "Calculate the percentage of sold blades in the total number of transactions.",
+    "difficulty": "",
+    "evidence": "percentage = MULTIPLY(DIVIDE(SUM(Quantity WHERE Name = 'Blade'), SUM(Quantity)), 1.0); 'blades' refers to name of product;"
+  },
+  {
+    "sql": "SELECT COUNT(LastName) FROM Employees WHERE LastName = 'Ringer'",
+    "question_id": null,
+    "question": "How many of the employees have the last name \"Ringer\" ?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(ProductID) FROM Products WHERE ProductID < 15 AND Price <= 10",
+    "question_id": null,
+    "question": "Among the products with product ID lower than 15, how many of them costs 10 and below?",
+    "difficulty": "",
+    "evidence": "product ID lower than 15 refers to ProductID < 15; costs 10 and below refers to Price; Price < = 10;"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T3.FirstName = 'Aaron' AND T3.LastName = 'Alexander'",
+    "question_id": null,
+    "question": "Give the product's name brought by Aaron Alexander.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.ProductID, T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.quantity BETWEEN 400 AND 500 ORDER BY T1.Price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the product ID and name of the product with the highest prices among the quantity ranges from 400 to 500.",
+    "difficulty": "",
+    "evidence": "highest prices refers to MAX(Price); quantity ranges from 400 to 500 refers to Quantity BETWEEN 400 AND 500;"
+  },
+  {
+    "sql": "SELECT T2.FirstName, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Kate' ORDER BY T1.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among customers named Kate, who has the highest quantity?",
+    "difficulty": "",
+    "evidence": "highest quantity refers to MAX(Quantity);"
+  },
+  {
+    "sql": "SELECT T2.CustomerID, T2.SalesID FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Price BETWEEN 100 AND 150 AND T2.Quantity < 25",
+    "question_id": null,
+    "question": "Among the products that have price ranges from 100 to 150, what is the customer ID and sales ID of the product with a quantity lower than 25?",
+    "difficulty": "",
+    "evidence": "price ranges from 100 to 150 refers to Price BETWEEN 100 AND 150; quantity lower than 25 refers to Quantity < 25;"
+  },
+  {
+    "sql": "SELECT T2.Quantity, T1.Price FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T3.FirstName = 'Abigail' AND T3.LastName = 'Henderson'",
+    "question_id": null,
+    "question": "List the quantity and price of the product bought by Abigail Henderson.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T2.quantity = 60 AND T1.Price <= 500",
+    "question_id": null,
+    "question": "In sales with a quantity of 60, how many of them have a price not greater than 500?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(T1.ProductID) FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.FirstName = 'Erica' AND T1.Quantity < 200",
+    "question_id": null,
+    "question": "In customers with the first name of Erica, how many of them bought a quantity below 200?",
+    "difficulty": "",
+    "evidence": "quantity below 200 refers to quantity < 200;"
+  },
+  {
+    "sql": "SELECT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T3.FirstName = 'Kathryn' AND T3.LastName = 'Ashe' ORDER BY T2.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among products bought by Kathryn Ashe, what is the name of the product with the highest quantity?",
+    "difficulty": "",
+    "evidence": "highest quantity refers to MAX(Quantity);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Price, T1.Quantity FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'Seat Tube'",
+    "question_id": null,
+    "question": "What is the price and quantity of the product named Seat Tube?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T3.Price, T3.Name FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T1.ProductID = T3.ProductID WHERE T2.FirstName = 'Erica' AND T2.LastName = 'Xu'",
+    "question_id": null,
+    "question": "What is the price and name of the product bought by Erica Xu?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.SalesID FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'External Lock Washer 7' AND T1.Quantity = 590",
+    "question_id": null,
+    "question": "List the sales ID of the product with a quantity of 590 and named \"External Lock Washer 7\".",
+    "difficulty": "",
+    "evidence": "External Lock Washer 7' is name of product;"
+  },
+  {
+    "sql": "SELECT T2.FirstName, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Quantity = 403 AND T1.SalesID BETWEEN 30 AND 40",
+    "question_id": null,
+    "question": "In sales ID between 30 and 40, who is the customer that bought a total quantity of 403?",
+    "difficulty": "",
+    "evidence": "who refers to FirstName, LastName;"
+  },
+  {
+    "sql": "SELECT T2.CustomerID, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Quantity > ( SELECT AVG(Quantity) FROM Sales ) * 0.9",
+    "question_id": null,
+    "question": "List the customer's ID and last name of the customer that purchased a product with a quantity greater than 90% of the average quantity of all listed products.",
+    "difficulty": "",
+    "evidence": "quantity greater than 90% of the average quantity = Quantity > MULTIPLY(AVG(Quantity), 0.9);"
+  },
+  {
+    "sql": "SELECT CAST(SUM(IIF(T2.Price BETWEEN 200 AND 300, 1, 0)) AS REAL) * 100 / COUNT(T2.Price) FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T1.SalesID BETWEEN 1 AND 200",
+    "question_id": null,
+    "question": "Among the sales ID ranges from 1 to 200, what is the percentage of the products with a price ranging from 200 to 300?",
+    "difficulty": "",
+    "evidence": "sales ID ranges from 1 to 200 refers to SalesID between 1 and 200; percentage = MULTIPLY(DIVIDE(SUM(Price between 200 and 300), COUNT(Price)), 1.0);"
+  },
+  {
+    "sql": "SELECT Name FROM Products WHERE Price = ( SELECT MAX(Price) FROM Products )",
+    "question_id": null,
+    "question": "What is the name of the most expensive product?",
+    "difficulty": "",
+    "evidence": "most expensive product refers to MAX(Price);"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM Customers WHERE FirstName = 'Madison'",
+    "question_id": null,
+    "question": "How many customers are named Madison?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT COUNT(ProductID) FROM Products WHERE Name LIKE '%HL Touring Frame%'",
+    "question_id": null,
+    "question": "How many types of \"HL Touring Frames\" are there?",
+    "difficulty": "",
+    "evidence": "types of HL Touring Frames refers to Name like '%HL Touring Frame%';"
+  },
+  {
+    "sql": "SELECT COUNT(CustomerID) FROM Customers GROUP BY LastName ORDER BY COUNT(LastName) DESC LIMIT 1",
+    "question_id": null,
+    "question": "How many customers share the most common last name?",
+    "difficulty": "",
+    "evidence": "most common last name refers to MAX(COUNT(LastName));"
+  },
+  {
+    "sql": "SELECT COUNT(ProductID) FROM Products WHERE Price = 0",
+    "question_id": null,
+    "question": "How many free or gift products are there?",
+    "difficulty": "",
+    "evidence": "free gift refers to Price = 0;"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T2.SalesPersonID = T1.EmployeeID GROUP BY T2.SalesPersonID, T1.FirstName, T1.MiddleInitial, T1.LastName ORDER BY COUNT(T2.SalesID) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the sales person who handled the highest number of sales?",
+    "difficulty": "",
+    "evidence": "name of the sales person = FirstName, MiddleInitial, LastName; highest number of sales refers to MAX(COUNT(SalesID));"
+  },
+  {
+    "sql": "SELECT T2.FirstName, T2.MiddleInitial, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID INNER JOIN Products AS T3 ON T1.ProductID = T3.ProductID GROUP BY T1.SalesID, T1.Quantity, T3.Price, FirstName, MiddleInitial, LastName ORDER BY T1.Quantity * T3.Price DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the full name of the customer who purchased the highest amount of total price in a single purchase?",
+    "difficulty": "",
+    "evidence": "full name of the customer = FirstName, MiddleInitial, LastName; highest amount of total price refers to MAX(MULTIPLY(Quantity, Price));"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'Mountain-500 Black, 42'",
+    "question_id": null,
+    "question": "How many \"Mountain-500 Black 42\" were sold in total?",
+    "difficulty": "",
+    "evidence": "Mountain-500 Black 42' is name of product; sold in total = SUM(Quantity);"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity * T3.Price) FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.FirstName = 'Heather' AND T1.LastName = 'McBadden'",
+    "question_id": null,
+    "question": "How much is the total amount of sales handled by Heather McBadden?",
+    "difficulty": "",
+    "evidence": "total amount of sales = SUM(MULTIPLY(Quantity, Price));"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity) FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.FirstName = 'Stearns' AND T1.LastName = 'MacFeather' AND T3.Name = 'Mountain-100 Silver, 38'",
+    "question_id": null,
+    "question": "How many \"Mountain-100 Silver, 38\" were sold by Stearns MacFeather?",
+    "difficulty": "",
+    "evidence": "Mountain-100 Silver, 38' is name of product;"
+  },
+  {
+    "sql": "SELECT COUNT(T2.ProductID) FROM Customers AS T1 INNER JOIN Sales AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.FirstName = 'Dalton' AND T1.MiddleInitial = 'M' AND T1.LastName = 'Coleman'",
+    "question_id": null,
+    "question": "How many type of products did Dalton M. Coleman purchase?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID GROUP BY T2.SalesPersonID, T1.FirstName, T1.MiddleInitial, T1.LastName ORDER BY COUNT(T2.SalesID) DESC LIMIT 3",
+    "question_id": null,
+    "question": "What are the full names of the top 3 employees who handled the highest number of sales?",
+    "difficulty": "",
+    "evidence": "full names of employees = FirstName, MiddleInitital, LastName; highest number of sales refers to MAX(COUNT(SalesID));"
+  },
+  {
+    "sql": "SELECT T1.Name FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name LIKE 'Mountain-500 Black%' GROUP BY T2.Quantity, T1.Name ORDER BY SUM(T2.Quantity) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the \"Mountain-500 Black\" product types, which type was purchased the most?",
+    "difficulty": "",
+    "evidence": "Mountain-500 Black product types refers to Name like 'Mountain-500 Black%'; purchased the most refers to MAX(SUM(Quantity));"
+  },
+  {
+    "sql": "SELECT COUNT(T2.SalesPersonID) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Name = 'ML Road Frame-W - Yellow, 40'",
+    "question_id": null,
+    "question": "How many employees sold \"ML Road Frame-W - Yellow, 40\"?",
+    "difficulty": "",
+    "evidence": "ML Road Frame-W - Yellow, 40' is name of product;"
+  },
+  {
+    "sql": "SELECT T1.Quantity FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T2.Name = 'Chainring Bolts' AND T1.SalesID = 551971",
+    "question_id": null,
+    "question": "How many chainring bolts were sold under sales ID 551971?",
+    "difficulty": "",
+    "evidence": "Chainring Bolts' is name of product;"
+  },
+  {
+    "sql": "SELECT COUNT(*) FROM ( SELECT SUM(Quantity) FROM Sales WHERE ProductID IN ( SELECT ProductID FROM Products WHERE Name = 'Touring-2000 Blue, 50' ) GROUP BY Quantity, SalesPersonID HAVING SUM(Quantity) > 20000 )",
+    "question_id": null,
+    "question": "How many employees sold over 20,000 quantities of \"Touring-2000 Blue, 50\"?",
+    "difficulty": "",
+    "evidence": "over 20,000 quantities refers to Quantity > 20000; 'Touring-2000 Blue, 50' is name of product;"
+  },
+  {
+    "sql": "SELECT SUM(T2.Quantity * T3.Price) FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID WHERE T1.FirstName = 'Abraham' AND T1.MiddleInitial = 'e' AND T1.LastName = 'Bennet' AND T3.Name = 'Road-650 Red, 60'",
+    "question_id": null,
+    "question": "What is the total cost of all the \"Road-650, Red, 60\" products that Abraham E. Bennet sold?",
+    "difficulty": "",
+    "evidence": "total cost = SUM(MULTIPLY(Quantity, Price)); 'Road-650, Red, 60' is name of product;"
+  },
+  {
+    "sql": "SELECT T1.Name, SUM(T2.Quantity * T1.Price) FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID GROUP BY T1.ProductID, T1.Name ORDER BY SUM(T2.Quantity) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which product has the highest total amount of quantity sold? Calculate its overall total price.",
+    "difficulty": "",
+    "evidence": "highest total amount of quantity refers to MAX(Quantity); overall total price = SUM(MULTIPLY(Quantity, Price));"
+  },
+  {
+    "sql": "SELECT FirstName, LastName FROM Customers WHERE LastName = 'Chen'",
+    "question_id": null,
+    "question": "List the first name of all the customers whose last name is Chen.",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT MiddleInitial FROM Employees GROUP BY MiddleInitial ORDER BY COUNT(MiddleInitial) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Among the employee names, what is the most common middle initial?",
+    "difficulty": "",
+    "evidence": "most common middle initial refers to MAX(COUNT(MiddleInitial));"
+  },
+  {
+    "sql": "SELECT AVG(Price) FROM Products WHERE Price BETWEEN 100 AND 200",
+    "question_id": null,
+    "question": "What is the average price of products that cost between 100 and 200?",
+    "difficulty": "",
+    "evidence": "average price = DIVIDE(SUM(Price, COUNT(Price))); cost refers to Price; Price BETWEEN 100 AND 200;"
+  },
+  {
+    "sql": "SELECT T2.FirstName, T2.MiddleInitial, T2.LastName FROM Sales AS T1 INNER JOIN Customers AS T2 ON T1.CustomerID = T2.CustomerID GROUP BY T1.Quantity HAVING T1.Quantity > ( SELECT AVG(Quantity) FROM Sales )",
+    "question_id": null,
+    "question": "Find and list the full name of customers who bought products above-average quantity.",
+    "difficulty": "",
+    "evidence": "full name of the customer = FirstName, MiddleInitial, LastName; above-average quantity = Quantity > AVG(Quantity);"
+  },
+  {
+    "sql": "SELECT T3.FirstName, T3.MiddleInitial, T3.LastName FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID ORDER BY T2.Quantity * T1.Price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Give the full name of the customer who bought the most amount of products.",
+    "difficulty": "",
+    "evidence": "full name of the customer = FirstName, MiddleInitial, LastName; most amount of products refers to MAX(MULTIPLY(Quantity, Price));"
+  },
+  {
+    "sql": "SELECT T1.FirstName, T1.MiddleInitial, T1.LastName FROM Employees AS T1 INNER JOIN Sales AS T2 ON T1.EmployeeID = T2.SalesPersonID INNER JOIN Products AS T3 ON T2.ProductID = T3.ProductID ORDER BY T2.Quantity * T3.Price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Of the employees who sold Blade, who has the most amount of sales?",
+    "difficulty": "",
+    "evidence": "Blade' is name of product; most amount of sales refers to MAX(MULTIPLY(Quantity, Price));"
+  },
+  {
+    "sql": "SELECT DISTINCT T3.FirstName, T3.MiddleInitial, T3.LastName FROM Products AS T1 INNER JOIN Sales AS T2 ON T1.ProductID = T2.ProductID INNER JOIN Customers AS T3 ON T2.CustomerID = T3.CustomerID WHERE T2.Quantity * T1.Price > 50000",
+    "question_id": null,
+    "question": "List the full name of customers who spend more than 50,000 in descending order the amount spend.",
+    "difficulty": "",
+    "evidence": "full name of the customer = FirstName, MiddleInitial, LastName; more than 50,000 in the amount refers to MULTIPLY(Quantity, Price) > 50000;"
+  },
+  {
+    "sql": "SELECT T2.Name FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID ORDER BY T1.Quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the product that sold the most quantity.",
+    "difficulty": "",
+    "evidence": "most quantity refers to MAX(Quantity);"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.Name FROM Sales AS T1 INNER JOIN Products AS T2 ON T1.ProductID = T2.ProductID WHERE T1.Quantity < ( SELECT AVG(Quantity) FROM Sales )",
+    "question_id": null,
+    "question": "Find and list the products that sold below the average quantity.",
+    "difficulty": "",
+    "evidence": "below the average quantity refers to Quantity < AVG(Quantity);"
+  }
+]

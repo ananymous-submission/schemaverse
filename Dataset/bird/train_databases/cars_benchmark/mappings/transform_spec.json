@@ -1,0 +1,1661 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "Nation": {
+          "source_table": "country",
+          "column_map": {
+            "NationId": "origin",
+            "NationName": "country"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "ProductionRecord": {
+          "source_table": "production",
+          "column_map": {
+            "ProducerId": "ID",
+            "ModelYear": "model_year",
+            "NationId": "country"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "vehicleAccelerationTopQuartile": {
+          "source_table": "data",
+          "column_map": {
+            "recordId": "ID",
+            "accelerationValue": "acceleration",
+            "vehicleName": "car_name",
+            "modelYear": "model",
+            "milesPerGallon": "mpg",
+            "vehicleWeight": "weight"
+          },
+          "projected_columns": [
+            "ID",
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          "row_predicate": "((\"acceleration\" > 17.1 OR \"acceleration\" IS NULL) OR (rowid IN (18,81,82,129,133,152,154,173,174,202,206,227,237,239,249,260,267,272,278,280,313,314,318,340,344,350,355,364,366,372,383,386,387,388)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "vehicleAccelerationDataset"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "vehicleAccelerationDataset",
+          "is_row_partition": true,
+          "row_partition_partner": "data_acceleration_q1",
+          "row_partition_peers": [
+            "data_acceleration_q1",
+            "data_acceleration_q2",
+            "data_acceleration_q3"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "acceleration"
+        },
+        "vehicleAccelerationDataset": {
+          "source_table": "data",
+          "column_map": {
+            "recordId": "ID",
+            "accelerationValue": "acceleration",
+            "vehicleName": "car_name",
+            "cylinderCount": "cylinders",
+            "engineDisplacement": "displacement",
+            "engineHorsepower": "horsepower",
+            "modelYear": "model",
+            "vehicleWeight": "weight"
+          },
+          "projected_columns": [
+            "ID",
+            "acceleration",
+            "car_name",
+            "cylinders",
+            "displacement",
+            "horsepower",
+            "model",
+            "weight"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "data_acceleration"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "data_acceleration",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "acceleration_2"
+        }
+      },
+      "table_rename_map": {
+        "data": "data_acceleration_2"
+      }
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "veh_price": {
+          "source_table": "price",
+          "column_map": {
+            "price_id": "ID",
+            "price_usd": "price"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "accel_lte_13_8": {
+          "source_table": "data",
+          "column_map": {
+            "price_id_ref": "ID",
+            "accel_sec": "acceleration",
+            "veh_name": "car_name",
+            "mdl_id": "model",
+            "mpg_val": "mpg",
+            "veh_wt": "weight"
+          },
+          "projected_columns": [
+            "ID",
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          "row_predicate": "((\"acceleration\" IS NOT NULL AND \"acceleration\" <= 13.8) OR (rowid IN (23,29,33,47,54,55,103,132,146,196,199,200,223,229,245,248,253,254,257,258,261,273,282,283,299,300,301,316,325,329,332,348,353,368,369,370,380,395,397,398)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "data_acceleration_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "data_acceleration_2",
+          "is_row_partition": true,
+          "row_partition_partner": "accel_gt_13_8_lte_15_5",
+          "row_partition_peers": [
+            "accel_gt_13_8_lte_15_5",
+            "accel_gt_15_5_lte_17_1",
+            "data_acceleration_q4"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "acceleration"
+        },
+        "accel_gt_13_8_lte_15_5": {
+          "source_table": "data",
+          "column_map": {
+            "price_id_ref": "ID",
+            "accel_sec": "acceleration",
+            "veh_name": "car_name",
+            "mdl_id": "model",
+            "mpg_val": "mpg",
+            "veh_wt": "weight"
+          },
+          "projected_columns": [
+            "ID",
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          "row_predicate": "((\"acceleration\" IS NOT NULL AND \"acceleration\" > 13.8 AND \"acceleration\" <= 15.5) OR (rowid IN (3,4,7,8,9,10,14,34,39,41,44,45,46,70,73,86,90,91,93,96,106,117,122,139,157,166,214,222,230,231,251,252,264,266,287,288,293,302,309,363)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "data_acceleration_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "data_acceleration_2",
+          "is_row_partition": true,
+          "row_partition_partner": "accel_gt_15_5_lte_17_1",
+          "row_partition_peers": [
+            "accel_gt_15_5_lte_17_1",
+            "data_acceleration_q4",
+            "accel_lte_13_8"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "acceleration"
+        },
+        "accel_gt_15_5_lte_17_1": {
+          "source_table": "data",
+          "column_map": {
+            "accel_rec_id": "ID",
+            "accel_sec": "acceleration",
+            "veh_name": "car_name",
+            "mdl_id": "model",
+            "mpg_val": "mpg",
+            "veh_wt": "weight"
+          },
+          "projected_columns": [
+            "ID",
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          "row_predicate": "((\"acceleration\" IS NOT NULL AND \"acceleration\" > 15.5 AND \"acceleration\" <= 17.1) OR (rowid IN (17,22,25,31,35,37,38,49,53,74,83,94,108,114,115,120,121,123,138,141,158,185,193,220,233,234,241,242,262,270,286,289,294,297,305,310,319,321,333,337,351,379,381,382,384,389)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "data_acceleration_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "data_acceleration_2",
+          "is_row_partition": true,
+          "row_partition_partner": "data_acceleration_q4",
+          "row_partition_peers": [
+            "data_acceleration_q4",
+            "accel_lte_13_8",
+            "accel_gt_13_8_lte_15_5"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "acceleration"
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "country": "Nation",
+        "production": "ProductionRecord"
+      },
+      "column_renames": {
+        "country": {
+          "origin": "NationId",
+          "country": "NationName"
+        },
+        "production": {
+          "ID": "ProducerId",
+          "model_year": "ModelYear",
+          "country": "NationId"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "data_acceleration_q4": "vehicleAccelerationTopQuartile",
+        "data_acceleration_2": "vehicleAccelerationDataset"
+      },
+      "column_renames": {
+        "data_acceleration_q4": {
+          "ID": "recordId",
+          "acceleration": "accelerationValue",
+          "car_name": "vehicleName",
+          "model": "modelYear",
+          "mpg": "milesPerGallon",
+          "weight": "vehicleWeight"
+        },
+        "data_acceleration_2": {
+          "ID": "recordId",
+          "acceleration": "accelerationValue",
+          "car_name": "vehicleName",
+          "cylinders": "cylinderCount",
+          "displacement": "engineDisplacement",
+          "horsepower": "engineHorsepower",
+          "model": "modelYear",
+          "weight": "vehicleWeight"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_3": {
+      "table_renames": {
+        "price": "veh_price",
+        "data_acceleration_q1": "accel_lte_13_8",
+        "data_acceleration_q2": "accel_gt_13_8_lte_15_5",
+        "data_acceleration_q3": "accel_gt_15_5_lte_17_1"
+      },
+      "column_renames": {
+        "price": {
+          "ID": "price_id",
+          "price": "price_usd"
+        },
+        "data_acceleration_q1": {
+          "ID": "price_id_ref",
+          "acceleration": "accel_sec",
+          "car_name": "veh_name",
+          "model": "mdl_id",
+          "mpg": "mpg_val",
+          "weight": "veh_wt"
+        },
+        "data_acceleration_q2": {
+          "ID": "price_id_ref",
+          "acceleration": "accel_sec",
+          "car_name": "veh_name",
+          "model": "mdl_id",
+          "mpg": "mpg_val",
+          "weight": "veh_wt"
+        },
+        "data_acceleration_q3": {
+          "ID": "accel_rec_id",
+          "acceleration": "accel_sec",
+          "car_name": "veh_name",
+          "model": "mdl_id",
+          "mpg": "mpg_val",
+          "weight": "veh_wt"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    }
+  },
+  "vertical_split_map": {
+    "data": {
+      "pk_columns": [
+        "ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "acceleration",
+          "non_pk_columns": [
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          "local_table": "data_acceleration_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "data_acceleration",
+          "row_partition_names": [
+            "data_acceleration_q1",
+            "data_acceleration_q2",
+            "data_acceleration_q3",
+            "vehicleAccelerationTopQuartile"
+          ],
+          "row_partition_predicate_column": "acceleration"
+        },
+        {
+          "suffix": "acceleration_2",
+          "non_pk_columns": [
+            "acceleration",
+            "car_name",
+            "cylinders",
+            "displacement",
+            "horsepower",
+            "model",
+            "weight"
+          ],
+          "local_table": "vehicleAccelerationDataset",
+          "local_name": "local_2",
+          "vertical_fragment_base": "data_acceleration_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "data",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.031625904844835066
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.031625904844835066,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          [
+            "cylinders",
+            "displacement",
+            "horsepower"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "weight",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "model",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "car_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "acceleration",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          [
+            "acceleration",
+            "car_name",
+            "cylinders",
+            "displacement",
+            "horsepower",
+            "model",
+            "weight"
+          ]
+        ],
+        "pk_columns": [
+          "ID"
+        ],
+        "fragments": [
+          {
+            "suffix": "acceleration",
+            "non_pk_columns": [
+              "acceleration",
+              "car_name",
+              "model",
+              "mpg",
+              "weight"
+            ]
+          },
+          {
+            "suffix": "acceleration_2",
+            "non_pk_columns": [
+              "acceleration",
+              "car_name",
+              "cylinders",
+              "displacement",
+              "horsepower",
+              "model",
+              "weight"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "data_acceleration_2",
+      "movable_candidates": [
+        "data_acceleration_q1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "split_map": {
+    "data": {
+      "pk_columns": [
+        "ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "acceleration",
+          "non_pk_columns": [
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          "local_table": "data_acceleration_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "data_acceleration",
+          "row_partition_names": [
+            "data_acceleration_q1",
+            "data_acceleration_q2",
+            "data_acceleration_q3",
+            "vehicleAccelerationTopQuartile"
+          ],
+          "row_partition_predicate_column": "acceleration"
+        },
+        {
+          "suffix": "acceleration_2",
+          "non_pk_columns": [
+            "acceleration",
+            "car_name",
+            "cylinders",
+            "displacement",
+            "horsepower",
+            "model",
+            "weight"
+          ],
+          "local_table": "vehicleAccelerationDataset",
+          "local_name": "local_2",
+          "vertical_fragment_base": "data_acceleration_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "data",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.031625904844835066
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.031625904844835066,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          [
+            "cylinders",
+            "displacement",
+            "horsepower"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "weight",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "model",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "car_name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "acceleration",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "acceleration",
+            "car_name",
+            "model",
+            "mpg",
+            "weight"
+          ],
+          [
+            "acceleration",
+            "car_name",
+            "cylinders",
+            "displacement",
+            "horsepower",
+            "model",
+            "weight"
+          ]
+        ],
+        "pk_columns": [
+          "ID"
+        ],
+        "fragments": [
+          {
+            "suffix": "acceleration",
+            "non_pk_columns": [
+              "acceleration",
+              "car_name",
+              "model",
+              "mpg",
+              "weight"
+            ]
+          },
+          {
+            "suffix": "acceleration_2",
+            "non_pk_columns": [
+              "acceleration",
+              "car_name",
+              "cylinders",
+              "displacement",
+              "horsepower",
+              "model",
+              "weight"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "data_acceleration_2",
+      "movable_candidates": [
+        "data_acceleration_q1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 4,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 3,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "data"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/cars/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "row_partition_map": {
+    "data||vfrag=acceleration": {
+      "source_table": "data",
+      "vertical_fragment_suffix": "acceleration",
+      "num_partitions": 4,
+      "partition_names": [
+        "accel_lte_13_8",
+        "accel_gt_13_8_lte_15_5",
+        "accel_gt_15_5_lte_17_1",
+        "vehicleAccelerationTopQuartile"
+      ],
+      "partition_locals": [
+        "local_3",
+        "local_3",
+        "local_3",
+        "local_2"
+      ],
+      "predicate_column": "acceleration",
+      "partition_values": [
+        {
+          "upper": 13.8
+        },
+        {
+          "lower": 13.8,
+          "upper": 15.5
+        },
+        {
+          "lower": 15.5,
+          "upper": 17.1
+        },
+        {
+          "lower": 17.1,
+          "includes_null": true
+        }
+      ],
+      "predicate_sqls": [
+        "((\"acceleration\" IS NOT NULL AND \"acceleration\" <= 13.8) OR (rowid IN (23,29,33,47,54,55,103,132,146,196,199,200,223,229,245,248,253,254,257,258,261,273,282,283,299,300,301,316,325,329,332,348,353,368,369,370,380,395,397,398)))",
+        "((\"acceleration\" IS NOT NULL AND \"acceleration\" > 13.8 AND \"acceleration\" <= 15.5) OR (rowid IN (3,4,7,8,9,10,14,34,39,41,44,45,46,70,73,86,90,91,93,96,106,117,122,139,157,166,214,222,230,231,251,252,264,266,287,288,293,302,309,363)))",
+        "((\"acceleration\" IS NOT NULL AND \"acceleration\" > 15.5 AND \"acceleration\" <= 17.1) OR (rowid IN (17,22,25,31,35,37,38,49,53,74,83,94,108,114,115,120,121,123,138,141,158,185,193,220,233,234,241,242,262,270,286,289,294,297,305,310,319,321,333,337,351,379,381,382,384,389)))",
+        "((\"acceleration\" > 17.1 OR \"acceleration\" IS NULL) OR (rowid IN (18,81,82,129,133,152,154,173,174,202,206,227,237,239,249,260,267,272,278,280,313,314,318,340,344,350,355,364,366,372,383,386,387,388)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"acceleration\" IS NOT NULL AND \"acceleration\" <= 13.8)",
+        "(\"acceleration\" IS NOT NULL AND \"acceleration\" > 13.8 AND \"acceleration\" <= 15.5)",
+        "(\"acceleration\" IS NOT NULL AND \"acceleration\" > 15.5 AND \"acceleration\" <= 17.1)",
+        "(\"acceleration\" > 17.1 OR \"acceleration\" IS NULL)"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where acceleration <= 13.8",
+        "rows where 13.8 < acceleration <= 15.5",
+        "rows where 15.5 < acceleration <= 17.1",
+        "rows where acceleration > 17.1 or is NULL"
+      ],
+      "home_fragment": "accel_lte_13_8",
+      "movable_fragments": [
+        "accel_gt_13_8_lte_15_5",
+        "accel_gt_15_5_lte_17_1",
+        "vehicleAccelerationTopQuartile"
+      ],
+      "movable_fragment": "accel_gt_13_8_lte_15_5",
+      "default_movable_fragment": "accel_gt_13_8_lte_15_5",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "acceleration",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "acceleration",
+            "rhs": "model",
+            "precision": 1.0
+          },
+          {
+            "lhs": "acceleration",
+            "rhs": "mpg",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "acceleration",
+          "model",
+          "mpg"
+        ],
+        "ranked_columns": [
+          {
+            "column": "acceleration",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "model",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "mpg",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 398
+      },
+      "predicate_sql_fragment_A": "((\"acceleration\" IS NOT NULL AND \"acceleration\" <= 13.8) OR (rowid IN (23,29,33,47,54,55,103,132,146,196,199,200,223,229,245,248,253,254,257,258,261,273,282,283,299,300,301,316,325,329,332,348,353,368,369,370,380,395,397,398)))",
+      "predicate_sql_fragment_B": "((\"acceleration\" IS NOT NULL AND \"acceleration\" > 13.8 AND \"acceleration\" <= 15.5) OR (rowid IN (3,4,7,8,9,10,14,34,39,41,44,45,46,70,73,86,90,91,93,96,106,117,122,139,157,166,214,222,230,231,251,252,264,266,287,288,293,302,309,363)))",
+      "fragment_role_A": "rows where acceleration <= 13.8",
+      "fragment_role_B": "rows where 13.8 < acceleration <= 15.5"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "data",
+          "from_column": "ID",
+          "to_table": "price",
+          "to_column": "ID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "data_acceleration_q4",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "data_acceleration_2",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "cylinders": "cylinders",
+              "displacement": "displacement",
+              "horsepower": "horsepower",
+              "model": "model",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "cylinders": "cylinders",
+              "displacement": "displacement",
+              "horsepower": "horsepower",
+              "model": "model",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "data_acceleration_q1",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "data_acceleration_q2",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "data_acceleration_q3",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "price",
+            "column_map": {
+              "ID": "ID",
+              "price": "price"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "price": "price"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "accel_lte_13_8",
+            "to_local_table": "veh_price",
+            "from_local_column": "price_id_ref",
+            "to_local_column": "price_id"
+          },
+          {
+            "local": "local_3",
+            "from_local_table": "accel_gt_13_8_lte_15_5",
+            "to_local_table": "veh_price",
+            "from_local_column": "price_id_ref",
+            "to_local_column": "price_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "accel_gt_15_5_lte_17_1",
+            "to_local_table": "veh_price",
+            "from_local_column": "accel_rec_id",
+            "to_local_column": "price_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "vehicleAccelerationTopQuartile",
+            "to_local_table": "veh_price",
+            "from_local_column": "recordId",
+            "to_local_column": "price_id"
+          },
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "vehicleAccelerationDataset",
+            "to_local_table": "veh_price",
+            "from_local_column": "recordId",
+            "to_local_column": "price_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "production",
+          "from_column": "ID",
+          "to_table": "price",
+          "to_column": "ID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "production",
+            "column_map": {
+              "ID": "ID",
+              "model_year": "model_year",
+              "country": "country"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "model_year": "model_year",
+              "country": "country"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "price",
+            "column_map": {
+              "ID": "ID",
+              "price": "price"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "price": "price"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "ProductionRecord",
+            "to_local_table": "veh_price",
+            "from_local_column": "ProducerId",
+            "to_local_column": "price_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "production",
+          "from_column": "ID",
+          "to_table": "data",
+          "to_column": "ID",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "production",
+            "column_map": {
+              "ID": "ID",
+              "model_year": "model_year",
+              "country": "country"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "model_year": "model_year",
+              "country": "country"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "data_acceleration_q4",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "data_acceleration_2",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "cylinders": "cylinders",
+              "displacement": "displacement",
+              "horsepower": "horsepower",
+              "model": "model",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "cylinders": "cylinders",
+              "displacement": "displacement",
+              "horsepower": "horsepower",
+              "model": "model",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "data_acceleration_q1",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "data_acceleration_q2",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "data_acceleration_q3",
+            "column_map": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "acceleration": "acceleration",
+              "car_name": "car_name",
+              "model": "model",
+              "mpg": "mpg",
+              "weight": "weight"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "ProductionRecord",
+            "to_local_table": "vehicleAccelerationTopQuartile",
+            "from_local_column": "ProducerId",
+            "to_local_column": "recordId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "ProductionRecord",
+            "to_local_table": "vehicleAccelerationDataset",
+            "from_local_column": "ProducerId",
+            "to_local_column": "recordId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "ProductionRecord",
+            "to_local_table": "accel_lte_13_8",
+            "from_local_column": "ProducerId",
+            "to_local_column": "price_id_ref"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "ProductionRecord",
+            "to_local_table": "accel_gt_13_8_lte_15_5",
+            "from_local_column": "ProducerId",
+            "to_local_column": "price_id_ref"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "ProductionRecord",
+            "to_local_table": "accel_gt_15_5_lte_17_1",
+            "from_local_column": "ProducerId",
+            "to_local_column": "accel_rec_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "production",
+          "from_column": "country",
+          "to_table": "country",
+          "to_column": "origin",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "production",
+            "column_map": {
+              "ID": "ID",
+              "model_year": "model_year",
+              "country": "country"
+            },
+            "orig_to_local": {
+              "ID": "ID",
+              "model_year": "model_year",
+              "country": "country"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "country",
+            "column_map": {
+              "origin": "origin",
+              "country": "country"
+            },
+            "orig_to_local": {
+              "origin": "origin",
+              "country": "country"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "ProductionRecord",
+            "to_local_table": "Nation",
+            "from_local_column": "NationId",
+            "to_local_column": "NationId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "data_acceleration_q1",
+      "source_table": "data",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "data_acceleration_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "data_acceleration_q2",
+      "source_table": "data",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "data_acceleration_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    },
+    {
+      "local_table": "data_acceleration_q3",
+      "source_table": "data",
+      "kind": "row_partition",
+      "from_local": "local_2",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "data_acceleration_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "country|data_acceleration_2": 18,
+      "country|data_acceleration_q1": 18,
+      "country|data_acceleration_q2": 18,
+      "country|data_acceleration_q3": 18,
+      "country|data_acceleration_q4": 18,
+      "country|price": 12,
+      "data_acceleration_2|price": 39,
+      "data_acceleration_2|production": 33,
+      "data_acceleration_q1|price": 33,
+      "data_acceleration_q1|production": 30,
+      "data_acceleration_q2|price": 33,
+      "data_acceleration_q2|production": 30,
+      "data_acceleration_q3|price": 33,
+      "data_acceleration_q3|production": 30,
+      "data_acceleration_q4|price": 33,
+      "data_acceleration_q4|production": 30,
+      "price|production": 14
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "country": "local_1",
+      "data_acceleration_2": "local_2",
+      "data_acceleration_q1": "local_2",
+      "data_acceleration_q2": "local_2",
+      "data_acceleration_q3": "local_2",
+      "data_acceleration_q4": "local_2",
+      "price": "local_3",
+      "production": "local_1"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "data": {
+        "R": 3,
+        "F": 5,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {
+      "data": {
+        "R": 2,
+        "F": 4,
+        "home_fragments": 4,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "data": "data_acceleration_q1"
+    },
+    "intents": [
+      {
+        "source_table": "data",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "data_acceleration_q1",
+        "anchor_fragment": "data_acceleration_2",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "data",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "data_acceleration_q2",
+        "anchor_fragment": "data_acceleration_2",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "data",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "data_acceleration_q3",
+        "anchor_fragment": "data_acceleration_2",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2
+      },
+      {
+        "source_table": "data",
+        "kind": "row_partition",
+        "movable_fragment": "data_acceleration_q2",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2,
+        "anchor_fragment": "data_acceleration_q1"
+      },
+      {
+        "source_table": "data",
+        "kind": "row_partition",
+        "movable_fragment": "data_acceleration_q3",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2,
+        "anchor_fragment": "data_acceleration_q1"
+      }
+    ],
+    "moved_fragments": [
+      "data_acceleration_q1",
+      "data_acceleration_q2",
+      "data_acceleration_q3"
+    ],
+    "pinned_fragments": [
+      "price"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "data",
+        "kind": "row_partition",
+        "movable_fragment": "data_acceleration_q2",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2,
+        "anchor_fragment": "data_acceleration_q1",
+        "reason": "movable_already_moved"
+      },
+      {
+        "source_table": "data",
+        "kind": "row_partition",
+        "movable_fragment": "data_acceleration_q3",
+        "partner_fragment": "price",
+        "partner_logical_table": "price",
+        "partner_weight": 33,
+        "cross_local_query_count": 32,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 2,
+        "anchor_fragment": "data_acceleration_q1",
+        "reason": "movable_already_moved"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "country": {
+        "columns": [
+          {
+            "name": "origin",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "origin"
+        ],
+        "pk_origin": "declared",
+        "row_count": 3
+      },
+      "price": {
+        "columns": [
+          {
+            "name": "ID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "price",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 398
+      },
+      "data": {
+        "columns": [
+          {
+            "name": "ID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "mpg",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "cylinders",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "displacement",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "horsepower",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "weight",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "acceleration",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "model",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "car_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ID"
+        ],
+        "pk_origin": "declared",
+        "row_count": 398
+      },
+      "production": {
+        "columns": [
+          {
+            "name": "ID",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "model_year",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "ID",
+          "model_year"
+        ],
+        "pk_origin": "declared",
+        "row_count": 692
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "data",
+        "from_column": "ID",
+        "to_table": "price",
+        "to_column": "ID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "production",
+        "from_column": "ID",
+        "to_table": "price",
+        "to_column": "ID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "production",
+        "from_column": "ID",
+        "to_table": "data",
+        "to_column": "ID",
+        "origin": "declared"
+      },
+      {
+        "from_table": "production",
+        "from_column": "country",
+        "to_table": "country",
+        "to_column": "origin",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 4,
+      "num_fk_edges": 4,
+      "hub_tables": [
+        "production",
+        "price",
+        "data",
+        "country"
+      ],
+      "connected_components": 1
+    }
+  }
+}

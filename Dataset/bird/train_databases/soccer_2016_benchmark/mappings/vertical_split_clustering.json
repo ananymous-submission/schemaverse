@@ -1,0 +1,675 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 21,
+    "eligible_candidate_count": 9,
+    "num_selected_for_vertical_split": 9,
+    "num_from_rate_alone": 17,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "Match",
+      "Ball_by_Ball",
+      "Player",
+      "Season",
+      "Wicket_Taken",
+      "City",
+      "Extra_Runs",
+      "Umpire",
+      "Venue"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/project/6048152/mdaviran/data-integration/BIRD/train_databases/soccer_2016/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "Player",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Season",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "City",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Umpire",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "Venue",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "Extra_Runs": {
+      "pk_columns": [
+        "Match_Id",
+        "Over_Id",
+        "Ball_Id",
+        "Innings_No"
+      ],
+      "fragments": [
+        {
+          "suffix": "extra",
+          "non_pk_columns": [
+            "Extra_Runs",
+            "Extra_Type_Id"
+          ],
+          "local_table": "extra_run_event_lte1",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Extra_Runs_extra",
+          "row_partition_names": [
+            "extra_run_event_lte1",
+            "extra_run_event_gt1"
+          ],
+          "row_partition_predicate_column": "Extra_Runs"
+        },
+        {
+          "suffix": "extra_type_id",
+          "non_pk_columns": [
+            "Extra_Type_Id"
+          ],
+          "local_table": "extra_run_event_type_group",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Extra_Runs_extra_type_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Extra_Runs",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 2,
+        "min_non_pk_per_fragment": 0,
+        "pk_width": 4,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 192446679,
+        "scores_by_k": {
+          "2": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": -1.0,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Extra_Runs"
+          ],
+          [
+            "Extra_Type_Id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Extra_Type_Id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Extra_Runs",
+            "Extra_Type_Id"
+          ],
+          [
+            "Extra_Type_Id"
+          ]
+        ],
+        "pk_columns": [
+          "Match_Id",
+          "Over_Id",
+          "Ball_Id",
+          "Innings_No"
+        ],
+        "fragments": [
+          {
+            "suffix": "extra",
+            "non_pk_columns": [
+              "Extra_Runs",
+              "Extra_Type_Id"
+            ]
+          },
+          {
+            "suffix": "extra_type_id",
+            "non_pk_columns": [
+              "Extra_Type_Id"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Extra_Type_Id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "extra_type_id",
+          "also_in_fragment_suffix": "extra"
+        }
+      ]
+    },
+    "Match": {
+      "pk_columns": [
+        "Match_Id"
+      ],
+      "fragments": [
+        {
+          "suffix": "man_of_the_match",
+          "non_pk_columns": [
+            "Man_of_the_Match",
+            "Match_Winner",
+            "Outcome_type",
+            "Team_1",
+            "Team_2",
+            "Toss_Decide",
+            "Toss_Winner",
+            "Win_Margin"
+          ],
+          "local_table": "match_summary_win_margin_lte6",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Match_man_of_the_match",
+          "row_partition_names": [
+            "match_summary_win_margin_lte6",
+            "Match_man_of_the_match_q2",
+            "Match_man_of_the_match_q3",
+            "match_summary_win_margin_gt21_or_null"
+          ],
+          "row_partition_predicate_column": "Win_Margin"
+        },
+        {
+          "suffix": "match_date",
+          "non_pk_columns": [
+            "Match_Date",
+            "Season_Id",
+            "Venue_Id"
+          ],
+          "local_table": "mch_sched",
+          "local_name": "local_6",
+          "vertical_fragment_base": "Match_match_date"
+        },
+        {
+          "suffix": "man_of_the_match_2",
+          "non_pk_columns": [
+            "Man_of_the_Match",
+            "Outcome_type",
+            "Toss_Decide",
+            "Toss_Winner",
+            "Win_Margin",
+            "Win_Type"
+          ],
+          "local_table": "match_mvp",
+          "local_name": "local_7",
+          "vertical_fragment_base": "Match_man_of_the_match_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Match",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 12,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.047113397711003265,
+          "3": 0.053925449273826136,
+          "4": 0.05020557637401173
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.053925449273826136,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Man_of_the_Match",
+            "Match_Winner",
+            "Team_1",
+            "Team_2",
+            "Toss_Winner"
+          ],
+          [
+            "Match_Date",
+            "Season_Id",
+            "Venue_Id"
+          ],
+          [
+            "Outcome_type",
+            "Toss_Decide",
+            "Win_Margin",
+            "Win_Type"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Man_of_the_Match",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Toss_Decide",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Toss_Winner",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Outcome_type",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "Win_Margin",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Man_of_the_Match",
+            "Match_Winner",
+            "Outcome_type",
+            "Team_1",
+            "Team_2",
+            "Toss_Decide",
+            "Toss_Winner",
+            "Win_Margin"
+          ],
+          [
+            "Match_Date",
+            "Season_Id",
+            "Venue_Id"
+          ],
+          [
+            "Man_of_the_Match",
+            "Outcome_type",
+            "Toss_Decide",
+            "Toss_Winner",
+            "Win_Margin",
+            "Win_Type"
+          ]
+        ],
+        "pk_columns": [
+          "Match_Id"
+        ],
+        "fragments": [
+          {
+            "suffix": "man_of_the_match",
+            "non_pk_columns": [
+              "Man_of_the_Match",
+              "Match_Winner",
+              "Outcome_type",
+              "Team_1",
+              "Team_2",
+              "Toss_Decide",
+              "Toss_Winner",
+              "Win_Margin"
+            ]
+          },
+          {
+            "suffix": "match_date",
+            "non_pk_columns": [
+              "Match_Date",
+              "Season_Id",
+              "Venue_Id"
+            ]
+          },
+          {
+            "suffix": "man_of_the_match_2",
+            "non_pk_columns": [
+              "Man_of_the_Match",
+              "Outcome_type",
+              "Toss_Decide",
+              "Toss_Winner",
+              "Win_Margin",
+              "Win_Type"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Man_of_the_Match",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "man_of_the_match",
+          "also_in_fragment_suffix": "man_of_the_match_2"
+        },
+        {
+          "column": "Toss_Decide",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "man_of_the_match_2",
+          "also_in_fragment_suffix": "man_of_the_match"
+        },
+        {
+          "column": "Toss_Winner",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "man_of_the_match",
+          "also_in_fragment_suffix": "man_of_the_match_2"
+        },
+        {
+          "column": "Outcome_type",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "man_of_the_match_2",
+          "also_in_fragment_suffix": "man_of_the_match"
+        },
+        {
+          "column": "Win_Margin",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "man_of_the_match_2",
+          "also_in_fragment_suffix": "man_of_the_match"
+        }
+      ]
+    },
+    "Wicket_Taken": {
+      "pk_columns": [
+        "Match_Id",
+        "Over_Id",
+        "Ball_Id",
+        "Innings_No"
+      ],
+      "fragments": [
+        {
+          "suffix": "fielders",
+          "non_pk_columns": [
+            "Fielders",
+            "Player_Out"
+          ],
+          "local_table": "wicket_fielders_margin_gt21_or_null",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Wicket_Taken_fielders"
+        },
+        {
+          "suffix": "fielders_2",
+          "non_pk_columns": [
+            "Fielders",
+            "Kind_Out",
+            "Player_Out"
+          ],
+          "local_table": "wicket_fielders_additional_margin_gt21_or_null",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Wicket_Taken_fielders_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Wicket_Taken",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 3,
+        "min_non_pk_per_fragment": 0,
+        "pk_width": 4,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.05057951219364502,
+          "3": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.05057951219364502,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Fielders",
+            "Player_Out"
+          ],
+          [
+            "Kind_Out"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Player_Out",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Fielders",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Fielders",
+            "Player_Out"
+          ],
+          [
+            "Fielders",
+            "Kind_Out",
+            "Player_Out"
+          ]
+        ],
+        "pk_columns": [
+          "Match_Id",
+          "Over_Id",
+          "Ball_Id",
+          "Innings_No"
+        ],
+        "fragments": [
+          {
+            "suffix": "fielders",
+            "non_pk_columns": [
+              "Fielders",
+              "Player_Out"
+            ]
+          },
+          {
+            "suffix": "fielders_2",
+            "non_pk_columns": [
+              "Fielders",
+              "Kind_Out",
+              "Player_Out"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Player_Out",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "fielders",
+          "also_in_fragment_suffix": "fielders_2"
+        },
+        {
+          "column": "Fielders",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "fielders",
+          "also_in_fragment_suffix": "fielders_2"
+        }
+      ]
+    },
+    "Ball_by_Ball": {
+      "pk_columns": [
+        "Match_Id",
+        "Over_Id",
+        "Ball_Id",
+        "Innings_No"
+      ],
+      "fragments": [
+        {
+          "suffix": "bowler",
+          "non_pk_columns": [
+            "Bowler",
+            "Non_Striker",
+            "Striker"
+          ],
+          "local_table": "delivery_by_bowler_le_73",
+          "local_name": "local_1",
+          "vertical_fragment_base": "Ball_by_Ball_bowler",
+          "row_partition_names": [
+            "delivery_by_bowler_le_73",
+            "delivery_by_bowler_gt73_lte154",
+            "delivery_by_bowler_gt154_lte293",
+            "delivery_by_bowler_gt293_or_null"
+          ],
+          "row_partition_predicate_column": "Bowler"
+        },
+        {
+          "suffix": "striker_batting_position",
+          "non_pk_columns": [
+            "Striker_Batting_Position"
+          ],
+          "local_table": "BallDeliveryStrikerPosition",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Ball_by_Ball_striker_batting_position"
+        },
+        {
+          "suffix": "bowler_2",
+          "non_pk_columns": [
+            "Bowler",
+            "Non_Striker",
+            "Striker",
+            "Team_Batting",
+            "Team_Bowling"
+          ],
+          "local_table": "BallDeliveryBowler",
+          "local_name": "local_2",
+          "vertical_fragment_base": "Ball_by_Ball_bowler_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "Ball_by_Ball",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 6,
+        "min_non_pk_per_fragment": 0,
+        "pk_width": 4,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.10259704866194996,
+          "3": 0.12048440538279499,
+          "4": 0.08699325473161944,
+          "5": 0.07092970519979921
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.12048440538279499,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "Bowler",
+            "Non_Striker",
+            "Striker"
+          ],
+          [
+            "Striker_Batting_Position"
+          ],
+          [
+            "Team_Batting",
+            "Team_Bowling"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Bowler",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Non_Striker",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "Striker",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Bowler",
+            "Non_Striker",
+            "Striker"
+          ],
+          [
+            "Striker_Batting_Position"
+          ],
+          [
+            "Bowler",
+            "Non_Striker",
+            "Striker",
+            "Team_Batting",
+            "Team_Bowling"
+          ]
+        ],
+        "pk_columns": [
+          "Match_Id",
+          "Over_Id",
+          "Ball_Id",
+          "Innings_No"
+        ],
+        "fragments": [
+          {
+            "suffix": "bowler",
+            "non_pk_columns": [
+              "Bowler",
+              "Non_Striker",
+              "Striker"
+            ]
+          },
+          {
+            "suffix": "striker_batting_position",
+            "non_pk_columns": [
+              "Striker_Batting_Position"
+            ]
+          },
+          {
+            "suffix": "bowler_2",
+            "non_pk_columns": [
+              "Bowler",
+              "Non_Striker",
+              "Striker",
+              "Team_Batting",
+              "Team_Bowling"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Bowler",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "bowler",
+          "also_in_fragment_suffix": "bowler_2"
+        },
+        {
+          "column": "Non_Striker",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "bowler",
+          "also_in_fragment_suffix": "bowler_2"
+        },
+        {
+          "column": "Striker",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "bowler",
+          "also_in_fragment_suffix": "bowler_2"
+        }
+      ]
+    }
+  }
+}

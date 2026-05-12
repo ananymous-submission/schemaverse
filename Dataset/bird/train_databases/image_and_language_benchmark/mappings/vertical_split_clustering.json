@@ -1,0 +1,155 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 6,
+    "eligible_candidate_count": 1,
+    "num_selected_for_vertical_split": 1,
+    "num_from_rate_alone": 5,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "IMG_OBJ"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/image_and_language/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": []
+  },
+  "per_table": {
+    "IMG_OBJ": {
+      "pk_columns": [
+        "IMG_ID",
+        "OBJ_SAMPLE_ID"
+      ],
+      "fragments": [
+        {
+          "suffix": "frag_45133",
+          "non_pk_columns": [
+            "H",
+            "OBJ_CLASS_ID",
+            "W"
+          ],
+          "local_table": "IMG_OBJ_frag_45133_q1",
+          "local_name": "local_2",
+          "vertical_fragment_base": "IMG_OBJ_frag_45133",
+          "row_partition_names": [
+            "IMG_OBJ_frag_45133_q1",
+            "IMG_OBJ_frag_45133_q2",
+            "IMG_OBJ_frag_45133_q3",
+            "imageFragmentsHeightGreater129OrNull"
+          ],
+          "row_partition_predicate_column": "H"
+        },
+        {
+          "suffix": "obj_class_id",
+          "non_pk_columns": [
+            "OBJ_CLASS_ID",
+            "W",
+            "X",
+            "Y"
+          ],
+          "local_table": "imageObjectsByClass",
+          "local_name": "local_2",
+          "vertical_fragment_base": "IMG_OBJ_obj_class_id"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "IMG_OBJ",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 5,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.18600237178953222
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.18600237178953222,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "H",
+            "OBJ_CLASS_ID",
+            "W"
+          ],
+          [
+            "X",
+            "Y"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "OBJ_CLASS_ID",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "W",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "H",
+            "OBJ_CLASS_ID",
+            "W"
+          ],
+          [
+            "OBJ_CLASS_ID",
+            "W",
+            "X",
+            "Y"
+          ]
+        ],
+        "pk_columns": [
+          "IMG_ID",
+          "OBJ_SAMPLE_ID"
+        ],
+        "fragments": [
+          {
+            "suffix": "frag_45133",
+            "non_pk_columns": [
+              "H",
+              "OBJ_CLASS_ID",
+              "W"
+            ]
+          },
+          {
+            "suffix": "obj_class_id",
+            "non_pk_columns": [
+              "OBJ_CLASS_ID",
+              "W",
+              "X",
+              "Y"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "OBJ_CLASS_ID",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_45133",
+          "also_in_fragment_suffix": "obj_class_id"
+        },
+        {
+          "column": "W",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "frag_45133",
+          "also_in_fragment_suffix": "obj_class_id"
+        }
+      ]
+    }
+  }
+}

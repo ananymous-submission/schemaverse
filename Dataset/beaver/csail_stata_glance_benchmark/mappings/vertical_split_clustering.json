@@ -1,0 +1,1887 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 20,
+    "eligible_candidate_count": 20,
+    "num_selected_for_vertical_split": 16,
+    "num_from_rate_alone": 16,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 3,
+    "selected_original_tables": [
+      "artifacts",
+      "images",
+      "artifact_properties",
+      "artifact_blobs",
+      "artifact_dependencies",
+      "image_locations",
+      "image_members",
+      "metadef_namespaces",
+      "tasks",
+      "image_properties",
+      "metadef_objects",
+      "artifact_blob_locations",
+      "image_tags",
+      "metadef_properties",
+      "artifact_tags",
+      "metadef_namespace_resource_types"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/SchemaVerse/extra_hard/beaver/_staging/csail_stata_glance/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "metadef_namespaces",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "metadef_objects",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "artifact_blob_locations",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "image_tags",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "metadef_properties",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "artifact_tags",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "artifact_blobs": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "artifact_id",
+          "non_pk_columns": [
+            "artifact_id",
+            "checksum",
+            "item_key",
+            "name",
+            "position",
+            "size"
+          ],
+          "local_table": "art_blob_refs",
+          "local_name": "local_1",
+          "vertical_fragment_base": "artifact_blobs_artifact_id"
+        },
+        {
+          "suffix": "checksum",
+          "non_pk_columns": [
+            "checksum",
+            "created_at",
+            "item_key",
+            "position",
+            "size",
+            "updated_at"
+          ],
+          "local_table": "BlobChecksums",
+          "local_name": "local_4",
+          "vertical_fragment_base": "artifact_blobs_checksum"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "artifact_blobs",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 474614218,
+        "scores_by_k": {
+          "2": 0.019350022593445954
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.019350022593445954,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "artifact_id",
+            "item_key",
+            "name",
+            "position",
+            "size"
+          ],
+          [
+            "checksum",
+            "created_at",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "item_key",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "checksum",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "size",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "position",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "artifact_id",
+            "checksum",
+            "item_key",
+            "name",
+            "position",
+            "size"
+          ],
+          [
+            "checksum",
+            "created_at",
+            "item_key",
+            "position",
+            "size",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "artifact_id",
+            "non_pk_columns": [
+              "artifact_id",
+              "checksum",
+              "item_key",
+              "name",
+              "position",
+              "size"
+            ]
+          },
+          {
+            "suffix": "checksum",
+            "non_pk_columns": [
+              "checksum",
+              "created_at",
+              "item_key",
+              "position",
+              "size",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "item_key",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "artifact_id",
+          "also_in_fragment_suffix": "checksum"
+        },
+        {
+          "column": "checksum",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "checksum",
+          "also_in_fragment_suffix": "artifact_id"
+        },
+        {
+          "column": "size",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "artifact_id",
+          "also_in_fragment_suffix": "checksum"
+        },
+        {
+          "column": "position",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "artifact_id",
+          "also_in_fragment_suffix": "checksum"
+        }
+      ]
+    },
+    "artifact_dependencies": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "artifact_dest",
+          "non_pk_columns": [
+            "artifact_dest",
+            "artifact_origin",
+            "artifact_source",
+            "is_direct",
+            "name",
+            "position",
+            "updated_at"
+          ],
+          "local_table": "art_deps_dest",
+          "local_name": "local_1",
+          "vertical_fragment_base": "artifact_dependencies_artifact_dest"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "is_direct",
+            "name",
+            "position",
+            "updated_at"
+          ],
+          "local_table": "art_deps_meta",
+          "local_name": "local_1",
+          "vertical_fragment_base": "artifact_dependencies_created_at"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "artifact_dependencies",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1389401365,
+        "scores_by_k": {
+          "2": 0.06854811330865501
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.06854811330865501,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "artifact_dest",
+            "artifact_origin",
+            "artifact_source",
+            "position"
+          ],
+          [
+            "created_at",
+            "is_direct",
+            "name",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "position",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "is_direct",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "updated_at",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "artifact_dest",
+            "artifact_origin",
+            "artifact_source",
+            "is_direct",
+            "name",
+            "position",
+            "updated_at"
+          ],
+          [
+            "created_at",
+            "is_direct",
+            "name",
+            "position",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "artifact_dest",
+            "non_pk_columns": [
+              "artifact_dest",
+              "artifact_origin",
+              "artifact_source",
+              "is_direct",
+              "name",
+              "position",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "is_direct",
+              "name",
+              "position",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "position",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "artifact_dest",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "is_direct",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "artifact_dest"
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "artifact_dest"
+        },
+        {
+          "column": "updated_at",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "artifact_dest"
+        }
+      ]
+    },
+    "artifact_properties": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "artifact_id",
+          "non_pk_columns": [
+            "artifact_id",
+            "created_at",
+            "name",
+            "position",
+            "updated_at"
+          ],
+          "local_table": "art_props_meta",
+          "local_name": "local_1",
+          "vertical_fragment_base": "artifact_properties_artifact_id"
+        },
+        {
+          "suffix": "artifact_id_2",
+          "non_pk_columns": [
+            "artifact_id",
+            "bool_value",
+            "int_value",
+            "name",
+            "numeric_value",
+            "position",
+            "string_value",
+            "text_value",
+            "updated_at"
+          ],
+          "local_table": "art_prop_vals",
+          "local_name": "local_1",
+          "vertical_fragment_base": "artifact_properties_artifact_id_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "artifact_properties",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.08139012432238854,
+          "3": 0.08139012432238854
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.08139012432238854,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "artifact_id",
+            "created_at",
+            "name",
+            "position",
+            "updated_at"
+          ],
+          [
+            "bool_value",
+            "int_value",
+            "numeric_value",
+            "string_value",
+            "text_value"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "position",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "updated_at",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "artifact_id",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "artifact_id",
+            "created_at",
+            "name",
+            "position",
+            "updated_at"
+          ],
+          [
+            "artifact_id",
+            "bool_value",
+            "int_value",
+            "name",
+            "numeric_value",
+            "position",
+            "string_value",
+            "text_value",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "artifact_id",
+            "non_pk_columns": [
+              "artifact_id",
+              "created_at",
+              "name",
+              "position",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "artifact_id_2",
+            "non_pk_columns": [
+              "artifact_id",
+              "bool_value",
+              "int_value",
+              "name",
+              "numeric_value",
+              "position",
+              "string_value",
+              "text_value",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "artifact_id",
+          "also_in_fragment_suffix": "artifact_id_2"
+        },
+        {
+          "column": "position",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "artifact_id",
+          "also_in_fragment_suffix": "artifact_id_2"
+        },
+        {
+          "column": "updated_at",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "artifact_id",
+          "also_in_fragment_suffix": "artifact_id_2"
+        },
+        {
+          "column": "artifact_id",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "artifact_id",
+          "also_in_fragment_suffix": "artifact_id_2"
+        }
+      ]
+    },
+    "artifacts": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted_at",
+            "description",
+            "name",
+            "owner",
+            "published_at",
+            "state",
+            "updated_at",
+            "visibility"
+          ],
+          "local_table": "art_meta_add",
+          "local_name": "local_1",
+          "vertical_fragment_base": "artifacts_created_at"
+        },
+        {
+          "suffix": "description",
+          "non_pk_columns": [
+            "description",
+            "name",
+            "owner",
+            "state",
+            "type_name",
+            "version_prefix",
+            "visibility"
+          ],
+          "local_table": "art_meta_desc",
+          "local_name": "local_1",
+          "vertical_fragment_base": "artifacts_description"
+        },
+        {
+          "suffix": "type_name",
+          "non_pk_columns": [
+            "type_name",
+            "type_version_meta",
+            "type_version_prefix",
+            "type_version_suffix",
+            "version_meta",
+            "version_prefix",
+            "version_suffix"
+          ],
+          "local_table": "art_type_meta",
+          "local_name": "local_1",
+          "vertical_fragment_base": "artifacts_type_name"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "artifacts",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 16,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.093401238258178,
+          "3": 0.11513617459804591,
+          "4": 0.11513617459804591,
+          "5": 0.0790516738895308
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.11513617459804591,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted_at",
+            "published_at",
+            "updated_at"
+          ],
+          [
+            "description",
+            "name",
+            "owner",
+            "state",
+            "type_name",
+            "visibility"
+          ],
+          [
+            "type_version_meta",
+            "type_version_prefix",
+            "type_version_suffix",
+            "version_meta",
+            "version_prefix",
+            "version_suffix"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "visibility",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "owner",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "description",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "type_name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "state",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "name",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "version_prefix",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted_at",
+            "description",
+            "name",
+            "owner",
+            "published_at",
+            "state",
+            "updated_at",
+            "visibility"
+          ],
+          [
+            "description",
+            "name",
+            "owner",
+            "state",
+            "type_name",
+            "version_prefix",
+            "visibility"
+          ],
+          [
+            "type_name",
+            "type_version_meta",
+            "type_version_prefix",
+            "type_version_suffix",
+            "version_meta",
+            "version_prefix",
+            "version_suffix"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted_at",
+              "description",
+              "name",
+              "owner",
+              "published_at",
+              "state",
+              "updated_at",
+              "visibility"
+            ]
+          },
+          {
+            "suffix": "description",
+            "non_pk_columns": [
+              "description",
+              "name",
+              "owner",
+              "state",
+              "type_name",
+              "version_prefix",
+              "visibility"
+            ]
+          },
+          {
+            "suffix": "type_name",
+            "non_pk_columns": [
+              "type_name",
+              "type_version_meta",
+              "type_version_prefix",
+              "type_version_suffix",
+              "version_meta",
+              "version_prefix",
+              "version_suffix"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "visibility",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "owner",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "description",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "type_name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "type_name"
+        },
+        {
+          "column": "state",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "description",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "version_prefix",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "type_name",
+          "also_in_fragment_suffix": "description"
+        }
+      ]
+    },
+    "image_locations": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "image_id",
+            "meta_data",
+            "status",
+            "updated_at"
+          ],
+          "local_table": "image_locations_deleted_nonpositive",
+          "local_name": "local_2",
+          "vertical_fragment_base": "image_locations_created_at",
+          "row_partition_names": [
+            "image_locations_deleted_nonpositive",
+            "image_locations_deleted_positive_or_null"
+          ],
+          "row_partition_predicate_column": "deleted"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "image_id",
+            "meta_data",
+            "status",
+            "value"
+          ],
+          "local_table": "image_locations_removed",
+          "local_name": "local_2",
+          "vertical_fragment_base": "image_locations_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "image_locations",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 213348186,
+        "scores_by_k": {
+          "2": 0.050177196443150426
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.050177196443150426,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "image_id",
+            "meta_data",
+            "status",
+            "value"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "meta_data",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "status",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "image_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "image_id",
+            "meta_data",
+            "status",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "image_id",
+            "meta_data",
+            "status",
+            "value"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "image_id",
+              "meta_data",
+              "status",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "image_id",
+              "meta_data",
+              "status",
+              "value"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "meta_data",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "status",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "image_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "image_properties": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "image_id",
+            "updated_at",
+            "value"
+          ],
+          "local_table": "image_properties_created_before_2014_12_02_17_48_10",
+          "local_name": "local_2",
+          "vertical_fragment_base": "image_properties_created_at",
+          "row_partition_names": [
+            "image_properties_created_before_2014_12_02_17_48_10",
+            "image_properties_created_2014_12_02_to_2016_09_27_14_14_35",
+            "image_properties_created_2016_09_27_to_2021_01_28_17_22_32",
+            "image_properties_created_after_2021_01_28_or_null"
+          ],
+          "row_partition_predicate_column": "created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "image_id",
+            "name",
+            "value"
+          ],
+          "local_table": "image_properties_removed",
+          "local_name": "local_2",
+          "vertical_fragment_base": "image_properties_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "image_properties",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1953441236,
+        "scores_by_k": {
+          "2": 0.08019575943748079
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.08019575943748079,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "image_id",
+            "name",
+            "value"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "image_id",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "value",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "image_id",
+            "updated_at",
+            "value"
+          ],
+          [
+            "deleted",
+            "image_id",
+            "name",
+            "value"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "image_id",
+              "updated_at",
+              "value"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "image_id",
+              "name",
+              "value"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "image_id",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "value",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "images": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "checksum",
+          "non_pk_columns": [
+            "checksum",
+            "min_disk",
+            "min_ram",
+            "name",
+            "owner",
+            "size",
+            "status",
+            "virtual_size"
+          ],
+          "local_table": "images_master_checksum",
+          "local_name": "local_2",
+          "vertical_fragment_base": "images_checksum"
+        },
+        {
+          "suffix": "container_format",
+          "non_pk_columns": [
+            "container_format",
+            "disk_format",
+            "min_disk",
+            "owner"
+          ],
+          "local_table": "images_by_container_and_disk_format",
+          "local_name": "local_2",
+          "vertical_fragment_base": "images_container_format"
+        },
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          "local_table": "images_by_creation_timestamp",
+          "local_name": "local_2",
+          "vertical_fragment_base": "images_created_at"
+        },
+        {
+          "suffix": "checksum_2",
+          "non_pk_columns": [
+            "checksum",
+            "deleted",
+            "is_public",
+            "min_ram",
+            "name",
+            "protected",
+            "size",
+            "status"
+          ],
+          "local_table": "images_checksum_known_names_bucket",
+          "local_name": "local_2",
+          "vertical_fragment_base": "images_checksum_2",
+          "row_partition_names": [
+            "images_checksum_known_names_bucket",
+            "images_checksum_other_or_null"
+          ],
+          "row_partition_predicate_column": "name"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "images",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 16,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.051064627404255644,
+          "3": 0.05360672277769424,
+          "4": 0.06987138382512356,
+          "5": 0.0852966042900225
+        },
+        "chosen_k": 4,
+        "best_metric_score": 0.0852966042900225,
+        "num_final_clusters": 4,
+        "column_clusters": [
+          [
+            "checksum",
+            "min_disk",
+            "min_ram",
+            "name",
+            "size",
+            "virtual_size"
+          ],
+          [
+            "container_format",
+            "disk_format",
+            "owner"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "is_public",
+            "protected",
+            "status"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "status",
+            "primary_fragment_index": 3,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "checksum",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "name",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "owner",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "min_disk",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "min_ram",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          },
+          {
+            "column": "size",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 3
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "checksum",
+            "min_disk",
+            "min_ram",
+            "name",
+            "owner",
+            "size",
+            "status",
+            "virtual_size"
+          ],
+          [
+            "container_format",
+            "disk_format",
+            "min_disk",
+            "owner"
+          ],
+          [
+            "created_at",
+            "deleted_at",
+            "updated_at"
+          ],
+          [
+            "checksum",
+            "deleted",
+            "is_public",
+            "min_ram",
+            "name",
+            "protected",
+            "size",
+            "status"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "checksum",
+            "non_pk_columns": [
+              "checksum",
+              "min_disk",
+              "min_ram",
+              "name",
+              "owner",
+              "size",
+              "status",
+              "virtual_size"
+            ]
+          },
+          {
+            "suffix": "container_format",
+            "non_pk_columns": [
+              "container_format",
+              "disk_format",
+              "min_disk",
+              "owner"
+            ]
+          },
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted_at",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "checksum_2",
+            "non_pk_columns": [
+              "checksum",
+              "deleted",
+              "is_public",
+              "min_ram",
+              "name",
+              "protected",
+              "size",
+              "status"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "status",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "checksum_2",
+          "also_in_fragment_suffix": "checksum"
+        },
+        {
+          "column": "checksum",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "checksum",
+          "also_in_fragment_suffix": "checksum_2"
+        },
+        {
+          "column": "name",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "checksum",
+          "also_in_fragment_suffix": "checksum_2"
+        },
+        {
+          "column": "owner",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "container_format",
+          "also_in_fragment_suffix": "checksum"
+        },
+        {
+          "column": "min_disk",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "checksum",
+          "also_in_fragment_suffix": "container_format"
+        },
+        {
+          "column": "min_ram",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "checksum",
+          "also_in_fragment_suffix": "checksum_2"
+        },
+        {
+          "column": "size",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 3,
+          "primary_fragment_suffix": "checksum",
+          "also_in_fragment_suffix": "checksum_2"
+        }
+      ]
+    },
+    "metadef_namespace_resource_types": {
+      "pk_columns": [
+        "resource_type_id",
+        "namespace_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "prefix",
+            "properties_target",
+            "updated_at"
+          ],
+          "local_table": "NamespaceResourceTypeRecords",
+          "local_name": "local_4",
+          "vertical_fragment_base": "metadef_namespace_resource_types_created_at"
+        },
+        {
+          "suffix": "prefix",
+          "non_pk_columns": [
+            "prefix",
+            "properties_target"
+          ],
+          "local_table": "namespaceResourceTypePrefixes",
+          "local_name": "local_3",
+          "vertical_fragment_base": "metadef_namespace_resource_types_prefix"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "metadef_namespace_resource_types",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 4,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 130852918,
+        "scores_by_k": {
+          "2": 0.11032271414599301
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.11032271414599301,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "updated_at"
+          ],
+          [
+            "prefix",
+            "properties_target"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "properties_target",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "prefix",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "prefix",
+            "properties_target",
+            "updated_at"
+          ],
+          [
+            "prefix",
+            "properties_target"
+          ]
+        ],
+        "pk_columns": [
+          "resource_type_id",
+          "namespace_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "prefix",
+              "properties_target",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "prefix",
+            "non_pk_columns": [
+              "prefix",
+              "properties_target"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "properties_target",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "prefix",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "prefix",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "prefix",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    },
+    "image_members": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "can_share",
+          "non_pk_columns": [
+            "can_share",
+            "deleted",
+            "image_id",
+            "member",
+            "status",
+            "updated_at"
+          ],
+          "local_table": "imageShareForMember09ad0543",
+          "local_name": "local_5",
+          "vertical_fragment_base": "image_members_can_share",
+          "row_partition_names": [
+            "imageShareForMember09ad0543",
+            "image_members_can_share_part2",
+            "image_members_can_share_part3",
+            "image_members_can_share_part4",
+            "image_members_can_share_part5",
+            "imageShareForOtherMembers"
+          ],
+          "row_partition_predicate_column": "member"
+        },
+        {
+          "suffix": "can_share_2",
+          "non_pk_columns": [
+            "can_share",
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "status",
+            "updated_at"
+          ],
+          "local_table": "image_members_sharing_with_timestamps",
+          "local_name": "local_2",
+          "vertical_fragment_base": "image_members_can_share_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "image_members",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 192446679,
+        "scores_by_k": {
+          "2": 0.0812466321660281
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0812466321660281,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "can_share",
+            "image_id",
+            "member"
+          ],
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "status",
+            "updated_at"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "status",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "can_share",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "updated_at",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "can_share",
+            "deleted",
+            "image_id",
+            "member",
+            "status",
+            "updated_at"
+          ],
+          [
+            "can_share",
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "status",
+            "updated_at"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "can_share",
+            "non_pk_columns": [
+              "can_share",
+              "deleted",
+              "image_id",
+              "member",
+              "status",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "can_share_2",
+            "non_pk_columns": [
+              "can_share",
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "status",
+              "updated_at"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "status",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "can_share_2",
+          "also_in_fragment_suffix": "can_share"
+        },
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "can_share_2",
+          "also_in_fragment_suffix": "can_share"
+        },
+        {
+          "column": "can_share",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "can_share",
+          "also_in_fragment_suffix": "can_share_2"
+        },
+        {
+          "column": "updated_at",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "can_share_2",
+          "also_in_fragment_suffix": "can_share"
+        }
+      ]
+    },
+    "tasks": {
+      "pk_columns": [
+        "id"
+      ],
+      "fragments": [
+        {
+          "suffix": "created_at",
+          "non_pk_columns": [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "expires_at",
+            "owner",
+            "type",
+            "updated_at"
+          ],
+          "local_table": "TaskLifecycle",
+          "local_name": "local_6",
+          "vertical_fragment_base": "tasks_created_at"
+        },
+        {
+          "suffix": "deleted",
+          "non_pk_columns": [
+            "deleted",
+            "expires_at",
+            "owner",
+            "status",
+            "type"
+          ],
+          "local_table": "TaskDeletionLog",
+          "local_name": "local_6",
+          "vertical_fragment_base": "tasks_deleted"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "tasks",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 662927108,
+        "scores_by_k": {
+          "2": 0.059185012497069214
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.059185012497069214,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "created_at",
+            "deleted_at",
+            "expires_at",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "owner",
+            "status",
+            "type"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "deleted",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "expires_at",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "type",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "owner",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "created_at",
+            "deleted",
+            "deleted_at",
+            "expires_at",
+            "owner",
+            "type",
+            "updated_at"
+          ],
+          [
+            "deleted",
+            "expires_at",
+            "owner",
+            "status",
+            "type"
+          ]
+        ],
+        "pk_columns": [
+          "id"
+        ],
+        "fragments": [
+          {
+            "suffix": "created_at",
+            "non_pk_columns": [
+              "created_at",
+              "deleted",
+              "deleted_at",
+              "expires_at",
+              "owner",
+              "type",
+              "updated_at"
+            ]
+          },
+          {
+            "suffix": "deleted",
+            "non_pk_columns": [
+              "deleted",
+              "expires_at",
+              "owner",
+              "status",
+              "type"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "deleted",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "expires_at",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "created_at",
+          "also_in_fragment_suffix": "deleted"
+        },
+        {
+          "column": "type",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        },
+        {
+          "column": "owner",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0,
+          "primary_fragment_suffix": "deleted",
+          "also_in_fragment_suffix": "created_at"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1484 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "AcademicCourse": {
+          "source_table": "course",
+          "column_map": {
+            "CourseId": "course_id",
+            "Title": "name",
+            "CreditHours": "credit",
+            "DifficultyRating": "diff"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "EnrollmentSatUpToTwo": {
+          "source_table": "registration",
+          "column_map": {
+            "CourseId": "course_id",
+            "StudentId": "student_id",
+            "LetterGrade": "grade",
+            "SatScore": "sat"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"sat\" IS NOT NULL AND \"sat\" <= 2) OR (rowid IN (1,14,37,38,50,57,81,82,86,90,91)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "registration_q2",
+          "row_partition_peers": [
+            "registration_q2",
+            "EnrollmentSatAboveFourOrUnknown"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        },
+        "EnrollmentSatAboveFourOrUnknown": {
+          "source_table": "registration",
+          "column_map": {
+            "CourseId": "course_id",
+            "StudentId": "student_id",
+            "LetterGrade": "grade",
+            "SatScore": "sat"
+          },
+          "projected_columns": null,
+          "row_predicate": "(((\"sat\" IS NOT NULL AND \"sat\" > 4 AND \"sat\" <= 5) OR (\"sat\" > 5 OR \"sat\" IS NULL)) OR (rowid IN (4,9,12,13,17,23,26,28,32,34,49,51,65,67,98,100)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "EnrollmentSatUpToTwo",
+          "row_partition_peers": [
+            "EnrollmentSatUpToTwo",
+            "registration_q2"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {
+        "registration": "registration_q1"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "research_assistant": {
+          "source_table": "RA",
+          "column_map": {
+            "student_identifier": "student_id",
+            "competency_level": "capability",
+            "faculty_id": "prof_id",
+            "stipend_amount": "salary"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "faculty_contact": {
+          "source_table": "prof",
+          "column_map": {
+            "faculty_id": "prof_id",
+            "contact_email": "email",
+            "gender_identity": "gender",
+            "alma_mater": "graduate_from",
+            "reputation_score": "popularity",
+            "teaching_proficiency": "teachingability"
+          },
+          "projected_columns": [
+            "prof_id",
+            "email",
+            "gender",
+            "graduate_from",
+            "popularity",
+            "teachingability"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "faculty_profile"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "faculty_profile",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "email"
+        },
+        "faculty_profile": {
+          "source_table": "prof",
+          "column_map": {
+            "faculty_id": "prof_id",
+            "primary_email": "email",
+            "given_name": "first_name",
+            "gender_identity": "gender",
+            "alma_mater": "graduate_from",
+            "family_name": "last_name"
+          },
+          "projected_columns": [
+            "prof_id",
+            "email",
+            "first_name",
+            "gender",
+            "graduate_from",
+            "last_name"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "faculty_contact"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "faculty_contact",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "email_2"
+        }
+      },
+      "table_rename_map": {
+        "prof": "prof_email_2"
+      }
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "stud_profile": {
+          "source_table": "student",
+          "column_map": {
+            "stud_id": "student_id",
+            "fst_nm": "f_name",
+            "lst_nm": "l_name",
+            "ph_num": "phone_number",
+            "eml": "email",
+            "iq_sc": "intelligence",
+            "gpa_val": "gpa",
+            "stud_type": "type"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "reg_mid_sat": {
+          "source_table": "registration",
+          "column_map": {
+            "crs_id": "course_id",
+            "stud_id": "student_id",
+            "grd": "grade",
+            "sat_mid": "sat"
+          },
+          "projected_columns": null,
+          "row_predicate": "((\"sat\" IS NOT NULL AND \"sat\" > 2 AND \"sat\" <= 4) OR (rowid IN (10,41,42,44,46,47,60,62,79,80,85,87,89,92)))",
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": true,
+          "row_partition_partner": "registration_q3",
+          "row_partition_peers": [
+            "registration_q3",
+            "registration_q1"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "course": "AcademicCourse",
+        "registration_q1": "EnrollmentSatUpToTwo",
+        "registration_q3": "EnrollmentSatAboveFourOrUnknown"
+      },
+      "column_renames": {
+        "course": {
+          "course_id": "CourseId",
+          "name": "Title",
+          "credit": "CreditHours",
+          "diff": "DifficultyRating"
+        },
+        "registration_q1": {
+          "course_id": "CourseId",
+          "student_id": "StudentId",
+          "grade": "LetterGrade",
+          "sat": "SatScore"
+        },
+        "registration_q3": {
+          "course_id": "CourseId",
+          "student_id": "StudentId",
+          "grade": "LetterGrade",
+          "sat": "SatScore"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    },
+    "local_2": {
+      "table_renames": {
+        "RA": "research_assistant",
+        "prof_email": "faculty_contact",
+        "prof_email_2": "faculty_profile"
+      },
+      "column_renames": {
+        "RA": {
+          "student_id": "student_identifier",
+          "capability": "competency_level",
+          "prof_id": "faculty_id",
+          "salary": "stipend_amount"
+        },
+        "prof_email": {
+          "prof_id": "faculty_id",
+          "email": "contact_email",
+          "gender": "gender_identity",
+          "graduate_from": "alma_mater",
+          "popularity": "reputation_score",
+          "teachingability": "teaching_proficiency"
+        },
+        "prof_email_2": {
+          "prof_id": "faculty_id",
+          "email": "primary_email",
+          "first_name": "given_name",
+          "gender": "gender_identity",
+          "graduate_from": "alma_mater",
+          "last_name": "family_name"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_3": {
+      "table_renames": {
+        "student": "stud_profile",
+        "registration_q2": "reg_mid_sat"
+      },
+      "column_renames": {
+        "student": {
+          "student_id": "stud_id",
+          "f_name": "fst_nm",
+          "l_name": "lst_nm",
+          "phone_number": "ph_num",
+          "email": "eml",
+          "intelligence": "iq_sc",
+          "gpa": "gpa_val",
+          "type": "stud_type"
+        },
+        "registration_q2": {
+          "course_id": "crs_id",
+          "student_id": "stud_id",
+          "grade": "grd",
+          "sat": "sat_mid"
+        }
+      },
+      "naming_case_style": "abbrev_snake"
+    }
+  },
+  "vertical_split_map": {
+    "prof": {
+      "pk_columns": [
+        "prof_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "email",
+          "non_pk_columns": [
+            "email",
+            "gender",
+            "graduate_from",
+            "popularity",
+            "teachingability"
+          ],
+          "local_table": "faculty_contact",
+          "local_name": "local_2",
+          "vertical_fragment_base": "prof_email"
+        },
+        {
+          "suffix": "email_2",
+          "non_pk_columns": [
+            "email",
+            "first_name",
+            "gender",
+            "graduate_from",
+            "last_name"
+          ],
+          "local_table": "faculty_profile",
+          "local_name": "local_2",
+          "vertical_fragment_base": "prof_email_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "prof",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.025715662557508536
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.025715662557508536,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "email",
+            "gender",
+            "popularity",
+            "teachingability"
+          ],
+          [
+            "first_name",
+            "graduate_from",
+            "last_name"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "email",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "gender",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "graduate_from",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "email",
+            "gender",
+            "graduate_from",
+            "popularity",
+            "teachingability"
+          ],
+          [
+            "email",
+            "first_name",
+            "gender",
+            "graduate_from",
+            "last_name"
+          ]
+        ],
+        "pk_columns": [
+          "prof_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "email",
+            "non_pk_columns": [
+              "email",
+              "gender",
+              "graduate_from",
+              "popularity",
+              "teachingability"
+            ]
+          },
+          {
+            "suffix": "email_2",
+            "non_pk_columns": [
+              "email",
+              "first_name",
+              "gender",
+              "graduate_from",
+              "last_name"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "prof_email_2",
+      "movable_candidates": [
+        "prof_email"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "split_map": {
+    "prof": {
+      "pk_columns": [
+        "prof_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "email",
+          "non_pk_columns": [
+            "email",
+            "gender",
+            "graduate_from",
+            "popularity",
+            "teachingability"
+          ],
+          "local_table": "faculty_contact",
+          "local_name": "local_2",
+          "vertical_fragment_base": "prof_email"
+        },
+        {
+          "suffix": "email_2",
+          "non_pk_columns": [
+            "email",
+            "first_name",
+            "gender",
+            "graduate_from",
+            "last_name"
+          ],
+          "local_table": "faculty_profile",
+          "local_name": "local_2",
+          "vertical_fragment_base": "prof_email_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "prof",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.025715662557508536
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.025715662557508536,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "email",
+            "gender",
+            "popularity",
+            "teachingability"
+          ],
+          [
+            "first_name",
+            "graduate_from",
+            "last_name"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "email",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "gender",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "graduate_from",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "email",
+            "gender",
+            "graduate_from",
+            "popularity",
+            "teachingability"
+          ],
+          [
+            "email",
+            "first_name",
+            "gender",
+            "graduate_from",
+            "last_name"
+          ]
+        ],
+        "pk_columns": [
+          "prof_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "email",
+            "non_pk_columns": [
+              "email",
+              "gender",
+              "graduate_from",
+              "popularity",
+              "teachingability"
+            ]
+          },
+          {
+            "suffix": "email_2",
+            "non_pk_columns": [
+              "email",
+              "first_name",
+              "gender",
+              "graduate_from",
+              "last_name"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "prof_email_2",
+      "movable_candidates": [
+        "prof_email"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=1"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 5,
+    "eligible_candidate_count": 5,
+    "num_selected_for_vertical_split": 4,
+    "num_from_rate_alone": 4,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "prof",
+      "student",
+      "course",
+      "RA"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/cs_semester/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "student",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "course",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "RA",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "registration": {
+      "source_table": "registration",
+      "vertical_fragment_suffix": null,
+      "num_partitions": 3,
+      "partition_names": [
+        "EnrollmentSatUpToTwo",
+        "reg_mid_sat",
+        "EnrollmentSatAboveFourOrUnknown"
+      ],
+      "partition_locals": [
+        "local_1",
+        "local_3",
+        "local_1"
+      ],
+      "predicate_column": "sat",
+      "partition_values": [
+        {
+          "upper": 2
+        },
+        {
+          "lower": 2,
+          "upper": 4
+        },
+        {
+          "merged_buckets": [
+            {
+              "lower": 4,
+              "upper": 5
+            },
+            {
+              "lower": 5,
+              "includes_null": true
+            }
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "((\"sat\" IS NOT NULL AND \"sat\" <= 2) OR (rowid IN (1,14,37,38,50,57,81,82,86,90,91)))",
+        "((\"sat\" IS NOT NULL AND \"sat\" > 2 AND \"sat\" <= 4) OR (rowid IN (10,41,42,44,46,47,60,62,79,80,85,87,89,92)))",
+        "(((\"sat\" IS NOT NULL AND \"sat\" > 4 AND \"sat\" <= 5) OR (\"sat\" > 5 OR \"sat\" IS NULL)) OR (rowid IN (4,9,12,13,17,23,26,28,32,34,49,51,65,67,98,100)))"
+      ],
+      "base_predicate_sqls": [
+        "(\"sat\" IS NOT NULL AND \"sat\" <= 2)",
+        "(\"sat\" IS NOT NULL AND \"sat\" > 2 AND \"sat\" <= 4)",
+        "((\"sat\" IS NOT NULL AND \"sat\" > 4 AND \"sat\" <= 5) OR (\"sat\" > 5 OR \"sat\" IS NULL))"
+      ],
+      "predicate_kind": "afd_numeric_quantile",
+      "fragment_roles": [
+        "rows where sat <= 2",
+        "rows where 2 < sat <= 4",
+        "rows where 4 < sat <= 5 + rows where sat > 5 or is NULL"
+      ],
+      "home_fragment": "EnrollmentSatUpToTwo",
+      "movable_fragments": [
+        "reg_mid_sat",
+        "EnrollmentSatAboveFourOrUnknown"
+      ],
+      "movable_fragment": "reg_mid_sat",
+      "default_movable_fragment": "reg_mid_sat",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "sat",
+        "mean_strong": 1.0,
+        "coverage": 1.0,
+        "score": 1.0,
+        "strong_dependencies": [
+          {
+            "lhs": "sat",
+            "rhs": "grade",
+            "precision": 1.0
+          }
+        ],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "grade",
+          "sat"
+        ],
+        "ranked_columns": [
+          {
+            "column": "sat",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          },
+          {
+            "column": "grade",
+            "score": 1.0,
+            "mean_strong": 1.0,
+            "coverage": 1.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 101
+      },
+      "predicate_sql_fragment_A": "((\"sat\" IS NOT NULL AND \"sat\" <= 2) OR (rowid IN (1,14,37,38,50,57,81,82,86,90,91)))",
+      "predicate_sql_fragment_B": "((\"sat\" IS NOT NULL AND \"sat\" > 2 AND \"sat\" <= 4) OR (rowid IN (10,41,42,44,46,47,60,62,79,80,85,87,89,92)))",
+      "fragment_role_A": "rows where sat <= 2",
+      "fragment_role_B": "rows where 2 < sat <= 4"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "RA",
+          "from_column": "student_id",
+          "to_table": "student",
+          "to_column": "student_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "RA",
+            "column_map": {
+              "student_id": "student_id",
+              "capability": "capability",
+              "prof_id": "prof_id",
+              "salary": "salary"
+            },
+            "orig_to_local": {
+              "student_id": "student_id",
+              "capability": "capability",
+              "prof_id": "prof_id",
+              "salary": "salary"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "student",
+            "column_map": {
+              "student_id": "student_id",
+              "f_name": "f_name",
+              "l_name": "l_name",
+              "phone_number": "phone_number",
+              "email": "email",
+              "intelligence": "intelligence",
+              "gpa": "gpa",
+              "type": "type"
+            },
+            "orig_to_local": {
+              "student_id": "student_id",
+              "f_name": "f_name",
+              "l_name": "l_name",
+              "phone_number": "phone_number",
+              "email": "email",
+              "intelligence": "intelligence",
+              "gpa": "gpa",
+              "type": "type"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_3",
+            "from_local_table": "research_assistant",
+            "to_local_table": "stud_profile",
+            "from_local_column": "student_identifier",
+            "to_local_column": "stud_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "RA",
+          "from_column": "prof_id",
+          "to_table": "prof",
+          "to_column": "prof_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "RA",
+            "column_map": {
+              "student_id": "student_id",
+              "capability": "capability",
+              "prof_id": "prof_id",
+              "salary": "salary"
+            },
+            "orig_to_local": {
+              "student_id": "student_id",
+              "capability": "capability",
+              "prof_id": "prof_id",
+              "salary": "salary"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "prof_email",
+            "column_map": {
+              "prof_id": "prof_id",
+              "email": "email",
+              "gender": "gender",
+              "graduate_from": "graduate_from",
+              "popularity": "popularity",
+              "teachingability": "teachingability"
+            },
+            "orig_to_local": {
+              "prof_id": "prof_id",
+              "email": "email",
+              "gender": "gender",
+              "graduate_from": "graduate_from",
+              "popularity": "popularity",
+              "teachingability": "teachingability"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "prof_email_2",
+            "column_map": {
+              "prof_id": "prof_id",
+              "email": "email",
+              "first_name": "first_name",
+              "gender": "gender",
+              "graduate_from": "graduate_from",
+              "last_name": "last_name"
+            },
+            "orig_to_local": {
+              "prof_id": "prof_id",
+              "email": "email",
+              "first_name": "first_name",
+              "gender": "gender",
+              "graduate_from": "graduate_from",
+              "last_name": "last_name"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "research_assistant",
+            "to_local_table": "faculty_contact",
+            "from_local_column": "faculty_id",
+            "to_local_column": "faculty_id"
+          },
+          {
+            "local": "local_2",
+            "from_local_table": "research_assistant",
+            "to_local_table": "faculty_profile",
+            "from_local_column": "faculty_id",
+            "to_local_column": "faculty_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "registration",
+          "from_column": "student_id",
+          "to_table": "student",
+          "to_column": "student_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "registration_q1",
+            "column_map": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "registration_q3",
+            "column_map": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "registration_q2",
+            "column_map": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "student",
+            "column_map": {
+              "student_id": "student_id",
+              "f_name": "f_name",
+              "l_name": "l_name",
+              "phone_number": "phone_number",
+              "email": "email",
+              "intelligence": "intelligence",
+              "gpa": "gpa",
+              "type": "type"
+            },
+            "orig_to_local": {
+              "student_id": "student_id",
+              "f_name": "f_name",
+              "l_name": "l_name",
+              "phone_number": "phone_number",
+              "email": "email",
+              "intelligence": "intelligence",
+              "gpa": "gpa",
+              "type": "type"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "reg_mid_sat",
+            "to_local_table": "stud_profile",
+            "from_local_column": "stud_id",
+            "to_local_column": "stud_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "EnrollmentSatUpToTwo",
+            "to_local_table": "stud_profile",
+            "from_local_column": "StudentId",
+            "to_local_column": "stud_id"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "EnrollmentSatAboveFourOrUnknown",
+            "to_local_table": "stud_profile",
+            "from_local_column": "StudentId",
+            "to_local_column": "stud_id"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "registration",
+          "from_column": "course_id",
+          "to_table": "course",
+          "to_column": "course_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "registration_q1",
+            "column_map": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "registration_q3",
+            "column_map": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            }
+          },
+          {
+            "local": "local_3",
+            "local_table": "registration_q2",
+            "column_map": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "student_id": "student_id",
+              "grade": "grade",
+              "sat": "sat"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "course",
+            "column_map": {
+              "course_id": "course_id",
+              "name": "name",
+              "credit": "credit",
+              "diff": "diff"
+            },
+            "orig_to_local": {
+              "course_id": "course_id",
+              "name": "name",
+              "credit": "credit",
+              "diff": "diff"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "EnrollmentSatAboveFourOrUnknown",
+            "to_local_table": "AcademicCourse",
+            "from_local_column": "CourseId",
+            "to_local_column": "CourseId"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "EnrollmentSatUpToTwo",
+            "to_local_table": "AcademicCourse",
+            "from_local_column": "CourseId",
+            "to_local_column": "CourseId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_3",
+            "to_local": "local_1",
+            "from_local_table": "reg_mid_sat",
+            "to_local_table": "AcademicCourse",
+            "from_local_column": "crs_id",
+            "to_local_column": "CourseId"
+          }
+        ]
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "registration_q2",
+      "source_table": "registration",
+      "kind": "row_partition",
+      "from_local": "local_1",
+      "to_local": "local_3",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "student",
+        "partner_logical_table": "student",
+        "partner_weight": 35,
+        "cross_local_query_count": 35,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "registration_q1",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "RA|course": 2,
+      "RA|registration_q1": 4,
+      "RA|registration_q2": 4,
+      "RA|registration_q3": 4,
+      "RA|student": 28,
+      "course|prof_email": 1,
+      "course|prof_email_2": 1,
+      "course|student": 29,
+      "prof_email|registration_q1": 1,
+      "prof_email|registration_q2": 1,
+      "prof_email|registration_q3": 1,
+      "prof_email|student": 6,
+      "prof_email_2|registration_q1": 1,
+      "prof_email_2|registration_q2": 1,
+      "prof_email_2|registration_q3": 1,
+      "prof_email_2|student": 12,
+      "registration_q1|student": 35,
+      "registration_q2|student": 35,
+      "registration_q3|student": 35
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "RA": "local_2",
+      "course": "local_1",
+      "prof_email": "local_2",
+      "prof_email_2": "local_2",
+      "registration_q1": "local_1",
+      "registration_q2": "local_1",
+      "registration_q3": "local_1",
+      "student": "local_3"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {},
+    "row_relocation_R_by_table": {
+      "registration": {
+        "R": 1,
+        "F": 3,
+        "home_fragments": 3,
+        "rho": 0.8
+      }
+    },
+    "row_partition_home_anchor": {
+      "registration": "registration_q1"
+    },
+    "intents": [
+      {
+        "source_table": "registration",
+        "kind": "row_partition",
+        "movable_fragment": "registration_q2",
+        "partner_fragment": "student",
+        "partner_logical_table": "student",
+        "partner_weight": 35,
+        "cross_local_query_count": 35,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 2,
+        "anchor_fragment": "registration_q1"
+      }
+    ],
+    "moved_fragments": [
+      "registration_q2"
+    ],
+    "pinned_fragments": [
+      "registration_q1",
+      "student"
+    ],
+    "skipped": [],
+    "skipped_after_order": []
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "course": {
+        "columns": [
+          {
+            "name": "course_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "credit",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "diff",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "course_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 13
+      },
+      "prof": {
+        "columns": [
+          {
+            "name": "prof_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "gender",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "first_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "last_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "email",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "popularity",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "teachingability",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "graduate_from",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "prof_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 10
+      },
+      "RA": {
+        "columns": [
+          {
+            "name": "student_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "capability",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "prof_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "salary",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "student_id",
+          "prof_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 35
+      },
+      "registration": {
+        "columns": [
+          {
+            "name": "course_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "student_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "grade",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "sat",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "course_id",
+          "student_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 101
+      },
+      "student": {
+        "columns": [
+          {
+            "name": "student_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "f_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "l_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "phone_number",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "email",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "intelligence",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "gpa",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "type",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 38
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "RA",
+        "from_column": "student_id",
+        "to_table": "student",
+        "to_column": "student_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "RA",
+        "from_column": "prof_id",
+        "to_table": "prof",
+        "to_column": "prof_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "registration",
+        "from_column": "student_id",
+        "to_table": "student",
+        "to_column": "student_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "registration",
+        "from_column": "course_id",
+        "to_table": "course",
+        "to_column": "course_id",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 5,
+      "num_fk_edges": 4,
+      "hub_tables": [
+        "RA",
+        "registration",
+        "student",
+        "course",
+        "prof"
+      ],
+      "connected_components": 1
+    }
+  }
+}

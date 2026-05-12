@@ -1,0 +1,3852 @@
+{
+  "locals": [
+    {
+      "local_id": 0,
+      "local_name": "local_1",
+      "tables": {
+        "author_contact_info": {
+          "source_table": "authors",
+          "column_map": {
+            "author_id": "au_id",
+            "street_address": "address",
+            "contract_status": "contract",
+            "phone_number": "phone",
+            "state_code": "state",
+            "postal_code": "zip"
+          },
+          "projected_columns": [
+            "au_id",
+            "address",
+            "contract",
+            "phone",
+            "state",
+            "zip"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "author_profile"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "author_profile",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "address"
+        },
+        "author_profile": {
+          "source_table": "authors",
+          "column_map": {
+            "author_id": "au_id",
+            "mailing_address": "address",
+            "name": "au_fname",
+            "last_name": "au_lname",
+            "city_name": "city",
+            "contract_status": "contract",
+            "contact_number": "phone",
+            "state_code": "state"
+          },
+          "projected_columns": [
+            "au_id",
+            "address",
+            "au_fname",
+            "au_lname",
+            "city",
+            "contract",
+            "phone",
+            "state"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "author_contact_info"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "author_contact_info",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "address_2"
+        },
+        "store_order_summary": {
+          "source_table": "sales",
+          "column_map": {
+            "store_id": "stor_id",
+            "order_number": "ord_num",
+            "title_code": "title_id",
+            "order_date": "ord_date",
+            "quantity": "qty"
+          },
+          "projected_columns": [
+            "stor_id",
+            "ord_num",
+            "title_id",
+            "ord_date",
+            "qty"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "store_order_terms"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "store_order_terms",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "ord_date"
+        },
+        "store_order_terms": {
+          "source_table": "sales",
+          "column_map": {
+            "store_id": "stor_id",
+            "order_number": "ord_num",
+            "title_code": "title_id",
+            "order_date": "ord_date",
+            "payment_terms": "payterms",
+            "quantity": "qty"
+          },
+          "projected_columns": [
+            "stor_id",
+            "ord_num",
+            "title_id",
+            "ord_date",
+            "payterms",
+            "qty"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "store_order_summary"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "store_order_summary",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "ord_date_2"
+        },
+        "title_author_link": {
+          "source_table": "titleauthor",
+          "column_map": {
+            "author_id": "au_id",
+            "title_code": "title_id",
+            "author_sequence": "au_ord",
+            "royalty_percent": "royaltyper"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "title_financials": {
+          "source_table": "titles",
+          "column_map": {
+            "title_code": "title_id",
+            "advance_payment": "advance",
+            "internal_notes": "notes",
+            "list_price": "price",
+            "publication_date": "pubdate",
+            "book_title": "title",
+            "title_type": "type"
+          },
+          "projected_columns": [
+            "title_id",
+            "advance",
+            "notes",
+            "price",
+            "pubdate",
+            "title",
+            "type"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "titles_advance_2"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "titles_advance_2",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "advance"
+        }
+      },
+      "table_rename_map": {
+        "authors": "authors_address_2",
+        "sales": "sales_ord_date_2"
+      }
+    },
+    {
+      "local_id": 1,
+      "local_name": "local_2",
+      "tables": {
+        "employeesEmptyMiddleInitial": {
+          "source_table": "employee",
+          "column_map": {
+            "employeeId": "emp_id",
+            "firstName": "fname",
+            "hireDate": "hire_date",
+            "jobLevel": "job_lvl",
+            "lastName": "lname",
+            "middleInitial": "minit"
+          },
+          "projected_columns": [
+            "emp_id",
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          "row_predicate": "(\"minit\" = '' OR (rowid IN (4,30,35,36,40)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "employeeHireRecords"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "employeeHireRecords",
+          "is_row_partition": true,
+          "row_partition_partner": "employeesMiddleInitialAorHorJ",
+          "row_partition_peers": [
+            "employeesMiddleInitialAorHorJ",
+            "employeesMiddleInitialFOrP",
+            "employeesMiddleInitialMorBorG",
+            "employeesMiddleInitialOther"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "fname"
+        },
+        "employeesMiddleInitialAorHorJ": {
+          "source_table": "employee",
+          "column_map": {
+            "employeeId": "emp_id",
+            "firstName": "fname",
+            "hireDate": "hire_date",
+            "jobLevel": "job_lvl",
+            "lastName": "lname",
+            "middleInitial": "minit"
+          },
+          "projected_columns": [
+            "emp_id",
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          "row_predicate": "((\"minit\" = 'A' OR (\"minit\" = 'H' OR \"minit\" = 'J')) OR (rowid IN (1,12,18,21)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "employeeHireRecords"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "employeeHireRecords",
+          "is_row_partition": true,
+          "row_partition_partner": "employeesMiddleInitialFOrP",
+          "row_partition_peers": [
+            "employeesMiddleInitialFOrP",
+            "employeesMiddleInitialMorBorG",
+            "employeesMiddleInitialOther",
+            "employeesEmptyMiddleInitial"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "fname"
+        },
+        "employeesMiddleInitialFOrP": {
+          "source_table": "employee",
+          "column_map": {
+            "employeeId": "emp_id",
+            "firstName": "fname",
+            "hireDate": "hire_date",
+            "jobLevel": "job_lvl",
+            "lastName": "lname",
+            "middleInitial": "minit"
+          },
+          "projected_columns": [
+            "emp_id",
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          "row_predicate": "((\"minit\" = 'F' OR \"minit\" = 'P') OR (rowid IN (14,24,27,31)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "employeeHireRecords"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "employeeHireRecords",
+          "is_row_partition": true,
+          "row_partition_partner": "employeesMiddleInitialMorBorG",
+          "row_partition_peers": [
+            "employeesMiddleInitialMorBorG",
+            "employeesMiddleInitialOther",
+            "employeesEmptyMiddleInitial",
+            "employeesMiddleInitialAorHorJ"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "fname"
+        },
+        "employeesMiddleInitialMorBorG": {
+          "source_table": "employee",
+          "column_map": {
+            "employeeId": "emp_id",
+            "firstName": "fname",
+            "hireDate": "hire_date",
+            "jobLevel": "job_lvl",
+            "lastName": "lname",
+            "middleInitial": "minit"
+          },
+          "projected_columns": [
+            "emp_id",
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          "row_predicate": "((\"minit\" = 'M' OR (\"minit\" = 'B' OR \"minit\" = 'G')) OR (rowid IN (25,42)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "employeeHireRecords"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "employeeHireRecords",
+          "is_row_partition": true,
+          "row_partition_partner": "employeesMiddleInitialOther",
+          "row_partition_peers": [
+            "employeesMiddleInitialOther",
+            "employeesEmptyMiddleInitial",
+            "employeesMiddleInitialAorHorJ",
+            "employeesMiddleInitialFOrP"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "fname"
+        },
+        "employeesMiddleInitialOther": {
+          "source_table": "employee",
+          "column_map": {
+            "employeeId": "emp_id",
+            "firstName": "fname",
+            "hireDate": "hire_date",
+            "jobLevel": "job_lvl",
+            "lastName": "lname",
+            "middleInitial": "minit"
+          },
+          "projected_columns": [
+            "emp_id",
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          "row_predicate": "((\"minit\" IS NULL OR \"minit\" NOT IN ('', 'A', 'F', 'M', 'B', 'G', 'H', 'J', 'P')) OR (rowid IN (3,7,32)))",
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "employeeHireRecords"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "employeeHireRecords",
+          "is_row_partition": true,
+          "row_partition_partner": "employeesEmptyMiddleInitial",
+          "row_partition_peers": [
+            "employeesEmptyMiddleInitial",
+            "employeesMiddleInitialAorHorJ",
+            "employeesMiddleInitialFOrP",
+            "employeesMiddleInitialMorBorG"
+          ],
+          "row_partition_has_overlap": true,
+          "vertical_fragment_suffix": "fname"
+        },
+        "employeeHireRecords": {
+          "source_table": "employee",
+          "column_map": {
+            "employeeId": "emp_id",
+            "hireDate": "hire_date",
+            "jobId": "job_id",
+            "jobLevel": "job_lvl",
+            "middleInitial": "minit",
+            "publisherId": "pub_id"
+          },
+          "projected_columns": [
+            "emp_id",
+            "hire_date",
+            "job_id",
+            "job_lvl",
+            "minit",
+            "pub_id"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "employee_fname"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "employee_fname",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "hire_date"
+        },
+        "jobRoles": {
+          "source_table": "jobs",
+          "column_map": {
+            "jobId": "job_id",
+            "jobDescription": "job_desc",
+            "minLevel": "min_lvl",
+            "maxLevel": "max_lvl"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "publisherAssets": {
+          "source_table": "pub_info",
+          "column_map": {
+            "publisherId": "pub_id",
+            "logoImage": "logo",
+            "publicityInfo": "pr_info"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "publisherDirectory": {
+          "source_table": "publishers",
+          "column_map": {
+            "publisherId": "pub_id",
+            "publisherName": "pub_name",
+            "headquartersCity": "city",
+            "headquartersState": "state",
+            "headquartersCountry": "country"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "royaltySchedules": {
+          "source_table": "roysched",
+          "column_map": {
+            "titleId": "title_id",
+            "lowRange": "lorange",
+            "highRange": "hirange",
+            "royaltyRate": "royalty"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "bookAdvanceDetails": {
+          "source_table": "titles",
+          "column_map": {
+            "titleId": "title_id",
+            "advanceAmount": "advance",
+            "listPrice": "price",
+            "publisherId": "pub_id",
+            "publicationDate": "pubdate",
+            "royaltyRate": "royalty",
+            "titleName": "title",
+            "yearToDateSales": "ytd_sales"
+          },
+          "projected_columns": [
+            "title_id",
+            "advance",
+            "price",
+            "pub_id",
+            "pubdate",
+            "royalty",
+            "title",
+            "ytd_sales"
+          ],
+          "row_predicate": null,
+          "is_vertical_split_fragment": true,
+          "vertical_split_peers": [
+            "titles_advance"
+          ],
+          "is_hsplit_fragment": true,
+          "hsplit_partner": "titles_advance",
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": "advance_2"
+        }
+      },
+      "table_rename_map": {
+        "employee": "employee_hire_date",
+        "titles": "titles_advance_2"
+      }
+    },
+    {
+      "local_id": 2,
+      "local_name": "local_3",
+      "tables": {
+        "TieredDiscounts": {
+          "source_table": "discounts",
+          "column_map": {
+            "DiscountCategory": "discounttype",
+            "OutletId": "stor_id",
+            "MinimumQuantity": "lowqty",
+            "MaximumQuantity": "highqty",
+            "DiscountRate": "discount"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        },
+        "RetailOutlets": {
+          "source_table": "stores",
+          "column_map": {
+            "OutletId": "stor_id",
+            "OutletName": "stor_name",
+            "AddressLine": "stor_address",
+            "CityName": "city",
+            "StateCode": "state",
+            "PostalCode": "zip"
+          },
+          "projected_columns": null,
+          "row_predicate": null,
+          "is_vertical_split_fragment": false,
+          "vertical_split_peers": [],
+          "is_hsplit_fragment": false,
+          "hsplit_partner": null,
+          "is_row_partition": false,
+          "row_partition_partner": null,
+          "row_partition_peers": [],
+          "row_partition_has_overlap": false,
+          "vertical_fragment_suffix": null
+        }
+      },
+      "table_rename_map": {}
+    }
+  ],
+  "rename_map": {
+    "local_1": {
+      "table_renames": {
+        "authors_address": "author_contact_info",
+        "authors_address_2": "author_profile",
+        "sales_ord_date": "store_order_summary",
+        "sales_ord_date_2": "store_order_terms",
+        "titleauthor": "title_author_link",
+        "titles_advance": "title_financials"
+      },
+      "column_renames": {
+        "authors_address": {
+          "au_id": "author_id",
+          "address": "street_address",
+          "contract": "contract_status",
+          "phone": "phone_number",
+          "state": "state_code",
+          "zip": "postal_code"
+        },
+        "authors_address_2": {
+          "au_id": "author_id",
+          "address": "mailing_address",
+          "au_fname": "name",
+          "au_lname": "last_name",
+          "city": "city_name",
+          "contract": "contract_status",
+          "phone": "contact_number",
+          "state": "state_code"
+        },
+        "sales_ord_date": {
+          "stor_id": "store_id",
+          "ord_num": "order_number",
+          "title_id": "title_code",
+          "ord_date": "order_date",
+          "qty": "quantity"
+        },
+        "sales_ord_date_2": {
+          "stor_id": "store_id",
+          "ord_num": "order_number",
+          "title_id": "title_code",
+          "ord_date": "order_date",
+          "payterms": "payment_terms",
+          "qty": "quantity"
+        },
+        "titleauthor": {
+          "au_id": "author_id",
+          "title_id": "title_code",
+          "au_ord": "author_sequence",
+          "royaltyper": "royalty_percent"
+        },
+        "titles_advance": {
+          "title_id": "title_code",
+          "advance": "advance_payment",
+          "notes": "internal_notes",
+          "price": "list_price",
+          "pubdate": "publication_date",
+          "title": "book_title",
+          "type": "title_type"
+        }
+      },
+      "naming_case_style": "snake_case"
+    },
+    "local_2": {
+      "table_renames": {
+        "employee_fname_part1": "employeesEmptyMiddleInitial",
+        "employee_fname_part2": "employeesMiddleInitialAorHorJ",
+        "employee_fname_part3": "employeesMiddleInitialFOrP",
+        "employee_fname_part4": "employeesMiddleInitialMorBorG",
+        "employee_fname_part5": "employeesMiddleInitialOther",
+        "employee_hire_date": "employeeHireRecords",
+        "jobs": "jobRoles",
+        "pub_info": "publisherAssets",
+        "publishers": "publisherDirectory",
+        "roysched": "royaltySchedules",
+        "titles_advance_2": "bookAdvanceDetails"
+      },
+      "column_renames": {
+        "employee_fname_part1": {
+          "emp_id": "employeeId",
+          "fname": "firstName",
+          "hire_date": "hireDate",
+          "job_lvl": "jobLevel",
+          "lname": "lastName",
+          "minit": "middleInitial"
+        },
+        "employee_fname_part2": {
+          "emp_id": "employeeId",
+          "fname": "firstName",
+          "hire_date": "hireDate",
+          "job_lvl": "jobLevel",
+          "lname": "lastName",
+          "minit": "middleInitial"
+        },
+        "employee_fname_part3": {
+          "emp_id": "employeeId",
+          "fname": "firstName",
+          "hire_date": "hireDate",
+          "job_lvl": "jobLevel",
+          "lname": "lastName",
+          "minit": "middleInitial"
+        },
+        "employee_fname_part4": {
+          "emp_id": "employeeId",
+          "fname": "firstName",
+          "hire_date": "hireDate",
+          "job_lvl": "jobLevel",
+          "lname": "lastName",
+          "minit": "middleInitial"
+        },
+        "employee_fname_part5": {
+          "emp_id": "employeeId",
+          "fname": "firstName",
+          "hire_date": "hireDate",
+          "job_lvl": "jobLevel",
+          "lname": "lastName",
+          "minit": "middleInitial"
+        },
+        "employee_hire_date": {
+          "emp_id": "employeeId",
+          "hire_date": "hireDate",
+          "job_id": "jobId",
+          "job_lvl": "jobLevel",
+          "minit": "middleInitial",
+          "pub_id": "publisherId"
+        },
+        "jobs": {
+          "job_id": "jobId",
+          "job_desc": "jobDescription",
+          "min_lvl": "minLevel",
+          "max_lvl": "maxLevel"
+        },
+        "pub_info": {
+          "pub_id": "publisherId",
+          "logo": "logoImage",
+          "pr_info": "publicityInfo"
+        },
+        "publishers": {
+          "pub_id": "publisherId",
+          "pub_name": "publisherName",
+          "city": "headquartersCity",
+          "state": "headquartersState",
+          "country": "headquartersCountry"
+        },
+        "roysched": {
+          "title_id": "titleId",
+          "lorange": "lowRange",
+          "hirange": "highRange",
+          "royalty": "royaltyRate"
+        },
+        "titles_advance_2": {
+          "title_id": "titleId",
+          "advance": "advanceAmount",
+          "price": "listPrice",
+          "pub_id": "publisherId",
+          "pubdate": "publicationDate",
+          "royalty": "royaltyRate",
+          "title": "titleName",
+          "ytd_sales": "yearToDateSales"
+        }
+      },
+      "naming_case_style": "camelCase"
+    },
+    "local_3": {
+      "table_renames": {
+        "discounts": "TieredDiscounts",
+        "stores": "RetailOutlets"
+      },
+      "column_renames": {
+        "discounts": {
+          "discounttype": "DiscountCategory",
+          "stor_id": "OutletId",
+          "lowqty": "MinimumQuantity",
+          "highqty": "MaximumQuantity",
+          "discount": "DiscountRate"
+        },
+        "stores": {
+          "stor_id": "OutletId",
+          "stor_name": "OutletName",
+          "stor_address": "AddressLine",
+          "city": "CityName",
+          "state": "StateCode",
+          "zip": "PostalCode"
+        }
+      },
+      "naming_case_style": "PascalCase"
+    }
+  },
+  "vertical_split_map": {
+    "authors": {
+      "pk_columns": [
+        "au_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "contract",
+            "phone",
+            "state",
+            "zip"
+          ],
+          "local_table": "author_contact_info",
+          "local_name": "local_1",
+          "vertical_fragment_base": "authors_address"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "au_fname",
+            "au_lname",
+            "city",
+            "contract",
+            "phone",
+            "state"
+          ],
+          "local_table": "author_profile",
+          "local_name": "local_1",
+          "vertical_fragment_base": "authors_address_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "authors",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03313204141462567
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.03313204141462567,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "phone",
+            "state",
+            "zip"
+          ],
+          [
+            "au_fname",
+            "au_lname",
+            "city",
+            "contract"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "contract",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "state",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "contract",
+            "phone",
+            "state",
+            "zip"
+          ],
+          [
+            "address",
+            "au_fname",
+            "au_lname",
+            "city",
+            "contract",
+            "phone",
+            "state"
+          ]
+        ],
+        "pk_columns": [
+          "au_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "contract",
+              "phone",
+              "state",
+              "zip"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "au_fname",
+              "au_lname",
+              "city",
+              "contract",
+              "phone",
+              "state"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "authors_address_2",
+      "movable_candidates": [
+        "authors_address"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=1"
+    },
+    "sales": {
+      "pk_columns": [
+        "stor_id",
+        "ord_num",
+        "title_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "ord_date",
+          "non_pk_columns": [
+            "ord_date",
+            "qty"
+          ],
+          "local_table": "store_order_summary",
+          "local_name": "local_1",
+          "vertical_fragment_base": "sales_ord_date"
+        },
+        {
+          "suffix": "ord_date_2",
+          "non_pk_columns": [
+            "ord_date",
+            "payterms",
+            "qty"
+          ],
+          "local_table": "store_order_terms",
+          "local_name": "local_1",
+          "vertical_fragment_base": "sales_ord_date_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "sales",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 3,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 192446679,
+        "scores_by_k": {
+          "2": 0.015281088266681704,
+          "3": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.015281088266681704,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "ord_date",
+            "qty"
+          ],
+          [
+            "payterms"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "qty",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "ord_date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "ord_date",
+            "qty"
+          ],
+          [
+            "ord_date",
+            "payterms",
+            "qty"
+          ]
+        ],
+        "pk_columns": [
+          "stor_id",
+          "ord_num",
+          "title_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "ord_date",
+            "non_pk_columns": [
+              "ord_date",
+              "qty"
+            ]
+          },
+          {
+            "suffix": "ord_date_2",
+            "non_pk_columns": [
+              "ord_date",
+              "payterms",
+              "qty"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "sales_ord_date_2",
+      "movable_candidates": [
+        "sales_ord_date"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+    },
+    "employee": {
+      "pk_columns": [
+        "emp_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "fname",
+          "non_pk_columns": [
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          "local_table": "employeesEmptyMiddleInitial",
+          "local_name": "local_2",
+          "vertical_fragment_base": "employee_fname",
+          "row_partition_names": [
+            "employeesEmptyMiddleInitial",
+            "employeesMiddleInitialAorHorJ",
+            "employeesMiddleInitialFOrP",
+            "employeesMiddleInitialMorBorG",
+            "employeesMiddleInitialOther"
+          ],
+          "row_partition_predicate_column": "minit"
+        },
+        {
+          "suffix": "hire_date",
+          "non_pk_columns": [
+            "hire_date",
+            "job_id",
+            "job_lvl",
+            "minit",
+            "pub_id"
+          ],
+          "local_table": "employeeHireRecords",
+          "local_name": "local_2",
+          "vertical_fragment_base": "employee_hire_date"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "employee",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.0529188595318009
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0529188595318009,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "fname",
+            "lname",
+            "minit"
+          ],
+          [
+            "hire_date",
+            "job_id",
+            "job_lvl",
+            "pub_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "hire_date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "job_lvl",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "minit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          [
+            "hire_date",
+            "job_id",
+            "job_lvl",
+            "minit",
+            "pub_id"
+          ]
+        ],
+        "pk_columns": [
+          "emp_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "fname",
+            "non_pk_columns": [
+              "fname",
+              "hire_date",
+              "job_lvl",
+              "lname",
+              "minit"
+            ]
+          },
+          {
+            "suffix": "hire_date",
+            "non_pk_columns": [
+              "hire_date",
+              "job_id",
+              "job_lvl",
+              "minit",
+              "pub_id"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "employee_hire_date",
+      "movable_candidates": [
+        "employee_fname_part1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=2"
+    },
+    "titles": {
+      "pk_columns": [
+        "title_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "advance",
+          "non_pk_columns": [
+            "advance",
+            "notes",
+            "price",
+            "pubdate",
+            "title",
+            "type"
+          ],
+          "local_table": "title_financials",
+          "local_name": "local_1",
+          "vertical_fragment_base": "titles_advance"
+        },
+        {
+          "suffix": "advance_2",
+          "non_pk_columns": [
+            "advance",
+            "price",
+            "pub_id",
+            "pubdate",
+            "royalty",
+            "title",
+            "ytd_sales"
+          ],
+          "local_table": "bookAdvanceDetails",
+          "local_name": "local_2",
+          "vertical_fragment_base": "titles_advance_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "titles",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.01184453348547207,
+          "3": 0.007684999063884447
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.01184453348547207,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "advance",
+            "notes",
+            "price",
+            "title",
+            "type"
+          ],
+          [
+            "pub_id",
+            "pubdate",
+            "royalty",
+            "ytd_sales"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "advance",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "price",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "title",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "pubdate",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "advance",
+            "notes",
+            "price",
+            "pubdate",
+            "title",
+            "type"
+          ],
+          [
+            "advance",
+            "price",
+            "pub_id",
+            "pubdate",
+            "royalty",
+            "title",
+            "ytd_sales"
+          ]
+        ],
+        "pk_columns": [
+          "title_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "advance",
+            "non_pk_columns": [
+              "advance",
+              "notes",
+              "price",
+              "pubdate",
+              "title",
+              "type"
+            ]
+          },
+          {
+            "suffix": "advance_2",
+            "non_pk_columns": [
+              "advance",
+              "price",
+              "pub_id",
+              "pubdate",
+              "royalty",
+              "title",
+              "ytd_sales"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "titles_advance_2",
+      "movable_candidates": [
+        "titles_advance"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=4"
+    }
+  },
+  "split_map": {
+    "authors": {
+      "pk_columns": [
+        "au_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "address",
+          "non_pk_columns": [
+            "address",
+            "contract",
+            "phone",
+            "state",
+            "zip"
+          ],
+          "local_table": "author_contact_info",
+          "local_name": "local_1",
+          "vertical_fragment_base": "authors_address"
+        },
+        {
+          "suffix": "address_2",
+          "non_pk_columns": [
+            "address",
+            "au_fname",
+            "au_lname",
+            "city",
+            "contract",
+            "phone",
+            "state"
+          ],
+          "local_table": "author_profile",
+          "local_name": "local_1",
+          "vertical_fragment_base": "authors_address_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "authors",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 8,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1478885609,
+        "scores_by_k": {
+          "2": 0.03313204141462567
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.03313204141462567,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "address",
+            "phone",
+            "state",
+            "zip"
+          ],
+          [
+            "au_fname",
+            "au_lname",
+            "city",
+            "contract"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "contract",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "address",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "state",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "phone",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "address",
+            "contract",
+            "phone",
+            "state",
+            "zip"
+          ],
+          [
+            "address",
+            "au_fname",
+            "au_lname",
+            "city",
+            "contract",
+            "phone",
+            "state"
+          ]
+        ],
+        "pk_columns": [
+          "au_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "address",
+            "non_pk_columns": [
+              "address",
+              "contract",
+              "phone",
+              "state",
+              "zip"
+            ]
+          },
+          {
+            "suffix": "address_2",
+            "non_pk_columns": [
+              "address",
+              "au_fname",
+              "au_lname",
+              "city",
+              "contract",
+              "phone",
+              "state"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "authors_address_2",
+      "movable_candidates": [
+        "authors_address"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=1"
+    },
+    "sales": {
+      "pk_columns": [
+        "stor_id",
+        "ord_num",
+        "title_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "ord_date",
+          "non_pk_columns": [
+            "ord_date",
+            "qty"
+          ],
+          "local_table": "store_order_summary",
+          "local_name": "local_1",
+          "vertical_fragment_base": "sales_ord_date"
+        },
+        {
+          "suffix": "ord_date_2",
+          "non_pk_columns": [
+            "ord_date",
+            "payterms",
+            "qty"
+          ],
+          "local_table": "store_order_terms",
+          "local_name": "local_1",
+          "vertical_fragment_base": "sales_ord_date_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "sales",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 3,
+        "min_non_pk_per_fragment": 1,
+        "pk_width": 3,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 192446679,
+        "scores_by_k": {
+          "2": 0.015281088266681704,
+          "3": -1.0
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.015281088266681704,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "ord_date",
+            "qty"
+          ],
+          [
+            "payterms"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "qty",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "ord_date",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "ord_date",
+            "qty"
+          ],
+          [
+            "ord_date",
+            "payterms",
+            "qty"
+          ]
+        ],
+        "pk_columns": [
+          "stor_id",
+          "ord_num",
+          "title_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "ord_date",
+            "non_pk_columns": [
+              "ord_date",
+              "qty"
+            ]
+          },
+          {
+            "suffix": "ord_date_2",
+            "non_pk_columns": [
+              "ord_date",
+              "payterms",
+              "qty"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "sales_ord_date_2",
+      "movable_candidates": [
+        "sales_ord_date"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=3;fk_column_endpoints_on_fragment=2"
+    },
+    "employee": {
+      "pk_columns": [
+        "emp_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "fname",
+          "non_pk_columns": [
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          "local_table": "employeesEmptyMiddleInitial",
+          "local_name": "local_2",
+          "vertical_fragment_base": "employee_fname",
+          "row_partition_names": [
+            "employeesEmptyMiddleInitial",
+            "employeesMiddleInitialAorHorJ",
+            "employeesMiddleInitialFOrP",
+            "employeesMiddleInitialMorBorG",
+            "employeesMiddleInitialOther"
+          ],
+          "row_partition_predicate_column": "minit"
+        },
+        {
+          "suffix": "hire_date",
+          "non_pk_columns": [
+            "hire_date",
+            "job_id",
+            "job_lvl",
+            "minit",
+            "pub_id"
+          ],
+          "local_table": "employeeHireRecords",
+          "local_name": "local_2",
+          "vertical_fragment_base": "employee_hire_date"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "employee",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 7,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 1774864359,
+        "scores_by_k": {
+          "2": 0.0529188595318009
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.0529188595318009,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "fname",
+            "lname",
+            "minit"
+          ],
+          [
+            "hire_date",
+            "job_id",
+            "job_lvl",
+            "pub_id"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "hire_date",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "job_lvl",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          },
+          {
+            "column": "minit",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "fname",
+            "hire_date",
+            "job_lvl",
+            "lname",
+            "minit"
+          ],
+          [
+            "hire_date",
+            "job_id",
+            "job_lvl",
+            "minit",
+            "pub_id"
+          ]
+        ],
+        "pk_columns": [
+          "emp_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "fname",
+            "non_pk_columns": [
+              "fname",
+              "hire_date",
+              "job_lvl",
+              "lname",
+              "minit"
+            ]
+          },
+          {
+            "suffix": "hire_date",
+            "non_pk_columns": [
+              "hire_date",
+              "job_id",
+              "job_lvl",
+              "minit",
+              "pub_id"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "employee_hire_date",
+      "movable_candidates": [
+        "employee_fname_part1"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=5;fk_column_endpoints_on_fragment=2"
+    },
+    "titles": {
+      "pk_columns": [
+        "title_id"
+      ],
+      "fragments": [
+        {
+          "suffix": "advance",
+          "non_pk_columns": [
+            "advance",
+            "notes",
+            "price",
+            "pubdate",
+            "title",
+            "type"
+          ],
+          "local_table": "title_financials",
+          "local_name": "local_1",
+          "vertical_fragment_base": "titles_advance"
+        },
+        {
+          "suffix": "advance_2",
+          "non_pk_columns": [
+            "advance",
+            "price",
+            "pub_id",
+            "pubdate",
+            "royalty",
+            "title",
+            "ytd_sales"
+          ],
+          "local_table": "bookAdvanceDetails",
+          "local_name": "local_2",
+          "vertical_fragment_base": "titles_advance_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "titles",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 9,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.01184453348547207,
+          "3": 0.007684999063884447
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.01184453348547207,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "advance",
+            "notes",
+            "price",
+            "title",
+            "type"
+          ],
+          [
+            "pub_id",
+            "pubdate",
+            "royalty",
+            "ytd_sales"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "advance",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "price",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "title",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "pubdate",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 0
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "advance",
+            "notes",
+            "price",
+            "pubdate",
+            "title",
+            "type"
+          ],
+          [
+            "advance",
+            "price",
+            "pub_id",
+            "pubdate",
+            "royalty",
+            "title",
+            "ytd_sales"
+          ]
+        ],
+        "pk_columns": [
+          "title_id"
+        ],
+        "fragments": [
+          {
+            "suffix": "advance",
+            "non_pk_columns": [
+              "advance",
+              "notes",
+              "price",
+              "pubdate",
+              "title",
+              "type"
+            ]
+          },
+          {
+            "suffix": "advance_2",
+            "non_pk_columns": [
+              "advance",
+              "price",
+              "pub_id",
+              "pubdate",
+              "royalty",
+              "title",
+              "ytd_sales"
+            ]
+          }
+        ]
+      },
+      "anchor_fragment": "titles_advance_2",
+      "movable_candidates": [
+        "titles_advance"
+      ],
+      "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=4"
+    }
+  },
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 11,
+    "eligible_candidate_count": 9,
+    "num_selected_for_vertical_split": 9,
+    "num_from_rate_alone": 9,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 0,
+    "selected_original_tables": [
+      "titles",
+      "authors",
+      "employee",
+      "stores",
+      "publishers",
+      "jobs",
+      "sales",
+      "pub_info",
+      "titleauthor"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/book_publishing_company/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "stores",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "publishers",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "jobs",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "pub_info",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "titleauthor",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "row_partition_map": {
+    "employee||vfrag=fname": {
+      "source_table": "employee",
+      "vertical_fragment_suffix": "fname",
+      "num_partitions": 5,
+      "partition_names": [
+        "employeesEmptyMiddleInitial",
+        "employeesMiddleInitialAorHorJ",
+        "employeesMiddleInitialFOrP",
+        "employeesMiddleInitialMorBorG",
+        "employeesMiddleInitialOther"
+      ],
+      "partition_locals": [
+        "local_2",
+        "local_2",
+        "local_2",
+        "local_2",
+        "local_2"
+      ],
+      "predicate_column": "minit",
+      "partition_values": [
+        {
+          "value": "",
+          "includes_null": false
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "A",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "H",
+                  "includes_null": false
+                },
+                {
+                  "value": "J",
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "F",
+              "includes_null": false
+            },
+            {
+              "value": "P",
+              "includes_null": false
+            }
+          ]
+        },
+        {
+          "merged_buckets": [
+            {
+              "value": "M",
+              "includes_null": false
+            },
+            {
+              "merged_buckets": [
+                {
+                  "value": "B",
+                  "includes_null": false
+                },
+                {
+                  "value": "G",
+                  "includes_null": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "value": "__OTHER__",
+          "includes_null": true,
+          "excluded_values": [
+            "",
+            "A",
+            "F",
+            "M",
+            "B",
+            "G",
+            "H",
+            "J",
+            "P"
+          ]
+        }
+      ],
+      "predicate_sqls": [
+        "(\"minit\" = '' OR (rowid IN (4,30,35,36,40)))",
+        "((\"minit\" = 'A' OR (\"minit\" = 'H' OR \"minit\" = 'J')) OR (rowid IN (1,12,18,21)))",
+        "((\"minit\" = 'F' OR \"minit\" = 'P') OR (rowid IN (14,24,27,31)))",
+        "((\"minit\" = 'M' OR (\"minit\" = 'B' OR \"minit\" = 'G')) OR (rowid IN (25,42)))",
+        "((\"minit\" IS NULL OR \"minit\" NOT IN ('', 'A', 'F', 'M', 'B', 'G', 'H', 'J', 'P')) OR (rowid IN (3,7,32)))"
+      ],
+      "base_predicate_sqls": [
+        "\"minit\" = ''",
+        "(\"minit\" = 'A' OR (\"minit\" = 'H' OR \"minit\" = 'J'))",
+        "(\"minit\" = 'F' OR \"minit\" = 'P')",
+        "(\"minit\" = 'M' OR (\"minit\" = 'B' OR \"minit\" = 'G'))",
+        "(\"minit\" IS NULL OR \"minit\" NOT IN ('', 'A', 'F', 'M', 'B', 'G', 'H', 'J', 'P'))"
+      ],
+      "predicate_kind": "afd_categorical_topk_plus_other",
+      "fragment_roles": [
+        "rows where minit = ",
+        "rows where minit = A + rows where minit = H + rows where minit = J",
+        "rows where minit = F + rows where minit = P",
+        "rows where minit = M + rows where minit = B + rows where minit = G",
+        "rows where minit is NULL or not in {'', 'A', 'F', 'M', 'B', 'G', 'H', 'J', 'P'} (catch-all 'OTHER' bucket)"
+      ],
+      "home_fragment": "employeesEmptyMiddleInitial",
+      "movable_fragments": [
+        "employeesMiddleInitialAorHorJ",
+        "employeesMiddleInitialFOrP",
+        "employeesMiddleInitialMorBorG",
+        "employeesMiddleInitialOther"
+      ],
+      "movable_fragment": "employeesMiddleInitialAorHorJ",
+      "default_movable_fragment": "employeesMiddleInitialAorHorJ",
+      "overlap_ratio": 0.4,
+      "has_overlap": true,
+      "afd_audit": {
+        "column": "minit",
+        "mean_strong": 0.0,
+        "coverage": 0.0,
+        "score": 0.0,
+        "strong_dependencies": [],
+        "afd_min_strength": 0.6,
+        "candidate_columns": [
+          "minit"
+        ],
+        "ranked_columns": [
+          {
+            "column": "minit",
+            "score": 0.0,
+            "mean_strong": 0.0,
+            "coverage": 0.0
+          }
+        ],
+        "engine": "desbordante",
+        "sample_rows": 0
+      },
+      "predicate_sql_fragment_A": "(\"minit\" = '' OR (rowid IN (4,30,35,36,40)))",
+      "predicate_sql_fragment_B": "((\"minit\" = 'A' OR (\"minit\" = 'H' OR \"minit\" = 'J')) OR (rowid IN (1,12,18,21)))",
+      "fragment_role_A": "rows where minit = ",
+      "fragment_role_B": "rows where minit = A + rows where minit = H + rows where minit = J"
+    }
+  },
+  "fk_map": {
+    "foreign_keys": [
+      {
+        "original": {
+          "from_table": "employee",
+          "from_column": "pub_id",
+          "to_table": "publishers",
+          "to_column": "pub_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part1",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part2",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part3",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part4",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part5",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_hire_date",
+            "column_map": {
+              "emp_id": "emp_id",
+              "hire_date": "hire_date",
+              "job_id": "job_id",
+              "job_lvl": "job_lvl",
+              "minit": "minit",
+              "pub_id": "pub_id"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "hire_date": "hire_date",
+              "job_id": "job_id",
+              "job_lvl": "job_lvl",
+              "minit": "minit",
+              "pub_id": "pub_id"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "publishers",
+            "column_map": {
+              "pub_id": "pub_id",
+              "pub_name": "pub_name",
+              "city": "city",
+              "state": "state",
+              "country": "country"
+            },
+            "orig_to_local": {
+              "pub_id": "pub_id",
+              "pub_name": "pub_name",
+              "city": "city",
+              "state": "state",
+              "country": "country"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "employeeHireRecords",
+            "to_local_table": "publisherDirectory",
+            "from_local_column": "publisherId",
+            "to_local_column": "publisherId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "employee",
+          "from_column": "job_id",
+          "to_table": "jobs",
+          "to_column": "job_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part1",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part2",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part3",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part4",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_fname_part5",
+            "column_map": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "fname": "fname",
+              "hire_date": "hire_date",
+              "job_lvl": "job_lvl",
+              "lname": "lname",
+              "minit": "minit"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "employee_hire_date",
+            "column_map": {
+              "emp_id": "emp_id",
+              "hire_date": "hire_date",
+              "job_id": "job_id",
+              "job_lvl": "job_lvl",
+              "minit": "minit",
+              "pub_id": "pub_id"
+            },
+            "orig_to_local": {
+              "emp_id": "emp_id",
+              "hire_date": "hire_date",
+              "job_id": "job_id",
+              "job_lvl": "job_lvl",
+              "minit": "minit",
+              "pub_id": "pub_id"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "jobs",
+            "column_map": {
+              "job_id": "job_id",
+              "job_desc": "job_desc",
+              "min_lvl": "min_lvl",
+              "max_lvl": "max_lvl"
+            },
+            "orig_to_local": {
+              "job_id": "job_id",
+              "job_desc": "job_desc",
+              "min_lvl": "min_lvl",
+              "max_lvl": "max_lvl"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "employeeHireRecords",
+            "to_local_table": "jobRoles",
+            "from_local_column": "jobId",
+            "to_local_column": "jobId"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "pub_info",
+          "from_column": "pub_id",
+          "to_table": "publishers",
+          "to_column": "pub_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "pub_info",
+            "column_map": {
+              "pub_id": "pub_id",
+              "logo": "logo",
+              "pr_info": "pr_info"
+            },
+            "orig_to_local": {
+              "pub_id": "pub_id",
+              "logo": "logo",
+              "pr_info": "pr_info"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "publishers",
+            "column_map": {
+              "pub_id": "pub_id",
+              "pub_name": "pub_name",
+              "city": "city",
+              "state": "state",
+              "country": "country"
+            },
+            "orig_to_local": {
+              "pub_id": "pub_id",
+              "pub_name": "pub_name",
+              "city": "city",
+              "state": "state",
+              "country": "country"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "publisherAssets",
+            "to_local_table": "publisherDirectory",
+            "from_local_column": "publisherId",
+            "to_local_column": "publisherId"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "discounts",
+          "from_column": "stor_id",
+          "to_table": "stores",
+          "to_column": "stor_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_3",
+            "local_table": "discounts",
+            "column_map": {
+              "discounttype": "discounttype",
+              "stor_id": "stor_id",
+              "lowqty": "lowqty",
+              "highqty": "highqty",
+              "discount": "discount"
+            },
+            "orig_to_local": {
+              "discounttype": "discounttype",
+              "stor_id": "stor_id",
+              "lowqty": "lowqty",
+              "highqty": "highqty",
+              "discount": "discount"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "stores",
+            "column_map": {
+              "stor_id": "stor_id",
+              "stor_name": "stor_name",
+              "stor_address": "stor_address",
+              "city": "city",
+              "state": "state",
+              "zip": "zip"
+            },
+            "orig_to_local": {
+              "stor_id": "stor_id",
+              "stor_name": "stor_name",
+              "stor_address": "stor_address",
+              "city": "city",
+              "state": "state",
+              "zip": "zip"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_3",
+            "from_local_table": "TieredDiscounts",
+            "to_local_table": "RetailOutlets",
+            "from_local_column": "OutletId",
+            "to_local_column": "OutletId"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "titles",
+          "from_column": "pub_id",
+          "to_table": "publishers",
+          "to_column": "pub_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "titles_advance",
+            "column_map": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "notes": "notes",
+              "price": "price",
+              "pubdate": "pubdate",
+              "title": "title",
+              "type": "type"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "notes": "notes",
+              "price": "price",
+              "pubdate": "pubdate",
+              "title": "title",
+              "type": "type"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "titles_advance_2",
+            "column_map": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "price": "price",
+              "pub_id": "pub_id",
+              "pubdate": "pubdate",
+              "royalty": "royalty",
+              "title": "title",
+              "ytd_sales": "ytd_sales"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "price": "price",
+              "pub_id": "pub_id",
+              "pubdate": "pubdate",
+              "royalty": "royalty",
+              "title": "title",
+              "ytd_sales": "ytd_sales"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_2",
+            "local_table": "publishers",
+            "column_map": {
+              "pub_id": "pub_id",
+              "pub_name": "pub_name",
+              "city": "city",
+              "state": "state",
+              "country": "country"
+            },
+            "orig_to_local": {
+              "pub_id": "pub_id",
+              "pub_name": "pub_name",
+              "city": "city",
+              "state": "state",
+              "country": "country"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "bookAdvanceDetails",
+            "to_local_table": "publisherDirectory",
+            "from_local_column": "publisherId",
+            "to_local_column": "publisherId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      },
+      {
+        "original": {
+          "from_table": "roysched",
+          "from_column": "title_id",
+          "to_table": "titles",
+          "to_column": "title_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_2",
+            "local_table": "roysched",
+            "column_map": {
+              "title_id": "title_id",
+              "lorange": "lorange",
+              "hirange": "hirange",
+              "royalty": "royalty"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "lorange": "lorange",
+              "hirange": "hirange",
+              "royalty": "royalty"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "titles_advance",
+            "column_map": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "notes": "notes",
+              "price": "price",
+              "pubdate": "pubdate",
+              "title": "title",
+              "type": "type"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "notes": "notes",
+              "price": "price",
+              "pubdate": "pubdate",
+              "title": "title",
+              "type": "type"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "titles_advance_2",
+            "column_map": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "price": "price",
+              "pub_id": "pub_id",
+              "pubdate": "pubdate",
+              "royalty": "royalty",
+              "title": "title",
+              "ytd_sales": "ytd_sales"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "price": "price",
+              "pub_id": "pub_id",
+              "pubdate": "pubdate",
+              "royalty": "royalty",
+              "title": "title",
+              "ytd_sales": "ytd_sales"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_2",
+            "from_local_table": "royaltySchedules",
+            "to_local_table": "bookAdvanceDetails",
+            "from_local_column": "titleId",
+            "to_local_column": "titleId"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_2",
+            "to_local": "local_1",
+            "from_local_table": "royaltySchedules",
+            "to_local_table": "title_financials",
+            "from_local_column": "titleId",
+            "to_local_column": "title_code"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "sales",
+          "from_column": "title_id",
+          "to_table": "titles",
+          "to_column": "title_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "sales_ord_date",
+            "column_map": {
+              "stor_id": "stor_id",
+              "ord_num": "ord_num",
+              "title_id": "title_id",
+              "ord_date": "ord_date",
+              "qty": "qty"
+            },
+            "orig_to_local": {
+              "stor_id": "stor_id",
+              "ord_num": "ord_num",
+              "title_id": "title_id",
+              "ord_date": "ord_date",
+              "qty": "qty"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "sales_ord_date_2",
+            "column_map": {
+              "stor_id": "stor_id",
+              "ord_num": "ord_num",
+              "title_id": "title_id",
+              "ord_date": "ord_date",
+              "payterms": "payterms",
+              "qty": "qty"
+            },
+            "orig_to_local": {
+              "stor_id": "stor_id",
+              "ord_num": "ord_num",
+              "title_id": "title_id",
+              "ord_date": "ord_date",
+              "payterms": "payterms",
+              "qty": "qty"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "titles_advance",
+            "column_map": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "notes": "notes",
+              "price": "price",
+              "pubdate": "pubdate",
+              "title": "title",
+              "type": "type"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "notes": "notes",
+              "price": "price",
+              "pubdate": "pubdate",
+              "title": "title",
+              "type": "type"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "titles_advance_2",
+            "column_map": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "price": "price",
+              "pub_id": "pub_id",
+              "pubdate": "pubdate",
+              "royalty": "royalty",
+              "title": "title",
+              "ytd_sales": "ytd_sales"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "price": "price",
+              "pub_id": "pub_id",
+              "pubdate": "pubdate",
+              "royalty": "royalty",
+              "title": "title",
+              "ytd_sales": "ytd_sales"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "store_order_summary",
+            "to_local_table": "title_financials",
+            "from_local_column": "title_code",
+            "to_local_column": "title_code"
+          },
+          {
+            "local": "local_1",
+            "from_local_table": "store_order_terms",
+            "to_local_table": "title_financials",
+            "from_local_column": "title_code",
+            "to_local_column": "title_code"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "store_order_summary",
+            "to_local_table": "bookAdvanceDetails",
+            "from_local_column": "title_code",
+            "to_local_column": "titleId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "store_order_terms",
+            "to_local_table": "bookAdvanceDetails",
+            "from_local_column": "title_code",
+            "to_local_column": "titleId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "sales",
+          "from_column": "stor_id",
+          "to_table": "stores",
+          "to_column": "stor_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "sales_ord_date",
+            "column_map": {
+              "stor_id": "stor_id",
+              "ord_num": "ord_num",
+              "title_id": "title_id",
+              "ord_date": "ord_date",
+              "qty": "qty"
+            },
+            "orig_to_local": {
+              "stor_id": "stor_id",
+              "ord_num": "ord_num",
+              "title_id": "title_id",
+              "ord_date": "ord_date",
+              "qty": "qty"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "sales_ord_date_2",
+            "column_map": {
+              "stor_id": "stor_id",
+              "ord_num": "ord_num",
+              "title_id": "title_id",
+              "ord_date": "ord_date",
+              "payterms": "payterms",
+              "qty": "qty"
+            },
+            "orig_to_local": {
+              "stor_id": "stor_id",
+              "ord_num": "ord_num",
+              "title_id": "title_id",
+              "ord_date": "ord_date",
+              "payterms": "payterms",
+              "qty": "qty"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_3",
+            "local_table": "stores",
+            "column_map": {
+              "stor_id": "stor_id",
+              "stor_name": "stor_name",
+              "stor_address": "stor_address",
+              "city": "city",
+              "state": "state",
+              "zip": "zip"
+            },
+            "orig_to_local": {
+              "stor_id": "stor_id",
+              "stor_name": "stor_name",
+              "stor_address": "stor_address",
+              "city": "city",
+              "state": "state",
+              "zip": "zip"
+            }
+          }
+        ],
+        "intra_local_pairs": [],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "store_order_summary",
+            "to_local_table": "RetailOutlets",
+            "from_local_column": "store_id",
+            "to_local_column": "OutletId"
+          },
+          {
+            "from_local": "local_1",
+            "to_local": "local_3",
+            "from_local_table": "store_order_terms",
+            "to_local_table": "RetailOutlets",
+            "from_local_column": "store_id",
+            "to_local_column": "OutletId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "titleauthor",
+          "from_column": "title_id",
+          "to_table": "titles",
+          "to_column": "title_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "titleauthor",
+            "column_map": {
+              "au_id": "au_id",
+              "title_id": "title_id",
+              "au_ord": "au_ord",
+              "royaltyper": "royaltyper"
+            },
+            "orig_to_local": {
+              "au_id": "au_id",
+              "title_id": "title_id",
+              "au_ord": "au_ord",
+              "royaltyper": "royaltyper"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "titles_advance",
+            "column_map": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "notes": "notes",
+              "price": "price",
+              "pubdate": "pubdate",
+              "title": "title",
+              "type": "type"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "notes": "notes",
+              "price": "price",
+              "pubdate": "pubdate",
+              "title": "title",
+              "type": "type"
+            }
+          },
+          {
+            "local": "local_2",
+            "local_table": "titles_advance_2",
+            "column_map": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "price": "price",
+              "pub_id": "pub_id",
+              "pubdate": "pubdate",
+              "royalty": "royalty",
+              "title": "title",
+              "ytd_sales": "ytd_sales"
+            },
+            "orig_to_local": {
+              "title_id": "title_id",
+              "advance": "advance",
+              "price": "price",
+              "pub_id": "pub_id",
+              "pubdate": "pubdate",
+              "royalty": "royalty",
+              "title": "title",
+              "ytd_sales": "ytd_sales"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "title_author_link",
+            "to_local_table": "title_financials",
+            "from_local_column": "title_code",
+            "to_local_column": "title_code"
+          }
+        ],
+        "dropped_intra_local_pairs": [],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": [
+          {
+            "from_local": "local_1",
+            "to_local": "local_2",
+            "from_local_table": "title_author_link",
+            "to_local_table": "bookAdvanceDetails",
+            "from_local_column": "title_code",
+            "to_local_column": "titleId"
+          }
+        ]
+      },
+      {
+        "original": {
+          "from_table": "titleauthor",
+          "from_column": "au_id",
+          "to_table": "authors",
+          "to_column": "au_id",
+          "origin": "declared"
+        },
+        "from_locations": [
+          {
+            "local": "local_1",
+            "local_table": "titleauthor",
+            "column_map": {
+              "au_id": "au_id",
+              "title_id": "title_id",
+              "au_ord": "au_ord",
+              "royaltyper": "royaltyper"
+            },
+            "orig_to_local": {
+              "au_id": "au_id",
+              "title_id": "title_id",
+              "au_ord": "au_ord",
+              "royaltyper": "royaltyper"
+            }
+          }
+        ],
+        "to_locations": [
+          {
+            "local": "local_1",
+            "local_table": "authors_address",
+            "column_map": {
+              "au_id": "au_id",
+              "address": "address",
+              "contract": "contract",
+              "phone": "phone",
+              "state": "state",
+              "zip": "zip"
+            },
+            "orig_to_local": {
+              "au_id": "au_id",
+              "address": "address",
+              "contract": "contract",
+              "phone": "phone",
+              "state": "state",
+              "zip": "zip"
+            }
+          },
+          {
+            "local": "local_1",
+            "local_table": "authors_address_2",
+            "column_map": {
+              "au_id": "au_id",
+              "address": "address",
+              "au_fname": "au_fname",
+              "au_lname": "au_lname",
+              "city": "city",
+              "contract": "contract",
+              "phone": "phone",
+              "state": "state"
+            },
+            "orig_to_local": {
+              "au_id": "au_id",
+              "address": "address",
+              "au_fname": "au_fname",
+              "au_lname": "au_lname",
+              "city": "city",
+              "contract": "contract",
+              "phone": "phone",
+              "state": "state"
+            }
+          }
+        ],
+        "intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "title_author_link",
+            "to_local_table": "author_profile",
+            "from_local_column": "author_id",
+            "to_local_column": "author_id"
+          }
+        ],
+        "dropped_intra_local_pairs": [
+          {
+            "local": "local_1",
+            "from_local_table": "title_author_link",
+            "to_local_table": "author_contact_info",
+            "from_local_column": "author_id",
+            "to_local_column": "author_id"
+          }
+        ],
+        "cross_local_pairs": [],
+        "dropped_cross_local_pairs": []
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "local_table": "titles_advance",
+      "source_table": "titles",
+      "kind": "vertical_split_fragment",
+      "from_local": "local_2",
+      "to_local": "local_1",
+      "justification": {
+        "method": "one_shot_partner_relocation",
+        "partner_fragment": "sales_ord_date_2",
+        "partner_logical_table": "sales",
+        "partner_weight": 12,
+        "cross_local_query_count": 12,
+        "cross_local_query_count_interpretation": "Distinct cross-local workload queries where this fragment pair (different original tables) co-occurs; not an estimate of single-local queries after relocation.",
+        "evidence_type": "fragment",
+        "anchor_fragment": "titles_advance_2",
+        "target_local_reason": "partner_residence_in_pre_relocation_snapshot",
+        "partner_selection_rule": "max_cross_local_query_co_usage",
+        "decision_signal": "query_evidence"
+      }
+    }
+  ],
+  "relocation_engine_debug": {
+    "pair_weights_sample": {
+      "authors_address|titles_advance": 2,
+      "authors_address|titles_advance_2": 3,
+      "authors_address_2|titles_advance": 4,
+      "authors_address_2|titles_advance_2": 4,
+      "publishers|sales_ord_date": 1,
+      "publishers|sales_ord_date_2": 1,
+      "sales_ord_date|stores": 5,
+      "sales_ord_date|titles_advance": 11,
+      "sales_ord_date|titles_advance_2": 7,
+      "sales_ord_date_2|stores": 5,
+      "sales_ord_date_2|titles_advance": 12,
+      "sales_ord_date_2|titles_advance_2": 8,
+      "stores|titles_advance": 4,
+      "stores|titles_advance_2": 3,
+      "titleauthor|titles_advance": 4,
+      "titleauthor|titles_advance_2": 4
+    },
+    "pair_weight_meaning": "Weights count co-occurrences of two fragments (from different original tables) inside workload queries that already span 2+ locals. They rank relocation candidates; they do not equal the number of queries that will become single-local after a move.",
+    "pre_relocation_fragment_locals": {
+      "authors_address": "local_1",
+      "authors_address_2": "local_1",
+      "discounts": "local_3",
+      "employee_fname_part1": "local_2",
+      "employee_fname_part2": "local_2",
+      "employee_fname_part3": "local_2",
+      "employee_fname_part4": "local_2",
+      "employee_fname_part5": "local_2",
+      "employee_hire_date": "local_2",
+      "jobs": "local_2",
+      "pub_info": "local_2",
+      "publishers": "local_2",
+      "roysched": "local_2",
+      "sales_ord_date": "local_1",
+      "sales_ord_date_2": "local_1",
+      "stores": "local_3",
+      "titleauthor": "local_1",
+      "titles_advance": "local_2",
+      "titles_advance_2": "local_2"
+    },
+    "singleton_local_guard": {
+      "min_physical_tables_per_local_after_move": 2,
+      "enabled": true
+    },
+    "vertical_relocation_R_by_table": {
+      "sales": {
+        "R": 1,
+        "F": 2,
+        "rho": 0.8
+      },
+      "titles": {
+        "R": 1,
+        "F": 2,
+        "rho": 0.8
+      }
+    },
+    "row_relocation_R_by_table": {},
+    "row_partition_home_anchor": {},
+    "intents": [
+      {
+        "source_table": "sales",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "sales_ord_date",
+        "anchor_fragment": "sales_ord_date_2",
+        "partner_fragment": "titles_advance",
+        "partner_logical_table": "titles",
+        "partner_weight": 11,
+        "cross_local_query_count": 11,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1
+      },
+      {
+        "source_table": "titles",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "titles_advance",
+        "anchor_fragment": "titles_advance_2",
+        "partner_fragment": "sales_ord_date_2",
+        "partner_logical_table": "sales",
+        "partner_weight": 12,
+        "cross_local_query_count": 12,
+        "evidence_type": "fragment",
+        "source_local_idx": 1,
+        "target_local_idx": 0
+      }
+    ],
+    "moved_fragments": [
+      "titles_advance"
+    ],
+    "pinned_fragments": [
+      "sales_ord_date_2"
+    ],
+    "skipped": [],
+    "skipped_after_order": [
+      {
+        "source_table": "sales",
+        "kind": "vertical_split_fragment",
+        "movable_fragment": "sales_ord_date",
+        "anchor_fragment": "sales_ord_date_2",
+        "partner_fragment": "titles_advance",
+        "partner_logical_table": "titles",
+        "partner_weight": 11,
+        "cross_local_query_count": 11,
+        "evidence_type": "fragment",
+        "source_local_idx": 0,
+        "target_local_idx": 1,
+        "reason": "partner_scheduled_to_move"
+      }
+    ]
+  },
+  "difficulty_config": {
+    "rename_rate": 1.0,
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "row_partition_rate": 0.7,
+    "fk_preserve_rate_intra_local": 0.5,
+    "fk_preserve_rate_cross_local": 0.0,
+    "use_llm_naming": true,
+    "llm_model": "gpt-5-mini",
+    "naming_case_randomize": true,
+    "naming_case_force_style": null
+  },
+  "seed": 42,
+  "global_schema": {
+    "tables": {
+      "authors": {
+        "columns": [
+          {
+            "name": "au_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "au_lname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "au_fname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "phone",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "zip",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "contract",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "au_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 23
+      },
+      "jobs": {
+        "columns": [
+          {
+            "name": "job_id",
+            "type": "INTEGER",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "job_desc",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "min_lvl",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "max_lvl",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "job_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 14
+      },
+      "publishers": {
+        "columns": [
+          {
+            "name": "pub_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pub_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "country",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "pub_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 8
+      },
+      "employee": {
+        "columns": [
+          {
+            "name": "emp_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "fname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "minit",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "lname",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "job_id",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "job_lvl",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pub_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "hire_date",
+            "type": "DATETIME",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "emp_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 43
+      },
+      "pub_info": {
+        "columns": [
+          {
+            "name": "pub_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "logo",
+            "type": "BLOB",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pr_info",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "pub_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 7
+      },
+      "stores": {
+        "columns": [
+          {
+            "name": "stor_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stor_name",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "stor_address",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "city",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "state",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "zip",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "stor_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 6
+      },
+      "discounts": {
+        "columns": [
+          {
+            "name": "discounttype",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "stor_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "lowqty",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "highqty",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "discount",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 3
+      },
+      "titles": {
+        "columns": [
+          {
+            "name": "title_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "title",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "type",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "pub_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "price",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "advance",
+            "type": "REAL",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "royalty",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "ytd_sales",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "notes",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "pubdate",
+            "type": "DATETIME",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "title_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 18
+      },
+      "roysched": {
+        "columns": [
+          {
+            "name": "title_id",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "lorange",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "hirange",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "royalty",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [],
+        "pk_origin": "none",
+        "row_count": 86
+      },
+      "sales": {
+        "columns": [
+          {
+            "name": "stor_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "ord_num",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "ord_date",
+            "type": "DATETIME",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "qty",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "payterms",
+            "type": "TEXT",
+            "is_pk": false,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "title_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "stor_id",
+          "ord_num",
+          "title_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 21
+      },
+      "titleauthor": {
+        "columns": [
+          {
+            "name": "au_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "title_id",
+            "type": "TEXT",
+            "is_pk": true,
+            "nullable": false,
+            "default": null
+          },
+          {
+            "name": "au_ord",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          },
+          {
+            "name": "royaltyper",
+            "type": "INTEGER",
+            "is_pk": false,
+            "nullable": true,
+            "default": null
+          }
+        ],
+        "primary_keys": [
+          "au_id",
+          "title_id"
+        ],
+        "pk_origin": "declared",
+        "row_count": 25
+      }
+    },
+    "foreign_keys": [
+      {
+        "from_table": "employee",
+        "from_column": "pub_id",
+        "to_table": "publishers",
+        "to_column": "pub_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "employee",
+        "from_column": "job_id",
+        "to_table": "jobs",
+        "to_column": "job_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "pub_info",
+        "from_column": "pub_id",
+        "to_table": "publishers",
+        "to_column": "pub_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "discounts",
+        "from_column": "stor_id",
+        "to_table": "stores",
+        "to_column": "stor_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "titles",
+        "from_column": "pub_id",
+        "to_table": "publishers",
+        "to_column": "pub_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "roysched",
+        "from_column": "title_id",
+        "to_table": "titles",
+        "to_column": "title_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "sales",
+        "from_column": "title_id",
+        "to_table": "titles",
+        "to_column": "title_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "sales",
+        "from_column": "stor_id",
+        "to_table": "stores",
+        "to_column": "stor_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "titleauthor",
+        "from_column": "title_id",
+        "to_table": "titles",
+        "to_column": "title_id",
+        "origin": "declared"
+      },
+      {
+        "from_table": "titleauthor",
+        "from_column": "au_id",
+        "to_table": "authors",
+        "to_column": "au_id",
+        "origin": "declared"
+      }
+    ],
+    "stats": {
+      "num_tables": 11,
+      "num_fk_edges": 10,
+      "hub_tables": [
+        "titles",
+        "publishers",
+        "employee",
+        "stores",
+        "sales"
+      ],
+      "connected_components": 1
+    }
+  }
+}

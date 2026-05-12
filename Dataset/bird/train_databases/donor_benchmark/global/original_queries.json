@@ -1,0 +1,1122 @@
+[
+  {
+    "sql": "SELECT SUM(donation_total) FROM donations WHERE donation_timestamp LIKE '2012%'",
+    "question_id": null,
+    "question": "What is the total amount of donations in 2012.",
+    "difficulty": "",
+    "evidence": "total amount of donations refers to sum(donation_total); 2012 refers to donation_timestamp LIKE'2012%'"
+  },
+  {
+    "sql": "SELECT donation_timestamp, donation_total FROM donations WHERE donation_total = ( SELECT donation_total FROM donations ORDER BY donation_total DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "When was the highest amount of donated? How much was the amount?",
+    "difficulty": "",
+    "evidence": "when refers donation_timestamp; the highest amount refers to max(donation_total)"
+  },
+  {
+    "sql": "SELECT SUM(donation_total) FROM donations WHERE donation_timestamp LIKE '2011%' AND via_giving_page = 't' AND for_honoree = 't'",
+    "question_id": null,
+    "question": "Calculate the total amount of donations made in 2011 for an honoree with payment via campaign page.",
+    "difficulty": "",
+    "evidence": "total amount refers to sum(donation_total); 2011 refers to donation_timestamp LIKE'2011%'; honoree refers to for_honoree = 't'; via campaign page refers to via_giving_page = 't'"
+  },
+  {
+    "sql": "SELECT donor_acctid, donation_optional_support / donation_total FROM donations WHERE is_teacher_acct = 'f'",
+    "question_id": null,
+    "question": "For each donation not from a teacher, state the donor account id and calculate the percentage of donation given for optional support.",
+    "difficulty": "",
+    "evidence": "not from a teacher refers to is_teacher_acct = 'f'; donor account id refers to donor_acctid; percentage of donation = divide(donation_optional_support, donation_total)*100%"
+  },
+  {
+    "sql": "SELECT T1.title FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.primary_focus_subject = 'Literacy'",
+    "question_id": null,
+    "question": "Name all the project titles whereby project materials are intended mainly for literary.",
+    "difficulty": "",
+    "evidence": "intended mainly for literary refers to primary_focus_subject = 'Literacy'"
+  },
+  {
+    "sql": "SELECT T1.title FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.poverty_level LIKE 'highest%'",
+    "question_id": null,
+    "question": "Name the project titles meant for school whereby 65% of the students are on reduced lunch.",
+    "difficulty": "",
+    "evidence": "65% of the students are on reduced lunch refers to poverty_level = 'highest poverty'"
+  },
+  {
+    "sql": "SELECT T2.primary_focus_subject FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.title = 'Toot Your Flute!'",
+    "question_id": null,
+    "question": "For project titled 'Toot Your Flute!', what is the main subject of the project materials intended for? Name the other projects with the similar focus.",
+    "difficulty": "",
+    "evidence": "main subject refers to primary_focus_subject"
+  },
+  {
+    "sql": "SELECT T1.title FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.donation_message LIKE 'Donation on behalf of Matt Carpenter because I''m a strong believer in education.'",
+    "question_id": null,
+    "question": "Name the project titles created by teacher who acquired a doctor degree.",
+    "difficulty": "",
+    "evidence": "teacher who acquired a doctor degree refers to teacher_prefix = 'Dr.'"
+  },
+  {
+    "sql": "SELECT T1.title, T2.total_price_excluding_optional_support FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.students_reached = 320",
+    "question_id": null,
+    "question": "What is the project in which 320 students will be impacted if the project is funded? Name the project and state the project cost.",
+    "difficulty": "",
+    "evidence": "320 students will be impacted refers to students_reached = 320; name the project refers to title; project cost refers tp total_price_excluding_optional_support"
+  },
+  {
+    "sql": "SELECT T2.donation_message, T1.title FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.donor_city = 'Texas City'",
+    "question_id": null,
+    "question": "For all donors from Texas City, list their donation message and name of the project they donated to.",
+    "difficulty": "",
+    "evidence": "from Texas City refers to donor_city = 'Texas City'; name of the project refers title"
+  },
+  {
+    "sql": "SELECT T1.vendor_name, T1.item_name, T1.item_unit_price FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN essays AS T3 ON T2.projectid = T3.projectid WHERE T3.title = 'Lights, Camera, Action!'",
+    "question_id": null,
+    "question": "Name the vendors who provide resources for project 'Lights, Camera, Action!'. List all the item names and unit price for each.",
+    "difficulty": "",
+    "evidence": "project 'Lights, Camera, Action!' refers to title = 'Lights, Camera, Action!'"
+  },
+  {
+    "sql": "SELECT SUM(T2.donation_to_project) FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.title = 'Whistle While We Work!'",
+    "question_id": null,
+    "question": "How much donations have been collected for project 'Whistle While We Work!'?",
+    "difficulty": "",
+    "evidence": "donations collected refers to sum(donation_to_project); project 'Whistle While We Work!' refers to title = 'Whistle While We Work!'"
+  },
+  {
+    "sql": "SELECT T1.title, T1.short_description FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.teacher_ny_teaching_fellow = 't'",
+    "question_id": null,
+    "question": "Name and describe all projects created by New York teachers.",
+    "difficulty": "",
+    "evidence": "project name refers to title; describe refers to short_description; New York teachers refers to teacher_ny_teaching_fellow = 't'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.title, T1.total_price_excluding_optional_support FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T1.students_reached >= 600 AND T1.poverty_level LIKE 'moderate poverty'",
+    "question_id": null,
+    "question": "If funded, which are the projects that could impact at least 600 students for a school with moderate level of poverty? Name the projects and state the project cost.",
+    "difficulty": "",
+    "evidence": "impact at least 600 students refers to students_reached > = 600; moderate level of poverty refers to poverty_level = 'moderate poverty'; project name refers to title; project cost refers to total_price_excluding_optional_support"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.school_metro = 'rural' THEN T1.donation_to_project ELSE 0 END) AS REAL) * 100 / SUM(donation_to_project) FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid",
+    "question_id": null,
+    "question": "From the total amount of donation to projects, what is the percentage of the amount is for school projects located in the rural area?",
+    "difficulty": "",
+    "evidence": "located in the rural area refers to school_metro = 'rural'; percentage = divide(sum(donation_to_project), sum(donation_to_project where school_metro = 'rural'))*100%"
+  },
+  {
+    "sql": "SELECT T1.title, SUM(T3.donation_to_project), CAST((T2.total_price_excluding_optional_support - SUM(T3.donation_to_project)) AS REAL) * 100 / SUM(T3.donation_to_project) FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid ORDER BY T2.total_price_excluding_optional_support DESC LIMIT 1",
+    "question_id": null,
+    "question": "Name the project that costs the most. How much has been collected from donation and what is the percentage amount still lacking?",
+    "difficulty": "",
+    "evidence": "project name refers to title; costs the most refers to max(total_price_excluding_optional_support); amount collected from donation refers to sum(donation_to_project); percentage amount refers to divide(subtract(total_price_excluding_optional_support, sum(donation_to_project)), sum(donation_to_project))*100%"
+  },
+  {
+    "sql": "SELECT COUNT(poverty_level) FROM projects WHERE school_district = 'West New York School District' AND poverty_level = 'highest poverty'",
+    "question_id": null,
+    "question": "How many schools in the West New York School District have the highest poverty level?",
+    "difficulty": "",
+    "evidence": "the highest poverty level refers to poverty_level = 'highest poverty'"
+  },
+  {
+    "sql": "SELECT COUNT(donationid) FROM donations WHERE is_teacher_acct = 't' AND donor_state = 'CO'",
+    "question_id": null,
+    "question": "How many donations from teachers were done in the state of Colorado?",
+    "difficulty": "",
+    "evidence": "from teachers refers to is_teacher_acct = 't'; the state of Colorado refers to donor_state = 'CO-Colorado'"
+  },
+  {
+    "sql": "SELECT projectid FROM projects ORDER BY total_price_including_optional_support DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which project have the highest total price including optional support? Indicate the project id.",
+    "difficulty": "",
+    "evidence": "highest total price including optional support refers to max(total_price_including_optional_support)"
+  },
+  {
+    "sql": "SELECT DISTINCT donor_state FROM donations WHERE for_honoree = 't' AND payment_included_campaign_gift_card = 't' AND payment_method = 'paypal' AND donor_state = ( SELECT donor_state FROM donations GROUP BY donor_state ORDER BY SUM(donation_total) DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "Which state have the highest number of PayPal donations for an honoree whose portion of a donation included corporate sponsored giftcard?",
+    "difficulty": "",
+    "evidence": "which state refers to donor_state; highest number refers to max(count(donor_state)); PayPal donations refers to payment_method = 'paypal'; for an honoree refers to for_honoree = 't'; included corporate sponsored giftcard refers to payment_included_campaign_gift_card = 't'"
+  },
+  {
+    "sql": "SELECT donationid, donation_total FROM donations ORDER BY donation_total DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the largest donor by amount? Give the donation id and the total amount of the donation.",
+    "difficulty": "",
+    "evidence": "largest donor by amount refers to max(donation_total); total amount of the donation refers to donation_total"
+  },
+  {
+    "sql": "SELECT T1.projectid, T1.item_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid ORDER BY T2.total_price_including_optional_support - T2.total_price_excluding_optional_support DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the id of the project that has the highest optional tip? Indicate the names of the resources that were requested.",
+    "difficulty": "",
+    "evidence": "highest optional tip refers to subtract(total_price_including_optional_support, total_price_excluding_optional_support); names of the resources refers to item_name"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.item_name, T1.item_quantity, T2.teacher_prefix FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.projectid = 'd6ef27c07c30c81f0c16c32b6acfa2ff'",
+    "question_id": null,
+    "question": "What were the resources that were requested by the teacher for project \"d6ef27c07c30c81f0c16c32b6acfa2ff\"? Indicate the quantities as well and whether or not the teacher acquired P.h.D or doctor degree.",
+    "difficulty": "",
+    "evidence": "resources that were requested refers to item_name; project \"d6ef27c07c30c81f0c16c32b6acfa2ff\" refers to projectid = 'd6ef27c07c30c81f0c16c32b6acfa2ff'; quantities refers to item_quantity; teacher_prefix = 'Dr. ' refers to teacher acquired P.h.D or doctor degree"
+  },
+  {
+    "sql": "SELECT SUM(T1.total_price_including_optional_support) FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T2.title = 'Recording Rockin'' Readers'",
+    "question_id": null,
+    "question": "What is the total price including optional support received by the teacher who posted the essay titled \"Recording Rockin' Readers\"?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT T1.school_latitude, T1.school_longitude FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T2.title = 'Smile for the Camera!!!'",
+    "question_id": null,
+    "question": "What is the latitude and longitude of the school where the teacher who wrote \"Smile for the Camera!!!\" teaches?",
+    "difficulty": "",
+    "evidence": "wrote \"Smile for the Camera!!!\" refers to title = 'Smile for the Camera!!!'; latitude refers to school_latitude; longitude refers to school_longitude"
+  },
+  {
+    "sql": "SELECT T2.donation_total, T1.title FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.donation_total = ( SELECT MAX(donation_total) FROM donations )",
+    "question_id": null,
+    "question": "What is the total amount of all the donations made by the donor who made the highest donation in a single amount? Indicate the essay title to where he/she made his/her biggest donation.",
+    "difficulty": "",
+    "evidence": "total amount of all the donations refers to sum(donation_total); highest donation refers to max(donation_total)"
+  },
+  {
+    "sql": "SELECT project_resource_type FROM ( SELECT T1.donor_acctid, T3.project_resource_type FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN resources AS T3 ON T2.projectid = T3.projectid ORDER BY T1.donation_total DESC LIMIT 10 ) GROUP BY project_resource_type ORDER BY COUNT(project_resource_type) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What are the favorite project types of each of the top 10 donors?",
+    "difficulty": "",
+    "evidence": "favorite project type refers to project_resource_type; top donors refers to max(donation_total)"
+  },
+  {
+    "sql": "SELECT T2.date_posted, T1.item_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.date_posted = ( SELECT date_posted FROM projects ORDER BY date_posted ASC LIMIT 1 )",
+    "question_id": null,
+    "question": "When was the first ever project went live on the site and what were the names of the resources being requested? If there are multiple projects that have the same date, indicate each of them and their items.",
+    "difficulty": "",
+    "evidence": "first ever project refers to min(date_posted); names of the resources refers to item_name"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.vendor_name FROM resources AS T1 INNER JOIN essays AS T3 ON T1.projectid = T3.projectid WHERE T3.title = 'iMath'",
+    "question_id": null,
+    "question": "What is the name of the vendor that supplies resources to the project \"iMath\"?",
+    "difficulty": "",
+    "evidence": "project \"iMath\" refers to title = 'iMath'"
+  },
+  {
+    "sql": "SELECT T2.date_posted, T2.grade_level FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid ORDER BY T1.item_quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "When was the project with the highest quantity went live on the site? Indicate the grade level for which the project materials are intended.",
+    "difficulty": "",
+    "evidence": "project with the highest quantity refers to max(item_quantity)"
+  },
+  {
+    "sql": "SELECT AVG(T3.donation_to_project) FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid WHERE T1.title = 'Recording Rockin'' Readers'",
+    "question_id": null,
+    "question": "What is the average amount of donations by people who donated in the project \"Recording Rockin' Readers\"",
+    "difficulty": "",
+    "evidence": "average amount of donations = divide(sum(donation_to_project), count(donor_acctid)); project \"Recording Rockin' Readers\" refers to title = 'Recording Rockin' Readers'"
+  },
+  {
+    "sql": "SELECT T1.title, T3.donor_acctid, CAST(T3.donation_to_project AS REAL) / T2.total_price_excluding_optional_support FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid ORDER BY T3.donation_to_project DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the essay title of the project that have the highest total price excluding optional support and who is the biggest donor? Identify the donor and calculate how many percent did he/she donated in the project.",
+    "difficulty": "",
+    "evidence": "highest total price excluding optional support refers to max(total_price_excluding_optional_support); who refers to donor_acctid; percent = divide(donation_to_project, total_price_excluding_optional_support)*100%"
+  },
+  {
+    "sql": "SELECT T1.school_state, T2.donor_acctid, AVG(T2.donation_optional_support), T1.resource_type FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid ORDER BY T2.donation_optional_support DESC LIMIT 5",
+    "question_id": null,
+    "question": "From which state do the 5 biggest donor, who gave the highest cost of optional support, come from? List their donor_acctid and calculate for their average cost of optional support for every donations they make and identtify the project's type of resource to which they gave the hightest optional support.",
+    "difficulty": "",
+    "evidence": "which state refers to school_state; highest cost of optional support refers to max(donation_optional_support); average cost of optional support = avg(donation_optional_support)"
+  },
+  {
+    "sql": "SELECT T1.projectid, T1.item_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_city LIKE 'Brooklyn' GROUP BY T1.item_name ORDER BY COUNT(T1.item_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which project in Brooklyn that have the highest request of resources? State the the project ID including all of the name of item requested.",
+    "difficulty": "",
+    "evidence": "in Brooklyn refers to school_city = 'Brooklyn'; highest request of resources refers to max(count(T1.item_name))"
+  },
+  {
+    "sql": "SELECT COUNT(T2.schoolid) FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.resource_type = 'Books' AND T2.school_metro = 'urban'",
+    "question_id": null,
+    "question": "How many schools in urban area requested for books resources?",
+    "difficulty": "",
+    "evidence": "urban area refers to school_metro = 'urban'; books resources refers to project_resource_type = 'Books'"
+  },
+  {
+    "sql": "SELECT T2.schoolid FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.vendor_name LIKE 'Amazon' GROUP BY T2.schoolid ORDER BY COUNT(T1.vendor_name) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which school requested the highest amount of resources from Amazon? State the school's ID.",
+    "difficulty": "",
+    "evidence": "highest amount of resources refers to max(count(schoolid)); Amazon refers to vendor_name = 'Amazon'"
+  },
+  {
+    "sql": "SELECT COUNT(T2.schoolid) FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.donor_city = 'Los Angeles' AND T2.school_city NOT LIKE 'Los Angeles'",
+    "question_id": null,
+    "question": "How many donors in Los Angeles donated to school in another city?",
+    "difficulty": "",
+    "evidence": "in Los Angeles refers to donor_city = 'Los Angeles'; school in another city refers to school_city ! = 'Los Angeles'"
+  },
+  {
+    "sql": "SELECT T2.teacher_prefix FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Reading About Other Cultures'",
+    "question_id": null,
+    "question": "What is the prefix for the teacher who handled the 'Reading About Other Cultures' project?",
+    "difficulty": "",
+    "evidence": "Reading About Other Cultures' project refers to title = 'Reading About Other Cultures'; prefix for the teacher refers to teacher_prefix"
+  },
+  {
+    "sql": "SELECT T2.students_reached FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Fit Firsties!'",
+    "question_id": null,
+    "question": "How many students will be impacted for the Fit Firsties! Project?",
+    "difficulty": "",
+    "evidence": "how many students refers to students_reached; Fit Firsties! project refers to title = 'Fit Firsties!'"
+  },
+  {
+    "sql": "SELECT T1.title, T3.donor_acctid FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid WHERE T2.school_city LIKE 'Chicago'",
+    "question_id": null,
+    "question": "List the title of all projects located in Chicago along with the ID of the donor.",
+    "difficulty": "",
+    "evidence": "in Chicago refers to school_city = 'Chicago'; ID of the donor refers to donor_acctid"
+  },
+  {
+    "sql": "SELECT T1.title FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.teacher_prefix LIKE 'Dr.' AND T2.students_reached > 300",
+    "question_id": null,
+    "question": "Which projects created by teachers with Doctor Degree where the project have more than 300 students involved. List down the title of the project.",
+    "difficulty": "",
+    "evidence": "eachers with Doctor Degree refers to teacher_prefix = 'Dr.'; more than 300 students involved refers to students_reached > 300"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.vendor_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.primary_focus_subject LIKE 'Literacy'",
+    "question_id": null,
+    "question": "State the name of vendor that supplies book resources to all school with literacy subject as their primary focus.",
+    "difficulty": "",
+    "evidence": "literacy subject as primary focus refers to primary_focus_subject = 'Literacy'"
+  },
+  {
+    "sql": "SELECT T1.title FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.projectid = ( SELECT projectid FROM resources ORDER BY item_unit_price * item_quantity DESC LIMIT 1 )",
+    "question_id": null,
+    "question": "What is the title of project that have the most expensive funds?",
+    "difficulty": "",
+    "evidence": "the most expensive funds refers to max(multiply(item_unit_price, item_quantity))"
+  },
+  {
+    "sql": "SELECT COUNT(donationid) FROM donations WHERE is_teacher_acct = 't' AND donor_city = 'New York'",
+    "question_id": null,
+    "question": "Among all the donors from New York, how many of them are teachers?",
+    "difficulty": "",
+    "evidence": "from New York refers to donor_city = 'New York'; donor is a teacher refers to is_teacher_acct = 't';"
+  },
+  {
+    "sql": "SELECT COUNT(donationid) FROM donations WHERE for_honoree = 't' AND donor_state = 'NJ'",
+    "question_id": null,
+    "question": "How many donors from New Jersey have made a donation for an honoree?",
+    "difficulty": "",
+    "evidence": "from New Jersey refers to donor_state = 'NJ'; for an honoree refers to for_honoree = 't';"
+  },
+  {
+    "sql": "SELECT donation_message FROM donations WHERE donationid = 'a84dace1ff716f6f0c7af8ef9090a5d5'",
+    "question_id": null,
+    "question": "What is the donation message for donation ID a84dace1ff716f6f0c7af8ef9090a5d5?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT DISTINCT project_resource_type FROM resources WHERE vendor_name = 'Lakeshore Learning Materials'",
+    "question_id": null,
+    "question": "Please list the types of resources that the vendor Lakeshore Learning Materials has provided for the projects.",
+    "difficulty": "",
+    "evidence": "Lakeshore Learning Materials is vendor_name; type of resources refers to project_resource_type;"
+  },
+  {
+    "sql": "SELECT item_name FROM resources WHERE vendor_name = 'Lakeshore Learning Materials' ORDER BY item_quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the item that is provided in the biggest amount by the vendor Lakeshore Learning Materials?",
+    "difficulty": "",
+    "evidence": "lakeshore Learning Materials is vendor_name; biggest amount refers to Max(item_quantity);"
+  },
+  {
+    "sql": "SELECT COUNT(T1.projectid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.teacher_ny_teaching_fellow = 't' AND T2.donor_city = 'New York'",
+    "question_id": null,
+    "question": "Among the projects created by a teacher from New York, how many of them have a donor from the same city?",
+    "difficulty": "",
+    "evidence": "New York is the donor city; donor from the same city refers to donor from New York in which teacher_ny_teaching_fellow = 't';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.projectid) FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.vendor_name = 'Lakeshore Learning Materials' AND T2.teacher_prefix = 'Dr.'",
+    "question_id": null,
+    "question": "How many projects have their resources provided by the vendor Lakeshore Learning Materials and are created by a teacher with a doctor degree?",
+    "difficulty": "",
+    "evidence": "Lakeshore Learning Materials is vendor_name;\u00a0 teacher with a doctor degree refers to teacher_prefix = 'Dr.';"
+  },
+  {
+    "sql": "SELECT T1.vendor_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.poverty_level = 'highest poverty'",
+    "question_id": null,
+    "question": "Please list the vendor providing resources for the projects of a school with the highest poverty level.",
+    "difficulty": "",
+    "evidence": "highest poverty level refers to poverty_level = 'highest poverty';"
+  },
+  {
+    "sql": "SELECT T2.schoolid FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.vendor_name = 'Lakeshore Learning Materials' ORDER BY T2.fulfillment_labor_materials DESC LIMIT 1",
+    "question_id": null,
+    "question": "Of the projects whose resources are provided by the vendor Lakeshore Learning Materials, the school of which project has the highest cost of labor fulfillment? Please give its school ID.",
+    "difficulty": "",
+    "evidence": "Lakeshore Learning Materials is vendor_name; highest cost of labor fulfillment refers to Max(fulfillment_labor_materials);"
+  },
+  {
+    "sql": "SELECT T1.vendor_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid ORDER BY T2.total_price_including_optional_support - T2.total_price_including_optional_support DESC LIMIT 1",
+    "question_id": null,
+    "question": "Who is the vendor of the resources needed by the project that had the highest cost of optional tip?",
+    "difficulty": "",
+    "evidence": "Highest cost of the optional tip refers to Max(total_price_including_optional_support - total_price_excluding_optional_support);"
+  },
+  {
+    "sql": "SELECT SUM(T2.donation_total) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.school_city = 'Brooklyn'",
+    "question_id": null,
+    "question": "What is the total donated amount for projects created by a teacher working in a school in Brooklyn?",
+    "difficulty": "",
+    "evidence": "school in Brooklyn refers to school_city = 'Brooklyn'; total donated amount refers to donation_total;"
+  },
+  {
+    "sql": "SELECT T2.donation_message FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.school_city = 'Brooklyn' AND T1.school_magnet = 't'",
+    "question_id": null,
+    "question": "Please list the donation messages of the donations for the projects created by a teacher working in a public magnet school in Brooklyn.",
+    "difficulty": "",
+    "evidence": "school in Brooklyn refers to school_city = 'Brooklyn'; public magnet refers to school_magnet = 't';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.projectid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.payment_included_acct_credit = 't' AND T1.school_year_round = 't'",
+    "question_id": null,
+    "question": "Among the donations with a portion using account credits redemption, how many of them are for projects created by teachers working in a public year-round school?",
+    "difficulty": "",
+    "evidence": "portion using account credits redemption refers to payment_included_acct_credit = 't'; year-round school refers to school_year_round = 't';"
+  },
+  {
+    "sql": "SELECT SUM(T2.dollar_amount) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.primary_focus_area = 'Literacy & Language'",
+    "question_id": null,
+    "question": "What is the total donation amount made for projects whose main subject area are Literacy & Language?",
+    "difficulty": "",
+    "evidence": "main subject area refers to primary_focus_area = 'Literacy & Language'; total donation amount refers to Sum(dollar_amount);"
+  },
+  {
+    "sql": "SELECT T2.donor_acctid FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.primary_focus_area = 'Literacy & Language' ORDER BY T2.donation_total DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which donor has donated the most for a project whose main subject area is Literacy & Language? Please give his or her ID.",
+    "difficulty": "",
+    "evidence": "main subject area refers to primary_focus_area = 'Literacy & Language'; donated the most refers to Max(donation_total);"
+  },
+  {
+    "sql": "SELECT T1.item_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.primary_focus_area = 'Literacy & Language' AND T1.project_resource_type = 'Supplies' ORDER BY T1.item_quantity DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most requested item under the resource type \"Supplies\" for projects whose main subject area is Literacy & Language?",
+    "difficulty": "",
+    "evidence": "main subject area refers to primary_focus_area = 'Literacy & Language'; resource type supplies refers to project_resource_type = 'Supplies'; most requested item refers to Max(item_quantity);"
+  },
+  {
+    "sql": "SELECT T1.item_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.primary_focus_area = 'Literacy & Language' ORDER BY T1.item_unit_price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which item provided to a project whose main subject area is Literacy & Language has the highest unit price?",
+    "difficulty": "",
+    "evidence": "main subject area refers to primary_focus_area = 'Literacy & Language'; highest unit price refers to Max(item_unit_price);"
+  },
+  {
+    "sql": "SELECT SUM(T2.donation_total) / COUNT(donationid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.school_city = 'Brooklyn'",
+    "question_id": null,
+    "question": "What is the average donation amount to a project created by a teacher working in a school in Brooklyn?",
+    "difficulty": "",
+    "evidence": "school in Brooklyn refers to school_city = 'Brooklyn'; Average = AVG(donation_total);"
+  },
+  {
+    "sql": "SELECT DISTINCT donor_city FROM donations WHERE donor_acctid = '22cbc920c9b5fa08dfb331422f5926b5'",
+    "question_id": null,
+    "question": "To which city did donor \u201c22cbc920c9b5fa08dfb331422f5926b5\u201d donate?",
+    "difficulty": "",
+    "evidence": "donor \u201c22cbc920c9b5fa08dfb331422f5926b5\u201d refers to donor_acctid = '22cbc920c9b5fa08dfb331422f5926b5'; city refers to donor_city"
+  },
+  {
+    "sql": "SELECT DISTINCT is_teacher_acct FROM donations WHERE donor_acctid = '22cbc920c9b5fa08dfb331422f5926b5'",
+    "question_id": null,
+    "question": "Is donor \u201c22cbc920c9b5fa08dfb331422f5926b5\u201d a teacher?",
+    "difficulty": "",
+    "evidence": "donor \u201c22cbc920c9b5fa08dfb331422f5926b5\u201d refers to donor_acctid = '22cbc920c9b5fa08dfb331422f5926b5'; is a teacher refers to is_teacher_acct;"
+  },
+  {
+    "sql": "SELECT CASE WHEN teacher_prefix = 'Dr.' THEN 'Yes' ELSE 'NO' END FROM projects WHERE teacher_acctid = '42d43fa6f37314365d08692e08680973'",
+    "question_id": null,
+    "question": "Have the teacher \"42d43fa6f37314365d08692e08680973\" acquired P.h.D or doctor degree?",
+    "difficulty": "",
+    "evidence": "teacher \"42d43fa6f37314365d08692e08680973\" refers to teacher_acctid = '42d43fa6f37314365d08692e08680973';"
+  },
+  {
+    "sql": "SELECT teacher_ny_teaching_fellow end FROM projects WHERE teacher_acctid = '42d43fa6f37314365d08692e08680973'",
+    "question_id": null,
+    "question": "Is teacher \"42d43fa6f37314365d08692e08680973\" a New York teacher?",
+    "difficulty": "",
+    "evidence": "teacher \"42d43fa6f37314365d08692e08680973\"refers to teacher_acctid = '42d43fa6f37314365d08692e08680973';"
+  },
+  {
+    "sql": "SELECT T2.title FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T1.school_city LIKE 'Abington'",
+    "question_id": null,
+    "question": "Please list the titles of projects by which schools in Abington was donated.",
+    "difficulty": "",
+    "evidence": "Abington is school_city;"
+  },
+  {
+    "sql": "SELECT T1.item_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.teacher_acctid = '822b7b8768c17456fdce78b65abcc18e'",
+    "question_id": null,
+    "question": "Please list the resource names of project that teacher \"822b7b8768c17456fdce78b65abcc18e\" created.",
+    "difficulty": "",
+    "evidence": "teacher \"822b7b8768c17456fdce78b65abcc18e\" refers to teacher_acctid = '822b7b8768c17456fdce78b65abcc18e';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.schoolid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.school_magnet = 't' AND T2.payment_included_acct_credit = 'f'",
+    "question_id": null,
+    "question": "Among the schools' projects whose donation didn't use account credits redemption,how many schools are public magnet schools?",
+    "difficulty": "",
+    "evidence": "donation didn't use account credits redemption refers to payment_included_acct_credit = 'f'; magnet school refers to school_magnet = 't';"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.project_resource_type FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid WHERE T3.donationid LIKE 'b39547f29dfc25fb13c6e9e8d940dc43'",
+    "question_id": null,
+    "question": "Please provide the type of resource that donation \"b39547f29dfc25fb13c6e9e8d940dc43\" contain.",
+    "difficulty": "",
+    "evidence": "donation \"b39547f29dfc25fb13c6e9e8d940dc43\" refers to donationid = 'b39547f29dfc25fb13c6e9e8d940dc43'; type of resource refers to project_resource_type;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.project_resource_type = 'Books' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.projectid) FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_magnet = 't'",
+    "question_id": null,
+    "question": "Among public magnet schools,what percentage of schools that receive the donated resources as books?",
+    "difficulty": "",
+    "evidence": "magnet school refers to school_magnet = 't'; donated resources as books refers to project_resource_type = 'Books'; percentage = Divide(Count(projectid) where project_resource_type = 'Books', Count(projectid))*100"
+  },
+  {
+    "sql": "SELECT COUNT(T2.schoolid) FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_magnet = 't' AND T1.vendor_name = 'ABC School Supply'",
+    "question_id": null,
+    "question": "In the schools donated by the project of the resources provided by ABC School Supply, how many schools are public magnet schools?",
+    "difficulty": "",
+    "evidence": "ABC School Supply is vendor_name;\u00a0 public magnet school refers to school_magnet = 't';"
+  },
+  {
+    "sql": "SELECT COUNT(T1.schoolid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.poverty_level = 'highest poverty' AND T2.donor_acctid = '000eebf28658900e63b538cf8a73afbd'",
+    "question_id": null,
+    "question": "Among the schools donated by donor \"000eebf28658900e63b538cf8a73afbd\",how many schools whose poverty level are highest?",
+    "difficulty": "",
+    "evidence": "donor \"000eebf28658900e63b538cf8a73afbd\" refers to donor_acctid = '000eebf28658900e63b538cf8a73afbd'; highest poverty level refers to poverty_level = 'highest poverty';"
+  },
+  {
+    "sql": "SELECT T2.short_description FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T1.schoolid = '301c9bf0a45d159d162b65a93fddd74e'",
+    "question_id": null,
+    "question": "What is the short description of the project that gives donation to school \u201c301c9bf0a45d159d162b65a93fddd74e\u201d?",
+    "difficulty": "",
+    "evidence": "school \u201c301c9bf0a45d159d162b65a93fddd74e\" refers to schoolid = '301c9bf0a45d159d162b65a93fddd74e';"
+  },
+  {
+    "sql": "SELECT T1.school_city FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T2.title LIKE 'iMath'",
+    "question_id": null,
+    "question": "Which city does the school that project \"iMath\" donated to in?",
+    "difficulty": "",
+    "evidence": "iMath is the title; city refers to school_city;"
+  },
+  {
+    "sql": "SELECT T2.payment_method FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.teacher_acctid = '822b7b8768c17456fdce78b65abcc18e'",
+    "question_id": null,
+    "question": "How to pay the donation of the project that teacher \"822b7b8768c17456fdce78b65abcc18e\" created?",
+    "difficulty": "",
+    "evidence": "teacher \"822b7b8768c17456fdce78b65abcc18e\" refers to teacher_acctid = '822b7b8768c17456fdce78b65abcc18e'; how to pay the donation refers to payment_method;"
+  },
+  {
+    "sql": "SELECT T2.donation_total FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.teacher_acctid = '822b7b8768c17456fdce78b65abcc18e'",
+    "question_id": null,
+    "question": "How much did the project that teacher \"822b7b8768c17456fdce78b65abcc18e\" created donate?",
+    "difficulty": "",
+    "evidence": "teacher \"822b7b8768c17456fdce78b65abcc18e\" refers to teacher_acctid = '822b7b8768c17456fdce78b65abcc18e'; donated refers to donation_total;"
+  },
+  {
+    "sql": "SELECT T2.is_teacher_acct FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.schoolid = 'd4af834b1d3fc8061e1ee1b3f1a77b85'",
+    "question_id": null,
+    "question": "Is the donor who donated to school \"d4af834b1d3fc8061e1ee1b3f1a77b85\" a teacher?",
+    "difficulty": "",
+    "evidence": "school \"d4af834b1d3fc8061e1ee1b3f1a77b85\" refers to schoolid = 'd4af834b1d3fc8061e1ee1b3f1a77b85'; donor is a teacher refers to is_teacher_acct = 't';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.school_city LIKE 'Brooklyn' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.teacher_acctid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.is_teacher_acct = 't'",
+    "question_id": null,
+    "question": "Among the schools whose donators are teachers, what is the percentage of schools that are in Brooklyn?",
+    "difficulty": "",
+    "evidence": "donors are teachers refers to is_teacher_acct = 't'; Brooklyn is school_city; percentage = Divide(Count(school_city-'Brooklyn'),Count(school_city))*100"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.students_reached > 30 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.projectid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.is_teacher_acct = 't'",
+    "question_id": null,
+    "question": "Among the projects whose donators are teachers, what is the percentage of projects that affected more than 30 students?",
+    "difficulty": "",
+    "evidence": "donors are teachers refers to is_teacher_acct = 't'; affect more than 30 students refers to students_reached>30; Percentage = Divide(Count(students_reached>30), Count(students_reached))*100"
+  },
+  {
+    "sql": "SELECT COUNT(schoolid) FROM projects WHERE school_city = 'Bethlehem' AND school_metro = 'suburban'",
+    "question_id": null,
+    "question": "How many schools which have suburban metro are there in Bethlehem?",
+    "difficulty": "",
+    "evidence": "Bethlehem is school_city; suburban metro refers to school_metro = 'suburban';"
+  },
+  {
+    "sql": "SELECT COUNT(school_year_round) FROM projects WHERE school_city = 'Los Angeles' AND school_year_round = 't'",
+    "question_id": null,
+    "question": "What is the number of the year round school in Los Angeles?",
+    "difficulty": "",
+    "evidence": "Los Angeles is school_city; year-round school refers to school_year_round = 't';"
+  },
+  {
+    "sql": "SELECT COUNT(schoolid) FROM projects WHERE school_county = 'New York (Manhattan)' AND school_magnet = 't'",
+    "question_id": null,
+    "question": "State the number of public magnet schools in New York Manhattan.",
+    "difficulty": "",
+    "evidence": "public magnet school refers to school_magnet = 't'; in New York Manhattan refers to school_country = 'New York(Manhattan)';"
+  },
+  {
+    "sql": "SELECT COUNT(teacher_acctid) FROM projects WHERE school_county = 'Twin Falls' AND primary_focus_area = 'Math & Science'",
+    "question_id": null,
+    "question": "How many teachers in Twin Falls have Math & Science as their primary focus area?",
+    "difficulty": "",
+    "evidence": "Twin Falls is school_country; 'Math & Science' is primary_focus_area;"
+  },
+  {
+    "sql": "SELECT COUNT(teacher_acctid) FROM projects WHERE teacher_prefix = 'Mr.' AND primary_focus_subject = 'Literature & Writing'",
+    "question_id": null,
+    "question": "How many teachers that have Literature & Writing as their primary focus subject use 'Mr' as their teacher prefix?",
+    "difficulty": "",
+    "evidence": "Literature & Writing' is primary_focus_subject; use 'Mr' as their teacher prefix refers to teacher_prefix = 'Mr';"
+  },
+  {
+    "sql": "SELECT COUNT(projectid) FROM projects WHERE school_district = 'Boston Public School District' AND grade_level = 'Grades 3-5'",
+    "question_id": null,
+    "question": "What is the total number of projects that was created by the teachers that teach 3-5 grades in Boston Public School District?",
+    "difficulty": "",
+    "evidence": "teach 3-5 grades refers to grade_level = 'Grades 3-5'; 'Boston Public School District' is school_district;"
+  },
+  {
+    "sql": "SELECT T2.school_city FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.title = 'ABC Read'",
+    "question_id": null,
+    "question": "For the teacher who wrote the project 'ABC Read', which city was he/she in?",
+    "difficulty": "",
+    "evidence": "ABC Read' is the title; city refers to school_city"
+  },
+  {
+    "sql": "SELECT T2.teacher_prefix FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Creating Memories and Inspiring Dreams%'",
+    "question_id": null,
+    "question": "What is the teacher prefix for the teacher who wrote the project 'Creating Memories and Inspiring Dreams'?",
+    "difficulty": "",
+    "evidence": "Creating Memories and Inspiring Dreams is title;"
+  },
+  {
+    "sql": "SELECT T2.is_teacher_acct FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Calculate, Financial Security For Tomorrow Starts Today! '",
+    "question_id": null,
+    "question": "Is the donor of the project 'Calculate, Financial Security For Tomorrow Starts Today! ' a teacher?",
+    "difficulty": "",
+    "evidence": "Calculate, Financial Security For Tomorrow Starts Today! ' is title; donor is a teacher refers to is_teacher_acct = 't'"
+  },
+  {
+    "sql": "SELECT T1.title FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.donation_message LIKE 'Donation on behalf of Matt Carpenter because I''m a strong believer in education.'",
+    "question_id": null,
+    "question": "What is the title for the project that got the donation message as \"Donation on behalf of Matt Carpenter because I'm a strong believer in education\".",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT SUM(T2.donation_total) FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'A Rug For Reaching Readers'",
+    "question_id": null,
+    "question": "How many number of donations did the project 'A Rug For Reaching Readers' get?",
+    "difficulty": "",
+    "evidence": "A Rug For Reaching Readers'is the title;"
+  },
+  {
+    "sql": "SELECT SUM(T2.donation_to_project) + SUM(T2.donation_optional_support) FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Engaging Young Readers with a Leveled Classroom Library '",
+    "question_id": null,
+    "question": "What is the total donation amount for the project 'Engaging Young Readers with a Leveled Classroom Library'?",
+    "difficulty": "",
+    "evidence": "Engaging Young Readers with a Leveled Classroom Library' is the title; total donation amount = Add(donation_to_project, donation_optional_support)"
+  },
+  {
+    "sql": "SELECT T2.donation_optional_support FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Armenian Genocide'",
+    "question_id": null,
+    "question": "What was the donation optional support amount for the project 'Armenian Genocide'?",
+    "difficulty": "",
+    "evidence": "Armenian Genocide' is the title;"
+  },
+  {
+    "sql": "SELECT T1.short_description FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.donation_timestamp LIKE '2012-09-06 14:44:29'",
+    "question_id": null,
+    "question": "State the short description for the project which got the donation at 14:44:29 on 2012/9/6.",
+    "difficulty": "",
+    "evidence": "donation at 14:44:29 on 2012/9/6 refers to donation_timestamp = '2012/9/6 14:44:29';"
+  },
+  {
+    "sql": "SELECT T2.donation_included_optional_support FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'I Can''t See It...Can You Help Me???'",
+    "question_id": null,
+    "question": "Did the project 'I Can't See It...Can You Help Me???' get the tip for the donation?",
+    "difficulty": "",
+    "evidence": "I Can't See It...Can You Help Me???' is the title;"
+  },
+  {
+    "sql": "SELECT T1.teacher_acctid FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.donation_timestamp LIKE '2008-07-29 11:38:43.361'",
+    "question_id": null,
+    "question": "What is the teacher's account ID for the project that got the donation at 11:38:43 on 2008/7/29 ?",
+    "difficulty": "",
+    "evidence": "donation at 11:38:43 on 2008/7/29 refers to donation_timestamp = '2008/7/29 11:38:43'; teacher's account ID refers to teacher_acctid;"
+  },
+  {
+    "sql": "SELECT T2.schoolid FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Virtual Aquarium Needs Help!'",
+    "question_id": null,
+    "question": "Show the school id for the project 'Virtual Aquarium Needs Help!'.",
+    "difficulty": "",
+    "evidence": "Virtual Aquarium Needs Help!' is the title;"
+  },
+  {
+    "sql": "SELECT T1.title FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.donation_total = ( SELECT MAX(donation_total) FROM donations )",
+    "question_id": null,
+    "question": "What was the title for the project which got the biggest donation?",
+    "difficulty": "",
+    "evidence": "biggest donation refers to donation_total = 'max';"
+  },
+  {
+    "sql": "SELECT CAST(SUM(T2.donation_optional_support) AS REAL) * 100 / SUM(T2.donation_total) FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Awesome Audiobooks Make Avid Readers'",
+    "question_id": null,
+    "question": "For the donation of the project 'Awesome Audiobooks Make Avid Readers', what was the percentage of the tip in the total amount?",
+    "difficulty": "",
+    "evidence": "Awesome Audiobooks Make Avid Readers' is the title; percentage = Divie(donation_optional_support, donation_total)*100;"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.payment_method LIKE 'creditcard' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(donationid) FROM essays AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Bringing Drama to Life'",
+    "question_id": null,
+    "question": "For the all donations to the project 'Bringing Drama to Life', what is the percentage of the donation is paid by credit card?",
+    "difficulty": "",
+    "evidence": "Bringing Drama to Life' is the title; Percentage = Divide(Count(payment_method = 'creditcard'), Count(projectid))*100;"
+  },
+  {
+    "sql": "SELECT short_description FROM essays WHERE title = 'Future Einsteins Of America'",
+    "question_id": null,
+    "question": "What is the short description for the title Future Einsteins Of America?",
+    "difficulty": "",
+    "evidence": ""
+  },
+  {
+    "sql": "SELECT need_statement FROM essays WHERE title = 'Family History Project'",
+    "question_id": null,
+    "question": "Write down the need statement of Family History Project.",
+    "difficulty": "",
+    "evidence": "Family History Project refer to title, need statement refer to need_statement"
+  },
+  {
+    "sql": "SELECT COUNT(projectid) FROM projects WHERE school_district = 'Livingston Parish School Dist' AND school_metro = 'suburban'",
+    "question_id": null,
+    "question": "How many suburban metros are there in Livingston Parish School District?",
+    "difficulty": "",
+    "evidence": "suburban metros refer to metro = 'suburban'; Livingston Parish School District refer to school_district"
+  },
+  {
+    "sql": "SELECT DISTINCT vendor_name FROM resources WHERE item_name = 'Classroom Keepers Management Center'",
+    "question_id": null,
+    "question": "Name the vendors that sell the item Classroom Keepers Management Center.",
+    "difficulty": "",
+    "evidence": "vendor refer to vendor_name; Classroom Keepers Management Center refer to item_name"
+  },
+  {
+    "sql": "SELECT DISTINCT project_resource_type FROM resources WHERE vendor_name = 'Sax Arts & Crafts'",
+    "question_id": null,
+    "question": "List the resource types available at Sax Arts & Crafts.",
+    "difficulty": "",
+    "evidence": "Sax Arts & Crafts refer to vendor_name; resource type available refer to project_resource_type\n"
+  },
+  {
+    "sql": "SELECT school_county FROM projects WHERE poverty_level = 'low poverty' AND school_state = 'NY' GROUP BY school_state ORDER BY COUNT(poverty_level) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which school county in the state of New York has a high number of low poverty levels?",
+    "difficulty": "",
+    "evidence": "New York refer to school_state = NY; highest number of low poverty level refer to MAX(poverty level = \u2019low poverty\u2019)"
+  },
+  {
+    "sql": "SELECT T1.school_district FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T2.title LIKE 'Future Einsteins Of America'",
+    "question_id": null,
+    "question": "Which school district was Future Einsteins Of America project located at?",
+    "difficulty": "",
+    "evidence": "Future Einsteins of America refer to title"
+  },
+  {
+    "sql": "SELECT T3.payment_method FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid WHERE T1.title = 'Needed Resource Materials For My Students'",
+    "question_id": null,
+    "question": "What payment method was used for Needed Resource Materials For My Students?",
+    "difficulty": "",
+    "evidence": "Needed Resource Materials For My Students refer to title"
+  },
+  {
+    "sql": "SELECT COUNT(T1.projectid) FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.payment_method = 'creditcard' AND T2.school_district = 'Memphis City School District'",
+    "question_id": null,
+    "question": "How many donations were paid via credit card to Memphis City School District?",
+    "difficulty": "",
+    "evidence": "paid via credit card refer to payment method = creditcard; Memphis City School District refer to school_district"
+  },
+  {
+    "sql": "SELECT T2.school_district FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.vendor_name = 'Barnes and Noble'",
+    "question_id": null,
+    "question": "List the school districts that have bought resources from Barnes and Noble.",
+    "difficulty": "",
+    "evidence": "Barnes and Noble refer to vendor_name"
+  },
+  {
+    "sql": "SELECT T2.school_latitude, T2.school_longitude FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.item_name = 'R & A Plant Genetics' AND T1.vendor_name = 'Benchmark Education'",
+    "question_id": null,
+    "question": "Give the coordinates of the buyer of R & A Plant Genetics from Benchmark Education.",
+    "difficulty": "",
+    "evidence": "coordinates refer to (school_latitude, school_longitude); R & A Plant Genetics refer to item_name; Benchmark Education refer to vendor_name"
+  },
+  {
+    "sql": "SELECT T1.payment_method FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_state = 'GA' GROUP BY T2.school_state ORDER BY COUNT(T1.payment_method) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which payment method is most comonly used by the schools in the state of Georgia for the payment of donations?",
+    "difficulty": "",
+    "evidence": "Georgia refer to school_state = 'GA'\n"
+  },
+  {
+    "sql": "SELECT T2.school_latitude, T2.school_longitude, T2.resource_type FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Look, Look, We Need a Nook!'",
+    "question_id": null,
+    "question": "What are the coordinates of the school where project 'Look, Look, We Need a Nook!' Was donated to and what resource type is it?",
+    "difficulty": "",
+    "evidence": "Coordinates of the school refer to school_latitude, school_longitude); Look, Look, We Need a Nook! Refer to title;"
+  },
+  {
+    "sql": "SELECT T1.donation_message FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_latitude = 40.735332 AND T2.school_longitude = -74.196014 AND T2.school_district = 'Newark School District'",
+    "question_id": null,
+    "question": "Write the messages of those who donated to the Newark School District in the coordinates of 40.735332, -74.196014.",
+    "difficulty": "",
+    "evidence": "message refer to donation_message; Newark School District refer to school_district; 40.735332, -74.196014 refer to (school latitude, school_longitude)"
+  },
+  {
+    "sql": "SELECT T1.date_posted FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T2.title LIKE 'Lets Share Ideas'",
+    "question_id": null,
+    "question": "What date did the project with he 'Lets Share Ideas essay' went live?",
+    "difficulty": "",
+    "evidence": "date refer to date_posted; Lets Share Ideas refer to title"
+  },
+  {
+    "sql": "SELECT T3.donation_message FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid WHERE T1.title = 'Lets Share Ideas' AND T3.payment_method = 'creditcard'",
+    "question_id": null,
+    "question": "Write the message of the donor of the project with the title of Lets Share Ideas who paid with a credit card.",
+    "difficulty": "",
+    "evidence": "message of the donor refer to donation_message; Lets Share Ideas refer to title; paid with a credit card refer to payment_method"
+  },
+  {
+    "sql": "SELECT T1.project_resource_type FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_district = 'Los Angeles Unif Sch Dist' GROUP BY T2.school_district ORDER BY COUNT(T1.project_resource_type) DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which resource type is commonly bought by the Los Angeles Unified School District?",
+    "difficulty": "",
+    "evidence": "resource type refer to project_resource_type; most commonly bought refer to COUNT(project_resource_type where school_district = \u2019Los Angeles Unif Sch Dist\u2019); Los Angeles Unified School District refer to school_district = \u2019Los Angeles Unif Sch Dist\u2019"
+  },
+  {
+    "sql": "SELECT T2.school_city FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_district = 'Los Angeles Unif Sch Dist' AND T1.vendor_name = 'Quill.com'",
+    "question_id": null,
+    "question": "Which cities in the Los Angeles Unified School District has bought supplies from Quill.com?",
+    "difficulty": "",
+    "evidence": "cities refer to school_city; Los Angeles Unified School District refer to school_district = 'Los Angeles Unified School District'; supplies refer to project_resource_type; Quill.com refer to vendor_name"
+  },
+  {
+    "sql": "SELECT T2.item_unit_price * T2.item_quantity price, T1.school_latitude, T1.school_longitude FROM projects AS T1 INNER JOIN resources AS T2 ON T1.projectid = T2.projectid WHERE T2.vendor_name = 'ABC School Supply' AND T2.project_resource_type = 'Other' AND T1.school_district = 'Hillsborough Co Pub Sch Dist'",
+    "question_id": null,
+    "question": "What is the total price of items brought from ABC School Supply with a listed type of Other? Also include the list of the buyers' coordinates and school districts they belong to.",
+    "difficulty": "",
+    "evidence": "ABC School Supply refer to vendor_name; listed type as Other refer to project_resource_type = 'Other'; coordinates refer to coordinates(school_latitude, school_longitude); total price of items refer to SUM(MULTIPLY(item_unit_price, item_quantity where vendor_name = \u2019ABC School Supply\u2019))\n\n"
+  },
+  {
+    "sql": "SELECT SUM(T3.donation_total), school_city, poverty_level FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid WHERE T1.title = 'Lets Share Ideas' AND T3.payment_method = 'paypal'",
+    "question_id": null,
+    "question": "Calculate the sum of all the total amount donated to the essay project titled 'Lets Share Ideas' which were paid through paypal and indicate the city and poverty level.",
+    "difficulty": "",
+    "evidence": "paypal refer to payment method; Lets Share Ideas refer to title; city refer to school_city; total amount donated refer to SUM(donation_total of paypal where payment_method = \u2019paypal\u2019)"
+  },
+  {
+    "sql": "SELECT COUNT(donationid) FROM donations WHERE donor_city = 'Pocatello' AND is_teacher_acct = 'f'",
+    "question_id": null,
+    "question": "How many donors who donated to the city of Pocatello are not teachers?",
+    "difficulty": "",
+    "evidence": "city of Pocatello refers to donor_city = 'Pocatello'; not teachers refers to is_teacher_acct = 'f'"
+  },
+  {
+    "sql": "SELECT COUNT(schoolid) FROM projects WHERE teacher_prefix = 'Dr.' AND school_county = 'Suffolk'",
+    "question_id": null,
+    "question": "How many schools in Suffolk County have Ph.D. teachers?",
+    "difficulty": "",
+    "evidence": "Suffolk County refers to School_county = 'Suffolk'; Ph.D. teachers refers to Teacher_prefix = 'Dr.'"
+  },
+  {
+    "sql": "SELECT SUM(donation_to_project) + SUM(donation_optional_support) FROM donations WHERE payment_method = 'amazon'",
+    "question_id": null,
+    "question": "What is the sum of the total donated amounts paid through Amazon?",
+    "difficulty": "",
+    "evidence": "paid through Amazon refers to payment_method = 'Amazon'; sum of the total donated amounts refers to SUM(donation_to_project,donation_optional_support)"
+  },
+  {
+    "sql": "SELECT COUNT(donationid) FROM donations WHERE dollar_amount = '100_and_up' AND for_honoree = 't'",
+    "question_id": null,
+    "question": "How many donations of more than $100 were made for an honoree?",
+    "difficulty": "",
+    "evidence": "an honoree refers to for_honoree = 't'; more than $100 refers to dollar_amount = '100_and_up'"
+  },
+  {
+    "sql": "SELECT vendorid FROM resources WHERE project_resource_type = 'Technology' AND item_unit_price <= 15",
+    "question_id": null,
+    "question": "How many resources with a unit price less than 15 are not technology type? List them by vendor id",
+    "difficulty": "",
+    "evidence": "unit price less than 15 refers to item_unit_price< = 15; are not technology type refers to project_resource_type = 'technology'"
+  },
+  {
+    "sql": "SELECT COUNT(projectid) FROM resources WHERE vendor_name = 'Quill.com' AND item_quantity BETWEEN 5 AND 10",
+    "question_id": null,
+    "question": "On how many projects where the teacher has ordered between 5 to 10 items are from are from Quill.com?",
+    "difficulty": "",
+    "evidence": "ordered between 5 to 10 items refers to item_quantity between 5 and 10; are from Quill.com refers to vendor_name = 'Quill.com'"
+  },
+  {
+    "sql": "SELECT schoolid FROM projects WHERE school_district = 'Union Pub School District I-9' AND teacher_ny_teaching_fellow = 't'",
+    "question_id": null,
+    "question": "List by school id projects from schools located in the Union Pub School District I-9 that have a New York teaching fellow",
+    "difficulty": "",
+    "evidence": "located in the Union Pub School District I-9 refers to school_district = 'Union Pub School District I-9'; New York teaching fellow refers to teacher_ny_teaching_fellow = 't'"
+  },
+  {
+    "sql": "SELECT school_city FROM projects WHERE school_metro = 'suburban' AND school_county = 'Los Angeles'",
+    "question_id": null,
+    "question": "In which cities are Los Angeles County Suburban Metro Schools located?",
+    "difficulty": "",
+    "evidence": "Los Angeles County refers to school_county = 'Los Angeles'"
+  },
+  {
+    "sql": "SELECT DISTINCT vendorid, projectid FROM resources WHERE project_resource_type = 'Books'",
+    "question_id": null,
+    "question": "What are the vendors of the book-type projects? List them with the project ID.",
+    "difficulty": "",
+    "evidence": "book-type projects refers to project_resource_type = 'Books'"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN payment_included_campaign_gift_card = 't' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(donationid) FROM donations WHERE payment_method = 'no_cash_received'",
+    "question_id": null,
+    "question": "What percentage of projects that have not received a cash donation have received a portion of a donation included corporate sponsored giftcard?",
+    "difficulty": "",
+    "evidence": "have not received a cash donation refers to payment_method = 'no_cash_received'; received a portion of a donation included corporate sponsored giftcard payment_included_campaign_gift_card = 't'; percentage refers to DIVIDE(payment_included_campaign_gift_card = 't',payment_included_campaign_gift_card)*100"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN school_metro = 'suburban' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(projectid) FROM projects WHERE school_city = 'Santa Barbara'",
+    "question_id": null,
+    "question": "What percentage of projects in the City of Santa Barbara are in suburban metro?",
+    "difficulty": "",
+    "evidence": "City of Santa Barbara refers to school_city = 'Santa Barbara'; percentage refers to DIVIDE(school_metro = 'suburban'; school_metro)*100"
+  },
+  {
+    "sql": "SELECT payment_method , CAST(COUNT(donationid) AS REAL) * 100 / 51090 FROM donations WHERE donation_timestamp LIKE '2013-03%' GROUP BY payment_method",
+    "question_id": null,
+    "question": "What is the percentage of payment methods of donations made in March 2013?",
+    "difficulty": "",
+    "evidence": "made in March 2013 refers to substr(donation_timestamp,1,7) = '2013-03'; percentage refers to DIVIDE(SUM(payment_method made in March 2013), SUM(payment_method))*100"
+  },
+  {
+    "sql": "SELECT SUM(item_unit_price) / SUM(item_quantity) FROM resources WHERE vendor_name = 'AKJ Books'",
+    "question_id": null,
+    "question": "What is the average unit price of AKJ Books items?",
+    "difficulty": "",
+    "evidence": "AKJ Books items refers to vendor_name = 'AKJ Books'; average unit price refers to DIVIDE(sum(item_unit_price),count(resourceid))"
+  },
+  {
+    "sql": "SELECT COUNT(T2.schoolid) FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid WHERE T2.school_city = 'Brooklyn' AND T2.school_metro = 'urban' AND T3.for_honoree = 't' AND T1.item_name = 'TT992 - Refill Pack for Safety Name Tags'",
+    "question_id": null,
+    "question": "How many schools in Brooklyn with urban metro and donations for an honoree have requested TT992 - Refill Pack for Safety Name Tags as a resource?",
+    "difficulty": "",
+    "evidence": "in Brooklyn refers to school_city = 'Brooklyn'; urban metro refers to school_metro = 'urban'; donations for an honoree refers to for_honoree = 't'; requested TT992 - Refill Pack for Safety Name Tags refers to item_name = 'TT992 - Refill Pack for Safety Name Tags'"
+  },
+  {
+    "sql": "SELECT COUNT(T1.schoolid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.payment_included_campaign_gift_card = 't' AND T1.poverty_level = 'highest poverty'",
+    "question_id": null,
+    "question": "How many schools with the highest level of poverty have received a portion of a donation included corporate sponsored gift card?",
+    "difficulty": "",
+    "evidence": "highest level of poverty refers to poverty_level = 'highest'; received a portion of a donation included corporate sponsored gift card refers to payment_included_campaign_gift_card = 't'"
+  },
+  {
+    "sql": "SELECT T2.school_city FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.dollar_amount = 'under_10' GROUP BY T2.school_city ORDER BY COUNT(T2.schoolid) DESC LIMIT 1",
+    "question_id": null,
+    "question": "In which city is there a greater number of schools that have received donations of less than 10 dollars?",
+    "difficulty": "",
+    "evidence": "received donations of less than 10 dollars refers to dollar_amount = 'under_10'; city refers to school_city\n\n"
+  },
+  {
+    "sql": "SELECT T1.title FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_latitude = 42003718 AND T2.school_longitude = -87668289",
+    "question_id": null,
+    "question": "What is the project title of the school located at latitude 42003718 and longitude -87668289?",
+    "difficulty": "",
+    "evidence": "latitude 42003718 refers to school_latitude = 42003718; longitude -87668289 refers to school_longitude = -87668289"
+  },
+  {
+    "sql": "SELECT T2.teacher_ny_teaching_fellow FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.title LIKE 'Team More Books!'",
+    "question_id": null,
+    "question": "Find out if the project with the title Team More Books! has a New York teaching fellow.",
+    "difficulty": "",
+    "evidence": "title Team More Books! Refers to title = 'Team More Books!'; as a New York teaching fellow refers to teacher_ny_teaching_fellow = 't'"
+  },
+  {
+    "sql": "SELECT T1.vendor_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.primary_focus_area LIKE 'Literacy%' GROUP BY T1.vendor_name ORDER BY COUNT(T2.primary_focus_area) DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the name of the vendors that serve resources to schools whose primary focus area is Literature?",
+    "difficulty": "",
+    "evidence": "primary focus area is Literature refers to primary_focus_area = 'Literature'"
+  },
+  {
+    "sql": "SELECT DISTINCT T1.vendor_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.grade_level = 'Grades 9-12'",
+    "question_id": null,
+    "question": "What is the name of the vendors serving material for projects for grades 9-12?",
+    "difficulty": "",
+    "evidence": "for grades 9-12 refers to grade_level = 'Grades 9-12'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T2.teacher_acctid) FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.is_teacher_acct = 't' AND T2.school_city = 'Chicago'",
+    "question_id": null,
+    "question": "How many teachers have made some type of donation for projects in Chicago?",
+    "difficulty": "",
+    "evidence": "in Chicago refers to school_city = 'Chicago'; teachers refers to is_teacher_acct = 't'"
+  },
+  {
+    "sql": "SELECT COUNT(DISTINCT T1.teacher_acctid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.school_city = 'Rock Hill' AND is_teacher_acct = 't'",
+    "question_id": null,
+    "question": "How many Rock Hill City School projects have teacher donors?",
+    "difficulty": "",
+    "evidence": "Rock Hill City School refers to school_city = 'Rock Hill'; teacher donors refers to is_teacher_acct = 't'"
+  },
+  {
+    "sql": "SELECT SUM(T2.dollar_amount) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.students_reached > 300 AND t2.donation_included_optional_support = 't'",
+    "question_id": null,
+    "question": "What is the total sum of the donations paid with an optional support in projects that reach more than 300 students?",
+    "difficulty": "",
+    "evidence": "with an optional support refers to donation_included_optional_support = 't'; reach more than 300 students refers to students_reached>300"
+  },
+  {
+    "sql": "SELECT SUM(T1.item_quantity) FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.school_metro = 'urban' AND T2.school_district = 'Onslow Co School District'",
+    "question_id": null,
+    "question": "How many total items were requested for the Onslow Co School District urban metro school projects?",
+    "difficulty": "",
+    "evidence": "Onslow Co School District refers to school_district = 'Onslow Co School District';"
+  },
+  {
+    "sql": "SELECT SUM(T2.donation_optional_support + T2.donation_to_project) / COUNT(donationid) FROM projects AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T1.school_county = 'Fresno'",
+    "question_id": null,
+    "question": "What is the average total donations received by Fresno County colleges?",
+    "difficulty": "",
+    "evidence": "Fresno County colleges refers to school_county = 'Fresno'; average refers to DIVIDE(sum(donation_optional_support,donation_to_project),sum(donation_total))"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T2.title LIKE 'ABC Read' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.school_county) FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid",
+    "question_id": null,
+    "question": "In what percentage of counties has the ABC Read project been launched?",
+    "difficulty": "",
+    "evidence": "ABC Read project been launched refers to title = 'ABC Read'; percentage refers to DIVIDE(count(case when title = 'ABC Read' then school_county else null end),count(school_county))*100"
+  },
+  {
+    "sql": "SELECT AVG(T1.item_quantity) FROM resources AS T1 INNER JOIN donations AS T2 ON T1.projectid = T2.projectid WHERE T2.for_honoree = 't'",
+    "question_id": null,
+    "question": "What is the average amount of resources from projects that have received donations per honoree?",
+    "difficulty": "",
+    "evidence": "donations per honoree refers to for_honoree = 't'; average refers to DIVIDE(sum(item_quantity), count(donationid))"
+  },
+  {
+    "sql": "SELECT T1.date_posted FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T2.title LIKE 'Photojournalists Want to Exhibit Their Best Works'",
+    "question_id": null,
+    "question": "When did the project \"Photojournalists Want to Exhibit Their Best Works\" go live?",
+    "difficulty": "",
+    "evidence": "project \"Photojournalists Want to Exhibit Their Best Works\" refers to title = 'Photojournalists Want to Exhibit Their Best Works'; when project go live refers to datePosted"
+  },
+  {
+    "sql": "SELECT T1.item_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T2.primary_focus_subject = 'Mathematics' ORDER BY T1.item_unit_price DESC LIMIT 1",
+    "question_id": null,
+    "question": "Which item provided for projects with Mathematics as a primary subject is the most expensive?",
+    "difficulty": "",
+    "evidence": "Mathematics as a primary subject refers to primary_focus_subject = 'Mathematics'; most expensive refers to max(item_unit_price)"
+  },
+  {
+    "sql": "SELECT T2.school_city, T2.school_latitude, T2.school_longitude FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.item_name = 'Viewscreen LCD FROM Texas Instruments, TI-84 Plus'",
+    "question_id": null,
+    "question": "Where is the school that needs a \"Viewscreen LCD from Texas Instruments, TI-84 Plus\"? Provide the latitude and longitude of that school.",
+    "difficulty": "",
+    "evidence": "needs a \"Viewscreen LCD from Texas Instruments, TI-84 Plus\" refers to item_name = 'Viewscreen LCD from Texas Instruments, TI-84 Plus'; where is the school refers to school_city; latitude refers to school_latitude; longtitude refers to school_longitude"
+  },
+  {
+    "sql": "SELECT SUM(T3.donation_total) FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN donations AS T3 ON T2.projectid = T3.projectid WHERE T1.title = 'Look, Look, We Need a Nook!'",
+    "question_id": null,
+    "question": "How many donations does the project \"Look, Look, We Need a Nook!\" have?",
+    "difficulty": "",
+    "evidence": "project \"Look, Look, We Need a Nook!\" refers to title = 'Look, Look, We Need a Nook!'"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.poverty_level FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.donor_zip = 7079",
+    "question_id": null,
+    "question": "List the poverty level of all the schools that received donations with the zip code \"7079\".",
+    "difficulty": "",
+    "evidence": "zip code \"7079\" refers to donor_zip = '7079'"
+  },
+  {
+    "sql": "SELECT T3.vendor_name FROM essays AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid INNER JOIN resources AS T3 ON T2.projectid = T3.projectid WHERE T1.title = 'Bloody Times'",
+    "question_id": null,
+    "question": "What is the name of the vendor that the project \"Bloody Times\" uses for their resources?",
+    "difficulty": "",
+    "evidence": "project \"Bloody Times\" refers to title = 'Bloody Times'"
+  },
+  {
+    "sql": "SELECT T2.school_zip, T1.item_name FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.vendor_name = 'Sax Arts & Crafts'",
+    "question_id": null,
+    "question": "List all the items from \"Sax Arts & Crafts\" and the zip code of the schools that received them.",
+    "difficulty": "",
+    "evidence": "from \"Sax Arts & Crafts\" refers to vendor_name = 'Sax Arts & Crafts'; zip code of the schools refers school_zip"
+  },
+  {
+    "sql": "SELECT T1.school_longitude, T1.school_latitude FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T2.title LIKE 'Wiping Away Bad Grades'",
+    "question_id": null,
+    "question": "What are the coordinates of the school with the project \"Wiping Away Bad Grades\"?",
+    "difficulty": "",
+    "evidence": "project \"Wiping Away Bad Grades\" title = 'Wiping Away Bad Grades'; coordinates refers to school_longitude, school_latitude"
+  },
+  {
+    "sql": "SELECT DISTINCT T2.primary_focus_subject FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.payment_included_campaign_gift_card = 't'",
+    "question_id": null,
+    "question": "List the primary subject of all the donations with a corporate sponsored giftcard.",
+    "difficulty": "",
+    "evidence": "corporate sponsored giftcard refers to payment_included_campaign_gift_card = 't'; primary subject refers to primary_focus_subject"
+  },
+  {
+    "sql": "SELECT T1.item_name, T2.short_description FROM resources AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T1.project_resource_type = 'Books' ORDER BY T1.item_unit_price DESC LIMIT 1",
+    "question_id": null,
+    "question": "What is the most expensive book item? Please provide a short description of projects related to those.",
+    "difficulty": "",
+    "evidence": "book item refers to project_resource_type = 'Books'; most expensive refers to MAX(item_unit_price)"
+  },
+  {
+    "sql": "SELECT T1.grade_level FROM projects AS T1 INNER JOIN essays AS T2 ON T1.projectid = T2.projectid WHERE T2.title LIKE 'Too Close for Comfort'",
+    "question_id": null,
+    "question": "For what grade was the project \"Too Close for Comfort\" for?",
+    "difficulty": "",
+    "evidence": "project \"Too Close for Comfort\" refers to title = 'Too Close for Comfort'; grade refers to grade_level"
+  },
+  {
+    "sql": "SELECT SUM(T2.students_reached) FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.donor_zip = 22205",
+    "question_id": null,
+    "question": "What is the total number of students impacted by the projects with a donation from a donor with zip code \"22205\"?",
+    "difficulty": "",
+    "evidence": "zip code \"22205\" refers to donor_zip = '22205'; students impacted refers to students_reached"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.via_giving_page = 't' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(donation_total), ( SELECT T2.primary_focus_area FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.via_giving_page = 't' GROUP BY T2.primary_focus_area ORDER BY SUM(T1.donation_total) DESC LIMIT 1 ) result FROM donations AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid",
+    "question_id": null,
+    "question": "What percentage of donations are given via a giving or campaign page? List the primary area of those donations.",
+    "difficulty": "",
+    "evidence": "given via a giving or campaign page refers to via_giving_page = 't'; percentage refers to DIVIDE(count(case when via_giving_page = 't' then donationid else null end),count(donationid))*100; primary area of donation refers to primary_focus_area"
+  },
+  {
+    "sql": "SELECT CAST(SUM(CASE WHEN T1.vendor_name = 'Best Buy for Business' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.projectid) FROM resources AS T1 INNER JOIN projects AS T2 ON T1.projectid = T2.projectid WHERE T1.project_resource_type = 'Technology' UNION ALL SELECT DISTINCT T1.date_posted FROM projects AS T1 INNER JOIN resources AS T2 ON T1.projectid = T2.projectid WHERE T2.vendor_name = 'Best Buy for Business' AND T2.project_resource_type = 'Technology'",
+    "question_id": null,
+    "question": "Among the technology items, what percentage of them are from Best Buy for Business? Provide the date of the project related to those items.",
+    "difficulty": "",
+    "evidence": "technology items refers to project_resource_type = 'Technology'; from Best Buy for Business refers to vendor_name = 'Best Buy for Business'; percentage refers to DIVIDE(count(case when vendor_name = 'Best Buy for Business'),count(projectid))"
+  }
+]

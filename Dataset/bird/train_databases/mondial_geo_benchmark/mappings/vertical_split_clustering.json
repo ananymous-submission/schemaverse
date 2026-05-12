@@ -1,0 +1,391 @@
+{
+  "vertical_split_selection": {
+    "split_rate": 0.8,
+    "vertical_split_max_fragments": 5,
+    "rng_seed_additive": 7,
+    "total_tables_across_locals": 34,
+    "eligible_candidate_count": 12,
+    "num_selected_for_vertical_split": 12,
+    "num_from_rate_alone": 27,
+    "wide_non_pk_threshold": 10,
+    "count_wide_eligible_tables": 1,
+    "selected_original_tables": [
+      "river",
+      "lake",
+      "island",
+      "country",
+      "economy",
+      "mountain",
+      "organization",
+      "city",
+      "province",
+      "desert",
+      "politics",
+      "population"
+    ],
+    "sort_order": "descending by non_pk_column_count, then table name",
+    "column_semantic_enrichment_path_resolved": "/lustre06/project/6048152/mdaviran/data-integration/data-integration/BIRD/train_databases/mondial_geo/column_semantic_enrichment.json",
+    "column_semantic_enrichment_loaded": true,
+    "vertical_split_overlap_fraction": 0.4,
+    "vertical_split_embedding_model": "BAAI/bge-small-en-v1.5",
+    "vertical_split_skipped_after_clustering": [
+      {
+        "table": "lake",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "island",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "country",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "economy",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "mountain",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "organization",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "city",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "desert",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "politics",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      },
+      {
+        "table": "population",
+        "reason": "semantic_clustering_infeasible_or_no_valid_k"
+      }
+    ]
+  },
+  "per_table": {
+    "province": {
+      "pk_columns": [
+        "Name",
+        "Country"
+      ],
+      "fragments": [
+        {
+          "suffix": "area",
+          "non_pk_columns": [
+            "Area",
+            "Population"
+          ],
+          "local_table": "provinceMetrics",
+          "local_name": "local_3",
+          "vertical_fragment_base": "province_area"
+        },
+        {
+          "suffix": "area_2",
+          "non_pk_columns": [
+            "Area",
+            "CapProv",
+            "Capital",
+            "Population"
+          ],
+          "local_table": "ProvinceAdministrativeArea",
+          "local_name": "local_1",
+          "vertical_fragment_base": "province_area_2"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "province",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 4,
+        "min_non_pk_per_fragment": 2,
+        "pk_width": 2,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 662927108,
+        "scores_by_k": {
+          "2": 0.15450234858754536
+        },
+        "chosen_k": 2,
+        "best_metric_score": 0.15450234858754536,
+        "num_final_clusters": 2,
+        "column_clusters": [
+          [
+            "Area",
+            "Population"
+          ],
+          [
+            "CapProv",
+            "Capital"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Area",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Population",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 1
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "Area",
+            "Population"
+          ],
+          [
+            "Area",
+            "CapProv",
+            "Capital",
+            "Population"
+          ]
+        ],
+        "pk_columns": [
+          "Name",
+          "Country"
+        ],
+        "fragments": [
+          {
+            "suffix": "area",
+            "non_pk_columns": [
+              "Area",
+              "Population"
+            ]
+          },
+          {
+            "suffix": "area_2",
+            "non_pk_columns": [
+              "Area",
+              "CapProv",
+              "Capital",
+              "Population"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Area",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "area",
+          "also_in_fragment_suffix": "area_2"
+        },
+        {
+          "column": "Population",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "area",
+          "also_in_fragment_suffix": "area_2"
+        }
+      ]
+    },
+    "river": {
+      "pk_columns": [
+        "Name"
+      ],
+      "fragments": [
+        {
+          "suffix": "estuarylatitude",
+          "non_pk_columns": [
+            "EstuaryLatitude",
+            "EstuaryLongitude",
+            "SourceLatitude",
+            "SourceLongitude"
+          ],
+          "local_table": "RiverCoordinates",
+          "local_name": "local_7",
+          "vertical_fragment_base": "river_estuarylatitude"
+        },
+        {
+          "suffix": "lake",
+          "non_pk_columns": [
+            "Lake",
+            "Length",
+            "River",
+            "Sea"
+          ],
+          "local_table": "riv_lk_named",
+          "local_name": "local_5",
+          "vertical_fragment_base": "river_lake",
+          "row_partition_names": [
+            "riv_lk_named",
+            "riv_lk_other"
+          ],
+          "row_partition_predicate_column": "River"
+        },
+        {
+          "suffix": "length",
+          "non_pk_columns": [
+            "Length",
+            "Mountains",
+            "Sea",
+            "SourceAltitude",
+            "SourceLatitude",
+            "SourceLongitude"
+          ],
+          "local_table": "RiverProfile",
+          "local_name": "local_7",
+          "vertical_fragment_base": "river_length"
+        }
+      ],
+      "column_clustering": {
+        "table_name": "river",
+        "primary_path": "semantic_kmeans",
+        "max_fragments_cap": 5,
+        "num_non_pk_columns": 10,
+        "min_non_pk_per_fragment": 3,
+        "pk_width": 1,
+        "embedding_backend": "tfidf",
+        "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+        "kmeans_random_state": 287264509,
+        "scores_by_k": {
+          "2": 0.06026321719643607,
+          "3": 0.06437522198471239
+        },
+        "chosen_k": 3,
+        "best_metric_score": 0.06437522198471239,
+        "num_final_clusters": 3,
+        "column_clusters": [
+          [
+            "EstuaryLatitude",
+            "EstuaryLongitude",
+            "SourceLatitude",
+            "SourceLongitude"
+          ],
+          [
+            "Lake",
+            "Length",
+            "River"
+          ],
+          [
+            "Mountains",
+            "Sea",
+            "SourceAltitude"
+          ]
+        ],
+        "overlap_fraction_applied": 0.4,
+        "overlap_columns": [
+          {
+            "column": "Sea",
+            "primary_fragment_index": 2,
+            "also_in_fragment_index": 1
+          },
+          {
+            "column": "Length",
+            "primary_fragment_index": 1,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "SourceLongitude",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          },
+          {
+            "column": "SourceLatitude",
+            "primary_fragment_index": 0,
+            "also_in_fragment_index": 2
+          }
+        ],
+        "column_clusters_after_overlap": [
+          [
+            "EstuaryLatitude",
+            "EstuaryLongitude",
+            "SourceLatitude",
+            "SourceLongitude"
+          ],
+          [
+            "Lake",
+            "Length",
+            "River",
+            "Sea"
+          ],
+          [
+            "Length",
+            "Mountains",
+            "Sea",
+            "SourceAltitude",
+            "SourceLatitude",
+            "SourceLongitude"
+          ]
+        ],
+        "pk_columns": [
+          "Name"
+        ],
+        "fragments": [
+          {
+            "suffix": "estuarylatitude",
+            "non_pk_columns": [
+              "EstuaryLatitude",
+              "EstuaryLongitude",
+              "SourceLatitude",
+              "SourceLongitude"
+            ]
+          },
+          {
+            "suffix": "lake",
+            "non_pk_columns": [
+              "Lake",
+              "Length",
+              "River",
+              "Sea"
+            ]
+          },
+          {
+            "suffix": "length",
+            "non_pk_columns": [
+              "Length",
+              "Mountains",
+              "Sea",
+              "SourceAltitude",
+              "SourceLatitude",
+              "SourceLongitude"
+            ]
+          }
+        ]
+      },
+      "overlap_summary": [
+        {
+          "column": "Sea",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 1,
+          "primary_fragment_suffix": "length",
+          "also_in_fragment_suffix": "lake"
+        },
+        {
+          "column": "Length",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "lake",
+          "also_in_fragment_suffix": "length"
+        },
+        {
+          "column": "SourceLongitude",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "estuarylatitude",
+          "also_in_fragment_suffix": "length"
+        },
+        {
+          "column": "SourceLatitude",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2,
+          "primary_fragment_suffix": "estuarylatitude",
+          "also_in_fragment_suffix": "length"
+        }
+      ]
+    }
+  }
+}

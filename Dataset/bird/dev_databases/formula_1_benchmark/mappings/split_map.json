@@ -1,0 +1,652 @@
+{
+  "pitStops": {
+    "pk_columns": [
+      "raceId",
+      "driverId",
+      "stop"
+    ],
+    "fragments": [
+      {
+        "suffix": "duration",
+        "non_pk_columns": [
+          "duration",
+          "lap",
+          "milliseconds",
+          "time"
+        ],
+        "local_table": "pitStops_duration_q1",
+        "local_name": "local_3",
+        "vertical_fragment_base": "pitStops_duration",
+        "row_partition_names": [
+          "pitStops_duration_q1",
+          "PitStopsLaps14To24",
+          "PitStopsLaps25To35",
+          "PitStopsLapsAbove35OrNull"
+        ],
+        "row_partition_predicate_column": "lap"
+      },
+      {
+        "suffix": "lap",
+        "non_pk_columns": [
+          "lap",
+          "time"
+        ],
+        "local_table": "pitStopsLapRecords",
+        "local_name": "local_1",
+        "vertical_fragment_base": "pitStops_lap"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "pitStops",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 4,
+      "min_non_pk_per_fragment": 1,
+      "pk_width": 3,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1953441236,
+      "scores_by_k": {
+        "2": 0.04810697500869538,
+        "3": 0.04556199111037572,
+        "4": -1.0
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.04810697500869538,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "duration",
+          "milliseconds"
+        ],
+        [
+          "lap",
+          "time"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "lap",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "time",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "duration",
+          "lap",
+          "milliseconds",
+          "time"
+        ],
+        [
+          "lap",
+          "time"
+        ]
+      ],
+      "pk_columns": [
+        "raceId",
+        "driverId",
+        "stop"
+      ],
+      "fragments": [
+        {
+          "suffix": "duration",
+          "non_pk_columns": [
+            "duration",
+            "lap",
+            "milliseconds",
+            "time"
+          ]
+        },
+        {
+          "suffix": "lap",
+          "non_pk_columns": [
+            "lap",
+            "time"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "pitStops_duration_q1",
+    "movable_candidates": [
+      "pitStops_lap"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=4;fk_column_endpoints_on_fragment=2"
+  },
+  "qualifying": {
+    "pk_columns": [
+      "qualifyId"
+    ],
+    "fragments": [
+      {
+        "suffix": "constructorid",
+        "non_pk_columns": [
+          "constructorId",
+          "driverId",
+          "number",
+          "position",
+          "raceId"
+        ],
+        "local_table": "qualifying_constructorid_q1",
+        "local_name": "local_2",
+        "vertical_fragment_base": "qualifying_constructorid",
+        "row_partition_names": [
+          "qualifying_constructorid_q1",
+          "qualifying_constructorid_q2",
+          "qualifying_constructorid_q3",
+          "qualifying_constructor_number_above_20"
+        ],
+        "row_partition_predicate_column": "number"
+      },
+      {
+        "suffix": "constructorid_2",
+        "non_pk_columns": [
+          "constructorId",
+          "number",
+          "position",
+          "q1",
+          "q2",
+          "q3",
+          "raceId"
+        ],
+        "local_table": "qualifying_attempts_by_constructor",
+        "local_name": "local_2",
+        "vertical_fragment_base": "qualifying_constructorid_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "qualifying",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 474614218,
+      "scores_by_k": {
+        "2": 0.17047915296827426
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.17047915296827426,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "constructorId",
+          "driverId",
+          "number",
+          "position",
+          "raceId"
+        ],
+        [
+          "q1",
+          "q2",
+          "q3"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "number",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "position",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "constructorId",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "raceId",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "constructorId",
+          "driverId",
+          "number",
+          "position",
+          "raceId"
+        ],
+        [
+          "constructorId",
+          "number",
+          "position",
+          "q1",
+          "q2",
+          "q3",
+          "raceId"
+        ]
+      ],
+      "pk_columns": [
+        "qualifyId"
+      ],
+      "fragments": [
+        {
+          "suffix": "constructorid",
+          "non_pk_columns": [
+            "constructorId",
+            "driverId",
+            "number",
+            "position",
+            "raceId"
+          ]
+        },
+        {
+          "suffix": "constructorid_2",
+          "non_pk_columns": [
+            "constructorId",
+            "number",
+            "position",
+            "q1",
+            "q2",
+            "q3",
+            "raceId"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "qualifying_constructorid_2",
+    "movable_candidates": [
+      "qualifying_constructorid_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=7;fk_column_endpoints_on_fragment=2"
+  },
+  "drivers": {
+    "pk_columns": [
+      "driverId"
+    ],
+    "fragments": [
+      {
+        "suffix": "code",
+        "non_pk_columns": [
+          "code",
+          "dob",
+          "driverRef",
+          "nationality",
+          "number",
+          "url"
+        ],
+        "local_table": "drv_profile",
+        "local_name": "local_4",
+        "vertical_fragment_base": "drivers_code"
+      },
+      {
+        "suffix": "code_2",
+        "non_pk_columns": [
+          "code",
+          "dob",
+          "driverRef",
+          "forename",
+          "nationality",
+          "surname"
+        ],
+        "local_table": "DriverRegistry",
+        "local_name": "local_3",
+        "vertical_fragment_base": "drivers_code_2"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "drivers",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 8,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 1774864359,
+      "scores_by_k": {
+        "2": 0.02025994730125969
+      },
+      "chosen_k": 2,
+      "best_metric_score": 0.02025994730125969,
+      "num_final_clusters": 2,
+      "column_clusters": [
+        [
+          "code",
+          "dob",
+          "number",
+          "url"
+        ],
+        [
+          "driverRef",
+          "forename",
+          "nationality",
+          "surname"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "driverRef",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "nationality",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 0
+        },
+        {
+          "column": "dob",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        },
+        {
+          "column": "code",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 1
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "code",
+          "dob",
+          "driverRef",
+          "nationality",
+          "number",
+          "url"
+        ],
+        [
+          "code",
+          "dob",
+          "driverRef",
+          "forename",
+          "nationality",
+          "surname"
+        ]
+      ],
+      "pk_columns": [
+        "driverId"
+      ],
+      "fragments": [
+        {
+          "suffix": "code",
+          "non_pk_columns": [
+            "code",
+            "dob",
+            "driverRef",
+            "nationality",
+            "number",
+            "url"
+          ]
+        },
+        {
+          "suffix": "code_2",
+          "non_pk_columns": [
+            "code",
+            "dob",
+            "driverRef",
+            "forename",
+            "nationality",
+            "surname"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "drivers_code_2",
+    "movable_candidates": [
+      "drivers_code"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=6;fk_column_endpoints_on_fragment=5"
+  },
+  "results": {
+    "pk_columns": [
+      "resultId"
+    ],
+    "fragments": [
+      {
+        "suffix": "constructorid",
+        "non_pk_columns": [
+          "constructorId",
+          "driverId",
+          "raceId",
+          "statusId"
+        ],
+        "local_table": "results_ctor_map",
+        "local_name": "local_4",
+        "vertical_fragment_base": "results_constructorid"
+      },
+      {
+        "suffix": "fastestlap",
+        "non_pk_columns": [
+          "fastestLap",
+          "fastestLapSpeed",
+          "fastestLapTime",
+          "rank"
+        ],
+        "local_table": "res_fast_lap",
+        "local_name": "local_4",
+        "vertical_fragment_base": "results_fastestlap"
+      },
+      {
+        "suffix": "grid",
+        "non_pk_columns": [
+          "grid",
+          "laps",
+          "number",
+          "points",
+          "position",
+          "positionOrder",
+          "positionText",
+          "statusId"
+        ],
+        "local_table": "res_grid",
+        "local_name": "local_4",
+        "vertical_fragment_base": "results_grid"
+      },
+      {
+        "suffix": "fastestlaptime",
+        "non_pk_columns": [
+          "fastestLapTime",
+          "grid",
+          "laps",
+          "milliseconds",
+          "number",
+          "points",
+          "positionOrder",
+          "time"
+        ],
+        "local_table": "resultsFastestLapGridTopFive",
+        "local_name": "local_1",
+        "vertical_fragment_base": "results_fastestlaptime",
+        "row_partition_names": [
+          "resultsFastestLapGridTopFive",
+          "resultsFastestLapGrid6To11",
+          "resultsFastestLapGrid12To17",
+          "resultsFastestLapGrid18AndAboveOrNull"
+        ],
+        "row_partition_predicate_column": "grid"
+      }
+    ],
+    "column_clustering": {
+      "table_name": "results",
+      "primary_path": "semantic_kmeans",
+      "max_fragments_cap": 5,
+      "num_non_pk_columns": 17,
+      "min_non_pk_per_fragment": 3,
+      "pk_width": 1,
+      "embedding_backend": "tfidf",
+      "embedding_fallback_reason": "sentence_transformers_import: No module named 'sentence_transformers'",
+      "kmeans_random_state": 287264509,
+      "scores_by_k": {
+        "2": 0.062056149102682756,
+        "3": 0.08773200965885637,
+        "4": 0.09818030151326909,
+        "5": 0.08773200965885637
+      },
+      "chosen_k": 4,
+      "best_metric_score": 0.09818030151326909,
+      "num_final_clusters": 4,
+      "column_clusters": [
+        [
+          "constructorId",
+          "driverId",
+          "raceId",
+          "statusId"
+        ],
+        [
+          "fastestLap",
+          "fastestLapSpeed",
+          "fastestLapTime",
+          "rank"
+        ],
+        [
+          "grid",
+          "laps",
+          "number",
+          "position",
+          "positionOrder",
+          "positionText"
+        ],
+        [
+          "milliseconds",
+          "points",
+          "time"
+        ]
+      ],
+      "overlap_fraction_applied": 0.4,
+      "overlap_columns": [
+        {
+          "column": "laps",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "positionOrder",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "number",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "points",
+          "primary_fragment_index": 3,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "grid",
+          "primary_fragment_index": 2,
+          "also_in_fragment_index": 3
+        },
+        {
+          "column": "statusId",
+          "primary_fragment_index": 0,
+          "also_in_fragment_index": 2
+        },
+        {
+          "column": "fastestLapTime",
+          "primary_fragment_index": 1,
+          "also_in_fragment_index": 3
+        }
+      ],
+      "column_clusters_after_overlap": [
+        [
+          "constructorId",
+          "driverId",
+          "raceId",
+          "statusId"
+        ],
+        [
+          "fastestLap",
+          "fastestLapSpeed",
+          "fastestLapTime",
+          "rank"
+        ],
+        [
+          "grid",
+          "laps",
+          "number",
+          "points",
+          "position",
+          "positionOrder",
+          "positionText",
+          "statusId"
+        ],
+        [
+          "fastestLapTime",
+          "grid",
+          "laps",
+          "milliseconds",
+          "number",
+          "points",
+          "positionOrder",
+          "time"
+        ]
+      ],
+      "pk_columns": [
+        "resultId"
+      ],
+      "fragments": [
+        {
+          "suffix": "constructorid",
+          "non_pk_columns": [
+            "constructorId",
+            "driverId",
+            "raceId",
+            "statusId"
+          ]
+        },
+        {
+          "suffix": "fastestlap",
+          "non_pk_columns": [
+            "fastestLap",
+            "fastestLapSpeed",
+            "fastestLapTime",
+            "rank"
+          ]
+        },
+        {
+          "suffix": "grid",
+          "non_pk_columns": [
+            "grid",
+            "laps",
+            "number",
+            "points",
+            "position",
+            "positionOrder",
+            "positionText",
+            "statusId"
+          ]
+        },
+        {
+          "suffix": "fastestlaptime",
+          "non_pk_columns": [
+            "fastestLapTime",
+            "grid",
+            "laps",
+            "milliseconds",
+            "number",
+            "points",
+            "positionOrder",
+            "time"
+          ]
+        }
+      ]
+    },
+    "anchor_fragment": "results_grid",
+    "movable_candidates": [
+      "results_constructorid",
+      "results_fastestlap",
+      "results_fastestlaptime_q1"
+    ],
+    "anchor_selection_reason": "max_non_pk_columns=8;fk_column_endpoints_on_fragment=1"
+  }
+}
