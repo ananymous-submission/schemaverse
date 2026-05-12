@@ -2,13 +2,13 @@
 
 **SchemaVerse** is a benchmark for **global schema construction from fragmented local schemas**: systems must infer how several autonomous **local** database schemas fit together and express a coherent **global** view—typically as **GAV** (`CREATE VIEW`) rules over locals—such that data and workload behavior align with a hidden **original** database from which the locals were derived.
 
-This file is the **main project overview**. The tree is organized into `**Dataset/`** (benchmark material and dataset documentation) and `**Code/**` (generators, enrichment, solve, and evaluation).
+This file is the **main project overview**. The tree is organized into **`Dataset/`** (benchmark material and dataset documentation) and **`Code/`** (generators, enrichment, solve, and evaluation).
 
 
-| Part        | What it is                                                                                                                                                              | Read more                                      |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| **Dataset** | Benchmark **instances** and evaluation artifacts: multi-local SQLite layouts, mappings, global schema and queries, and difficulty tiers (as released under `Dataset/`). | **`[Dataset/DATASET.md](Dataset/DATASET.md)`** |
-| **Code**    | Programs that **build** instances from BIRD / Spider2 / Beaver / ScienceBenchmark, LLM enrichment, **GAV solve**, and **evaluation**.                                   | **`[Code/CODE.md](Code/CODE.md)`**             |
+| Part | What it is | Read more |
+|------|------------|-----------|
+| **Dataset** | Benchmark **instances** and evaluation artifacts: multi-local SQLite layouts, mappings, global schema and queries, and difficulty tiers (as released under `Dataset/`). | **[`Dataset/DATASET.md`](Dataset/DATASET.md)** |
+| **Code** | Programs that **build** instances from BIRD / Spider2 / Beaver / ScienceBenchmark, LLM enrichment, **GAV solve**, and **evaluation**. | **[`Code/CODE.md`](Code/CODE.md)** |
 
 
 ---
@@ -47,7 +47,7 @@ Materials in this distribution are released **subject to the licenses of the ori
 
 ## Intended use
 
-This benchmark is intended for **research** in schema integration, data management under fragmentation, and evaluation of **language models** on non-trivial integration structure.
+This benchmark is intended for **research** in schema integration, data management under fragmentation, and evaluation of **language models** on non-trivial integration structure. It is **not** intended for high-stakes production decisions or for processing sensitive personal data without appropriate governance.
 
 ---
 
@@ -60,9 +60,9 @@ Anonymous submission.
 ## Quick navigation
 
 
-| Document                                       | Contents                                                  |
-| ---------------------------------------------- | --------------------------------------------------------- |
-| **`[Dataset/DATASET.md](Dataset/DATASET.md)`** | What is under `Dataset/`, sources, license, intended use. |
-| **`[Code/CODE.md](Code/CODE.md)`**             | Package layout, dependencies, evaluation vs generation.   |
+| Document | Contents |
+|----------|----------|
+| **[`Dataset/DATASET.md`](Dataset/DATASET.md)** | `Dataset/` tree, instance folders, `global/` / `locals/` / `mappings/` / `reconstruction/` file roles. |
+| **[`Code/CODE.md`](Code/CODE.md)** | Package layout, dependencies, evaluation vs generation. |
 
 
