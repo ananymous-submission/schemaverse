@@ -1,6 +1,6 @@
 # SchemaVerse — Dataset
 
-This file is the **field guide** to what appears under `**Dataset/`**: how corpora are grouped, what a **single instance** directory contains, and what `**global/`**, `**locals/**`, `**mappings/**`, and `**reconstruction/**` are for. For benchmark motivation, difficulty presets, and the generation pipeline, see **[`../README.md`](../README.md)** and **[`../Code/CODE.md`](../Code/CODE.md)**. For license and intended use at the distribution level, see  **[`../README.md`](../README.md)**.
+This file is the **field guide** to what appears under **Dataset/**: how corpora are grouped, what a **single instance** directory contains, and what **global/**, **locals/**, **mappings/**, and **reconstruction/** are for. For benchmark motivation, difficulty presets, and the generation pipeline, see **[`../README.md`](../README.md)** and **[`../Code/CODE.md`](../Code/CODE.md)**. For license and intended use at the distribution level, see  **[`../README.md`](../README.md)**.
 
 ---
 
@@ -101,7 +101,7 @@ These JSON files encode **how** the generator moved from the original database t
 
 | File                           | Role                                                                                                                                                                                                                                                                                                   |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `**reconstruct_original.sql`** | **Reference SQL** expressing how data and relations on locals relate to the original layout—useful for **validation**, debugging, and understanding the intended merge semantics. It is **not** what you hand to an LLM as the task statement; it documents the intended inverse of the fragmentation. |
+| **reconstruct_original.sql** | **Reference SQL** expressing how data and relations on locals relate to the original layout—useful for **validation**, debugging, and understanding the intended merge semantics. It is **not** what you hand to an LLM as the task statement; it documents the intended inverse of the fragmentation. |
 
 
 ---
