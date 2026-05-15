@@ -82,7 +82,7 @@ python3 -m benchmark generate_instance \
   --db_name california_schools \
   --bird_root data/BIRD \
   --output_dir runs/instances/california_schools_benchmark \
-  --difficulty extra_hard \
+  --difficulty hard \
   --seed 42
 ```
 
@@ -182,7 +182,7 @@ python3 -m benchmark generate_instance \
   --db_name AdventureWorks \
   --spider2_root data/Spider2 \
   --output_dir runs/instances/AdventureWorks_benchmark \
-  --difficulty extra_hard \
+  --difficulty hard \
   --seed 42
 
 python3 -m benchmark validate_instance \
