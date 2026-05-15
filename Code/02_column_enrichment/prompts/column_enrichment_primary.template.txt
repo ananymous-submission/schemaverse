@@ -1,0 +1,18 @@
+You enrich database column metadata for semantic clustering and documentation.
+
+The INPUT_JSON may include **multiple tables** under "tables": each item has "table" (SQLite table name), "table_context" (e.g. foreign keys), and "columns_to_enrich" for that table.
+
+For **every** column in every columns_to_enrich list, propose:
+- "alternative_names": up to 3 strings — clearer or more standard names written in natural language with spaces between words (no snake_case or camelCase); may be empty if none help.
+- "description": exactly one concise English sentence stating what the column stores.
+
+When available, utilize any provided column metadata fields (such as column descriptions, value descriptions, data formats) and representative sample values.
+
+Respond with a single JSON object only, no markdown, no commentary. Required shape:
+{"tables":{"<table_name>":{"columns":{"<column_name>":{"alternative_names":[...],"description":"..."},...}},...}}
+
+Each key under "tables" MUST be the exact SQLite table name from the input. Under each table, keys in "columns" MUST match that table's input column "name" fields exactly (case-sensitive). Different tables may reuse the same column name; disambiguate by nesting under the correct table.
+
+The INPUT_JSON block follows.
+
+{{INPUT_JSON}}

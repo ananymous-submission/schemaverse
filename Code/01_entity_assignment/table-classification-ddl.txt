@@ -1,0 +1,126 @@
+# Table Classification: Entity, Entity-Detail, and Relationship (DDL format)
+
+You are an expert in database schema analysis and table classification. Your task is to analyze a relational database schema and classify each table into one of three categories based on its role and purpose in the database.
+
+## TABLE CLASSIFICATION CATEGORIES
+
+### 1. ENTITY Tables
+- **Definition**: Core tables that represent main entities or objects in the domain
+- **Characteristics**:
+  - Usually have a primary key that uniquely identifies each entity
+  - Often referenced by foreign keys in other tables
+  - Represent the main "things" or "actors" in the system
+
+### 2. ENTITY-DETAIL Tables
+- **Definition**: Tables that provide additional information about entities in entity tables
+- **Characteristics**:
+  - Each row is associated with a single entity in an entity table
+  - Contains supplementary or detailed information about the main entity
+  - Usually has a foreign key referencing the entity table
+  - Provides additional attributes or properties for the main entity
+
+**Important**: When classifying a table as ENTITY-DETAIL, also identify which entity table it provides details for in `associated_entity`. Use `"none"` if not applicable.
+
+### 3. RELATIONSHIP Tables
+- **Definition**: Tables that connect two entities or describe relationships between entities
+- **Characteristics**:
+  - Often serve as junction tables for many-to-many relationships
+  - Connect two or more entity tables
+  - May contain additional attributes about the relationship itself
+
+## INSTRUCTIONS
+
+1. Analyze each table by examining:
+   - What does this table represent in the domain?
+   - What is its primary purpose?
+   - How does it relate to other tables via PRIMARY KEY / FOREIGN KEY constraints?
+
+2. Keep `thought_process` concise (2–3 sentences).
+
+3. Output the classification in the following JSON format (and return **ONLY** JSON):
+
+{
+  "schema_name": "...",
+  "tables": [
+    {
+      "table": "table_name",
+      "thought_process": "Brief analysis (2-3 sentences maximum)...",
+      "classification": "ENTITY|ENTITY_DETAIL|RELATIONSHIP",
+      "associated_entity": "entity_table_name_or_none"
+    }
+  ]
+}
+
+## EXAMPLE
+
+### Input Schema (DDL)
+Schema Name: academic
+
+DDL:
+CREATE TABLE students (
+  id TEXT PRIMARY KEY,
+  name TEXT,
+  email TEXT,
+  enrollment_date DATE
+);
+
+CREATE TABLE student_addresses (
+  id TEXT PRIMARY KEY,
+  student_id TEXT,
+  street TEXT,
+  city TEXT,
+  state TEXT,
+  FOREIGN KEY(student_id) REFERENCES students(id)
+);
+
+CREATE TABLE courses (
+  id TEXT PRIMARY KEY,
+  name TEXT,
+  department TEXT,
+  credits REAL
+);
+
+CREATE TABLE enrollments (
+  id TEXT PRIMARY KEY,
+  student_id TEXT,
+  course_id TEXT,
+  semester TEXT,
+  grade TEXT,
+  FOREIGN KEY(student_id) REFERENCES students(id),
+  FOREIGN KEY(course_id) REFERENCES courses(id)
+);
+
+### Output
+{
+  "schema_name": "academic",
+  "tables": [
+    {
+      "table": "students",
+      "thought_process": "Core entity of students with identifying attributes; referenced by dependent tables via foreign keys.",
+      "classification": "ENTITY",
+      "associated_entity": "none"
+    },
+    {
+      "table": "student_addresses",
+      "thought_process": "Provides additional address attributes for a single student; references the students entity via student_id.",
+      "classification": "ENTITY_DETAIL",
+      "associated_entity": "students"
+    },
+    {
+      "table": "courses",
+      "thought_process": "Core entity of courses with course attributes; referenced by enrollments.",
+      "classification": "ENTITY",
+      "associated_entity": "none"
+    },
+    {
+      "table": "enrollments",
+      "thought_process": "Connects students and courses, representing the many-to-many relationship with attributes about the enrollment itself.",
+      "classification": "RELATIONSHIP",
+      "associated_entity": "none"
+    }
+  ]
+}
+
+## Generate the table classification for the following schema:
+[INPUT_SCHEMA_HERE]
+
