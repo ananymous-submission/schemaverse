@@ -88,6 +88,8 @@ python3 -m benchmark generate_instance \
 
 Add `**--no-use_llm**` for deterministic naming without OpenAI on this step.
 
+`--difficulty` can be `easy`, `medium`, or `hard`; these presets are defined in `03_benchmark_construction/config.py`.
+
 **4 — Solve + evaluate**:
 
 ```text
@@ -117,7 +119,6 @@ Optional scripted run (still starts from `Code/` internally): `python3 scripts/r
 | `data/table_classifications/` | Step **01** table-role JSON (`BIRD/`, `Spider2/`, …) |
 | `runs/`                                                       | Recommended output root for generated instances  |
 | `requirements.txt`                                            | Minimum dependency versions (Python **3.11+**)   |
-| `requirements-env_gcc14.txt`                                  | Exact pins from project `ENV_gcc14`              |
 
 
 ---
